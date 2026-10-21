@@ -9,7 +9,7 @@
       "pregunta": "Sobre los Criterios Médicos de Elegibilidad de la Organización Mundial de la Salud (OMS) para el uso de métodos anticonceptivos, señale la aseveración CORRECTA:",
       "opciones": {
         "a": "Los criterios de elegibilidad surgen de evaluar los riesgos y beneficios de cada método para las personas con ciertas características o condiciones médicas determinadas.",
-        "b": "La Categoría 4 define aquellas situaciones clínicas donde los riesgos teóricos superan levemente las ventajas del uso del método anticonceptivo.",
+        "b": "La Categoría 4 define aquellas situaciones clínicas donde los riesgos teóricos superan levemente las ventajas del uso del método anticonceptivo, sin considerar los antecedentes personales de la usuaria.",
         "c": "La Categoría 1 corresponde a condiciones médicas donde el método anticonceptivo está estrictamente prohibido a menos que se obtenga autorización judicial.",
         "d": "El sistema de clasificación de la OMS establece un total de cinco categorías numéricas de elegibilidad con criterios diferenciados para el nivel primario."
       },
@@ -21,8 +21,8 @@
       "pregunta": "Paciente de 22 años consulta en la guardia por dolor abdominal bajo de 4 días de evolución que se intensificó tras la última relación sexual, acompañado de leucorrea. Al examen físico se encuentra afebril, hemodinómicamente estable, con dolor a la palpación en hipogastrio sin defensa peritoneal. A la especuloscopía se observa flujo mucopurulento a través del orificio cervical externo y en el tacto bimanual se despierta intenso dolor a la movilización del cérvix y en ambos anexos, sin palparse masas pélvicas. La ecografía no muestra colecciones. ¿Cuál es el tratamiento antibiótico de elección para el manejo ambulatorio de esta Enfermedad Pélvica Inflamatoria (EPI) leve/moderada?",
       "opciones": {
         "a": "Amoxicilina/Ácido Clavulánico 1 g cada 12 horas por vía oral durante 14 días en monoterapia exclusiva.",
-        "b": "Ceftriaxona 500 mg por vía intramuscular en dosis única MÁS Doxiciclina 100 mg cada 12 horas por vía oral durante 14 días MÁS Metronidazol 500 mg cada 12 horas por vía oral durante 14 días.",
-        "c": "Ciprofloxacina 500 mg por vía oral en dosis única MÁS Azitromicina 1 g por vía oral por semana durante 2 semanas consecutivas.",
+        "b": "Ceftriaxona 500 mg IM en dosis única MÁS Doxiciclina 100 mg cada 12 horas VO por 14 días MÁS Metronidazol 500 mg cada 12 horas VO por 14 días.",
+        "c": "Ciprofloxacina 500 mg por vía oral en dosis única MÁS Azitromicina 1 g por vía oral por semana durante 2 semanas consecutivas y control clínico en 7 días.",
         "d": "Metronidazol 500 mg cada 12 horas por vía oral exclusivamente durante 7 días sin cobertura para gérmenes intracelulares."
       },
       "respuesta_correcta": "b",
@@ -32,8 +32,8 @@
       "id": 3,
       "pregunta": "En el manejo clínico de una paciente joven con sospecha o diagnóstico de Enfermedad Pélvica Inflamatoria (EPI), ¿en cuál de las siguientes situaciones está indicada de forma prioritaria la INTERNACIÓN HOSPITALARIA e inicio de antibioticoterapia parenteral?",
       "opciones": {
-        "a": "Paciente de 24 años con dolor abdominal bajo leve, temperatura axilar de 37,2 ºC y flujo blanco no maloliente.",
-        "b": "Confirmación de leucocitosis leve en el hemograma sin signos de irritación peritoneal ni compromiso del estado general.",
+        "a": "Paciente de 24 años con dolor abdominal bajo leve, temperatura axilar de 37,2 ºC y flujo blanco no maloliente, sin fiebre ni defensa abdominal y con buena tolerancia oral y respuesta analgésica favorable.",
+        "b": "Confirmación de leucocitosis leve en el hemograma sin signos de irritación peritoneal ni compromiso del estado general, con examen bimanual sin dolor a la movilización del cuello uterino y con ecografía pélvica normal.",
         "c": "Intolerancia a la vía oral, falta de respuesta o fracaso del tratamiento antibiótico ambulatorio tras 48 a 72 horas, o presencia de un absceso tubo-ovárico.",
         "d": "Detección aislada de Chlamydia trachomatis en el hisopado endocervical en una paciente asintomática."
       },
@@ -44,9 +44,9 @@
       "id": 4,
       "pregunta": "¿cuál de los siguientes conjuntos de hallazgos semiológicos constituye los Criterios Clínicos Mayores o Mínimos para iniciar tratamiento empírico inmediato?",
       "opciones": {
-        "a": "Fiebre mayor a 38,5 ºC, proteína C reactiva elevada y presencia de leucocitosis con desviación a la izquierda.",
-        "b": "Presencia de leucorrea purulenta en vagina y prueba de reacción en cadena de la polimerasa positiva para Neisseria gonorrhoeae.",
-        "c": "Masa pélvica compleja identificada por tomografía computada sin dolor a la palpación bimanual.",
+        "a": "Fiebre mayor a 38,5 ºC, proteína C reactiva elevada y presencia de leucocitosis con desviación a la izquierda y velocidad de eritrosedimentación mayor de 50 mm en la primera hora y hemocultivos positivos.",
+        "b": "Presencia de leucorrea purulenta en vagina y prueba de reacción en cadena de la polimerasa positiva para Neisseria gonorrhoeae y cultivo endocervical positivo para Chlamydia.",
+        "c": "Masa pélvica compleja identificada por tomografía computada sin dolor a la palpación bimanual, sin fiebre ni leucocitosis y con la paciente asintomática desde hace un mes.",
         "d": "Dolor abdominal bajo (hipogástrico), dolor a la palpación anexial bilateral y dolor a la movilización del cuello uterino durante el examen ginecológico."
       },
       "respuesta_correcta": "d",
@@ -58,7 +58,7 @@
       "opciones": {
         "a": "pH vaginal mayor a 4,5, test de aminas (KOH al 10%) positivo con liberación de aminas volátiles y presencia de \"clue cells\" (células clave) en el frotis en fresco.",
         "b": "pH vaginal menor a 4,0, test de aminas negativo y presencia de abundantes hifas y blastosporas al microscopio.",
-        "c": "pH vaginal entre 3,8 y 4,2, test de aminas negativo y presencia de leucocitosis con bacilos de Döderlein hipertróficos.",
+        "c": "pH vaginal entre 3,8 y 4,2, test de aminas negativo y presencia de leucocitosis con bacilos de Döderlein hipertróficos en una paciente con prurito intenso y con flujo grumoso blanco como leche cortada.",
         "d": "pH vaginal mayor a 6,0, test de aminas positivo con presencia de protozoarios flagelados móviles."
       },
       "respuesta_correcta": "a",
@@ -71,7 +71,7 @@
         "a": "Candidiasis vulvovaginal / Clotrimazol en óvulos vaginales por 7 días exclusivamente a la paciente.",
         "b": "Vaginosis bacteriana / Clindamicina en crema vaginal al 2% por 7 noches sin tratar a la pareja.",
         "c": "Tricomoniasis vaginal / Metronidazol 2 g por vía oral en dosis única administrado simultáneamente a la paciente y a su pareja sexual.",
-        "d": "Cervicitis por Chlamydia / Doxiciclina 100 mg cada 12 horas por vía oral durante 21 días solo a la paciente."
+        "d": "Cervicitis por Chlamydia / Doxiciclina 100 mg cada 12 horas por vía oral durante 21 días solo a la paciente y se recomienda abstinencia durante el tratamiento por 14 días."
       },
       "respuesta_correcta": "c",
       "justificacion": "La exacerbación postmenstrual de la sintomatología junto con el flujo amarillo-verdoso espumoso, el pH > 4,5 y el punteado cervical hemorrágico es patognomónico de la Tricomoniasis (Trichomonas vaginalis), la cual es una ITS estricta. El tratamiento de elección es Metronidazol 2 g VO dosis única (o 500 mg c/12 hs por 7 días), siendo obligatorio el tratamiento simultáneo de la pareja sexual."
@@ -80,7 +80,7 @@
       "id": 7,
       "pregunta": "Paciente de 19 años con antecedente de diabetes mellitus tipo 1 bien controlada acude por prurito vulvovaginal severo, sensación de ardor, dispareunia y eritema vulvar con lesiones de rascado. Al examen con espéculo se observa leucorrea blanquecina, grumosa, inodora, adherida a las paredes vaginales en forma de \"leche cortada\". ¿Qué hallazgos en el pH vaginal y en el examen microscópico confirman la etiología candidiásica?",
       "opciones": {
-        "a": "pH vaginal mayor a 5,5 con presencia de células clave y ausencia de respuesta inflamatoria.",
+        "a": "pH vaginal mayor a 5,5 con presencia de células clave y ausencia de respuesta inflamatoria y con test de aminas positivo con olor a pescado y flujo grisáceo homogéneo.",
         "b": "pH vaginal fisiológico (menor a 4,5) y visualización de esporas, hifas o pseudohifas en el examen directo con solución salina o KOH al 10%.",
         "c": "pH vaginal alcalino mayor a 6,5 con abundantes leucocitos PMN y ausencia de lactobacilos.",
         "d": "pH vaginal neutro de 7,0 con visualización de diplococos Gram negativos intracelulares."
@@ -94,8 +94,8 @@
       "opciones": {
         "a": "Están contraindicados en adolescentes y nulíparas por el riesgo de inducir atrofia uterina irreversible.",
         "b": "Se clasifican como Categoría 3 de la OMS para personas menores de 18 años, requiriendo autorización escrita.",
-        "c": "Tienen una alta tasa de fallo en adolescentes debido a que requieren la toma diaria estricta por parte de la usuaria.",
-        "d": "Constituyen métodos de primera línea para adolescentes y nulíparas debido a su máxima eficacia, rápido retorno de la fertilidad y no depender de la adherencia o uso correcto en cada relación sexual."
+        "c": "Tienen una alta tasa de fallo en adolescentes debido a que requieren la toma diaria estricta por parte de la usuaria y por su mayor riesgo de embarazo no planificado en este grupo etario.",
+        "d": "Constituyen métodos de primera línea para adolescentes y nulíparas por su máxima eficacia, rápido retorno de la fertilidad y por no depender de la adherencia."
       },
       "respuesta_correcta": "d",
       "justificacion": "Los LARC (implante subdérmico de etonogestrel, DIU de cobre y SIU liberador de levonorgestrel) son categorizados como Categoría 1 por la OMS para adolescentes y nulíparas. Tienen la menor tasa de fallo (uso típico igual al uso perfecto: < 0,1-0,8%), ya que no dependen del cumplimiento, memoria o hábito de la usuaria, siendo altamente recomendados para prevenir el embarazo no planificado en la adolescencia."
@@ -128,8 +128,8 @@
       "id": 11,
       "pregunta": "Una joven de 23 años con 2 hijos consulta en el hospital público solicitando la realización de una Ligadura Tubaria Bilateral como método anticonceptivo definitivo. De acuerdo con la Ley Nacional de Anticoncepción Quirúrgica (Ley 26.130) en Argentina, ¿cuáles son los requisitos legales exigidos para acceder a esta práctica?",
       "opciones": {
-        "a": "Tener más de 30 años de edad, contar con la autorización firmada del cónyuge y contar con aprobación de un comité de ética.",
-        "b": "Contar con un mínimo de 3 hijos nacidos vivos y presentar certificado médico de contraindicación de otros métodos.",
+        "a": "Tener más de 30 años de edad, contar con la autorización firmada del cónyuge y contar con aprobación de un comité de ética, y presentar un informe psicológico y psiquiátrico de aptitud para el procedimiento.",
+        "b": "Contar con un mínimo de 3 hijos nacidos vivos y presentar certificado médico de contraindicación de otros métodos o una complicación obstétrica previa con indicación médica de esterilización definitiva.",
         "c": "Ser capaz, solicitar el procedimiento en forma consciente y brindar el consentimiento informado por escrito, sin requerir autorización judicial ni de la pareja.",
         "d": "Haber utilizado previamente métodos anticonceptivos reversibles por un período mínimo no menor a 5 años continuos."
       },
@@ -141,8 +141,8 @@
       "pregunta": "¿cuál de las siguientes condiciones clínicas requiere \"Retrasar\" (Categoría R) el procedimiento quirúrgico?",
       "opciones": {
         "a": "Infección local activa en la piel del escroto, orquiepididimitis aguda o infección de transmisión sexual activa.",
-        "b": "Historia personal de diabetes mellitus tipo 2 bien controlada sin complicaciones.",
-        "c": "Presencia de varicocele o hidrocele leve no doloroso.",
+        "b": "Historia personal de diabetes mellitus tipo 2 bien controlada sin complicaciones que requiere cuidados especiales de manejo y control de la glucemia por el especialista.",
+        "c": "Presencia de varicocele o hidrocele leve no doloroso, sin signos de infección escrotal ni compromiso testicular importante.",
         "d": "Alto riesgo epidemiológico para la adquisición de infección por VIH."
       },
       "respuesta_correcta": "a",
@@ -177,9 +177,9 @@
       "pregunta": "Una paciente de 18 años acude a la consulta dentro de las 36 horas posteriores a una relación sexual no protegida por rotura del preservativo para solicitar Anticoncepción Hormonal de Emergencia (AHE). De acuerdo con la evidencia científica, ¿cuál es el mecanismo de acción principal de la pauta de Levonorgestrel 1,5 mg en dosis única?",
       "opciones": {
         "a": "Inhibir o retrasar el pico preovulatorio de LH, impidiendo o postergando la ovulación si esta aún no se ha producido.",
-        "b": "Producir la interrupción del embarazo mediante la descamación del embrión implantado.",
-        "c": "Alterar la motilidad de las trompas de Falopio induciendo la lisis del cuerpo lúteo maduro.",
-        "d": "Provocar un bloqueo cáustico del canal endocervical que impide el paso de espermatozoides durante un mes."
+        "b": "Producir la interrupción del embarazo mediante la descamación del embrión implantado y la expulsión del cigoto antes de su implantación en el endometrio.",
+        "c": "Alterar la motilidad de las trompas de Falopio induciendo la lisis del cuerpo lúteo maduro y bloqueando la fecundación por interferencia con la capacitación espermática.",
+        "d": "Provocar un bloqueo cáustico del canal endocervical que impide el paso de espermatozoides durante un mes y su efecto cesa al completarse la menstruación siguiente."
       },
       "respuesta_correcta": "a",
       "justificacion": "La Anticoncepción Hormonal de Emergencia (AHE) con Levonorgestrel (1,5 mg dosis única o 0,75 mg cada 12 hs) actúa impidiendo o retrasando la ovulación al suprimir el pico preovulatorio de LH. No es abortiva: no impide la implantación si la fertilización ya ocurrió, ni altera un embarazo constituido, por lo cual su eficacia es mayor cuanto antes se administre dentro de las 72-120 horas postcoito."
@@ -200,7 +200,7 @@
       "id": 17,
       "pregunta": "¿Cuál de las siguientes afirmaciones es CORRECTA respecto a la historia natural de la infección por el Virus del Papiloma Humano (VPH) en mujeres jóvenes y adolescentes sexualmente activas?",
       "opciones": {
-        "a": "El 100% de las adolescentes infectadas por VPH desarrollará un cáncer invasor de cérvix antes de los 25 años.",
+        "a": "El 100% de las adolescentes infectadas por VPH desarrollará un cáncer invasor de cérvix antes de los 25 años por lo que se recomienda iniciar el tamizaje con colposcopía anual desde la menarca.",
         "b": "La infección por VPH es transitoria en la inmensa mayoría de las mujeres, siendo aclarada de forma espontánea por el sistema inmune en 1 a 2 años.",
         "c": "No existen factores de riesgo o cofactores como el tabaquismo asociados al desarrollo de displasias cervicales.",
         "d": "La vacuna contra el VPH está contraindicada en personas que ya han iniciado sus relaciones sexuales."
@@ -212,10 +212,10 @@
       "id": 18,
       "pregunta": "Paciente de 20 años consulta por exudado endocervical mucopurulento amarillento y sangrado al contacto con el hisopo (sinorragia). En la especuloscopía se observa el cérvix eritematoso y evertido. La tinción de Gram del moco endocervical revela diplococos Gram negativos intracelulares. ¿Cuál es el tratamiento antimicrobiano ambulatorio indicado para cubrir la gonococcia y la frecuente coinfección por Chlamydia trachomatis?",
       "opciones": {
-        "a": "Penicilina G Benzatínica 2.400.000 UI IM dosis única sin tratamiento para la pareja.",
+        "a": "Penicilina G Benzatínica 2.400.000 UI IM dosis única sin tratamiento para la pareja y alta sin control de cura posterior ni estudio de otras ITS acompañantes en la pareja.",
         "b": "Metronidazol 500 mg cada 12 horas por vía oral durante 7 días exclusivamente.",
         "c": "Ciprofloxacina 500 mg por vía oral cada 12 horas durante 14 días.",
-        "d": "Ceftriaxona 500 mg IM en dosis única MÁS Doxiciclina 100 mg cada 12 horas por vía oral durante 7 días (o Azitromicina 1 g VO dosis única) para la paciente y su pareja."
+        "d": "Ceftriaxona 500 mg IM en dosis única MÁS Doxiciclina 100 mg cada 12 horas VO durante 7 días (o Azitromicina 1 g VO) para la paciente y su pareja."
       },
       "respuesta_correcta": "d",
       "justificacion": "Ante el diagnóstico de cervicitis mucopurulenta gonocócica (diplococos Gram negativos intracelulares = Neisseria gonorrhoeae), las guías de tratamiento de ITS recomiendan realizar tratamiento empírico combinado para Gonococo (Ceftriaxona 500 mg IM dosis única) y para Chlamydia trachomatis (Doxiciclina 100 mg c/12 hs por 7 días o Azitromicina 1 g VO), indicando el tratamiento simultáneo y la abstinencia sexual a las parejas sexuales."
@@ -226,7 +226,7 @@
       "opciones": {
         "a": "Sífilis latente (de duración incierta o tardía) / Penicilina G Benzatínica 2.400.000 UI IM por semana durante 3 semanas consecutivas (total 7.200.000 UI).",
         "b": "Sífilis primaria precoz / Gentamicina 80 mg IM cada 8 horas durante 10 días.",
-        "c": "Falso positivo de la VDRL / Desestimar el resultado y repetir en 5 años.",
+        "c": "Falso positivo de la VDRL / Desestimar el resultado y repetir en 5 años y no es necesario realizar pruebas treponémicas confirmatorias ni estudiar a la pareja sexual.",
         "d": "Gonococia diseminada / Amoxicilina 500 mg cada 8 horas por vía oral durante 7 días."
       },
       "respuesta_correcta": "a",
@@ -238,8 +238,8 @@
       "opciones": {
         "a": "Exigir una autorización judicial previa firmada por un juez de familia antes de otorgar la atención médica.",
         "b": "Negar la atención ginecológica hasta que el paciente realice la cirugía de reasignación genital completa.",
-        "c": "Brindar la atención médica garantizando el trato digno, respetando su nombre de elección e identidad de género autopercibida, asegurando la confidencialidad y reconociendo su capacidad para el cuidado de su propio cuerpo.",
-        "d": "Exigir la presencia obligatoria de ambos progenitores en el consultorio para firmar el consentimiento de la consulta."
+        "c": "Garantizar la atención con trato digno, respetando el nombre de elección y la identidad autopercibida, con confidencialidad y reconociendo su capacidad para cuidar su cuerpo.",
+        "d": "Exigir la presencia obligatoria de ambos progenitores en el consultorio para firmar el consentimiento de la consulta y el cambio de nombre en la historia clínica solo con sentencia judicial previa."
       },
       "respuesta_correcta": "c",
       "justificacion": "La Ley 26.743 de Identidad de Género garantiza el derecho al reconocimiento de la identidad de género autopercibida, al trato digno y al uso del nombre de elección en todos los registros médicos y asistenciales, sin requerir trámite judicial ni quirúrgico previo. Asimismo, el Art. 26 del Código Civil y Comercial reconoce que a partir de los 16 años la persona es considerada un adulto para las decisiones sobre el cuidado de su propio cuerpo y salud reproductiva, debiendo el profesional garantizar la confidencialidad y el acceso a la atención médica integral."
@@ -248,7 +248,7 @@
       "id": 21,
       "pregunta": "Paciente puérpera de 4 meses con lactancia materna exclusiva consulta por consejería anticonceptiva. ¿Cuáles son los tres criterios estrictos que deben cumplirse para que el Método de Amenorrea de la Lactancia (MELA) presente una eficacia teórica superior al 98%?",
       "opciones": {
-        "a": "Lactancia parcial suplementada con biberón, amenorrea persistente y lactante menor de 12 meses de vida.",
+        "a": "Lactancia parcial suplementada con biberón, amenorrea persistente y lactante menor de 12 meses de vida con retorno de la menstruación en los dos últimos meses de seguimiento.",
         "b": "Lactancia materna exclusiva o casi exclusiva a demanda (día y noche), amenorrea completa y lactante menor de 6 meses de vida.",
         "c": "Lactancia exclusiva matutina, presencia de manchado escaso intermitente y lactante menor de 9 meses de edad.",
         "d": "Lactancia con extracción manual cada 12 horas, amenorrea y lactante mayor de 6 meses que ya inició alimentación complementaria."
@@ -273,7 +273,7 @@
       "pregunta": "Respecto a la utilización del Dispositivo Intrauterino de Cobre (DIU-Cu) como método de Anticoncepción de Emergencia (AHE), señale la afirmación CORRECTA:",
       "opciones": {
         "a": "Está contraindicado como método de emergencia por presentar un riesgo inaceptable de peritonitis bacteriana aguda.",
-        "b": "Requiere ser retirado obligatoriamente a las 48 horas de su inserción una vez comprobado el sangrado por deprivación.",
+        "b": "Requiere ser retirado obligatoriamente a las 48 horas de su inserción una vez comprobado el sangrado por deprivación y reemplazado por otro dispositivo de cobre cada tres meses.",
         "c": "Constituye el método de AHE más eficaz disponible (> 99%) cuando se inserta dentro de las 120 horas (5 días) posteriores a la relación no protegida.",
         "d": "Su mecanismo de acción principal consiste en inducir un aborto farmacológico mediante la inhibición de la subunidad beta-hCG."
       },
@@ -284,7 +284,7 @@
       "id": 24,
       "pregunta": "Paciente de 23 años, usuaria de DIU de Cobre desde hace 1 año, acude a la consulta por leucorrea purulenta. El hisopado endocervical confirma infección activa por Chlamydia trachomatis. Al examen físico no presenta dolor abdominal, la palpación bimanual es indolora y está afebril. ¿Cuál es la conducta médica correcta respecto al dispositivo intrauterino?",
       "opciones": {
-        "a": "Retirar el DIU de forma inmediata antes de administrar la primera dosis de antibiótico.",
+        "a": "Retirar el DIU de forma inmediata antes de administrar la primera dosis de antibiótico y suspender de forma definitiva el uso de cualquier anticonceptivo intrauterino en el futuro.",
         "b": "Indicar legrado uterino instrumental para descontaminar la cavidad endometrial.",
         "c": "Realizar una conización cervical LEEP para eliminar el foco infeccioso mucoso.",
         "d": "Iniciar tratamiento antibiótico específico ambulatorio manteniendo el DIU in situ, reservando la extracción solo si no hay respuesta a las 48-72 horas."
@@ -296,10 +296,10 @@
       "id": 25,
       "pregunta": "¿cómo se clasifica el inicio de Anticonceptivos Orales Combinados (AOC) en una paciente con Hipertensión Arterial (HTA) bien controlada vs. una paciente con HTA severa (≥ 160/100 mmHg) o vasculopatía?",
       "opciones": {
-        "a": "HTA controlada es Categoría 1 y HTA severa es Categoría 2.",
+        "a": "HTA controlada es Categoría 1 y HTA severa es Categoría 2 respectivamente, según la edad y el tiempo de evolución de la hipertensión arterial de la paciente.",
         "b": "HTA controlada es Categoría 3 (los riesgos superan las ventajas) y HTA severa o con vasculopatía es Categoría 4 (contraindicación absoluta).",
         "c": "Ambas situaciones clínicas se clasifican como Categoría 1 sin ninguna restricción de uso.",
-        "d": "HTA controlada es Categoría 4 y HTA severa es Categoría 2."
+        "d": "HTA controlada es Categoría 4 y HTA severa es Categoría 2 respectivamente, independientemente del control de la presión arterial con tratamiento."
       },
       "respuesta_correcta": "b",
       "justificacion": "Según las tablas de los Criterios Médicos de Elegibilidad de la OMS, la presencia de HTA adecuadamente controlada donde la tensión arterial puede ser monitoreada representa una Categoría 3 para el inicio de Anticonceptivos Hormonales Combinados (los riesgos teóricos o probados superan los beneficios, recomendándose métodos de solo progestágeno o no hormonales). Si la HTA es severa (PAS ≥ 160 mmHg o PAD ≥ 100 mmHg) o se acompaña de enfermedad vascular, se clasifica como Categoría 4 (riesgo inadmisible para la salud, contraindicación absoluta para el uso de estrógenos)."
@@ -309,9 +309,9 @@
       "pregunta": "Una paciente puérpera de 3 semanas que amamanta exclusivamente a su hijo solicita un método anticonceptivo hormonal. Según los Criterios de Elegibilidad de la OMS, ¿cuál es la clasificación para los Anticonceptivos Orales de Progestágeno Solo (AOPS) y el Implante Subdérmico en la lactancia?",
       "opciones": {
         "a": "Categoría 2 de la OMS en las primeras 6 semanas posparto y Categoría 1 a partir de las 6 semanas posparto.",
-        "b": "Categoría 4 de la OMS (contraindicación absoluta) durante los primeros 6 meses de lactancia materna.",
-        "c": "Categoría 3 de la OMS para personas menores de 30 años de edad.",
-        "d": "Categoría 1 únicamente si se administran combinados con dosis altas de etinilestradiol."
+        "b": "Categoría 4 de la OMS (contraindicación absoluta) durante los primeros 6 meses de lactancia materna y en todas las mujeres.",
+        "c": "Categoría 3 de la OMS para personas menores de 30 años de edad y para toda mujer en lactancia exclusiva.",
+        "d": "Categoría 1 únicamente si se administran combinados con dosis altas de etinilestradiol y bajo control médico semanal estricto."
       },
       "respuesta_correcta": "a",
       "justificacion": "Los métodos de solo progestágeno (AOPS como desogestrel o implantes subdérmicos de etonogestrel) no alteran la producción, composición o calidad de la leche materna ni afectan negativamente el desarrollo del lactante. La OMS los clasifica en Categoría 2 durante las primeras 6 semanas del posparto en madres que amamantan y en Categoría 1 (sin ninguna restricción de uso) a partir de la 6ª semana posparto. En mujeres no lactantes, pueden iniciarse inmediatamente en el posparto (Categoría 1)."
@@ -332,8 +332,8 @@
       "id": 28,
       "pregunta": "Para una paciente con Enfermedad Pélvica Inflamatoria (EPI) moderada o severa que presenta criterios de internación hospitalaria (Monif II o III), ¿cuál es el esquema antibiótico parenteral de primera línea recomendado por los consensos clínicos?",
       "opciones": {
-        "a": "Penicilina G Benzatínica 2.400.000 UI intramuscular en dosis única semanal por 2 semanas.",
-        "b": "Ciprofloxacina 200 mg por vía endovenosa en dosis única sin cobertura para anaerobios.",
+        "a": "Penicilina G Benzatínica 2.400.000 UI intramuscular en dosis única semanal por 2 semanas y control del título de VDRL a los 6 meses con repetición del esquema.",
+        "b": "Ciprofloxacina 200 mg por vía endovenosa en dosis única sin cobertura para anaerobios y reposo domiciliario con control clínico al décimo día de iniciado el tratamiento.",
         "c": "Amoxicilina 500 mg por vía oral cada 8 horas durante 5 días exclusivamente.",
         "d": "Clindamicina 900 mg EV cada 8 horas MÁS Gentamicina EV; o Ceftriaxona 1 g EV/día MÁS Doxiciclina 100 mg VO/EV MÁS Metronidazol 500 mg EV."
       },
@@ -344,10 +344,10 @@
       "id": 29,
       "pregunta": "Una paciente de 26 años acude a la consulta por presentar su cuarto episodio en el año de Vaginosis Bacteriana sintomática (confirmada por Criterios de Amsel). ¿Cuál es la estrategia terapéutica de mantenimiento recomendada para el manejo de la Vaginosis Bacteriana Recurrente?",
       "opciones": {
-        "a": "Tratamiento de inducción con Metronidazol 500 mg VO cada 12 horas por 7 días, seguido de Metronidazol gel vaginal 0,75% dos veces por semana durante 4 a 6 meses.",
-        "b": "Prescripción de Fluconazol 150 mg por vía oral una vez a la semana durante 6 meses como monoterapia.",
-        "c": "Doxiciclina 100 mg cada 12 horas por vía oral durante 30 días continuos a la paciente y su pareja.",
-        "d": "Ducha vaginal diaria con yodopovidona pura sin administración de antibióticos sistémicos ni tópicos."
+        "a": "Inducción con Metronidazol 500 mg VO cada 12 h por 7 días, seguido de Metronidazol gel vaginal al 0,75% dos veces por semana durante 4 a 6 meses.",
+        "b": "Prescripción de Fluconazol 150 mg por vía oral una vez a la semana durante 6 meses como monoterapia y tratamiento de la pareja con la misma dosis semanal.",
+        "c": "Doxiciclina 100 mg cada 12 horas por vía oral durante 30 días continuos a la paciente y su pareja y reposo sexual absoluto durante el tratamiento completo.",
+        "d": "Ducha vaginal diaria con yodopovidona pura sin administración de antibióticos sistémicos ni tópicos en el contexto de un tratamiento coadyuvante con probióticos orales por 30 días."
       },
       "respuesta_correcta": "a",
       "justificacion": "En casos de Vaginosis Bacteriana Recurrente (definida por 3 o más episodios anuales), se recomienda realizar un ciclo inicial de inducción con Metronidazol oral (500 mg cada 12 horas por 7 días) o Clindamicina, seguido de un esquema supresivo de mantenimiento con Metronidazol en gel vaginal al 0,75% administrado 2 veces por semana durante un período de 4 a 6 meses. Este esquema permite reducir la formación de biofilme polimicrobiano y evitar las recaídas precoces."
@@ -368,7 +368,7 @@
       "id": 31,
       "pregunta": "Una paciente embarazada de 16 semanas con VDRL reactiva a 1:32 diluciones y FTA-ABS positiva es diagnosticada de Síndrome Luético (Sífilis latente precoz). La paciente refiere antecedente verificado de shock anafiláctico previo por Penicilina. ¿Cuál es la conducta médica correcta de primera línea?",
       "opciones": {
-        "a": "Prescribir Doxiciclina 100 mg cada 12 horas por vía oral durante 14 días.",
+        "a": "Prescribir Doxiciclina 100 mg cada 12 horas por vía oral durante 14 días y control de la serología a los 12 meses sin tratar a la pareja sexual.",
         "b": "Indicar Eritromicina 500 mg cada 6 horas por vía oral durante 14 días asegurando la cura fetal.",
         "c": "Realizar la desensibilización alérgica a la Penicilina en medio hospitalario e iniciar inmediatamente tratamiento con Penicilina G Benzatínica.",
         "d": "Suspender todo tratamiento antibiótico y esperar a la finalización del parto para tratar a la madre."
@@ -382,7 +382,7 @@
       "opciones": {
         "a": "La negativización inmediata de la prueba treponémica (FTA-ABS o TPHA) en los primeros 30 días.",
         "b": "La persistencia fija del mismo título de VDRL durante más de 5 años sin cambios.",
-        "c": "El incremento de 4 diluciones en los títulos de VDRL a los 6 meses de seguimiento.",
+        "c": "El incremento de 4 diluciones en los títulos de VDRL a los 6 meses de seguimiento y títulos fijos de la prueba treponémica a los 3 meses de seguimiento.",
         "d": "El descenso de al menos 2 diluciones (equivalente a una reducción de 4 veces el título) en la VDRL cuantitativa a los 3 y 6 meses."
       },
       "respuesta_correcta": "d",
@@ -393,7 +393,7 @@
       "pregunta": "Si una mujer de 38 años presenta un Test de VPH POSITIVO para genotipos oncogénicos no 16/18, ¿cuál es el paso subsiguiente indicado?",
       "opciones": {
         "a": "Realizar la lectura de la citología (Papanicolaou de triage) procesada sobre la misma muestra tomada inicialmente.",
-        "b": "Indicar conización LEEP inmediata sin realizar examen colposcópico previo.",
+        "b": "Indicar conización LEEP inmediata sin realizar examen colposcópico previo y programar a la paciente para cirugía en el mes siguiente.",
         "c": "Dar el alta del programa y repetir el Test de VPH dentro de 5 años.",
         "d": "Prescribir tratamiento con óvulos antisépticos durante 14 días."
       },
@@ -404,10 +404,10 @@
       "id": 34,
       "pregunta": "En el seguimiento de una paciente de 35 años con Test de VPH POSITIVO (genotipos no 16/18) cuyo Papanicolaou (PAP) de triage resultó NEGATIVO (sin atipias ni lesiones), ¿cuál es la conducta recomendada por la Guía Nacional?",
       "opciones": {
-        "a": "Derivación inmediata a histerectomía total por vía laparoscópica.",
+        "a": "Derivación inmediata a histerectomía total por vía laparoscópica con salpingooforectomía bilateral por riesgo oncológico.",
         "b": "Repetir el Test de VPH a los 18 meses para verificar la persistencia o aclaración de la infección viral.",
-        "c": "Indicar biopsia endometrial a ciegas en el consultorio.",
-        "d": "Alta definitiva del programa de tamizaje sin necesidad de nuevos controles."
+        "c": "Indicar biopsia endometrial a ciegas en el consultorio y legrado uterino fraccionado con anestesia general posterior.",
+        "d": "Alta definitiva del programa de tamizaje sin necesidad de nuevos controles y repetir el Papanicolaou recién a los cinco años del último control."
       },
       "respuesta_correcta": "b",
       "justificacion": "Un resultado de Test de VPH positivo con citología (PAP) de triage negativa indica la presencia del virus en la mucosa cervical pero sin modificaciones celulares o histológicas evidentes. Dado que la mayoría de las infecciones se aclaran espontáneamente, la conducta indicada es diferir la reevaluación realizando un nuevo Test de VPH a los 18 meses. Si el Test a los 18 meses resulta negativo, la paciente vuelve al tamizaje de rutina cada 5 años; si persiste positivo, se deriva a colposcopía."
@@ -476,10 +476,10 @@
       "id": 40,
       "pregunta": "Durante la consulta de consejería en Salud Sexual y Reproductiva con una adolescente de 15 años que acude a la consulta sin la compañía de un adulto, ¿cuál es el marco normativo respecto al Secreto Profesional y la Confidencialidad médica según la Ley de Derechos del Paciente (Ley 26.529) y el Código Civil y Comercial de la Nación?",
       "opciones": {
-        "a": "El profesional está obligado a citar e informar por escrito a los progenitores el contenido completo de la consulta.",
+        "a": "El profesional está obligado a citar e informar por escrito a los progenitores el contenido completo de la consulta y comunicar a la institución escolar para que tome conocimiento de lo manifestado.",
         "b": "La confidencialidad médica solo aplica si la paciente realiza el pago de una tasa arancelada en el hospital.",
-        "c": "El profesional no puede prescribir anticonceptivos a menores de 16 años sin la firma de un tutor legal dentro del consultorio.",
-        "d": "La consulta es strictly confidencial y el secreto profesional debe mantenerse, salvo ante situaciones de riesgo grave e inminente para la vida o la salud (ej. presunción de abuso sexual o violencia)."
+        "c": "El profesional no puede prescribir anticonceptivos a menores de 16 años sin la firma de un tutor legal dentro del consultorio y la prescripción solo se permite con acompañamiento escrito de un adulto responsable.",
+        "d": "La consulta es estrictamente confidencial y el secreto profesional se mantiene, salvo riesgo grave e inminente para la vida o la salud (ej. abuso sexual o violencia)."
       },
       "respuesta_correcta": "d",
       "justificacion": "La Ley 26.529 de Derechos del Paciente, la Ley 25.673 de Salud Sexual y el Código Civil y Comercial de la Nación amparan el derecho de niños, niñas y adolescentes a la privacidad, intimidad y confidencialidad médica en las consultas de salud sexual y reproducción. El profesional tiene el deber legal y ético de resguardar el secreto profesional. La única excepción legítima para revelar información sin el consentimiento de la paciente surge ante la presunción o detección de situaciones de vulneración grave de derechos o riesgo inminente para la vida/integridad (como sospecha de abuso sexual infantil, intento de suicidio o violencia física severa)."
@@ -500,9 +500,9 @@
       "id": 42,
       "pregunta": "Una paciente de 22 años consulta por la forma de uso del anillo vaginal anticonceptivo combinado (Etinilestradiol / Etonogestrel). ¿Cuál es el esquema de administración y mantenimiento correcto?",
       "opciones": {
-        "a": "Se coloca en la vagina manteniéndose in situ durante 3 semanas continuas (21 días), seguido de 1 semana libre de anillo (7 días) donde se produce el sangrado por deprivación.",
-        "b": "Requiere recambio semanal en el mismo día de la semana durante 4 semanas consecutivas sin realizar ningún período de descanso.",
-        "c": "Debe retirarse antes de cada relación sexual y reinsertarse en un plazo no mayor a 12 horas para mantener la efectividad.",
+        "a": "Se coloca en la vagina durante 3 semanas continuas (21 días), seguido de 1 semana libre de anillo (7 días) en la que se produce el sangrado por deprivación.",
+        "b": "Requiere recambio semanal en el mismo día de la semana durante 4 semanas consecutivas sin realizar ningún período de descanso y en caso de olvido debe reemplazarse por uno nuevo sin refuerzo de barrera.",
+        "c": "Debe retirarse antes de cada relación sexual y reinsertarse en un plazo no mayor a 12 horas para mantener la efectividad y la pareja debe usar preservativo adicional durante todo el ciclo de uso.",
         "d": "Se inserta exclusivamente durante los días de sangrado menstrual y se retira al finalizar la menstruación."
       },
       "respuesta_correcta": "a",
@@ -515,7 +515,7 @@
         "a": "Moco espeso, opaco, grumoso y escaso con sensación de sequedad vulvar.",
         "b": "Moco amarillento, fétido, adherente y con presencia de burbujas gaseosas.",
         "c": "Moco transparente, filante, elástico (que se estira sin romperse) y abundante, acompañado de sensación de lubricación vulvar.",
-        "d": "Moco sanguíneo denso con pH alcalino mayor a 8,0 que aparece inmediatamente post-menstruación."
+        "d": "Moco sanguíneo denso con pH alcalino mayor a 8,0 que aparece inmediatamente post-menstruación y con aspecto de coágulos oscuros durante todo el ciclo."
       },
       "respuesta_correcta": "c",
       "justificacion": "Bajo el estímulo de los niveles elevados de estradiol en la fase preovulatoria, el moco cervical producido por las criptas endocervicales se vuelve fluido, transparente, elástico (alta filancia, fenómeno de cristalización en hojas de helecho) y abundante. Esta característica facilita el ascenso espermático e indica el período de máxima fertilidad en la mujer."
@@ -538,7 +538,7 @@
       "opciones": {
         "a": "Aciclovir 400 mg por vía oral 3 veces al día (o 200 mg 5 veces al día) durante 7 a 10 días.",
         "b": "Metronidazol 500 mg cada 12 horas por vía oral durante 14 días.",
-        "c": "Penicilina G Benzatínica 2.400.000 UI por vía intramuscular en dosis única.",
+        "c": "Penicilina G Benzatínica 2.400.000 UI por vía intramuscular en dosis única más tratamiento de la pareja.",
         "d": "Azitromicina 1 g por vía oral en dosis única asociada a fluconazol."
       },
       "respuesta_correcta": "a",
@@ -560,10 +560,10 @@
       "id": 47,
       "pregunta": "Paciente de 25 años internada por Enfermedad Pélvica Inflamatoria severa (Monif III). La ecografía pélvica demuestra la presencia de una masa compleja anexial izquierda heterogénea con áreas quísticas y tabiques gruesos de 6 cm de diámetro, compatible con un Absceso Tubo-Ovárico (ATO). Tras 48 horas de tratamiento antibiótico parenteral la paciente persiste febril (38,8 ºC) y con leucocitosis en ascenso. ¿Cuál es la conducta de manejo indicada ante la falta de respuesta?",
       "opciones": {
-        "a": "Continuar con el mismo esquema antibiótico por 14 días adicionales sin realizar procedimientos intervencionistas.",
-        "b": "Alta hospitalaria con indicación de AINES por vía oral.",
-        "c": "Administración de dosis única de Metronidazol por vía oral sin antibioticoterapia parenteral.",
-        "d": "Indicar drenaje quirúrgico o guiado por imágenes (o colpotomía posterior si abomba en el fondo de saco de Douglas) para evacuación del absceso."
+        "a": "Continuar con el mismo esquema antibiótico por 14 días adicionales sin realizar procedimientos intervencionistas y control de la fiebre a las 24 horas.",
+        "b": "Alta hospitalaria con indicación de AINES por vía oral y reposo domiciliario con control clínico semanal sin estudios por imágenes de control.",
+        "c": "Administración de dosis única de Metronidazol por vía oral sin antibioticoterapia parenteral y alta hospitalaria con seguimiento ambulatorio sin estudios de control.",
+        "d": "Indicar drenaje quirúrgico o guiado por imágenes (colpotomía posterior si abomba en el fondo de saco de Douglas) para evacuar el absceso."
       },
       "respuesta_correcta": "d",
       "justificacion": "Ante la presencia de un Absceso Tubo-Ovárico (ATO) que no responde al tratamiento antimicrobiano parenteral tras 48 a 72 horas de internación, o que presenta signos de rotura o sepsis, está indicado el abordaje quirúrgico o el drenaje guiado (laparoscopía, laparotomía o drenaje transvaginal/colpotomía posterior si abomba hacia el fórnix vaginal posterior) para evacuar el material purulento y controlar el foco infeccioso."
@@ -572,10 +572,10 @@
       "id": 48,
       "pregunta": "¿Cuál es la razón principal por la que la infección por Chlamydia trachomatis del tracto genital femenino es denominada con frecuencia \"infección silente\" y qué secuela reproductiva mayor produce?",
       "opciones": {
-        "a": "Porque en más del 70-80% de los casos es asintomática u oligosintomática, permitiendo la progresión inaparente hacia endometritis y salpingitis con daño ciliar tubario, fibrosis e infertilidad de causa tuboperitoneal.",
-        "b": "Porque produce una necrosis fulminante del cérvix que cursa con insensibilidad al dolor por destrucción nerviosa.",
+        "a": "Porque en más del 70-80% de los casos es asintomática y progresa inadvertida hacia salpingitis, daño ciliar tubario e infertilidad.",
+        "b": "Porque produce una necrosis fulminante del cérvix que cursa con insensibilidad al dolor por destrucción nerviosa y evoluciona en pocas horas con shock séptico en las pacientes jóvenes.",
         "c": "Porque se transmite exclusivamente por vía hematógena sin infectar las mucosas genitales.",
-        "d": "Porque induce una mutación congénita que causa la formación de ovarios poliquísticos en la descendencia."
+        "d": "Porque induce una mutación congénita que causa la formación de ovarios poliquísticos en la descendencia y malformaciones uterinas en el recién nacido de madres infectadas."
       },
       "respuesta_correcta": "a",
       "justificacion": "Chlamydia trachomatis es una bacteria intracelular obligada que causa cervicitis y salpingitis con escasa sintomatología inicial en la mayoría de las mujeres (\"EPI silente\"). La inflamación crónica no tratada daña el epitelio ciliar y la serosa de las trompas de Falopio, generando sinequias, oclusión tubaria e infertilidad secundaria o riesgo aumentado de embarazo ectópico."
@@ -596,9 +596,9 @@
       "id": 50,
       "pregunta": "En la evaluación clínica de las úlceras genitales de origen infeccioso, el Chancroide (Chancro blando) producido por el bacilo Gram negativo Haemophilus ducreyi se caracteriza semiológicamente por:",
       "opciones": {
-        "a": "Una úlcera única, indurada, limpia, con bordes netos y completamente indolora.",
-        "b": "Una o más úlceras dolorosas, no induradas, de bordes irregulares o excavados con fondo sucio purulento y adenopatía inguinal dolorosa con tendencia a la supuración.",
-        "c": "Múltiples vesículas umbilicales sobre base eritematosa que cursan sin adenopatías.",
+        "a": "Una úlcera única, indurada, limpia, con bordes netos y completamente indolora asociada a adenopatías inguinales indoloras bilaterales de consistencia pétrea.",
+        "b": "Una o más úlceras dolorosas, no induradas, de bordes irregulares y fondo purulento, con adenopatía inguinal dolorosa que tiende a supurar.",
+        "c": "Múltiples vesículas umbilicales sobre base eritematosa que cursan sin adenopatías en racimos que preceden a la aparición de una adenopatía supurada y dolorosa.",
         "d": "Placas blanquecinas hiperqueratósicas no sangrantes asociadas a verrugas sésiles."
       },
       "respuesta_correcta": "b",
@@ -632,7 +632,7 @@
       "id": 53,
       "pregunta": "Una paciente de 25 años con diagnóstico de dismenorrea secundaria a Endometriosis e hipermenorrea consulta por un método anticonceptivo de alta eficacia. ¿Cuál es el beneficio no anticonceptivo adicional que ofrece el Sistema Intrauterino Liberador de Levonorgestrel (SIU-LNG 52 mg)?",
       "opciones": {
-        "a": "Induce la estimulación estrogénica del endometrio incrementando el volumen menstrual en cada ciclo.",
+        "a": "Induce la estimulación estrogénica del endometrio incrementando el volumen menstrual en cada ciclo y empeorando la dismenorrea y el dolor pélvico crónico en las pacientes con endometriosis.",
         "b": "Eleva los niveles de gonadotrofinas estimulando la formación de quistes ováricos gigantes.",
         "c": "Provoca la atrofia del estroma endometrial y la supresión local de la proliferación, reduciendo significativamente el sangrado menstrual y el dolor pelviano.",
         "d": "Previene de forma absoluta la transmisión de infecciones por VPH y Treponema pallidum."
@@ -647,7 +647,7 @@
         "a": "Categoría 1 de la OMS (sin ninguna restricción para el inicio).",
         "b": "Categoría 3 de la OMS (generalmente no recomendado por el mayor riesgo de expulsión y perforación).",
         "c": "Categoría 4 de la OMS (contraindicación absoluta).",
-        "d": "Categoría 2 de la OMS únicamente si se administra con anestesia general."
+        "d": "Categoría 2 de la OMS únicamente si se administra con anestesia general por el riesgo de expulsión inmediato del dispositivo."
       },
       "respuesta_correcta": "b",
       "justificacion": "La colocación del DIU-Cu puede realizarse de forma posplacenta inmediata (< 10 minutos post-alumbramiento) o dentro de las primeras 48 horas posparto (Categoría 1 o 2). Sin embargo, la inserción entre las 48 horas y las 4 semanas posparto se clasifica como Categoría 3 de la OMS, debido a que el útero puerperal en proceso de involución presenta una tasa significativamente mayor de expulsión del dispositivo y riesgo de perforación miometrial. Pasadas las 4 semanas posparto, vuelve a ser Categoría 1. (Referencia: los Criterios Médicos de Elegibilidad de la OMS)."
@@ -656,9 +656,9 @@
       "id": 55,
       "pregunta": "Una paciente de 23 años consulta por dispareunia profunda de 1 año de evolución (dolor a la penetración profunda) y dolor pélvico crónico no acentuado durante la menstruación. Al examen ginecológico bimanual se palpan nódulos dolorosos en el fondo de saco posterior de Douglas y dolor a la tracción del cérvix. ¿Cuál es la sospecha clínica de primera línea?",
       "opciones": {
-        "a": "Candidiasis vulvovaginal aguda recurrente.",
-        "b": "Prolapso de pared vaginal anterior con cistocele grado III.",
-        "c": "Vaginosis bacteriana persistente por Gardnerella vaginalis.",
+        "a": "Candidiasis vulvovaginal aguda recurrente que cursa con prurito y leucorrea blanca grumosa sin dolor profundo.",
+        "b": "Prolapso de pared vaginal anterior con cistocele grado III con dolor pelviano que mejora con la menstruación.",
+        "c": "Vaginosis bacteriana persistente por Gardnerella vaginalis con flujo grisáceo homogéneo y dispareunia profunda de causa infecciosa.",
         "d": "Endometriosis pélvica profunda con compromiso de ligamentos uterosacros y tabique rectovaginal."
       },
       "respuesta_correcta": "d",
@@ -670,7 +670,7 @@
       "opciones": {
         "a": "Contactos sexuales ocurridos en los 60 días previos a la aparición de los síntomas.",
         "b": "Contactos sexuales ocurridos en los últimos 7 días exclusivamente.",
-        "c": "Contactos sexuales ocurridos únicamente en los 12 meses previos al diagnóstico.",
+        "c": "Contactos sexuales ocurridos únicamente en los 12 meses previos al diagnóstico sin tratamiento a la pareja.",
         "d": "No se requiere la evaluación ni el tratamiento de las parejas sexuales."
       },
       "respuesta_correcta": "a",
@@ -680,8 +680,8 @@
       "id": 57,
       "pregunta": "Paciente de 24 años consulta por cervicitis mucopurulenta persistente y disuria. Los estudios por PCR / cultivo para N. gonorrhoeae, C. trachomatis y Trichomonas vaginalis resultan reiteradamente negativos. Se sospecha infección por Mycoplasma genitalium. ¿Qué característica clínica y microbiológica destaca en este patógeno emergente?",
       "opciones": {
-        "a": "Es una bacteria de fácil cultivo que responde al tratamiento con penicilina oral.",
-        "b": "Es un hongo dimórfico que cursa con pH vaginal ácido menor a 3,5.",
+        "a": "Es una bacteria de fácil cultivo que responde al tratamiento con penicilina oral, sin resistencia descripta a los macrólidos ni a las fluoroquinolonas.",
+        "b": "Es un hongo dimórfico que cursa con pH vaginal ácido menor a 3,5 que se transmite por vía sexual y cursa con leucorrea espumosa y verdosa.",
         "c": "Es un patógeno intracelular sin pared celular que causa cervicitis y EPI, presentando una creciente tasa de resistencia a la Azitromicina.",
         "d": "Es un virus de transmisión sanguínea que causa hepatitis fulminante."
       },
@@ -692,8 +692,8 @@
       "id": 58,
       "pregunta": "En la consejería anticonceptiva sobre el patrón de sangrado menstrual esperado, ¿cuál es la diferencia característica entre el Dispositivo Intrauterino de Cobre (DIU-Cu) y el Sistema Intrauterino de Levonorgestrel (SIU-LNG)?",
       "opciones": {
-        "a": "El DIU-Cu produce amenorrea completa en el 100% de las usuarias, mientras que el SIU-LNG aumenta la cantidad del sangrado.",
-        "b": "El DIU-Cu puede incrementar la cantidad y duración del sangrado menstrual y la dismenorrea, mientras que el SIU-LNG induce hipomenorrea, manchado irregular (spotting) y amenorrea progresiva.",
+        "a": "El DIU-Cu produce amenorrea completa en el 100% de las usuarias, mientras que el SIU-LNG aumenta la cantidad del sangrado desde el primer mes de colocación en la mayoría de ellas.",
+        "b": "El DIU-Cu puede aumentar la cantidad y duración del sangrado y la dismenorrea, mientras que el SIU-LNG produce hipomenorrea, spotting y amenorrea progresiva.",
         "c": "Ambos dispositivos provocan sangrado abundante ininterrumpido que requiere legrado mensual.",
         "d": "Ninguno de los dos dispositivos modifica en lo absoluto el patrón menstrual previo de la usuaria."
       },
@@ -704,8 +704,8 @@
       "id": 59,
       "pregunta": "¿Cuál es el mecanismo de acción principal de las píldoras de solo progestágeno de Desogestrel (75 mcg/día) a diferencia de las píldoras tradicionales de levonorgestrel a bajas dosis?",
       "opciones": {
-        "a": "Actúan exclusivamente alterando la motilidad intestinal sin ingresar a la circulación.",
-        "b": "Producen la destrucción inmunológica de los folículos ováricos en fase antral.",
+        "a": "Actúan exclusivamente alterando la motilidad intestinal sin ingresar a la circulación y sin efecto alguno sobre la ovulación en las mujeres que los utilizan.",
+        "b": "Producen la destrucción inmunológica de los folículos ováricos en fase antral y producen atrofia de ovarios en pocos meses de uso continuo.",
         "c": "Actúan induciendo la deshidratación del semen en el fondo de saco vaginal.",
         "d": "Inhiben la ovulación de forma consistente en más del 97-99% de los ciclos, además de espesar el moco cervical."
       },
@@ -716,9 +716,9 @@
       "id": 60,
       "pregunta": "Una persona adolescente de 14 años es considerada capaz para brindar su consentimiento informado en la consulta de salud sexual y reproductiva para el siguiente tipo de práctica:",
       "opciones": {
-        "a": "Para la toma de decisiones sobre tratamientos o métodos no invasivos que no impliquen un riesgo grave para su vida o su salud (como la prescripción de anticonceptivos reversibles).",
-        "b": "Exclusivamente para intervenciones quirúrgicas invasivas irreversibles que requieran anestesia general.",
-        "c": "Únicamente si cuenta con la firma de ambos progenitores expedida ante un juez de menores.",
+        "a": "Para decidir sobre tratamientos o métodos no invasivos que no impliquen un riesgo grave para su vida o salud (como los anticonceptivos reversibles).",
+        "b": "Exclusivamente para intervenciones quirúrgicas invasivas irreversibles que requieran anestesia general, sin posibilidad de decidir sobre los métodos anticonceptivos reversibles.",
+        "c": "Únicamente si cuenta con la firma de ambos progenitores expedida ante un juez de menores y con autorización posterior del servicio de asesoría legal del hospital para cada consulta.",
         "d": "Para ninguna práctica médica hasta no cumplir los 18 años de edad cumplidos."
       },
       "respuesta_correcta": "a",
@@ -740,7 +740,7 @@
       "id": 62,
       "pregunta": "Una paciente de 22 años acude a la consulta por leucorrea purulenta y sinorragia. Se sospecha cervicitis por Chlamydia trachomatis. ¿Cuál es el método diagnóstico de laboratorio de elección recomendado por su elevada sensibilidad y especificidad (> 95%) para la confirmación microbiológica?",
       "opciones": {
-        "a": "Examen directo en fresco con microscopía de campo oscuro y tinción de Gram.",
+        "a": "Examen directo en fresco con microscopía de campo oscuro y tinción de Gram y detección del antígeno en secreción uretral con anticuerpos monoclonales.",
         "b": "Cultivo viral en células HeLa con titulación de anticuerpos séricos.",
         "c": "Pruebas de Amplificación de Ácidos Nucleicos (NAAT / PCR) en muestra endocervical o en el primer chorro de orina.",
         "d": "Determinación cuantitativa de títulos de VDRL en plasma."
@@ -752,10 +752,10 @@
       "id": 63,
       "pregunta": "En la evaluación clínica de las Infecciones de Transmisión Sexual que cursan con úlceras genitales, la Donovanosis (Granuloma Inguinal) provocada por Klebsiella granulomatis se caracteriza semiológicamente por:",
       "opciones": {
-        "a": "Lesiones ulcerosas o papulares hipertróficas de color rojo brillante (\"en carne viva\"), no dolorosas, de consistencia blanda, que sangran fácilmente al contacto y cursan sin adenopatías inguinales verdaderas.",
-        "b": "Una úlcera indurada única, limpia e indolora que cicatriza en 3 a 6 semanas sin dejar marca.",
-        "c": "Múltiples vesículas umbilicadas dolorosas sobre base eritematosa que erosionan rápidamente.",
-        "d": "Una fístula anal purulenta asociada a condilomas planos hiperqueratósicos."
+        "a": "Lesiones ulcerosas o papulares hipertróficas rojo brillante («en carne viva»), indoloras, blandas, que sangran fácilmente al contacto y sin adenopatías inguinales verdaderas.",
+        "b": "Una úlcera indurada única, limpia e indolora que cicatriza en 3 a 6 semanas sin dejar marca, acompañada de adenopatía inguinal bilateral indolora de consistencia elástica y sin supuración.",
+        "c": "Múltiples vesículas umbilicadas dolorosas sobre base eritematosa que erosionan rápidamente y se acompañan de adenopatías inguinales dolorosas, fiebre y malestar general intensos.",
+        "d": "Una fístula anal purulenta asociada a condilomas planos hiperqueratósicos y adenopatías inguinales confluentes con fistulización a piel y proctitis hemorrágica en las mujeres."
       },
       "respuesta_correcta": "a",
       "justificacion": "La Donovanosis (Granuloma Inguinal) es una ITS granulomatosa crónica causada por Klebsiella granulomatis (anteriormente Calymmatobacterium granulomatis). Clínicamente se manifiesta como nódulos subcutáneos que se ulceran formando lesiones granulomatosas rojas, de aspecto carnosos o en \"carne viva\", indoloras pero friables que sangran con facilidad. A diferencia del chancroide o el linfogranuloma, no produce adenopatías supurativas verdaderas sino pseudobubones. El diagnóstico de certeza se realiza mediante el hallazgo de los cuerpos de Donovan (bacterias intracitoplasmáticas en macrófagos) en el frotis por impronta."
@@ -766,7 +766,7 @@
       "opciones": {
         "a": "Exclusivamente dentro de las primeras 12 horas posteriores a la relación sexual.",
         "b": "Lo antes posible dentro de las primeras 72 horas postcoito, pudiendo administrarse hasta un límite de 120 horas (5 días).",
-        "c": "Únicamente entre el 7º y el 10º día posterior a la relación sexual no protegida.",
+        "c": "Únicamente entre el 7º y el 10º día posterior a la relación sexual no protegida, sin posibilidad de administrarla antes del día 7.",
         "d": "Indefectiblemente pasadas las 120 horas de la relación sexual."
       },
       "respuesta_correcta": "b",
@@ -776,9 +776,9 @@
       "id": 65,
       "pregunta": "En una paciente gestante de 14 semanas que presenta Vaginosis Bacteriana sintomática (confirmada por Criterios de Amsel), ¿cuál es la complicación obstétrica mayor asociada a la falta de tratamiento y cuál es la pauta farmacológica indicada?",
       "opciones": {
-        "a": "Desprendimiento prematuro de placenta normoinserta / Ciprofloxacina 500 mg VO cada 12 horas por 14 días.",
+        "a": "Desprendimiento prematuro de placenta normoinserta / Ciprofloxacina 500 mg VO cada 12 horas por 14 días por trombosis de las arterias espiraladas.",
         "b": "Amenaza de parto pretérmino, rotura prematura de membranas y endometritis / Metronidazol 500 mg VO cada 12 horas durante 7 días.",
-        "c": "Diabetes gestacional insulino-requeriente / Nistatina en óvulos vaginales por 30 noches.",
+        "c": "Diabetes gestacional insulino-requeriente / Nistatina en óvulos vaginales por 30 noches y suspensión del control prenatal en la semana 20.",
         "d": "Agenesia renal fetal / Ceftriaxona 1 g EV en dosis única."
       },
       "respuesta_correcta": "b",
@@ -788,10 +788,10 @@
       "id": 66,
       "pregunta": "Respecto a los Anticonceptivos Inyectables Combinados de administración mensual (ej. Enantato de Noretisterona 50 mg + Valerato de Estradiol 5 mg), ¿cuál es la vía de administración y la pauta de intervalo recomendada para asegurar su efectividad?",
       "opciones": {
-        "a": "Inyección intramuscular profunda aplicada cada 30 días (con un margen de flexibilidad de ± 3 días), independientemente del día de aparición del sangrado.",
-        "b": "Inyección subcutánea semanal aplicada en la pared abdominal sin período de descanso.",
+        "a": "Inyección intramuscular profunda cada 30 días (± 3 días), independientemente del día en que aparezca el sangrado.",
+        "b": "Inyección subcutánea semanal aplicada en la pared abdominal sin período de descanso y con recambio del sitio de aplicación en cada dosis.",
         "c": "Aplicación intratecal cada 6 meses coincidiendo con la menarca.",
-        "d": "Inyección endovenosa en bolo lento administrada exclusivamente el último día del ciclo."
+        "d": "Inyección endovenosa en bolo lento administrada exclusivamente el último día del ciclo y debe repetirse cada seis meses con control posterior."
       },
       "respuesta_correcta": "a",
       "justificacion": "Los anticonceptivos inyectables combinados mensuales contienen un estrógeno natural o sintético de acción corta y un progestágeno de depósito. Se administran por vía intramuscular profunda cada 30 días, permitiéndose una ventana de bioseguridad de hasta ± 3 días (entre el día 27 y 33 desde la aplicación anterior) sin necesidad de utilizar anticoncepción de respaldo. Su mecanismo primario es la inhibición de la ovulación y la alteración del moco cervical."
@@ -800,9 +800,9 @@
       "id": 67,
       "pregunta": "En el diagnóstico en consultorio de la Tricomoniasis vaginal (Trichomonas vaginalis), la observación microscópica directa del flujo vaginal en fresco con solución fisiológica revela:",
       "opciones": {
-        "a": "Hifas septadas y esporas ramificadas inmóviles rodeadas de células descamativas.",
+        "a": "Hifas septadas y esporas ramificadas inmóviles rodeadas de células descamativas que forman redes en la superficie epitelial y sin respuesta de leucocitos.",
         "b": "Células epiteliales recubiertas por bacilos Gram variables con bordes desdibujados (\"clue cells\") sin respuesta inflamatoria.",
-        "c": "Protozoarios flagelados móviles de forma piriforme u ovoide, con movimiento de bamboleo característico y un número elevado de leucocitos polimorfonucleares.",
+        "c": "Protozoarios flagelados móviles, piriformes u ovoides, con movimiento de bamboleo y abundantes leucocitos polimorfonucleares.",
         "d": "Cocos Gram positivos agrupados en racimos dentro de los eritrocitos."
       },
       "respuesta_correcta": "c",
@@ -826,7 +826,7 @@
       "opciones": {
         "a": "Crema de Imiquimod al 5% (o Podofilina / Podofilotoxina al 0,5% en solución/crema).",
         "b": "Ácido Tricloroacético (TCA) al 80-90% aplicado con torunda de algodón sobre la cérvix.",
-        "c": "Crioablación con nitrógeno líquido mediante sonda metálica.",
+        "c": "Crioablación con nitrógeno líquido mediante sonda metálica en lesiones múltiples del vestíbulo vulvar.",
         "d": "Electrofulguración con asa diatérmica bajo anestesia local."
       },
       "respuesta_correcta": "a",
@@ -836,10 +836,10 @@
       "id": 70,
       "pregunta": "¿cuál es la conducta e indicación respecto al inicio o mantenimiento del Dispositivo Intrauterino de Cobre (DIU-Cu) en una paciente que presenta Miomatosis Uterina?",
       "opciones": {
-        "a": "Se clasifica como Categoría 1 en todos los casos sin importar el tamaño o localización de los miomas.",
-        "b": "Es Categoría 4 en presencia de miomas subserosos pediculados de 2 cm.",
-        "c": "Está contraindicado por ley nacional en mujeres nulíparas con miomas.",
-        "d": "Se clasifica como Categoría 4 si los miomas provocan una distorsión significativa de la cavidad uterina que impide la correcta colocación e inserción del dispositivo; de lo contrario es Categoría 2."
+        "a": "Se clasifica como Categoría 1 en todos los casos sin importar el tamaño o localización de los miomas, ya que los miomas intramurales y submucosos no modifican la cavidad ni el riesgo de expulsión.",
+        "b": "Es Categoría 4 en presencia de miomas subserosos pediculados de 2 cm por riesgo de torsión del pedículo, necrosis aséptica y sangrado excesivo durante la inserción.",
+        "c": "Está contraindicado por ley nacional en mujeres nulíparas con miomas, sin importar el tamaño ni la localización de los miomas y con independencia de la consulta con el especialista.",
+        "d": "Categoría 4 si los miomas distorsionan significativamente la cavidad uterina e impiden la correcta colocación del dispositivo; de lo contrario, Categoría 2."
       },
       "respuesta_correcta": "d",
       "justificacion": "En mujeres con miomatosis uterina, la elegibilidad para la inserción de un DIU de Cobre o un SIU de Levonorgestrel depende fundamentalmente de la deformación de la cavidad endometrial. Si los miomas (especialmente intramurales grandes o submucosos) provocan una distorsión significativa de la cavidad uterina que dificulta o impide el correcto asentamiento del dispositivo, el método se clasifica como Categoría 4 de la OMS (contraindicación por riesgo de perforación, dolor o expulsión). Si los miomas no distorsionan la cavidad uterina (ej. miomas subserosos), el método es Categoría 2 de la OMS. (Referencia: los Criterios Médicos de Elegibilidad de la OMS (5ª edición))."
@@ -848,10 +848,10 @@
       "id": 71,
       "pregunta": "Una paciente de 20 años acude por presentar una lesión ulcerada en el labio mayor derecho de 10 días de evolución. Al examen físico se constata una úlcera única de 1 cm de diámetro, indolora, de bordes indurados y netos, con fondo limpio no purulento, acompañada de adenopatías inguinales bilaterales indoloras que no fistulizan. ¿Cuál es el diagnóstico clínico de primera línea?",
       "opciones": {
-        "a": "Chancroide o chancro blando por Haemophilus ducreyi.",
+        "a": "Chancroide o chancro blando por Haemophilus ducreyi con úlcera dolorosa.",
         "b": "Chancro sifilítico (Sífilis Primaria) por Treponema pallidum.",
-        "c": "Primo-infección por Herpes Virus Hominis Tipo 2.",
-        "d": "Granuloma Inguinal severo por Calymmatobacterium."
+        "c": "Primo-infección por Herpes Virus Hominis Tipo 2 con vesículas agrupadas.",
+        "d": "Granuloma Inguinal severo por Calymmatobacterium con úlceras indoloras en carne viva."
       },
       "respuesta_correcta": "b",
       "justificacion": "La presencia de una úlcera vulvar única, indolora, con base de consistencia indurada (induración cartilaginosa), fondo limpio y bordes limpios, acompañada de linfadenopatías inguinales no dolorosas que no supuran, constituye la presentación patognomónica del Chancro Sifilítico (Sífilis Primaria). Aparece entre 10 y 90 días (promedio 21 días) post-contacto en el sitio de inoculación del Treponema pallidum."
@@ -860,10 +860,10 @@
       "id": 72,
       "pregunta": "En los criterios diagnósticos de la Enfermedad Pélvica Inflamatoria (EPI), ¿cuál de los siguientes hallazgos de laboratorio o clínicos forma parte de los Criterios Adicionales o Menores que incrementan la especificidad del diagnóstico clínico?",
       "opciones": {
-        "a": "Temperatura axilar mayor a 38,3 ºC, leucorrea mucopurulenta cervical anormal, elevación de la Proteína C Reactiva (PCR) o Velocidad de Sedimentación Globular (VSG), y prueba de laboratorio positiva para N. gonorrhoeae o C. trachomatis.",
-        "b": "Ausencia completa de dolor a la palpación bimanual del cuello uterino y anexos.",
-        "c": "Títulos de VDRL reactivos a 1:1 dilución sin leucocitosis.",
-        "d": "Presencia de cristales de ácido úrico en el sedimento urinario."
+        "a": "Temperatura axilar > 38,3 ºC, leucorrea mucopurulenta cervical, elevación de PCR o VSG y prueba positiva para N. gonorrhoeae o C. trachomatis.",
+        "b": "Ausencia completa de dolor a la palpación bimanual del cuello uterino y anexos, sin fiebre ni leucocitosis y con ecografía pélvica sin hallazgos de líquido libre ni masa anexial.",
+        "c": "Títulos de VDRL reactivos a 1:1 dilución sin leucocitosis que corresponde a una cicatriz serológica de sífilis tratada con anterioridad en la adolescencia.",
+        "d": "Presencia de cristales de ácido úrico en el sedimento urinario y cultivo de orina negativo con cuadro clínico de cistitis por Escherichia coli."
       },
       "respuesta_correcta": "a",
       "justificacion": "El diagnóstico de EPI es fundamentalmente clínico. Para aumentar la especificidad diagnóstica en presencia de los Criterios Mínimos (dolor en hipogasto, dolor anexial y dolor a la movilización del cérvix), se evalúan los Criterios Adicionales o Menores: 1) Fiebre (temperatura axilar > 38,3 ºC); 2) Secreción endocervical o vaginal mucopurulenta anormal; 3) Leucocitosis en el hemograma; 4) Elevación de reactantes de fase aguda (PCR o VSG); y 5) Confirmación microbiológica de gonococo o Chlamydia."
@@ -872,9 +872,9 @@
       "id": 73,
       "pregunta": "Paciente de 19 años consulta por un método anticonceptivo de larga duración. Se le coloca un Implante Subdérmico de Etonogestrel (68 mg). ¿Cuál es la duración oficialmente aprobada de su efectividad anticonceptiva y cuál es el efecto secundario o cambio en el patrón de sangrado más frecuente del que debe ser informada?",
       "opciones": {
-        "a": "Duración de 10 años; el efecto secundario más común es el aumento masivo de peso corporal.",
+        "a": "Duración de 10 años; el efecto secundario más común es el aumento masivo de peso corporal y la necesidad de recambio anual para mantener su eficacia.",
         "b": "Duración de 1 año; el efecto secundario más común es la aparición de hipertensión arterial severa.",
-        "c": "Duración de 3 años; el efecto secundario más común son las alteraciones en el patrón de sangrado menstrual (sangrado irregular, spotting prolongado o amenorrea).",
+        "c": "Duración de 3 años; el efecto adverso más común son las alteraciones del patrón de sangrado (irregular, spotting prolongado o amenorrea).",
         "d": "Duración de 6 meses; el efecto secundario más común es la pérdida irreversible de la visión."
       },
       "respuesta_correcta": "c",
@@ -896,10 +896,10 @@
       "id": 75,
       "pregunta": "En la consejería médica sobre el uso correcto del preservativo masculino de látex como método de barrera y prevención de Infecciones de Transmisión Sexual (ITS), ¿cuál es la indicación técnica correcta para su colocación y retiro?",
       "opciones": {
-        "a": "Desenrollar el preservativo completamente fuera del pene antes de colocárselo como una funda rígida.",
+        "a": "Desenrollar el preservativo completamente fuera del pene antes de colocárselo como una funda rígida y utilizarlo dos veces seguidas en la misma relación si no hubo eyaculación completa.",
         "b": "Colocarlo sobre el pene flácido inmediatamente después de la eyaculación.",
         "c": "Lubricarlo exclusivamente con vaselina petrolada o aceites de cocina para evitar su rotura.",
-        "d": "Colocarlo sobre el pene erecto antes de cualquier contacto genital, presionando el depósito de la punta para expulsar el aire, y retirarlo sujetándolo firmemente por la base inmediatamente después de eyacular antes de perder la erección."
+        "d": "Colocarlo sobre el pene erecto antes de cualquier contacto genital, presionando la punta para expulsar el aire, y retirarlo sujetándolo por la base apenas eyacule."
       },
       "respuesta_correcta": "d",
       "justificacion": "Para garantizar la eficacia anticonceptiva y de barrera del preservativo masculino, se debe colocar sobre el pene completamente erecto antes de iniciar cualquier contacto genital o penetración. Es indispensable apretar la tetina o depósito del extremo superior para expulsar el aire atrapado y evitar la rotura por sobrepresión durante la eyaculación. Tras la eyaculación, debe retirarse sujetando el anillo de la base del preservativo mientras el pene aún permanece erecto, para evitar el deslizamiento del preservativo o el vuelco de semen en la vagina. Solo deben usarse lubricantes a base de agua o silicona, ya que los lubricantes oleosos (vaselina, aceites) deterioran el látex."
@@ -908,9 +908,9 @@
       "id": 76,
       "pregunta": "Paciente de 23 años acude a control serológico voluntario. Se detecta VDRL reactiva a 1:16 diluciones con confirmación por FTA-ABS positiva. Al examen clínico se identifican pápulas eritematosas en palmas y plantas (roséola sifilítica) y condilomas planos en vulva. No refiere tratamiento previo. ¿Cuál es el tratamiento antimicrobiano de elección para esta Síndrome Luético (Sífilis Secundaria / Latente Precoz)?",
       "opciones": {
-        "a": "Azitromicina 500 mg por vía oral cada 24 horas durante 3 días.",
+        "a": "Azitromicina 500 mg por vía oral cada 24 horas durante 3 días más tratamiento sintomático.",
         "b": "Penicilina G Benzatínica 2.400.000 UI por vía intramuscular en dosis única.",
-        "c": "Ceftriaxona 1 g por vía endovenosa cada 12 horas durante 14 días.",
+        "c": "Ceftriaxona 1 g por vía endovenosa cada 12 horas durante 14 días con control en 72 horas.",
         "d": "Ciprofloxacina 500 mg por vía oral cada 12 horas por 7 días."
       },
       "respuesta_correcta": "b",
@@ -921,8 +921,8 @@
       "pregunta": "¿cómo se clasifica la prescripción de Anticonceptivos Orales Combinados (AOC) en una mujer de 38 años que es fumadora intensa de 20 cigarrillos al día?",
       "opciones": {
         "a": "Categoría 4 de la OMS (contraindicación absoluta por riesgo cardiovascular grave).",
-        "b": "Categoría 1 de la OMS (sin restricciones de uso).",
-        "c": "Categoría 2 de la OMS (las ventajas superan los riesgos).",
+        "b": "Categoría 1 de la OMS (sin restricciones de uso) para mujeres sin factores de riesgo vascular conocidos.",
+        "c": "Categoría 2 de la OMS (las ventajas superan los riesgos) cuando se utiliza durante menos de dos años.",
         "d": "Categoría 3 exclusivamente si utiliza AOC de tercera generación."
       },
       "respuesta_correcta": "a",
@@ -932,10 +932,10 @@
       "id": 78,
       "pregunta": "Una paciente de 21 años es diagnosticada de Cervicitis no gonocócica por Chlamydia trachomatis (confirmada por PCR). Se encuentra asintomática y no está embarazada. ¿Cuál es el régimen antibiótico ambulatorio de primera línea recomendado por los consensos actuales de ITS?",
       "opciones": {
-        "a": "Metronidazol 500 mg por vía oral cada 12 horas durante 7 días.",
-        "b": "Penicilina G Benzatínica 2.400.000 UI intramuscular en dosis única.",
+        "a": "Metronidazol 500 mg por vía oral cada 12 horas durante 7 días más Ceftriaxona 1 g EV cada 24 horas por 14 días.",
+        "b": "Penicilina G Benzatínica 2.400.000 UI intramuscular en dosis única más Azitromicina 1 g semanal por 2 semanas consecutivas.",
         "c": "Doxiciclina 100 mg por vía oral cada 12 horas durante 7 días (o Azitromicina 1 g por vía oral en dosis única).",
-        "d": "Gentamicina 80 mg intramuscular cada 8 horas durante 10 días."
+        "d": "Gentamicina 80 mg intramuscular cada 8 horas durante 10 días más Ceftriaxona 500 mg IM en dosis única y control a las 72 horas."
       },
       "respuesta_correcta": "c",
       "justificacion": "Para el tratamiento de la cervicitis o uretritis no complicada por Chlamydia trachomatis en mujeres no embarazadas, las guías internacionales y nacionales de ITS (FASGO/CDC) recomiendan como esquema de primera línea Doxiciclina 100 mg por vía oral cada 12 horas durante 7 días. Como esquema alternativo de dosis única (ideal ante dudas de adherencia) se indica Azitromicina 1 g por vía oral en toma única. Se debe tratar simultáneamente a las parejas sexuales de los últimos 60 días."
@@ -969,8 +969,8 @@
       "pregunta": "Una paciente de 20 años en tratamiento crónico con Carbamazepina por epilepsia consulta por un método anticonceptivo de alta eficacia. Al tratarse de un fármaco inductor de las enzimas hepáticas (citocromo P450), los anticonceptivos orales pierden eficacia por aceleración de su metabolismo. ¿Cuál de las siguientes opciones anticonceptivas mantiene su máxima efectividad sin verse afectada por la inducción enzimática?",
       "opciones": {
         "a": "El Inyectable de Depósito de Acetato de Medroxiprogesterona (AMPD 150 mg IM) o el Dispositivo Intrauterino de Cobre (DIU-Cu).",
-        "b": "Los Anticonceptivos Orales Combinados monofásicos con 35 mcg de etinilestradiol en toma diaria estricta.",
-        "c": "Las píldoras anticonceptivas de solo progestágeno de Desogestrel administradas sin pausa a la misma hora.",
+        "b": "Los Anticonceptivos Orales Combinados monofásicos con 35 mcg de etinilestradiol en toma diaria estricta y el control del tiempo de olvido en cada ciclo.",
+        "c": "Las píldoras anticonceptivas de solo progestágeno de Desogestrel administradas sin pausa a la misma hora y la medición de la hormona luteinizante.",
         "d": "El parche transdérmico combinado liberador de etinilestradiol y norelgestromina cambiado semanalmente."
       },
       "respuesta_correcta": "a",
@@ -981,7 +981,7 @@
       "pregunta": "Una paciente tratada de forma ambulatoria por Enfermedad Pélvica Inflamatoria (EPI) leve acude a control clínico. De acuerdo con los consensos de EPI (FASGO/SOGIBA), ¿cuál es el lapso de tiempo recomendado para el primer control post-inicio del tratamiento y qué parámetro confirma la curación biológica del cuadro?",
       "opciones": {
         "a": "Control a los 30 días; la curación se confirma por la positivización de los anticuerpos antinucleares.",
-        "b": "Control a las 12 horas; la curación se confirma por la persistencia de leucocitosis con desviación a la izquierda.",
+        "b": "Control a las 12 horas; la curación se confirma por la persistencia de leucocitosis con desviación a la izquierda y la elevación del dolor.",
         "c": "Control a las 72 horas; la curación biológica se confirma por la normalización de la VSG, la PCR y el recuento leucocitario.",
         "d": "Control a las 6 semanas; la curación se confirma por la presencia de dolor provocado a la palpación bimanual."
       },
@@ -1004,10 +1004,10 @@
       "id": 84,
       "pregunta": "Una paciente de 36 años presenta un informe citológico de Células Glandulares Atípicas (AGC) en el Papanicolaou. De acuerdo con la Nueva Guía 2022 de Prevención de Cáncer Cervicouterino (SAPTGIyC / FASGO), ¿cuál es el manejo inicial estandarizado?",
       "opciones": {
-        "a": "Repetir la citología en 3 años sin realizar ningún otro procedimiento exploratorio.",
-        "b": "Indicar histerectomía total inmediata por vía laparoscópica sin evaluación colposcópica.",
+        "a": "Repetir la citología en 3 años sin realizar ningún otro procedimiento exploratorio y solicitar el test de VPH recién cuando aparezcan síntomas clínicos como sangrado o dolor.",
+        "b": "Indicar histerectomía total inmediata por vía laparoscópica sin evaluación colposcópica y con anexectomía bilateral por riesgo oncológico inmediato en toda paciente.",
         "c": "Indicar cauterización del cuello uterino con ácido tricloroacético en forma ambulatoria.",
-        "d": "Evaluación mediante Colposcopía, Biopsia dirigida y Estudio del Conducto Endocervical (ECE), adicionando evaluación endometrial si presenta factores de riesgo."
+        "d": "Evaluación con colposcopía, biopsia dirigida y estudio del conducto endocervical (ECE), agregando evaluación endometrial si hay factores de riesgo."
       },
       "respuesta_correcta": "d",
       "justificacion": "El hallazgo de Células Glandulares Atípicas (AGC) en la citología representa un cambio citológico mayor con riesgo significativo de neoplasia intraepitelial cervical de alto grado (CIN 2/3), adenocarcinoma in situ (AIS) o adenocarcinoma invasor de cérvix o endometrio. La Guía 2022 exige la evaluación inmediata mediante colposcopía, biopsia dirigida de lesiones visibles y cepillado o legrado del conducto endocervical (ECE). En mujeres ≥ 35 años o con factores de riesgo endometrial (sangrado anormal, anovulación), se debe sumar la biopsia de endometrio."
@@ -1028,10 +1028,10 @@
       "id": 86,
       "pregunta": "Una paciente de 21 años presenta fiebre, artralgias y un exantema pápulo-macular difuso que compromete el tronco, las palmas de las manos y las plantas de los pies, junto con condilomas planos en vulva. ¿Qué combinación de pruebas serológicas confirma el diagnóstico de Sífilis Secundaria?",
       "opciones": {
-        "a": "VDRL no reactiva con prueba de PCR negativa para Neisseria gonorrhoeae.",
+        "a": "VDRL no reactiva con prueba de PCR negativa para Neisseria gonorrhoeae y examen en fresco sin hallazgos de gérmenes patógenos.",
         "b": "VDRL reactiva a títulos elevados (ej. 1:32 o superior) confirmada por prueba treponémica (FTA-ABS o TPHA) positiva.",
-        "c": "Pruebas no treponémicas negativas con cultivo micológico positivo para Candida.",
-        "d": "ELISA negativo para VIH con VDRL cuantitativa en dilución 1:1 no reactiva."
+        "c": "Pruebas no treponémicas negativas con cultivo micológico positivo para Candida y cultivo del exudado vaginal con flora normal predominante.",
+        "d": "ELISA negativo para VIH con VDRL cuantitativa en dilución 1:1 no reactiva en un paciente sin síntomas y con examen físico normal."
       },
       "respuesta_correcta": "b",
       "justificacion": "Las manifestaciones cutáneo-mucosas (roséola sifilítica palmo-plantar, condilomas planos vulvares y adenopatías generalizadas) corresponden a la etapa secundaria o diseminación hematógena del Treponema pallidum. Durante la sífilis secundaria, las pruebas no treponémicas (VDRL/RPR) son reactivas en el 100% de los casos a títulos elevados (usualmente ≥ 1:16 o 1:32). La confirmación diagnóstica definitiva se realiza mediante una prueba treponémica específica (FTA-ABS, TPHA o MHA-TP) que detecta anticuerpos contra el microorganismo."
@@ -1040,8 +1040,8 @@
       "id": 87,
       "pregunta": "Una paciente de 26 años con Sangrado Uterino Abundante de causa funcional (SUA-E) e hipermenorrea que le causa anemia ferropénica solicita un método anticonceptivo. ¿Cuál es el mecanismo local del SIU de Levonorgestrel (52 mg) que reduce el volumen del sangrado menstrual en más del 80-90%?",
       "opciones": {
-        "a": "Estimulación estrogénica continua de la capa basal endometrial induciendo hiperplasia.",
-        "b": "Bloqueo mecánico directo de las arterias uterinas principales por presión externa.",
+        "a": "Estimulación estrogénica continua de la capa basal endometrial induciendo hiperplasia por exceso de progesterona.",
+        "b": "Bloqueo mecánico directo de las arterias uterinas principales por presión externa y necrosis del miometrio en forma progresiva.",
         "c": "Decidualización intensa y atrofia del epitelio endometrial por insensibilidad a los estrógenos.",
         "d": "Inhibición de la caspasa 3 con aumento de la proliferación vascular miometrial."
       },
@@ -1065,8 +1065,8 @@
       "pregunta": "En la patogenia de la Enfermedad Pélvica Inflamatoria (EPI), la infección ascendente suele iniciarse por N. gonorrhoeae o C. trachomatis, alterando las barreras endocervicales. ¿Por qué los esquemas terapéuticos oficiales incluyen Metronidazol o Clindamicina en su formulación?",
       "opciones": {
         "a": "Para brindar cobertura efectiva contra la microflora anaerobia del tracto genital inferior que sobrecrece e invade la pelvis de forma secundaria.",
-        "b": "Para inducir la lisis de la membrana celular de los virus de la familia Herpesviridae.",
-        "c": "Para neutralizar la acción tóxica de la glucosa circulante sobre las trompas de Falopio.",
+        "b": "Para inducir la lisis de la membrana celular de los virus de la familia Herpesviridae y bloquear la replicación del virus del papiloma en las células basales del epitelio cervical.",
+        "c": "Para neutralizar la acción tóxica de la glucosa circulante sobre las trompas de Falopio y prevenir el desarrollo de resistencia en las bacterias del tracto genital superior.",
         "d": "Para inhibir la síntesis de estrógenos en las células de la teca interna del ovario."
       },
       "respuesta_correcta": "a",
@@ -1076,7 +1076,7 @@
       "id": 90,
       "pregunta": "Una paciente de 22 años con Índice de Masa Corporal (IMC) de 32 kg/m² (Obesidad Grado I) acude a la consulta solicitando Anticonceptivos Orales Combinados. Según los Criterios Médicos de Elegibilidad de la OMS, ¿cuál es la categoría para el uso de AOC en mujeres con obesidad sin otros factores de riesgo cardiovascular asociados?",
       "opciones": {
-        "a": "Categoría 4 de la OMS (contraindicación absoluta por riesgo de infarto).",
+        "a": "Categoría 4 de la OMS (contraindicación absoluta por riesgo de infarto) por riesgo de ACV.",
         "b": "Categoría 2 de la OMS (las ventajas superan los riesgos teóricos o probados).",
         "c": "Categoría 3 de la OMS exclusivamente si la paciente presenta menarca tardía.",
         "d": "Prohibición absoluta de uso por ley nacional de anticoncepción."
@@ -1088,10 +1088,10 @@
       "id": 91,
       "pregunta": "Una paciente de 27 años presenta un informe citológico de Lesión Intraepitelial Escamosa de Alto Grado (H-SIL). La colposcopía muestra una zona de transformación tipo 1 con un epitelio acetoblanco denso y punteado grueso. La biopsia dirigida confirma CIN 2 (NIE 2 / H-SIL). ¿Cuál es la conducta terapéutica indicada?",
       "opciones": {
-        "a": "Indicar seguimiento exclusivo con Papanicolaou cada 3 años sin biopsia ni tratamiento.",
-        "b": "Realizar histerectomía abdominal total con salpingectomía bilateral.",
+        "a": "Indicar seguimiento exclusivo con Papanicolaou cada 3 años sin biopsia ni tratamiento y control de la paciente a los 6 meses con colposcopía.",
+        "b": "Realizar histerectomía abdominal total con salpingectomía bilateral y reposición hormonal por vía oral de por vida posterior.",
         "c": "Indicar procedimiento escisional (conización cervical por técnica de LEEP) con evaluación del margen quirúrgico.",
-        "d": "Prescribir tratamiento con antimicóticos orales durante 14 días y alta definitiva."
+        "d": "Prescribir tratamiento con antimicóticos orales durante 14 días y alta definitiva y control citológico a los 12 meses con test de VPH."
       },
       "respuesta_correcta": "c",
       "justificacion": "Las Lesiones Escamosas Intraepiteliales de Alto Grado (H-SIL / CIN 2 o CIN 3) confirmadas por histología representan lesiones preneoplásicas verdaderas con riesgo de progresión a cáncer invasor. El tratamiento estándar en mujeres no embarazadas es la exéresis o ablación de la zona de transformación. El procedimiento de elección es la conización quirúrgica mediante LEEP (escisión electroquirúrgica con asa), la cual permite remover la lesión conservando la arquitectura uterina y obteniendo una pieza para estudio anatomopatológico completo de bordes."
@@ -1100,8 +1100,8 @@
       "id": 92,
       "pregunta": "Un varón de 23 años, pareja sexual de una paciente diagnosticada de Tricomoniasis vaginal, acude a la consulta. Se encuentra completamente asintomático. ¿Cuál es la indicación médica correcta respecto al tratamiento del varón?",
       "opciones": {
-        "a": "No indicar ningún tratamiento por tratarse de una infección que no afecta al sexo masculino.",
-        "b": "Solicitar urocultivo y diferir el tratamiento hasta obtener un resultado positivo.",
+        "a": "No indicar ningún tratamiento por tratarse de una infección que no afecta al sexo masculino, siendo suficiente con el tratamiento de la mujer y el uso de preservativo durante 7 días.",
+        "b": "Solicitar urocultivo y diferir el tratamiento hasta obtener un resultado positivo y recomendar abstinencia por 14 días hasta contar con el resultado del cultivo en ambos.",
         "c": "Indicación de penicilina benzatínica en dosis única por vía intramuscular.",
         "d": "Tratar empíricamente al varón con el mismo esquema oral (Metronidazol 2 g VO dosis única o 500 mg c/12h por 7 días) para prevenir la reinfección de la paciente."
       },
@@ -1127,7 +1127,7 @@
         "a": "El uso concomitante de dos preservativos masculinos superpuestos en cada relación sexual.",
         "b": "El uso simultáneo de un método de alta eficacia para prevenir el embarazo (ej. LARC u Hormonal) MÁS un método de barrera (preservativo) para prevenir las ITS.",
         "c": "La toma simultánea de dos tipos distintos de anticonceptivos orales combinados en cada dosis.",
-        "d": "El uso combinado de ducha vaginal antiséptica y ligadura tubaria bilateral."
+        "d": "El uso combinado de ducha vaginal antiséptica y ligadura tubaria bilateral, lo que previene el embarazo y las infecciones de transmisión sexual en un solo paso."
       },
       "respuesta_correcta": "b",
       "justificacion": "La estrategia de \"Doble Protección\" busca cubrir de manera simultánea los dos riesgos mayores de la salud sexual en la adolescencia: la adquisición de Infecciones de Transmisión Sexual (incluyendo VIH y VPH) y la ocurrencia de un embarazo no intencionado. Se logra mediante la combinación de un método anticonceptivo de alta efectividad (como los LARC o los anticonceptivos hormonales) junto con el uso sistemático y correcto del preservativo de látex (masculino o femenino) en cada relación sexual."
@@ -1148,9 +1148,9 @@
       "id": 96,
       "pregunta": "En la patogenia del cáncer cervicouterino, ¿cuál es el factor de riesgo biológico indispensable para el desarrollo de lesiones preneoplásicas de alto grado (HSIL / CIN 3) y carcinoma invasor?",
       "opciones": {
-        "a": "La presencia de cándida albicans en el frotis vaginal durante más de 3 días.",
-        "b": "La transmisión de enterobius vermicularis a través de fomites.",
-        "c": "La presencia de una vulvovaginitis citolítica no tratada durante la pubertad.",
+        "a": "La presencia de cándida albicans en el frotis vaginal durante más de 3 días y la ausencia de otros factores de riesgo para neoplasia.",
+        "b": "La transmisión de enterobius vermicularis a través de fomites y la ausencia de higiene genital regular de la paciente.",
+        "c": "La presencia de una vulvovaginitis citolítica no tratada durante la pubertad en una paciente sin infección por papilomavirus.",
         "d": "La infección persistente por genotipos del VPH de alto riesgo oncogénico (especialmente VPH 16 y 18)."
       },
       "respuesta_correcta": "d",
@@ -1160,8 +1160,8 @@
       "id": 97,
       "pregunta": "En el Dispositivo Intrauterino de Cobre (DIU-Cu 380A), ¿cuál es el mecanismo fisiológico primario que le confiere su elevada eficacia anticonceptiva?",
       "opciones": {
-        "a": "La liberación de iones de cobre que inducen una respuesta inflamatoria aséptica endometrial y ejercen un potente efecto espermicida, afectando la motilidad y viabilidad espermática.",
-        "b": "La supresión permanente del pico preovulatorio de LH con detención del desarrollo folicular ovárico.",
+        "a": "La liberación de iones de cobre, que genera una reacción inflamatoria aséptica endometrial y ejerce un efecto espermicida sobre la motilidad y viabilidad espermática.",
+        "b": "La supresión permanente del pico preovulatorio de LH con detención del desarrollo folicular ovárico y la atrofia endometrial con inhibición de la implantación del embrión en la cavidad.",
         "c": "El bloqueo mecánico irreversible del orificio cervical interno mediante una válvula rígida.",
         "d": "La destrucción química de los ovocitos primarios en la corteza ovárica."
       },
@@ -1196,9 +1196,9 @@
       "id": 100,
       "pregunta": "¿cuál es el principio legal que rige la atención médica de adolescentes entre 13 y 16 años respecto a la anticoncepción reversible?",
       "opciones": {
-        "a": "El principio de incapacidad absoluta que exige representación legal obligatoria para todo acto médico.",
+        "a": "El principio de incapacidad absoluta que exige representación legal obligatoria para todo acto médico, incluso para acceder a información sobre métodos anticonceptivos en el sistema público.",
         "b": "La exigencia de una orden judicial previa expedida por un juez de familia.",
-        "c": "La prohibición de brindar información sobre salud sexual en efectores públicos de salud.",
+        "c": "La prohibición de brindar información sobre salud sexual en efectores públicos de salud y exigir el consentimiento de ambos progenitores en todos los casos de adolescentes menores de 16 años.",
         "d": "El principio de autonomía progresiva, presumiéndose su capacidad para decidir sobre tratamientos no invasivos que no comprometan su vida o salud gravemente."
       },
       "respuesta_correcta": "d",

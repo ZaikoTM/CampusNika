@@ -20,7 +20,7 @@
       "id": 2,
       "pregunta": "Respecto a la vascularización del aparato genital femenino, ¿cuál es el origen anatómico de la arteria uterina y qué rama emite para anastomosarse con la arteria ovárica?",
       "opciones": {
-        "a": "Se origina de la arteria aorta abdominal y emite la rama tubárica externa que se anastomosa con la arteria ovárica.",
+        "a": "Se origina de la arteria aorta abdominal y emite la rama tubárica externa que se anastomosa con la arteria ovárica, pasando por detrás del uréter a nivel del istmo uterino.",
         "b": "Se origina de la arteria ilíaca externa y emite la arteria vaginal larga para la irrigación del cuello uterino.",
         "c": "Se origina de la arteria ilíaca interna (hipogástrica) y emite la rama tubárica interna que se anastomosa con la ovárica.",
         "d": "Se origina de la arteria pudenda interna y emite las arterias arcuatas que irrigan el fondo y los anexos uterinos."
@@ -92,8 +92,8 @@
       "id": 8,
       "pregunta": "Ante una consulta médica calificada como \"difícil\", donde la paciente o sus acompañantes se presentan exigentes o agresivos, ¿cuál es la actitud profesional recomendada para reconducir la entrevista?",
       "opciones": {
-        "a": "Suspender de inmediato la atención clínica y derivar formalmente a la paciente a otra institución.",
-        "b": "Adoptar una postura defensiva autoritaria imponiendo la indicación médica sin dar lugar a réplicas.",
+        "a": "Suspender de inmediato la atención clínica y derivar formalmente a la paciente a otra institución y no ofrecer ninguna instancia de seguimiento posterior.",
+        "b": "Adoptar una postura defensiva autoritaria imponiendo la indicación médica sin dar lugar a réplicas, descartando por completo la opinión y los valores de la paciente.",
         "c": "Aceptar incondicionalmente todas las solicitudes de la paciente aun cuando no tengan indicación médica.",
         "d": "Aplicar la técnica de reconducción por objetivos y expresar de forma respetuosa cómo afecta la tensión al clima de la consulta."
       },
@@ -117,7 +117,7 @@
       "pregunta": "La \"Segunda Demora\" se relaciona fundamentalmente con:",
       "opciones": {
         "a": "La falta de insumos médicos y personal capacitado dentro del centro obstétrico.",
-        "b": "El retraso por parte de la mujer y su familia en tomar la decisión de buscar atención médica.",
+        "b": "El retraso por parte de la mujer y su familia en tomar la decisión de buscar atención médica de forma sistemática en todas las comunidades.",
         "c": "Las barreras de accesibilidad geográfica, distancia y disponibilidad de transporte hacia el centro de salud.",
         "d": "La demora en la realización de la cesárea de urgencia por falta de anestesiólogo en quirófano."
       },
@@ -140,9 +140,9 @@
       "id": 12,
       "pregunta": "¿por qué motivo NO se recomienda la realización del Test de VPH como prueba de tamizaje primario en mujeres menores de 30 años?",
       "opciones": {
-        "a": "Porque el Test de VPH presenta una baja sensibilidad para detectar lesiones de alto grado en mujeres jóvenes.",
+        "a": "Porque el Test de VPH presenta una baja sensibilidad para detectar lesiones de alto grado en mujeres jóvenes, lo que obliga a repetir el estudio con citología cada seis meses.",
         "b": "Debido a la alta prevalencia de infecciones transitorias por VPH, lo que causaría sobrediagnóstico y sobretratamiento.",
-        "c": "Porque la toma de muestra para el Test de VPH resulta técnicamente dificultosa en pacientes nulíparas.",
+        "c": "Porque la toma de muestra para el Test de VPH resulta técnicamente dificultosa en pacientes nulíparas y exige anestesia general para la toma de la muestra.",
         "d": "Porque en este grupo etario el desarrollo de cáncer cervicouterino invasor no responde a la infección viral por VPH."
       },
       "respuesta_correcta": "b",
@@ -189,7 +189,7 @@
       "pregunta": "Durante la exploración ginecológica de rutina, ¿cuál es la técnica correcta para la inserción e inspección del cérvix mediante el espéculo vaginal?",
       "opciones": {
         "a": "Introducir el espéculo con las valvas cerradas en posición oblicua o vertical, deprimiendo la pared posterior de la vulva, y luego rotarlo horizontalmente.",
-        "b": "Introducir el espéculo con las valvas totalmente abiertas en sentido horizontal ejerciendo presión sobre la uretra anterior.",
+        "b": "Introducir el espéculo con las valvas totalmente abiertas en sentido horizontal ejerciendo presión sobre la uretra anterior, sin necesidad de rotarlo ni de fijar la posición de las valvas.",
         "c": "Introducir el espéculo en ángulo recto sin cerrarlo previa fijación del cuello uterino con pinza de tracción de Pozzi.",
         "d": "Introducir el espéculo en posición horizontal forzando la comisura vulvar superior sin realizar lubricación previa."
       },
@@ -200,9 +200,9 @@
       "id": 17,
       "pregunta": "Respecto a la semiología y estudios complementarios mamarios, ¿cuál de las siguientes situaciones constituye una indicación primaria de la ecografía mamaria?",
       "opciones": {
-        "a": "El tamizaje anual de rutina en mujeres asintomáticas mayores de 50 años sin factores de riesgo.",
+        "a": "El tamizaje anual de rutina en mujeres asintomáticas mayores de 50 años sin factores de riesgo en pacientes sin síntomas ni antecedentes.",
         "b": "La evaluación inicial de nódulos mamarios en mujeres jóvenes (< 30 años) y la diferenciación sólido-quística.",
-        "c": "La detección exclusiva de microcalcificaciones pleomórficas agrupadas sospechosas de malignidad.",
+        "c": "La detección exclusiva de microcalcificaciones pleomórficas agrupadas sospechosas de malignidad y la medición de su densidad tisular.",
         "d": "La sustitución completa de la mamografía en el control de pacientes con mamas predominantemente grasas."
       },
       "respuesta_correcta": "b",
@@ -238,7 +238,7 @@
       "opciones": {
         "a": "Punción aspirativa con aguja fina (PAAF) guiada exclusivamente por palpación anatómica retroareolar.",
         "b": "Drenaje percutáneo con evacuación de la cavidad e instilación de medio de contraste baritado.",
-        "c": "Aplicación local de ácido acético al 5% sobre la piel para evidenciar cambios vasculares superficiales.",
+        "c": "Aplicación local de ácido acético al 5% sobre la piel para evidenciar cambios vasculares superficiales y su evaluación posterior con dermatoscopía.",
         "d": "Marcación previa de la lesión mediante la colocación de un arpón o guía metálica por ecografía o estereotaxia."
       },
       "respuesta_correcta": "d",
@@ -261,8 +261,8 @@
       "pregunta": "En la clasificación del desarrollo mamario según los estadios de Tanner, el Estadio 4 se caracteriza clínicamente por:",
       "opciones": {
         "a": "Proyección de la aréola y del pezón para formar un montículo secundario por encima del plano de la mama.",
-        "b": "Aparición del botón mamario con elevación de la mama y del pezón en forma de un pequeño montículo.",
-        "c": "Mayor agrandamiento y elevación de mama y aréola, sin separación de sus contornos.",
+        "b": "Aparición del botón mamario con elevación de la mama y del pezón en forma de un pequeño montículo, antes de los 7 años de edad.",
+        "c": "Mayor agrandamiento y elevación de mama y aréola, sin separación de sus contornos, sin proyección posterior del pezón ni modificación del contorno global.",
         "d": "Etapa de madurez con recesión de la aréola al nivel de la piel del contorno mamario y proyección exclusiva del pezón."
       },
       "respuesta_correcta": "a",
@@ -297,8 +297,8 @@
       "pregunta": "¿Cuál es el tratamiento médico de elección en la Pubertad Precoz Central (PPC) para detener el avance de la maduración ósea y preservar la talla adulta final?",
       "opciones": {
         "a": "Análogos de GnRH (como acetato de triptorelina o leuprolide) administrados de forma continua para desensibilizar los receptores hipofisarios.",
-        "b": "Inhibidores de la aromatasa de primera generación administrados vía oral de forma continua hasta la edad adulta.",
-        "c": "Progestágenos puros a altas dosis para inducir atrofia endometrial sin modificar la velocidad de crecimiento estatural.",
+        "b": "Inhibidores de la aromatasa de primera generación administrados vía oral de forma continua hasta la edad adulta y suspensión al llegar a la menarca.",
+        "c": "Progestágenos puros a altas dosis para inducir atrofia endometrial sin modificar la velocidad de crecimiento estatural, con control mensual de la edad ósea.",
         "d": "Antiestrógenos selectivos como el tamoxifeno para frenar de manera aislada el desarrollo del tejido mamario."
       },
       "respuesta_correcta": "a",
@@ -308,10 +308,10 @@
       "id": 26,
       "pregunta": "El Síndrome de McCune-Albright es una causa clásica de Pubertad Precoz Periférica (PPP) o GnRH-independiente. ¿Cuál es su alteración fisiopatológica subyacente?",
       "opciones": {
-        "a": "Una neoplasia hipofisaria secretora de prolactina y hormona del crecimiento que activa el eje ovárico.",
-        "b": "Una estimulación hiperpulsátil del generador de GnRH causada por malformaciones vasculares cerebrales.",
+        "a": "Una neoplasia hipofisaria secretora de prolactina y hormona del crecimiento que activa el eje ovárico con hiperprolactinemia persistente.",
+        "b": "Una estimulación hiperpulsátil del generador de GnRH causada por malformaciones vasculares cerebrales y pubertad precoz de progresión lenta.",
         "c": "Una mutación somática postcigótica del gen GNAS1 con activación autónoma de la proteína Gsα e hiperfunción ovárica.",
-        "d": "Un defecto enzimático en la síntesis de cortisol que causa hiperplasia de la corteza suprarrenal fetal."
+        "d": "Un defecto enzimático en la síntesis de cortisol que causa hiperplasia de la corteza suprarrenal fetal y virilización progresiva."
       },
       "respuesta_correcta": "c",
       "justificacion": "El síndrome de McCune-Albright es un trastorno genético no heredable causado por una mutación somática postcigótica en el gen GNAS1, que codifica la subunidad α de la proteína G (Gsα). Esto provoca una activación constitutiva de la adenilato ciclasa e hiperfunción autónoma folicular ovárica (quistes estrogénicos autónomos), asociada a manchas cutáneas café con leche y displasia fibrosa poliostótica."
@@ -322,7 +322,7 @@
       "opciones": {
         "a": "La aparición simultánea de botón mamario, vello púbico rudo y sangrado vaginal en menores de 6 años.",
         "b": "La presencia de desarrollo mamario unilateral o bilateral antes de los 8 años, sin otros signos puberales ni aceleración de la edad ósea.",
-        "c": "La aceleración masiva del crecimiento estatural acompañada de fusión epifisaria precoz antes de los 7 años.",
+        "c": "La aceleración masiva del crecimiento estatural acompañada de fusión epifisaria precoz antes de los 7 años y requiere resonancia magnética de silla turca inmediata.",
         "d": "Un proceso neoplásico ovárico secretor de andrógenos que requiere gonadectomía quirúrgica de urgencia."
       },
       "respuesta_correcta": "b",
@@ -370,7 +370,7 @@
       "opciones": {
         "a": "Un bloqueo hipofisario en la secreción de prolactina que impide la foliculogénesis.",
         "b": "Un fallo ovárico primario por apoptosis acelerada de ovocitos (disgenesia gonadal) que causa un Hipogonadismo Hipergonadotrófico.",
-        "c": "La falta de respuesta tisular periférica a los estrógenos por mutación del gen receptor estrogénico.",
+        "c": "La falta de respuesta tisular periférica a los estrógenos por mutación del gen receptor estrogénico, con cariotipo 46,XY y FSH elevada.",
         "d": "Una producción excesiva de andrógenos tecales que inhibe la liberación pulsátil de GnRH."
       },
       "respuesta_correcta": "b",
@@ -380,8 +380,8 @@
       "id": 32,
       "pregunta": "Una adolescente de 16 años consulta por amenorrea primaria. Al examen presenta un desarrollo mamario adecuado (Tanner 4), ausencia de vello púbico y axilar, genitales externos femeninos con vagina corta ciega, ausencia de útero y presencia de testículos en los conductos inguinales. Su cariotipo es 46,XY. El diagnóstico es:",
       "opciones": {
-        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser.",
-        "b": "Disgenesia Gonadal Pura (Síndrome de Swyer).",
+        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia mülleriana con cariotipo 46,XX y ovarios funcionantes).",
+        "b": "Disgenesia Gonadal Pura (Síndrome de Swyer) (cariotipo 46,XY con genitales internos müllerianos y gónadas en cintilla).",
         "c": "Hiperplasia Suprarrenal Congénita clásica.",
         "d": "Síndrome de Insensibilidad Completa a los Andrógenos (Síndrome de Morris)."
       },
@@ -428,9 +428,9 @@
       "id": 36,
       "pregunta": "En la evaluación pediátrica y gineco-infantil del desarrollo puberal, la determinación de la maduración esquelética (edad ósea) se efectúa de elección mediante:",
       "opciones": {
-        "a": "La tomografía axial computada de miembros inferiores para medir la densidad del fémur.",
-        "b": "La resonancia magnética de columna lumbosacra para evaluar los núcleos de osificación vertebral.",
-        "c": "La ecografía transvaginal de alta resolución para medir la superficie de las placas epifisarias.",
+        "a": "La tomografía axial computada de miembros inferiores para medir la densidad del fémur y determinar con ello la edad ósea de la paciente.",
+        "b": "La resonancia magnética de columna lumbosacra para evaluar los núcleos de osificación vertebral y estimar la talla adulta final.",
+        "c": "La ecografía transvaginal de alta resolución para medir la superficie de las placas epifisarias y estimar la velocidad de crecimiento.",
         "d": "La radiografía simple de mano y muñeca izquierda comparando con las tablas estandarizadas de Greulich-Pyle o Tanner-Whitehouse."
       },
       "respuesta_correcta": "d",
@@ -464,7 +464,7 @@
       "id": 39,
       "pregunta": "En el paciente con Síndrome de Klinefelter (47,XXY) durante la etapa puberal y adolescente, los hallazgos clínicos y hormonales característicos son:",
       "opciones": {
-        "a": "Fenotipo femenino con amenorrea primaria, ausencia de mamas y concentraciones elevadas de estrógenos.",
+        "a": "Fenotipo femenino con amenorrea primaria, ausencia de mamas y concentraciones elevadas de estrógenos y desarrollo puberal incompleto.",
         "b": "Talla baja severa, pterygium colli, coartación de aorta y ausencia de gónadas detectables en ecografía.",
         "c": "Fenotipo masculino, talla alta, testículos pequeños y firmes, ginecomastia, azoospermia e hipergonadismo hipergonadotrófico.",
         "d": "Genitales ambiguos al nacer con deshidratación grave por pérdida de sal en la primera semana de vida."
@@ -476,8 +476,8 @@
       "id": 40,
       "pregunta": "Respecto a la cronología fisiológica de la menarca en relación con el desarrollo puberal, señale el enunciado correcto:",
       "opciones": {
-        "a": "Se produce de forma simultánea con el inicio de la telarca en el Estadio 1 de Tanner.",
-        "b": "Ocurre habitualmente 5 a 6 años después de la pubarca, coincidiendo con el cierre epifisario completo.",
+        "a": "Se produce de forma simultánea con el inicio de la telarca en el Estadio 1 de Tanner y con la aparición del primer sangrado menstrual.",
+        "b": "Ocurre habitualmente 5 a 6 años después de la pubarca, coincidiendo con el cierre epifisario completo, cuando la velocidad de crecimiento ya es máxima.",
         "c": "Precede al estirón puberal y se presenta durante la fase de máxima aceleración de la velocidad estatural.",
         "d": "Ocurre generalmente 2 a 3 años después de la telarca, durante la fase de desaceleración del pico de crecimiento estatural."
       },
@@ -488,7 +488,7 @@
       "id": 41,
       "pregunta": "Durante la histerectomía abdominal o la ligadura quirúrgica de la arteria uterina por hemorragia grave, la relación anatómica crítica entre la arteria uterina y el uréter se produce a nivel del ligamento cardinal (de Mackenrodt). ¿A qué distancia aproximada del cuello uterino la arteria cruzando por delante al uréter realiza su cayado ascendente?",
       "opciones": {
-        "a": "Pasa por detrás del uréter a 5 cm del istmo, emitiendo la arteria vesical inferior.",
+        "a": "Pasa por detrás del uréter a 5 cm del istmo, emitiendo la arteria vesical inferior y rodeando el cuello uterino.",
         "b": "Cruza por delante del uréter a aproximadamente 1,5 a 2 cm por fuera del cuello uterino.",
         "c": "Transcurre paralela y por debajo del uréter a lo largo de todo el borde lateral del ligamento ancho.",
         "d": "Se sitúa por dentro del uréter en la fosa ilíaca sin cruzarse en ningún punto de la pelvis."
@@ -500,10 +500,10 @@
       "id": 42,
       "pregunta": "Las microcalcificaciones mamarias con mayor Valor Predictivo Positivo (VPP) de malignidad y sospecha de Carcinoma Ductal In Situ (CDIS) de alto grado son aquellas que se presentan morfológicamente como:",
       "opciones": {
-        "a": "Calcificaciones gruesas en \"popcorn\" o en mora, asociadas a fibroadenomas involutivos.",
-        "b": "Calcificaciones anulares en \"cáscara de huevo\" o quísticas, con centro radiolúcido.",
+        "a": "Calcificaciones gruesas en \"popcorn\" o en mora, asociadas a fibroadenomas involutivos y de bordes bien definidos.",
+        "b": "Calcificaciones anulares en \"cáscara de huevo\" o quísticas, con centro radiolúcido y de contornos nítidos.",
         "c": "Calcificaciones pleomórficas finas o lineales ramificadas con distribución lineal o segmentaria.",
-        "d": "Calcificaciones vasculares en \"vía de tren\" siguiendo el trayecto de las arterias mamarias."
+        "d": "Calcificaciones vasculares en \"vía de tren\" siguiendo el trayecto de las arterias mamarias de pacientes posmenopáusicas."
       },
       "respuesta_correcta": "c",
       "justificacion": "En la clasificación BI-RADS (5ª edición), las microcalcificaciones finas pleomórficas y sobre todo las lineales finas o ramificadas (que traducen necrosis comedo dentro de los conductos mamarios en el CDIS) dispuestas en forma lineal o segmentaria tienen la mayor sospecha de malignidad (BI-RADS 4C o 5), con un VPP que supera el 50% al 95%. Por el contrario, las calcificaciones vasculares, en palomita de maíz o anulares son típicamente benignas (BI-RADS 2). (Referencia: la 5ª edición del sistema BI-RADS del Colegio Americano de Radiología (ACR))."
@@ -536,8 +536,8 @@
       "id": 45,
       "pregunta": "En la anatomía de los espacios topográficos del espacio pelvisubperitoneal femenino, el retináculo uterino está constituido por condensaciones del tejido conectivo pelviano. ¿Qué estructura ligamentaria forma la hoja o pilar posterior del retináculo uterino?",
       "opciones": {
-        "a": "Los ligamentos pubovesicouterinos o parámetros anteriores.",
-        "b": "Los ligamentos anchos y el mesosalpinx en la fosa ilíaca.",
+        "a": "Los ligamentos pubovesicouterinos o parámetros anteriores que fijan la vejiga al pubis.",
+        "b": "Los ligamentos anchos y el mesosalpinx en la fosa ilíaca que cubren las trompas y los ovarios.",
         "c": "Los ligamentos cardinales de Mackenrodt o parámetros laterales.",
         "d": "Los ligamentos uterosacros que se extienden desde el cérvix hacia el sacro."
       },
@@ -587,7 +587,7 @@
         "a": "El médico puede realizar cualquier intervención quirúrgica invasiva sin informar a la paciente si considera que es por su beneficio biológico.",
         "b": "La paciente tiene derecho a aceptar o rechazar terapias o procedimientos médicos tras recibir información clara, suficiente y adecuada, mediante el Consentimiento Informado.",
         "c": "El profesional está obligado a divulgar la historia clínica de la paciente a su cónyuge o familiares sin necesidad de autorización previa.",
-        "d": "El Consentimiento Informado solo es obligatorio en pacientes mayores de 65 años sometidas a cirugías oncológicas complejas."
+        "d": "El Consentimiento Informado solo es obligatorio en pacientes mayores de 65 años sometidas a cirugías oncológicas complejas; en el resto de las pacientes alcanza con el consentimiento verbal de un familiar."
       },
       "respuesta_correcta": "b",
       "justificacion": "La Ley 26.529 consagra los derechos del paciente en su relación con los profesionales e instituciones de la salud. El principio de Autonomía de la Voluntad determina que la paciente es dueña de decidir sobre su propio cuerpo y salud, teniendo el derecho de aceptar o rechazar procedimientos médicos mediante el proceso de Consentimiento Informado, previa recepción de información veraz, comprensible y completa."
@@ -620,9 +620,9 @@
       "id": 52,
       "pregunta": "En la fisiología de la respuesta sexual femenina, el modelo propuesto por Rosemary Basson a diferencia del ciclo lineal clásico de Masters y Johnson / Kaplan, se caracteriza por ser:",
       "opciones": {
-        "a": "Un modelo estrictamente rígido centrado de forma exclusiva en la vasocongestión genital miotónica.",
+        "a": "Un modelo estrictamente rígido centrado de forma exclusiva en la vasocongestión genital miotónica que descarta la influencia del deseo y de la intimidad emocional.",
         "b": "Un modelo circular no lineal donde el deseo receptivo y la intimidad emocional motivan la búsqueda de la excitación sexual.",
-        "c": "Un modelo determinado de forma biológica única por las concentraciones séricas de progesterona lútea.",
+        "c": "Un modelo determinado de forma biológica única por las concentraciones séricas de progesterona lútea, sin participación de factores emocionales ni psicosociales.",
         "d": "Un ciclo reflejo incondicionado que culmina indefectiblemente en el orgasmo sin influencia del entorno afectivo."
       },
       "respuesta_correcta": "b",
@@ -644,10 +644,10 @@
       "id": 54,
       "pregunta": "Para la localización y marcación prequirúrgica de una lesión mamaria no palpable altamente sospechosa de malignidad (BI-RADS 4/5) previa a la biopsia radioquirúrgica, el procedimiento estándar consiste en:",
       "opciones": {
-        "a": "La aplicación cutánea de fluoresceína y luz ultravioleta en el quirófano.",
+        "a": "La aplicación cutánea de fluoresceína y luz ultravioleta en el quirófano y la posterior resección del tumor sin necesidad de control radiológico.",
         "b": "La colocación guiada por ecografía o mamografía de un arpón o guía metálica en el sitio exacto de la lesión.",
         "c": "La marcación a ciegas mediante la inyección de tinta china en los cuatro cuadrantes de la mama.",
-        "d": "La instilación intratumoral de aire comprimido para provocar un enfisema localizado."
+        "d": "La instilación intratumoral de aire comprimido para provocar un enfisema localizado y control radiológico intraoperatorio posterior."
       },
       "respuesta_correcta": "b",
       "justificacion": "En las lesiones subclínicas no palpables detectadas por mamografía o ecografía (BI-RADS 4 o 5), se realiza una marcación prequirúrgica el mismo día de la cirugía. Bajo control ecográfico o mamográfico (estereotaxia), se introduce una aguja que despliega un arpón o filamento metálico cuyo extremo queda alojado en la lesión, sirviendo de guía táctil y visual al cirujano para realizar la exéresis guiada (biopsia radioquirúrgica o ecoquirúrgica)."
@@ -656,10 +656,10 @@
       "id": 55,
       "pregunta": "El modelo de IMMPACT (Initiative for Maternal Mortality Programme Assessment) introdujo una nueva perspectiva en el análisis de los determinantes de la morbimortalidad materna al incorporar:",
       "opciones": {
-        "a": "El estudio exclusivo de factores genéticos y mutaciones cromosómicas en las muertes fetales.",
+        "a": "El estudio exclusivo de factores genéticos y mutaciones cromosómicas en las muertes fetales y la mortalidad materna por causas externas.",
         "b": "El concepto del \"equilibrio del mercado\" analizando el desequilibrio entre la oferta y la demanda dentro del sistema de salud.",
-        "c": "La erradicación total de los hospitales de nivel III para reemplazarlos por centros domiciliarios.",
-        "d": "La evaluación única de la presión arterial media en el tercer trimestre de la gestación."
+        "c": "La erradicación total de los hospitales de nivel III para reemplazarlos por centros domiciliarios y la sustitución de las estrategias de atención primaria.",
+        "d": "La evaluación única de la presión arterial media en el tercer trimestre de la gestación y el cálculo del peso fetal estimado por ecografía."
       },
       "respuesta_correcta": "b",
       "justificacion": "El modelo IMMPACT (desarrollado para evaluar programas de maternidad segura) incorpora principios económicos al análisis de la mortalidad materna. Enfatiza el concepto de \"equilibrio de mercado\" dentro del sistema de salud, analizando las fallas y el desequilibrio entre la demanda (necesidades percibidas y comportamiento de búsqueda de atención de la comunidad) y la oferta (capacidad, insumos, calidad y recursos reales del sistema de salud)."
@@ -669,7 +669,7 @@
       "pregunta": "Durante la realización del bloqueo anestésico del nervio pudendo interno en la atención del parto o cirugías perineales, ¿qué referencia anatómica ósea palpa el tocoginecólogo por vía vaginal para guiar la aguja hacia el conducto pudendo (de Alcock)?",
       "opciones": {
         "a": "La espina ciática (o isquiática) y el ligamento sacroespinoso.",
-        "b": "El borde superior de la sínfisis del pubis.",
+        "b": "El borde superior de la sínfisis del pubis y el ligamento inguinal.",
         "c": "La cresta ilíaca anterosuperior.",
         "d": "El trocánter mayor del fémur."
       },
@@ -680,7 +680,7 @@
       "id": 57,
       "pregunta": "En la fisiopatología de la Hiperprolactinemia, ¿cuál es el mecanismo neuroendocrino por el cual una masa selar no secretora (ej. un macroadenoma hipofisario no funcional) produce elevación de los niveles plasmáticos de prolactina?",
       "opciones": {
-        "a": "Destrucción total de las células lactotropas del lóbulo anterior de la hipófisis.",
+        "a": "Destrucción total de las células lactotropas del lóbulo anterior de la hipófisis con el consecuente descenso de la prolactina circulante.",
         "b": "Estimulación directa de la enzima aromatasa en el estroma ovárico.",
         "c": "\"Efecto tallo\" o desconexión del tallo hipofisario, que interrumpe la llegada de dopamina (factor inhibidor) desde el hipotálamo.",
         "d": "Exceso de secreción de serotonina por las glándulas suprarrenales."
@@ -728,9 +728,9 @@
       "id": 61,
       "pregunta": "¿Qué estructura anatómica transcurre contenida dentro del borde superior libre del ligamento ancho de la pelvis?",
       "opciones": {
-        "a": "El uréter pélvico en su trayecto hacia el trígono vesical.",
+        "a": "El uréter pélvico en su trayecto hacia el trígono vesical cruzando por debajo de la arteria uterina.",
         "b": "La trompa de Falopio (salpinx) acompañada por su meso (mesosalpinx).",
-        "c": "La arteria uterina en su porción ascendente intramiometrial.",
+        "c": "La arteria uterina en su porción ascendente intramiometrial y sus ramas helicinas hacia el endometrio.",
         "d": "El ligamento uterosacro rodeando la pared lateral del recto."
       },
       "respuesta_correcta": "b",
@@ -741,7 +741,7 @@
       "pregunta": "En la fisiología del ciclo endometrial, durante la fase secretora tardía (días 24 a 28), ¿qué cambio microvascular específico, desencadenado por la luteólisis y la caída abrupta de progesterona, produce el colapso estromal y el sangrado menstrual?",
       "opciones": {
         "a": "Vasodilatación permanente de los capilares venosos con extravasación serosa sin necrosis tisular.",
-        "b": "Proliferación desmedida de las arterias rectales basales inducida por el aumento sérico de relaxina.",
+        "b": "Proliferación desmedida de las arterias rectales basales inducida por el aumento sérico de relaxina y con edema tisular local sin compromiso de la microcirculación.",
         "c": "Espasmo arteriolar espiralado intermitente y sostenido que induce isquemia, necrosis tisular y liberación de metaloproteinasas.",
         "d": "Trombosis masiva de los senos venosos miometriales con dilatación aneurismática de las arterias arcuatas."
       },
@@ -764,9 +764,9 @@
       "id": 64,
       "pregunta": "En la clasificación epidemiológica de las causas de muerte materna, ¿cuál de las siguientes situaciones clínicas se encuadra como una Muerte Materna Indirecta?",
       "opciones": {
-        "a": "Fallecimiento por shock hipovolémico irreversible secundario a atrofia o atonía uterina postparto.",
+        "a": "Fallecimiento por shock hipovolémico irreversible secundario a atrofia o atonía uterina postparto y falta de respuesta a los uterotónicos habituales.",
         "b": "Fallecimiento por paro cardiorrespiratorio debido a una cardiopatía congénita previa agrava por la sobrecarga hemodinámica del embarazo.",
-        "c": "Fallecimiento por shock séptico consecutivo a un aborto provocado con maniobras sépticas.",
+        "c": "Fallecimiento por shock séptico consecutivo a un aborto provocado con maniobras sépticas con compromiso multiorgánico progresivo y coagulopatía.",
         "d": "Fallecimiento por eclampsia y falla multiorgánica secundarias a síndrome HELLP en el tercer trimestre."
       },
       "respuesta_correcta": "b",
@@ -776,7 +776,7 @@
       "id": 65,
       "pregunta": "Una mama clasificada como Patrón D (extremadamente densa) implica semiológicamente:",
       "opciones": {
-        "a": "Un menor riesgo de padecer cáncer de mama debido a la sustitución adiposa completa de los lobulillos.",
+        "a": "Un menor riesgo de padecer cáncer de mama debido a la sustitución adiposa completa de los lobulillos y una menor necesidad de estudios de imágenes complementarios.",
         "b": "La imposibilidad de realizar ecografías mamarias debido a la reverberación acústica posterior.",
         "c": "Una reducción marcada en la sensibilidad de la mamografía por enmascaramiento de lesiones, requiriendo ecografía complementaria.",
         "d": "Un diagnóstico definitivo de carcinoma lobulillar in situ que requiere mastectomía bilateral profiláctica."
@@ -788,9 +788,9 @@
       "id": 66,
       "pregunta": "Durante la exploración ginecológica bimanual en una paciente en edad fértil, la palpación de una masa anexial redonda, de 4 cm, no dolorosa, lisa, móvil y de consistencia renitente en fosa ilíaca derecha orienta clínicamente en primera instancia a:",
       "opciones": {
-        "a": "Mioma subseroso pediculado calcificado de 10 cm.",
+        "a": "Mioma subseroso pediculado calcificado de 10 cm, con degeneración hialina extensa.",
         "b": "Quiste funcional de ovario (folicular o del cuerpo lúteo).",
-        "c": "Absceso tubo-ovárico roto con abdomen agudo peritoneal.",
+        "c": "Absceso tubo-ovárico roto con abdomen agudo peritoneal y shock séptico.",
         "d": "Carcinoma epitelial seroso avanzado con implantes peritoneales sólidos."
       },
       "respuesta_correcta": "b",
@@ -824,7 +824,7 @@
       "id": 69,
       "pregunta": "En el estudio ecográfico ginecológico transvaginal, ¿cuál es el aspecto ultrasonográfico característico del endometrio normal durante la fase proliferativa tardía o periovulatoria?",
       "opciones": {
-        "a": "Estructura endometrio-miometrial fina, lineal e hiperecoica con grosor < 3 mm.",
+        "a": "Estructura endometrio-miometrial fina, lineal e hiperecoica con grosor < 3 mm y con aspecto de línea única sin halo periférico.",
         "b": "Endometrio ecogénico homogéneo, denso y blanco con sombra acústica posterior.",
         "c": "Patrón trilaminar (\"en triple línea\") con grosor que oscila habitualmente entre 7 y 14 mm.",
         "d": "Imagen heterogénea en \"queso suizo\" con lagunas vasculares hipervascularizadas."
@@ -862,7 +862,7 @@
       "opciones": {
         "a": "Decidir de manera autónoma sobre tratamientos no invasivos ni que impliquen un riesgo grave para su vida o su salud.",
         "b": "Someterse a cirugías mutilantes o complejas sin requerir asentimiento ni información a sus representantes legales.",
-        "c": "Donar órganos vitales en vida sin intervención del comité de ética institucional.",
+        "c": "Donar órganos vitales en vida sin intervención del comité de ética institucional ni evaluación de riesgos psicológicos de la persona receptora.",
         "d": "Rechazar cualquier tipo de atención de urgencia vital ante un cuadro de shock séptico descompensado."
       },
       "respuesta_correcta": "a",
@@ -911,7 +911,7 @@
         "a": "La arteria aorta abdominal al nivel de L4.",
         "b": "La arteria ilíaca externa a la altura del arco femoral.",
         "c": "La arteria ilíaca interna o hipogástrica.",
-        "d": "La arteria mesentérica inferior."
+        "d": "La arteria mesentérica inferior a la altura de L3."
       },
       "respuesta_correcta": "c",
       "justificacion": "La arteria pudenda interna es una de las ramas terminales de la división anterior de la arteria ilíaca interna (hipogástrica). Sale de la pelvis por el agujero ciático mayor, rodea la espina isquiática e ingresa a la fosa isquiorrectal por el conducto pudendo (de Alcock) para irrigar el periné y los órganos genitales externos (clítoris, bulbo vestibular y labios vulvares)."
@@ -920,7 +920,7 @@
       "id": 77,
       "pregunta": "En la respuesta sexual femenina fisiológica, ¿cuál es el mecanismo vascular responsable de la lubricación vaginal primaria durante la fase de excitación?",
       "opciones": {
-        "a": "La secreción masiva proveniente de las glándulas endometriales del cuerpo uterino.",
+        "a": "La secreción masiva proveniente de las glándulas endometriales del cuerpo uterino, que desciende por el canal endocervical hacia el introito.",
         "b": "Un proceso de transudación plasmática a través del epitelio vaginal secundario a la vasocongestión del plexo venoso perivaginal.",
         "c": "La secreción de mucina producida exclusivamente por la trompa de Falopio.",
         "d": "La descamación acelerada de las capas córneas del epitelio vulvar."
@@ -944,7 +944,7 @@
       "id": 79,
       "pregunta": "En el estudio de los motivos de consulta ginecológica, ¿cuál es la indicación precisa de la Histerosonografía (ecografía con infusión salina intrauterina)?",
       "opciones": {
-        "a": "Evaluar la permeabilidad tubaria en sustitución de la laparoscopía con prueba de azul de metileno.",
+        "a": "Evaluar la permeabilidad tubaria en sustitución de la laparoscopía con prueba de azul de metileno, y descartar anomalías müllerianas en un único estudio sin necesidad de otras imágenes.",
         "b": "Evaluar la densidad mineral ósea del cuello femoral en pacientes climatéricas.",
         "c": "Caracterizar y delimitar con precisión lesiones intracavitarias (pólipos endometriales o miomas submucosos) cuando la ecografía convencional no es concluyente.",
         "d": "Diagnosticar precozmente el cáncer invasor de ovario en etapa subclínica."
@@ -968,10 +968,10 @@
       "id": 81,
       "pregunta": "En la anatomía quirúrgica de la pelvis y el soporte estático del aparato genital femenino descrito por DeLancey, el Nivel I de sostén (Suspensión superior) está constituido fundamentalmente por:",
       "opciones": {
-        "a": "El cuerpo perineal y el músculo transverso profundo del periné.",
+        "a": "El cuerpo perineal y el músculo transverso profundo del periné que actúan como principal sostén del nivel II de DeLancey en la porción media de la vagina.",
         "b": "La fascia endopelviana que forma los ligamentos uterosacros y cardinales (de Mackenrodt) suspendiendo el cérvix y el fondo de saco vaginal superior.",
-        "c": "La membrana perineal y los músculos isquiocavernosos en la vulva anterior.",
-        "d": "La fascia pubocervical adherida lateralmente al arco tendinoso de la fascia pélvica."
+        "c": "La membrana perineal y los músculos isquiocavernosos en la vulva anterior que constituyen el principal sostén de la uretra distal y del introito vaginal.",
+        "d": "La fascia pubocervical adherida lateralmente al arco tendinoso de la fascia pélvica y el sostén medio de la pared anterior de la vagina por encima del ano."
       },
       "respuesta_correcta": "b",
       "justificacion": "Según la clasificación de DeLancey sobre el soporte pélvico: el Nivel I (Suspensión) está dado por las fibras superiores de la fascia endopelviana que forman los ligamentos cardinales y uterosacros, fijando el cuello uterino y el cúpula/fondo de saco vaginal superior a la pared pélvica posterior y lateral. El Nivel II (Inserción lateral) sostiene la pared vaginal media a través de las fascias pubocervical y rectovaginal; y el Nivel III (Fusión distal) fija la vagina inferior al cuerpo perineal."
@@ -981,7 +981,7 @@
       "pregunta": "En la realización sistemática de la mamografía de tamizaje o diagnóstico, ¿cuáles son las dos proyecciones radiológicas convencionales estandarizadas que deben solicitarse en forma bilateral?",
       "opciones": {
         "a": "La proyección Cráneo-Caudal (CC) y la proyección Medio-Lateral Oblicua (MLO).",
-        "b": "La proyección Antero-Posterior pura (AP) y la proyección Axial Axilar.",
+        "b": "La proyección Antero-Posterior pura (AP) y la proyección Axial Axilar, más una incidencia adicional de la axila.",
         "c": "La proyección Tangencial de Pezón y la proyección con Magnificación Localizada.",
         "d": "La proyección Decúbito Lateral Estereotáxica y la proyección Trans-torácica."
       },
@@ -1004,10 +1004,10 @@
       "id": 84,
       "pregunta": "¿cuál de las siguientes complicaciones obstétricas constituye una de las principales causas directas de muerte materna prevenible durante el embarazo, parto o puerperio?",
       "opciones": {
-        "a": "Las malformaciones congénitas fetales del sistema nervioso central.",
-        "b": "El prolapso de cordón umbilical sin compromiso hemodinámico materno.",
+        "a": "Las malformaciones congénitas fetales del sistema nervioso central y de la columna vertebral en las primeras semanas de gestación.",
+        "b": "El prolapso de cordón umbilical sin compromiso hemodinámico materno, sin la necesidad de intervención obstétrica urgente.",
         "c": "Los trastornos hipertensivos del embarazo (preeclampsia/eclampsia) y la hemorragia postparto.",
-        "d": "La diabetes gestacional bien controlada con dieta sin cetoacidosis."
+        "d": "La diabetes gestacional bien controlada con dieta sin cetoacidosis, con seguimiento ambulatorio regular y sin complicaciones obstétricas."
       },
       "respuesta_correcta": "c",
       "justificacion": "En Argentina y América Latina, las causas obstétricas directas representan la inmensa mayoría de las muertes maternas. Las principales causas directas son los trastornos hipertensivos (preeclampsia grave y eclampsia), la hemorragia obstétrica (atonía uterina y desprendimientos) y las infecciones/sepsis (post-aborto o puerperales), considerándose en su mayoría muertes evitable mediante un adecuado control prenatal y atención del parto oportuna. (Referencia: los registros epidemiológicos oficiales de morbimortalidad materna en Argentina)."
@@ -1016,10 +1016,10 @@
       "id": 85,
       "pregunta": "En la evaluación colposcópica y citológica del cuello uterino, la \"Zona de Transformación\" se define anatómicamente como:",
       "opciones": {
-        "a": "El área comprendida entre la sínfisis del pubis y el meato uretral externo.",
+        "a": "El área comprendida entre la sínfisis del pubis y el meato uretral externo y el orificio vaginal que se pliega con la mucosa del vestíbulo posterior.",
         "b": "La región del cérvix comprendida entre la unión escamocolumnar original y la nueva unión escamocolumnar activa, donde ocurre la metaplasia.",
-        "c": "La porción del cuerpo uterino donde las arterias arcuatas se transforman en arterias espiraladas.",
-        "d": "El segmento miometrial que une la trompa de Falopio con el ligamento redondo."
+        "c": "La porción del cuerpo uterino donde las arterias arcuatas se transforman en arterias espiraladas por donde pasan los vasos hacia el endometrio funcional.",
+        "d": "El segmento miometrial que une la trompa de Falopio con el ligamento redondo, sin relación con los fenómenos de metaplasia del epitelio cervical."
       },
       "respuesta_correcta": "b",
       "justificacion": "La Zona de Transformación es el área del cuello uterino donde el epitelio cilíndrico (endocervical) es reemplazado por epitelio escamoso mediante el proceso fisiológico de metaplasia escamosa. Está delimitada por la unión escamocolumnar original y la unión escamocolumnar funcional actual. Esta zona es el sitio anatómico donde se originan más del 90% de las lesiones preneoplásicas (SIL) y el cáncer cervicouterino por acción del VPH."
@@ -1041,7 +1041,7 @@
       "pregunta": "En la neuroendocrinología del ciclo menstrual, ¿cuál es el evento desencadenante principal que determina la ruptura folicular y la ovulación aproximadamente 24 a 36 horas después?",
       "opciones": {
         "a": "El descenso crítico de los niveles de hormona adrenocorticotrófica (ACTH).",
-        "b": "El aumento masivo de la inhibina B producida por el cuerpo lúteo no funcional.",
+        "b": "El aumento masivo de la inhibina B producida por el cuerpo lúteo no funcional luego de la caída de la progesterona al final de la fase lútea.",
         "c": "La supresión completa de la secreción de prolactina por parte del hipotálamo.",
         "d": "El pico preovulatorio de Hormona Luteinizante (LH) secundario al feedback positivo de los niveles elevados de estradiol."
       },
@@ -1076,10 +1076,10 @@
       "id": 90,
       "pregunta": "El drenaje venoso de la glándula mamaria tiene importancia en la diseminación metastásica del cáncer de mama. Las venas intercostales comunican con el sistema venoso vertebral de Batson, lo cual explica la propagación de metástasis tumorales sin pasar por el filtro pulmonar hacia:",
       "opciones": {
-        "a": "La columna vertebral, la pelvis y el cráneo.",
-        "b": "El intestino delgado y el apéndice cecal.",
-        "c": "Los huesos propios del pie y el calcáneo.",
-        "d": "Las arterias coronarias y el pericardio."
+        "a": "La columna vertebral y la pelvis.",
+        "b": "El intestino delgado y el apéndice cecal, junto con las vértebras cervicales y el cráneo.",
+        "c": "Los huesos propios del pie y el calcáneo, junto con el calcáneo y los huesos tarsianos.",
+        "d": "Las arterias coronarias y el pericardio, junto con el pericardio y los vasos del mediastino."
       },
       "respuesta_correcta": "a",
       "justificacion": "El plexo venoso vertebral de Batson es una red de venas sin válvulas que comunica las venas intercostales posteriores y la vena ácigos directamente con los plexos venosos vertebrales internos. Esto permite que las células tumorales de un cáncer de mama puedan embolizar por vía venosa retrógrada hacia los cuerpos vertebrales, la pelvis ósea y el cráneo sin pasar necesariamente por la circulación pulmonar o la vena cava."
@@ -1103,7 +1103,7 @@
         "a": "Número de muertes maternas ocurridas durante el parto por cada 100.000 nacidos vivos.",
         "b": "Número de fallecimientos de niños menores de 5 años por cada 10.000 nacimientos totales.",
         "c": "Número de defunciones de niños menores de 1 año (0 a 364 días de vida) ocurridas en un año por cada 1.000 nacidos vivos en el mismo período.",
-        "d": "Número de abortos espontáneos ocurridos antes de las 20 semanas por cada 1.000 mujeres en edad fértil."
+        "d": "Número de abortos espontáneos ocurridos antes de las 20 semanas por cada 1.000 mujeres en edad fértil, incluyendo los embarazos ectópicos y las molas hidatiformes."
       },
       "respuesta_correcta": "c",
       "justificacion": "La Tasa de Mortalidad Infantil (TMI) es un indicador sensible del nivel de vida y desarrollo socio-sanitario de una población. Se calcula como el cociente entre el número de defunciones de niños menores de 1 año (0 a 364 días de vida) registrados durante un año determinado sobre el número total de nacidos vivos en ese mismo año, multiplicado por 1.000."
@@ -1136,9 +1136,9 @@
       "id": 95,
       "pregunta": "En el informe citológico cervicouterino según el Sistema Bethesda, el hallazgo de células escamosas atípicas de significado indeterminado (ASC-US) en una paciente de 35 años sometida a tamizaje primario con Test de VPH indica:",
       "opciones": {
-        "a": "Presencia confirmada de un carcinoma escamocelular invasor con metástasis ganglionares.",
-        "b": "Diagnóstico definitivo de metaplasia madura atrófica sin necesidad de seguimiento.",
-        "c": "Presencia de mitosis atípicas marcadas compatibles con sarcoma botrioide del cérvix.",
+        "a": "Presencia confirmada de un carcinoma escamocelular invasor con metástasis ganglionares y requiere histerectomía radical con linfadenectomía pélvica.",
+        "b": "Diagnóstico definitivo de metaplasia madura atrófica sin necesidad de seguimiento y alta definitiva del programa de tamizaje cervical.",
+        "c": "Presencia de mitosis atípicas marcadas compatibles con sarcoma botrioide del cérvix y derivación inmediata a oncología quirúrgica.",
         "d": "Cambios citológicos sospechosos pero no definitorios de lesión intraepitelial, requiriendo triaje con prueba de VPH o colposcopía."
       },
       "respuesta_correcta": "d",
@@ -1148,10 +1148,10 @@
       "id": 96,
       "pregunta": "En la esteroidogénesis ovárica, ¿cuál es la enzima o proteína transportadora crítica que limita la velocidad del paso inicial al transferir el colesterol desde la membrana mitocondrial externa a la interna dentro de las células tecales?",
       "opciones": {
-        "a": "La aromatasa (CYP19A1).",
-        "b": "La 17-alfa-hidroxilasa.",
+        "a": "La aromatasa (CYP19A1) (enzima que convierte los andrógenos en estrógenos en la granulosa).",
+        "b": "La 17-alfa-hidroxilasa (necesaria para la síntesis de andrógenos y de cortisol).",
         "c": "La proteína StAR (Steroidogenic Acute Regulatory Protein).",
-        "d": "La 5-alfa-reductasa tipo 2."
+        "d": "La 5-alfa-reductasa tipo 2 (enzima que convierte la testosterona en dihidrotestosterona)."
       },
       "respuesta_correcta": "c",
       "justificacion": "La etapa limitante y reguladora de la síntesis de todos los esteroides sexuales en las gónadas y suprarrenales es el transporte del colesterol libre desde la membrana mitocondrial externa hacia la membrana mitocondrial interna. Este transporte intramolecular es mediado por la proteína reguladora aguda de la esteroidogénesis (proteína StAR). Una vez en la matriz interna, la enzima CYP11A1 (desmolasa) convierte el colesterol en pregnenolona."
@@ -1184,9 +1184,9 @@
       "id": 99,
       "pregunta": "En el Modelo de las Tres Demoras para el análisis de la mortalidad materna (Thaddeus y Maine), la \"Tercera Demora\" se produce específicamente por:",
       "opciones": {
-        "a": "La indecisión de la paciente en acudir al centro asistencial por motivos culturales o familiares.",
+        "a": "La indecisión de la paciente en acudir al centro asistencial por motivos culturales o familiares o por la valoración inadecuada de los signos de alarma en el domicilio.",
         "b": "La falta de caminos transitables y la carencia de ambulancias para el traslado rural.",
-        "c": "El rechazo de la paciente a recibir transfusiones sanguíneas por creencias religiosas personales.",
+        "c": "El rechazo de la paciente a recibir transfusiones sanguíneas por creencias religiosas personales y por la negativa de los familiares a autorizar el traslado al hospital.",
         "d": "Las deficiencias y demoras dentro de la institución de salud en brindar la atención médica u obstétrica de emergencia adecuada y oportuna."
       },
       "respuesta_correcta": "d",
@@ -1196,7 +1196,7 @@
       "id": 100,
       "pregunta": "En la exploración semiológica de la vulva y del periné, la palpación de las glándulas vestibulares mayores (de Bartholino) se realiza situando el dedo índice en la vagina y el pulgar en el tegumento externo a nivel de:",
       "opciones": {
-        "a": "El tercio superior de los labios mayores cerca del monte de piedad (pubis) al horario de las 12.",
+        "a": "El tercio superior de los labios mayores cerca del monte de piedad (pubis) al horario de las 12 de manera simétrica en ambos labios.",
         "b": "El espacio interdigital entre el clítoris y el meato urinario anterior.",
         "c": "La unión del tercio medio y posterior del introito vaginal, a la hora 4 y hora 8 de la carátula del reloj.",
         "d": "La fosa isquiorrectal profunda a nivel del esfínter anal externo al horario de las 6."

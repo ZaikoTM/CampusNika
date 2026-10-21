@@ -8,7 +8,7 @@
       "id": 1,
       "pregunta": "En la neuroendocrinología del desarrollo puberal femenino, ¿cuál es el mecanismo fisiológico por el cual la Leptina y las neuronas secretoras de Kisspeptina regulan el inicio de la pulsatilidad del generador hipotalámico de GnRH?",
       "opciones": {
-        "a": "La leptina inhibe la síntesis de kisspeptina en el núcleo arcuato, bloqueando la descarga pulsátil de gonadotrofinas hasta alcanzar la edad adulta.",
+        "a": "La leptina inhibe la síntesis de kisspeptina en el núcleo arcuato, bloqueando la descarga pulsátil de gonadotrofinas hasta alcanzar la edad adulta, sin participación de los receptores GPR54.",
         "b": "El incremento del tejido adiposo eleva la leptina sérica, estimulando la transcripción de kisspeptina que activa los receptores GPR54 en las neuronas de GnRH.",
         "c": "La kisspeptina actúa directamente sobre las células tecales del ovario estimulando la síntesis de andrógenos independientemente de la secreción de LH.",
         "d": "La leptina disminuye en la fase prepuberal para permitir la desinhibición directa de la secreción continua e interrumpida de FSH hipofisaria."
@@ -44,10 +44,10 @@
       "id": 4,
       "pregunta": "Durante la evaluación clínica del desarrollo mamario según los estadios de Tanner, ¿qué características físicas definen exactamente al Estadio 4 de Tanner (M4)?",
       "opciones": {
-        "a": "Elevación exclusiva del pezón sin desarrollo del tejido glandular subareolar (estadio prepuberal).",
+        "a": "Elevación exclusiva del pezón sin desarrollo del tejido glandular subareolar (estadio prepuberal) y ausencia de crecimiento de las aréolas.",
         "b": "Presencia de botón mamario con elevación de la mama y del pezón en forma de un pequeño montículo.",
         "c": "Proyección de la aréola y del pezón para formar un montículo secundario por encima del plano de la glándula mamaria.",
-        "d": "Aspecto de mama adulta con recesión de la aréola al plano del contorno mamario y proyección exclusiva del pezón."
+        "d": "Aspecto de mama adulta con recesión de la aréola al plano del contorno mamario y proyección exclusiva del pezón, característica del estadio final del desarrollo."
       },
       "respuesta_correcta": "c",
       "justificacion": "La estadificación de Tanner para el desarrollo mamario clasifica: M1 (prepuberal, solo elevación del pezón); M2 (botón mamario, pequeña masa glandular subareolar); M3 (agrandamiento y elevación de mama y aréola sin separación de contornos); M4 (la aréola y el pezón se elevan por encima del nivel de la glándula mamaria, formando un montículo secundario sobresaliente); y M5 (mama adulta madura, en la cual la aréola se retira al contorno general de la mama y solo sobresale el pezón)."
@@ -69,9 +69,9 @@
       "pregunta": "La Pubertad Precoz Central (PPC) o verdadera se diferencia fundamentalmente de la Pubertad Precoz Periférica (PPP) o seudopubertad precoz porque en la PPC:",
       "opciones": {
         "a": "Existe una activación prematura dependiente de GnRH del eje hipotálamo-hipófiso-gonadal que respeta la secuencia puberal fisiológica.",
-        "b": "La secreción de esteroides sexuales se produce de forma autónoma e independiente de los niveles circulantes de FSH y LH.",
-        "c": "El síntoma inicial de presentación es sistemáticamente una metrorragia abundante antes de la aparición del botón mamario.",
-        "d": "La respuesta de las gonadotrofinas ante la estimulación con GnRH exógena se encuentra completamente abolida o suprimida."
+        "b": "La secreción de esteroides sexuales se produce de forma autónoma e independiente de los niveles circulantes de FSH y LH y sin respuesta a las hormonas hipotalámicas.",
+        "c": "El síntoma inicial de presentación es sistemáticamente una metrorragia abundante antes de la aparición del botón mamario y con crecimiento puberal ausente.",
+        "d": "La respuesta de las gonadotrofinas ante la estimulación con GnRH exógena se encuentra completamente abolida o suprimida y sin respuesta a ningún otro estímulo."
       },
       "respuesta_correcta": "a",
       "justificacion": "La Pubertad Precoz Central (PPC) es causante de más del 75-90% de los casos de desarrollo adelantado en niñas y se debe a la reactivación prematura del generador de pulsos de GnRH (dependiente de GnRH). Por esta razón, la PPC \"respeta la secuencia cronológica fisiológica\" (telarca → pubarca → estirón → menarca) y cursa con aumento del tamaño ovárico y uterino. En cambio, la PPP es independiente de GnRH y no respeta la secuencia fisiológica, pudiendo debutar atípicamente con metrorragias."
@@ -117,8 +117,8 @@
       "pregunta": "En la evaluación pediátrica de las formas incompletas de pubertad precoz, la Telarca Prematura Idiopática se caracteriza clínicamente por:",
       "opciones": {
         "a": "Aparición aislada del botón mamario en niñas menores de 8 años, sin aceleración de la velocidad de crecimiento ni de la edad ósea, requiriendo conducta expectante.",
-        "b": "Presencia de desarrollo mamario acompañado de virilización severa, clitorromegalia y maduración esquelética muy avanzada.",
-        "c": "Elevación masiva de gonadotrofinas (LH y FSH) en rango adulto con imagen ecográfica de ovarios mayores a 5 ml.",
+        "b": "Presencia de desarrollo mamario acompañado de virilización severa, clitorromegalia y maduración esquelética muy avanzada y un valor de estradiol sérico muy elevado con LH basal suprimida.",
+        "c": "Elevación masiva de gonadotrofinas (LH y FSH) en rango adulto con imagen ecográfica de ovarios mayores a 5 ml y desarrollo de vello púbico y axilar en estadios avanzados.",
         "d": "Desarrollo mamario bilateral de progresión rápida que culmina obligatoriamente en menarca antes de los 9 años."
       },
       "respuesta_correcta": "a",
@@ -130,7 +130,7 @@
       "opciones": {
         "a": "Los niveles plasmáticos de prolactina y TSH en ayunas.",
         "b": "Las concentraciones urinarias de gonadotropina coriónica humana (hCG).",
-        "c": "La respuesta de la hormona de crecimiento (GH) tras estímulo con clonidina.",
+        "c": "La respuesta de la hormona de crecimiento (GH) tras estímulo con clonidina en una prueba de estimulación de dos horas.",
         "d": "Los niveles basales y post-estímulo con ACTH de la 17-hidroxiprogesterona (17-OHP)."
       },
       "respuesta_correcta": "d",
@@ -140,7 +140,7 @@
       "id": 12,
       "pregunta": "¿cuándo se define operacionalmente que una paciente presenta Retraso Puberal?",
       "opciones": {
-        "a": "Cuando no ha presentado la menarca a los 11 años de edad cronológica habiendo iniciado la telarca a los 10 años.",
+        "a": "Cuando no ha presentado la menarca a los 11 años de edad cronológica habiendo iniciado la telarca a los 10 años, lo que se considera retraso puberal con indicación de estudio hormonal inmediato.",
         "b": "Cuando la velocidad de crecimiento estatural disminuye a menos de 10 cm/año durante la etapa escolar.",
         "c": "Cuando no existe inicio de desarrollo mamario (telarca) a los 13 años (2 DS por encima de la media) o transcurren más de 5 años entre la telarca y la menarca.",
         "d": "Cuando el vello axilar aparece antes que el desarrollo del botón mamario en una paciente de 12 años."
@@ -154,7 +154,7 @@
       "opciones": {
         "a": "Elevación severa e irreversible de FSH y LH por aplasia ovárica congénita con cariotipo 45,X.",
         "b": "Retraso armónico de la edad ósea respecto a la cronológica, presencia de antecedentes familiares similares y progresión puberal espontánea completa.",
-        "c": "Presencia de anosmia bilateral asociada a tumores infiltrativos de la región selar y quiasma óptico.",
+        "c": "Presencia de anosmia bilateral asociada a tumores infiltrativos de la región selar y quiasma óptico, con talla baja desproporcionada y pubertad espontánea ausente.",
         "d": "Mutación inactivante confirmada en el receptor de estrógenos que requiere gonadectomía profiláctica."
       },
       "respuesta_correcta": "b",
@@ -177,7 +177,7 @@
       "pregunta": "En el Síndrome de Turner (45,X), ¿cuál es el mecanismo fisiopatológico primario responsable de la ausencia de desarrollo puberal y qué hallazgo de laboratorio confirma la insuficiencia gonadal?",
       "opciones": {
         "a": "Un adenoma hipofisario no funcional que comprime el tallo y eleva la prolactina bloqueando la GnRH.",
-        "b": "Una agenesia completa de los conductos de Müller con ovarios normales y LH/FSH en niveles prepuberales.",
+        "b": "Una agenesia completa de los conductos de Müller con ovarios normales y LH/FSH en niveles prepuberales y desarrollo mamario normal en estadio Tanner 4.",
         "c": "Un bloqueo en la conversión periférica de testosterona a estradiol por déficit severo de aromatasa ovárica.",
         "d": "Una atresia y apoptosis acelerada de folículos ováricos que causa disgenesia gonadal e Hipogonadismo Hipergonadotrófico."
       },
@@ -188,8 +188,8 @@
       "id": 16,
       "pregunta": "Una paciente de 16 años de edad, con fenotipo femenino y talla alta, consulta por amenorrea primaria. Al examen físico presenta un desarrollo mamario excelente (Tanner 4-5), ausente o escaso vello púbico y axilar, vagina corta ciega sin cuello uterino. La ecografía pélvica confirma ausencia de útero y presencia de gónadas en conductos inguinales. El laboratorio reporta testosterona en rango masculino normal y cariotipo 46,XY. El diagnóstico es:",
       "opciones": {
-        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser.",
-        "b": "Deficiencia de 5-alfa-reductasa tipo 2.",
+        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia mülleriana con ovarios funcionantes y cariotipo 46,XX).",
+        "b": "Deficiencia de 5-alfa-reductasa tipo 2 (alteración enzimática con genitales externos ambiguos y cariotipo 46,XY).",
         "c": "Síndrome de Insensibilidad Completa a los Andrógenos (Síndrome de Morris).",
         "d": "Disgenesia Gonadal Pura (Síndrome de Swyer)."
       },
@@ -201,7 +201,7 @@
       "pregunta": "A diferencia del Síndrome de Morris, la Disgenesia Gonadal Pura 46,XY (Síndrome de Swyer) se caracteriza anatómicamente por la presencia de útero hipoplásico y trompas de Falopio. ¿Cuál es la causa embriológica de la preservación de estas estructuras müllerianas?",
       "opciones": {
         "a": "La falta completa de tejido testicular funcional, lo que impide la secreción de Hormona Antimülleriana (HAM).",
-        "b": "La sobreproducción masiva de estrógenos placentarios que estimula la fusión de los conductos de Wolff.",
+        "b": "La sobreproducción masiva de estrógenos placentarios que estimula la fusión de los conductos de Wolff y su paso materno a través del seno urogenital.",
         "c": "La presencia de receptores androgénicos hipersensibles en el epitelio del seno urogenital.",
         "d": "La falta de regresión del ligamento redondo por hipersecreción de progesterona suprarrenal."
       },
@@ -214,7 +214,7 @@
       "opciones": {
         "a": "Cariotipo 45,X, gonadotrofinas elevadas, fallo ovárico primario y agenesia de clítoris.",
         "b": "Cariotipo 46,XX, función ovárica y caracteres sexuales normales, con agenesia/hipoplasia uterovaginal.",
-        "c": "Cariotipo 46,XY, testosterona elevada, ausencia de mamas y persistencia de conductos de Wolff.",
+        "c": "Cariotipo 46,XY, testosterona elevada, ausencia de mamas y persistencia de conductos de Wolff, con gónadas masculinas intraabdominales.",
         "d": "Cariotipo 47,XXY, prolactina elevada, útero Didelfo funcional e hipertrofia bicipital."
       },
       "respuesta_correcta": "b",
@@ -236,7 +236,7 @@
       "id": 20,
       "pregunta": "En el marco de la Educación Sexual Integral (ESI) y el abordaje clínico de la salud de niñeces e infancias en la consulta gineco-infantil, ¿cuál es la conducta profesional correcta respecto a la privacidad y la autonomía progresiva?",
       "opciones": {
-        "a": "Exigir la presencia obligatoria de ambos progenitores dentro del consultorio durante la totalidad del examen genital en adolescentes.",
+        "a": "Exigir la presencia obligatoria de ambos progenitores dentro del consultorio durante la totalidad del examen genital en adolescentes, entendiendo que la adolescente no puede decidir sobre ningún aspecto de su atención.",
         "b": "Revelar el contenido confidencial de la entrevista a la institución escolar sin el consentimiento de la paciente.",
         "c": "Garantizar un espacio de escucha a solas con el profesional, respetando el principio de autonomía progresiva y la confidencialidad según el Código Civil y Comercial.",
         "d": "Realizar procedimientos invasivos no urgentes sin brindar información comprensible ni obtener el asentimiento de la niña."
@@ -296,8 +296,8 @@
       "id": 25,
       "pregunta": "Un adolescente varón de 18 años acude a la consulta por presentar molestia y sensibilidad dolorosa retroareolar bilateral de meses de evolución. A la palpación se constata un tejido discoide firme, elástico, centrado debajo del complejo aréola-pezón, de 2,5 cm de diámetro, sin adenopatías axilares ni secreción. ¿Cuál es la causa más frecuente de este cuadro y la conducta médica indicada?",
       "opciones": {
-        "a": "Carcinoma ductal invasor de mama varonil / Mastectomía radical bilateral.",
-        "b": "Mastitis periductal supurada por anaerobios / Drenaje quirúrgico con toma de cultivo.",
+        "a": "Carcinoma ductal invasor de mama varonil / Mastectomía radical bilateral, con vaciamiento ganglionar axilar de entrada.",
+        "b": "Mastitis periductal supurada por anaerobios / Drenaje quirúrgico con toma de cultivo, con internación y antibióticos intravenosos.",
         "c": "Ginecomastia puberal fisiológica / Explicación del carácter benigno, contención y conducta expectante.",
         "d": "Lipoma estromal de pared torácica / Biopsia exegética por congelación."
       },
@@ -309,7 +309,7 @@
       "pregunta": "En el estudio de una niña de 6 años con sospecha de estímulo estrogénico previo o no coincidente con su edad (ej. sospecha de pubertad precoz o ingesta de estrógenos exógenos), la evaluación del Urocitograma o citología del sedimento urinario determina:",
       "opciones": {
         "a": "El porcentaje de células epiteliales superficiales maduras como indicador del trofismo y estímulo estrogénico vaginal.",
-        "b": "La presencia de cristales de oxalato de calcio secundarios a insuficiencia renal aguda.",
+        "b": "La presencia de cristales de oxalato de calcio secundarios a insuficiencia renal aguda y su aparición en el sedimento urinario de la paciente en forma persistente.",
         "c": "La contaminación bacteriana por enterobacterias provenientes del intestino grueso.",
         "d": "La tasa de exfoliación de podocitos renales inducida por la aldosterona."
       },
@@ -320,9 +320,9 @@
       "id": 27,
       "pregunta": "Una paciente de 16 años presenta amenorrea primaria. Refiere desarrollo mamario Estadio IV de Tanner, fenotipo femenino, vello axilar y púbico casi ausente, y genitales externos femeninos con vagina corta ciega. La ecografía pélvica no visualiza útero ni trompas. El estudio genético informa cariotipo 46,XY y los dosajes de gonadotrofinas muestran LH elevada con estradiol y testosterona en niveles masculinos normales. ¿Cuál es el tratamiento quirúrgico diferido recomendado para evitar la transformación maligna gonadal?",
       "opciones": {
-        "a": "Histerectomía total con conservación de ambas cintillas gonadales.",
-        "b": "Vaginoplastia de sustitución inmediata en la infancia temprana con injerto libre de piel.",
-        "c": "Anexectomía unilateral izquierda antes de los 8 años de edad cronológica.",
+        "a": "Histerectomía total con conservación de ambas cintillas gonadales para evitar la degeneración maligna de los restos müllerianos.",
+        "b": "Vaginoplastia de sustitución inmediata en la infancia temprana con injerto libre de piel y control anual posterior.",
+        "c": "Anexectomía unilateral izquierda antes de los 8 años de edad cronológica para prevenir la virilización puberal progresiva.",
         "d": "Gonadectomía bilateral quirúrgica realizada una vez completado el desarrollo puberal y mamario."
       },
       "respuesta_correcta": "d",
@@ -334,7 +334,7 @@
       "opciones": {
         "a": "Oforectomía derecha por laparotomía de urgencia con vaciamiento ganglionar pélvico.",
         "b": "Conducta expectante y seguimiento ecográfico en 6 a 8 semanas, ya que suele tratarse de un quiste folicular autónomo transitorio con involución espontánea.",
-        "c": "Inicio inmediato de tratamiento con análogos de GnRH de depósito cada 28 días por 2 años.",
+        "c": "Inicio inmediato de tratamiento con análogos de GnRH de depósito cada 28 días por 2 años y control mensual de la velocidad de crecimiento y de la edad ósea durante todo el tratamiento hasta la pubertad fisiológica.",
         "d": "Prescripción de anticonceptivos orales combinados trifásicos a dosis altas por 6 meses."
       },
       "respuesta_correcta": "b",
@@ -344,7 +344,7 @@
       "id": 29,
       "pregunta": "¿cuál de los siguientes criterios clínicos define la presencia de Retraso Puberal en la mujer?",
       "opciones": {
-        "a": "Ausencia de menarca a los 12 años de edad en una paciente con desarrollo mamario Tanner 3.",
+        "a": "Ausencia de menarca a los 12 años de edad en una paciente con desarrollo mamario Tanner 3 y vello axilar presente desde los 10 años.",
         "b": "Aparición de pubarca aislada a los 10 años sin presencia de sangrado menstrual.",
         "c": "Ausencia de telarca (botón mamario) a los 13 años de edad o transcurso de más de 5 años entre la telarca y la menarca.",
         "d": "Desaceleración de la velocidad de crecimiento estatural a partir de los 14 años de edad."
@@ -357,9 +357,9 @@
       "pregunta": "Un recién nacido a término presenta ambigüedad de genitales externos caracterizada por fusión labroescrotal parcial, pigmentación aumentada del periné y un falo hipertrofiado (clitorromegalia severa). No se palpan gónadas en las bolsas ni en los conductos inguinales. El ionograma plasmático al 10º día de vida revela hiponatremia, hiperpotasemia y acidosis metabólica. ¿Cuál es la entidad diagnóstica prioritaria a descartar y qué dosaje bioquímico es fundamental?",
       "opciones": {
         "a": "Hiperplasia Suprarrenal Congénita perdedora de sal por déficit de 21-hidroxilasa / Dosaje de 17-OH progesterona.",
-        "b": "Síndrome de Turner / Dosaje de hormona antimülleriana.",
-        "c": "Disgenesia gonadal mixta / Dosaje de inhibina B y prolactina.",
-        "d": "Síndrome de Morris / Dosaje de dihidrotestosterona (DHT) libre."
+        "b": "Síndrome de Turner / Dosaje de hormona antimülleriana (marcador de función gonadal fetal, sin relación con la esteroidogénesis suprarrenal del recién nacido).",
+        "c": "Disgenesia gonadal mixta / Dosaje de inhibina B y prolactina (marcadores de función gonadal sin valor para el diagnóstico de esta entidad).",
+        "d": "Síndrome de Morris / Dosaje de dihidrotestosterona (DHT) libre (útil para confirmar el déficit de 5-alfa-reductasa en genitales ambiguos)."
       },
       "respuesta_correcta": "a",
       "justificacion": "Ante un recién nacido con genitales ambiguos (46,XX virilizada) y sin gónadas palpables (lo que descarta presencia de testículos), la causa más frecuente y potencialmente letal es la Hiperplasia Suprarrenal Congénita (HSC) por deficiencia severa de la enzima 21-hidroxilasa (forma clásica perdedora de sal). La falta de aldosterona y cortisol produce una crisis suprarrenal grave con pérdida de sal (hiponatremia, hiperpotasemia, deshidratación y shock) hacia la 2ª semana de vida. El estudio diagnóstico inmediato es la medición de 17-OH progesterona (17-OHP) en sangre."
@@ -368,8 +368,8 @@
       "id": 31,
       "pregunta": "Una paciente de 17 años consulta por amenorrea primaria y ausencia de desarrollo puberal (Tanner M1 V1). Presenta un fenotipo femenino, talla normal-alta y genitales externos femeninos normales. La ecografía pélvica evidencia un útero hipoplásico y trompas de Falopio normales, pero no se observan ovarios estructurales, identificándose en su lugar cintillas gonadales bilaterales. El laboratorio muestra FSH 68 UI/L, LH 42 UI/L, Estradiol < 10 pg/ml y el cariotipo informa 46,XY. ¿Cuál es el diagnóstico y la conducta con las gónadas?",
       "opciones": {
-        "a": "Síndrome de Morris / Conservación de las gónadas para estimular la espermatogénesis.",
-        "b": "Síndrome de Klinefelter / Inyección de gonadotropina coriónica humana (hCG) tres veces por semana.",
+        "a": "Síndrome de Morris / Conservación de las gónadas para estimular la espermatogénesis y exige su masculinización con testosterona de por vida.",
+        "b": "Síndrome de Klinefelter / Inyección de gonadotropina coriónica humana (hCG) tres veces por semana durante todo el desarrollo puberal.",
         "c": "Hiperplasia suprarrenal no clásica / Tratamiento sustitutivo con hidrocortisona a permanencia.",
         "d": "Disgenesia Gonadal Pura 46,XY (Síndrome de Swyer) / Gonadectomía bilateral quirúrgica obligatoria por elevado riesgo de gonadoblastoma."
       },
@@ -393,7 +393,7 @@
       "pregunta": "Una adolescente de 15 años es evaluada por amenorrea primaria. Presenta caracteres sexuales secundarios femeninos completamente desarrollados (Tanner M4 V4). A la exploración genital se observa una vagina corta ciega de 2 cm. La ecografía pélvica no logra identificar estructura uterina ni cuello, observándose ambos ovarios de ecoestructura y tamaño totalmente normales bilateralmente. El laboratorio hormonal reporta estradiol, FSH y LH en niveles fisiológicos normales para la fase folicular. ¿Cuál es el diagnóstico y el cariotipo de esta paciente?",
       "opciones": {
         "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser (MRKH) con cariotipo 46,XX.",
-        "b": "Síndrome de Turner con cariotipo 45,X.",
+        "b": "Síndrome de Turner con cariotipo 45,X, talla baja y gónadas en cintilla.",
         "c": "Himen imperforado con cariotipo 46,XX.",
         "d": "Disgenesia gonadal pura con cariotipo 46,XY."
       },
@@ -405,7 +405,7 @@
       "pregunta": "En la consulta de Salud Sexual y Reproductiva con una adolescente de 15 años que solicita orientación sobre métodos anticonceptivos, ¿cuál es la recomendación médica actualizada respecto a los Métodos Anticonceptivos Reversibles de Larga Duración (LARC), como el Implante Subdérmico de Etonogestrel o el SIU de Levonorgestrel?",
       "opciones": {
         "a": "Están contraindicados de forma absoluta (Categoría 4 OMS) en pacientes nulíparas menores de 18 años.",
-        "b": "Solo pueden prescribirse si la paciente cuenta con autorización judicial firmada por un tribunal de menores.",
+        "b": "Solo pueden prescribirse si la paciente cuenta con autorización judicial firmada por un tribunal de menores, ya que al ser menores de edad cualquier método de larga duración requiere el consentimiento de un juez de familia.",
         "c": "Representan métodos de primera línea por su altísima eficacia, no depender de la adherencia diaria y ser Categoría 1 de elegibilidad según la OMS para adolescentes nulíparas.",
         "d": "Requieren la realización previa e indispensable de un legrado biopsia endometrial para descartar hiperplasia."
       },
@@ -416,9 +416,9 @@
       "id": 35,
       "pregunta": "Una joven de 14 años consulta por dolor abdominal bajo persistente y dificultad para orinar. No ha presentado la menarca pero tiene Tanner M3 V3. Al examen genital se evidencia abombamiento tenso e hiperémico del introito vaginal de coloración azulada. La ecografía revela una gran masa líquida de eco interno fino que distiende la vagina y la cavidad uterina. El diagnóstico definitivo es:",
       "opciones": {
-        "a": "Carcinoma de células claras de vagina.",
-        "b": "Pólipo endocervical gigante prolapsado.",
-        "c": "Prolapso de vejiga con cistocele severo.",
+        "a": "Carcinoma de células claras de vagina asociado a exposición intrauterina a DES.",
+        "b": "Pólipo endocervical gigante prolapsado con sangrado poscoital.",
+        "c": "Prolapso de vejiga con cistocele severo y rectocele asociado.",
         "d": "Himen imperforado con hematocolpos y hematometra."
       },
       "respuesta_correcta": "d",
@@ -428,7 +428,7 @@
       "id": 36,
       "pregunta": "Una paciente de 16 años consulta por amenorrea primaria y falta de desarrollo mamario (Tanner M1). Durante la anamnesis se detecta hiposmia severa. El laboratorio muestra FSH 0,8 UI/L (muy baja), LH 0,5 UI/L y Estradiol < 10 pg/ml. ¿Qué hallazgo en la Resonancia Magnética de encéfalo confirmaría la sospecha etiológica?",
       "opciones": {
-        "a": "Macroadenoma hipofisario de 3 cm.",
+        "a": "Macroadenoma hipofisario de 3 cm con hiperprolactinemia por compresión del tallo hipofisario.",
         "b": "Silla turca vacía.",
         "c": "Agenesia o hipoplasia de los bulbos y tractos olfatorios en la fosa craneal anterior.",
         "d": "Craneofaringioma quístico supraselar."
@@ -453,7 +453,7 @@
       "pregunta": "La edad adolescente (menor de 18 años) representa para el uso de Anticonceptivos Orales Combinados (AOC):",
       "opciones": {
         "a": "Una condición sin restricciones para el uso del método (Categoría 1 OMS).",
-        "b": "Una contraindicación absoluta (Categoría 4 OMS).",
+        "b": "Una contraindicación absoluta (Categoría 4 OMS) por riesgo de eventos tromboembólicos o de neoplasia hormonodependiente.",
         "c": "Una condición donde los riesgos superan los beneficios (Categoría 3 OMS).",
         "d": "Una condición prohibida por ley nacional."
       },
@@ -477,7 +477,7 @@
       "pregunta": "En la atención clínica de una paciente adolescente de 14 años que acude a la consulta médica solicitando anticoncepción y consejería en Salud Sexual, ¿cuál es el marco normativo y la actitud ética requerida por el profesional según la Ley de Salud Sexual y Procreación Responsable y el Código Civil y Comercial?",
       "opciones": {
         "a": "Supeditación del aporte de información a la presencia física del tutor legal dentro del consultorio.",
-        "b": "Notificación obligatoria a las autoridades policiales de la actividad sexual de la paciente en todos los casos.",
+        "b": "Notificación obligatoria a las autoridades policiales de la actividad sexual de la paciente en todos los casos y a los organismos de protección de derechos aunque no exista riesgo para la salud.",
         "c": "Garantizar la confidencialidad, la reserva de la consulta y el suministro libre de métodos anticonceptivos reversibles reconociendo su capacidad progresiva.",
         "d": "Negativa a brindar atención ginecológica hasta que la paciente alcance la mayoría de edad legal (18 años)."
       },
@@ -488,7 +488,7 @@
       "id": 41,
       "pregunta": "Una niña de 9 años acude a la consulta acompañada por su madre debido a la presencia de manchas hemáticas y leucorrea seropurulenta en su ropa interior. En la anamnesis se registra el antecedente reciente de una faringoamigdalitis estreptocócica. Al examen físico se aprecia eritema e inflamación vulvar. El cultivo de flujo identifica Streptococcus pyogenes (Streptococcus β-hemolítico Grupo A). ¿Cuál es la indicación terapéutica de elección para esta paciente?",
       "opciones": {
-        "a": "Aplicación local de óvulos vaginales combinados polivalentes cada 24 horas por 7 noches.",
+        "a": "Aplicación local de óvulos vaginales combinados polivalentes cada 24 horas por 7 noches y control en 48 horas.",
         "b": "Prescripción de Amoxicilina por vía oral a 50 mg/kg/día dividida cada 8 horas durante 7 a 10 días.",
         "c": "Indicación de Metronidazol 500 mg por vía oral cada 8 horas durante 7 días consecutivos.",
         "d": "Administración de Ceftriaxona 250 mg vía intramuscular en dosis única."
@@ -503,7 +503,7 @@
         "a": "Confirma la presencia de una insuficiencia ovárica primaria con depleción completa de la reserva folicular.",
         "b": "Demuestra la presencia de un endometrio normoestrogenizado, tracto de salida permeable y un eje que produce estrógenos pero cursa con anovulación.",
         "c": "Diagnostica de forma definitiva una agenesia uterovaginal completa (Síndrome de Mayer-Rokitansky-Küster-Hauser).",
-        "d": "Evidencia la presencia de una hiperplasia suprarrenal congénita perdedora de sal por déficit enzimático de 21-hidroxilasa."
+        "d": "Evidencia la presencia de una hiperplasia suprarrenal congénita perdedora de sal por déficit enzimático de 21-hidroxilasa con virilización progresiva y crisis de pérdida de sal en el período neonatal."
       },
       "respuesta_correcta": "b",
       "justificacion": "La prueba de la progesterona (administración de un progestágeno como medroxiprogesterona o progesterona micronizada durante 5-10 días) evalúa la presencia de estrógenos endógenos y la permeabilidad del tracto genital. Si la prueba es positiva (se produce sangrado por deprivación dentro de los 2 a 14 días posteriores a la suspensión), demuestra que la paciente posee un nivel de estrógenos endógenos adecuado para hacer proliferar el endometrio, un tracto genital permeable sin obstrucción del flujo, y que la causa de la amenorrea es la anovulación (falta de pico de LH y de cuerpo lúteo)."
@@ -512,10 +512,10 @@
       "id": 43,
       "pregunta": "En la embriogénesis del aparato genital femenino, los conductos paramesonéfricos de Müller y la placa vaginal del seno urogenital dan origen respectivamente a:",
       "opciones": {
-        "a": "Los dos tercios inferiores de la vagina y los labios mayores vulvares.",
+        "a": "Los dos tercios inferiores de la vagina y los labios mayores vulvares que se originan en el seno urogenital a partir de los bulbos sinovaginales.",
         "b": "El tercio superior de la vagina (junto a útero y trompas) y los dos tercios inferiores de la vagina.",
-        "c": "La totalidad de la vagina y la uretra proximal femenina.",
-        "d": "Las glándulas de Bartholino y el clítoris en su porción cavernosa."
+        "c": "La totalidad de la vagina y la uretra proximal femenina derivadas de los conductos mesonéfricos de Wolff.",
+        "d": "Las glándulas de Bartholino y el clítoris en su porción cavernosa originadas en los conductos de Wolff."
       },
       "respuesta_correcta": "b",
       "justificacion": "La vagina posee un doble origen embriológico: el tercio superior de la vagina (junto con las trompas de Falopio, el cuerpo uterino y el cuello uterino) deriva de la fusión y canalización de la porción caudal de los conductos paramesonéfricos de Müller. Por su parte, los dos tercios inferiores de la vagina derivan de la invaginación y canalización de los bulbos sinovaginales originados en la pared posterior del seno urogenital (placa vaginal)."
@@ -524,10 +524,10 @@
       "id": 44,
       "pregunta": "En la secuencia cronológica fisiológica de los eventos del desarrollo puberal femenino, la Menarca hace su aparición característica en el siguiente momento:",
       "opciones": {
-        "a": "De forma previa a la aparición del botón mamario (Telarca) en la etapa escolar prepuberal.",
+        "a": "De forma previa a la aparición del botón mamario (Telarca) en la etapa escolar prepuberal en una niña con velocidad de crecimiento acelerada.",
         "b": "Durante la fase de máxima aceleración del pico de velocidad de crecimiento estatural (estirón puberal).",
         "c": "Transcurridos 2 a 3 años del inicio de la telarca, durante la fase de desaceleración del estirón puberal.",
-        "d": "De forma simultánea con la adrenarca y el desarrollo del vello axilar."
+        "d": "De forma simultánea con la adrenarca y el desarrollo del vello axilar y con la finalización del desarrollo mamario en estadio Tanner 5."
       },
       "respuesta_correcta": "c",
       "justificacion": "La menarca es un evento madurativo tardío en la secuencia puberal femenina. Ocurre con una media de 12,5 a 12,6 años de edad, tradicionalmente entre 2 y 3 años después de la aparición de la telarca (botón mamario). Fisiológicamente se presenta en la fase de desaceleración del pico de velocidad de crecimiento estatural (estirón puberal), cuando la paciente ha alcanzado habitualmente un Estadio 3 o 4 de Tanner mamario."
@@ -536,10 +536,10 @@
       "id": 45,
       "pregunta": "Una niña de 10 años es llevada a la consulta pediátrica por presentar desarrollo de botón mamario bilateral (Estadio 2 de Tanner) de 6 meses de evolución. La evaluación radiológica demuestra una edad ósea de 10,2 años y la curva de crecimiento se mantiene estable en el percentil 50 de su carril genético familiar. La conducta médica correcta es:",
       "opciones": {
-        "a": "Iniciar de inmediato tratamiento frenador con análogos de GnRH de depósito cada 28 días.",
+        "a": "Iniciar de inmediato tratamiento frenador con análogos de GnRH de depósito cada 28 días y suspender el seguimiento clínico y la monitorización del crecimiento.",
         "b": "Reconocer el desarrollo puberal como fisiológico acorde a la edad cronológica, brindando contención e información a la familia.",
-        "c": "Indicar una tomografía computada de abdomen para descartar tumores suprarrenales virilizantes.",
-        "d": "Prescribir terapia de reemplazo hormonal con estrógenos a dosis de adulto para acelerar el estirón."
+        "c": "Indicar una tomografía computada de abdomen para descartar tumores suprarrenales virilizantes, junto con dosajes basales de cortisol y ACTH con control semanal.",
+        "d": "Prescribir terapia de reemplazo hormonal con estrógenos a dosis de adulto para acelerar el estirón y repetir el esquema cada seis meses hasta el cierre epifisario."
       },
       "respuesta_correcta": "b",
       "justificacion": "El inicio del desarrollo puberal (telarca) entre los 8 y los 13 años de edad se considera dentro del rango cronológico fisiológico estandarizado para la población femenina. Al no existir adelantamiento (inició a los 9,5 años), ni aceleración patológica de la edad ósea o de la velocidad de crecimiento, se trata de una pubertad normal, no requiriendo estudios invasivos ni tratamientos farmacológicos, sino pautas de educación para la salud y seguimiento clínico de rutina."
@@ -548,9 +548,9 @@
       "id": 46,
       "pregunta": "Paciente de 16 años, atleta de alto rendimiento, consulta por amenorrea primaria sin haber presentado la menarca. Al examen físico destaca: talla de 1,65 m (percentil 50), desarrollo de mamas Tanner 4, vello púbico Tanner 4 y genitales externos normales. La ecografía pélvica muestra un útero de dimensiones normales (52 mm) con endometrio de 3 mm y ovarios normales. La prueba de progesterona es NEGATIVA, pero la prueba combinada de estrógenos más progestágenos es POSITIVA. Las gonadotrofinas (FSH y LH) están en niveles bajos o límites inferiores. El diagnóstico más probable es:",
       "opciones": {
-        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser.",
+        "a": "Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia uterovaginal con ovarios funcionantes y cariotipo 46,XX).",
         "b": "Amenorrea hipotalámica funcional por inhibición de la pulsatilidad de GnRH.",
-        "c": "Insuficiencia Ovárica Precoz (Fallo Ovárico Primario).",
+        "c": "Insuficiencia Ovárica Precoz (Fallo Ovárico Primario) por agotamiento folicular antes de los 40 años con FSH elevada.",
         "d": "Síndrome de Insensibilidad Completa a los Andrógenos (Morris)."
       },
       "respuesta_correcta": "b",
@@ -562,7 +562,7 @@
       "opciones": {
         "a": "Mutación inactivante del gen del receptor de andrógenos (AR).",
         "b": "Deficiencia de la enzima 21-hidroxilasa en el contexto de una Hiperplasia Suprarrenal Congénita.",
-        "c": "Disgenesia gonadal pura por mutación inactivante del gen SRY.",
+        "c": "Disgenesia gonadal pura por mutación inactivante del gen SRY con fenotipo femenino y gónadas en cintilla con riesgo de gonadoblastoma.",
         "d": "Exceso de síntesis de hormona antimülleriana por células de Sertoli persistentes."
       },
       "respuesta_correcta": "b",
@@ -572,7 +572,7 @@
       "id": 48,
       "pregunta": "Una adolescente de 13 años es traída a la consulta por presentar sangrado vaginal abundante (hipermenorrea) de 14 días de evolución, acompañado de astenia y palidez cutáneo-mucosa. Menarca a los 12 años, con ciclos irregulares previos. El laboratorio muestra Hemoglobina 10,2 g/dl, Hematocrito 31%, plaquetas normales y test de embarazo negativo. La ecografía evidencia un útero normal y ovarios con imágenes foliculares. ¿Cuál es el tratamiento de primera línea para cohibir el sangrado en esta Hemorragia Uterina Anormal anovulatoria del adolescente?",
       "opciones": {
-        "a": "Legrado uterino instrumental bajo anestesia general.",
+        "a": "Legrado uterino instrumental bajo anestesia general con transfusión de glóbulos rojos y control posoperatorio en terapia intensiva.",
         "b": "Tratamiento hormonal por vía oral con progestágenos (o AOC en esquema decreciente) más suplementación con hierro oral.",
         "c": "Histerectomía subtotal laparoscópica de urgencia.",
         "d": "Indicación de vitamina K intramuscular y conducta expectante sin control."
@@ -586,8 +586,8 @@
       "opciones": {
         "a": "Un mínimo del 5% de grasa corporal total.",
         "b": "Un mínimo del 17% de grasa corporal para el inicio puberal y 22% para el desencadenamiento y mantenimiento de la menarca.",
-        "c": "Un mínimo del 45% de tejido graso corporal exclusivo en tronco.",
-        "d": "La masa adiposa no ejerce ningún papel en la regulación del eje gonadotrófico."
+        "c": "Un mínimo del 45% de tejido graso corporal exclusivo en tronco, requerido para la aparición de la menarca en todas las niñas.",
+        "d": "La masa adiposa no ejerce ningún papel en la regulación del eje gonadotrófico, y la leptina carece de función sobre el eje hipotálamo-hipofisario en la pubertad."
       },
       "respuesta_correcta": "b",
       "justificacion": "Las investigaciones de Frisch y Revelle establecieron que existe un umbral crítico de composición corporal para la maduración reproductiva. Se requiere alcanzar un mínimo del 17% de grasa corporal respecto del peso total para iniciar los eventos puberales (telarca/estirón) y un 22% de masa grasa corporal para desencadenar la menarca y mantener ciclos menstruales ovulatorios regulares. La leptina, secretada por los adipocitos, actúa como la señal metabólica periférica que informa al SNC sobre esta suficiencia energética. (Referencia: la hipótesis lipostática de Frisch y Revelle sobre la maduración del eje reproductor)."
@@ -597,7 +597,7 @@
       "pregunta": "En la clasificación de la Sociedad Americana de Medicina Reproductiva (ASRM) para las malformaciones müllerianas, el Útero Didelfo (Clase III) se origina embriológicamente por:",
       "opciones": {
         "a": "Falla completa en la fusión de ambos conductos paramesonéfricos de Müller en la línea media.",
-        "b": "Falla en la reabsorción del tabique central interuterino tras una fusión completa normal.",
+        "b": "Falla en la reabsorción del tabique central interuterino tras una fusión completa normal que determina un útero con tabique longitudinal.",
         "c": "Agenesia unilateral del conducto de Wolff con persistencia del conducto contralateral.",
         "d": "Ausencia completa de receptores para estrógenos en el estroma del seno urogenital."
       },
@@ -610,7 +610,7 @@
       "opciones": {
         "a": "Inducir la masculinización del tubérculo genital para formar el pene.",
         "b": "Producir la regresión e involución activa de los conductos paramesonéfricos de Müller (previniendo la formación de útero y trompas).",
-        "c": "Estimular el desarrollo de los conductos mesonéfricos de Wolff para formar el epidídimo y los conductos deferentes.",
+        "c": "Estimular el desarrollo de los conductos mesonéfricos de Wolff para formar el epidídimo y los conductos deferentes y las vesículas seminales.",
         "d": "Desencadenar el descenso testicular hacia el escroto durante el tercer trimestre."
       },
       "respuesta_correcta": "b",
@@ -632,9 +632,9 @@
       "id": 53,
       "pregunta": "En el algoritmo diagnóstico de las amenorreas primarias, la presencia de útero evaluada por ecografía pélvica o RMN permite diferenciar clínicamente dos cuadros con caracteres sexuales secundarios femeninos presentes. ¿Cuáles son estas dos entidades?",
       "opciones": {
-        "a": "Síndrome de Turner (con útero) y Síndrome de Klinefelter (sin útero).",
+        "a": "Síndrome de Turner (con útero) y Síndrome de Klinefelter (sin útero) como las causas más frecuentes de amenorrea primaria con caracteres sexuales secundarios ausentes en ambos.",
         "b": "Síndrome de Mayer-Rokitansky-Küster-Hauser y Síndrome de Morris (ambos SIN útero) de la Disgenesia Gonadal Pura 46,XX o 46,XY Swyer (CON útero).",
-        "c": "Hiperplasia Suprarrenal Congénita (sin útero) y Síndrome de Kallmann (sin útero).",
+        "c": "Hiperplasia Suprarrenal Congénita (sin útero) y Síndrome de Kallmann (sin útero) asociados con talla baja y cardiopatía congénita en ambos cuadros.",
         "d": "Síndrome de Ovario Poliquístico (sin útero) y Telarca Prematura (con útero)."
       },
       "respuesta_correcta": "b",
@@ -644,7 +644,7 @@
       "id": 54,
       "pregunta": "¿cuál es el rango normal de edad cronológica para la aparición de la Menarca y su media poblacional?",
       "opciones": {
-        "a": "Rango de 8 a 9,5 años de edad (media 8,8 años).",
+        "a": "Rango de 8 a 9,5 años de edad (media 8,8 años) con una desviación estándar de 1 año y menarca habitual en este período.",
         "b": "Rango de 10,5 a 14,5 años de edad (con una media poblacional de 12,5 a 12,6 años).",
         "c": "Rango de 15 a 18 años de edad (media 16,2 años).",
         "d": "Rango de 6 a 8 años de edad (media 7,1 años)."
@@ -656,7 +656,7 @@
       "id": 55,
       "pregunta": "Una niña de 5 años es llevada a la consulta por presentar leucorrea fétida purulento-sanguinolenta de un mes de evolución y molestias vulvares. Se sospecha la presencia de un cuerpo extraño en vagina. ¿Cuál es el procedimiento de exploración indicado para confirmar el diagnóstico y extraer el cuerpo extraño minimizando el trauma físico y psíquico?",
       "opciones": {
-        "a": "Colposcopía de magnificado con especuloscopía bimano-digital sin anestesia.",
+        "a": "Colposcopía de magnificado con especuloscopía bimano-digital sin anestesia y dilatación vaginal forzada previa bajo anestesia general en la infancia.",
         "b": "Vaginoscopía (utilizando un otoscopio o cistoscopio pediátrico con irrigación de solución fisiológica) sin necesidad de dilatación ni especuloscopía.",
         "c": "Histerectomía exploradora por laparotomía infraumbilical.",
         "d": "Legrado uterino biópsico instrumental."
@@ -718,7 +718,7 @@
       "opciones": {
         "a": "El desarrollo del clítoris y la separación de los labios menores vulvares.",
         "b": "El elongamiento del tubérculo genital para formar el pene y la fusión de los pliegues labioescrotales para formar el escroto y la uretra peniana.",
-        "c": "La regresión de los conductos de Wolff y el desarrollo del útero y trompas.",
+        "c": "La regresión de los conductos de Wolff y el desarrollo del útero y trompas a partir de la octava semana de gestación en el feto con cariotipo 46,XX.",
         "d": "La obliteración completa del conducto anal y de la vejiga urinaria."
       },
       "respuesta_correcta": "b",
@@ -740,7 +740,7 @@
       "id": 62,
       "pregunta": "Una niña de 8 años es traída a la consulta por presentar manchado vaginal hemático intermitente de 2 semanas de evolución. No presenta desarrollo del botón mamario (Tanner M1) ni pubarca, y su velocidad de crecimiento es acorde a la edad. En la inspección genital se aprecia eritema vulvar y la ecografía pélvica muestra un útero de 25 mm de relación cuerpo:cuello 1:2 sin imágenes tumorales ováricas. El urocitograma demuestra un trofismo no estimulado. ¿Cuál es la sospecha diagnóstica prioritaria?",
       "opciones": {
-        "a": "Pubertad Precoz Central verdadera por hamartoma del hipotálamo.",
+        "a": "Pubertad Precoz Central verdadera por hamartoma del hipotálamo con maduración ósea acelerada.",
         "b": "Vulvovaginitis infantil o presencia de un cuerpo extraño intravaginal.",
         "c": "Carcinoma de células claras de cérvix inducido por exposición transplacentaria a DES.",
         "d": "Sarcoma botrioide (rabdomiosarcoma embrionario) de cuello uterino."
@@ -752,7 +752,7 @@
       "id": 63,
       "pregunta": "En la fisiopatología de la Pubertad Precoz Central (PPC) idiopática, ¿cuál es el cambio endocrinológico inicial que marca el despertar prematuro del eje hipotálamo-hipófiso-gonadal?",
       "opciones": {
-        "a": "El aumento en la secreción continua e ininterrumpida de prolactina por lactotropos hipofisarios.",
+        "a": "El aumento en la secreción continua e ininterrumpida de prolactina por lactotropos hipofisarios durante todo el día.",
         "b": "El incremento de la amplitud y frecuencia de los pulsos nocturnos de secreción de LH durante el sueño.",
         "c": "La caída drástica de la somatomedina C (IGF-1) con elevación aislada de TSH.",
         "d": "La supresión permanente de la hormona antimülleriana por las células de la granulosa."
@@ -767,7 +767,7 @@
         "a": "La aparición del núcleo de osificación del hueso ganchoso del carpo.",
         "b": "El inicio de la vacuolización estromal en el hueso pisiforme.",
         "c": "La fusión completa de los cartílagos de conjunción epifisarios en los huesos largos y metacarpianos.",
-        "d": "El ensanchamiento de las líneas epifisarias del radio distal con esclerosis adyacente."
+        "d": "El ensanchamiento de las líneas epifisarias del radio distal con esclerosis adyacente con osificación completa de los cartílagos de crecimiento."
       },
       "respuesta_correcta": "c",
       "justificacion": "La edad ósea evaluada por radiografía de mano y muñeca izquierda compara los núcleos de osificación y el estado de las placas de crecimiento (cartílagos epifisarios de conjunción). Los estrógenos promueven primero el estirón puberal y posteriormente inducen la maduración y el cierre de los cartílagos de crecimiento. Cuando se produce la osificación y fusión completa de las epífisis con las diáfisis en los huesos largos y metacarpianos (edad ósea de 15-16 años en mujeres), se detiene definitivamente el crecimiento estatural lineal."
@@ -789,8 +789,8 @@
       "pregunta": "En el diagnóstico de las formas de Pubertad Precoz Periférica (PPP) o seudopubertad precoz, ¿cuál de los siguientes patrones analíticos hormonales es característico?",
       "opciones": {
         "a": "Estradiol sérico elevado con respuesta de LH y FSH suprimida o plana tras estímulo con GnRH.",
-        "b": "Niveles de LH y FSH hipergonadotróficos en rango adulto preovulatorio con estradiol bajo.",
-        "c": "Elevación aislada de TSH con niveles indetectables de esteroides sexuales suprarrenales.",
+        "b": "Niveles de LH y FSH hipergonadotróficos en rango adulto preovulatorio con estradiol bajo, con respuesta exagerada de FSH.",
+        "c": "Elevación aislada de TSH con niveles indetectables de esteroides sexuales suprarrenales y respuesta normal de LH a la GnRH.",
         "d": "Pico de LH pos-estímulo con GnRH tres veces superior al valor de FSH."
       },
       "respuesta_correcta": "a",
@@ -800,10 +800,10 @@
       "id": 67,
       "pregunta": "Durante la infancia prepuberal (período de quietud gonadal o juvenile pause), la secreción de gonadotrofinas se mantiene en niveles extremadamente bajos o indetectables. ¿Cuál es el mecanismo responsable de este silenciamiento fisiológico del eje HHG?",
       "opciones": {
-        "a": "La inhibición tónica ejercida por el sistema nervioso central (mecanismos gabaérgicos y opiáceos) sumada a una extrema sensibilidad del hipotálamo al retrocontrol negativo de las bajas concentraciones de estrógenos.",
-        "b": "La destrucción transitoria de las células gonadotropas de la adenohipófisis por anticuerpos maternos.",
-        "c": "La hipersecreción de progesterona por la zona fascicular de la corteza suprarrenal.",
-        "d": "La ausencia completa de receptores de GnRH en la membrana de las células gonadotropas hipofisarias."
+        "a": "La inhibición tónica del sistema nervioso central (mecanismos gabaérgicos y opiáceos) y la gran sensibilidad del hipotálamo al retrocontrol negativo de los estrógenos bajos.",
+        "b": "La destrucción transitoria de las células gonadotropas de la adenohipófisis por anticuerpos maternos, con ausencia de respuesta de LH y FSH ante cualquier estímulo hipotalámico durante la infancia y la niñez.",
+        "c": "La hipersecreción de progesterona por la zona fascicular de la corteza suprarrenal, con inhibición directa de la secreción de gonadotrofinas desde los 2 años de vida hasta la pubertad.",
+        "d": "La ausencia completa de receptores de GnRH en la membrana de las células gonadotropas hipofisarias y la consecuente falta de respuesta hipofisaria a los pulsos hipotalámicos hasta el inicio de la pubertad."
       },
       "respuesta_correcta": "a",
       "justificacion": "En la infancia, desde los 2 años hasta el inicio puberal, el eje hipotálamo-hipófiso-gonadal entra en un período de reposo o quiescencia fisiológica (gonadostato hiperactivo). El hipotálamo es extremadamente sensible a concentraciones ínfimas de estrógenos circulantes, respondiendo con un potente feedback negativo, al cual se suma un freno inhibitorio central mediado por neurotransmisores como el GABA y los péptidos opioides endógenos. Al aproximarse la pubertad, este freno central disminuye y aumenta la secreción de kisspeptina, reactivando el generador de GnRH."
@@ -812,10 +812,10 @@
       "id": 68,
       "pregunta": "Una paciente de 13 años consulta por un cuadro de sangrado menstrual abundante y prolongado (hipermenorrea de 16 días de evolución) que le genera fatiga física. Presenta menarca hace 8 meses con ciclos irregulares. Examen físico: TA 100/50 mmHg, FC 80 lpm, Hb 9,7 g/dl, Hcto 30%, test de embarazo negativo. La ecografía pélvica muestra un útero normal y anexos sin masas. ¿Cuál es el manejo de primera línea indicado?",
       "opciones": {
-        "a": "Internación urgente para legrado uterino fraccionado bajo anestesia general y transfusión de glóbulos rojos.",
+        "a": "Internación urgente para legrado uterino fraccionado bajo anestesia general y transfusión de glóbulos rojos por sospecha de neoplasia endometrial con histeroscopía y biopsia previa en todos los casos.",
         "b": "Tratamiento ambulatorio con progestágenos por vía oral (o anticonceptivos combinados en dosis decrecientes) asociados a hierro por vía oral y seguimiento clínico.",
         "c": "Histerectomía subtotal de urgencia para control hemostático.",
-        "d": "Aplicación de análogos de GnRH de depósito y conducta expectante sin suplementación de hierro."
+        "d": "Aplicación de análogos de GnRH de depósito y conducta expectante sin suplementación de hierro y control con ecografía transvaginal cada seis meses durante dos años."
       },
       "respuesta_correcta": "b",
       "justificacion": "Esta pregunta ha sido tomada textualmente en los parciales y recuperatorios de la cátedra SIM (UNER). En adolescentes con Hemorragia Uterina Anormal secundaria a inmadurez del eje (anovulación fisiológica) que presentan anemia leve/moderada (Hb 9,7 g/dl) pero con estabilidad hemodinámica, la conducta médica estandarizada es el tratamiento hormonal conservador ambulatorio con progestágenos o AOC para regularizar el endometrio, asociado a hierro oral para la corrección hematológica, evitando procedimientos invasivos como el legrado."
@@ -824,9 +824,9 @@
       "id": 69,
       "pregunta": "En la consulta gineco-infantil de una niña de 6 años que presenta prurito vulvar anal y leucorrea escasa, el examen parasitológico mediante escobillado anal analítico (test de Graham) permite diagnosticar la infección por:",
       "opciones": {
-        "a": "Trichomonas vaginalis.",
+        "a": "Trichomonas vaginalis (protozoario flagelado).",
         "b": "Enterobius vermicularis (Oxiuros).",
-        "c": "Candida albicans.",
+        "c": "Candida albicans (hongo levaduriforme).",
         "d": "Chlamydia trachomatis."
       },
       "respuesta_correcta": "b",
@@ -848,7 +848,7 @@
       "id": 71,
       "pregunta": "¿Cuál de las siguientes condiciones médicas en una niña prepuberal representa una indicación para estudiar de forma inmediata una posible Pubertad Precoz Periférica por un tumor ovárico secretor de estrógenos (ej. tumor de células de la granulosa)?",
       "opciones": {
-        "a": "Presencia de telarca aislada de 2 años de evolución con velocidad de crecimiento normal y edad ósea acorde a la cronológica.",
+        "a": "Presencia de telarca aislada de 2 años de evolución con velocidad de crecimiento normal y edad ósea acorde a la cronológica, sin masa abdominal ni elevación del estradiol y con ecografía pélvica normal.",
         "b": "Aparición repentina de masa abdominal palpable, desarrollo mamario de progresión muy rápida, metrorragia y niveles de estradiol muy elevados con FSH/LH suprimidas.",
         "c": "Presencia de vello axilar escaso a los 11 años de edad con menarca a los 12,5 años.",
         "d": "Aparición de acné facial leve a los 12 años con ecografía abdominal normal."
@@ -908,9 +908,9 @@
       "id": 76,
       "pregunta": "En la clasificación de las malformaciones de los conductos de Müller, el Útero Septado (Clase V de la ASRM) se diferencia del Útero Bicorne (Clase IV) porque el útero septado se produce por:",
       "opciones": {
-        "a": "Agenesia completa de ambos conductos paramesonéfricos de Müller.",
+        "a": "Agenesia completa de ambos conductos paramesonéfricos de Müller que impide el desarrollo del útero y de la vagina con ovarios normales.",
         "b": "Falla en la reabsorción del tabique mezo-sagital interuterino tras una fusión externa normal de los conductos de Müller.",
-        "c": "Falla completa en la fusión de las porciones caudales de los conductos de Müller.",
+        "c": "Falla completa en la fusión de las porciones caudales de los conductos de Müller y con formación de un útero didelfo con dos cuellos.",
         "d": "Persistencia bilateral del conducto de Gartner con duplicación del seno urogenital."
       },
       "respuesta_correcta": "b",
@@ -920,9 +920,9 @@
       "id": 77,
       "pregunta": "¿Cuál de las siguientes intervenciones en una niña prepuberal con vulvovaginitis inespecífica recurrente forma parte de las pautas de higiene y autocuidado de primera línea recomendadas por los consensos de Pediatría y Ginecología Infanto-Juvenil?",
       "opciones": {
-        "a": "Indicar baños de asiento diarios con soluciones antisépticas concentradas de yodopovidona.",
+        "a": "Indicar baños de asiento diarios con soluciones antisépticas concentradas de yodopovidona, suspender el uso de ropa interior de algodón y utilizar protectores diarios sintéticos.",
         "b": "Recomendar el aseo perineal de adelante hacia atrás tras la deposición, uso de ropa interior de algodón holgada y evitar el uso de jabones perfumados o baños de burbujas.",
-        "c": "Prescribir profilaxis antibiótica continua por vía oral con ciprofloxacina durante 6 meses.",
+        "c": "Prescribir profilaxis antibiótica continua por vía oral con ciprofloxacina durante 6 meses y baños de inmersión con jabones antisépticos tres veces por día durante el tratamiento.",
         "d": "Aplicar cremas vaginales con estrógenos de alta potencia dos veces al día de forma permanente."
       },
       "respuesta_correcta": "b",
@@ -934,7 +934,7 @@
       "opciones": {
         "a": "Todos los casos de Pubertad Precoz Central, especialmente en niñas menores de 6 años y en varones, para descartar tumores orgánicos del SNC (ej. hamartoma, glioma).",
         "b": "Únicamente en niñas mayores de 12 años con menarca normal.",
-        "c": "Exclusivamente si la paciente presenta cariotipo 45,X confirmatorio de Síndrome de Turner.",
+        "c": "Exclusivamente si la paciente presenta cariotipo 45,X confirmatorio de Síndrome de Turner y en cualquier niña con edad ósea acorde, descartando tumores del sistema nervioso central en todos los casos.",
         "d": "En pacientes con quistes foliculares ováricos aislados e involutivos."
       },
       "respuesta_correcta": "a",
@@ -945,9 +945,9 @@
       "pregunta": "En el marco de la consulta médica de adolescentes y la prescripción de anticoncepción, la Ley Nacional 25.673 de Salud Sexual y Procreación Responsable establece que el acceso a la información y a los métodos anticonceptivos es:",
       "opciones": {
         "a": "Un derecho universal de la población sin discriminación, garantizando la gratuidad en el sistema público de salud y respetando la confidencialidad.",
-        "b": "Un servicio arancelado obligatorio que requiere el pago previo de un coseguro institucional.",
-        "c": "Un procedimiento restringido exclusivamente a personas casadas o con autorización escrita firmada ante escribano público.",
-        "d": "Un derecho que se adquiere recién al cumplir los 21 años de edad en todo el territorio nacional."
+        "b": "Un servicio arancelado obligatorio que requiere el pago previo de un coseguro institucional, y la gratuidad se limita a los centros de salud privados con convenio de obra social.",
+        "c": "Un procedimiento restringido exclusivamente a personas casadas o con autorización escrita firmada ante escribano público y con residencia comprobada en la jurisdicción de atención.",
+        "d": "Un derecho que se adquiere recién al cumplir los 21 años de edad en todo el territorio nacional y únicamente con indicación escrita del ginecólogo tratante."
       },
       "respuesta_correcta": "a",
       "justificacion": "La Ley 25.673 garantiza el derecho a la salud sexual y procreación responsable de toda la población. Establece el suministro gratuito de métodos anticonceptivos reversibles en efectores públicos de salud, la atención de adolescentes sin barreras ni exigencia de acompañamiento adulto obligatorio para la consejería/prescripción (en concordancia con el CCCN), garantizando la confidencialidad y el acceso a la información científica actualizada."
@@ -969,9 +969,9 @@
       "pregunta": "En el contexto del proceso de maduración de la adolescencia y según los aspectos psicosociales contemplados en el programa de la materia (duelos de la adolescencia descritos por Arminda Aberastury y evaluados en los parciales de la cátedra), ¿cuál es la pérdida o duelo específico relativo al esquema corporal que debe elaborar el o la adolescente?",
       "opciones": {
         "a": "El duelo por el cuerpo infantil y por el rol e identidad infantil perdidos, asumiendo el nuevo rol en la procreación.",
-        "b": "El duelo por la pérdida de la capacidad motora fisiológica y la regresión del lenguaje.",
-        "c": "El duelo por la autarquía económica y la renuncia inmediata al grupo de pares.",
-        "d": "El duelo por la pérdida de la memoria retrógrada y la hipertrofia del pensamiento concreto."
+        "b": "El duelo por la pérdida de la capacidad motora fisiológica y la regresión del lenguaje y el estancamiento definitivo del desarrollo cognitivo en la adolescencia.",
+        "c": "El duelo por la autarquía económica y la renuncia inmediata al grupo de pares y la suspensión definitiva de los vínculos familiares con el entorno cercano.",
+        "d": "El duelo por la pérdida de la memoria retrógrada y la hipertrofia del pensamiento concreto asociados a un trastorno psiquiátrico mayor de comienzo en la adolescencia."
       },
       "respuesta_correcta": "a",
       "justificacion": "De acuerdo con la bibliografía de la materia (Arminda Aberastury / Psicología UP2 / Choices previos UNER), el adolescente debe atravesar tres duelos fundamentales: 1) El duelo por el cuerpo infantil perdido (enfrentado a los cambios biológicos incontrolables de la pubertad); 2) El duelo por el rol y la identidad infantiles (pérdida de la dependencia y necesidad de asumir la responsabilidad del nuevo rol en la procreación); y 3) El duelo por los padres de la infancia."
@@ -1004,7 +1004,7 @@
       "id": 84,
       "pregunta": "En la evaluación ecográfica pélvica de una paciente de 15 años con sospecha de amenorrea primaria por agenesia mülleriana (Síndrome de Rokitansky), ¿qué estudio de imágenes complementario o de rastreo de malformaciones asociadas debe realizarse sistemáticamente debido a su origen embriológico compartido?",
       "opciones": {
-        "a": "Radiografía contrastada de colon por enema para descartar megacolon aganglionar.",
+        "a": "Radiografía contrastada de colon por enema para descartar megacolon aganglionar y evaluar la motilidad intestinal asociada a las malformaciones müllerianas en todas las pacientes.",
         "b": "Ecografía renal y de vías urinarias para descartar anomalías renales asociadas (agenesia renal unilateral, riñón en herradura).",
         "c": "Angiotomografía de arterias coronarias para evaluar coartación aórtica.",
         "d": "Mamografía digital bilateral para descartar mamas supernumerarias."
@@ -1030,7 +1030,7 @@
       "opciones": {
         "a": "Las células de la teca interna del ovario adulto.",
         "b": "Las células de Sertoli en el tejido testicular.",
-        "c": "La zona fascicular de la corteza suprarrenal.",
+        "c": "La zona fascicular de la corteza suprarrenal productora de cortisol.",
         "d": "La capa basal del endometrio funcional."
       },
       "respuesta_correcta": "b",
@@ -1076,10 +1076,10 @@
       "id": 90,
       "pregunta": "En el estudio de la pubertad precoz, la distinción entre Pubertad Precoz Central (PPC) e Isosexual/Heterosexual Periférica es crucial. Una niña de 6 años que presenta desarrollo de vello púbico rudo, acné, clitorromegalia y aceleración del crecimiento, SIN desarrollo mamario (Tanner M1 V3), padece un cuadro de:",
       "opciones": {
-        "a": "Pubertad Precoz Central verdadera isosexual.",
+        "a": "Pubertad Precoz Central verdadera isosexual con adelanto de la edad ósea y desarrollo mamario temprano.",
         "b": "Seudopubertad Precoz Heterosexual o Virilizante (de origen suprarrenal u ovárico androgénico).",
-        "c": "Telarca prematura idiopática aislada de la infancia.",
-        "d": "Retraso Puberal Constitucional de la niñez."
+        "c": "Telarca prematura idiopática aislada de la infancia con velocidad de crecimiento normal y edad ósea sin adelantos.",
+        "d": "Retraso Puberal Constitucional de la niñez con maduración puberal normal a una edad tardía hereditaria y sin patología asociada."
       },
       "respuesta_correcta": "b",
       "justificacion": "La presencia de virilización (desarrollo de caracteres sexuales masculinizantes como clitorromegalia, acné severo, voz grave) en una niña prepuberal se denomina Seudopubertad Precoz Heterosexual o Virilizante. Se debe a un exceso de andrógenos periféricos (no de estrógenos), cuya causa más frecuente es la Hiperplasia Suprarrenal Congénita (HSC) o tumores virilizantes de la corteza suprarrenal o del ovario (ej. tumor de células de Leydig/Sertoli)."
@@ -1091,7 +1091,7 @@
         "a": "El Adenocarcinoma seroso papilar indiferenciado.",
         "b": "El Teratoma Quístico Maduro (Quiste Dermoide).",
         "c": "El Tumor de la Granulosa de tipo juvenil.",
-        "d": "El Carcinoma embrionario mucinoso."
+        "d": "El Carcinoma embrionario mucinoso de ovario con liberación de α-fetoproteína."
       },
       "respuesta_correcta": "b",
       "justificacion": "Los tumores germinales representan más del 60-70% de las neoplasias ováricas en la infancia y adolescencia. Dentro de ellos, el Teratoma Quístico Maduro (Quiste Dermoide) es el tumor benigno más común. Está compuesto por tejidos maduros bien diferenciados derivados de las tres hojas germinativas (pelo, sebo, dientes, cartílago), siendo frecuentemente asintomático o diagnosticado incidentalmente por ecografía o por torsión anexial. (Referencia: los consensos de Ginecología Infanto-Juvenil (Gori/Testa/SAGIJ))."
@@ -1100,7 +1100,7 @@
       "id": 92,
       "pregunta": "En una paciente adolescente de 14 años con diagnóstico de dismenorrea primaria severa no incapacitante, ¿cuál es el tratamiento farmacológico de primera línea respaldado por la evidencia clínica?",
       "opciones": {
-        "a": "Corticoides sistémicos a dosis altas por vía parenteral durante 1 mes.",
+        "a": "Corticoides sistémicos a dosis altas por vía parenteral durante 1 mes iniciados desde el primer día del ciclo y continuados hasta que ceda el sangrado.",
         "b": "Antiinflamatorios No Esteroideos (AINES como Ibuprofeno o Naproxeno) iniciados al comienzo de los síntomas o del sangrado.",
         "c": "Opioides mayores transdérmicos en parches continuos.",
         "d": "Antibióticos de amplio espectro por vía oral durante 14 días."
@@ -1112,9 +1112,9 @@
       "id": 93,
       "pregunta": "En la fisiología del eje reproductor, la inhibina B es secretada en la mujer principalmente por las células de la granulosa de los folículos antrales tempranos. Su función endocrina fisiológica consiste en:",
       "opciones": {
-        "a": "Estimular la liberación masiva de oxitocina desde la neurohipófisis.",
+        "a": "Estimular la liberación masiva de oxitocina desde la neurohipófisis y el vaciamiento de la leche materna desde las glándulas mamarias.",
         "b": "Ejercer una retroalimentación o feedback negativo selectivo sobre la síntesis y liberación de FSH en la adenohipófisis.",
-        "c": "Inducir la maduración del vello axilar durante la adrenarca.",
+        "c": "Inducir la maduración del vello axilar durante la adrenarca y el crecimiento de los vellos pubianos en forma exclusiva.",
         "d": "Inhibir la conversión de colesterol en pregnenolona en las suprarrenales."
       },
       "respuesta_correcta": "b",
@@ -1126,7 +1126,7 @@
       "opciones": {
         "a": "Síndrome de Kallmann idiopático.",
         "b": "Retraso Puberal Constitucional del Crecimiento (RPC).",
-        "c": "Insuficiencia Ovárica Precoz autoinmune.",
+        "c": "Insuficiencia Ovárica Precoz autoinmune por anticuerpos antiováricos.",
         "d": "Craneofaringioma de fosa anterior."
       },
       "respuesta_correcta": "b",
@@ -1139,7 +1139,7 @@
         "a": "Guardar silencio absoluto por secreto profesional para evitar conflictos familiares.",
         "b": "Notificar obligatoriamente la situación a los organismos de protección de derechos de niñeces y/o a las autoridades judiciales competentes, priorizando el interés superior del niño.",
         "c": "Exigir que la niña confronte directamente a su presunto agresor en el consultorio.",
-        "d": "Dar el alta médica y diferir el reporte hasta que la víctima cumpla la mayoría de edad (18 años)."
+        "d": "Dar el alta médica y diferir el reporte hasta que la víctima cumpla la mayoría de edad (18 años), evitando intervenir institucionalmente hasta que la familia decida si realiza una denuncia."
       },
       "respuesta_correcta": "b",
       "justificacion": "Ante la sospecha o confirmación de Abuso Sexual Infantil (ASI), la Ley de Protección Integral de los Derechos de Niños, Niñas y Adolescentes (Ley 26.061) y los códigos procesales establecen la obligación legal y ética de denunciar / notificar la situación ante las autoridades administrativas de protección de derechos y/o la justicia. El deber de reserva médica cede ante el principio del Interés Superior del Niño y la necesidad urgente de salvaguardar su integridad física y psíquica."
@@ -1149,9 +1149,9 @@
       "pregunta": "La presencia de una vulvovaginitis persistente en una niña prepuberal con aislamiento en el cultivo de flujo de Neisseria gonorrhoeae o Chlamydia trachomatis (después del período neonatal de 28 días) constituye un indicador altamente específico de:",
       "opciones": {
         "a": "Contaminación accidental por bañarse en piletas de natación públicas.",
-        "b": "Transmisión directa por uso de toallas de algodón compartidas.",
+        "b": "Transmisión directa por uso de toallas de algodón compartidas en el ámbito familiar.",
         "c": "Abuso sexual infantil (infección de transmisión sexual en la infancia).",
-        "d": "Reacción alérgica al jabón de tocador."
+        "d": "Reacción alérgica al jabón de tocador a los productos de higiene íntima de uso diario."
       },
       "respuesta_correcta": "c",
       "justificacion": "Salvo en los primeros 28 días de vida (por transmisión vertical perinatal durante el parto), la confirmación microbiológica de infecciones de transmisión sexual estricta como Neisseria gonorrhoeae, Chlamydia trachomatis, Treponema pallidum (sífilis) o VPH / HSV tipo 2 en una niña prepuberal es considerada un marcador microbiológico de altísima especificidad de Abuso Sexual Infantil (ASI), exigiendo la notificación judicial y el protocolo de protección correspondiente."
@@ -1160,9 +1160,9 @@
       "id": 97,
       "pregunta": "En la clasificación del desarrollo de caracteres sexuales secundarios de Marshall y Tanner para varones, el Estadio 2 de desarrollo genital (G2) se caracteriza por:",
       "opciones": {
-        "a": "Testículos y escroto de tamaño infantil prepuberal (volumen testicular < 1,5 ml).",
+        "a": "Testículos y escroto de tamaño infantil prepuberal (volumen testicular < 1,5 ml) y piel escrotal lisa, sin pigmentación, con ausencia de vello púbico y axilar.",
         "b": "Agrandamiento inicial del escroto y los testículos (volumen testicular entre 4 y 6 ml) con enrojecimiento y cambio en la textura de la piel escrotal.",
-        "c": "Pene marcadamente aumentado en longitud y grosor con desarrollo glanular completo.",
+        "c": "Pene marcadamente aumentado en longitud y grosor con desarrollo glanular completo con aparición de vello facial y cambio de la voz en estadio avanzado.",
         "d": "Aspecto de genitales adultos con volumen testicular > 20 ml."
       },
       "respuesta_correcta": "b",
@@ -1172,7 +1172,7 @@
       "id": 98,
       "pregunta": "¿Cuál es el estudio complementario Gold Standard para evaluar la permeabilidad y morfología del canal cervical y la cavidad uterina en el estudio de malformaciones müllerianas complejas o tabiques vaginales?",
       "opciones": {
-        "a": "Radiografía simple de abdomen de pie.",
+        "a": "Radiografía simple de abdomen de pie y ecografía abdominal.",
         "b": "Resonancia Magnética Nuclear (RMN) de pelvis.",
         "c": "Gammagrafía tiroidea con Tecnecio 99.",
         "d": "Densitometría ósea de columna lumbar."

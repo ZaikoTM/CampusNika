@@ -8,7 +8,7 @@
       "id": 1,
       "pregunta": "Una paciente de 22 años, G1P0, con amenorrea de 8 semanas por FUM, acude a la guardia de ginecología por presentar dolor pélvico de tipo cólico leve en hipogasto y escaso sangrado vaginal de color rojo vinoso. Al examen físico se encuentra hemodinámicamente estable (TA 115/70 mmHg, FC 78 lpm). A la especuloscopía se observa genitorragia escasa proveniente del cavum. Al tacto vaginal bimanual el cuello uterino se encuentra formado, largo y con el orificio cervical interno (OCI) CERRADO, con un útero aumentado de tamaño acorde a la amenorrea. La ecografía transvaginal confirma embrión intrauterino único de 18 mm con actividad cardíaca presente (+). ¿Cuál es el diagnóstico de la forma clínica de aborto y la conducta médica inicial?",
       "opciones": {
-        "a": "Aborto incompleto / Indicar evacuación quirúrgica mediante Aspiración Manual Endouterina (AMEU) de urgencia.",
+        "a": "Aborto incompleto / Indicar evacuación quirúrgica mediante Aspiración Manual Endouterina (AMEU) de urgencia y control a las 24 horas.",
         "b": "Amenaza de aborto / Indicar reposo relativo/absoluto, antiespasmódicos, pautas de alarma y reevaluación ambulatoria.",
         "c": "Aborto inevitable / Indicar evacuación farmacológica inmediata con misoprostol 800 mcg por vía sublingual.",
         "d": "Aborto diferido / Indicar histerectomía total abdominal por riesgo inminente de coagulopatía de consumo."
@@ -33,7 +33,7 @@
       "pregunta": "Una paciente de 26 años es ingresada al shock room de la guardia traída por familiares en estado de somnolencia. En el interrogatorio a la familia refieren que se realizó una maniobra abortiva clandestina hace 48 horas. Al examen físico presenta TA 80/50 mmHg, FC 128 lpm, Tº 39,6 ºC, ictericia flavínica o rubínica marcada en piel y escleras, y al colocar sonda vesical se obtiene orina de color caoba o \"vino tinto\" (hemoglobinuria). El laboratorio muestra anemia hemolítica microangiopática severa, hemoglobinemia, leucocitosis con desviación a la izquierda (24.000/mm³) e hiperbilirrubinemia a predominio indirecto. ¿A qué complicación grave e hiperaguda del aborto séptico corresponde este cuadro?",
       "opciones": {
         "a": "Síndrome de Mondor (toxiinfección gangrenosa por Clostridium perfringens con hemólisis intravascular masiva).",
-        "b": "Síndrome de Fitz-Hugh-Curtis secundario a perihepatitis por Chlamydia trachomatis.",
+        "b": "Síndrome de Fitz-Hugh-Curtis secundario a perihepatitis por Chlamydia trachomatis con dolor en el hipocondrio derecho y fiebre persistente.",
         "c": "Síndrome de Asherman agudo por destrucción isquémica del estrato basal del endometrio.",
         "d": "Preeclampsia grave complicada con rotura de hematoma subcapsular hepático espontáneo."
       },
@@ -92,10 +92,10 @@
       "id": 8,
       "pregunta": "A una paciente de 24 años se le realizó la evacuación mediante AMEU de una Mola Hidatidiforme Completa. Consulta en el consultorio de la guardia a las 4 semanas del procedimiento para conocer el protocolo de seguimiento post-evacuación para descartar una Neoplasia Trofoblástica Gestacional (Mola Invasora / Coriocarcinoma). Según las pautas oficiales de la cátedra (Testa / Gori / Consenso ETG), ¿cuál es el esquema de monitoreo hormonal de beta-hCG y la recomendación anticonceptiva?",
       "opciones": {
-        "a": "No requiere ningún seguimiento hormonal posterior si el legrado por AMEU fue completo.",
-        "b": "Medición de beta-hCG cada 6 meses durante 5 años continuos y abstinencia sexual por 3 años.",
-        "c": "Dosaje semanal de beta-hCG hasta obtener 2 a 3 determinaciones negativas consecutivas, seguido de dosaje mensual durante 6 meses, prescribiendo anticoncepción segura.",
-        "d": "Histerectomía total profiláctica obligatoria a los 3 meses de la evacuación en todas las pacientes."
+        "a": "No requiere ningún seguimiento hormonal posterior si el legrado por AMEU fue completo y la paciente puede intentar un nuevo embarazo de inmediato sin controles.",
+        "b": "Medición de beta-hCG cada 6 meses durante 5 años continuos y abstinencia sexual por 3 años con ecografías pélvicas trimestrales durante todo el período de vigilancia.",
+        "c": "Dosaje semanal de β-hCG hasta 2 a 3 determinaciones negativas consecutivas, luego mensual por 6 meses, con anticoncepción segura.",
+        "d": "Histerectomía total profiláctica obligatoria a los 3 meses de la evacuación en todas las pacientes y suspensión de la anticoncepción hormonal hasta el momento de la cirugía."
       },
       "respuesta_correcta": "c",
       "justificacion": "El objetivo primario del seguimiento post-molar es la detección precoz de la Neoplasia Trofoblástica Gestacional (NTG / mola persistente o coriocarcinoma). El protocolo exige realizar la determinación cuantitativa de beta-hCG por vía sérica semanalmente hasta alcanzar la negativización (2 a 3 semanas consecutivas con niveles indetectables). A partir de allí, se continúa con un dosaje mensual de beta-hCG durante 6 meses (en mola completa). Es requisito indispensable indicar un método anticonceptivo de alta eficacia (preferentemente anticonceptivos orales) durante todo el período de seguimiento para evitar un nuevo embarazo que confunda las curvas de beta-hCG2628."
@@ -116,7 +116,7 @@
       "id": 10,
       "pregunta": "Una paciente de 25 años se encuentra internada en el servicio de ginecología recibiendo el esquema antibiótico parenteral con Clindamicina y Gentamicina por un Absceso Tubo-Ovárico (ATO) izquierdo de 7 cm de diámetro (Monif III). A las 72 horas de tratamiento continuo, la paciente persiste febril (Tº 38,9 ºC), refiere acentuación del dolor pélvico con aparición de defensa muscular abdominal, y el laboratorio evidencia ascenso de leucocitos a 21.000/mm³. ¿Cuál es la conducta de manejo indicada ante la falta de respuesta al tratamiento médico?",
       "opciones": {
-        "a": "Continuar con el mismo esquema antibiótico por vía oral durante 30 días adicionales sin procedimientos.",
+        "a": "Continuar con el mismo esquema antibiótico por vía oral durante 30 días adicionales sin procedimientos y control ecográfico semanal por el mismo período.",
         "b": "Otorgar el alta hospitalaria inmediata con prescripción de AINES por vía oral.",
         "c": "Suspender todos los antibióticos y realizar ecografía mamaria bilateral de control.",
         "d": "Indicar drenaje quirúrgico (laparoscopía/laparotomía) o drenaje guiado por imágenes (o colpotomía posterior si abomba en Douglas)."
@@ -154,7 +154,7 @@
       "opciones": {
         "a": "Torsión anexial con necrosis completa / Indicar salpingo-ooforectomía radical laparotómica.",
         "b": "Rotura de Cuerpo Lúteo Hemorrágico no complicado / Conducta conservadora con reposo, analgesia/AINES y control evolutivo.",
-        "c": "Absceso tubo-ovárico roto (Monif IV) / Tratamiento con triple esquema antibiótico parenteral por 21 días.",
+        "c": "Absceso tubo-ovárico roto (Monif IV) / Tratamiento con triple esquema antibiótico parenteral por 21 días con internación de tres días.",
         "d": "Embarazo ectópico ampolar roto / Indicar laparotomía de emergencia para salpingectomía."
       },
       "respuesta_correcta": "b",
@@ -166,8 +166,8 @@
       "opciones": {
         "a": "Indicación de alta médica ambulatoria con hielo local en hipogasto.",
         "b": "Indicar antibióticos orales y solicitar tomografía con emisión de positrones a los 30 días.",
-        "c": "Prescribir anticonceptivos orales combinados en dosis alta para detener la hemorragia ovárica.",
-        "d": "Estabilización hemodinámica mediante reposición de fluidos/hemoderivados y laparoscopía o laparotomía de urgencia para hemostasia y enucleación conservadora."
+        "c": "Prescribir anticonceptivos orales combinados en dosis alta para detener la hemorragia ovárica y reposo en cama por 15 días sin otras medidas adicionales.",
+        "d": "Estabilización hemodinámica con fluidos/hemoderivados y laparoscopía o laparotomía de urgencia para hemostasia y enucleación conservadora."
       },
       "respuesta_correcta": "d",
       "justificacion": "Cuando la rotura de un cuerpo lúteo hemorrágico se complica con la erosión de un vaso ovárico mayor, genera un hemoperitoneo significativo que conduce a inestabilidad hemodinámica (hipotensión, taquicardia), abdomen agudo peritoneal y anemia aguda progresiva. En estos casos (Cuerpo lúteo hemorrágico complicado), la conducta médica deja de ser conservadora e impone la intervención quirúrgica de urgencia (laparoscopía o laparotomía) para realizar el lavado del hemoperitoneo, la electrocauterización o sutura del vaso sangrante y la enucleación del quiste, preservando al máximo el parénquima ovárico sano."
@@ -200,9 +200,9 @@
       "id": 17,
       "pregunta": "Durante la comunicación del diagnóstico de un aborto diferido (huevo muerto y retenido) a una paciente en la guardia, el médico le formula la siguiente pregunta antes de entregar el informe ecográfico: \"Antes de explicarle en detalle el resultado de la ecografía que le acabamos de realizar, ¿qué le han contado hasta ahora sobre su embarazo o qué piensa usted que está sucediendo a partir de los síntomas que sintió?\". ¿A qué paso del protocolo SPIKES / EPICEC corresponde esta indagación y cuál es su objetivo?",
       "opciones": {
-        "a": "Paso \"I\" (Invitation) / Solicitar autorización para invitar a otros profesionales a la consulta.",
-        "b": "Paso \"P\" (Perception / Percepción) / Explorar el nivel de conocimiento y comprensión previa de la paciente para adaptar el lenguaje y corregir malentendidos.",
-        "c": "Paso \"S\" (Strategy) / Establecer el tratamiento farmacológico con misoprostol sin escuchar a la paciente.",
+        "a": "Paso \"I\" (Invitation) / Solicitar autorización para invitar a otros profesionales a la consulta durante la entrevista inicial con la paciente en el consultorio externo.",
+        "b": "Paso \"P\" (Perception / Percepción) / Explorar lo que la paciente sabe y comprende para adaptar el lenguaje y corregir malentendidos.",
+        "c": "Paso \"S\" (Strategy) / Establecer el tratamiento farmacológico con misoprostol sin escuchar a la paciente y registrar su consentimiento firmado antes de comunicar el diagnóstico.",
         "d": "Paso \"E\" (Empathy) / Expresar verbalmente la conmoción personal del profesional."
       },
       "respuesta_correcta": "b",
@@ -225,7 +225,7 @@
       "pregunta": "Tras recibir la noticia de que presenta un Embarazo Ectópico accidentado que requiere salpingectomía quirúrgica, la paciente rompe en llanto desconsolado y expresa: \"¿Por qué me pasa esto a mí? Tengo miedo de no poder ser madre en el futuro\". El médico guarda un silencio respetuoso unos segundos, le acerca pañuelos descartables, la mira con calidez y responde: \"Comprendo perfectamente lo doloroso y aterrador que resulta recibir esta noticia. Es absolutamente comprensible que se sienta asustada y triste en este momento\". ¿A qué paso del protocolo SPIKES corresponde esta intervención?",
       "opciones": {
         "a": "Paso \"E\" (Empathy / Empatía) / Identificar, nombrar y validar la respuesta emocional de la paciente.",
-        "b": "Paso \"S\" (Setting) / Trasladar de inmediato a la paciente al quirófano sin responder.",
+        "b": "Paso \"S\" (Setting) / Trasladar de inmediato a la paciente al quirófano sin responder y retirar a los familiares de la sala.",
         "c": "Paso \"I\" (Invitation) / Preguntar si la paciente prefiere recibir la noticia por correo electrónico.",
         "d": "Paso \"P\" (Perception) / Señalar que la reacción de la paciente es desmedida e irracional."
       },
@@ -236,10 +236,10 @@
       "id": 20,
       "pregunta": "Al finalizar la consulta de comunicación de una mala noticia en la guardia ginecológica (confirmación de aborto incompleto con indicación de AMEU), el médico realiza un resumen breve de los puntos acordados, explica en detalle el plan de tratamiento y seguimiento, le entrega la orden de internación e indicaciones por escrito, y concluye preguntando: \"¿Tiene alguna duda o pregunta sobre el procedimiento de AMEU que vamos a realizar a continuación?\". ¿A qué paso del protocolo SPIKES corresponde este cierre?",
       "opciones": {
-        "a": "Paso \"P\" (Perception) / Inicio de la toma de datos filiatorios de la paciente.",
-        "b": "Paso \"K\" (Knowledge) / Notificación del caso al tribunal de faltas municipal.",
-        "c": "Paso \"S\" (Strategy and Summary / Estrategia y Resumen) / Resumen de lo conversado, formulación del plan terapéutico conjunto y espacio para preguntas.",
-        "d": "Paso \"I\" (Invitation) / Preguntar a la paciente si autoriza a publicar su caso en revistas científicas."
+        "a": "Paso \"P\" (Perception) / Inicio de la toma de datos filiatorios de la paciente para completar la historia clínica antes de dar la noticia.",
+        "b": "Paso \"K\" (Knowledge) / Notificación del caso al tribunal de faltas municipal que debe ser informado antes de hablar con la paciente.",
+        "c": "Paso \"S\" (Strategy and Summary / Estrategia y Resumen) / Resumir lo conversado, formular el plan conjunto y dar espacio para preguntas.",
+        "d": "Paso \"I\" (Invitation) / Preguntar a la paciente si autoriza a publicar su caso en revistas científicas y registrar su consentimiento escrito en la historia clínica."
       },
       "respuesta_correcta": "c",
       "justificacion": "El sexto y último paso del protocolo SPIKES es S - Strategy and Summary (Estrategia y Resumen). Tras haber entregado la información y contenido las emociones, el médico debe delinear un plan terapéutico claro e inteligible, compartiendo la toma de decisiones. Resumir la información conversada de forma estructurada, entregar las instrucciones escritas para mitigar el olvido por impacto emocional y ofrecer un espacio explícito para resolver dudas finales empodera al paciente y disminuye la sensación de incertidumbre y desprotección."
@@ -249,9 +249,9 @@
       "pregunta": "Una paciente de 26 años, G1P0, de 10 semanas de gestación por FUM, acude a la guardia para presentar el informe de su ecografía obstétrica de rutina. La paciente se encuentra totalmente asintomática, no refiere dolor pélvico ni genitorragia. Al examen físico: TA 110/70 mmHg, FC 72 lpm, abdomen indoloro. A la especuloscopía no se observa sangrado y al tacto vaginal el cuello uterino está largo, formado y con el orificio cervical interno (OCI) CERRADO. La ecografía transvaginal revela un embrión único con longitud cefalocaudal (CRL) de 22 mm (correspondiente a 8,5 semanas), pero con AUSENCIA de latidos cardíacos fetales (LCF -) y sin movimiento embrionario. ¿Cuál es la forma clínica de aborto y la conducta médica indicada?",
       "opciones": {
         "a": "Aborto incompleto / Indicar colpotomía posterior evacuadora inmediata en la guardia.",
-        "b": "Amenaza de aborto / Prescribir reposo absoluto en cama e infusión de oxitocina continua.",
-        "c": "Aborto diferido (retenido) / Evacuación uterina mediante tratamiento farmacológico con Misoprostol o tratamiento instrumental (AMEU / legrado).",
-        "d": "Aborto inevitable / Prescribir penicilina benzatínica 2.400.000 UI IM semanal por 4 semanas."
+        "b": "Amenaza de aborto / Prescribir reposo absoluto en cama e infusión de oxitocina continua y control posterior en 7 días.",
+        "c": "Aborto diferido (retenido) / Evacuación uterina con Misoprostol o por vía instrumental (AMEU / legrado).",
+        "d": "Aborto inevitable / Prescribir penicilina benzatínica 2.400.000 UI IM semanal por 4 semanas y control posterior en 7 días."
       },
       "respuesta_correcta": "c",
       "justificacion": "La presencia de un embrión en la cavidad uterina sin actividad cardíaca (LCF -) en una gestación con CRL mayor o igual a 7 mm, en presencia de un cuello uterino cerrado (OCI cerrado) y en ausencia de dinámicas expulsivas, configura el diagnóstico de Aborto Diferido (o huevo muerto y retenido). De acuerdo con el libro Testa (capítulo Aborto Espontáneo) y las guías del Ministerio de Salud, las opciones terapéuticas de evacuación comprenden el manejo farmacológico con Misoprostol (por vía sublingual o vaginal) o la evacuación instrumental mediante Aspiración Manual Endouterina (AMEU) o legrado evacuador, brindando a la paciente la posibilidad de elección según su estado clínico y preferencias."
@@ -261,9 +261,9 @@
       "pregunta": "Una paciente de 28 años, G3P0A2, acude al consultorio de guardia por encontrarse planificando un nuevo embarazo. En su historia clínica constan dos pérdidas gestacionales previas ocurridas en las semanas 18 y 20 de gestación, las cuales se caracterizaron por ser totalmente indoloras, con modificación y borramiento cervical silente, acortamiento del cérvix, protrusión de las membranas ovulares en vagina y posterior expulsión del feto normoconformado. ¿Cuál es el diagnóstico etiológico de estas pérdidas del segundo trimestre y la conducta preventiva recomendada para su próxima gestación?",
       "opciones": {
         "a": "Incompetencia Istmo-Cervical (Insuficiencia Cervical) / Indicar cerclaje cervical electivo por técnica de McDonald o Shirodkar entre las semanas 12 y 16 de gestación.",
-        "b": "Síndrome de Ovario Poliquístico fenotipo A / Indicar histerectomía subtotal por vía vaginal previa al inicio de la búsqueda gestacional.",
+        "b": "Síndrome de Ovario Poliquístico fenotipo A / Indicar histerectomía subtotal por vía vaginal previa al inicio de la búsqueda gestacional y control posterior con ecografía pélvica a las 36 semanas.",
         "c": "Endometriosis peritoneal profunda / Prescribir anticonceptivos orales combinados continuos por 3 años para elongar el cérvix.",
-        "d": "Infección por Streptococcus agalactiae / Indicar reposo en posición de Trendelenburg desde el momento de la fertilización sin cerclaje."
+        "d": "Infección por Streptococcus agalactiae / Indicar reposo en posición de Trendelenburg desde el momento de la fertilización sin cerclaje y control con ecografía a las 20 semanas."
       },
       "respuesta_correcta": "a",
       "justificacion": "La historia clínica clásica de pérdidas gestacionales espontáneas recurrentes en el segundo trimestre (semanas 16 a 24), caracterizadas por ser indoloras, con acortamiento, borramiento y dilatación cervical silente en ausencia de dinámica uterina previa o desprendimiento placentario, es patognomónica de la Incompetencia Istmo-Cervical (o Insuficiencia Cervical). Según el texto oficial de Testa, el tratamiento profiláctico de elección en pacientes con antecedente de insuficiencia cervical es la realización del Cerclaje Cervical Electivo (sutura no absorbable en bolsa de tabaco a nivel del orificio cervical interno, técnicas de McDonald o Shirodkar) de forma programada entre las semanas 12 y 16 de la subsiguiente gestación."
@@ -296,8 +296,8 @@
       "id": 25,
       "pregunta": "Una paciente de 25 años con diagnóstico de Embarazo Ectópico Tubario izquierdo no roto se encuentra en tratamiento médico farmacológico con Metotrexato en esquema monodosis (50 mg/m² IM administrados en el Día 1). Se realiza el monitoreo serológico cuantitativo de subunidad beta-hCG: en el Día 1 la beta-hCG es de 2.900 UI/L, en el Día 4 es de 2.800 UI/L y en el Día 7 es de 2.650 UI/L (reducción del 5,3% entre el Día 4 y el Día 7). ¿Cómo se interpreta este resultado serológico y cuál es la conducta médica indicada?",
       "opciones": {
-        "a": "Representa un fracaso del tratamiento farmacológico al no alcanzar un descenso mayor o igual al 15%, indicándose una 2ª dosis de Metotrexato o la resolución quirúrgica.",
-        "b": "Representa una respuesta excelente con alta médica definitiva y suspensión de controles serológicos.",
+        "a": "Representa un fracaso del tratamiento (descenso menor del 15%), por lo que se indica una 2ª dosis de Metotrexato o la resolución quirúrgica.",
+        "b": "Representa una respuesta excelente con alta médica definitiva y suspensión de controles serológicos y se debe iniciar anticoncepción hormonal oral por seis meses.",
         "c": "Indica la transformación inmediata en una mola hidatidiforme completa que requiere AMEU urgente.",
         "d": "Demuestra la presencia de un embarazo gemelar heterotópico no diagnosticado previamente."
       },
@@ -309,8 +309,8 @@
       "pregunta": "En la clasificación anatomopatológica y citogenética de la Enfermedad Trofoblástica Gestacional, ¿cuáles son las diferencias fundamentales entre la Mola Hidatidiforme Completa y la Mola Hidatidiforme Parcial respecto al cariotipo, la presencia de tejido fetal y el patrón de hidropesía vellositaria?",
       "opciones": {
         "a": "La mola completa presenta cariotipo triploide (69,XXY) con tejido fetal presente y baja tasa de NTG.",
-        "b": "La mola parcial carece de vellosidades coriales y presenta niveles de beta-hCG mayores a 2.000.000 UI/mL.",
-        "c": "La mola parcial presenta cariotipo triploide (69,XXX, 69,XXY) con presencia de tejido fetal/embrionario y vellosidades no todas hidrópicas, mientras que la mola completa es diploide androgénica (46,XX) sin tejido fetal.",
+        "b": "La mola parcial carece de vellosidades coriales y presenta niveles de beta-hCG mayores a 2.000.000 UI/mL y el riesgo de transformación a neoplasia trofoblástica es igual al de un embarazo normal.",
+        "c": "La mola parcial es triploide (69,XXX o 69,XXY) con tejido fetal y vellosidades no todas hidrópicas; la completa es diploide androgénica (46,XX) sin tejido fetal.",
         "d": "La mola completa es diploide materna pura (46,XX) con presencia de saco vitelino y embrión vivo."
       },
       "respuesta_correcta": "c",
@@ -320,8 +320,8 @@
       "id": 27,
       "pregunta": "Una paciente de 24 años se encuentra en seguimiento post-evacuación por Mola Hidatidiforme Completa. De acuerdo con los criterios estandarizados de la Federación Internacional de Ginecología y Obstetricia (FIGO) y los consensos oficiales (Consenso ETG / Testa), ¿cuál de los siguientes patrones serológicos de subunidad beta-hCG confirma el diagnóstico de Neoplasia Trofoblástica Gestacional (NTG / Mola Invasora o Persistente)?",
       "opciones": {
-        "a": "Descenso continuo y rápido de los niveles de beta-hCG hasta negativizar a las 2 semanas.",
-        "b": "Meseta en los niveles de beta-hCG en 4 mediciones durante 3 semanas consecutivas (días 1, 7, 14 y 21) o incremento ≥ 10% en 3 mediciones durante 2 semanas consecutivas.",
+        "a": "Descenso continuo y rápido de los niveles de beta-hCG hasta negativizar a las 2 semanas y recién luego se confirma la remisión con ecografía.",
+        "b": "Meseta de β-hCG en 4 mediciones durante 3 semanas (días 1, 7, 14 y 21) o aumento ≥ 10% en 3 mediciones durante 2 semanas.",
         "c": "Un único dosaje aislado de beta-hCG mayor a 1.000 UI/L al sexto mes post-evacuación.",
         "d": "Negativización de la beta-hCG seguida de un test de embarazo positivo 2 años después."
       },
@@ -359,7 +359,7 @@
         "a": "Resección del útero y del anexo contralateral de forma preventiva.",
         "b": "Cauterización química de la superficie endometrial con fenol puro.",
         "c": "Quistectomía ovárica conservadora mediante enucleación de la cápsula del teratoma, preservando el parénquima ovárico sano.",
-        "d": "Abandono del tumor en la cavidad peritoneal e irradiación pélvica inmediata."
+        "d": "Abandono del tumor en la cavidad peritoneal e irradiación pélvica inmediata y control posterior con marcadores tumorales cada 3 meses."
       },
       "respuesta_correcta": "c",
       "justificacion": "En mujeres adolescentes o jóvenes en edad fértil con torsión anexial causada por un tumor benigno del ovario (siendo el teratoma maduro o quiste dermoide la causa orgánica tumoral más frecuente de torsión), la indicación quirúrgica estandarizada tras desenrollar el pedículo vascular es la Quistectomía Ovárica Conservadora (enucleación del quiste). Se realiza la disección y extirpación de la cápsula tumoral respetando al máximo la corteza y el parénquima ovárico sano para conservar la reserva folicular y la fertilidad futura de la paciente (Gori / Testa)."
@@ -380,10 +380,10 @@
       "id": 32,
       "pregunta": "En el diagnóstico diferencial del Abdomen Agudo en la mujer en edad fértil que consulta en la guardia, ¿cuáles son los criterios clínicos, de laboratorio y antecedentes que permiten diferenciar a la Enfermedad Pélvica Inflamatoria (EPI) de la Apendicitis Aguda?",
       "opciones": {
-        "a": "La EPI presenta dolor estrictamente unilateral en hipocondrio derecho sin leucorrea.",
+        "a": "La EPI presenta dolor estrictamente unilateral en hipocondrio derecho sin leucorrea, con fiebre alta y compromiso del estado general desde las primeras horas del cuadro clínico.",
         "b": "La apendicitis cursa con signo de Frenkel positivo (dolor severo a la movilización del cérvix) y masa anexial bilateral.",
-        "c": "La apendicitis cursa con prueba de beta-hCG masivamente elevada y mola hidatidiforme.",
-        "d": "La EPI presenta dolor pélvico bilateral, leucorrea purulenta, dolor a la movilización cervical (Frenkel +) y antecedentes de ITS, mientras que la apendicitis cursa con dolor visceral periumbilical que migra a FID, anorexia, náuseas y punto de McBurney positivo."
+        "c": "La apendicitis cursa con prueba de beta-hCG masivamente elevada y mola hidatidiforme y con dolor pélvico bilateral con leucorrea purulenta desde el inicio del cuadro.",
+        "d": "EPI: dolor pélvico bilateral, leucorrea purulenta y dolor a la movilización cervical; apendicitis: dolor periumbilical que migra a FID, anorexia y McBurney +."
       },
       "respuesta_correcta": "d",
       "justificacion": "En la tabla de diagnóstico diferencial del Abdomen Agudo Ginecológico (Testa, cap. 35 / Pontelli SIM 2026), la EPI se distingue por presentar dolor pélvico difuso o bilateral, flujo vaginal purulento (leucorrea), dolor a la palpación anexial bilateral, dolor exquisito a la movilización del cuello uterino (signo de Frenkel positivo), antecedente de maniobras ginecológicas o ITS, y respuesta inflamatoria. Por su parte, la Apendicitis Aguda cursa con la clásica cronología de Murphy (dolor periumbilical visceral que migra a la fosa ilíaca derecha), anorexia, vómitos, punto de McBurney y Blumberg localizado en FID, sin dolor a la movilización del cérvix ni leucorrea."
@@ -416,8 +416,8 @@
       "id": 35,
       "pregunta": "Durante la realización de un legrado uterino instrumental evacuador con legra metálica en una paciente con un aborto incompleto, el cirujano percibe de forma súbita una pérdida de la resistencia de la pared del fondo uterino (\"sensación de irse al vacío o a la nada\") y la legra se introduce más allá de la histerometría previa, extrayendo un pequeño fragmento de tejido amarillento correspondiente a epiplón. ¿Cuál es la complicación producida y la conducta médica inmediata?",
       "opciones": {
-        "a": "Continuar con el legrado enérgico de la pared anterior sin modificar la técnica.",
-        "b": "Suspender de inmediato el procedimiento, evaluar la estabilidad hemodinámica y realizar laparoscopía o laparotomía exploradora para reparar la perforación uterina y revisar vísceras.",
+        "a": "Continuar con el legrado enérgico de la pared anterior sin modificar la técnica y administrar antibióticos por vía oral en forma ambulatoria con control a los 7 días.",
+        "b": "Suspender el procedimiento, evaluar la estabilidad hemodinámica y realizar laparoscopía o laparotomía exploradora para reparar la perforación y revisar las vísceras.",
         "c": "Administrar oxitocina e indicar el alta ambulatoria inmediata sin antibióticos.",
         "d": "Realizar colpotomía posterior e instilar solución antiséptica en cavidad vaginal."
       },
@@ -430,8 +430,8 @@
       "opciones": {
         "a": "Exigir que la paciente firme una renuncia formal a la historia clínica.",
         "b": "Prohibir que los familiares ingresen a la sala de guardia bajo apercibimiento.",
-        "c": "Explicar directamente el tratamiento quirúrgico sin preguntar si la paciente desea saber los detalles.",
-        "d": "Explorar el deseo y límite de información que la paciente prefiere recibir, formulando preguntas como: \"¿Le gustaría que le explique en detalle el diagnóstico y los pasos a seguir, o prefiere que nos enfoquemos solo en los aspectos generales del tratamiento?\"."
+        "c": "Explicar directamente el tratamiento quirúrgico sin preguntar si la paciente desea saber los detalles y luego informar el diagnóstico completo sin permitir preguntas hasta el final de la entrevista.",
+        "d": "Explorar el deseo de información de la paciente preguntando: \"¿Prefiere que le explique el diagnóstico en detalle o que nos enfoquemos en lo general del tratamiento?\"."
       },
       "respuesta_correcta": "d",
       "justificacion": "El tercer paso del protocolo SPIKES es la I - Invitation (Invitación). Su objetivo es averiguar cuánto desea saber el paciente sobre su diagnóstico, pronóstico y tratamiento. Aunque la mayoría de las personas desean información completa, algunas prefieren evitar los detalles técnicos o delegar la recepción de malas noticias en un familiar. Preguntar explícitamente sobre el nivel de detalle deseado (\"¿Prefiere que hablemos de todos los detalles o de un resumen general?\") respeta el principio de autonomía del paciente y evita la sobrecarga de información no deseada."
@@ -440,9 +440,9 @@
       "id": 37,
       "pregunta": "Durante la entrega de una mala noticia en la guardia (confirmación ecográfica de un embarazo ectópico roto con necesidad de intervención quirúrgica urgente), la paciente reacciona con llanto desconsolado y silencio. De acuerdo con el paso \"E\" (Empathy / Empatía) del protocolo SPIKES, ¿cuál es la conducta médica correcta respecto al manejo del llanto y las emociones del paciente?",
       "opciones": {
-        "a": "Nombrar y validar la emoción expresada, ofreciendo contención, apoyo y un tiempo de silencio para procesar el impacto antes de continuar.",
-        "b": "Interrumpir el silencio inmediatamente ordenando a la paciente que deje de llorar porque no es para tanto.",
-        "c": "Dar falsas esperanzas asegurando que el embarazo se trasladará milagrosamente al útero.",
+        "a": "Nombrar y validar la emoción expresada, ofreciendo contención, apoyo y un tiempo de silencio antes de continuar.",
+        "b": "Interrumpir el silencio inmediatamente ordenando a la paciente que deje de llorar porque no es para tanto y cambiar de tema hacia los estudios pendientes.",
+        "c": "Dar falsas esperanzas asegurando que el embarazo se trasladará milagrosamente al útero y proponer un tratamiento sin esperar la evolución.",
         "d": "Abandonar el consultorio de forma abrupta dejando a la paciente sola."
       },
       "respuesta_correcta": "a",
@@ -452,9 +452,9 @@
       "id": 38,
       "pregunta": "Una paciente de 28 años consulta en la guardia por genitorragia roja rutilante profusa indolora a las 7 semanas de gestación. La ecografía transvaginal demuestra la cavidad uterina vacía, pero identifica el saco gestacional con embrión implantado en la pared del canal endocervical por debajo del orificio cervical interno (OCI), con el cuello uterino dilatado en forma de \"tonel\" o \"reloj de arena\" y signo del deslizamiento (sliding sign) negativo. ¿A qué localización ectópica corresponde y cuál es su riesgo quirúrgico si se realiza un legrado a ciegas?",
       "opciones": {
-        "a": "Se trata de la localización más benigna que se resuelve con duchas de vinagre.",
+        "a": "Se trata de la localización más benigna que se resuelve con duchas de vinagre y no requiere control con β-hCG ni ecografías de seguimiento posteriores.",
         "b": "Es idéntico a una amenaza de aborto que requiere progesterona oral.",
-        "c": "Corresponde a un Embarazo Ectópico Cervical y presenta un elevado riesgo de hemorragia cataclísmica en el legrado, indicándose manejo conservador con Metotrexato o embolización.",
+        "c": "Es un embarazo ectópico cervical con elevado riesgo de hemorragia cataclísmica en el legrado; se indica manejo conservador con Metotrexato o embolización.",
         "d": "Requiere cerclaje cervical de McDonald a las 24 semanas sin medicación."
       },
       "respuesta_correcta": "c",
@@ -476,10 +476,10 @@
       "id": 40,
       "pregunta": "Una paciente de 22 años es ingresada a la guardia por una Mola Hidatidiforme Completa de 14 semanas. Durante la evaluación clínica presenta taquicardia de 135 lpm, hipertensión arterial (150/95 mmHg), temblor fino de manos, piel caliente e intolerancia al calor. Los análisis de laboratorio reportan TSH indetectable (< 0,01 UI/L), T4 libre marcadamente elevada y subunidad beta-hCG de 480.000 UI/mL. ¿Cuál es el mecanismo fisiopatológico por el cual la enfermedad trofoblástica produce este cuadro de hipertiroidismo secundario?",
       "opciones": {
-        "a": "Se debe a un feocromocitoma suprarrenal coexistente independientemente del trofoblasto.",
+        "a": "Se debe a un feocromocitoma suprarrenal coexistente independientemente del trofoblasto y requiere tiroidectomía total previa a la evacuación uterina en todos los casos.",
         "b": "Corresponde a un coma mixedematoso por hipotiroidismo primario severo.",
         "c": "Responde a una infección bacteriana por Listeria monocytogenes.",
-        "d": "Responde al hipertiroidismo secundario por estimulación de los receptores de TSH producida por los niveles masivamente elevados de beta-hCG (reactividad cruzada por subunidad alfa idéntica)."
+        "d": "Responde a hipertiroidismo por estimulación de los receptores de TSH ante niveles muy elevados de β-hCG (reactividad cruzada por subunidad alfa idéntica)."
       },
       "respuesta_correcta": "d",
       "justificacion": "La glicoproteína beta-hCG comparte la misma subunidad alfa idéntica con otras tres hormonas hipofisarias: TSH, LH y FSH (diferenciándose solo en la subunidad beta). Cuando los niveles de beta-hCG se elevan masivamente (superando habitualmente las 100.000 a 300.000 UI/mL, como ocurre en la Mola Hidatidiforme Completa), la hormona trofoblástica ejerce un efecto agonista débil pero cuantitativamente significativo sobre los receptores tiroideos de TSH, desencadenando un hipertiroidismo secundario por reactividad cruzada. Requiere estabilización previa con antitiroideos y betabloqueantes (propranolol) antes de la evacuación uterina para prevenir una tormenta tiroidea intraoperatoria (Testa / Gori)."
@@ -489,7 +489,7 @@
       "pregunta": "Paciente de 24 años es derivada a la guardia en estado febril (39,1 ºC) tras sufrir un aborto incompleto secundario a maniobras clandestinas. Presenta taquicardia (118 lpm), hipotensión (90/55 mmHg), dolor abdominal difuso y secreción fetidopurulenta por vagina. Se diagnostica Aborto Séptico y se decide su internación en terapia intensiva. De acuerdo con las guías del Ministerio de Salud y la bibliografía oficial (Testa / Gori), ¿cuál es el esquema antibiótico triple empírico de elección por vía parenteral para la cobertura de anaerobios, bacterias Gram negativas y enterococos?",
       "opciones": {
         "a": "Ampicilina 2 g EV c/6h MÁS Gentamicina 3-5 mg/kg/día EV MÁS Clindamicina 900 mg EV c/8h (o Metronidazol 500 mg EV c/8h).",
-        "b": "Cefalexina 500 mg VO c/6h MÁS Azitromicina 1 g VO dosis única MÁS Fluconazol 150 mg VO.",
+        "b": "Cefalexina 500 mg VO c/6h MÁS Azitromicina 1 g VO dosis única MÁS Fluconazol 150 mg VO por vía oral y control ambulatorio a las 72 horas.",
         "c": "Penicilina G Benzatínica 2.400.000 UI IM semanal por 3 semanas como monoterapia exclusiva.",
         "d": "Vancomicina 1 g EV c/12h en monoterapia sin asociación de otros antibióticos."
       },
@@ -500,9 +500,9 @@
       "id": 42,
       "pregunta": "Una paciente de 28 años consulta en la guardia por dolor pélvico leve y atraso menstrual de 7 semanas. La ecografía transvaginal muestra cavidad uterina vacía y una masa anexial extraovárica derecha de 32 mm de diámetro con embrión de 6 mm que presenta latidos cardíacos presentes (LCF +). El dosaje de subunidad beta-hCG cuantitativa es de 6.500 UI/L y la paciente se encuentra hemodinámicamente estable. De acuerdo con los criterios de contraindicación para el tratamiento médico del embarazo ectópico (Consenso FASGO 2025 / Testa), ¿cuál es la conducta adecuada?",
       "opciones": {
-        "a": "Prescribir Metotrexato en monodosis intramuscular de 50 mg/m² y dar el alta a su domicilio.",
-        "b": "Realizar AMEU de la cavidad uterina e instilar progesterona micronizada por vía vaginal.",
-        "c": "Indicar tratamiento quirúrgico (laparoscopía) debido a que la presencia de LCF + y beta-hCG > 5.000 UI/L constituyen contraindicaciones relativas/absolutas para el tratamiento con Metotrexato.",
+        "a": "Prescribir Metotrexato en monodosis intramuscular de 50 mg/m² y dar el alta a su domicilio y repetir la β-hCG en dos semanas.",
+        "b": "Realizar AMEU de la cavidad uterina e instilar progesterona micronizada por vía vaginal con control ecográfico a las 48 horas.",
+        "c": "Indicar tratamiento quirúrgico (laparoscopía): LCF + y β-hCG > 5.000 UI/L son contraindicaciones del Metotrexato.",
         "d": "Conducta expectante absteniéndose de medicación o cirugía durante 30 días."
       },
       "respuesta_correcta": "c",
@@ -512,8 +512,8 @@
       "id": 43,
       "pregunta": "Una paciente de 22 años es evaluada en la guardia tras la evacuación por AMEU de una Mola Hidatidiforme Completa de 14 semanas. La ecografía transvaginal de control muestra un útero vacío, pero revela en ambos ovarios una formación multiquística bilateral con múltiples lóculos anecoicos que miden 8 cm de diámetro en el ovario derecho y 7 cm en el izquierdo, compatibles con quistes tecaluteínicos. ¿Cuál es el mecanismo fisiopatológico de estos quistes ováricos y la conducta recomendada?",
       "opciones": {
-        "a": "Infección bacteriana por Neisseria gonorrhoeae / Indicar salpingo-ooforectomía bilateral de urgencia.",
-        "b": "Hiperestimulación ovárica luteínica producida por los niveles masivamente elevados de beta-hCG / Conducta conservadora con seguimiento evolutivo (regresan espontáneamente post-evacuación molar).",
+        "a": "Infección bacteriana por Neisseria gonorrhoeae / Indicar salpingo-ooforectomía bilateral de urgencia y tratamiento con ceftriaxona intramuscular por 7 días.",
+        "b": "Hiperestimulación ovárica luteínica por niveles muy elevados de β-hCG / Conducta conservadora con seguimiento (regresan espontáneamente tras la evacuación).",
         "c": "Transformación sarcomatosa maligna del ovario / Indicar quimioterapia sistémica con esquemas basados en cisplatino.",
         "d": "Torsión folicular atípica / Indicar cauterización química del lecho ovárico con nitrato de plata."
       },
@@ -524,10 +524,10 @@
       "id": 44,
       "pregunta": "Paciente de 27 años acude a la guardia por dolor pélvico agudo e intenso, fiebre de 39,5 ºC, escalofríos y defensa abdominal involuntaria difusa con signo de Blumberg positivo generalizado. A la especuloscopía se observa abundancia de pus maloliente a través del cérvix. La ecografía TV muestra un Absceso Tubo-Ovárico (ATO) roto con abundante líquido ecoico purulento libre en toda la cavidad peritoneal (pelviperitonitis difusa). Según la clasificación de gravedad de Monif para la EPI, ¿a qué grado corresponde y cuál es la conducta quirúrgica?",
       "opciones": {
-        "a": "Monif I / Tratamiento ambulatorio con amoxicilina y ácido clavulánico por 7 días.",
-        "b": "Monif II / Drenaje transvaginal del fórnix anterior sin explorar la cavidad peritoneal.",
-        "c": "Monif III / Antibioticoterapia oral exclusiva y control ecográfico en 14 días.",
-        "d": "Monif IV (ATO roto / Peritonitis generalizada) / Laparotomía o laparoscopía quirúrgica urgente para lavado de cavidad, hemostasia y drenaje del foco séptico."
+        "a": "Monif I / Tratamiento ambulatorio con amoxicilina y ácido clavulánico por 7 días y control de la paciente a las 72 horas con ecografía transvaginal.",
+        "b": "Monif II / Drenaje transvaginal del fórnix anterior sin explorar la cavidad peritoneal y alta a las 48 horas con antibióticos por vía oral.",
+        "c": "Monif III / Antibioticoterapia oral exclusiva y control ecográfico en 14 días y alta sin internación con reposo domiciliario.",
+        "d": "Monif IV (ATO roto / peritonitis generalizada) / Cirugía urgente para lavado de cavidad, hemostasia y drenaje del foco séptico."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con la escala de clasificación de gravedad de Monif para la Enfermedad Pélvica Inflamatoria (Consenso EPI FASGO / Gori / Resumen EPI): • Monif I: Endometritis / Salpingitis aguda no complicada (sin masa). • Monif II: Salpingitis aguda complicada con peritonitis pélvica/localizada. • Monif III: EPI complicada con masa anexial / Absceso Tubo-Ovárico (ATO) intacto. • Monif IV: Absceso Tubo-Ovárico ROTO o pelviperitonitis generalizada con shock septicémico. El Monif IV representa una emergencia quirúrgica catastrófica que exige la laparotomía o laparoscopía inmediata para lavado profuso de la cavidad peritoneal, debridamiento de adherencias, hemostasia y drenaje del foco infeccioso bajo cobertura antibiótica parenteral de triple esquema."
@@ -538,8 +538,8 @@
       "opciones": {
         "a": "Torsión anexial derecha confirmada por la alteración del pedículo vascular en el eco-Doppler.",
         "b": "Rotura de cuerpo lúteo hemorrágico no complicado.",
-        "c": "Absceso tubo-ovárico roto en fondo de saco de Douglas.",
-        "d": "Apendicitis flegmonosa no complicada sin afección ginecológica."
+        "c": "Absceso tubo-ovárico roto en fondo de saco de Douglas con líquido libre y colección compleja.",
+        "d": "Apendicitis flegmonosa no complicada sin afección ginecológica con leucocitosis y dolor en fosa ilíaca derecha sin signos ecográficos pélvicos."
       },
       "respuesta_correcta": "a",
       "justificacion": "El hallazgo ultrasonográfico de un ovario aumentado de tamaño con estroma central ecogénico edematoso y folículos antrales periféricos, sumado al hallazgo patognomónico en escala de grises o Doppler del \"signo del remolino\" (whirlpool sign) —producido por el enrollamiento y torsión de los vasos sanguíneos sobre el pedículo infundíbulopélvico—, junto con la demostración de la ausencia o disminución severa del flujo Doppler arterial y venoso, establece el diagnóstico definitivo de Torsión Anexial."
@@ -548,9 +548,9 @@
       "id": 46,
       "pregunta": "Una paciente de 19 años acude a la guardia por dolor pélvico sordo de aparición repentina en fosa ilíaca izquierda en el día 14 de su ciclo menstrual regular de 28 días. No presenta amenorrea y la prueba de beta-hCG es negativa. Al examen físico el abdomen es blando y depresible con dolor leve a la palpación en FII. La ecografía TV muestra ovarios de tamaño normal y una pequeña cantidad de líquido libre en Douglas (< 10 ml) sin masas tumorales. Hemograma normal. ¿A qué cuadro doloroso fisiológico periovulatorio corresponde (síndrome de Mittelschmerz) y cuál es su manejo?",
       "opciones": {
-        "a": "Torsión de quiste dermoide / Indicar laparotomía de urgencia.",
-        "b": "Embarazo ectópico ampolar roto / Indicar salpingectomía izquierda.",
-        "c": "Rotura folicular ovulatoria fisiológica (Síndrome de Mittelschmerz) / Tranquilizar a la paciente, pautas de alarma y analgésicos comunes (AINES).",
+        "a": "Torsión de quiste dermoide / Indicar laparotomía de urgencia por la vía lateral derecha bajo anestesia general con detorsión previa.",
+        "b": "Embarazo ectópico ampolar roto / Indicar salpingectomía izquierda con control de β-hCG posterior y reposo hospitalario de siete días.",
+        "c": "Rotura folicular ovulatoria fisiológica (Mittelschmerz) / Tranquilizar a la paciente, pautas de alarma y analgésicos comunes (AINES).",
         "d": "Absceso tubo-ovárico Monif III / Internación con antibioterapia parenteral."
       },
       "respuesta_correcta": "c",
@@ -560,10 +560,10 @@
       "id": 47,
       "pregunta": "Durante la fase final de la comunicación de un informe diagnóstico difícil en la guardia (confirmación de un embarazo ectópico no roto en una paciente con deseo gestacional), el médico de guardia aplica el paso \"S\" (Strategy and Summary) del protocolo SPIKES. ¿Cuáles son las dos acciones comunicacionales clave que debe ejecutar el profesional en este paso?",
       "opciones": {
-        "a": "Exigir el pago previo de la consulta privada y prohibir la presencia de acompañantes.",
-        "b": "Formular un plan terapéutico claro y compartido con la paciente, y realizar un resumen de lo acordado ofreciendo un espacio para responder sus dudas.",
+        "a": "Exigir el pago previo de la consulta privada y prohibir la presencia de acompañantes y diferir el plan terapéutico hasta tener los resultados de todos los estudios.",
+        "b": "Formular un plan terapéutico claro y compartido con la paciente y resumir lo acordado, ofreciendo un espacio para sus dudas.",
         "c": "Indagar qué es lo que la paciente conoce previamente sobre la enfermedad antes de hablar.",
-        "d": "Notificar la situación a la comisaría de la mujer sin el consentimiento de la paciente."
+        "d": "Notificar la situación a la comisaría de la mujer sin el consentimiento de la paciente y retirar a la acompañante para continuar con la consulta a solas."
       },
       "respuesta_correcta": "b",
       "justificacion": "En el sexto paso del Protocolo SPIKES / EPICEC (S - Strategy and Summary / Estrategia y Resumen), el médico debe estructurar los pasos siguientes tras la asimilación emocional del diagnóstico. Comprende: 1) Proponer un plan de acción terapéutico claro, conciso y compartido (explicando opciones farmacológicas o quirúrgicas); 2) Realizar un resumen breve de los puntos principales para afianzar la retención de la información; y 3) Verificar activamente la comprensión ofreciendo un canal abierto para resolver preguntas o inquietudes finales."
@@ -596,7 +596,7 @@
       "id": 50,
       "pregunta": "En la evaluación anatomopatológica de las piezas de legrado por enfermedad trofoblástica gestacional, se utiliza el marcador de inmunohistoquímica p57 (p57KIP2), un gen con impronta materna que se expresa en el estroma de las vellosidades de origen materno. ¿Cómo se comporta la expresión del marcador p57 en la Mola Completa versus la Mola Parcial?",
       "opciones": {
-        "a": "Es positivo en la mola completa y totalmente negativo en la mola parcial.",
+        "a": "Es positivo en la mola completa y totalmente negativo en la mola parcial y se determina por inmunohistoquímica de CD34 en el tejido molar.",
         "b": "Es idéntico en ambas entidades no sirviendo para el diagnóstico diferencial.",
         "c": "Es NEGATIVO en la mola completa (por carecer de genoma materno) y POSITIVO en la mola parcial (por conservar el alelo materno).",
         "d": "Se expresa únicamente en el coriocarcinoma metastásico de alto riesgo."
@@ -609,9 +609,9 @@
       "pregunta": "En una paciente joven que acude a la guardia con diagnóstico de Enfermedad Pélvica Inflamatoria (EPI) leve a moderada (Monif I o II), ¿cuál de las siguientes situaciones constituye una indicación ESTRICTA de internación hospitalaria para tratamiento parenteral?",
       "opciones": {
         "a": "Paciente de 30 años con pareja estable que tolera la vía oral y presenta Tº de 37,2 ºC.",
-        "b": "Paciente con intolerancia o imposibilidad de cumplir el tratamiento oral, presencia de embarazo, falta de respuesta al tratamiento ambulatorio tras 72 horas, o presencia de masa anexial / ATO.",
-        "c": "Paciente con citología cervical previa que reporta Papilomavirus humano (VPH) de bajo riesgo.",
-        "d": "Paciente asintomática que acude a control de rutina del dispositivo intrauterino."
+        "b": "Intolerancia al tratamiento oral, embarazo, falta de respuesta al tratamiento ambulatorio tras 72 horas, o masa anexial / ATO.",
+        "c": "Paciente con citología cervical previa que reporta Papilomavirus humano (VPH) de bajo riesgo y se solicita la internación inmediata para estudio por imágenes.",
+        "d": "Paciente asintomática que acude a control de rutina del dispositivo intrauterino sin síntomas y con examen ginecológico y ecografía pélvica normales."
       },
       "respuesta_correcta": "b",
       "justificacion": "Según el Consenso de EPI FASGO 2017/2023, las indicaciones estrictas de internación e inicio de tratamiento antibiótico parenteral en pacientes con Enfermedad Pélvica Inflamatoria son: 1) Presencia de Absceso Tubo-Ovárico (ATO) o masa pélvica/Monif III; 2) Embarazo coincidente; 3) Incapacidad para tolerar o adherir al tratamiento ambulatorio por vía oral (vómitos, falta de contención); 4) Falta de respuesta clínica al tratamiento oral ambulatorio tras 48-72 horas; 5) Cuadro clínico severo con fiebre alta (> 38,5 ºC), náuseas, vómitos o peritonitis; y 6) Imposibilidad de descartar una urgencia quirúrgica (apendicitis, torsión). (Referencia: los criterios estandarizados de la CDC y del Consenso de EPI FASGO)."
@@ -621,7 +621,7 @@
       "pregunta": "Una paciente de 18 años con antecedentes de haber sufrido hace 1 año una torsión anexial derecha que requirió destorsión laparoscópica, acude nuevamente a la guardia por dolor pélvico agudo e intenso en fosa ilíaca derecha. La ecografía confirma una retorsión del anexo derecho por elongación congénita del ligamento uteroovárico e infundíbulopélvico. Tras la destorsión exitosa en el quirófano, ¿cuál es la técnica quirúrgica preventiva recomendada para fijar el ovario y evitar futuras recurrencias?",
       "opciones": {
         "a": "Histerectomía subtotal por vía vaginal.",
-        "b": "Salpingectomía bilateral con ligadura de arterias uterinas.",
+        "b": "Salpingectomía bilateral con ligadura de arterias uterinas y reposo absoluto por tres meses posteriores a la cirugía.",
         "c": "Cauterización de la pared posterior de la vejiga.",
         "d": "Ovariopexia (fijación quirúrgica del ovario a la pared posterior del útero o al ligamento redondo/úterosacro)."
       },
@@ -632,9 +632,9 @@
       "id": 53,
       "pregunta": "Una paciente de 22 años es ingresada a la guardia por presentar dolor pélvico agudo y lipotimia tras tener relaciones sexuales. Al examen físico presenta palidez, hipotensión (80/45 mmHg), taquicardia (125 lpm) y signos de irritación peritoneal en hipogasto. La ecografía TV muestra hemoperitoneo moderado-severo y rotura de cuerpo lúteo en ovario derecho. El laboratorio reporta caída de la Hemoglobina a 7,5 g/dl. ¿Cuál es la conducta terapéutica indicada?",
       "opciones": {
-        "a": "Estabilización hemodinámica, transfusión de hemoderivados si corresponde y abordaje quirúrgico (laparoscopía/laparotomía) para hemostasia y lavado de la cavidad.",
+        "a": "Estabilización hemodinámica, transfusión si corresponde y abordaje quirúrgico (laparoscopía/laparotomía) para hemostasia y lavado de la cavidad.",
         "b": "Alta ambulatoria con indicación de bolsas de agua tibia en el abdomen.",
-        "c": "Prescripción de anticonceptivos orales en dosis alta por 3 meses sin cirugía.",
+        "c": "Prescripción de anticonceptivos orales en dosis alta por 3 meses sin cirugía y control con hematocrito cada 24 horas durante la primera semana posterior.",
         "d": "Instilación de antibióticos por sonda vesical a permanencia."
       },
       "respuesta_correcta": "a",
@@ -645,8 +645,8 @@
       "pregunta": "Al aplicar el paso \"K\" (Knowledge / Conocimiento) del protocolo SPIKES para informar a una paciente en la guardia que presenta un aborto diferido de 9 semanas que requiere AMEU, ¿cuál de las siguientes formulaciones refleja la aplicación correcta de las técnicas de comunicación recomendadas?",
       "opciones": {
         "a": "Utilizar eufemismos confusos como: \"El embrión se fue a un lugar mejor y no debemos preocuparnos\".",
-        "b": "Emplear jerga médica compleja diciendo: \"Presenta una detención del desarrollo embrionario por anembrionía cromosómica que exige legrado evacuador\".",
-        "c": "Entregar la información en pequeños bloques claros diciendo: \"Lamentablemente, la ecografía muestra que el embarazo se ha detenido y el corazón del embrión no está latiendo. Necesitaremos realizar un procedimiento sencillo llamado AMEU para limpiar la matriz. ¿Comprende lo que le acabo de explicar?\".",
+        "b": "Emplear jerga médica compleja diciendo: \"Presenta una detención del desarrollo embrionario por anembrionía cromosómica que exige legrado evacuador\", sin consultar a la paciente sobre su comprensión ni sobre sus dudas.",
+        "c": "Dar la información en bloques claros: \"La ecografía muestra que el embarazo se detuvo y el embrión no tiene latidos; necesitaremos un procedimiento sencillo (AMEU). ¿Comprende lo que le expliqué?\".",
         "d": "Entregar la orden médica sin hablar y retirarse del consultorio."
       },
       "respuesta_correcta": "c",
@@ -656,8 +656,8 @@
       "id": 55,
       "pregunta": "¿cuál de los siguientes hallazgos ecográficos en una gestación inicial constituye un criterio DIAGNÓSTICO DEFINITIVO de fallo gestacional temprano (aborto diferido/anembrionado)?",
       "opciones": {
-        "a": "Saco gestacional intrauterino de 10 mm sin vesícula vitelina.",
-        "b": "Diámetro medio del saco gestacional (DMSG) ≥ 25 mm sin embrión, o longitud cefalocaudal embrionaria (CRL) ≥ 7 mm sin actividad cardíaca (LCF -).",
+        "a": "Saco gestacional intrauterino de 10 mm sin vesícula vitelina y un embrión de 3 mm con latidos presentes.",
+        "b": "DMSG ≥ 25 mm sin embrión, o longitud cefalocaudal ≥ 7 mm sin actividad cardíaca (LCF -).",
         "c": "Cuerpo lúteo vascularizado en el ovario derecho de 20 mm.",
         "d": "Presencia de una vesícula vitelina de 4 mm de diámetro dentro del saco."
       },
@@ -670,8 +670,8 @@
       "opciones": {
         "a": "Prescribir progesterona micronizada y esperar el parto vaginal a término.",
         "b": "Realizar AMEU de la cavidad uterina vacía y dar el alta.",
-        "c": "Indicar tratamiento oral con misoprostol a dosis de 800 mcg cada 3 horas.",
-        "d": "Laparotomía exploradora urgente para extracción del feto, evaluando dejar la placenta in situ (o ligar sus vasos) si está adherida a vísceras mayores para evitar hemorragias fatales."
+        "c": "Indicar tratamiento oral con misoprostol a dosis de 800 mcg cada 3 horas y control en el consultorio externo a las 48 horas con ecografía de seguimiento.",
+        "d": "Laparotomía exploradora urgente para extraer el feto, evaluando dejar la placenta in situ (o ligar sus vasos) si está adherida a vísceras mayores."
       },
       "respuesta_correcta": "d",
       "justificacion": "El Embarazo Ectópico Abdominal es una forma grave y poco frecuente donde la gestación se desarrolla dentro de la cavidad peritoneal implándose en el mesenterio, omento o vísceras abdominales. Cursa con elevada morbimortalidad materna por rotura vascular. El tratamiento es la laparotomía exploradora de urgencia. Una regla quirúrgica fundamental es que, si la placenta se encuentra firmemente adherida a grandes vasos o vísceras abdominales (intestino, hígado), no se debe intentar su desprendimiento forzado debido al riesgo de una hemorragia cataclísmica incontrolable; se procede a la extracción del feto, ligadura umbilical proximal y se deja la placenta in situ para su involución o tratamiento posterior con Metotrexato (Testa / Consenso FASGO)."
@@ -692,10 +692,10 @@
       "id": 58,
       "pregunta": "Una paciente de 25 años ingresa al shock room de la guardia en estado de shock séptico (TA 70/40 mmHg, FC 138 lpm, Tº 39,8 ºC, oliguria). En la exploración física se evidencia abdomen en tabla con peritonitis difusa y al examen ginecológico se constata la rotura de un Absceso Tubo-Ovárico (Monif IV). ¿Cuál es el manejo médico-quirúrgico inmediato de urgencia?",
       "opciones": {
-        "a": "Administrar paracetamol oral y derivar a la paciente a su domicilio.",
+        "a": "Administrar paracetamol oral y derivar a la paciente a su domicilio y reevaluar en 72 horas con los resultados de los hemocultivos y estudios de imágenes de control, con control en el consultorio externo al cabo de una semana.",
         "b": "Indicar únicamente colocación de óvulos vaginales de metronidazol.",
-        "c": "Reanimación hemodinámica agresiva en UTI, antibioticoterapia parenteral triple de amplio espectro e intervención quirúrgica urgente (laparotomía) para lavado peritoneal y control del foco séptico.",
-        "d": "Esperar 72 horas a obtener los resultados de los hemocultivos para operar."
+        "c": "Reanimación hemodinámica en UTI, antibioticoterapia parenteral triple de amplio espectro y cirugía urgente (laparotomía) para lavado peritoneal y control del foco séptico.",
+        "d": "Esperar 72 horas a obtener los resultados de los hemocultivos para operar porque el cuadro séptico exige confirmar el germen antes de cualquier intervención quirúrgica."
       },
       "respuesta_correcta": "c",
       "justificacion": "La rotura de un Absceso Tubo-Ovárico (Monif IV) es una verdadera catástrofe quirúrgica que desencadena peritonitis purulenta generalizada, bacteriemia por Gram negativos y anaerobios, shock séptico y falla multiorgánica. El manejo de urgencia exige: 1) Ingreso a UTI y reanimación hemodinámica agresiva (reposición de volumen, inotrópicos); 2) Antibioticoterapia parenteral de triple esquema a dosis máximas; y 3) Laparotomía exploradora de urgencia inmediata para evacuar el pus, lavar profusamente la cavidad peritoneal, resecar el tejido necrótico y colocar drenajes para controlar el foco séptico."
@@ -704,9 +704,9 @@
       "id": 59,
       "pregunta": "Una paciente de 22 años que cursa un embarazo deseado de 14 semanas por FUM acude a la guardia por dolor pélvico agudo en fosa ilíaca izquierda de 6 horas de evolución con náuseas. La ecografía obstétrica confirma gestación intrauterina con feto vivo de 14 semanas, pero la ecografía TV identifica la torsión del anexo izquierdo (ovario de 70 mm edematoso con pedículo en remolino y sin flujo Doppler). ¿Cuál es la conducta quirúrgica recomendada?",
       "opciones": {
-        "a": "Aborto provocado inmediato mediante AMEU seguido de ooforectomía.",
+        "a": "Aborto provocado inmediato mediante AMEU seguido de ooforectomía y control del bienestar fetal con ecografía y monitoreo cardiotocográfico a las 24 horas.",
         "b": "Laparoscopía (o laparotomía) quirúrgica urgente para destorsión del anexo y preservación ovárica y gestacional.",
-        "c": "Esperar hasta la semana 38 de gestación para tratar la torsión durante la cesárea.",
+        "c": "Esperar hasta la semana 38 de gestación para tratar la torsión durante la cesárea para no interferir con el embarazo en curso.",
         "d": "Indicar tratamiento con misoprostol 800 mcg por vía vaginal."
       },
       "respuesta_correcta": "b",
@@ -740,10 +740,10 @@
       "id": 62,
       "pregunta": "Una paciente de 24 años acude a la guardia por escaso manchado vaginal oscuro y amenorrea de 6 semanas. Se encuentra totalmente asintomática y hemodinámicamente estable (TA 118/74 mmHg, FC 70 lpm). La ecografía transvaginal muestra cavidad uterina vacía y una imagen anexial extraovárica derecha de 18 mm de diámetro, homogénea, sin vesícula vitelina ni LCF. La subunidad beta-hCG cuantitativa inicial es de 450 UI/L. Se realiza un dosaje de control a las 48 horas arrojando un valor de 210 UI/L (reducción del 53%). ¿A qué variante del embarazo ectópico corresponde y cuál es la conducta médica indicada según el Consenso FASGO 2025?",
       "opciones": {
-        "a": "Embarazo ectópico roto / Laparotomía de urgencia inmediata.",
-        "b": "Embarazo ectópico en resolución espontánea (aborto tubario en curso) / Conducta expectante con seguimiento ambulatorio de beta-hCG semanal hasta la negativización.",
-        "c": "Mola hidatidiforme completa / Tratamiento con metotrexato a dosis altas e histerectomía.",
-        "d": "Aborto inevitable ortotópico / Indicar legrado uterino evacuador bajo anestesia general."
+        "a": "Embarazo ectópico roto / Laparotomía de urgencia inmediata por inestabilidad hemodinámica con hemoperitoneo masivo ecográfico.",
+        "b": "Embarazo ectópico en resolución espontánea (aborto tubario) / Conducta expectante con β-hCG semanal hasta la negativización.",
+        "c": "Mola hidatidiforme completa / Tratamiento con metotrexato a dosis altas e histerectomía y control de β-hCG a las 48 horas con quimioterapia de consolidación.",
+        "d": "Aborto inevitable ortotópico / Indicar legrado uterino evacuador bajo anestesia general y control de β-hCG en 6 semanas con ecografía transvaginal."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con el Consenso de Embarazo Ectópico FASGO 2025 y el texto de Testa, en pacientes seleccionadas con embarazo ectópico no roto que cumplen criterios estrictos: 1) Estabilidad hemodinámica y ausencia de dolor; 2) Niveles iniciales bajos de beta-hCG (< 1.000 UI/L); 3) Masa anexial pequeña (< 2-3 cm); y 4) Demostración serológica de títulos de beta-hCG espontáneamente decrecientes en las determinaciones seriadas (cada 48 horas), la conducta de elección es la Conducta Expectante. Un porcentaje significativo de estos ectópicos sufren reabsorción o aborto tubario espontáneo sin requerir fármacos ni cirugía, exigiendo únicamente el monitoreo serológico semanal de beta-hCG hasta alcanzar valores indetectables (< 5 UI/L)."
@@ -752,7 +752,7 @@
       "id": 63,
       "pregunta": "Una paciente de 28 años en seguimiento post-evacuación por Mola Hidatidiforme Completa es diagnosticada de Neoplasia Trofoblástica Gestacional (NTG) debido al ascenso serológico progresivo de los títulos de beta-hCG. Como parte del estadiamiento de la FIGO para la búsqueda de metástasis a distancia, ¿cuál es el sitio anatómico de diseminación hematógena metastásica más frecuente en la NTG y cuál es el estudio de imágenes inicial obligatorio?",
       "opciones": {
-        "a": "Hígado (90%) / Ecografía hepática transparietal en ayunas.",
+        "a": "Hígado (90%) / Ecografía hepática transparietal en ayunas y control con marcadores tumorales cada 6 meses.",
         "b": "Huesos largos (70%) / Centellograma óseo corporal total.",
         "c": "Pulmón (80%) / Radiografía de tórax (frente y perfil) o Tomografía Computada (TC) de tórax.",
         "d": "Sistema nervioso central (60%) / Punción lumbar con citología de líquido cefalorraquídeo."
@@ -800,9 +800,9 @@
       "id": 67,
       "pregunta": "En la aplicación del paso \"E\" (Empathy / Empatía) del Protocolo SPIKES / EPICEC para la respuesta comunicacional ante las reacciones emocionales del paciente (llanto, rabia, angustia) al recibir una mala noticia en ginecología, se utiliza la mnemotecnia técnica NURSE. ¿A qué corresponden las siglas de este modelo comunicacional empático?",
       "opciones": {
-        "a": "N: Notificar a la policía; U: Ubicar al cirujano; R: Retirar los estudios; S: Suspender la charla; E: Evitar hablar.",
-        "b": "N: Negar el diagnóstico; U: Utilizar eufemismos; R: Repetir en inglés; S: Silenciar al paciente; E: Evaluar costos.",
-        "c": "N: Naming (Nombrar la emoción); U: Understanding (Comprender/Validar); R: Respecting (Respetar/Elogiar); S: Supporting (Ofrecer apoyo); E: Exploring (Explorar la emoción).",
+        "a": "N: Notificar a la policía; U: Ubicar al cirujano; R: Retirar los estudios; S: Suspender la charla; E: Evitar hablar (conducta que interrumpe la comunicación con la paciente).",
+        "b": "N: Negar el diagnóstico; U: Utilizar eufemismos; R: Repetir en inglés; S: Silenciar al paciente; E: Evaluar costos (estrategia que genera desconfianza en la paciente).",
+        "c": "N: Naming (nombrar la emoción); U: Understanding (comprender/validar); R: Respecting (respetar/elogiar); S: Supporting (apoyar); E: Exploring (explorar).",
         "d": "N: Normatizar el llanto; U: Uniformar criterios; R: Redactar la denuncia; S: Salir de la sala; E: Exigir pagos."
       },
       "respuesta_correcta": "c",
@@ -812,10 +812,10 @@
       "id": 68,
       "pregunta": "Una paciente de 22 años, con factor sanguíneo Rh negativo no sensibilizada (prueba de Coombs indirecta negativa), ingresa a la guardia con diagnóstico de Aborto Incompleto de 9 semanas y se le realiza una evacuación uterina mediante AMEU. De acuerdo con los consensos de obstetricia y prevención de la inmunohematología perinatal (Consenso Trombofilia / Guías MSAL), ¿cuál es la conducta médica indicada referente a la profilaxis de la isoinmunización Rh?",
       "opciones": {
-        "a": "No requiere profilaxis por tratarse de un aborto del primer trimestre.",
-        "b": "Administrar Gammaglobulina Anti-D exclusivamente si el feto expulsado es mayor a 500 gramos.",
-        "c": "Indicar transfusión preventiva de plasma fresco congelado Rh positivo.",
-        "d": "Administrar Gammaglobulina Anti-D (300 mcg / 1.500 UI por vía intramuscular) dentro de las 72 horas posteriores al procedimiento de evacuación."
+        "a": "No requiere profilaxis por tratarse de un aborto del primer trimestre ni controles de seguimiento posteriores en la gestante Rh negativa.",
+        "b": "Administrar Gammaglobulina Anti-D exclusivamente si el feto expulsado es mayor a 500 gramos y repetir la dosis a los siete días del procedimiento.",
+        "c": "Indicar transfusión preventiva de plasma fresco congelado Rh positivo para reponer los factores de coagulación de la paciente.",
+        "d": "Gammaglobulina Anti-D (300 mcg / 1.500 UI IM) dentro de las 72 horas posteriores a la evacuación."
       },
       "respuesta_correcta": "d",
       "justificacion": "En toda persona gestante Rh negativa no sensibilizada que presente una pérdida gestacional (amenaza de aborto con sangrado, aborto incompleto, diferido, inevitable) o un embarazo ectópico, independientemente de la edad gestacional, se debe administrar profilácticamente la Gammaglobulina Anti-D (anti-Rh) por vía intramuscular dentro de las 72 horas posteriores al evento o procedimiento de evacuación. Esto neutraliza los hematíes fetales Rh positivos que hayan ingresado a la circulación materna durante el desprendimiento placentario, previniendo la formación de anticuerpos maternos anti-D (isoinmunización Rh) en futuras gestaciones (Testa / Gori)."
@@ -824,8 +824,8 @@
       "id": 69,
       "pregunta": "Una paciente de 30 años, con antecedente de dos cesáreas anteriores, acude a la guardia por escaso sangrado vaginal rojo e indoloro a las 7 semanas de gestación. La ecografía transvaginal demuestra la cavidad uterina superior y el canal endocervical vacíos, pero identifica el saco gestacional implantado en el miometrio de la pared anterior del segmento uterino inferior, exactamente sobre la cicatriz de la cesárea previa, rodeado por un miometrio muy delgado (menor a 2 mm) con rica vascularización al Doppler. ¿A qué entidad corresponde este hallazgo y cuál es su complicación principal?",
       "opciones": {
-        "a": "Embarazo Ectópico en Cicatriz de Cesárea (Cesarean Scar Pregnancy - CSP), con alto riesgo de acretismo placentario, rotura uterina y hemorragia cataclísmica.",
-        "b": "Amenaza de aborto ortotópico benigno que se cura con reposo.",
+        "a": "Embarazo ectópico en cicatriz de cesárea (CSP), con alto riesgo de acretismo placentario, rotura uterina y hemorragia.",
+        "b": "Amenaza de aborto ortotópico benigno que se cura con reposo y no requiere seguimiento ecográfico posterior hasta el parto de término.",
         "c": "Mola hidatidiforme parcial de bajo riesgo.",
         "d": "Pólipo placentario maduro del cuello uterino."
       },
@@ -848,10 +848,10 @@
       "id": 71,
       "pregunta": "Una paciente de 25 años ingresa a la guardia con diagnóstico de Abdomen Agudo Infeccioso por una pelviperitonitis purulenta secundaria a una EPI Severa (Monif III/IV). Durante la laparoscopía quirúrgica exploradora se realiza la evacuación de las colecciones purulentas. ¿Cuál es el procedimiento intraoperatorio fundamental recomendado para reducir la carga bacteriana pélvica y prevenir la formación de adherencias posinflamatorias?",
       "opciones": {
-        "a": "Lavado peritoneal profuso con abundante solución fisiológica tibia (3 a 5 litros) y colocación de tubos de drenaje en Douglas.",
-        "b": "Cauterización con nitrato de plata de toda la superficie de las asas intestinales.",
-        "c": "Histerectomía radical con rescate de la mucosa vaginal.",
-        "d": "Aplicación de polvos antisépticos con talco en el espacio subdiafragmático."
+        "a": "Lavado peritoneal profuso con solución fisiológica tibia (3 a 5 litros) y drenaje en Douglas.",
+        "b": "Cauterización con nitrato de plata de toda la superficie de las asas intestinales y lavado posterior con agua oxigenada.",
+        "c": "Histerectomía radical con rescate de la mucosa vaginal con anexectomía bilateral y linfadenectomía pélvica.",
+        "d": "Aplicación de polvos antisépticos con talco en el espacio subdiafragmático y cierre inmediato de la pared."
       },
       "respuesta_correcta": "a",
       "justificacion": "En el abordaje quirúrgico (laparoscópico o laparotómico) de la pelviperitonitis y de los abscesos tubo-ováricos rotos o complicados, la medida terapéutica intraoperatoria clave es el lavado peritoneal exhaustivo y profuso con solución fisiológica tibia (utilizando volúmenes de 3 a 5 litros). Esto permite diluir el exudado purulento, remover detritos de fibrina y gérmenes anaerobios, debridar adherencias laxas iniciales y colocar drenajes aspirativos en el fondo de saco de Douglas para el monitoreo postoperatorio (Consenso EPI FASGO / Gori)."
@@ -862,7 +862,7 @@
       "opciones": {
         "a": "Degeneración hialina de mioma intramural.",
         "b": "Torsión del pedículo de un Mioma Subseroso Pediculado (Tipo 7 de la FIGO).",
-        "c": "Necrobiosis hemorrágica de mioma submucoso.",
+        "c": "Necrobiosis hemorrágica de mioma submucoso por déficit de aporte sanguíneo del mioma submucoso a nivel de la cavidad.",
         "d": "Transformación en sarcoma botrioide."
       },
       "respuesta_correcta": "b",
@@ -872,10 +872,10 @@
       "id": 73,
       "pregunta": "En la aplicación del paso \"P\" (Perception / Percepción) del Protocolo SPIKES / EPICEC para la comunicación de malas noticias en la guardia ginecológica, ¿cuál de las siguientes preguntas formuladas por el profesional médico es la adecuada para explorar el marco mental del paciente?",
       "opciones": {
-        "a": "\"¿Tiene dinero para pagar los estudios de alta complejidad que le voy a ordenar?\".",
-        "b": "\"¿Podría decirme qué es lo que usted ha entendido o le han explicado hasta ahora sobre los síntomas que motivaron su consulta?\".",
-        "c": "\"¿Por qué no vino a la guardia la semana pasada cuando comenzó el sangrado?\".",
-        "d": "\"¿Sabe usted la definición exacta de la enzima dihydrofolato reductasa?\"."
+        "a": "\"¿Tiene dinero para pagar los estudios de alta complejidad que le voy a ordenar, o prefiere que la derive a otro hospital?\".",
+        "b": "\"¿Podría decirme qué entendió o qué le explicaron hasta ahora sobre los síntomas que motivaron su consulta?\".",
+        "c": "\"¿Por qué no vino a la guardia la semana pasada cuando comenzó el sangrado, si le habían advertido que era importante?\".",
+        "d": "\"¿Sabe usted la definición exacta de la enzima dihidrofolato reductasa y su relación con el tratamiento que le indicaré?\"."
       },
       "respuesta_correcta": "b",
       "justificacion": "El objetivo técnico del paso P - Perception (Percepción) en SPIKES es averiguar qué comprende o percibe el paciente sobre su situación clínica antes de revelar la noticia. Se logra mediante preguntas abiertas, respetuosas e inquisitivas como: \"¿Qué le han dicho sobre su ecografía?\", \"¿Qué comprende usted sobre lo que está pasando?\" o \"¿Podría decirme qué es lo que ha entendido hasta ahora?\". Esto le permite al profesional corregir conceptos erróneos, evaluar el nivel de negación y adaptar el lenguaje técnico que utilizará en el paso posterior (Protocolo SPIKES / Psicología comunicación)."
@@ -884,9 +884,9 @@
       "id": 74,
       "pregunta": "Una paciente de 22 años acude a la guardia por confirmación de un Aborto Diferido (huevo muerto y retenido) de 8 semanas de gestación. Opta por el tratamiento farmacológico de evacuación uterina. De acuerdo con las guías oficiales del Ministerio de Salud y la OMS (Manual de Emergencias Obstétricas / Aborto Gori / Testa), ¿cuál es el esquema farmacológico estandarizado con Misoprostol para la evacuación del aborto del primer trimestre?",
       "opciones": {
-        "a": "Misoprostol 10 mg por vía intramuscular dosis única en la nalga.",
-        "b": "Misoprostol 800 mcg por vía sublingual o vaginal (repetido cada 3 horas hasta un máximo de 3 dosis si fuera necesario).",
-        "c": "Misoprostol 50 mcg por vía oral cada 24 horas por 30 días continuos.",
+        "a": "Misoprostol 10 mg por vía intramuscular dosis única en la nalga con control de la tensión arterial en el domicilio de la paciente.",
+        "b": "Misoprostol 800 mcg por vía sublingual o vaginal, repetido cada 3 horas hasta un máximo de 3 dosis si es necesario.",
+        "c": "Misoprostol 50 mcg por vía oral cada 24 horas por 30 días continuos asociados a legrado uterino en la guardia y control a las 24 horas.",
         "d": "Misoprostol 2.000 mcg en infusión intravenosa rápida continua."
       },
       "respuesta_correcta": "b",
@@ -896,10 +896,10 @@
       "id": 75,
       "pregunta": "Una paciente de 26 años con diagnóstico de Embarazo Ectópico Tubario derecho ampolar de 28 mm no roto es intervenida por laparoscopía quirúrgica. La paciente se encuentra estable, desea conservar su fertilidad futura y la trompa afectada presenta la pared íntegra sin grietas. Se decide realizar un procedimiento conservador de la trompa de Falopio. ¿En qué consiste la Salpingostomía Lineal Laparoscópica?",
       "opciones": {
-        "a": "En la extirpación completa y definitiva de toda la trompa de Falopio derecha.",
-        "b": "En la resección total del útero con conservación de los ovarios.",
-        "c": "En realizar una incisión longitudinal en el borde antimesentérico de la trompa sobre el sitio del ectópico, evacuar el tejido trofoblástico, realizar hemostasia y dejar cicatrizar por segunda intención (o sutura fina).",
-        "d": "En ligar la arteria uterina derecha en su origen sin tocar la trompa."
+        "a": "En la extirpación completa y definitiva de toda la trompa de Falopio derecha, incluyendo el ovario homolateral y la mitad de la pared uterina adyacente.",
+        "b": "En la resección total del útero con conservación de los ovarios y de ambas trompas de Falopio por laparotomía de urgencia con anexectomía.",
+        "c": "Incisión longitudinal en el borde antimesentérico de la trompa, evacuación del trofoblasto, hemostasia y cicatrización por segunda intención.",
+        "d": "En ligar la arteria uterina derecha en su origen sin tocar la trompa y en la sutura de la trompa con puntos separados sin evacuar el contenido."
       },
       "respuesta_correcta": "c",
       "justificacion": "La Salpingostomía Lineal es la técnica quirúrgica conservadora de elección en el embarazo ectópico tubario en pacientes que desean preservar la trompa afectada. Consiste en: 1) Realizar una incisión longitudinal con microelectrodo en el borde antimesentérico de la trompa sobre el abombamiento del ectópico; 2) Evacuar el saco y tejido trofoblástico mediante hidrodisisección o aspiración; 3) Realizar hemostasia meticulosa del lecho; y 4) Dejar los bordes de la salpingostomía sin suturar (cicatrización por segunda intención) o con sutura laparoscópica fina, conservando la luz tubaria (Consenso FASGO 2025 / Testa)."
@@ -909,9 +909,9 @@
       "pregunta": "En el diagnóstico citogenético y anatomopatológico de la Mola Hidatidiforme Parcial, ¿cuál es el porcentaje de riesgo aproximado de progresión o desarrollo de una Neoplasia Trofoblástica Gestacional (NTG / Mola Invasora) post-evacuación, en comparación con la Mola Completa?",
       "opciones": {
         "a": "Presenta un riesgo de NTG del 80 al 90% en todos los casos.",
-        "b": "Presenta un riesgo de NTG idéntico al de un embarazo normal (< 0,001%).",
-        "c": "Presenta un riesgo de NTG bajo (aproximadamente 1 a 5%), mientras que en la mola completa el riesgo asciende al 15-20%.",
-        "d": "Presenta un riesgo del 100% exigiendo quimioterapia profiláctica inmediata."
+        "b": "Presenta un riesgo de NTG idéntico al de un embarazo normal (< 0,001%) y no requiere seguimiento con β-hCG posterior al legrado.",
+        "c": "Presenta un riesgo de NTG bajo (1 a 5%), mientras que en la mola completa asciende al 15-20%.",
+        "d": "Presenta un riesgo del 100% exigiendo quimioterapia profiláctica inmediata con indicación de histerectomía profiláctica en todos los casos."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con los consensos de patología trofoblástica (Consenso ETG / Gori / Testa), el comportamiento biológico y el potencial de malignización varían sustancialmente entre ambas formas molares: • Mola Hidatidiforme Parcial: Presenta un riesgo bajo de desarrollo de NTG (1 a 5%), y excepcionalmente progresa a coriocarcinoma. • Mola Hidatidiforme Completa: Presenta un riesgo significativamente mayor (15 a 20%) de secuela trofoblástica persistente (mola invasora) y un 2-3% de coriocarcinoma."
@@ -932,9 +932,9 @@
       "id": 78,
       "pregunta": "Una paciente de 20 años acude a la guardia por molestia sorda e incómoda en fosa ilíaca derecha de inicio repentino durante la mitad de su ciclo menstrual (día 14 de 28). No presenta amenorrea, se encuentra hemodinámicamente estable y la ecografía muestra ovarios normales con un folículo roto de 18 mm y una lámina mínima de líquido anecoico en Douglas (< 5 ml). ¿A qué entidad fisiológica corresponde y cuál es la pauta de manejo?",
       "opciones": {
-        "a": "Torsión anexial con necrosis gangrenosa / Salpingo-ooforectomía urgente.",
-        "b": "Rotura de folículo ovulatorio fisiológico (ovulación dolorosa) / Tranquilizar a la paciente, explicación del carácter benigno y analgesia condicional con AINES.",
-        "c": "Absceso tubo-ovárico roto Monif IV / Laparotomía urgente y drenaje.",
+        "a": "Torsión anexial con necrosis gangrenosa / Salpingo-ooforectomía urgente y control con ecografía transvaginal a las 24 horas luego de la cirugía.",
+        "b": "Rotura de folículo ovulatorio (ovulación dolorosa) / Tranquilizar, explicar que es benigno y dar analgesia condicional con AINES.",
+        "c": "Absceso tubo-ovárico roto Monif IV / Laparotomía urgente y drenaje y control con tomografía abdominopélvica a las 72 horas del postoperatorio.",
         "d": "Mola hidatidiforme invasora / Monitoreo semanal con beta-hCG."
       },
       "respuesta_correcta": "b",
@@ -956,8 +956,8 @@
       "id": 80,
       "pregunta": "Una paciente de 25 años acude a la consulta por amenorrea secundaria de 8 meses de evolución. En su historia clínica consta haber sido asistida en la guardia hace 8 meses por un Aborto Incompleto Séptico que requirió dos legrados uterinos instrumentales enérgicos con legra metálica cortante. El test de embarazo es negativo, la prueba de progesterona es negativa y la prueba de estrógenos + progestágenos es NEGATIVA (no produce sangrado por deprivación). TSH y Prolactina son normales. ¿Cuál es la complicación ginecológica tardía producida por la agresión instrumental sobre el endometrio infectado?",
       "opciones": {
-        "a": "Síndrome de Ovario Poliquístico fenotipo B.",
-        "b": "Insuficiencia Ovárica Primaria autoinmune.",
+        "a": "Síndrome de Ovario Poliquístico fenotipo B con hirsutismo y anovulación crónica por hiperandrogenismo.",
+        "b": "Insuficiencia Ovárica Primaria autoinmune con amenorrea secundaria por autoanticuerpos antiováricos.",
         "c": "Mola hidatidiforme recurrente.",
         "d": "Síndrome de Asherman (sinequias y obliteración cicatrizal de la cavidad endometrial)."
       },
@@ -968,9 +968,9 @@
       "id": 81,
       "pregunta": "Una paciente de 27 años, primigesta con amenorrea de 9 semanas, acude a la guardia para presentar su ecografía obstétrica transvaginal. La paciente se encuentra totalmente asintomática, no refiere dolor pélvico ni genitorragia. Al examen físico: TA 110/70 mmHg, FC 72 lpm, cérvix formado con el orificio cervical interno (OCI) CERRADO. La ecografía revela un saco gestacional intrauterino con un Diámetro Medio del Saco Gestacional (DMSG) de 28 mm, en cuyo interior se observa la ausencia total de polo embrionario y de vesícula vitelina. De acuerdo con los criterios ultrasonográficos de la Society of Radiologists in Ultrasound (SRU) y la bibliografía de la cátedra (Testa / Libro Pontelli SIM 2026), ¿cuál es el diagnóstico de certeza y la conducta indicada?",
       "opciones": {
-        "a": "Aborto anembrionado (huevo huero / fallo gestacional temprano) / Evacuación uterina mediante Aspiración Manual Endouterina (AMEU) o tratamiento farmacológico con Misoprostol.",
+        "a": "Aborto anembrionado (huevo huero) / Evacuación uterina con AMEU o tratamiento farmacológico con Misoprostol.",
         "b": "Embarazo normoevolutivo de 4 semanas / Prescribir reposo absoluto en cama e infusión de oxitocina continua.",
-        "c": "Amenaza de aborto / Indicación de progesterona micronizada oral por 30 días y alta ambulatoria.",
+        "c": "Amenaza de aborto / Indicación de progesterona micronizada oral por 30 días y alta ambulatoria y control a los 7 días.",
         "d": "Mola hidatidiforme parcial / Histerectomía total abdominal inmediata por laparotomía exploradora."
       },
       "respuesta_correcta": "a",
@@ -992,9 +992,9 @@
       "id": 83,
       "pregunta": "Una paciente de 28 años, con antecedente de una Mola Hidatidiforme Completa evacuada por AMEU hace 8 meses pero que no realizó los controles serológicos de seguimiento, es ingresada a la guardia por presentar hemoptisis (expectoración con sangre), disnea de esfuerzo y metrorragia profusa. La tomografía computada de tórax revela múltiples imágenes nodulares densas bilaterales en ambos campos pulmonares (imagen en \"balón de gas\" / \"balas de cañón\"). El dosaje de subunidad beta-hCG cuantitativa sérica arroja un valor de 150.000 UI/mL y la biopsia de una lesión sangrante en la pared vaginal posterior confirma la presencia de citotrofoblasto y sincitiotrofoblasto anaplásico sin vellosidades (Coriocarcinoma). De acuerdo con la estratificación de la FIGO/OMS, se clasifica como NTG de Alto Riesgo (puntaje ≥ 7). ¿Cuál es el tratamiento adyuvante de elección?",
       "opciones": {
-        "a": "Mola parcial no complicada / Legrado repetido con legra metálica y alta sin medicación.",
-        "b": "Teratoma maduro de ovario metastásico / Tratamiento con tamoxifeno oral por 5 años.",
-        "c": "Coriocarcinoma metastásico (NTG de Alto Riesgo) / Poliquimioterapia combinada multidroga con el esquema EMA-CO (Etopósido, Metotrexato, Actinomicina D, Ciclofosfamida, Vincristina).",
+        "a": "Mola parcial no complicada / Legrado repetido con legra metálica y alta sin medicación con seguimiento mensual de la β-hCG durante un año por la paciente en su domicilio.",
+        "b": "Teratoma maduro de ovario metastásico / Tratamiento con tamoxifeno oral por 5 años por vía intravenosa hasta lograr la remisión del síndrome paraneoplásico.",
+        "c": "Coriocarcinoma metastásico (NTG de alto riesgo) / Poliquimioterapia EMA-CO (Etopósido, Metotrexato, Actinomicina D, Ciclofosfamida, Vincristina).",
         "d": "Endometritis posparto por Streptococcus pyogenes / Penicilina benzatínica IM dosis única."
       },
       "respuesta_correcta": "c",
@@ -1005,9 +1005,9 @@
       "pregunta": "Una paciente de 23 años se encuentra internada en el servicio de ginecología recibiendo el esquema antibiótico parenteral de primera línea con Clindamicina y Gentamicina por un Absceso Tubo-Ovárico (ATO) izquierdo de 8 cm de diámetro (Monif III). A las 48-72 horas de tratamiento continuo, la paciente persiste con picos febriles (Tº 39,2 ºC), acentuación del dolor abdominal con defensa muscular en FII y ascenso leucocitario a 22.000/mm³. ¿Cuál es la conducta médica indicada ante la falta de respuesta al tratamiento farmacológico?",
       "opciones": {
         "a": "Alta médica inmediata con indicación de paracetamol oral por 7 días.",
-        "b": "Continuar con el mismo esquema antibiótico parenteral por 30 días adicionales sin intervención.",
-        "c": "Suspender todos los antibióticos y prescribir anticonceptivos orales combinados.",
-        "d": "Drenaje quirúrgico (laparoscopía / laparotomía) o drenaje guiado por imágenes (o colpotomía posterior si abomba en Douglas) para control del foco séptico."
+        "b": "Continuar con el mismo esquema antibiótico parenteral por 30 días adicionales sin intervención y control de la fiebre a las 72 horas.",
+        "c": "Suspender todos los antibióticos y prescribir anticonceptivos orales combinados y alta con control en el consultorio externo a las 24 horas.",
+        "d": "Drenaje quirúrgico o guiado por imágenes (colpotomía posterior si abomba en Douglas) para controlar el foco séptico."
       },
       "respuesta_correcta": "d",
       "justificacion": "Ante un Absceso Tubo-Ovárico (ATO) que no muestra respuesta clínica favorable (persistencia de fiebre, dolor o leucocitosis) tras 48 a 72 horas de tratamiento antibiótico parenteral idóneo, o que presenta un tamaño elevado (> 7-8 cm) con riesgo inminente de fisura, se diagnostica el fracaso del tratamiento médico conservador. La conducta médica estandarizada exige el drenaje del foco séptico, ya sea mediante abordaje quirúrgico laparoscópico/laparotómico, drenaje percutáneo/transvaginal guiado por ecografía o colpotomía posterior si la colección abomba hacia el fórnix posterior vaginal (Consenso EPI FASGO / Gori)."
@@ -1018,7 +1018,7 @@
       "opciones": {
         "a": "Torsión anexial izquierda / Laparoscopía quirúrgica de urgencia para destorsión del pedículo y evaluación de la viabilidad tisular.",
         "b": "Rotura de quiste folicular benigno / Reposo en cama e infusión de oxitocina.",
-        "c": "Absceso tubo-ovárico roto / Drenaje por vía rectal en la guardia sin anestesia.",
+        "c": "Absceso tubo-ovárico roto / Drenaje por vía rectal en la guardia sin anestesia y alta con control en 24 horas por consultorio externo con analgesia común.",
         "d": "Embarazo ectópico cornual / Tratamiento ambulatorio con metotrexato oral."
       },
       "respuesta_correcta": "a",
@@ -1042,8 +1042,8 @@
       "opciones": {
         "a": "Usando jerga médica incomprensible y entregando el informe sin hacer pausas.",
         "b": "Ocultando la necesidad de cirugía para evitar que la paciente se asuste.",
-        "c": "Empleando un disparo de advertencia previa, utilizando lenguaje claro y directo sin tecnicismos, administrando la información en pequeños bloques (chunk and check) y verificando la comprensión.",
-        "d": "Exigiendo que la paciente pague previamente los honorarios de la cirugía antes de hablar."
+        "c": "Usando una advertencia previa, lenguaje claro y directo sin tecnicismos, informando en pequeños bloques (chunk and check) y verificando la comprensión.",
+        "d": "Exigiendo que la paciente pague previamente los honorarios de la cirugía antes de hablar y recién luego de abonar iniciar el estudio del caso ante el personal administrativo."
       },
       "respuesta_correcta": "c",
       "justificacion": "El paso K - Knowledge (Conocimiento) del protocolo SPIKES exige seguir pautas comunicacionales científicamente validadas: 1) Utilizar una frase o disparo de advertencia previa (\"Lamentablemente los estudios muestran un hallazgo inesperado...\"); 2) Explicar el diagnóstico y la conducta con lenguaje no técnico, claro y directo; 3) Administrar la información en pequeños bloques o fragmentos (chunk and check); y 4) Hacer pausas para verificar periódicamente la comprensión antes de avanzar al plan quirúrgico (Protocolo SPIKES / Psicología comunicación)."
@@ -1064,9 +1064,9 @@
       "id": 89,
       "pregunta": "Una paciente de 30 años consulta en la guardia por genitorragia indolora de sangre roja rutilante a las 7 semanas de gestación. La ecografía transvaginal demuestra la cavidad uterina superior y el canal endocervical superior vacíos, pero identifica el saco gestacional con embrión implantado en la mucosa de la pared del canal endocervical por debajo del orificio cervical interno (OCI), con el cérvix dilatado en forma de \"tonel\" y signo del deslizamiento (sliding sign) negativo. Se diagnostica un Embarazo Ectópico Cervical. ¿Cuál es el riesgo quirúrgico de realizar un legrado evacuador instrumental tradicional en esta paciente y cuál es la conducta médica indicada?",
       "opciones": {
-        "a": "Presenta un riesgo extremo de hemorragia cataclísmica incontrolable por la incapacidad contráctil del cérvix, indicándose tratamiento conservador con Metotrexato o embolización de arterias uterinas.",
-        "b": "Es la forma más benigna que se cura con legrado en el consultorio.",
-        "c": "Se resuelve espontáneamente con reposo e infusión de solución fisiológica.",
+        "a": "Presenta riesgo extremo de hemorragia incontrolable por la incapacidad contráctil del cérvix; se indica manejo conservador con Metotrexato o embolización de arterias uterinas.",
+        "b": "Es la forma más benigna que se cura con legrado en el consultorio y presenta riesgo mínimo de hemorragia durante el legrado cervical sin necesidad de estudios complementarios.",
+        "c": "Se resuelve espontáneamente con reposo e infusión de solución fisiológica y no requiere seguimiento ecográfico ni control de la β-hCG hasta la resolución completa, y se confirma con ecografía a los siete días.",
         "d": "Requiere cerclaje de McDonald profiláctico a las 24 semanas sin medicamentos."
       },
       "respuesta_correcta": "a",
@@ -1100,8 +1100,8 @@
       "id": 92,
       "pregunta": "Una paciente de 34 años acude a la guardia por presentar dolor abdominal agudo e intenso en hipogasto y náuseas de 4 horas de evolución, manifestando que el dolor comenzó bruscamente tras agacharse. No refiere amenorrea. La ecografía transvaginal identifica la presencia de una masa tumoral sólida subserosa dependiente del fondo uterino de 6 cm de diámetro, unida al miometrio por un pedículo estrecho de 8 mm (Mioma Subseroso Pediculado / Tipo 7 de la FIGO), observándose al Doppler color la interrupción completa del flujo vascular en el pedículo. ¿Cuál es el diagnóstico y la conducta de elección?",
       "opciones": {
-        "a": "Embolización de arterias uterinas ambulatoria sin analgesia.",
-        "b": "Legrado uterino instrumental a ciegas en la guardia.",
+        "a": "Embolización de arterias uterinas ambulatoria sin analgesia con alta con reposo domiciliario por diez días y control a la semana.",
+        "b": "Legrado uterino instrumental a ciegas en la guardia y administración de antibióticos de amplio espectro por vía oral.",
         "c": "Radioterapia holopélvica fraccionada por 6 semanas.",
         "d": "Torsión del pedículo de un mioma subseroso pediculado / Miomectomía quirúrgica por laparoscopía o laparotomía."
       },
@@ -1112,8 +1112,8 @@
       "id": 93,
       "pregunta": "Tras comunicar la confirmación ecográfica de un aborto diferido de 9 semanas a una paciente que buscaba gestación, la paciente rompe en llanto desconsolado. El médico de guardia guarda un silencio respetuoso de unos segundos, acerca pañuelos descartables, la mira a los ojos y expresa: \"Comprendo perfectamente lo doloroso que resulta recibir esta noticia y es totalmente comprensible que se sienta así en este momento\". De acuerdo con el paso \"E\" (Empathy / Empatía) del Protocolo SPIKES / EPICEC, ¿cuáles son las técnicas de comunicación aplicadas por el profesional?",
       "opciones": {
-        "a": "Aplicación del paso E (Empatía) mediante la observación, escucha activa, silencio respetuoso y validación de la respuesta emocional (modelo NURSE).",
-        "b": "Incumplimiento del protocolo al no ordenar a la paciente que contenga el llanto.",
+        "a": "Aplicación del paso E (Empatía): observación, escucha activa, silencio respetuoso y validación de la respuesta emocional (modelo NURSE).",
+        "b": "Incumplimiento del protocolo al no ordenar a la paciente que contenga el llanto y falta de respeto a la autonomía de la paciente al solicitar que no exprese su dolor.",
         "c": "Aplicación del paso S (Setting) mediante la iluminación del consultorio.",
         "d": "Aplicación del paso P (Percepción) exigiendo la firma de la historia clínica."
       },
@@ -1136,9 +1136,9 @@
       "id": 95,
       "pregunta": "Una paciente de 28 años ingresa a la guardia por dolor pélvico agudo e inestabilidad hemodinámica a las 9 semanas de gestación. La ecografía transvaginal muestra la cavidad uterina libre, pero identifica un saco gestacional completo con vesícula vitelina ubicado en el miometrio del cuerno uterino derecho (Embarazo Ectópico Intersticial / Cornual) rodeado por una capa miometrial delgada menor a 5 mm. ¿Cuáles son las características clínicas y el riesgo hemorrágico de esta localización no tubaria?",
       "opciones": {
-        "a": "Se resuelve espontáneamente con reposo relativo en el 100% de los casos.",
+        "a": "Se resuelve espontáneamente con reposo relativo en el 100% de los casos y no presenta riesgo de rotura ni de hemorragia durante el segundo trimestre del embarazo, y se resuelve sin necesidad de controles posteriores.",
         "b": "Presenta el menor riesgo de sangrado de todas las variantes ectópicas.",
-        "c": "Implantación en la porción intramiometrial de la trompa, con riesgo de rotura tardía (semanas 8 a 16) y hemorragia cataclísmica masiva por la rica vascularización de las arterias uterinas y ováricas.",
+        "c": "Implantación en la porción intramiometrial de la trompa, con riesgo de rotura tardía (semanas 8 a 16) y hemorragia masiva por la rica vascularización uterina y ovárica.",
         "d": "Requiere tratamiento con lavados vaginales con vinagre."
       },
       "respuesta_correcta": "c",
@@ -1149,7 +1149,7 @@
       "pregunta": "En la evaluación anatomopatológica e inmunohistoquímica de una pieza de legrado molar, el patólogo informa la presencia de vellosidades coriales con degeneración hidrópica focal, preservación de vasos sanguíneos con glóbulos rojos nucleados fetales y una expresión POSITIVA para la proteína p57 (p57KIP2) en el estroma de las vellosidades. El análisis citogenético confirma un cariotipo triploide 69,XXY. ¿A qué variedad de enfermedad trofoblástica corresponde?",
       "opciones": {
         "a": "Mola completa androgénica diploide 46,XX.",
-        "b": "Coriocarcinoma anaplásico metastásico.",
+        "b": "Coriocarcinoma anaplásico metastásico con enfermedad trofoblástica persistente tras el legrado y metástasis pulmonares.",
         "c": "Aborto hidrópico no molar con trisomía 21.",
         "d": "Mola Hidatidiforme Parcial (p57 positiva por presencia de genoma materno y cariotipo triploide)."
       },
@@ -1172,10 +1172,10 @@
       "id": 98,
       "pregunta": "Una paciente de 25 años es intervenida por laparoscopía de urgencia por un cuadro de Torsión Anexial derecha. Tras realizar la destorsión del pedículo vascular y comprobar la progresiva reperfusión y recuperación del color rosado del parénquima ovárico, se observa que la causa de la torsión es un tumor benigno de 5 cm de diámetro compatible con un Teratoma Maduro Quístico (Quiste Dermoide). ¿Cuál es la conducta quirúrgica recomendada sobre la tumoración?",
       "opciones": {
-        "a": "Ooforectomía radical bilateral con vaciamiento pélvico.",
+        "a": "Ooforectomía radical bilateral con vaciamiento pélvico por vía laparotómica con estudio de los ganglios pélvicos y paraaórticos.",
         "b": "Quistectomía ovárica conservadora (enucleación de la cápsula del teratoma) preservando la corteza ovárica sana.",
         "c": "Abandono del quiste dermoide en la cavidad peritoneal sin extirparlo.",
-        "d": "Histerectomía total abdominal con ligadura de arterias uterinas."
+        "d": "Histerectomía total abdominal con ligadura de arterias uterinas y ooforectomía bilateral con vaciamiento ganglionar paraaórtico."
       },
       "respuesta_correcta": "b",
       "justificacion": "En el tratamiento de la torsión anexial provocada por un tumor ovárico benigno (como el teratoma maduro o quiste dermoide) en pacientes en edad fértil, la regla quirúrgica fundamental es la preservación folicular. Una vez destorcido el pedículo y verificada la viabilidad y reperfusión tisular de la gónada, se debe realizar la Quistectomía Ovárica Conservadora mediante la enucleación de la cápsula tumoral, disecando y extrayendo el teratoma mientras se preserva la corteza y el parénquima ovárico funcional sano (Gori / Testa)."
@@ -1184,7 +1184,7 @@
       "id": 99,
       "pregunta": "Una paciente de 21 años consulta en la guardia por dolor pélvico agudo e intenso en fosa ilíaca izquierda de 6 horas de evolución en el día 21 de su ciclo menstrual. La prueba rápida de subunidad beta-hCG en orina es negativa. La ecografía transvaginal muestra un quiste ovárico heterogéneo izquierdo colapsado de 28 mm y una pequeña lámina de líquido libre anecoico en el fondo de saco de Douglas. Al examen físico: TA 120/75 mmHg, FC 74 lpm, abdomen blando con dolor leve a la palpación profunda en FII. El hemograma reporta Hemoglobina de 13,0 g/dl. Se diagnostica una Rotura de Cuerpo Lúteo Hemorrágico No Complicado. ¿Cuál es la conducta médica de elección?",
       "opciones": {
-        "a": "Salpingectomía izquierda por laparotomía de urgencia.",
+        "a": "Salpingectomía izquierda por laparotomía de urgencia y control ecográfico a las 48 horas con β-hCG.",
         "b": "Tratamiento citostático con metotrexato 50 mg/m² IM.",
         "c": "Conducta conservadora con reposo, analgesia con AINES, pautas de alarma y control ambulatorio.",
         "d": "Legrado uterino evacuador por AMEU en la guardia."
@@ -1197,9 +1197,9 @@
       "pregunta": "Al concluir la consulta médica de comunicación de un informe diagnóstico complejo en la guardia (confirmación de aborto incompleto con indicación de AMEU), el profesional aplica el paso \"S\" (Strategy and Summary / Estrategia y Resumen) del Protocolo SPIKES / EPICEC. ¿Cuáles son las tres intervenciones comunicacionales clave que debe ejecutar el médico en este cierre?",
       "opciones": {
         "a": "Aplicación del paso P (Percepción) exigiendo la firma de pagarés.",
-        "b": "Aplicación del paso I (Invitación) solicitando autorización para publicar fotos en redes.",
-        "c": "Aplicación del paso K (Conocimiento) dando la clase teórica sobre embrionología.",
-        "d": "Aplicación del paso S (Estrategia y Resumen) formulando el plan terapéutico compartido, resumiendo los puntos clave y ofreciendo un espacio para resolver dudas finales."
+        "b": "Aplicación del paso I (Invitación) solicitando autorización para publicar fotos en redes y exigiendo consentimiento escrito para registrar la entrevista en video.",
+        "c": "Aplicación del paso K (Conocimiento) dando la clase teórica sobre embrionología y evaluando los conocimientos previos de la paciente mediante preguntas teóricas.",
+        "d": "Aplicación del paso S (Estrategia y Resumen): formular el plan compartido, resumir los puntos clave y ofrecer espacio para dudas."
       },
       "respuesta_correcta": "d",
       "justificacion": "El sexto y último paso del protocolo SPIKES / EPICEC (S - Strategy and Summary / Estrategia y Resumen) tiene como objetivo cerrar la entrevista estructurando los pasos a seguir. Comprende: 1) Proponer un plan de tratamiento médico/quirúrgico claro y compartido; 2) Realizar un resumen breve de la información brindada para mitigar la falla de memoria provocada por el impacto emocional; y 3) Preguntar explícitamente si existen dudas o preguntas sobre el procedimiento que se va a realizar, asegurando el consentimiento verdaderamente informado (Protocolo SPIKES / Psicología comunicación)."

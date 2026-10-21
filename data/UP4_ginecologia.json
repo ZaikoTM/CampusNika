@@ -10,8 +10,8 @@
       "opciones": {
         "a": "Descenso marcado de la hormona foliculoestimulante (FSH < 5 mUI/ml) asociado a elevación de la inhibina B y de la hormona antimülleriana (HAM).",
         "b": "Niveles elevados de estriol con supresión total de la hormona luteinizante (LH).",
-        "c": "Incremento aislado de progesterona sérica (> 20 ng/ml) con gonadotropinas hipofisarias normales.",
-        "d": "Elevación sostenida de la hormona foliculoestimulante (FSH > 40 mUI/ml en dos determinaciones separadas) junto con descenso de los niveles de estradiol (< 20-30 pg/ml) y caída precoz de la inhibina B y HAM."
+        "c": "Incremento aislado de progesterona sérica (> 20 ng/ml) con gonadotropinas hipofisarias normales y estradiol sérico normal con inhibina B elevada y función folicular conservada.",
+        "d": "FSH > 40 mUI/ml (dos determinaciones) con estradiol < 20-30 pg/ml e inhibina B y HAM descendidas."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología y las pautas endocrinológicas (Climaterio.pdf / Libro Pontelli SIM 2026), la falla ovárica fisiológica propia del climaterio se desencadena por la atresia y agotamiento progresivo de los folículos primordiales. El marcador bioquímico más precoz es la reducción de la Inhibina B y de la Hormona Antimülleriana (HAM) sintetizadas por las células de la granulosa. La pérdida del mecanismo de retroalimentación negativa sobre la hipófisis provoca un ascenso compensatorio de la FSH, considerándose diagnóstico de menopausia un valor sostenido de FSH > 40 mUI/ml acompañado de hipoestrogenismo (Estradiol < 20-30 pg/ml) (Gori Ginecología)."
@@ -20,8 +20,8 @@
       "id": 2,
       "pregunta": "Una paciente de 52 años acude a la consulta ginecológica por presentar, desde hace 6 meses (tras la cesación definitiva de sus menstruaciones), sofocos intensos y sudoración nocturna frecuente (síndrome climatérico moderado a severo) que alteran la calidad del sueño y su desempeño laboral. No presenta antecedentes cardiovasculares ni oncológicos. De acuerdo con los consensos de la Sociedad Internacional de Menopausia y FASGO (Consenso FASGO Climaterio / Climaterio.pdf / Gori), ¿cuál es la indicación de la Terapia Hormonal de la Menopausia (THM) dentro del concepto de la \"ventana de oportunidad terapéutica\"?",
       "opciones": {
-        "a": "La THM está indicada exclusivamente en pacientes mayores de 70 años como prevención primaria de eventos coronarios.",
-        "b": "La THM administrada por vía sistémica en dosis bajas constituye la primera línea de tratamiento para el síndrome climatérico vasomotor moderado a severo en mujeres sintomáticas menores de 60 años o dentro de los primeros 10 años posteriores a la menopausia (ventana de oportunidad).",
+        "a": "La THM está indicada exclusivamente en pacientes mayores de 70 años como prevención primaria de eventos coronarios y se mantiene aún con enfermedad coronaria previa, por lo que se inicia a cualquier edad y sin evaluar riesgo.",
+        "b": "La THM sistémica en dosis bajas es la primera línea para el síndrome vasomotor moderado a severo en mujeres sintomáticas menores de 60 años o dentro de los primeros 10 años de la menopausia (ventana de oportunidad).",
         "c": "La THM debe prescribirse a todas las pacientes asintomáticas de forma indefinida para prevenir la demencia senil.",
         "d": "La THM está contraindicada si la paciente presenta sofocos, recomendándose únicamente sedantes ansiolíticos."
       },
@@ -32,9 +32,9 @@
       "id": 3,
       "pregunta": "Al prescribir Terapia Hormonal de la Menopausia (THM) por vía sistémica a una paciente posmenopáusica de 53 años que conserva su útero indemne (no histerectomizada) y padece síndrome climatérico severo, ¿cuál es el principio farmacológico y la combinación hormonal obligatoria según los consensos ginecológicos (Consenso FASGO Climaterio / Climaterio.pdf / Gori)?",
       "opciones": {
-        "a": "Se debe administrar obligatoriamente un progestágeno (asociado al estrógeno de forma continua o secuencial) para oponerse a la proliferación estrogénica y prevenir el desarrollo de hiperplasia y adenocarcinoma de endometrio.",
+        "a": "Se debe asociar un progestágeno al estrógeno (continuo o secuencial) para oponerse a la proliferación estrogénica y prevenir hiperplasia y adenocarcinoma de endometrio.",
         "b": "Se debe indicar estrógeno solo por vía oral a dosis altas sin agregar progestágenos.",
-        "c": "Se debe administrar únicamente estriol por vía oral sin evaluar el estado del endometrio.",
+        "c": "Se debe administrar únicamente estriol por vía oral sin evaluar el estado del endometrio, ya que el estriol por vía oral no estimula el endometrio ni requiere controles ecográficos posteriores durante el tratamiento.",
         "d": "Está contraindicado asociar progesterona por aumentar el riesgo de osteoporosis."
       },
       "respuesta_correcta": "a",
@@ -44,9 +44,9 @@
       "id": 4,
       "pregunta": "Una paciente de 55 años con antecedente de haber sido operada por un Carcinoma Ductal Infiltrante de Mama receptor de estrógenos positivo hace 3 años (en tratamiento con Tamoxifeno), consulta por sofocos e insomnio. Solicita el inicio de terapia hormonal sustitutiva con estrógenos. De acuerdo con la oncología ginecológica y los consensos sobre climaterio (Consenso FASGO Climaterio / Climaterio.pdf / Gori / Consenso Osteoporosis 2025), ¿cómo se clasifica el antecedente de Cáncer de Mama respecto a la Terapia Hormonal de la Menopausia?",
       "opciones": {
-        "a": "Es una contraindicación relativa que se resuelve duplicando la dosis de estrógenos.",
-        "b": "Es un factor de indicación prioritaria de estrógenos sistémicos por vía transdérmica.",
-        "c": "Es una CONTRAINDICACIÓN ABSOLUTA para el uso de Terapia Hormonal de la Menopausia (así como el sangrado genital de causa desconocida, el cáncer de endometrio y la enfermedad tromboembólica venosa activa).",
+        "a": "Es una contraindicación relativa que se resuelve duplicando la dosis de estrógenos y se puede mantener el tratamiento con control mamográfico semestral durante el primer año de uso.",
+        "b": "Es un factor de indicación prioritaria de estrógenos sistémicos por vía transdérmica, sobre todo en pacientes con antecedentes de cáncer de mama o de enfermedad tromboembólica venosa.",
+        "c": "Es una CONTRAINDICACIÓN ABSOLUTA de la THM (igual que el sangrado genital sin causa, el cáncer de endometrio y la enfermedad tromboembólica activa).",
         "d": "No influye en la decisión si la paciente realiza ejercicio físico diario."
       },
       "respuesta_correcta": "c",
@@ -57,9 +57,9 @@
       "pregunta": "Una paciente posmenopáusica de 62 años consulta por presentar disuria recurrente, polaquiuria, sequedad vaginal intensa, ardor e imposibilidad para mantener relaciones sexuales debido al dolor (dispareunia de intromisión). Al examen ginecológico con espéculo se aprecia palidez extrema de la mucosa vaginal, aplanamiento de los pliegues rugosos, petequias aisladas y friabilidad al contacto. No refiere sofocos ni sudoración nocturna. De acuerdo con el manejo del Síndrome Genitourinario de la Menopausia (SGUM) (Climaterio.pdf / Gori / Consenso FASGO), ¿cuál es el tratamiento farmacológico de primera línea de elección?",
       "opciones": {
         "a": "Anticonceptivos orales combinados a dosis altas por 12 meses.",
-        "b": "Antibioticoterapia profiláctica continua con ciprofloxacino por vía oral.",
-        "c": "Corticoides fluorados en crema aplicados en el cuello uterino.",
-        "d": "Estrógenos locales tópicos por vía vaginal a bajas dosis (ej. estriol en crema/óvulos o promestrieno), combinados con lubricantes e hidratantes vaginales."
+        "b": "Antibioticoterapia profiláctica continua con ciprofloxacino por vía oral durante tres meses con control de la flora vaginal por cultivo cada 15 días.",
+        "c": "Corticoides fluorados en crema aplicados en el cuello uterino dos veces por día durante un mes y luego suspensión definitiva del tratamiento.",
+        "d": "Estrógenos locales vaginales a bajas dosis (estriol en crema/óvulos o promestrieno), con lubricantes e hidratantes vaginales."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología y el Consenso FASGO de Climaterio (Climaterio.pdf), la atrofia del epitelio del tracto genital inferior e inferior urinario secundaria a la privación estrogénica configura el Síndrome Genitourinario de la Menopausia (SGUM). Cuando la paciente presenta únicamente síntomas urogenitales aislados (sequedad, dispareunia, atrofia, disuria) sin sintomatología vasomotora sistémica, la terapia de primera línea altamente efectiva es el uso de estrógenos locales en dosis bajas por vía vaginal (estriol o promestrieno). La absorción sistémica es mínima, revierte la atrofia epitelial, restaura el trofismo y el pH vaginal reduciendo la disuria y las infecciones urinarias recurrentes (Climaterio.pdf / Gori)."
@@ -69,9 +69,9 @@
       "pregunta": "Una paciente de 60 años, posmenopáusica desde los 51 años, acude a la guardia por presentar un episodio de sangrado genital escaso (\"en agua de lavar carne\") de 3 días de evolución. Al realizar la ecografía transvaginal, se evalúa el grosor/espesor endometrial (línea endometrial) en corte sagital longitudinal. De acuerdo con la patología endometrial y el manejo del Sangrado Uterino Anormal posmenopáusico (Hiperplasia Endometrial.pdf / Consenso SUA FASGO 2022 / SALUD DE LA MUJER), ¿cuál es el punto de corte ecográfico normal del grosor endometrial en una mujer posmenopáusica sin Terapia Hormonal que presenta sangrado?",
       "opciones": {
         "a": "Un espesor endometrial de hasta 15 mm se considera normal en la posmenopausia.",
-        "b": "Un espesor endometrial menor o igual a 4-5 mm presenta un alto valor predictivo negativo para patología maligna (riesgo de cáncer < 1%); un grosor > 4-5 mm en presencia de sangrado exige estudio histopatológico endometrial.",
+        "b": "Un espesor endometrial ≤ 4-5 mm tiene alto valor predictivo negativo para malignidad (riesgo < 1%); un grosor > 4-5 mm con sangrado exige estudio histopatológico endometrial.",
         "c": "Un espesor endometrial de 20 mm no requiere biopsia si la paciente es asintomática.",
-        "d": "La ecografía transvaginal no permite medir el grosor del endometrio en la posmenopausia."
+        "d": "La ecografía transvaginal no permite medir el grosor del endometrio en la posmenopausia, por lo que se debe indicar la resonancia magnética de pelvis como primer estudio en todas las pacientes sintomáticas."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con el Consenso FASGO de Sangrado Uterino Anormal (2022), Hiperplasia Endometrial.pdf y los textos de la cátedra (SALUD DE LA MUJER), la Ecografía Transvaginal (ETV) es el estudio inicial de elección para evaluar el endometrio posmenopáusico. En una mujer posmenopáusica con sangrado uterino anormal que no recibe THM, la medición del grosor endometrial doble capa con un punto de corte ≤ 4 a 5 mm tiene un excelente valor predictivo negativo (> 99%) para descartar cáncer de endometrio. Todo hallazgo de un endometrio > 4-5 mm en presencia de sangrado constituye una indicación formal para la toma de muestra tisular/biopsia de endometrio (Consenso SUA FASGO 2022)."
@@ -128,10 +128,10 @@
       "id": 11,
       "pregunta": "En el marco de la prevención y tamizaje del Cáncer de Cuello Uterino en la mujer adulta mayor (TAMIZAJE CON TEST DE VPH.pdf / IMPLEMENTACION TEST HPV.pdf / Prevención 1º y 2º del cáncer cervicouterino.pdf), se analiza la oportunidad del cese/discontinuación del tamizaje citológico o molecular. De acuerdo con las guías del Ministerio de Salud de la Nación y FASGO, ¿cuáles son los criterios requeridos para discontinuar el tamizaje de cáncer cervicouterino a los 65 años?",
       "opciones": {
-        "a": "Que la paciente haya cumplido 65 años y cuente con un tamizaje previo adecuado y negativo en los 10 años anteriores (ej. 2 Pruebas de VPH negativas consecutivas o 3 citologías PAP negativas), en ausencia de antecedentes de CIN 2+ en los últimos 20 años.",
+        "a": "Tener 65 años y un tamizaje previo adecuado y negativo en los 10 años anteriores (2 pruebas de VPH negativas o 3 PAP negativos), sin CIN 2+ en los últimos 20 años.",
         "b": "El tamizaje debe discontinuarse obligatoriamente a los 50 años en todas las mujeres sin excepción.",
         "c": "Toda paciente mayor de 65 años debe realizarse biopsias de cérvix al azar de forma semestral.",
-        "d": "El tamizaje de cuello uterino debe mantenerse de forma anual indefinida hasta los 95 años en todas las mujeres independientemente de sus estudios previos."
+        "d": "El tamizaje de cuello uterino debe mantenerse de forma anual indefinida hasta los 95 años en todas las mujeres independientemente de sus estudios previos, incluso en mujeres sin antecedentes de relaciones sexuales."
       },
       "respuesta_correcta": "a",
       "justificacion": "De acuerdo con las normativas del Programa Nacional de Prevención del Cáncer Cervicouterino del Ministerio de Salud (TAMIZAJE CON TEST DE VPH.pdf / IMPLEMENTACION TEST HPV.pdf), se puede interrumpir y discontinuar el tamizaje para cáncer de cuello uterino a los 65 años si la paciente presenta una historia de tamizaje previo adecuado y negativo durante los 10 años anteriores (demostrado por 2 estudios de VPH negativos o 3 PAPs negativos consecutivos) y no posee antecedentes de lesiones intraepiteliales de alto grado (CIN 2 o mayor) en los 20 años previos (TAMIZAJE CON TEST DE VPH.pdf)."
@@ -140,10 +140,10 @@
       "id": 12,
       "pregunta": "Una paciente de 68 años acude a la consulta ginecológica refiriendo la aparición de metrorragia fétida y sinusorragia (sangrado inducido tras el coito o la higiene genital) de 3 meses de evolución. Al realizar la especuloscopía, el médico observa en el exocérvix una masa tumoral vegetante, exofítica, ulcerada, friable y de aspecto \"en coliflor\" que sangra fácilmente al contacto con la valva. De acuerdo con las pautas de conducta diagnóstica en oncología ginecológica (Consenso Cáncer de Cérvix FASGO / Gori / Consenso Manejo Terapéutico del Carcinoma de Cuello Uterino.pdf), ¿cuál es la conducta inmediata de elección?",
       "opciones": {
-        "a": "Solicitar únicamente un nuevo Papanicolaou y citar en 6 meses.",
+        "a": "Solicitar únicamente un nuevo Papanicolaou y citar en 6 meses y, si es negativo, dar el alta definitiva sin otros estudios por imágenes ni evaluación colposcópica.",
         "b": "Indicar legrado fraccionado de cavidad uterina a ciegas sin tocar el cuello.",
-        "c": "Realizar la toma de Biopsia Directa de la lesión tumoral exofítica del cuello uterino con pinza de Punch o de biopsia bajo visión directa para confirmación histopatológica.",
-        "d": "Indicar histerectomía radical de Wertheim-Meigs sin biopsia previa."
+        "c": "Tomar una biopsia directa de la lesión exofítica del cuello (pinza de Punch o bajo visión directa) para confirmación histopatológica.",
+        "d": "Indicar histerectomía radical de Wertheim-Meigs sin biopsia previa y linfadenectomía pélvica bilateral en el mismo acto quirúrgico sin estudios previos de extensión."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con Gori Ginecología y el Consenso FASGO de Cáncer de Cérvix, ante la presencia clínica macroscópica de una lesión tumoral exofítica, ulcerada, friable o sospechosa en el cuello uterino, la conducta médica inmediata e insustituible es realizar la Biopsia Directa de la lesión (tomando tejido del borde sano y de la zona tumoral con pinza de biopsia) para obtener la confirmación anatomopatológica. En presencia de una lesión macroscópica visible no se debe diferir la conducta esperando un Papanicolaou (Consenso Cáncer de Cérvix FASGO)."
@@ -189,8 +189,8 @@
       "pregunta": "El Sistema de Cuantificación del Prolapso de Órganos Pélvicos (POP-Q) de la Sociedad Internacional de Continencia (ICS) es la herramienta estandarizada para estadificar el prolapso genital. De acuerdo con la anatomía y semiología del piso pélvico (Gineco-Obstetricia.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / TESTA PARTE 2.pdf), ¿cuál es la estructura anatómica de referencia fija (plano 0) respecto a la cual se miden en centímetros las posiciones de los 6 puntos topográficos del POP-Q?",
       "opciones": {
         "a": "El centro de la 5ª vértebra lumbar (L5).",
-        "b": "Las espinas ciáticas en el 3er plano de Hodge.",
-        "c": "El plano del Himen o Restos Himenales (considerado como nivel 0, asignando valores negativos a los puntos por encima/intravaginales y positivos a los puntos por debajo/extravaginales).",
+        "b": "Las espinas ciáticas en el 3er plano de Hodge, que se encuentran 2 cm por encima del plano del himen y fijan el estadio de manera arbitraria.",
+        "c": "El plano del himen (nivel 0), con valores negativos para los puntos intravaginales y positivos para los extravaginales.",
         "d": "El borde superior del ombligo."
       },
       "respuesta_correcta": "c",
@@ -212,9 +212,9 @@
       "id": 18,
       "pregunta": "Una paciente de 54 años acude a la consulta para retirar el informe de su mamografía bilateral de tamizaje de rutina. El informe del médico radiólogo concluye: \"Categoría BI-RADS 0\". De acuerdo con la clasificación estandarizada del Breast Imaging Reporting and Data System (BI-RADS) y las pautas del Ministerio de Salud de la Nación (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori), ¿qué significa este resultado y cuál es la conducta médica indicada?",
       "opciones": {
-        "a": "Estudio normal con riesgo de malignidad del 0% / Repetir mamografía en 2 años.",
+        "a": "Estudio normal con riesgo de malignidad del 0% / Repetir mamografía en 2 años con indicación de mastectomía profiláctica bilateral por mayor riesgo en el seguimiento posterior.",
         "b": "Hallazgo típicamente benigno / Citar a control habitual en 1 año.",
-        "c": "Estudio incompleto o no concluyente (por tejido mamario denso o hallazgos poco claros) / Requiere evaluación por imágenes adicional mediante ecografía mamaria bilateral y/o proyecciones radiológicas mamográficas complementarias.",
+        "c": "Estudio incompleto (mama densa o hallazgos poco claros) / Requiere imágenes adicionales: ecografía mamaria y/o proyecciones mamográficas complementarias.",
         "d": "Lesión altamente sospechosa de malignidad / Indicar mastectomía radical directa."
       },
       "respuesta_correcta": "c",
@@ -224,9 +224,9 @@
       "id": 19,
       "pregunta": "Durante la evaluación mamográfica de control de una paciente posmenopáusica de 63 años, se identifica en el cuadrante superoexterno de la mama derecha un agrupar de microcalcificaciones pleomórficas, heterogéneas, ramificadas y de distribución lineal, clasificadas según el sistema BI-RADS como Categoría BI-RADS 4 (Sospechosa de Malignidad). De acuerdo con el algoritmo diagnóstico en patología mamaria (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori), ¿cuál es la conducta de elección indicada?",
       "opciones": {
-        "a": "Realizar ecografía mamaria y citar a control anual si es normal.",
-        "b": "Indicar la realización de una Biopsia Percutánea Histológica (con aguja gruesa Tru-cut / Core Biopsy o mamotomía guiada por estereotaxia) para obtener diagnóstico anatomopatológico.",
-        "c": "Indicar tratamiento empírico con antibióticos y tamoxifeno por 6 meses.",
+        "a": "Realizar ecografía mamaria y citar a control anual si es normal, sin otros estudios hasta el siguiente control, aun con imágenes sospechosas de malignidad.",
+        "b": "Indicar biopsia percutánea histológica (aguja gruesa Tru-cut/core o mamotomía por estereotaxia) para obtener el diagnóstico anatomopatológico.",
+        "c": "Indicar tratamiento empírico con antibióticos y tamoxifeno por 6 meses y solicitar una resonancia magnética de mamas cada 3 meses durante todo el período del tratamiento.",
         "d": "Solicitar marcadores tumorales CA 15-3 como único estudio."
       },
       "respuesta_correcta": "b",
@@ -236,10 +236,10 @@
       "id": 20,
       "pregunta": "En el estudio de la anatomía patológica de las neoplasias malignas de la mama, se analizan los distintos tipos histológicos de tumores invasores. De acuerdo con la patología mamaria y los registros del Ministerio de Salud de la Nación (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori / Cuestionario Patología Mamaria.pdf), ¿cuál es la variedad histopatológica maligna más frecuente del cáncer de mama en la mujer adulta mayor?",
       "opciones": {
-        "a": "Carcinoma Lobulillar In Situ puro.",
+        "a": "Carcinoma Lobulillar In Situ puro con diseminación exclusiva a los ganglios axilares, sin posibilidad de invasión del estroma mamario ni del tejido graso.",
         "b": "Sarcoma de Filodes de alto grado.",
         "c": "Enfermedad de Paget del pezón aislada.",
-        "d": "Carcinoma Ductal Infiltrante (o Carcinoma Invasivo de Tipo No Especial - NST/NOS), representando aproximadamente del 70% al 80% de todos los casos de cáncer de mama."
+        "d": "Carcinoma ductal infiltrante (invasivo de tipo no especial, NST/NOS), que representa el 70% al 80% de todos los casos de cáncer de mama."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología, las guías del Ministerio de Salud de la Nación (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf) y Cuestionario Patología Mamaria.pdf, el Carcinoma Ductal Infiltrante (Carcinoma Invasivo No Especificado - NOS/NST) es la forma histopatológica maligna más común de cáncer de mama, constituyendo entre el 70% y el 80% de todos los carcinomas mamarios invasores. Microatómicamente se caracteriza por la proliferación de células epiteliales atípicas que rompen la membrana basal de los conductos e invaden el estroma mamario denso (CÁNCER DE MAMA MSAL / Gori)."
@@ -248,10 +248,10 @@
       "id": 21,
       "pregunta": "Una paciente de 66 años, posmenopáusica desde los 50 años, acude a la consulta para evaluar los resultados de su Densitometría Ósea (DEXA) de columna lumbar y cuello femoral. El informe especifica un T-Score de -2.8 SD en columna lumbar (L1-L4) y de -2.6 SD en cuello femoral. No presenta antecedentes de fracturas por fragilidad. De acuerdo con los criterios diagnósticos de la Organización Mundial de la Salud y el Consenso de Osteoporosis FASGO 2025 (Climaterio.pdf / Consenso Osteoporosis FASGO 2025 / Gori), ¿cuál es la clasificación diagnóstica densitométrica de esta paciente?",
       "opciones": {
-        "a": "Densitometría Ósea Normal (T-Score mayor o igual a -1.0 SD).",
-        "b": "Osteopenia (T-Score entre -1.0 y -2.5 SD).",
+        "a": "Densitometría Ósea Normal (T-Score mayor o igual a -1.0 SD) y valores de densidad dentro del rango normal en columna y cadera.",
+        "b": "Osteopenia (T-Score entre -1.0 y -2.5 SD) con riesgo de fractura bajo y sin tratamiento farmacológico indicado en general.",
         "c": "Osteoporosis (T-Score menor o igual a -2.5 SD en cualquier sitio esquelético medido).",
-        "d": "Osteoporosis Severa o Establecida (requiere T-Score menor a -4.0 SD sin fractura)."
+        "d": "Osteoporosis Severa o Establecida (requiere T-Score menor a -4.0 SD sin fractura) y con tratamiento inmediato."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con los criterios estandarizados de la OMS y el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf), la densidad mineral ósea (DMO) medida por densitometría de absorciometría de rayos X de energía dual (DEXA) se clasifica según el valor del T-Score (desviaciones estándar respecto a la masa ósea pico media de adultos jóvenes): • Normal: T-Score ≥ -1.0 SD. • Osteopenia: T-Score entre -1.0 y -2.5 SD. • Osteoporosis: T-Score ≤ -2.5 SD en columna lumbar, cuello femoral o cadera total. • Osteoporosis Severa o Establecida: T-Score ≤ -2.5 SD asociado a la presencia de una o más fracturas por fragilidad (Consenso Osteoporosis FASGO 2025)."
@@ -260,8 +260,8 @@
       "id": 22,
       "pregunta": "En el esquema terapéutico de la Osteoporosis Posmenopáusica confirmada, los Bifosfonatos (ej. Alendronato 70 mg/semana o Risedronato 35 mg/semana por vía oral) constituyen la primera línea de tratamiento antirresortivo. De acuerdo con la farmacología clínica y el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf), ¿cuál es el mecanismo de acción de los bifosfonatos y la instrucción de administración indispensable para prevenir complicaciones digestivas?",
       "opciones": {
-        "a": "Estimulan directamente la replicación de los osteoblastos; se administran con las comidas principales antes de acostarse.",
-        "b": "Inhiben la reabsorción ósea al inducir la apoptosis y bloquear la actividad enzimática de los osteoclastos; deben administrarse en ayunas estricto, con un vaso lleno de agua pura, manteniendo a la paciente en posición erguida (de pie o sentada) por lo menos durante 30 minutos sin ingerir alimentos.",
+        "a": "Estimulan directamente la replicación de los osteoblastos; se administran con las comidas principales antes de acostarse, y se combinan con calcio y vitamina D en la misma toma para mejorar su absorción en el tubo digestivo.",
+        "b": "Inhiben la reabsorción ósea al inducir la apoptosis de los osteoclastos; se administran en ayunas estricto, con un vaso lleno de agua pura, y la paciente debe permanecer erguida al menos 30 minutos sin ingerir alimentos.",
         "c": "Inhiben la secreción de parathormona; se administran por vía sublingual junto con jugos cítricos.",
         "d": "Actúan como agonistas estrogénicos en el hueso sin afectar el tubo digestivo."
       },
@@ -273,7 +273,7 @@
       "pregunta": "Una paciente de 64 años es diagnosticada de un Carcinoma Endometrioide de Endometrio Grado 1 (Tipo I). Los estudios de estadificación e imágenes prequirúrgicas muestran un tumor confinado al cuerpo uterino. La paciente es sometida a una Histerectomía Total con Salpingooforectomía Bilateral y biopsia de ganglio centinela pélvico. El informe anatomopatológico definitivo concluye: \"Carcinoma endometrioide que invade el 30% del espesor del miometrio (menos de la mitad), sin compromiso del estroma cervical ni metástasis ganglionares o pélvicas\". De acuerdo con la clasificación quirúrgica FIGO (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori), ¿cuál es el estadio FIGO correspondiente?",
       "opciones": {
         "a": "Estadio IA (tumor limitado al endometrio o que invade menos de la mitad del miometrio).",
-        "b": "Estadio IB (tumor que invade la mitad o más del miometrio).",
+        "b": "Estadio IB (tumor que invade la mitad o más del miometrio) sin extensión al estroma cervical ni a los anexos.",
         "c": "Estadio II (tumor que invade el estroma cervical pero no se extiende fuera del útero).",
         "d": "Estadio IIIA (compromiso de la serosa uterina o anexos)."
       },
@@ -284,9 +284,9 @@
       "id": 24,
       "pregunta": "En la clasificación patogénica del Cáncer de Endometrio propuesta por Bokhman, se diferencian los tumores Tipo I y Tipo II. De acuerdo con la oncología ginecológica (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori), ¿cuáles son las características anatomo-clínicas, histológicas y moleculares típicas del Cáncer de Endometrio Tipo II (No Endometrioide / Seroso / Células Claras)?",
       "opciones": {
-        "a": "Es dependiente de estrógenos, surge sobre hiperplasia endometrial previa en mujeres jóvenes y presenta buen pronóstico.",
-        "b": "Es no dependiente de estrógenos, se desarrolla habitualmente en mujeres de edad avanzada sobre un endometrio atrófico, presenta histología serosa o de células claras de alto grado con mutación de p53, alta agresividad clínica y mal pronóstico.",
-        "c": "Se asocia exclusivamente a la infección por VPH 16 y no requiere tratamiento quirúrgico.",
+        "a": "Es dependiente de estrógenos, surge sobre hiperplasia endometrial previa en mujeres jóvenes y presenta buen pronóstico y tiene una respuesta excelente al tratamiento con progestágenos con sobrevida a 5 años del 95% en todos los estadios.",
+        "b": "No depende de estrógenos, aparece en mujeres de edad avanzada sobre endometrio atrófico, con histología serosa o de células claras de alto grado, mutación de p53, alta agresividad y mal pronóstico.",
+        "c": "Se asocia exclusivamente a la infección por VPH 16 y no requiere tratamiento quirúrgico, se presenta en pacientes jóvenes y la cirugía se reserva exclusivamente para los casos con recurrencia local.",
         "d": "Es el tipo histológico más frecuente representando el 90% de los tumores endometriales."
       },
       "respuesta_correcta": "b",
@@ -296,9 +296,9 @@
       "id": 25,
       "pregunta": "Una paciente posmenopáusica de 56 años se realiza la Prueba de Tamizaje para Cáncer Cervicouterino mediante el Test de VPH. El resultado informa: Test de VPH Positivo para cepas de Alto Riesgo NO 16 / NO 18. De acuerdo con los algoritmos y normas del Programa Nacional de Prevención del Cáncer Cervicouterino (TAMIZAJE CON TEST DE VPH.pdf / IMPLEMENTACION TEST HPV.pdf / Nueva Guía 2022 SAPTGIyC-SOGIBA-FASGO), ¿cuál es la conducta de triaje requerida?",
       "opciones": {
-        "a": "Realizar colposcopía y biopsia de cérvix de urgencia en todos los casos de forma directa.",
+        "a": "Realizar colposcopía y biopsia de cérvix de urgencia en todos los casos de forma directa, sin considerar el resultado de la citología de triaje y con indicación de conización LEEP posterior en todas las pacientes.",
         "b": "Indicar histerectomía total por vía laparoscópica.",
-        "c": "Evaluar la Citología de Triaje (Papanicolaou realizado a partir de la misma muestra); si el PAP es negativo, se indica repetir el Test de VPH a los 18 meses; si el PAP es positivo (ASC-US o mayor) o si hubiese sido VPH 16/18 positivo, se deriva directamente a Colposcopía.",
+        "c": "Evaluar la citología de triaje (misma muestra): si el PAP es negativo, repetir el test de VPH a los 18 meses; si es positivo (ASC-US o mayor) o hay VPH 16/18, derivar a colposcopía.",
         "d": "Alta médica y citar a control en 10 años."
       },
       "respuesta_correcta": "c",
@@ -308,9 +308,9 @@
       "id": 26,
       "pregunta": "Durante la evaluación colposcópica de una paciente de 67 años con citología anormal (HSIL), el gineco-oncólogo no logra visualizar la unión escamocolumnar (UEC) ni el límite superior de la lesión, debido a que se encuentra completamente retraída dentro del canal endocervical por el colapso y la atrofia posmenopáusica. De acuerdo con la terminología colposcópica internacional y las guías de patología del tracto genital inferior (Nueva Guía 2022 SAPTGIyC-SOGIBA-FASGO / Lesiones intraepiteliales Gori), ¿cómo se clasifica esta Zona de Transformación (ZT) y cuál es el procedimiento diagnóstico complementario obligatorio?",
       "opciones": {
-        "a": "ZT Tipo 1 / Indicar cauterización externa con nitrato de plata.",
-        "b": "ZT Tipo 2 / Repetir el Papanicolaou en 3 años.",
-        "c": "ZT Tipo 3 (Zona de transformación no visible/endocervical) / Se debe realizar obligatoriamente un Legrado Endocervical (LEC) o Cepillado Endocervical para la evaluación histopatológica del canal.",
+        "a": "ZT Tipo 1 / Indicar cauterización externa con nitrato de plata, y repetir la colposcopía y el Papanicolaou a los 6 meses sin evaluar el canal endocervical.",
+        "b": "ZT Tipo 2 / Repetir el Papanicolaou en 3 años para valorar la evolución, junto con el control de VPH anual y sin necesidad de otros estudios.",
+        "c": "ZT tipo 3 (no visible/endocervical) / Se debe realizar legrado endocervical o cepillado endocervical para evaluar histológicamente el canal.",
         "d": "ZT Fisiológica / Dar de alta a la paciente."
       },
       "respuesta_correcta": "c",
@@ -332,8 +332,8 @@
       "id": 28,
       "pregunta": "Una paciente de 70 años consulta por episodios bruscos e incontrolables de deseo miccional imperioso, teniendo que correr al baño y sufriendo pérdidas involuntarias de orina antes de llegar (incontinencia por imperiosidad). Refiere además polaquiuria (micciones > 8 veces al día) y nicturia (3 a 4 veces por noche). El urocultivo es negativo y el examen físico no evidencia prolapso genital ni fuga con el esfuerzo de tos. El estudio urodinámico muestra la presencia de contracciones involuntarias del músculo detrusor durante la fase de llenado vesical. De acuerdo con la uroginecología (Incontinencia de orina de esfuerzo.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / Gori), ¿cuál es el diagnóstico y el tratamiento farmacológico de primera línea?",
       "opciones": {
-        "a": "Incontinencia de Orina de Esfuerzo genuina / Tratamiento con cinta suburetral TOT.",
-        "b": "Síndrome de Vejiga Hiperactiva e Incontinencia Urinaria de Urgencia (IUU) / Tratamiento de primera línea con reeducación vesical, cambios en el estilo de vida y Antimuscarínicos / Anticolinérgicos (ej. Solifenacina, Oxibutinina) o Agonistas Beta-3 adrenérgicos (Mirabegrón).",
+        "a": "Incontinencia de Orina de Esfuerzo genuina / Tratamiento con cinta suburetral TOT por debilidad del esfínter uretral con indicación quirúrgica inmediata sin tratamiento conservador previo.",
+        "b": "Vejiga hiperactiva / incontinencia de urgencia (IUU) / Primera línea: reeducación vesical, cambios en el estilo de vida y antimuscarínicos (solifenacina, oxibutinina) o mirabegrón.",
         "c": "Fístula Ureterovaginal compleja / Tratamiento con reimplantación ureteral.",
         "d": "Infección urinaria baja por Proteus / Tratamiento con ceftriaxona endovenosa."
       },
@@ -344,9 +344,9 @@
       "id": 29,
       "pregunta": "En el examen de una paciente con prolapso genital mediante el Sistema de Cuantificación POP-Q, se realizan las mediciones en centímetros durante la maniobra de Valsalva máxima. Se registran los siguientes puntos: Aa = +3 cm, Ba = +5 cm, C = -6 cm, Ap = -2 cm, tv = 8 cm. De acuerdo con la estandarización del POP-Q (Gineco-Obstetricia.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / prolapso de órganos pelvianos.pdf), ¿cuál es el compartimento pélvico predominantemente afectado y el estadio del prolapso?",
       "opciones": {
-        "a": "Prolapso de Pared Posterior (Rectocele) Estadio I.",
-        "b": "Prolapso del Compartimento Anterior (Cistocele / Pared vaginal anterior) Estadio III (el punto más prominente Ba se encuentra a más de +1 cm por fuera del himen, pero a menos de +(tv-2) cm).",
-        "c": "Prolapso Apical Uterino Estadio IV (eversión vaginal completa).",
+        "a": "Prolapso de Pared Posterior (Rectocele) Estadio I con descenso del punto Bp más de 1 cm por encima del himen, sin otros defectos asociados en el compartimento.",
+        "b": "Prolapso del compartimento anterior (cistocele) estadio III (el punto Ba está a más de +1 cm por fuera del himen pero a menos de +(tvl-2) cm).",
+        "c": "Prolapso Apical Uterino Estadio IV (eversión vaginal completa) con el punto C a más de 2 cm por fuera de la longitud vaginal total y descenso completo de la pared anterior.",
         "d": "Suelo pélvico normal Estadio 0."
       },
       "respuesta_correcta": "b",
@@ -356,10 +356,10 @@
       "id": 30,
       "pregunta": "¿cuál es la pauta oficial recomendada de tamizaje / screening mamográfico en mujeres asintomáticas de riesgo promedio?",
       "opciones": {
-        "a": "Mamografía anual a partir de los 20 años de edad en todas las mujeres.",
+        "a": "Mamografía anual a partir de los 20 años de edad en todas las mujeres y repetir cada seis meses hasta los 40 años.",
         "b": "Mamografía Bienal (cada 2 años) en mujeres asintomáticas entre los 50 y los 69/74 años de edad.",
-        "c": "Ecografía mamaria trimestral aislada sin mamografía a partir de los 60 años.",
-        "d": "Autoexamen mamario como único método de screening cada 5 años."
+        "c": "Ecografía mamaria trimestral aislada sin mamografía a partir de los 60 años independiente de la densidad mamaria de cada paciente.",
+        "d": "Autoexamen mamario como único método de screening cada 5 años y una consulta con el especialista cada 12 meses sin estudios por imágenes complementarios."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con la norma técnica oficial del Ministerio de Salud de la Nación (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL), la estrategia de tamizaje o screening mamográfico de impacto poblacional demostrada para reducir la mortalidad por cáncer de mama en mujeres de riesgo promedio es la realización de una Mamografía Bilateral cada 2 años (bienal) en el grupo etario comprendido entre los 50 y los 69/74 años de edad (CÁNCER DE MAMA MSAL / Consenso FASGO 2024). (Referencia: las recomendaciones del Programa Nacional de Control de Cáncer de Mama del Ministerio de Salud de la Nación y los consensos ginecológicos (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Consenso FASGO 2024 Control Ginecológico en la Mujer Sana / Manual de evaluación clínica mamaria MSAL))."
@@ -368,10 +368,10 @@
       "id": 31,
       "pregunta": "Una paciente de 58 años se realiza una mamografía de control. El informe radiológico describe: \"En la mama izquierda se observa un nódulo ovalado, de contornos circunscritos, con calcificaciones gruesas en 'pochoclo/palomitas de maíz' y densidad grasa, sin distorsión de la arquitectura\". El radiólogo asigna una Categoría BI-RADS 2. De acuerdo con el sistema BI-RADS (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori), ¿cuál es la interpretación clínica y el manejo indicado?",
       "opciones": {
-        "a": "Hallazgo maligno confirmado / Indicación de cuadrantectomía más vaciamiento axilar.",
-        "b": "Estudio incompleto / Repetir mamografía inmediatamente con magnificación.",
-        "c": "Hallazgo Típicamente Benigno (riesgo de malignidad del 0%) / Continuar con el esquema habitual de tamizaje según la edad, sin requerir estudios adicionales ni biopsia.",
-        "d": "Hallazgo probablemente benigno / Seguimiento mamográfico estricto a los 6 meses."
+        "a": "Hallazgo maligno confirmado / Indicación de cuadrantectomía más vaciamiento axilar, con estudio de extensión por tomografía y centellograma óseo antes de la cirugía.",
+        "b": "Estudio incompleto / Repetir mamografía inmediatamente con magnificación y biopsia inmediata de todas las lesiones, incluso las clasificadas como de bajo riesgo.",
+        "c": "Hallazgo típicamente benigno (riesgo de malignidad 0%) / Continuar con el tamizaje habitual según la edad, sin estudios adicionales ni biopsia.",
+        "d": "Hallazgo probablemente benigno / Seguimiento mamográfico estricto a los 6 meses, con biopsia por congelación y vaciamiento axilar en el mismo acto quirúrgico."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con la clasificación BI-RADS (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL): • BI-RADS 1: Mamografía negativa / normal. • BI-RADS 2: Hallazgos Típicamente Benignos (ej. fibroadenomas involutivos con macrocalcificaciones gruesas en \"pochoclo\", quistes simples ecográficos, ganglios intramamarios, implantes o calcificaciones vasculares). El riesgo de cáncer es del 0%. La conducta es el control mamográfico habitual de tamizaje sin intervenciones ni controles precoces (CÁNCER DE MAMA MSAL)."
@@ -381,8 +381,8 @@
       "pregunta": "En la caracterización biológica del Cáncer de Mama Invasor, la determinación inmunohistoquímica de los Receptores de Estrógeno (RE), Receptores de Progesterona (RP), sobreexpresión de HER2 y el índice de proliferación Ki-67 permite definir los perfiles moleculares / subtipos intrínsecos. De acuerdo con la oncología mamaria (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori / Cáncer de mama TESTA.pdf), ¿cuáles son las características del subtipo molecular Luminal A y cuál es su pauta de respuesta terapéutica principal?",
       "opciones": {
         "a": "RE y RP Negativos, HER2 Positivo / Tratado exclusivamente con quimioterapia y Trastuzumab.",
-        "b": "RE y/o RP Positivos, HER2 Negativo, con índice de proliferación Ki-67 bajo (< 20%) / Presenta el mejor pronóstico clínico y muestra una elevada respuesta a la Terapia Hormonal / Endocrinoterapia (ej. Tamoxifeno o Inhibidores de la Aromatasa).",
-        "c": "RE, RP y HER2 Negativos (Triple Negativo) / Responde a terapia hormonal con Anastrozol.",
+        "b": "RE y/o RP positivos, HER2 negativo, Ki-67 bajo (< 20%) / Mejor pronóstico, con alta respuesta a la terapia hormonal (tamoxifeno o inhibidores de la aromatasa).",
+        "c": "RE, RP y HER2 Negativos (Triple Negativo) / Responde a terapia hormonal con Anastrozol, con indicación de tratamiento exclusivo con inhibidores de la aromatasa durante 5 años sin quimioterapia.",
         "d": "Tumor indiferenciado no respondedor a ningún tratamiento."
       },
       "respuesta_correcta": "b",
@@ -392,8 +392,8 @@
       "id": 33,
       "pregunta": "En el manejo quirúrgico moderno del Cáncer de Mama en estadios tempranos (T1-T2) con axila clínicamente negativa (cN0), se efectúa la Biopsia del Ganglio Centinela (BGC). De acuerdo con la técnica y principios oncoginecológicos (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori / Cuestionario Patología Mamaria.pdf), ¿cómo se define el Ganglio Centinela y cuál es el impacto de que su análisis anatomopatológico por congelación sea Negativo?",
       "opciones": {
-        "a": "Es el ganglio más grande de la cadena mamaria interna; si es negativo exige la mastectomía radical de Halsted.",
-        "b": "Es el primer ganglio linfático de la cadena de drenaje axilar que recibe la linfa directamente del tumor primario; si el ganglio centinela es negativo para metástasis, se evita la realización del vaciamiento ganglionar axilar radical (Linfadenectomía Axilar), reduciendo significativamente la morbilidad y el riesgo de linfoedema del miembro superior.",
+        "a": "Es el ganglio más grande de la cadena mamaria interna; si es negativo exige la mastectomía radical de Halsted, y el resultado del ganglio no modifica la necesidad de radioterapia ni de tratamiento sistémico posterior.",
+        "b": "Es el primer ganglio de la cadena de drenaje axilar que recibe la linfa del tumor primario; si es negativo se evita la linfadenectomía axilar, con menor morbilidad y riesgo de linfoedema.",
         "c": "Es el ganglio supraclavicular contralateral que confirma metástasis a distancia.",
         "d": "Es una técnica experimental en desuso."
       },
@@ -405,9 +405,9 @@
       "pregunta": "El Carcinoma Lobulillar Infiltrante (CLI) representa la segunda variedad histológica invasora más frecuente del cáncer de mama (10-15%). De acuerdo con la patología mamaria (Cuestionario Patología Mamaria.pdf / Gori / CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf), ¿cuál es el patrón histopatológico microscópico característico del CLI, la alteración molecular subyacente y su comportamiento clínico particular?",
       "opciones": {
         "a": "Células en empalizada formando glándulas gigantes con necrosis central de comedón.",
-        "b": "Células neoplásicas atípicas pequeñas y uniformes diseminadas de forma aislada o dispuestas en \"hileras indias\" (fila india) dislocando el estroma, debido a la pérdida de expresión de la molécula de adhesión celular E-cadherina; asociándose clínicamente a una mayor tasa de multicentricidad, bilateralidad y metástasis atípicas en serosas y peritoneo.",
+        "b": "Células pequeñas, atípicas y uniformes, aisladas o en «hileras indias», por pérdida de E-cadherina; mayor multicentricidad y bilateralidad y metástasis atípicas a serosas y peritoneo.",
         "c": "Formación exclusiva de nidos epidermoides queratinizantes.",
-        "d": "Proliferación exclusiva dentro de los conductos galactóforos sin rebasar la membrana basal."
+        "d": "Proliferación exclusiva dentro de los conductos galactóforos sin rebasar la membrana basal, con tendencia a formar masas sólidas bien delimitadas con calcificaciones groseras y buen pronóstico."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con Gori Ginecología y los textos de patología (Cuestionario Patología Mamaria.pdf / CÁNCER DE MAMA MSAL), el Carcinoma Lobulillar Infiltrante (CLI) presenta hallazgos histológicos y biológicos singulares: 1. Histología: Células neoplásicas dispuestas en \"filas indias\" o hileras monomorfas rodeando los conductos (patrón \"en blanco de tiro\"). 2. Genética: Pérdida de la proteína de adhesión celular E-cadherina (mutación del gen CDH1), lo que impide la cohesión celular. 3. Comportamiento: Suele ser difícil de detectar por palpar o mamografía (no suele formar masas densas ni calcificaciones), presenta alta frecuencia de multicentricidad y bilateralidad, y muestra metástasis atípicas en el tracto gastrointestinal, retroperitoneo, peritoneo y meninges (Cuestionario Patología Mamaria.pdf / Gori)."
@@ -416,9 +416,9 @@
       "id": 35,
       "pregunta": "Una paciente de 59 años es diagnosticada mediante biopsia por aspiración de una Hiperplasia Endometrial Sin Atipia (Hiperplasia endometrial benigna/clásica). No presenta deseos reproductivos. De acuerdo con el manejo de la patología endometrial (Hiperplasia Endometrial.pdf / Consenso SUA FASGO 2022 / Gori), ¿cuál es el riesgo aproximado de progresión a adenocarcinoma de endometrio y cuál es el tratamiento médico de primera línea recomendado?",
       "opciones": {
-        "a": "El riesgo de progresión es del 50%; se debe realizar exenteración pélvica inmediata.",
-        "b": "El riesgo de progresión a cáncer es muy bajo (< 1-3%); el tratamiento de primera línea es MÉDICO mediante Progestágenos (Medroxiprogesterona oral 10 mg/día o colocación de un SIU con Levonorgestrel por 3 a 6 meses), seguido de re-evaluación biópsica del endometrio.",
-        "c": "El riesgo de cáncer es del 0%; no requiere seguimiento ni tratamiento.",
+        "a": "El riesgo de progresión es del 50%; se debe realizar exenteración pélvica inmediata, y el seguimiento posterior se realiza con control ecográfico anual durante los siguientes cinco años.",
+        "b": "Riesgo de progresión a cáncer muy bajo (< 1-3%); tratamiento médico con progestágenos (medroxiprogesterona 10 mg/día o SIU-LNG por 3 a 6 meses) y re-evaluación con biopsia.",
+        "c": "El riesgo de cáncer es del 0%; no requiere seguimiento ni tratamiento, y el tratamiento es la histerectomía con anexectomía bilateral en todas las pacientes, sin intentar medidas médicas previas.",
         "d": "Se debe indicar radioterapia holopélvica de entrada."
       },
       "respuesta_correcta": "b",
@@ -428,9 +428,9 @@
       "id": 36,
       "pregunta": "En el estudio de la oncogénesis hereditaria, el Síndrome de Lynch (Cáncer Colorrectal Hereditario No Polipósico - HNPCC) es causado por mutaciones germinales en los genes del sistema de reparación de apareamientos erróneos del ADN (MMR: MLH1, MSH2, MSH6, PMS2). De acuerdo con la oncología ginecológica (Consenso 2019 Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori), ¿cuál es el cáncer ginecológico maligno extracolónico más frecuente que desarrollan las mujeres portadoras de la mutación del Síndrome de Lynch?",
       "opciones": {
-        "a": "Cáncer de Vagina indiferenciado.",
+        "a": "Cáncer de Vagina indiferenciado con un riesgo acumulado del 5% a lo largo de la vida y aparición casi exclusiva en mujeres menores de 40 años.",
         "b": "Carcinoma Escamoso de Vulva.",
-        "c": "Cáncer de Endometrio, con un riesgo acumulado a lo largo de la vida de desarrollar esta neoplasia del 40% al 60% (superando incluso el riesgo de cáncer colorrectal en algunas mutaciones).",
+        "c": "Cáncer de endometrio, con un riesgo acumulado a lo largo de la vida del 40% al 60% (mayor que el del cáncer colorrectal en algunas mutaciones).",
         "d": "Teratoma maduro de ovario."
       },
       "respuesta_correcta": "c",
@@ -440,10 +440,10 @@
       "id": 37,
       "pregunta": "Al indicar Terapia Hormonal de la Menopausia (THM) a una paciente posmenopáusica de 52 años que ha tenido su última menstruación hace 3 años y conserva su útero, el ginecólogo prescribe un Esquema Continuo Combinado. De acuerdo con los conceptos farmacológicos del climaterio (Consenso FASGO Climaterio / Climaterio.pdf / Gori), ¿en qué consiste el Esquema Continuo Combinado y cuál es el patrón menstrual esperado tras los primeros meses de uso?",
       "opciones": {
-        "a": "Consiste en administrar estrógenos solos durante 21 días y descansar 7 días; provoca menstruaciones abundantes cada mes.",
-        "b": "Consiste en la administración diaria sin interrupciones de Estrógenos MÁS Progestágenos de forma continuada; induce la atrofia del endometrio y logra la amenorrea sostenida (ausencia de sangrado).",
-        "c": "Consiste en inyectar progesterona únicamente los días domingos.",
-        "d": "Se administra únicamente durante los meses de verano."
+        "a": "Consiste en administrar estrógenos solos durante 21 días y descansar 7 días; provoca menstruaciones abundantes cada mes y por la tarde.",
+        "b": "Administración diaria y continua de estrógenos MÁS progestágenos, que induce atrofia endometrial y logra amenorrea sostenida.",
+        "c": "Consiste en inyectar progesterona únicamente los días domingos, independientemente de la fase del ciclo y de la paridad de la paciente tratada.",
+        "d": "Se administra únicamente durante los meses de verano por la mayor exposición a la luz solar, con descanso el resto del año."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con el Consenso de Climaterio de FASGO (Climaterio.pdf / Gori), en la posmenopausia consolidada (> 1 año del cese menstrual) se utiliza el Esquema Continuo Combinado: se administra una dosis fija diaria de Estrógenos MÁS Progestágenos todos los días del año sin períodos de descanso. El aporte continuo del progestágeno bloquea el efecto proliferativo estrogénico, manteniendo el endometrio atrófico y logrando la amenorrea permanente (después de una fase inicial de 3 a 6 meses donde pueden ocurrir goteos/spottings) (Consenso FASGO Climaterio)."
@@ -476,9 +476,9 @@
       "id": 40,
       "pregunta": "Una paciente de 78 años consulta por la aparición de una lesión tumoral ulcerada, dura, exofítica y doliente de 3 cm en el labio mayor derecho de la vulva, acompañada de un ganglio inguinal ipsilateral aumentado de tamaño e indurado. La biopsia de la lesión confirma un Carcinoma Escamoso / Espinocelular de Vulva Invasor. De acuerdo con la oncología ginecológica (UNIDAD 4.Salud Integral de la Adulta Mayor..pdf / Gori / TESTA PARTE 2.pdf), ¿cuál es el tipo histológico de cáncer vulvar más frecuente y su vía de diseminación metastásica primaria?",
       "opciones": {
-        "a": "Adenocarcinoma mucinoso de glándula de Bartholin / Diseminación pulmonar directa.",
-        "b": "Carcinoma Escamoso o Espinocelular (representa más del 90% de los cánceres de vulva) / Vía de diseminación metastásica fundamentalmente LINFÁTICA, hacia los ganglios inguinales superficiales e inguinales profundos (grupo femoral / ganglio de Cloquet).",
-        "c": "Melanoma amelanótico / Diseminación por líquido cefalorraquídeo.",
+        "a": "Adenocarcinoma mucinoso de glándula de Bartholin / Diseminación pulmonar directa con invasión directa del tabique rectovaginal y extensión hematógena precoz a hígado y pulmón.",
+        "b": "Carcinoma escamoso (más del 90% de los cánceres de vulva) / Diseminación fundamentalmente LINFÁTICA hacia los ganglios inguinales superficiales y profundos (ganglio de Cloquet).",
+        "c": "Melanoma amelanótico / Diseminación por líquido cefalorraquídeo con diseminación por vía hematógena al cerebro y a los huesos largos como primer sitio de metástasis en la evolución.",
         "d": "Sarcoma de partes blandas / Diseminación digestiva retrograda."
       },
       "respuesta_correcta": "b",
@@ -500,10 +500,10 @@
       "id": 42,
       "pregunta": "Una paciente de 52 años diagnosticada mediante biopsia endometrial de Hiperplasia Endometrial Sin Atipia ha completado 6 meses de tratamiento médico con Acetato de Medroxiprogesterona (10 mg/día por vía oral). Se encuentra asintomática y la ecografía transvaginal muestra un endometrio lineal de 3 mm. De acuerdo con el seguimiento de la patología endometrial benigna (Hiperplasia Endometrial.pdf / Consenso SUA FASGO 2022 / Gori Ginecología), ¿cuál es la conducta clínica de seguimiento obligatoria para confirmar la remisión del proceso hiperplásico?",
       "opciones": {
-        "a": "Alta definitiva sin necesidad de ningún estudio adicional ni controles futuros.",
-        "b": "Realización de una Biopsia de Endometrio de Control (mediante cánula de Cornier/Pipelle o histeroscopía) a los 3-6 meses para documentar la regresión histológica completa antes de suspender o distanciar el tratamiento.",
-        "c": "Indicar histerectomía abdominal de urgencia por riesgo de recaída del 100%.",
-        "d": "Indicar cauterización endometrial con láser de dióxido de carbono en consultorio."
+        "a": "Alta definitiva sin necesidad de ningún estudio adicional ni controles futuros, por considerarse curada la lesión con la normalización de la ecografía transvaginal y de los síntomas.",
+        "b": "Biopsia de endometrio de control (Pipelle o histeroscopía) a los 3-6 meses para documentar la regresión histológica completa antes de suspender o espaciar el tratamiento.",
+        "c": "Indicar histerectomía abdominal de urgencia por riesgo de recaída del 100% aunque la paciente presente regresión completa en la biopsia de control y desee preservar la fertilidad.",
+        "d": "Indicar cauterización endometrial con láser de dióxido de carbono en consultorio, con control ecográfico transvaginal a los 12 meses sin necesidad de evaluación histológica posterior."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con Hiperplasia Endometrial.pdf, el Consenso FASGO de SUA (2022) y Gori Ginecología, el éxito del tratamiento médico conservador con progestágenos en la hiperplasia endometrial sin atipia debe ser confirmado histológicamente. Aunque la ecografía transvaginal muestre un adelgazamiento de la mucosa, la norma de práctica exige realizar una Biopsia Endometrial de Control (por aspiración con Pipelle o histeroscopía) a los 3 a 6 meses de iniciado el tratamiento. La demostración de la regresión endometrial a una mucosa atrófica o secretora atenuada autoriza la suspensión de los progestágenos o el pasaje a esquemas de mantenimiento (Hiperplasia Endometrial.pdf / Consenso SUA FASGO 2022)."
@@ -524,8 +524,8 @@
       "id": 44,
       "pregunta": "Una paciente de 61 años es diagnosticada de un Carcinoma Escamoso de Cuello Uterino. Al realizar el examen clínico bajo anestesia, se constata que la masa tumoral compromete todo el cérvix, sobrepasa el orificio cervical externo y se extiende por la pared vaginal anterior alcanzando el tercio inferior de la vagina, pero SIN invadir los parametrios y sin llegar a la pared pélvica lateral. De acuerdo con la estadificación clínica e imagenológica FIGO (Consenso Cáncer de Cérvix FASGO / Consenso Manejo Terapéutico del Carcinoma de Cuello Uterino.pdf / Gori), ¿a qué estadio FIGO corresponde?",
       "opciones": {
-        "a": "Estadio IB1.",
-        "b": "Estadio IIA1.",
+        "a": "Estadio IB1 (tumor limitado al órgano de origen, sin extensión a estructuras vecinas ni a los ganglios).",
+        "b": "Estadio IIA1 (compromiso de estructuras vecinas sin extensión a la pared pélvica ni a los ganglios regionales).",
         "c": "Estadio IIB.",
         "d": "Estadio IIIA (compromiso del tercio inferior de la vagina sin extensión a la pared pélvica)."
       },
@@ -536,9 +536,9 @@
       "id": 45,
       "pregunta": "En la anatomía quirúrgica del suelo pélvico descrita por DeLancey, se definen tres niveles anatómicos de soporte de los órganos pélvicos. De acuerdo con la uroginecología y la patología del prolapso (Guía de manejo de las alteraciones del piso pélvico.pdf / Gineco-Obstetricia.pdf / Gori Ginecología), ¿cuáles son las estructuras ligamentarias que constituyen el Nivel I de DeLancey (Suspensión Apical) y qué tipo de prolapso se produce tras su falla?",
       "opciones": {
-        "a": "El Complejo de los Ligamentos Uterosacros y Ligamentos Cardinales (Mackenrodt), que suspenden el cérvix y el fondo de saco vaginal superior al sacro; su defecto provoca el Prolapso Apical (Prolapso Uterino o Prolapso de Cúpula Vaginal).",
-        "b": "La Fascia Pubocervical lateral; su defecto causa exclusivamente cistocele distal.",
-        "c": "El Cuerpo Perineal y el músculo esfínter anal externo; su defecto causa defecto del tabique rectovaginal bajo.",
+        "a": "El complejo de los ligamentos uterosacros y cardinales (Mackenrodt), que suspende el cérvix y el fondo de saco vaginal al sacro; su defecto causa prolapso apical (uterino o de cúpula).",
+        "b": "La Fascia Pubocervical lateral; su defecto causa exclusivamente cistocele distal y la suspensión del cérvix, de modo que su defecto causa además prolapso uterino de segundo grado en forma aislada.",
+        "c": "El Cuerpo Perineal y el músculo esfínter anal externo; su defecto causa defecto del tabique rectovaginal bajo y del fondo de saco vaginal posterior, con prolapso uterino secundario cuando se rompen los ligamentos cardinales.",
         "d": "El Músculo Isquiocavernoso; su defecto causa incontinencia urinaria por rebosamiento."
       },
       "respuesta_correcta": "a",
@@ -548,10 +548,10 @@
       "id": 46,
       "pregunta": "Una paciente de 60 años con incontinencia de orina de esfuerzo severa es sometida a un Estudio Urodinámico Multicanal antes de planificar el tratamiento quirúrgico. Durante la fase de cistomanometría de llenado y perfil de presión uretral, se objetiva la pérdida involuntaria de orina ante incrementos mínimos de la presión intraabdominal, registrándose una Presión de Punto de Fuga Abdominal (VLPP - Valsalva Leak Point Pressure) menor a 60 cmH2O, con una uretra fija y sin hipermotilidad en el Q-tip test. De acuerdo con la uroginecología (Incontinencia de orina de esfuerzo.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / Gori Ginecología), ¿cuál es el diagnóstico urodinámico?",
       "opciones": {
-        "a": "Incontinencia por Hiperreflexia Neurogénica del Detrusor.",
-        "b": "Incontinencia de Orina de Esfuerzo secundaria a Deficiencia Esfintérica Intrínseca (DEI / IOE Tipo III de McGuire).",
+        "a": "Incontinencia por Hiperreflexia Neurogénica del Detrusor con contracciones no inhibidas del músculo detrusor por lesión medular.",
+        "b": "Incontinencia de orina de esfuerzo por deficiencia esfintérica intrínseca (DEI / tipo III de McGuire).",
         "c": "Enuresis nocturna primaria por deficiencia de vasopresina.",
-        "d": "Obstrucción infravesical mecánica por prolapso grado IV."
+        "d": "Obstrucción infravesical mecánica por prolapso grado IV con sensación de vaciamiento incompleto y flujo urinario débil e intermitente."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con Gori Ginecología, Incontinencia de orina de esfuerzo.pdf y la Guía de Piso Pélvico de FASGO, la medición de la Presión de Punto de Fuga con Valsalva (VLPP) en el estudio urodinámico permite clasificar el mecanismo de la IOE: • VLPP > 90 cmH2O: Indica Hipermotilidad Uretral con mecanismo esfintérico preservado (IOE Tipo I y II). • VLPP < 60 cmH2O: Diagnostica de forma categórica la Deficiencia Esfintérica Intrínseca (DEI / IOE Tipo III de McGuire), caracterizada por el fallo del sello mucoso y la pérdida del tono del esfínter uretral intrínseco (\"uretra en caño de plomo\"). Su corrección suele requerir slings retropúbicos (TVT), agentes de abultamiento (bulking agents) o esfínter artificial (Incontinencia de orina de esfuerzo.pdf)."
@@ -572,10 +572,10 @@
       "id": 48,
       "pregunta": "Una paciente de 52 años es diagnosticada de un Carcinoma Ductal Infiltrante de mama cuyo estudio biológico reporta: RE (0%), RP (0%), HER2 (0 / Negativo) e índice de proliferación Ki-67 del 65%. De acuerdo con la oncología mamaria (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori Ginecología / Cáncer de mama TESTA.pdf), ¿cómo se clasifica este tumor (Subtipo Triple Negativo / Basal-Like) y cuáles son sus características clínicas y terapéuticas principales?",
       "opciones": {
-        "a": "Es un tumor de bajo grado que responde a hormonoterapia con Anastrozol por 10 años.",
+        "a": "Es un tumor de bajo grado que responde a hormonoterapia con Anastrozol por 10 años, con baja tasa de recaída y metástasis predominantemente óseas, y con riesgo mínimo de diseminación visceral a distancia.",
         "b": "Es una lesión exclusivamente quística que no requiere intervención sistémica.",
         "c": "Es un tumor dependiente de andrógenos treatedo con flutamida.",
-        "d": "Constituye el Subtipo Triple Negativo; se asocia con mayor frecuencia a mutaciones en el gen BRCA1, presenta mayor tasa de recaída precoz y metástasis viscerales (cerebro/pulmón), no responde a terapia hormonal ni anti-HER2, siendo la Quimioterapia Sistémica el único pilar del tratamiento farmacológico."
+        "d": "Subtipo triple negativo: se asocia a mutaciones de BRCA1, tiene mayor recaída precoz y metástasis viscerales, no responde a hormonoterapia ni a anti-HER2 y su pilar de tratamiento es la quimioterapia sistémica."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología y las normas oficiales (CÁNCER DE MAMA MSAL / Cáncer de mama TESTA.pdf), el subtipo Triple Negativo (RE-, RP-, HER2-) representa aproximadamente el 15% de todos los carcinomas mamarios. Presenta características biológicas distintivas: se asocia fuertemente a portadoras de mutaciones en el gen BRCA1, posee un alto grado de proliferación (Ki-67 elevado), mayor agresividad y mayor patrón de recurrencia en los primeros 3 a 5 años hacia vísceras (pulmón, hígado y SNC). Al carecer de dianas para hormonoterapia o anti-HER2, el único tratamiento sistémico eficaz es la Quimioterapia (CÁNCER DE MAMA MSAL)."
@@ -584,8 +584,8 @@
       "id": 49,
       "pregunta": "El Tamoxifeno es un Modulador Selectivo del Receptor de Estrógenos (SERM) ampliamente utilizado en la terapia adyuvante del cáncer de mama con receptores hormonales positivos. De acuerdo con la farmacología oncoginecológica (Consenso Cáncer de Endometrio FASGO / Gori Ginecología / Carcinoma de endometrio.pdf), ¿cuál es el efecto farmacológico del Tamoxifeno sobre el tejido endometrial y qué patología uterina puede inducir en mujeres posmenopáusicas?",
       "opciones": {
-        "a": "Actúa como un antagonista estrogénico puro en el endometrio induciendo atrofia profunda sin riesgos de pólipos.",
-        "b": "Actúa como agonista estrogénico parcial sobre el endometrio, pudiendo inducir proliferación, pólipos endometriales, hiperplasia y aumentar de 2 a 7 veces el riesgo de desarrollar Carcinoma de Endometrio en posmenopáusicas.",
+        "a": "Actúa como un antagonista estrogénico puro en el endometrio induciendo atrofia profunda sin riesgos de pólipos, y por ello no requiere control ecográfico del endometrio ni evaluación del sangrado genital durante su uso.",
+        "b": "Actúa como agonista estrogénico parcial sobre el endometrio y puede inducir proliferación, pólipos e hiperplasia, aumentando de 2 a 7 veces el riesgo de carcinoma de endometrio en posmenopáusicas.",
         "c": "Inactiva la pared miometrial provocando incontinencia urinaria fisiológica.",
         "d": "Induce la regeneración del cuello uterino eliminando las lesiones por VPH."
       },
@@ -596,8 +596,8 @@
       "id": 50,
       "pregunta": "La Neoplasia Intraepitelial Vulvar (VIN) representa la lesión precursora del cáncer escamoso de vulva. De acuerdo con la anatomía patológica y las guías de tracto genital inferior (UNIDAD 4.Salud Integral de la Adulta Mayor..pdf / Lesiones intraepiteliales Gori / TESTA PARTE 2.pdf), ¿cuáles son las diferencias etiopatogénicas e histológicas entre la VIN de Tipo Usual (Escamosa / Warty-Basaloide) y la VIN de Tipo Diferenciado?",
       "opciones": {
-        "a": "La VIN Usual no tiene relación con virus y la VIN Diferenciada es causada por herpes simple tipo 1.",
-        "b": "La VIN de Tipo Usual está producida por la infección persistente por VPH de alto riesgo (VPH 16/18), ocurre en mujeres más jóvenes y es multicéntrica; mientras que la VIN Diferenciada es independiente de VPH, surge sobre la base de un Liquen Escleroso crónico en mujeres ancianas, presenta mutaciones de p53 y posee un elevado y rápido potencial de progresión a carcinoma escamoso invasor.",
+        "a": "La VIN Usual no tiene relación con virus y la VIN Diferenciada es causada por herpes simple tipo 1, y ambas se tratan exclusivamente con corticoides tópicos de alta potencia durante seis meses con control anual posterior.",
+        "b": "La usual se debe al VPH de alto riesgo y es multicéntrica en mujeres jóvenes; la diferenciada es independiente del VPH, surge sobre un liquen escleroso en ancianas, con mutaciones de p53 y rápida progresión a carcinoma invasor.",
         "c": "La VIN Diferenciada cura de forma espontánea con lavados antisépticos sin requerir biopsia.",
         "d": "Ambas lesiones son idénticas y se tratan únicamente con podofilotoxina tópica."
       },
@@ -608,10 +608,10 @@
       "id": 51,
       "pregunta": "Una paciente de 65 años es sometida a una estadificación quirúrgica por un Carcinoma de Endometrio. El informe anatomopatológico definitivo confirma que la masa tumoral invade el miometrio y se extiende a la serosa uterina, pero además se constata la presencia de metástasis microscópicas en 3 ganglios linfáticos pélvicos. No hay ganglios paraaórticos afectados ni metástasis a distancia. De acuerdo con la clasificación FIGO (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori Ginecología), ¿cuál es el estadio FIGO correspondiente a la presencia de metástasis ganglionares pélvicas?",
       "opciones": {
-        "a": "Estadio IB.",
+        "a": "Estadio IB (tumor limitado al órgano de origen sin invasión profunda).",
         "b": "Estadio II.",
         "c": "Estadio IIIC1 (metástasis en ganglios pélvicos).",
-        "d": "Estadio IVB (metástasis a distancia)."
+        "d": "Estadio IVB (metástasis a distancia) con compromiso peritoneal."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con la clasificación de la FIGO para el Cáncer de Endometrio (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori Ginecología): • Estadio III: Extensión local o regional del tumor. o Estadio IIIA: Invasión de la serosa uterina y/o anexos. o Estadio IIIB: Invasión de vagina o parametrios. o Estadio IIIC: Metástasis en ganglios linfáticos regionales: ▪ Estadio IIIC1: Metástasis en ganglios linfáticos pélvicos positivos. ▪ Estadio IIIC2: Metástasis en ganglios linfáticos paraaórticos positivos (con o sin ganglios pélvicos). Por lo tanto, la afección de ganglios pélvicos solos se clasifica como Estadio IIIC1 (Consenso Cáncer de Endometrio FASGO)."
@@ -620,10 +620,10 @@
       "id": 52,
       "pregunta": "Durante la evaluación ginecológica de una paciente posmenopáusica de 74 años con sensación de peso genital, se observa que al realizar el esfuerzo de Valsalva protruye por la pared vaginal posterior superior un abombamiento que contiene asas del intestino delgado deslizándose a través del fondo de saco de Douglas. De acuerdo con la anatomía y clínica del prolapso genital (Guía de manejo de las alteraciones del piso pélvico.pdf / Gineco-Obstetricia.pdf / prolapso de órganos pelvianos.pdf), ¿cuál es el nombre específico de este defecto del compartimento pélvico superior/posterior?",
       "opciones": {
-        "a": "Cistocele distal por desinserción del arco tendinoso.",
+        "a": "Cistocele distal por desinserción del arco tendinoso por desinserción de la fascia pubocervical a nivel del arco tendinoso con descenso de la pared anterior.",
         "b": "Rectocele bajo por defecto del cuerpo perineal.",
         "c": "Incontinencia anal de tipo I.",
-        "d": "Enterocele o Hernia del Fondo de Saco de Douglas (herniación del peritoneo rectouterino con contenido intestinal a través del tabique rectovaginal)."
+        "d": "Enterocele (hernia del fondo de saco de Douglas): herniación del peritoneo rectouterino con contenido intestinal a través del tabique rectovaginal."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con la Guía de Piso Pélvico de FASGO y Gineco-Obstetricia.pdf, el Enterocele (o Hernia del Douglas) es la protrusión del peritoneo del fondo de saco rectouterino (Douglas) que desciende disecando el espacio entre la pared vaginal posterior y la pared anterior del recto. Se caracteriza por contener en su saco herniario asas de intestino delgado o epiplón. Es un defecto del Nivel I de DeLancey (apical/posterior) y suele asociarse a prolapso uterino o de cúpula vaginal en mujeres ancianas (Guía de manejo de las alteraciones del piso pélvico.pdf)."
@@ -644,9 +644,9 @@
       "id": 54,
       "pregunta": "Una paciente de 50 años acude a la consulta con el informe de su primera mamografía de tamizaje, el cual concluye: \"Asimetría focal de densidad de bordes redondeados y bien definidos en mama derecha, sin microcalcificaciones ni distorsión, clasificándose como Categoría BI-RADS 3 (Hallazgo Probablemente Benigno)\". De acuerdo con las normas de BI-RADS del Ministerio de Salud de la Nación (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori Ginecología), ¿cuál es el riesgo de malignidad de la Categoría BI-RADS 3 y la conducta de seguimiento estándar recomendada?",
       "opciones": {
-        "a": "Riesgo de malignidad > 50% / Biopsia quirúrgica inmediata con congelación.",
-        "b": "Riesgo de malignidad muy bajo (menor o igual al 2%) / Conducta de seguimiento mamográfico estricto a corto plazo (unilateral a los 6 meses y bilateral a los 12 y 24 meses) para confirmar la estabilidad del hallazgo antes de re-clasificarlo a BI-RADS 2.",
-        "c": "Riesgo de malignidad del 0% / Alta médica definitiva por 10 años.",
+        "a": "Riesgo de malignidad > 50% / Biopsia quirúrgica inmediata con congelación y estudio de extensión completo con tomografía de tórax, abdomen y pelvis y centellograma óseo corporal total previo a la biopsia.",
+        "b": "Riesgo de malignidad muy bajo (≤ 2%) / Seguimiento mamográfico estricto a corto plazo (unilateral a los 6 meses y bilateral a los 12 y 24 meses) para confirmar la estabilidad antes de pasar a BI-RADS 2.",
+        "c": "Riesgo de malignidad del 0% / Alta médica definitiva por 10 años y no se requiere ningún otro estudio por imágenes ni seguimiento clínico posterior, ya que la lesión es completamente benigna en todos los casos.",
         "d": "Indicación de radioterapia preventiva sin más estudios."
       },
       "respuesta_correcta": "b",
@@ -670,8 +670,8 @@
       "opciones": {
         "a": "Carcinoma seroso papilar de endometrio estadio IV.",
         "b": "Sarcoma botrioide de cérvix.",
-        "c": "Trombosis de arterias uterinas por hipercoagulabilidad.",
-        "d": "Atrofia Endometrial Senil (representando del 60% al 80% de todas las metrorragias posmenopáusicas, producida por la fragilidad microvascular y fricción de las paredes de un endometrio hipoestrogénico adelgazado)."
+        "c": "Trombosis de arterias uterinas por hipercoagulabilidad asociada a hipercoagulabilidad, con elevación del dímero D y de los factores de la coagulación en las pruebas de laboratorio.",
+        "d": "Atrofia endometrial senil (60% a 80% de las metrorragias posmenopáusicas), por fragilidad microvascular y fricción de las paredes de un endometrio hipoestrogénico adelgazado."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología, el Consenso FASGO de SUA (2022) y SALUD DE LA MUJER, aunque el objetivo primordial ante un sangrado posmenopáusico es descartar el cáncer de endometrio (causante del 10% de los casos), la causa etiológica más frecuente en la práctica clínica es la Atrofia Endometrial (60-80% de los casos). Ocurre por la marcada depletación de estrógenos que atrofia el epitelio y la lámina propia, volviendo extremadamente frágiles a los capilares superficiales (ectasia vascular), los cuales se rompen espontáneamente o por fricción miometrial (Consenso SUA FASGO 2022 / SALUD DE LA MUJER)."
@@ -680,8 +680,8 @@
       "id": 57,
       "pregunta": "En el tratamiento hormonal sistémico adyuvante del Cáncer de Mama Invasor con Receptores Hormonales Positivos en mujeres confirmadamente posmenopáusicas, los Inhibidores de la Aromatasa de tercera generación (ej. Anastrozol 1 mg/día o Letrozol 2,5 mg/día) han demostrado una eficacia superior al Tamoxifeno. De acuerdo con la farmacología oncoginecológica (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori Ginecología / Consenso Osteoporosis FASGO 2025), ¿cuál es el mecanismo de acción de los Inhibidores de la Aromatasa y cuáles son sus principales efectos colaterales sobre el tejido óseo y articular?",
       "opciones": {
-        "a": "Inhiben la enzima aromatasa periférica (que convierte los andrógenos suprarrenales en estrógenos en el tejido adiposo y muscular), suprimiendo los niveles de estrógenos circulantes a valores indetectables; provocan como efectos secundarios dolores articulares (artralgias) y pérdida acelerada de la densidad mineral ósea (aumento del riesgo de osteoporosis y fracturas por fragilidad).",
-        "b": "Aumentan los niveles de progesterona sistémica produciendo aumento de peso y retención hídrica.",
+        "a": "Inhiben la aromatasa periférica (que convierte los andrógenos suprarrenales en estrógenos) y suprimen los estrógenos circulantes; sus efectos adversos son artralgias y pérdida acelerada de masa ósea (osteoporosis y fracturas).",
+        "b": "Aumentan los niveles de progesterona sistémica produciendo aumento de peso y retención hídrica, por lo que su uso prolongado se asocia con disminución de la densidad mineral ósea y de las fracturas, y mejora los síntomas vasomotores.",
         "c": "Estimulan la proliferación del cartílago hialino eliminando la artrosis.",
         "d": "Son agonistas estrogénicos que inducen hiperplasia endometrial severa."
       },
@@ -693,9 +693,9 @@
       "pregunta": "Una paciente de 65 años con diagnóstico colposcópico de ZT3 y legrado endocervical positivo para Neoplasia Intraepitelial Cervical Grado 3 (CIN 3 / HSIL) es sometida a un procedimiento de Conización Cervical con Asa de LEEP (o bisturí frío). El informe histopatológico definitivo del cono reporta: \"CIN 3 con márgenes quirúrgicos endo y exocervicales libres de lesión (márgenes negativos) y legrado endocervical superior negativo para malignidad\". De acuerdo con las guías de manejo de la patología cervical (Nueva Guía 2022 SAPTGIyC-SOGIBA-FASGO / Lesiones intraepiteliales Gori), ¿cuál es la conducta clínica posterior recomendada?",
       "opciones": {
         "a": "Histerectomía radical inmediata de Wertheim-Meigs.",
-        "b": "Seguimiento estricto con Cotest (Test de VPH MÁS Citología) a los 6 meses de la conización; si ambos estudios resultan negativos, se confirma la curación con un elevado valor predictivo negativo.",
+        "b": "Seguimiento con cotest (VPH MÁS citología) a los 6 meses de la conización; si ambos son negativos se confirma la curación, por su alto valor predictivo negativo.",
         "c": "Radioterapia holopélvica inmediata con 50 Gy.",
-        "d": "Alta médica definitiva sin controles ulteriores."
+        "d": "Alta médica definitiva sin controles ulteriores y control con colposcopía solamente ante la aparición de síntomas como sangrado poscoital o flujo con mal olor persistente."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con la Nueva Guía de Manejo 2022 (SAPTGIyC - SOGIBA - FASGO) y Gori Ginecología, tras un procedimiento escisional (conización) por CIN 3 / HSIL con márgenes quirúrgicos negativos, el pauta de seguimiento de elección (\"test de curación\") es la realización de un Cotest (Test de VPH + Citología PAP) a los 6 meses del tratamiento. Si el Test de VPH resulta negativo y la citología es normal, el riesgo de recurrencia o progresión es menor al 1%, permitiendo el seguimiento posterior anual antes de retornar al tamizaje habitual (Nueva Guía 2022 / Gori)."
@@ -704,9 +704,9 @@
       "id": 59,
       "pregunta": "Una paciente de 84 años con múltiples patologías crónicas descompensadas (diabetes insulinodependiente, cardiopatía isquémica con fracción de eyección del 30%) presenta un Prolapso Uterovaginal Complejo Estadio IV (Procidencia genital total). La paciente no mantiene ni planea mantener relaciones sexuales coitales en el futuro y requiere una solución quirúrgica definitiva de mínima invasión y rápida ejecución para aliviar la ulceración y la retención urinaria. De acuerdo con las técnicas de cirugía pélvica conservadora/obliterativa (Guía de manejo de las alteraciones del piso pélvico.pdf / Gineco-Obstetricia.pdf / Libro Pontelli SIM 2026), ¿cuál es la técnica quirúrgica obliterativa de elección?",
       "opciones": {
-        "a": "Histeropexia abdominal laparoscópica con malla de polipropileno de 4 brazos.",
+        "a": "Histeropexia abdominal laparoscópica con malla de polipropileno de 4 brazos con reconstrucción del suelo pélvico y conservación de la función sexual de la paciente y reparación del defecto.",
         "b": "Colporrafia anterior aislada con plastia de Kelly-Kennedy.",
-        "c": "Colpocleisis Subtotal de LeFort (Cirugía Obliterativa de la vagina mediante la sutura y adosamiento de las paredes vaginales anterior y posterior, previa eversión del prolapso).",
+        "c": "Colpocleisis subtotal de LeFort (cirugía obliterativa de la vagina por adosamiento de las paredes anterior y posterior, previa eversión del prolapso).",
         "d": "Amputación del cuello uterino según maniobra de Manchester."
       },
       "respuesta_correcta": "c",
@@ -728,8 +728,8 @@
       "id": 61,
       "pregunta": "Una paciente posmenopáusica de 64 años presenta al examen físico un nódulo indoloro, duro, fijo y de bordes imprecisos de 2,5 cm en el cuadrante superoexterno de la mama derecha. La mamografía bilateral describe una masa espiculada, de alta densidad, con distorsión de la arquitectura parenquimatosa y microcalcificaciones pleomórficas lineales agrupadas, siendo clasificada como Categoría BI-RADS 5. De acuerdo con el sistema BI-RADS y el manejo del cáncer de mama (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori Ginecología), ¿cuál es la probabilidad de malignidad de la Categoría BI-RADS 5 y la conducta diagnóstica de elección?",
       "opciones": {
-        "a": "Presenta una probabilidad de malignidad mayor o igual al 95%; la conducta obligatoria es la Biopsia Percutánea Histológica con aguja gruesa (Tru-cut) guiada por ecografía para confirmación histopatológica e inmunohistoquímica previo al plan terapéutico.",
-        "b": "Presenta un riesgo de malignidad del 50%; se debe indicar mamografía de control a los 6 meses.",
+        "a": "Probabilidad de malignidad ≥ 95%; conducta obligatoria: biopsia percutánea histológica con aguja gruesa (Tru-cut) guiada por ecografía, con inmunohistoquímica, antes del plan terapéutico.",
+        "b": "Presenta un riesgo de malignidad del 50%; se debe indicar mamografía de control a los 6 meses, y en caso de imágenes estables a los seis meses se procede a la resección quirúrgica programada del nódulo.",
         "c": "Presenta riesgo de malignidad del 0%; se indica drenaje por punción con aguja fina.",
         "d": "Es un hallazgo benigno que requiere únicamente tratamiento antibiótico por 14 días."
       },
@@ -740,10 +740,10 @@
       "id": 62,
       "pregunta": "Una paciente de 67 años acude a la consulta por presentar una masa que protruye por la vulva al realizar esfuerzos físicos. Al examen físico en posición ginecológica durante el pujo (Valsalva), el punto más declive de la pared vaginal posterior (punto Bp del sistema POP-Q) se ubica a +3 cm por fuera del anillo himeneal, sin sobrepasarse la longitud total de la vagina. La pared anterior y el cérvix se encuentran en posición normal (puntos Ba y C negativos). De acuerdo con la uroginecología y la estadificación POP-Q (Guía de manejo de las alteraciones del piso pélvico.pdf / prolapso de órganos pelvianos.pdf / Gori Ginecología), ¿cuál es el diagnóstico anatómico de este defecto y su estadio?",
       "opciones": {
-        "a": "Prolapso de Pared Anterior (Cistocele) Estadio II.",
+        "a": "Prolapso de Pared Anterior (Cistocele) Estadio II (descenso de la pared vaginal anterior sin compromiso del punto C).",
         "b": "Prolapso del Compartimento Posterior (Rectocele / Pared vaginal posterior) Estadio III.",
         "c": "Enterocele aislado Estadio I.",
-        "d": "Prolapso Apical Uterino Estadio IV."
+        "d": "Prolapso Apical Uterino Estadio IV con el cuello uterino a más de 2 cm por fuera del himen y de la longitud vaginal total."
       },
       "respuesta_correcta": "b",
       "justificacion": "De acuerdo con la Guía de Manejo de las Alteraciones del Piso Pélvico (FASGO) y Gori Ginecología, en el sistema POP-Q los puntos Ap y Bp evalúan el Compartimento Posterior (pared vaginal posterior / tabique rectovaginal / rectocele). Un valor de Bp = +3 cm indica que la pared posterior sobresale 3 cm por fuera del himen (plano 0). Al encontrarse el punto más declive a más de +1 cm por fuera del himen pero a menos de +(tv - 2) cm, se clasifica categóricamente como un Prolapso de Pared Posterior (Rectocele) Estadio III (Guía de manejo de las alteraciones del piso pélvico.pdf)."
@@ -754,8 +754,8 @@
       "opciones": {
         "a": "Suspender inmediatamente la THM y dar de alta sin realizar estudios.",
         "b": "Indicar histerectomía total por vía laparoscópica de urgencia.",
-        "c": "Indicar la evaluación histopatológica del endometrio mediante Biopsia Endometrial (por aspiración o histeroscopía) debido a que el sangrado persiste pasados los primeros 6 meses de THM y el grosor endometrial supera los 4-5 mm.",
-        "d": "Aumentar la dosis de estrógenos por vía oral al doble sin estudiar la cavidad."
+        "c": "Indicar biopsia endometrial (aspiración o histeroscopía) porque el sangrado persiste pasados los 6 meses de THM y el grosor endometrial supera los 4-5 mm.",
+        "d": "Aumentar la dosis de estrógenos por vía oral al doble sin estudiar la cavidad, y repetir el estudio ecográfico recién a los seis meses de la modificación del esquema de tratamiento."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con el Consenso de Climaterio de FASGO y el Consenso FASGO de SUA (2022) (Consenso SUA FASGO 2022 / Climaterio.pdf), el sangrado irregular o spotting durante los primeros 3 a 6 meses de inicio de la THM continua es un efecto secundario tolerable. Sin embargo, todo sangrado persistente que ocurre pasados los 6 meses del inicio de la THM, o cualquier sangrado acompañado de un endometrio de espesor > 4-5 mm en la ETV, constituye una indicación formal para la toma de muestra tisular biópsica de endometrio (mediante Pipelle o histeroscopía) para descartar hiperplasia endometrial o adenocarcinoma (Consenso SUA FASGO 2022)."
@@ -776,10 +776,10 @@
       "id": 65,
       "pregunta": "Una paciente de 65 años con diagnóstico de Osteoporosis Severa y antecedente de una fractura vertebral por compresión acude a la consulta. Se evalúan las opciones farmacológicas de segunda línea u osteoformadoras. De acuerdo con el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf / Gori Ginecología), ¿cuál es el mecanismo de acción del Denosumab y su esquema de administración?",
       "opciones": {
-        "a": "Es un anticuerpo monoclonal humano (IgG2) dirigido específicamente contra el ligando del receptor activador del factor nuclear kappa-B (RANKL), inhibiendo la formación, función y supervivencia de los osteoclastos; se administra por vía subcutánea a dosis de 60 mg cada 6 meses.",
-        "b": "Es un análogo de la parathormona que se inyecta por vía intramuscular todos los días.",
+        "a": "Anticuerpo monoclonal humano (IgG2) dirigido contra RANKL, que inhibe la formación, función y supervivencia de los osteoclastos; se administra por vía subcutánea, 60 mg cada 6 meses.",
+        "b": "Es un análogo de la parathormona que se inyecta por vía intramuscular todos los días, y su administración prolongada por encima de los 24 meses aumenta el riesgo de osteosarcoma en todas las pacientes.",
         "c": "Es un estrógeno vegetal concentrado que se aplica en la mucosa bucal.",
-        "d": "Es un inhibidor directo de la fosfatasa alcalina que se toma por vía oral diariamente."
+        "d": "Es un inhibidor directo de la fosfatasa alcalina que se toma por vía oral diariamente, cuya acción disminuye la formación ósea y provoca osteomalacia con dolor óseo y fracturas patológicas."
       },
       "respuesta_correcta": "a",
       "justificacion": "De acuerdo con el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf), el Denosumab es un agente biológico antirresortivo potente. Consiste en un anticuerpo monoclonal humano dirigido contra el RANKL (ligando del RANK), imitando la acción de la osteoprotegerina natural. Al unirse al RANKL, impide su interacción con el receptor RANK en la superficie de los preosteoclastos y osteoclastos, bloqueando su maduración y resorción ósea. Su posología es de 60 mg por vía subcutánea una vez cada 6 meses (Consenso Osteoporosis FASGO 2025)."
@@ -801,8 +801,8 @@
       "pregunta": "Durante el examen de rutina de una paciente de 55 años, la citología cervical (Papanicolaou) reporta un resultado de Células Escamosas Atípicas que no permiten descartar una lesión intraepitelial de alto grado (ASC-H). De acuerdo con las guías del Programa Nacional de Prevención del Cáncer Cervicouterino y las recomendaciones de FASGO (Nueva Guía 2022 SAPTGIyC-SOGIBA-FASGO / Lesiones intraepiteliales Gori), ¿cuál es la conducta clínica e inmediata de elección ante un resultado de ASC-H?",
       "opciones": {
         "a": "Repetir el Papanicolaou en 12 meses.",
-        "b": "Indicar óvulos de metronidazol por 7 días y dar de alta.",
-        "c": "Derivación inmediata a Colposcopía (asociada a legrado endocervical o biopsia dirigida si se observa lesión), debido al alto valor predictivo positivo del ASC-H para albergar una lesión intraepitelial de alto grado (CIN 2/3).",
+        "b": "Indicar óvulos de metronidazol por 7 días y dar de alta y repetir la citología a los tres meses con control del flujo vaginal cada 15 días en el consultorio externo.",
+        "c": "Derivación inmediata a colposcopía (con legrado endocervical o biopsia dirigida si hay lesión), por el alto valor predictivo positivo del ASC-H para CIN 2/3.",
         "d": "Indicar histerectomía abdominal directa."
       },
       "respuesta_correcta": "c",
@@ -813,9 +813,9 @@
       "pregunta": "Una paciente de 60 años consulta por Incontinencia de Orina de Esfuerzo. Al examen físico en camilla ginecológica con vejiga razonablemente llena, se le pide a la paciente que realice una maniobra de tos o pujo fuerte, observándose inmediatamente la salida en chorro de orina a través del meato uretral coordinada en forma sincrónica con el pico del esfuerzo. De acuerdo con la semiología uroginecológica (Incontinencia de orina de esfuerzo.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / Gori Ginecología), ¿cómo se denomina esta prueba clínica positiva?",
       "opciones": {
         "a": "Test de Bonney Negativo.",
-        "b": "Prueba de la Compresa (Pad Test) de 24 horas.",
+        "b": "Prueba de la Compresa (Pad Test) de 24 horas, registro de la cantidad de orina perdida por el peso de la compresa durante una hora de ejercicio.",
         "c": "Test de Coombs Urológico.",
-        "d": "Manejo o Prueba de la Tos de Marshall-Marchetti (Demostración clínica objetiva de la fuga urinaria de esfuerzo)."
+        "d": "Prueba de la tos (Marshall-Marchetti): demostración clínica de la pérdida de orina con el esfuerzo."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con Gori Ginecología, Incontinencia de orina de esfuerzo.pdf y la Guía de Piso Pélvico de FASGO, la Prueba de la Tos o Signo de Marshall-Marchetti es la maniobra semiológica básica e indispensable para objetivar clínicamente la incontinencia. Consiste en observar directamente el meato urinario mientras la paciente (con volumen vesical de 200-300 ml) tose con energía en posición ginecológica y/o de pie. La visualización directa del escape ininterrumpido de orina sincrónico con la tos confirma el signo clínico de incontinencia de orina de esfuerzo (Incontinencia de orina de esfuerzo.pdf)."
@@ -851,7 +851,7 @@
         "a": "Estadio IA.",
         "b": "Estadio IB.",
         "c": "Estadio II (Tumor que invade el estroma cervical pero no se extiende fuera del útero).",
-        "d": "Estadio IVA (invasión de mucosa vesical)."
+        "d": "Estadio IVA (invasión de mucosa vesical) con extensión de la invasión a la mucosa de la vejiga confirmada por cistoscopía y biopsia."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con la clasificación de la FIGO para el Cáncer de Endometrio (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori Ginecología): • Estadio I: Tumor limitado al cuerpo uterino (IA < 50% miometrio; IB ≥ 50% miometrio). • Estadio II: Tumor que invade el estroma cervical, pero no se extiende más allá del útero. • Estadio III: Invasión local o regional (serosa, anexos, vagina, parametrios o ganglios). Por lo tanto, la invasión confirmada del estroma cervical sin compromiso extrauterino clasifica al tumor en Estadio II (Consenso Cáncer de Endometrio FASGO)."
@@ -873,8 +873,8 @@
       "pregunta": "Una paciente de 57 años acude a la consulta para el control de una mamografía que fue informada como Categoría BI-RADS 4B. La ecografía mamaria identifica en la misma zona un nódulo sólido, hipoecoico, de contornos no circunscritos y sombra acústica posterior de 14 mm. De acuerdo con el algoritmo diagnóstico en mastología (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori Ginecología), ¿cuál es el procedimiento biópsico de elección para obtener la muestra tisular de este nódulo visible por ecografía?",
       "opciones": {
         "a": "Biopsia Percutánea con Aguja Gruesa (Core Biopsy / Tru-cut) guiada por Ecografía.",
-        "b": "Punción Aspirativa con Aguja Fina (PAAF) para citología líquida únicamente.",
-        "c": "Biopsia por congelación intraoperatoria con anestesia general directa.",
+        "b": "Punción Aspirativa con Aguja Fina (PAAF) para citología líquida únicamente y control.",
+        "c": "Biopsia por congelación intraoperatoria con anestesia general directa para la confirmación diagnóstica.",
         "d": "Extirpación completa del complejo aréola-pezón."
       },
       "respuesta_correcta": "a",
@@ -884,9 +884,9 @@
       "id": 74,
       "pregunta": "En el estudio de las lesiones precursoras del cáncer de cuello uterino, se evalúa el papel del Papanicolaou (Citología Cervical) frente a las pruebas moleculares. De acuerdo con el Programa Nacional de Prevención del Cáncer Cervicouterino (TAMIZAJE CON TEST DE VPH.pdf / Prevención 1º y 2º del cáncer cervicouterino.pdf / IMPLEMENTACION TEST HPV.pdf), ¿cuál es la principal limitación de la citología PAP como método de tamizaje único y cuál es la ventaja del Test de VPH?",
       "opciones": {
-        "a": "El PAP no sirve para detectar lesiones en mujeres jóvenes.",
-        "b": "El Papanicolaou presenta una sensibilidad moderada/baja (50-60%) con riesgo de falsos negativos por errores de muestreo o lectura; mientras que el Test de VPH presenta una elevada sensibilidad (> 95%) y un valor predictivo negativo cercano al 100% para detectar lesiones intraepiteliales de alto grado (CIN 2+).",
-        "c": "El Test de VPH requiere tomar muestras de sangre venosa periférica.",
+        "a": "El PAP no sirve para detectar lesiones en mujeres jóvenes y el test de VPH es menos sensible que el PAP para detectar lesiones de alto grado, por lo que se reserva para mayores de 65 años.",
+        "b": "El PAP tiene sensibilidad moderada/baja (50-60%) con riesgo de falsos negativos por error de muestreo o lectura; el test de VPH tiene sensibilidad > 95% y VPN cercano al 100% para CIN 2+.",
+        "c": "El Test de VPH requiere tomar muestras de sangre venosa periférica y su valor predictivo negativo es menor del 50%, por lo que no sirve para descartar enfermedad cervical de alto grado.",
         "d": "El PAP detecta exclusivamente infecciones por hongos levaduriformes."
       },
       "respuesta_correcta": "b",
@@ -897,8 +897,8 @@
       "pregunta": "Una paciente de 62 años acude a la guardia por presentar metrorragia de la posmenopausia. Se realiza una ecografía transvaginal que informa un endometrio de 11 mm y la histeroscopía con biopsia reporta un Carcinoma Endometrioide de Endometrio Grado 3 (Poco Diferenciado). De acuerdo con la gradación histológica del sistema FIGO para el cáncer de endometrio (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori Ginecología), ¿cómo se define un tumor Grado 3 (G3)?",
       "opciones": {
         "a": "Es un tumor benigno con 0% de atipia nuclear.",
-        "b": "Muestra una formación de patrones de crecimiento glandular o sólido bien diferenciado en más del 95% del tumor.",
-        "c": "Muestra una arquitectura de crecimiento sólido no escamoso ni morular que representa más del 50% de la masa tumoral, asociada a marcada atipia nuclear severa y un comportamiento biológico agresivo.",
+        "b": "Muestra una formación de patrones de crecimiento glandular o sólido bien diferenciado en más del 95% del tumor y buen pronóstico con baja tasa de recurrencia.",
+        "c": "Muestra crecimiento sólido no escamoso ni morular en más del 50% del tumor, con marcada atipia nuclear y comportamiento agresivo.",
         "d": "Muestra proliferación exclusiva de tejido graso maduro."
       },
       "respuesta_correcta": "c",
@@ -921,9 +921,9 @@
       "pregunta": "Una paciente de 61 años consulta por sensación de peso vulvar e incontinencia de orina de esfuerzo. Al realizar el examen físico en posición de litotomía, se constata que al pujar se produce la salida del cérvix uterino sobrepasando el plano del himen y ubicándose a +2 cm por fuera de la vulva (Punto C = +2 cm). La longitud total de la vagina (tv) es de 8 cm. De acuerdo con la cuantificación POP-Q (Guía de manejo de las alteraciones del piso pélvico.pdf / Gineco-Obstetricia.pdf / prolapso de órganos pelvianos.pdf), ¿cuál es el diagnóstico de este defecto y su estadio?",
       "opciones": {
         "a": "Prolapso Apical Uterino (Histerocele / Defecto del Nivel I de DeLancey) Estadio III.",
-        "b": "Prolapso de pared anterior Estadio I.",
-        "c": "Cistocele distal aislado Estadio 0.",
-        "d": "Rectocele alto Estadio IV."
+        "b": "Prolapso de pared anterior Estadio I con descenso del punto Ba hasta 1 cm por encima del himen y sin otros defectos del suelo pélvico.",
+        "c": "Cistocele distal aislado Estadio 0 con ausencia de descenso de los puntos de referencia respecto del himen y sin defectos asociados.",
+        "d": "Rectocele alto Estadio IV con protrusión del recto a través del introito por defecto de la fascia rectovaginal."
       },
       "respuesta_correcta": "a",
       "justificacion": "De acuerdo con la Guía de Manejo de las Alteraciones del Piso Pélvico (FASGO) y Gineco-Obstetricia.pdf, el Punto C del POP-Q representa el borde más inferior del cérvix o de la cúpula vaginal (Compartimento Apical / Nivel I de DeLancey). Un valor de C = +2 cm indica un Prolapso Apical (Histerocele). Criterio de Estadificación POP-Q: Al estar el punto más prolapsado a más de +1 cm por fuera del himen (+2 cm) pero a menos de +(tv - 2) cm (que sería +6 cm), el prolapso se clasifica formalmente en Estadio III (Guía de manejo de las alteraciones del piso pélvico.pdf)."
@@ -932,8 +932,8 @@
       "id": 78,
       "pregunta": "Una paciente de 56 años acude a la consulta para asesoramiento sobre el uso de Fitoproductos / Isoflavonas de Soja para el tratamiento de los sofocos climatéricos, debido a que rechaza el uso de Terapia Hormonal de la Menopausia convencional. De acuerdo con la evidencia científica y los consensos ginecológicos (Consenso FASGO Climaterio / Climaterio.pdf / Gori Ginecología), ¿cuál es la eficacia real de los fitoestrógenos en la sintomatología vasomotora?",
       "opciones": {
-        "a": "Son 100 veces más potentes que el estradiol sintético y curan la osteoporosis en 1 mes.",
-        "b": "Son compuestos de origen vegetal (fitoestrógenos) con débil actividad estrogénica por afinidad preferencial con el receptor estrogénico beta; muestran una eficacia modesta o superior al placebo únicamente en sofocos leves, pero son significativamente MENOS eficaces que la Terapia Hormonal de la Menopausia para los síntomas vasomotores moderados a severos y no previenen la pérdida ósea.",
+        "a": "Son 100 veces más potentes que el estradiol sintético y curan la osteoporosis en 1 mes y reemplazan por completo a la THM en el tratamiento de los síntomas vasomotores severos en todas las pacientes.",
+        "b": "Son fitoestrógenos con débil actividad estrogénica; tienen eficacia modesta solo en sofocos leves, son menos eficaces que la THM en síntomas moderados a severos y no previenen la pérdida ósea.",
         "c": "Tienen indicación absoluta en el cáncer de mama metastásico.",
         "d": "Producen virilización inmediata con voz grave e hirsutismo."
       },
@@ -956,10 +956,10 @@
       "id": 80,
       "pregunta": "Una paciente posmenopáusica de 62 años acude a la guardia por presentar un sangrado uterino anormal. En la ecografía se observa un endometrio de 10 mm. Se realiza una histeroscopía que evidencia un pólipo endometrial sospechoso, procediéndose a su resección. El informe anatomopatológico definitivo concluye: \"Adenocarcinoma Endometrioide de Endometrio que se origina focalmente sobre un pólipo endometrial, sin invasión del pedículo ni del miometrio adyacente\". De acuerdo con la patología del pólipo endometrial en la posmenopausia (Consenso SUA FASGO 2022 / Hiperplasia Endometrial.pdf / Consenso Cáncer de Endometrio FASGO), ¿cuál es la tasa aproximada de transformación maligna/cáncer focal dentro de los pólipos endometriales en mujeres posmenopáusicas sintomáticas?",
       "opciones": {
-        "a": "La transformación maligna ocurre en menos del 0,001% de los casos.",
+        "a": "La transformación maligna ocurre en menos del 0,001% de los casos, por lo que no requiere resección y se controla con ecografía cada dos años durante el resto de la vida.",
         "b": "Todos los pólipos son malignos en el 100% de las pacientes.",
-        "c": "La malignización del pólipo ocurre exclusivamente en adolescentes.",
-        "d": "La tasa de malignización o presencia de cáncer/hiperplasia atípica dentro de un pólipo endometrial en la posmenopausia (especialmente en pacientes sintomáticas con sangrado) oscila entre el 3% y el 5%, justificando su exéresis obligatoria."
+        "c": "La malignización del pólipo ocurre exclusivamente en adolescentes en mujeres con alto índice de masa corporal, por lo que los pólipos se resuelven solos en el posparto.",
+        "d": "La tasa de cáncer o hiperplasia atípica en un pólipo endometrial posmenopáusico (sobre todo si hay sangrado) es de 3% a 5%, lo que justifica su exéresis obligatoria."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con el Consenso FASGO de SUA (2022), Hiperplasia Endometrial.pdf y el Consenso de Cáncer de Endometrio de FASGO, aunque la mayoría de los pólipos endometriales son lesiones benignas, en mujeres posmenopáusicas —y particularmente en aquellas que cursan con sangrado uterino anormal— la prevalencia de hiperplasia con atipia o carcinoma endometrial focal dentro del pólipo es del 3% al 5%. Este riesgo fundamenta la norma de realizar la polipectomía histeroscópica sistemática en toda paciente posmenopáusica sintomática o con pólipos de gran tamaño (Consenso SUA FASGO 2022 / Consenso Cáncer de Endometrio FASGO)."
@@ -992,9 +992,9 @@
       "id": 83,
       "pregunta": "Una paciente de 61 años con diagnóstico de Carcinoma Endometrioide de Endometrio Grado 1 es sometida a una Histerectomía Total con Salpingooforectomía Bilateral y biopsia de ganglio centinela pélvico. El informe anatomopatológico definitivo reporta: \"Tumor confinado al cuerpo uterino que presenta una invasión del 70% del espesor del miometrio (más de la mitad del miometrio), sin compromiso del estroma cervical ni metástasis ganglionares o pélvicas\". De acuerdo con la clasificación quirúrgica FIGO (Consenso Cáncer de Endometrio FASGO / Carcinoma de endometrio.pdf / Gori Ginecología), ¿cuál es el estadio FIGO correspondiente?",
       "opciones": {
-        "a": "Estadio IA.",
+        "a": "Estadio IA (tumor limitado al endometrio o que invade menos de la mitad del espesor del miometrio, sin otras extensiones).",
         "b": "Estadio II.",
-        "c": "Estadio IIIA.",
+        "c": "Estadio IIIA (compromiso de la serosa uterina o de los anexos sin invasión de ganglios linfáticos regionales).",
         "d": "Estadio IB (tumor confinado al cuerpo uterino que invade el 50% o más del espesor miometrial)."
       },
       "respuesta_correcta": "d",
@@ -1006,8 +1006,8 @@
       "opciones": {
         "a": "Rectocele aislado / Tratamiento con colporrafia posterior.",
         "b": "Cistocele distal / Tratamiento con cinta suburetral TOT.",
-        "c": "Prolapso de Cúpula Vaginal (Prolapso Apical Post-histerectomía) / Tratamiento reconstructor mediante Promontofijación / Sacrocolpopexia de Cúpula Vaginal con malla por vía laparoscópica o laparotómica.",
-        "d": "Incontinencia anal de tipo III / Tratamiento con esfinteroplastia."
+        "c": "Prolapso de cúpula vaginal (apical poshisterectomía) / Sacrocolpopexia o promontofijación de la cúpula con malla por vía laparoscópica o laparotómica.",
+        "d": "Incontinencia anal de tipo III / Tratamiento con esfinteroplastia con compromiso del esfínter anal externo y reparación en el mismo acto con malla de polipropileno."
       },
       "respuesta_correcta": "c",
       "justificacion": "De acuerdo con la Guía de Manejo de las Alteraciones del Piso Pélvico (FASGO), Gineco-Obstetricia.pdf y el Libro Pontelli SIM 2026, la caída de la cúpula vaginal tras una histerectomía constituye el Prolapso de Cúpula Vaginal (Prolapso Apical) por fallo del Nivel I de DeLancey (ligamentos uterosacros/cardinales). En pacientes sintomáticas que desean preservar la función sexual vaginal, el procedimiento quirúrgico de elección con mayor tasa de éxito anatómico a largo plazo es la Sacrocolpopexia o Promontofijación (fijación de la cúpula vaginal al ligamento vertebral común anterior del sacro mediante una malla sintética) (Guía de manejo de las alteraciones del piso pélvico.pdf / Libro Pontelli SIM 2026)."
@@ -1016,8 +1016,8 @@
       "id": 85,
       "pregunta": "En el estudio genético de las familias con predisposición al Síndrome de Cáncer de Mama y Ovario Hereditario, se evalúan las diferencias clínicas entre las mutaciones de los genes BRCA1 y BRCA2. De acuerdo con la oncología mamaria y ginecológica (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori Ginecología / Cáncer de mama TESTA.pdf), ¿cuál es una característica distintiva de las mutaciones en el gen BRCA2 en comparación con BRCA1?",
       "opciones": {
-        "a": "Exclusividad de cáncer de tiroides medular en mujeres jóvenes.",
-        "b": "Mayor frecuencia de fenotipo Luminal (RE+) en los carcinomas mamarios, menor riesgo penetrante relativo de cáncer de ovario en comparación con BRCA1, e incremento significativo del riesgo de Cáncer de Mama en Varones, Cáncer de Próstata y Cáncer de Páncreas.",
+        "a": "Exclusividad de cáncer de tiroides medular en mujeres jóvenes con aumento del riesgo de cáncer de ovario superior al de BRCA1 y mayor frecuencia del fenotipo triple negativo.",
+        "b": "Mayor frecuencia de fenotipo luminal (RE+), menor riesgo de cáncer de ovario que con BRCA1 y mayor riesgo de cáncer de mama en varones, de próstata y de páncreas.",
         "c": "Herencia ligada al cromosoma Y sin afectación femenina.",
         "d": "Cese espontáneo de la mutación a los 50 años."
       },
@@ -1028,8 +1028,8 @@
       "id": 86,
       "pregunta": "Una paciente de 65 años con diagnóstico de Carcinoma de Cuello Uterino es evaluada por el servicio de oncología. La tomografía y la cistoscopía constatan que el tumor ha invadido la pared pélvica lateral en bloque y se extiende hacia adelante infiltrando la mucosa de la vejiga urinaria con bulas edematosas y biopsia vesical positiva (Estadio IVA de la FIGO). No hay metástasis a distancia. De acuerdo con el estadiamiento y tratamiento del cáncer de cérvix (Consenso Cáncer de Cérvix FASGO / Consenso Manejo Terapéutico del Carcinoma de Cuello Uterino.pdf / Gori Ginecología), ¿cuál es el enfoque terapéutico de elección en el Estadio IVA?",
       "opciones": {
-        "a": "Radio-Quimioterapia Concomitante (Radioterapia Holopélvica Externa con Braquiterapia y Cisplatino) o Exenteración Pélvica Anterior/Total en casos seleccionados sin extensión a pared pélvica.",
-        "b": "Histerectomía simple según técnica de Piver I.",
+        "a": "Radioquimioterapia concomitante (radioterapia holopélvica con braquiterapia y cisplatino) o exenteración pélvica en casos seleccionados sin extensión a la pared pélvica.",
+        "b": "Histerectomía simple según técnica de Piver I con linfadenectomía pélvica bilateral, preservación de ambos anexos y de la fertilidad, como único tratamiento en toda paciente con enfermedad localmente avanzada.",
         "c": "Traquelectomía radical laparoscópica.",
         "d": "Conización quirúrgica con asa leep ambulatoria."
       },
@@ -1052,10 +1052,10 @@
       "id": 88,
       "pregunta": "Una paciente de 34 años con antecedentes de infertilidad acude a la consulta con el informe histopatológico de una biopsia endometrial realizada por histeroscopía, el cual concluye: Hiperplasia Endometrial Con Atipia (Neoplasia Intraepitelial Endometrial - EIN). La paciente manifiesta un deseo concepcional firme e impostergable y rechaza de forma categórica la histerectomía. De acuerdo con las excepciones del manejo oncoginecológico de la hiperplasia atípica (Hiperplasia Endometrial.pdf / Consenso SUA FASGO 2022 / Consenso Cáncer de Endometrio FASGO), ¿cuál es la pauta médica conservadora de excepción autorizada y sus requisitos de seguimiento?",
       "opciones": {
-        "a": "Alta médica y recomendar búsqueda de embarazo espontáneo inmediatamente sin medicación.",
-        "b": "Realizar raspado uterino instrumental mensual durante 5 años continuos.",
-        "c": "Radioterapia holopélvica con preservación del cuerpo uterino.",
-        "d": "Tratamiento médico de excepción con Progestágenos en altas dosis (SIU-LNG o Acetato de Megestrol 160 mg/día) asociado a un estricto seguimiento con biopsias endometriales seriadas cada 3 meses para confirmar la remisión completa antes de derivar a Reproducción Asistida."
+        "a": "Alta médica y recomendar búsqueda de embarazo espontáneo inmediatamente sin medicación y si la paciente no logra el embarazo en seis meses recién entonces se indica la histerectomía total con anexectomía bilateral.",
+        "b": "Realizar raspado uterino instrumental mensual durante 5 años continuos, y administración de estrógenos orales a dosis altas para regenerar el endometrio luego de cada procedimiento instrumental, durante el primer año.",
+        "c": "Radioterapia holopélvica con preservación del cuerpo uterino y resección posterior de ambos ovarios, como tratamiento definitivo y único en toda paciente con hiperplasia atípica y deseo gestacional actual.",
+        "d": "Progestágenos en altas dosis (SIU-LNG o megestrol 160 mg/día) con biopsias seriadas cada 3 meses para confirmar la remisión."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con el Consenso FASGO de SUA (2022), Hiperplasia Endometrial.pdf y el Consenso de Cáncer de Endometrio de FASGO, la norma estándar para la hiperplasia con atipia es la histerectomía. Sin embargo, en pacientes jóvenes con deseo reproductivo no cumplido, se puede plantear un tratamiento conservador de excepción: 1. Confirmación por revisión anatomopatológica de que no existe adenocarcinoma invasor. 2. Tratamiento con Progestágenos en dosis elevadas (SIU con Levonorgestrel o Acetato de Megestrol 160 mg/día / Medroxiprogesterona 500 mg/día). 3. Biopsia endometrial de control cada 3 meses (por histeroscopía o Pipelle). Obtenida la regresión histológica completa confirmada en 2 biopsias negativas consecutivas, se deriva de inmediato a técnicas de Reproducción Asistida (Consenso SUA FASGO 2022 / Consenso Cáncer de Endometrio FASGO)."
@@ -1064,8 +1064,8 @@
       "id": 89,
       "pregunta": "Una paciente de 52 años acude a la consulta mastológica por presentar eritema difuso, aumento de volumen, calor, dolor y edema cutáneo difuso con apariencia de \"piel de naranja\" (peau d'orange) que compromete más de un tercio de la mama izquierda, de 3 semanas de evolución. No se palpa una masa tumoral delimitada, pero la axila presenta adenopatías duras y fijas. La biopsia de piel demuestra la presencia de embolia tumoral masiva en los linfáticos dérmicos. De acuerdo con la patología e inmunología mamaria (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Gori Ginecología / Cáncer de mama TESTA.pdf), ¿cuál es el diagnóstico de este cuadro clínico (Estadio T4d) y su esquema terapéutico inicial de elección?",
       "opciones": {
-        "a": "Carcinoma Inflamatorio de Mama (Estadio T4d) / Tratamiento de primera línea con Quimioterapia Sistémica Neoadyuvante de entrada, estando contraindicada la cirugía primaria inmediata.",
-        "b": "Mastitis Puerperal por Estafilococo / Tratamiento exclusivo con amoxicilina oral por 7 días.",
+        "a": "Carcinoma inflamatorio de mama (T4d) / Quimioterapia sistémica neoadyuvante de entrada, con cirugía primaria inmediata contraindicada.",
+        "b": "Mastitis Puerperal por Estafilococo / Tratamiento exclusivo con amoxicilina oral por 7 días y control de la temperatura cada 12 horas con suspensión de la lactancia durante todo el tratamiento.",
         "c": "Ectasia Ductal Benigna / Tratamiento con compresión local y hielo.",
         "d": "Enfermedad de Paget del Pezón aislada / Tratamiento con corticoides tópicos."
       },
@@ -1076,9 +1076,9 @@
       "id": 90,
       "pregunta": "Una paciente posmenopáusica de 62 años consulta por presentar pérdidas involuntarias de orina. Al interrogatorio detallado manifiesta que padece tanto escapes de orina al toser, estornudar o levantar objetos pesados, como episodios impetuosos de urgencia miccional donde no alcanza a llegar al baño. El diario miccional y el estudio urodinámico confirman la coexistencia de ambos mecanismos. De acuerdo con la uroginecología (Incontinencia de orina de esfuerzo.pdf / Guía de manejo de las alteraciones del piso pélvico.pdf / Gori Ginecología), ¿cómo se clasifica esta entidad y cuál es la estrategia clínica inicial de abordaje?",
       "opciones": {
-        "a": "Incontinencia Por Rebosamiento Neurogénica / Tratamiento con cateterismo intermitente.",
-        "b": "Incontinencia Urinaria Mixta (IUM) / Tratamiento enfocado inicialmente en el componente sintomático que la paciente refiera como más molesto o invalidante (generalmente el componente de urgencia con antimuscarínicos/mirabegrón y reeducación vesical), asociado a kinesiología del piso pélvico.",
-        "c": "Fístula Vesicovaginal gigante / Tratamiento con drenaje de cistostomía percutánea.",
+        "a": "Incontinencia Por Rebosamiento Neurogénica / Tratamiento con cateterismo intermitente, más corrección quirúrgica inmediata con cinta suburetral por vía transobturatriz sin tratamiento médico previo ni evaluación urodinámica.",
+        "b": "Incontinencia urinaria mixta (IUM) / Tratar primero el componente más molesto o invalidante (generalmente la urgencia: antimuscarínicos/mirabegrón y reeducación vesical), con kinesiología del piso pélvico.",
+        "c": "Fístula Vesicovaginal gigante / Tratamiento con drenaje de cistostomía percutánea, más reparación quirúrgica por vía abdominal inmediata, sondaje vesical por tres semanas y antibióticos de manera continua.",
         "d": "Disuria psicógena puramente funcional / Tratamiento con sedantes nocturnos."
       },
       "respuesta_correcta": "b",
@@ -1100,10 +1100,10 @@
       "id": 92,
       "pregunta": "Una paciente de 68 años con diagnóstico de Osteoporosis Severa con Múltiples Fracturas Vertebrales y de Cadera presenta progresión de la pérdida de masa ósea a pesar de haber recibido alendronato durante 5 años. Se decide iniciar un tratamiento con un agente osteoformador / anabólico óseo potente (Teriparatida). De acuerdo con el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf / Gori Ginecología), ¿cuál es el mecanismo de acción de la Teriparatida y la duración máxima recomendada de su tratamiento?",
       "opciones": {
-        "a": "Es un bifosfonato de quinta generación que se administra por vía oral semanal durante toda la vida.",
-        "b": "Es un antagonista de los receptores de calcitonina que disminuye el calcio sérico en 24 horas.",
+        "a": "Es un bifosfonato de quinta generación que se administra por vía oral semanal durante toda la vida, y su administración se complementa con terapia estrogénica a dosis altas en todas las pacientes durante todo el tratamiento.",
+        "b": "Es un antagonista de los receptores de calcitonina que disminuye el calcio sérico en 24 horas, y se utiliza como tratamiento de primera línea de la osteoporosis posmenopáusica sin fracturas, por tiempo indefinido y en dosis única semanal.",
         "c": "Es un anticuerpo bloqueante del estrógeno que se inyecta en el hueso largo.",
-        "d": "Es el fragmento recombinante del péptido 1-34 de la Parathormona (PTH) humana; administrado de forma intermitente por vía subcutánea diaria estimula de forma prioritaria la formación de hueso nuevo por los osteoblastos; su uso está limitado a un tiempo máximo continuo de 18 a 24 meses."
+        "d": "Fragmento recombinante del péptido 1-34 de la PTH humana; administrado por vía subcutánea diaria e intermitente estimula la formación de hueso nuevo por los osteoblastos; se usa por un máximo de 18 a 24 meses."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con el Consenso de Osteoporosis FASGO 2025 (Consenso Osteoporosis FASGO 2025 / Climaterio.pdf), la Teriparatida [rhPTH(1-34)] es el principal agente osteoformador o anabólico óseo: 1. Mecanismo: La administración intermitente diaria en dosis bajas activa los receptores de PTH en los osteoblastos, estimulando la síntesis y remodelado de matriz ósea nueva (a diferencia de la secreción continua hiperparatiroidea que es reabsorbente). 2. Duración: Dado el riesgo teórico de osteosarcoma observado en modelos animales con exposición prolongada, la duración máxima autorizada de tratamiento es de 18 a 24 meses a lo largo de la vida, requiriendo luego la consolidación con un agente antirresortivo (Consenso Osteoporosis FASGO 2025)."
@@ -1112,8 +1112,8 @@
       "id": 93,
       "pregunta": "Durante la evaluación de un Sangrado Uterino Anormal en una paciente posmenopáusica de 63 años, la ecografía transvaginal muestra una masa miometrial heterogénea de 9 cm, de rápido crecimiento, con áreas de necrosis central y vascularización caótica de baja resistencia al Doppler color. Se realiza la histerectomía total y el análisis histopatológico confirma un Leiomiosarcoma Uterino. De acuerdo con los sarcomas uterinos y la patología tumoral del cuerpo uterino (Carcinoma de endometrio.pdf / Consenso Cáncer de Endometrio FASGO / Gori Ginecología), ¿cuál es la característica histológica y el comportamiento biológico del Leiomiosarcoma en la posmenopausia?",
       "opciones": {
-        "a": "Es una neoplasia epitelial benigna derivada de la mucosa glandular que responde a progesterona oral.",
-        "b": "Es una neoplasia maligna mesenquimática hipercelular derivada del músculo liso miometrial, caracterizada por marcado atipismo celular, necrosis coagulativa de células tumorales y un índice mitótico elevado (> 10 mitosis por 10 HPF); presenta un comportamiento altamente agresivo con diseminación hematógena precoz (pulmón) y baja respuesta a hormonoterapia.",
+        "a": "Es una neoplasia epitelial benigna derivada de la mucosa glandular que responde a progesterona oral, con crecimiento lento, sin riesgo de recurrencia local ni a distancia, y con indicación de histerectomía subtotal con conservación de ambos anexos.",
+        "b": "Neoplasia maligna mesenquimática hipercelular del músculo liso miometrial, con marcado atipismo, necrosis coagulativa y más de 10 mitosis por 10 HPF; muy agresiva, con diseminación hematógena precoz (pulmón) y baja respuesta a hormonoterapia.",
         "c": "Ocurre exclusivamente en adolescentes embarazadas por infección por citomegalovirus.",
         "d": "Se cura mediante la colocación de un dispositivo intrauterino con cobre."
       },
@@ -1124,8 +1124,8 @@
       "id": 94,
       "pregunta": "Una paciente de 56 años acude a la consulta mastológica con el informe de una biopsia percutánea (Tru-cut) de un área de microcalcificaciones mamográficas (BI-RADS 4A), la cual concluye: Hiperplasia Ductal Atípica (HDA). De acuerdo con las lesiones proliferativas de la mama y el riesgo oncogénico (CÁNCER DE MAMA. MINISTERIO DE SALUD.pdf / Manual de evaluación clínica mamaria MSAL / Gori Ginecología), ¿cuál es el significado clínico de la Hiperplasia Ductal Atípica y la conducta médica indicada?",
       "opciones": {
-        "a": "Es una lesión proliferativa atípica que incrementa de 4 a 5 veces el riesgo relativo de desarrollar cáncer de mama invasor en ambas mamas; debido al riesgo de subestimación diagnóstica (coexistencia de carcinoma in situ o invasor no muestreado), se indica la Escisión Quirúrgica Completa de la lesión seguida de seguimiento estricto o quimioprevención con Tamoxifeno/Inhibidores de la aromatasa.",
-        "b": "Es un hallazgo maligno que exige la mastectomía radical bilateral de inmediato.",
+        "a": "Lesión atípica que aumenta 4 a 5 veces el riesgo de cáncer de mama invasor; por el riesgo de subestimación diagnóstica se indica la escisión quirúrgica completa, con seguimiento o quimioprevención.",
+        "b": "Es un hallazgo maligno que exige la mastectomía radical bilateral de inmediato, con vaciamiento axilar bilateral y reconstrucción inmediata sin otros estudios por imágenes de control posterior.",
         "c": "Es un artefacto de la aguja que se cura con vitamina E oral.",
         "d": "Es una lesión idéntica al quiste simple que no requiere seguimiento."
       },
@@ -1149,8 +1149,8 @@
       "pregunta": "Una paciente de 60 años tratada hace 2 años mediante Radio-Quimioterapia Concomitante por un Carcinoma Escamoso de Cuello Uterino Estadio IIB acude a su control oncoginecológico de rutina. Se solicitan estudios de seguimiento. De acuerdo con el seguimiento del cáncer de cérvix (Consenso Cáncer de Cérvix FASGO / Consenso Manejo Terapéutico del Carcinoma de Cuello Uterino.pdf / Gori Ginecología), ¿cuál es el marcador tumoral sérico específico utilizado para la detección precoz de recurrencia en el carcinoma epidermoide de cérvix?",
       "opciones": {
         "a": "CA 125.",
-        "b": "Alfa-fetoproteína (AFP).",
-        "c": "Subunidad Beta-HCG cuantitativa.",
+        "b": "Alfa-fetoproteína (AFP) (marcador de tumores de células germinales y de hepatocarcinoma, sin utilidad en este caso).",
+        "c": "Subunidad Beta-HCG cuantitativa (marcador de enfermedad trofoblástica gestacional, sin utilidad en el carcinoma escamoso).",
         "d": "Antígeno del Carcinoma Escamoso (SCC - Squamous Cell Carcinoma Antigen)."
       },
       "respuesta_correcta": "d",
@@ -1160,9 +1160,9 @@
       "id": 97,
       "pregunta": "Una paciente de 56 años con antecedentes de cáncer de mama receptor estrogénico positivo (en tratamiento con Anastrozol) consulta por padecer Síndrome Genitourinario de la Menopausia (SGUM) severo con sequedad vaginal extrema y dispareunia que le impide mantener relaciones sexuales. Dada la contraindicación para el uso de estrógenos locales tópicos por su antecedente oncológico, se evalúan alternativas no hormonales. De acuerdo con los consensos de climaterio (Consenso FASGO Climaterio / Climaterio.pdf / UNIDAD 4.Salud Integral de la Adulta Mayor..pdf), ¿cuáles son las opciones no hormonales de primera línea para el manejo sintomático del SGUM?",
       "opciones": {
-        "a": "Lubricantes vaginales a base de agua o silicona durante el coito, Hidratantes vaginales de poliencilo/ácido hialurónico de uso continuo varias veces por semana, y la terapia física con Láser CO2 microablativo o Radiofrecuencia fraccionada vaginal.",
-        "b": "Crema de estriol a dosis triples diariamente.",
-        "c": "Anticonceptivos orales combinados en óvulos.",
+        "a": "Lubricantes vaginales de agua o silicona durante el coito, hidratantes vaginales de uso continuo varias veces por semana y, en casos seleccionados, láser CO2 microablativo o radiofrecuencia fraccionada.",
+        "b": "Crema de estriol a dosis triples diariamente aplicada de manera continua durante todo el año, con incrementos progresivos de la dosis cada mes hasta alcanzar la respuesta esperada de la mucosa vaginal.",
+        "c": "Anticonceptivos orales combinados en óvulos colocados por vía vaginal en dosis doble todas las noches, junto con progesterona oral cíclica durante todo el año y suspensión del control ginecológico anual.",
         "d": "Antibióticos orales de amplio espectro por 6 meses."
       },
       "respuesta_correcta": "a",
@@ -1196,10 +1196,10 @@
       "id": 100,
       "pregunta": "En el marco de la Atención Integral de la Salud de la Adulta Mayor y las pautas del control ginecológico preventivo (Consenso FASGO 2024 Control Ginecológico en la Mujer Sana / UNIDAD 4.Salud Integral de la Adulta Mayor..pdf / Rol del ginecólogo en la atención primaria. GORI CAP 6), ¿cuál es la función del ginecólogo como médico de atención primaria en la posmenopausia avanzada?",
       "opciones": {
-        "a": "Limitar la consulta exclusivamente al examen con espéculo sin tomar la presión ni evaluar el estado metabólico.",
+        "a": "Limitar la consulta exclusivamente al examen con espéculo sin tomar la presión ni evaluar el estado metabólico, sin evaluar el estado cardiovascular ni la densidad ósea de la paciente, y derivar al especialista cualquier otra consulta.",
         "b": "Suspender todo tipo de controles ginecológicos al cumplir los 60 años.",
         "c": "Indicar histerectomía profiláctica a todas las mujeres mayores de 65 años.",
-        "d": "Asumir el rol de médico de cabecera y prevención integral de la mujer: evaluando la salud cardiovascular, pesquisando patología mamaria y pélvica, valorando el riesgo de osteopenia/fracturas, detectando trastornos del piso pélvico/incontinencia y promoviendo hábitos saludables y vacunación (antineumocócica, antigripal, COVID-19 y herpes zóster)."
+        "d": "Ser médico de cabecera con prevención integral: salud cardiovascular, patología mamaria y pélvica, riesgo de fracturas, trastornos del piso pélvico, hábitos saludables y vacunación (antigripal, COVID-19, antineumocócica, zóster)."
       },
       "respuesta_correcta": "d",
       "justificacion": "De acuerdo con el Consenso FASGO 2024 de Control Ginecológico en la Mujer Sana, el capítulo 6 de Gori Ginecología (Rol del Ginecólogo en la Atención Primaria) y la UNIDAD 4.Salud Integral de la Adulta Mayor..pdf, el ginecólogo se constituye con frecuencia en el único o principal médico de acceso al sistema de salud para la mujer en la posmenopausia. Su rol trasciende el examen genital estricto, abarcando el enfoque biopsicosocial integral: prevención del riesgo cardiovascular (primera causa de muerte en la mujer mayor), pesquisa precoz de cáncer de mama, endometrio, cérvix y vulva, evaluación de la salud ósea y del piso pélvico, y control del esquema de vacunación del adulto mayor (Consenso FASGO 2024 / Gori Cap 6)."
