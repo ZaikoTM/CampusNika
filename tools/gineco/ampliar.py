@@ -23,6 +23,7 @@ def main():
                     falta = [x for x in c[k] if x not in fx]
                     if falta: print('FARMACO NO EXISTE', pid, falta)
                 f[k] = c[k]
+        if 'fuente' in c: f['fuente'].update({k: v for k, v in c['fuente'].items()}); f['fuente'].pop('nota', None); f['fuente'].pop('revisarAntes', None)
         nota = (f['fuente'].get('nota') or '')
         if NOTA not in nota: f['fuente']['nota'] = (nota + ' ' + NOTA).strip()
         n += 1

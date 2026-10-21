@@ -1360,6 +1360,16 @@ function openInlineViewer(url, title, element) {
     if (driveId && window.NikaPdf && wrapperEl) {
         configurarModoVisor({ fileId: driveId, title, iframe, wrapperEl, embedUrl });
         cambiarModoVisor('nika');
+        // Capítulos de un libro: la URL trae '#pag=N' y el lector se abre en esa página
+        const mp = String(url).match(/#pag=(\d+)/);
+        if (mp && Number(mp[1]) > 1) {
+            let k = 0;
+            const t = setInterval(() => {
+                k++;
+                if (window.NikaPdf && window.NikaPdf.activo() && window.NikaPdf.pagina && window.NikaPdf.irA) { clearInterval(t); setTimeout(() => window.NikaPdf.irA(Number(mp[1]), false), 400); }
+                else if (k > 240) clearInterval(t);   // hasta ~2 min: los libros grandes tardan en descargarse
+            }, 500);
+        }
     } else {
         configurarModoVisor(null);
         if (iframe) iframe.src = embedUrl;

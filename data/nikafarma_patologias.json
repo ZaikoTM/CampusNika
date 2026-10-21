@@ -2363,65 +2363,229 @@
         "Amenorrea primaria con gonadotrofinas elevadas: cariotipo."
       ],
       "fuente": {
-        "guia": "Apunte Salud Integral de la Mujer, UP3 (pp. 233–245): material de Testa y de Gori",
-        "sociedad": "Apunte Pontelli SIM 2026 (resumen de estudiante)",
-        "anio": 2026,
-        "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
-        "tipo": "apunte",
-        "nota": "Apunte de estudiante (recopila Testa, Gori y clases); no es una guía de sociedad. El algoritmo de amenorrea secundaria del apunte es una imagen. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
+        "guia": "FASGO 2024. Amenorrea primaria y secundaria: algoritmos diagnósticos",
+        "sociedad": "Federación Argentina de Sociedades de Ginecología y Obstetricia (FASGO), Comisión de Endocrinología Ginecológica",
+        "anio": 2024,
+        "archivo": "Algoritmos_Amenorreas_final.pdf",
+        "tipo": "guia",
+        "nota": "Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec2"
       ],
       "algoritmo": {
-        "titulo": "Amenorreas primaria y secundaria",
+        "titulo": "Amenorrea primaria y secundaria (FASGO 2024)",
         "nodos": [
           {
             "t": "inicio",
-            "txt": "Sin menarca a los 16 años, o ausencia de menstruación por más de 3 meses: β-hCG, TSH y prolactina"
+            "txt": "Historia clínica completa y examen físico (desarrollo de los caracteres sexuales secundarios, olfato, signos de hiperandrogenismo). Estudios en plena amenorrea: no hace falta esperar una menstruación ni hacer la prueba de progesterona"
+          },
+          {
+            "t": "accion",
+            "txt": "Primera línea de laboratorio: β-hCG, FSH, LH, TSH y prolactina; ecografía ginecológica"
           },
           {
             "t": "decision",
-            "txt": "¿β-hCG positiva?",
+            "txt": "¿Es una amenorrea primaria (nunca hubo menarca)?",
             "si": [
               {
-                "t": "fin",
-                "txt": "Embarazo"
-              }
-            ],
-            "no": [
-              {
                 "t": "decision",
-                "txt": "¿Prolactina elevada?",
+                "txt": "¿Tiene caracteres sexuales secundarios (telarca)?",
                 "si": [
                   {
-                    "t": "accion",
-                    "txt": "Estudiar hiperprolactinemia y RM de silla turca"
-                  }
-                ],
-                "no": [
-                  {
-                    "t": "accion",
-                    "txt": "FSH y LH: FSH elevada → hipogonadismo hipergonadotrófico (cariotipo); FSH y LH bajas o normales → origen hipotálamo-hipofisario"
-                  },
-                  {
-                    "t": "accion",
-                    "txt": "Prueba de progesterona: sangrado en 14 días indica normoestrogenismo con útero que responde"
-                  },
-                  {
                     "t": "decision",
-                    "txt": "¿Hay hiperandrogenismo?",
+                    "txt": "¿Hay útero en la ecografía?",
                     "si": [
                       {
-                        "t": "accion",
-                        "txt": "Estudiar SOP, hiperplasia suprarrenal no clásica y tumores ováricos o suprarrenales"
+                        "t": "decision",
+                        "txt": "¿Hay obstrucción del tracto de salida (himen, tabique)?",
+                        "si": [
+                          {
+                            "t": "fin",
+                            "txt": "Himen imperforado o tabique vaginal transverso: tratamiento quirúrgico"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "accion",
+                            "txt": "Sin obstrucción: evaluar como una amenorrea secundaria"
+                          }
+                        ]
                       }
                     ],
                     "no": [
                       {
                         "t": "accion",
-                        "txt": "Causa funcional (la más frecuente en las secundarias): corregir el ejercicio excesivo, la dieta y el estrés"
+                        "txt": "Útero ausente: cariotipo y RMN pelviana"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "46,XY: síndrome de Morris (insensibilidad a los andrógenos). 46,XX: síndrome de Rokitansky (agenesia mülleriana)"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿FSH y LH elevadas (hipogonadismo hipergonadotrófico)?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Cariotipo"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "46,XY: síndrome de Swyer. 45,X: síndrome de Turner. 46,XX: disgenesia gonadal pura (descartar déficit de 17-OH-lasa)"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿FSH y LH bajas (hipogonadismo hipogonadotrófico)?",
+                        "si": [
+                          {
+                            "t": "accion",
+                            "txt": "Evaluar prolactina, TSH, olfato y patología sistémica; sospechar amenorrea hipotalámica funcional (trastorno de la conducta alimentaria, sobreentrenamiento)"
+                          },
+                          {
+                            "t": "accion",
+                            "txt": "En la sospecha de amenorrea hipotalámica funcional no se pide imagen cerebral como estudio inicial"
+                          },
+                          {
+                            "t": "accion",
+                            "txt": "RMN de cerebro si el hipogonadismo hipogonadotrófico es primario: adenoma hipofisario, silla turca vacía, tumores extraselares"
+                          },
+                          {
+                            "t": "fin",
+                            "txt": "Olfatometría alterada: síndrome de Kallman (RMN de bulbo olfatorio y estudio genético)"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "decision",
+                            "txt": "¿Hay signos de hiperandrogenismo?",
+                            "si": [
+                              {
+                                "t": "accion",
+                                "txt": "Medir testosterona, 17-OH-progesterona, Δ4-androstenediona y DHEAS"
+                              },
+                              {
+                                "t": "accion",
+                                "txt": "Valores hasta el doble del normal o aumento leve: pensar en SOP o evaluar como amenorrea secundaria (prudencia para no sobrediagnosticar en esta etapa)"
+                              },
+                              {
+                                "t": "fin",
+                                "txt": "Hiperandrogenismo bioquímico que duplica el valor normal: tumor ovárico o suprarrenal (algoritmo específico)"
+                              }
+                            ],
+                            "no": [
+                              {
+                                "t": "fin",
+                                "txt": "Retraso puberal constitucional: radiografía de mano y muñeca (edad ósea retrasada) y antecedente familiar de menarca tardía"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿La β-hCG es positiva?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Embarazo: guías de control prenatal"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿TSH elevada?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "TSH > 10 mUI/l con T4 baja: hipotiroidismo clínico. TSH entre 4,5 y 10 con T4 normal: hipotiroidismo subclínico (pedir anticuerpos antiperoxidasa y evaluar derivación)"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "Hipotiroidismo: algoritmo específico"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿Prolactina > 50 ng/ml?",
+                        "si": [
+                          {
+                            "t": "fin",
+                            "txt": "Hiperprolactinemia: descartar fármacos, hipotiroidismo y macroadenoma (algoritmo específico)"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "decision",
+                            "txt": "¿FSH > 25 mUI/ml, confirmada al mes, con TSH y prolactina normales?",
+                            "si": [
+                              {
+                                "t": "fin",
+                                "txt": "Insuficiencia ovárica primaria (IOP): algoritmo específico"
+                              }
+                            ],
+                            "no": [
+                              {
+                                "t": "decision",
+                                "txt": "¿Sospecha de hiperandrogenismo (virilización)?",
+                                "si": [
+                                  {
+                                    "t": "accion",
+                                    "txt": "Testosterona total y biodisponible, 17-OH-progesterona, Δ4-androstenediona, DHEAS y ecografía pelviana"
+                                  },
+                                  {
+                                    "t": "accion",
+                                    "txt": "Dos de tres (oligoamenorrea, hiperandrogenismo clínico o bioquímico, ovarios poliquísticos en la ecografía): SOP"
+                                  },
+                                  {
+                                    "t": "accion",
+                                    "txt": "17-OH-progesterona > 2 ng/ml: hiperplasia suprarrenal congénita no clásica (> 10 ng/ml es diagnóstica; con 2 a 10 ng/ml se pide prueba de ACTH)"
+                                  },
+                                  {
+                                    "t": "fin",
+                                    "txt": "Hiperandrogenismo severo, de aparición súbita y progresiva (virilización): tumor ovárico o suprarrenal"
+                                  }
+                                ],
+                                "no": [
+                                  {
+                                    "t": "accion",
+                                    "txt": "LH/FSH, estradiol, DHEAS, T3, cortisol y ecografía pelviana; otras hormonas hipofisarias si hay sospecha"
+                                  },
+                                  {
+                                    "t": "accion",
+                                    "txt": "Trastorno de la conducta alimentaria, ejercicio físico excesivo o estrés psicofísico, con LH/FSH < 1, estradiol, T3 y DHEAS bajos y cortisol alto: amenorrea hipotalámica funcional"
+                                  },
+                                  {
+                                    "t": "accion",
+                                    "txt": "Cefalea, vómitos o alteraciones visuales con LH/FSH y otras hormonas hipofisarias bajas: RMN de hipófisis (tumor hipofisario)"
+                                  },
+                                  {
+                                    "t": "accion",
+                                    "txt": "Sangrado o shock posparto con panhipopituitarismo: RMN, silla turca vacía (síndrome de Sheehan)"
+                                  },
+                                  {
+                                    "t": "fin",
+                                    "txt": "Legrado uterino previo: ecografía o histeroscopía (sinequias, síndrome de Asherman)"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }

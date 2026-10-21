@@ -83,20 +83,66 @@ _endo = dict(
            _en_dolor]),
     ]))
 
-# ---------------- gin-amenorreas ----------------
-_am_hiper = D('¿Hay hiperandrogenismo?',
-              [A('Estudiar SOP, hiperplasia suprarrenal no clásica y tumores ováricos o suprarrenales')],
-              [A('Causa funcional (la más frecuente en las secundarias): corregir el ejercicio excesivo, la dieta y el estrés')])
-_am_prl = D('¿Prolactina elevada?',
-            [A('Estudiar hiperprolactinemia y RM de silla turca')],
-            [A('FSH y LH: FSH elevada → hipogonadismo hipergonadotrófico (cariotipo); FSH y LH bajas o normales → origen hipotálamo-hipofisario'),
-             A('Prueba de progesterona: sangrado en 14 días indica normoestrogenismo con útero que responde'),
-             _am_hiper])
+# ---------------- gin-amenorreas (FASGO 2024: Algoritmos diagnósticos de amenorrea primaria y secundaria) ----------------
+# Amenorrea primaria
+_ap_xy_xx = D('¿Hay útero en la ecografía?',
+              [D('¿Hay obstrucción del tracto de salida (himen, tabique)?',
+                 [F('Himen imperforado o tabique vaginal transverso: tratamiento quirúrgico')],
+                 [A('Sin obstrucción: evaluar como una amenorrea secundaria')])],
+              [A('Útero ausente: cariotipo y RMN pelviana'),
+               F('46,XY: síndrome de Morris (insensibilidad a los andrógenos). 46,XX: síndrome de Rokitansky (agenesia mülleriana)')])
+_ap_normo = D('¿Hay signos de hiperandrogenismo?',
+              [A('Medir testosterona, 17-OH-progesterona, Δ4-androstenediona y DHEAS'),
+               A('Valores hasta el doble del normal o aumento leve: pensar en SOP o evaluar como amenorrea secundaria (prudencia para no sobrediagnosticar en esta etapa)'),
+               F('Hiperandrogenismo bioquímico que duplica el valor normal: tumor ovárico o suprarrenal (algoritmo específico)')],
+              [F('Retraso puberal constitucional: radiografía de mano y muñeca (edad ósea retrasada) y antecedente familiar de menarca tardía')])
+_ap_hipo = D('¿FSH y LH bajas (hipogonadismo hipogonadotrófico)?',
+             [A('Evaluar prolactina, TSH, olfato y patología sistémica; sospechar amenorrea hipotalámica funcional (trastorno de la conducta alimentaria, sobreentrenamiento)'),
+              A('En la sospecha de amenorrea hipotalámica funcional no se pide imagen cerebral como estudio inicial'),
+              A('RMN de cerebro si el hipogonadismo hipogonadotrófico es primario: adenoma hipofisario, silla turca vacía, tumores extraselares'),
+              F('Olfatometría alterada: síndrome de Kallman (RMN de bulbo olfatorio y estudio genético)')],
+             [_ap_normo])
+_ap_hiper = D('¿FSH y LH elevadas (hipogonadismo hipergonadotrófico)?',
+              [A('Cariotipo'),
+               F('46,XY: síndrome de Swyer. 45,X: síndrome de Turner. 46,XX: disgenesia gonadal pura (descartar déficit de 17-OH-lasa)')],
+              [_ap_hipo])
+_ap_csx = D('¿Tiene caracteres sexuales secundarios (telarca)?',
+            [_ap_xy_xx],
+            [_ap_hiper])
+
+# Amenorrea secundaria
+_as_andro_si = [A('Testosterona total y biodisponible, 17-OH-progesterona, Δ4-androstenediona, DHEAS y ecografía pelviana'),
+                A('Dos de tres (oligoamenorrea, hiperandrogenismo clínico o bioquímico, ovarios poliquísticos en la ecografía): SOP'),
+                A('17-OH-progesterona > 2 ng/ml: hiperplasia suprarrenal congénita no clásica (> 10 ng/ml es diagnóstica; con 2 a 10 ng/ml se pide prueba de ACTH)'),
+                F('Hiperandrogenismo severo, de aparición súbita y progresiva (virilización): tumor ovárico o suprarrenal')]
+_as_andro_no = [A('LH/FSH, estradiol, DHEAS, T3, cortisol y ecografía pelviana; otras hormonas hipofisarias si hay sospecha'),
+                A('Trastorno de la conducta alimentaria, ejercicio físico excesivo o estrés psicofísico, con LH/FSH < 1, estradiol, T3 y DHEAS bajos y cortisol alto: amenorrea hipotalámica funcional'),
+                A('Cefalea, vómitos o alteraciones visuales con LH/FSH y otras hormonas hipofisarias bajas: RMN de hipófisis (tumor hipofisario)'),
+                A('Sangrado o shock posparto con panhipopituitarismo: RMN, silla turca vacía (síndrome de Sheehan)'),
+                F('Legrado uterino previo: ecografía o histeroscopía (sinequias, síndrome de Asherman)')]
+_as_hiper = D('¿Sospecha de hiperandrogenismo (virilización)?', _as_andro_si, _as_andro_no)
+_as_iop = D('¿FSH > 25 mUI/ml, confirmada al mes, con TSH y prolactina normales?',
+            [F('Insuficiencia ovárica primaria (IOP): algoritmo específico')],
+            [_as_hiper])
+_as_prl = D('¿Prolactina > 50 ng/ml?',
+            [F('Hiperprolactinemia: descartar fármacos, hipotiroidismo y macroadenoma (algoritmo específico)')],
+            [_as_iop])
+_as_tsh = D('¿TSH elevada?',
+            [A('TSH > 10 mUI/l con T4 baja: hipotiroidismo clínico. TSH entre 4,5 y 10 con T4 normal: hipotiroidismo subclínico (pedir anticuerpos antiperoxidasa y evaluar derivación)'),
+             F('Hipotiroidismo: algoritmo específico')],
+            [_as_prl])
 _amen = dict(
-    algoritmo=dict(titulo='Amenorreas primaria y secundaria', nodos=[
-        I('Sin menarca a los 16 años, o ausencia de menstruación por más de 3 meses: β-hCG, TSH y prolactina'),
-        D('¿β-hCG positiva?', [F('Embarazo')], [_am_prl]),
-    ]))
+    algoritmo=dict(titulo='Amenorrea primaria y secundaria (FASGO 2024)', nodos=[
+        I('Historia clínica completa y examen físico (desarrollo de los caracteres sexuales secundarios, olfato, signos de hiperandrogenismo). Estudios en plena amenorrea: no hace falta esperar una menstruación ni hacer la prueba de progesterona'),
+        A('Primera línea de laboratorio: β-hCG, FSH, LH, TSH y prolactina; ecografía ginecológica'),
+        D('¿Es una amenorrea primaria (nunca hubo menarca)?',
+          [_ap_csx],
+          [D('¿La β-hCG es positiva?', [F('Embarazo: guías de control prenatal')], [_as_tsh])]),
+    ]),
+    fuente=dict(
+        guia='FASGO 2024. Amenorrea primaria y secundaria: algoritmos diagnósticos',
+        sociedad='Federación Argentina de Sociedades de Ginecología y Obstetricia (FASGO), Comisión de Endocrinología Ginecológica',
+        anio=2024, archivo='Algoritmos_Amenorreas_final.pdf', tipo='guia'))
 
 # ---------------- gin-miomatosis ----------------
 _mio_si = D('¿Desea conservar la fertilidad?',

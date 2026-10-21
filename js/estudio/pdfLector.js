@@ -595,6 +595,7 @@
       let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
       if (!resp.ok) resp = await fetch(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
       if (!resp.ok) throw new Error('drive ' + resp.status);
+      if (Number(resp.headers.get('content-length') || 0) > 90e6) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // libros enormes: se ven con el visor de Drive
       const buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('no es un PDF');
       if (S !== mi) return;
