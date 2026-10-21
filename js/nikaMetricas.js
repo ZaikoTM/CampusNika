@@ -37,6 +37,7 @@
   }
 
   window.addEventListener('error', (e) => {
+    if (!e || !e.filename || /^script error\.?$/i.test(String(e.message || ''))) return;  // 'Script error.' sin archivo viene de scripts de terceros y no se puede corregir
     if (errores >= 3) return; errores++;
     evento(seccion(), 'error', { msg: String((e && e.message) || '').slice(0, 140), src: String((e && e.filename) || '').split('/').pop().slice(0, 50) });
   });

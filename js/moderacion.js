@@ -320,7 +320,7 @@
     const box = document.getElementById(containerId);
     const c = client();
     if (!box || !c) return;
-    const { data, error } = await c.rpc('admin_up_stats', { p_limit: 5 });
+    const { data, error } = await c.rpc('admin_up_stats', { p_limit: 12 });
     box.textContent = '';
     if (error) { box.textContent = 'No se pudieron cargar las estadísticas.'; return; }
     if (!data || !data.length) {

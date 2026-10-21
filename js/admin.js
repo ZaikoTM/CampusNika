@@ -606,8 +606,7 @@
     if (id === 'tile-spotify') cargarSpotify();
     if (id === 'tile-novedad') cargarNovedades();
     if (id === 'tile-bancos') iniciarBancos();
-    if (id === 'tile-fallos' && !cargado.fallos) {
-      cargado.fallos = true;
+    if (id === 'tile-fallos') {  // se vuelve a pedir cada vez que se abre (antes quedaba congelado hasta recargar la página)
       if (window.NikaModeracion && window.NikaModeracion.renderAdminUpStats) await window.NikaModeracion.renderAdminUpStats('fallos-box');
       else $('fallos-box').textContent = 'No se pudo cargar el módulo de métricas.';
     }
@@ -666,6 +665,7 @@
   async function recargar(avisar) {
     const b = $('as-refrescar'); b.firstChild.nodeValue = '⏳ ';
     await cargarPerfiles();
+    if (window.NikaModeracion && $('fallos-box') && $('fallos-box').children.length) window.NikaModeracion.renderAdminUpStats('fallos-box');
     if (cargado.pagos) await cargarPagos();
     const [rep] = await Promise.all([contarReportes(), cargarStats()]);
     pintarKpis(rep); pintarSubs(); pintarUsuarios(); if (cargado.pagos) pintarPagos();
