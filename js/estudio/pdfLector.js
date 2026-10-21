@@ -750,5 +750,5 @@
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { abrir, cerrar, pantalla, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, irA: (n, suave) => { if (S) irA(n, suave); } };
+  window.NikaPdf = { abrir, cerrar, pantalla, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
 })();

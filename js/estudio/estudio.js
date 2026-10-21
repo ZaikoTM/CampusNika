@@ -1279,6 +1279,8 @@ function openInlineViewer(url, title, element) {
                         <div id="nika-modo-visor" style="display:none; gap:3px; padding:3px; margin-left:8px; border-radius:10px; background:rgba(255,255,255,0.14);"></div>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center;">
+                        <button onclick="toggleNotasFs()" id="nika-notas-btn" class="nk-fs-solo" title="Mostrar u ocultar las notas" style="display:none; background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600;">📝 Notas</button>
+                        <button onclick="cambiarModoVisor('nika')" id="nika-subrayar-btn" class="nk-fs-solo" title="Abrir en el Lector NikaMed: subrayado, pincel, marcadores y barra de páginas" style="display:none; background: linear-gradient(135deg,#7e22ce,#a855f7); border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 700;">🖍️ Subrayar y marcar (Lector NikaMed)</button>
                         <button onclick="toggleViewerFullscreen()" id="nika-fs-btn" style="background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600;">Pantalla Completa</button>
                         <button onclick="closeInlineViewer()" style="background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600;">✕ Cerrar</button>
                     </div>
@@ -1366,7 +1368,7 @@ function openInlineViewer(url, title, element) {
             let k = 0;
             const t = setInterval(() => {
                 k++;
-                if (window.NikaPdf && window.NikaPdf.activo() && window.NikaPdf.pagina && window.NikaPdf.irA) { clearInterval(t); setTimeout(() => window.NikaPdf.irA(Number(mp[1]), false), 400); }
+                if (window.NikaPdf && window.NikaPdf.listo && window.NikaPdf.listo()) { clearInterval(t); setTimeout(() => window.NikaPdf.irA(Number(mp[1]), false), 300); }
                 else if (k > 240) clearInterval(t);   // hasta ~2 min: los libros grandes tardan en descargarse
             }, 500);
         }
@@ -1434,6 +1436,7 @@ function marcarModoVisor(modo) {
 function cambiarModoVisor(modo) {
     const c = _modoVisorCtx; if (!c) return;
     marcarModoVisor(modo);
+    { const cc = document.getElementById('nika-inline-viewer-container'); if (cc) cc.classList.toggle('nk-modo-drive', modo === 'drive'); }
     if (modo === 'drive') {
         if (window.NikaPdf) window.NikaPdf.cerrar();
         if (c.iframe) { c.iframe.style.display = ''; c.iframe.src = c.embedUrl; }
@@ -1448,6 +1451,10 @@ function cambiarModoVisor(modo) {
 }
 
 function closeInlineViewer() {
+    // salir de la pantalla completa (real o ficticia) antes de cerrar
+    try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (_) {}
+    { const cf = document.getElementById('nika-inline-viewer-container'); if (cf) { cf.classList.remove('is-fs', 'nkpdf-fsfix', 'nk-sin-notas'); } }
+    if (typeof _marcarBotonFs === 'function') _marcarBotonFs(false);
     EstudioState.activeResourceUrl = null;
     document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('active-resource'));
 
@@ -1474,6 +1481,12 @@ function toggleViewerFullscreen() {
     if (c.classList.contains('is-fs')) { c.classList.remove('is-fs'); _marcarBotonFs(false); return; }
     const ficticia = () => { c.classList.add('is-fs'); _marcarBotonFs(true); };
     if (c.requestFullscreen) c.requestFullscreen().catch(ficticia); else ficticia();
+}
+function toggleNotasFs() {
+    const c = document.getElementById('nika-inline-viewer-container'); if (!c) return;
+    const oculto = c.classList.toggle('nk-sin-notas');
+    try { localStorage.setItem('nika_notas_ocultas', oculto ? '1' : '0'); } catch (_) {}
+    const b = document.getElementById('nika-notas-btn'); if (b) b.style.opacity = oculto ? '0.6' : '1';
 }
 function _marcarBotonFs(on) {
     const fsBtn = document.getElementById('nika-fs-btn');

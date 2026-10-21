@@ -12,7 +12,7 @@
       estudio: 'estudio.html?modulo=siam', simulador: 'examen.html?modulo=siam', duelos: 'versus.html?modulo=siam', atlas: 'acreditaciones.html?area=siam' },
     { id: 'gineco', nombre: 'Salud Integral de la Mujer', sigla: 'Ginecología y Obstetricia', icono: '🤰', color: 'gineco', hub: 'gineco_hub.html',
       desc: 'Ginecología, obstetricia y salud de la mujer en todo el curso de vida: estudio por unidad, simulador, duelos y examen mamario, obstétrico y ginecológico en 3D.',
-      chips: ['4 UP · 8 secciones', '800 preguntas', '6 acreditaciones 3D'],
+      chips: ['4 UP · 8 secciones', '1.200 preguntas', '6 acreditaciones 3D'],
       flashcards: 'flashcards.html?modo=explorar&area=ginecologia', estudio: 'estudio.html?modulo=ginecologia', simulador: 'examen.html?modulo=ginecologia', duelos: 'versus.html?modulo=ginecologia', atlas: 'acreditaciones.html?area=sim', recorrido: 'recorrido.html?m=ginecologia' },
     { id: 'cirugia', nombre: 'Introducción a las Especialidades Clínico-Quirúrgicas', sigla: 'Cirugía', icono: '🔪', color: 'cirugia', hub: 'cirugia_hub.html',
       desc: 'Las 11 Unidades Problema de cirugía: programa, material, simulador de exámenes y duelos, más asepsia y lavado quirúrgico en el atlas 3D.',
