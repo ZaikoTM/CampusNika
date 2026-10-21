@@ -147,6 +147,18 @@ body.dark-mode #nk-notas .nkn-hoja textarea, body.tema-premium #nk-notas .nkn-ho
 .nkm-it:hover { background: rgba(14,165,233,.16); transform: translateX(4px); }
 .nkm-r { font-weight: 800; font-size: .76rem; color: #0369a1; }
 .nkm-t { opacity: .9; }
+
+/* Pantalla completa del visor: documento a la izquierda y mis notas a la derecha (sirve para el lector NikaMed y el visor de Drive) */
+#nika-inline-viewer-container:fullscreen, #nika-inline-viewer-container.is-fs { display: grid !important; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: auto minmax(0, 1fr); width: 100vw !important; height: 100vh !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; background: var(--card-bg, #fff); overflow: hidden; }
+#nika-inline-viewer-container.is-fs { position: fixed !important; inset: 0; height: 100dvh !important; z-index: 2147483000 !important; }
+#nika-inline-viewer-container:fullscreen > :first-child, #nika-inline-viewer-container.is-fs > :first-child { grid-column: 1 / -1; }
+#nika-inline-viewer-container:fullscreen #nika-inline-frame-wrapper, #nika-inline-viewer-container.is-fs #nika-inline-frame-wrapper { grid-column: 1; grid-row: 2; height: auto !important; min-height: 0 !important; max-height: none !important; }
+#nika-inline-viewer-container:fullscreen #nk-notas, #nika-inline-viewer-container.is-fs #nk-notas { grid-column: 2; grid-row: 2; overflow: auto; border-left: 1px solid rgba(148,163,184,.4); }
+#nika-inline-viewer-container:fullscreen #nika-visor-ayuda, #nika-inline-viewer-container.is-fs #nika-visor-ayuda { display: none !important; }
+@media (max-width: 820px) {
+  #nika-inline-viewer-container:fullscreen, #nika-inline-viewer-container.is-fs { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) 38%; }
+  #nika-inline-viewer-container:fullscreen #nk-notas, #nika-inline-viewer-container.is-fs #nk-notas { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid rgba(148,163,184,.4); }
+}
 `;
     document.head.appendChild(st);
   }

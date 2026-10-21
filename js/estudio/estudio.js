@@ -1457,43 +1457,22 @@ function closeInlineViewer() {
 
 function toggleViewerFullscreen() {
     if (window.NikaPdf && window.NikaPdf.activo()) { window.NikaPdf.pantalla(); return; }
-    const container = document.getElementById('nika-inline-viewer-container');
-    const wrapper = document.getElementById('nika-inline-frame-wrapper');
-    const fsBtn = document.getElementById('nika-fs-btn');
-    const rightSidePanel = document.querySelector('.study-right-column') || document.querySelector('.right-column') || document.querySelector('.col-right');
-
-    if (!container.classList.contains('is-fs')) {
-        container.classList.add('is-fs');
-        container.style.position = 'fixed';
-        container.style.top = '0';
-        container.style.left = '0';
-        container.style.width = '100vw';
-        container.style.height = '100vh';
-        container.style.zIndex = '99999';
-        container.style.margin = '0';
-        container.style.borderRadius = '0';
-        wrapper.style.height = 'calc(100vh - 55px)';
-        wrapper.style.maxHeight = 'none';
-        if (fsBtn) fsBtn.innerText = 'Restaurar Pantalla';
-        
-        if (rightSidePanel) rightSidePanel.style.display = 'none';
-    } else {
-        container.classList.remove('is-fs');
-        container.style.position = 'relative';
-        container.style.top = 'auto';
-        container.style.left = 'auto';
-        container.style.width = '100%';
-        container.style.height = 'auto';
-        container.style.zIndex = '1';
-        container.style.margin = '24px 0 20px 0';
-        container.style.borderRadius = '12px';
-        wrapper.style.height = '60vh';
-        wrapper.style.maxHeight = '700px';
-        if (fsBtn) fsBtn.innerText = 'Pantalla Completa';
-        
-        if (rightSidePanel) rightSidePanel.style.display = '';
-    }
+    const c = document.getElementById('nika-inline-viewer-container');
+    if (!c) return;
+    // Pantalla completa real del navegador (mismo método que el lector NikaMed); capa fija solo si el navegador no la permite
+    if (document.fullscreenElement === c) { document.exitFullscreen().catch(() => {}); return; }
+    if (c.classList.contains('is-fs')) { c.classList.remove('is-fs'); _marcarBotonFs(false); return; }
+    const ficticia = () => { c.classList.add('is-fs'); _marcarBotonFs(true); };
+    if (c.requestFullscreen) c.requestFullscreen().catch(ficticia); else ficticia();
 }
+function _marcarBotonFs(on) {
+    const fsBtn = document.getElementById('nika-fs-btn');
+    if (fsBtn) fsBtn.innerText = on ? 'Restaurar Pantalla' : 'Pantalla Completa';
+}
+document.addEventListener('fullscreenchange', () => {
+    const c = document.getElementById('nika-inline-viewer-container');
+    if (c && !(window.NikaPdf && window.NikaPdf.activo())) _marcarBotonFs(document.fullscreenElement === c);
+});
 
 // ================= TAREA 3: Asistente Bibliográfico Nativo (Cátedra) =================
 

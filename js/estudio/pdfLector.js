@@ -128,7 +128,6 @@
 .nkpdf-item button{background:none;border:0;color:#94a3b8;cursor:pointer;font-size:.9rem}
 .nkpdf-item button:hover{color:#f87171}
 #nika-inline-viewer-container:fullscreen{width:100vw!important;height:100vh!important;margin:0!important;border-radius:0!important;background:#fff}
-#nika-inline-viewer-container:fullscreen #nika-inline-frame-wrapper{height:calc(100vh - 52px)!important;max-height:none!important}
 @media (max-width:760px){.nkpdf-bar{gap:6px;padding:6px 8px}.nkpdf-txt{display:none}.nkpdf-prog{min-width:90px}.nkpdf-hint{display:none}}
 @media (prefers-reduced-motion:reduce){.nkpdf *{animation:none!important;transition:none!important}.nkpdf-pop,.nkpdf-toast{animation:none!important}}`;
     document.head.appendChild(st);
@@ -556,15 +555,13 @@
     if (c.requestFullscreen) c.requestFullscreen().catch(() => ficticia(c)); else ficticia(c);
   }
   function ficticia(c) {          // respaldo (iOS u otros sin Fullscreen API): capa fija por encima de todo
-    c.dataset.estilo = c.getAttribute('style') || ''; c.classList.add('nkpdf-fsfix');
+    c.dataset.estilo = c.getAttribute('style') || ''; c.classList.add('nkpdf-fsfix', 'is-fs');
     c.style.cssText += ';position:fixed;inset:0;width:100vw;height:100dvh;margin:0;border-radius:0;z-index:2147483000;background:#fff';
-    const w = S.wrapper; w.dataset.h = w.style.height; w.dataset.mh = w.style.maxHeight; w.style.height = 'calc(100dvh - 52px)'; w.style.maxHeight = 'none';
-    actualizarFs(true);
+        actualizarFs(true);
   }
   function quitarFicticia(c) {
-    c.classList.remove('nkpdf-fsfix'); c.setAttribute('style', c.dataset.estilo || '');
-    const w = S && S.wrapper; if (w) { w.style.height = w.dataset.h || ''; w.style.maxHeight = w.dataset.mh || ''; }
-  }
+    c.classList.remove('nkpdf-fsfix', 'is-fs'); c.setAttribute('style', c.dataset.estilo || '');
+      }
   document.addEventListener('fullscreenchange', () => { if (S) actualizarFs(true); });
 
   // ---------- UI ----------
