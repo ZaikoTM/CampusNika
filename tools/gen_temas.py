@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://nikamed.com.ar'
-FECHA = '2026-10-16'
+FECHA = '2026-10-21'
 AREAS = {
     'ginecologia': dict(nombre='Ginecología y Obstetricia', ico='🌸', acc=(236, 72, 153), guia='Salud Integral de la Mujer'),
     'cirugia': dict(nombre='Cirugía', ico='🔪', acc=(14, 165, 233), guia='Introducción a las Especialidades Clínico-Quirúrgicas'),

@@ -4,7 +4,12 @@ import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from contenido import CONTENIDO, NOTA
 from contenido2 import CONTENIDO2
+from contenido3 import CONTENIDO3
+from contenido4 import CONTENIDO4
+from contenido5 import CONTENIDO5
+CONTENIDO3 = dict(CONTENIDO3, **CONTENIDO4, **CONTENIDO5)
 CONTENIDO = dict(CONTENIDO, **CONTENIDO2)
+for _k, _v in CONTENIDO3.items(): CONTENIDO[_k] = dict(CONTENIDO.get(_k, {}), **_v)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def main():

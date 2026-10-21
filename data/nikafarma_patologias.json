@@ -1012,12 +1012,69 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "No es una guía de sociedad científica: es el apunte de la materia. La pubertad se desarrolla en el apunte sobre la base de Ginecología de Gori. Cotejar con guía actual de endocrinología pediátrica."
+        "nota": "No es una guía de sociedad científica: es el apunte de la materia. La pubertad se desarrolla en el apunte sobre la base de Ginecología de Gori. Cotejar con guía actual de endocrinología pediátrica. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Niña con caracteres sexuales secundarios antes de los 8 años",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Historia clínica, Tanner, curva de crecimiento y examen neuroftalmológico; edad ósea (mano y muñeca izquierda), LH, FSH, estradiol, TSH y ecografía pelviana"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es un botón mamario o un vello pubiano aislado, con velocidad de crecimiento normal?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Telarca o adrenarca precoz aislada: conducta expectante; estudiar si persiste más de 18 meses o progresa"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Seguir el estudio hasta definir el origen"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Las gonadotrofinas (LH y FSH) tienen respuesta puberal a la prueba de GnRH?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Pubertad precoz central: análogos de GnRH (triptorelina o leuprolide, 1 ampolla IM cada 28 días)"
+              },
+              {
+                "t": "accion",
+                "txt": "Controles cada 3 meses (caracteres sexuales y velocidad de crecimiento) y edad ósea anual; mantener sin suspender antes de los 10 años cronológicos (en general se cierra a los 11 años de edad ósea)"
+              },
+              {
+                "t": "fin",
+                "txt": "Si es neurogénica, RM de cerebro y tratamiento de la causa"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Pubertad precoz periférica: tratar según la causa"
+              },
+              {
+                "t": "accion",
+                "txt": "Quistes foliculares: involución espontánea. Tumores feminizantes de ovario (estradiol muy alto con gonadotrofinas bajas): cirugía"
+              },
+              {
+                "t": "fin",
+                "txt": "McCune-Albright: tamoxifeno 10–20 mg/día o testolactona; evitar el exceso de estrógenos que adelante la edad ósea"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-retraso-puberal",
@@ -1089,12 +1146,53 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante, no guía de sociedad. No incluye dosis de estrógenos para la inducción. Cotejar con una guía actual."
+        "nota": "Apunte de estudiante, no guía de sociedad. No incluye dosis de estrógenos para la inducción. Cotejar con una guía actual. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Sin desarrollo puberal a los 13 años",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sin telarca a los 13 años (2 desvíos estándar): historia clínica, Tanner, talla y velocidad de crecimiento; edad ósea, LH, FSH, estradiol, TSH y prolactina; ecografía pelviana"
+          },
+          {
+            "t": "decision",
+            "txt": "¿LH y FSH bajas (hipogonadismo hipogonadotrófico)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Buscar anosmia (síndrome de Kallmann), tumores, hiperprolactinemia, hipotiroidismo y enfermedades crónicas; RM de región selar"
+              },
+              {
+                "t": "accion",
+                "txt": "Inducción de la pubertad con estrógenos a bajas dosis desde los 13 años de edad cronológica (11–12 años de edad ósea)"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Hay estigmas de Turner o gonadotrofinas elevadas (hipogonadismo hipergonadotrófico)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Cariotipo y evaluación genética; apoyo psicológico, cirugía si hubiera gónada masculina y sustitución hormonal"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Retraso constitucional del crecimiento: contención y controles frecuentes; completa el desarrollo y la fertilidad"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-endometriosis",
@@ -3299,12 +3397,69 @@
         "anio": 2026,
         "archivo": "FINALGINECO.pdf",
         "tipo": "resumen",
-        "nota": "Resumen de un alumno, no la ley ni el protocolo. Consultar el texto de la Ley 27.610 y el Protocolo del Ministerio de Salud."
+        "nota": "Resumen de un alumno, no la ley ni el protocolo. Consultar el texto de la Ley 27.610 y el Protocolo del Ministerio de Salud. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Solicitud de interrupción del embarazo (Ley 27.610)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Persona gestante solicita la interrupción: consejería, información y acompañamiento; confirmar la edad gestacional"
+          },
+          {
+            "t": "decision",
+            "txt": "¿El embarazo tiene 14 semanas o menos (hasta la semana 14 inclusive)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "IVE: es un derecho; se garantiza la práctica en un máximo de 10 días corridos desde la solicitud, de forma gratuita y con cobertura integral"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es consecuencia de una violación o hay peligro para la vida o la salud integral de la persona gestante?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "ILE: se garantiza la práctica en un máximo de 10 días corridos; con la causal verificada"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "No se cumple ninguna causal: acompañamiento, información y derivación según el caso"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿El profesional objeta conciencia?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Debe derivar de inmediato a otro profesional que garantice la práctica"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Realizar la práctica según el protocolo del Ministerio de Salud de la Nación"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Anticoncepción posaborto, control posterior y pautas de alarma"
+          }
+        ]
+      }
     },
     {
       "id": "gin-etg",
@@ -3392,12 +3547,89 @@
         "anio": 2015,
         "archivo": "CONSENSO_FASGO_ETG.pdf",
         "tipo": "guia",
-        "nota": "Año tomado del texto (consenso de Tocoginecología FASGO 2015). La anticoncepción posmolar no figura en el texto relevado."
+        "nota": "Año tomado del texto (consenso de Tocoginecología FASGO 2015). La anticoncepción posmolar no figura en el texto relevado. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec3"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Embarazo molar y neoplasia trofoblástica gestacional",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sospecha de mola (sangrado, útero grande, hiperémesis, preeclampsia precoz, imagen en «tormenta de nieve», β-hCG muy alta)"
+          },
+          {
+            "t": "accion",
+            "txt": "Evacuación uterina por AMEU o dilatación y raspado, en quirófano, con vía venosa, sangre isogrupo y control ecográfico; sin oxitocina ni prostaglandinas previas; anti-D si es Rh negativa"
+          },
+          {
+            "t": "accion",
+            "txt": "β-hCG semanal hasta 2 valores negativos y luego mensual hasta completar 6 meses"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay neoplasia (≥ 3 valores crecientes > 10 % en 14 días, ≥ 4 en meseta en 21 días, coriocarcinoma o β-hCG positiva a los 6 meses)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Estudios de extensión: radiografía o TAC de tórax, TAC abdominopelviana, TAC o RM de cerebro; punción lumbar solo si el score es ≥ 13 y hay signos neurológicos"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Score pronóstico (FIGO/OMS) de 0 a 6?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Bajo riesgo: monoquimioterapia con metotrexato 1 mg/kg IM los días 1, 3, 5 y 7, con ácido folínico los días 2, 4, 6 y 8; 2.ª línea actinomicina D"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Continuar hasta negativizar la β-hCG y dar 1 ciclo de consolidación"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Seguimiento mensual con β-hCG durante 12 meses; nuevo embarazo después de los 12 meses"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Score ≥ 13 (ultra alto riesgo)?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "EMA/PE (etopósido, metotrexato, actinomicina / etopósido y cisplatino), o iniciar con EMA/CO y rotar"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "Con 3 ciclos de consolidación; el embarazo no se recomienda de por vida"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Alto riesgo (≥ 7): poliquimioterapia EMA/CO (etopósido, metotrexato, actinomicina / ciclofosfamida y vincristina), sin demorar los ciclos"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "3 ciclos de consolidación tras negativizar; seguimiento mensual 18 meses; embarazo después de los 18 meses"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Remisión: anticonceptivos orales (elección); esperar 6 meses para un nuevo embarazo tras mola completa"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-colestasis",
@@ -3487,12 +3719,77 @@
         "anio": 2016,
         "archivo": "Consenso_de_obstetricia_Colestasis_y_embarazo_2016.pdf",
         "tipo": "guia",
-        "nota": "Guía de 2016; verificar contra actualizaciones recientes."
+        "nota": "Guía de 2016; verificar contra actualizaciones recientes. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Prurito con ácidos biliares elevados en el segundo o tercer trimestre",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Prurito sin lesiones primarias: ácidos biliares, transaminasas, bilirrubina, coagulograma y serologías; ecografía hepatobiliar; descartar dermatosis del embarazo"
+          },
+          {
+            "t": "accion",
+            "txt": "Ácido ursodesoxicólico 900 mg/día (12–15 mg/kg/día; máximo 1200 mg/día); antihistamínico si el prurito molesta; dieta hepatoprotectora"
+          },
+          {
+            "t": "accion",
+            "txt": "Estado fetal: monitoreo o perfil biofísico una o dos veces por semana; crecimiento y líquido amniótico"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Ácidos biliares ≥ 40 µmol/l, enzimas > 2 veces lo normal o sin respuesta al tratamiento?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Alto riesgo: parto pretérmino y meconio 4 veces más frecuentes; internar y evaluar corticoides entre las 24 y 34 semanas"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Responde al tratamiento (descienden los ácidos biliares o las enzimas)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Continuar con control ambulatorio o internado según la edad gestacional y el riesgo; interrupción a las 37 semanas (el 90 % de las muertes fetales ocurre después)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Subir el ácido ursodesoxicólico al máximo (1200 mg/día) y reclasificar como alto riesgo"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Evaluar la maduración pulmonar y la interrupción, según la edad gestacional"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Ácidos biliares de 20 a 39 µmol/l o enzimas hasta el doble?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Riesgo moderado: < 28 semanas, ambulatorio con control semanal; 28 a 34 semanas, internar y, si responde, alta; > 34 semanas con buena respuesta, control ambulatorio hasta las 37"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Riesgo bajo (10 a 19 µmol/l con enzimas normales): ambulatorio; internar a las 37–38 semanas"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-rciu",
@@ -3802,12 +4099,117 @@
         "anio": 2022,
         "archivo": "Consenso_SOGIBA_Gemelar_2022.pdf",
         "tipo": "guia",
-        "nota": "El PDF es una presentación; algunas tablas de ecografías por corionicidad no se extrajeron."
+        "nota": "El PDF es una presentación; algunas tablas de ecografías por corionicidad no se extrajeron. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-06",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Embarazo gemelar: corionicidad y finalización",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Ecografía precoz o de las 11–14 semanas: edad gestacional, corionicidad y amnionicidad; screening combinado para aneuploidías"
+          },
+          {
+            "t": "accion",
+            "txt": "Aspirina 150 mg/día antes de la semana 16 y hasta la 34–35; longitud cervical entre las 20 y 22 semanas"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Cuello < 25 mm en una asintomática?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Progesterona vaginal 400 mg/día (el cerclaje no se recomienda de rutina)"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Seguimiento habitual"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es monocorial?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Controles ecográficos cada 2 semanas desde las 16 semanas (STT, TAPS, RCIU selectivo); consultas cada 4 semanas hasta la 24, cada 2 hasta la 32 y luego semanal"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Hay síndrome de transfusión feto-fetal (polihidramnios con BVM > 8 cm y oligoamnios con BVM < 2 cm)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Estadio I: conducta expectante (cerca del 40 % se estabiliza)"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Estadios II a IV: ablación láser de las anastomosis por fetoscopía"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Seguir el control ecográfico quincenal"
+                  }
+                ]
+              },
+              {
+                "t": "decision",
+                "txt": "¿Es monoamniótico?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Finalizar por cesárea a las 32–33 semanas"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Biamniótico sin complicaciones: finalizar a las 36–37 semanas"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Bicorial: consultas cada 4 semanas hasta la 32, cada 2 hasta la 36 y luego semanal"
+              },
+              {
+                "t": "fin",
+                "txt": "Bicorial sin complicaciones: finalizar a las 37–38 semanas"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Riesgo de parto en 7 días entre las 24 y 34 semanas?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Un ciclo de corticoides"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Sin corticoides"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Vía de parto: el embarazo doble no es indicación de cesárea por sí mismo; cesárea si hay primer feto en podálica o transversa, monoamniótico, 3 o más fetos o complicaciones"
+          }
+        ]
+      }
     },
     {
       "id": "obs-placenta-previa",
@@ -3859,12 +4261,85 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas. Capítulo breve sin criterios de interrupción por edad gestacional."
+        "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas. Capítulo breve sin criterios de interrupción por edad gestacional. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Hemorragia indolora de la segunda mitad del embarazo",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sangrado rojo rutilante e indoloro, con tono uterino normal: NO hacer tacto vaginal; ecografía obstétrica; especuloscopía para descartar causas cervicovaginales"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Se confirma placenta previa?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Hay hemorragia grave o inestabilidad hemodinámica?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Internar con reposo absoluto, reposición y control de la hemorragia"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Tiene menos de 36 semanas?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Evaluar la madurez pulmonar y madurar con corticoides; uteroinhibidores si hace falta"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Interrumpir sin esperar"
+                      }
+                    ]
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Cesárea (con hemorragia incontrolable se interrumpe aunque no esté madurado)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Esperar la madurez pulmonar si el cuadro lo permite"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Tiene 4 cm o más de dilatación y la placenta no es oclusiva?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Intentar la rotura de membranas (método de Puzos); si falla, cesárea"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "fin",
+                        "txt": "Cesárea programada con madurez pulmonar"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Sospechar otras causas: desprendimiento de placenta (dolor, tono elevado), rotura uterina o lesiones cervicovaginales"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-dppni",
@@ -3923,12 +4398,73 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas."
+        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Sangrado oscuro con dolor e hipertonía en la segunda mitad del embarazo",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Hemorragia oscura con coágulos, dolor agudo e hipertonía («útero leñoso»); pensar primero en preeclampsia. Vía venosa, sangre isogrupo, hemograma y fibrinógeno seriado; monitoreo fetal; ecografía (hematoma retroplacentario)"
+          },
+          {
+            "t": "accion",
+            "txt": "Reponer sangre y estabilizar a la madre: la hemorragia continúa hasta que el útero se evacúa"
+          },
+          {
+            "t": "decision",
+            "txt": "¿El feto está vivo?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Extracción urgente del feto, habitualmente por cesárea"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿El estado general materno es bueno?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Parto vaginal: rotura precoz de la bolsa y oxitocina EV; con cuello inmaduro, PGE2 en gel 2,5–5 mg o misoprostol"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Se agrava la paciente o fracasa la inducción?",
+                    "si": [
+                      {
+                        "t": "fin",
+                        "txt": "Cesárea"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Continuar la inducción con monitoreo"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Cesárea"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Después del parto vigilar la atonía (masaje y oxitócicos; histerectomía si fracasan) y la hipofibrinogenemia"
+          }
+        ]
+      }
     },
     {
       "id": "obs-anemia",
@@ -4116,12 +4652,89 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; transcribe recomendaciones ministeriales sin fecha. Verificar con la guía vigente."
+        "nota": "Apunte de estudiante; transcribe recomendaciones ministeriales sin fecha. Verificar con la guía vigente. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Embarazada Rh negativa: inmunoprofilaxis anti-D",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Primera consulta: grupo ABO, Rh (sin investigar D débil), fenotipo y Coombs indirecta; grupo y Rh de la pareja"
+          },
+          {
+            "t": "decision",
+            "txt": "¿La Coombs indirecta es positiva?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Ya está sensibilizada: no corresponde la profilaxis; identificar y titular el anticuerpo y hacer seguimiento serológico"
+              },
+              {
+                "t": "fin",
+                "txt": "Evaluar el tratamiento antenatal"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿La mujer es D negativo no sensibilizada?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Profilaxis sistemática entre las 28 y 32 semanas: 1 dosis de ≥ 250 µg de anti-D IM o IV"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Hubo un episodio sensibilizante (aborto, ectópico, procedimiento invasivo, sangrado, trauma)?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "1.er trimestre: ≥ 100 µg; 2.º y 3.er trimestre: ≥ 250 µg, IM o IV"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Continuar el control habitual"
+                      }
+                    ]
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Al nacer, sangre de cordón al recién nacido: ABO, D con D débil y Coombs directa"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿El recién nacido es D positivo?",
+                    "si": [
+                      {
+                        "t": "fin",
+                        "txt": "Anti-D posparto dentro de las 72 horas: ≥ 300 µg IM o IV (≥ 250 µg si se cuantificó la hemorragia fetomaterna)"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "fin",
+                        "txt": "No corresponde la dosis posparto"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "D positivo: sin inmunoprofilaxis"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-vih",
@@ -4227,7 +4840,7 @@
         "anio": 2022,
         "archivo": "vih_y_gestacion.pdf; Guia_de_VIH final_Mayo_2012.pdf",
         "tipo": "guia",
-        "nota": "El protocolo principal es de un centro español (guía institucional, no argentina); está actualizado a 2022 y con revisión prevista en 2026. La guía argentina de la carpeta (Sardá 2012) es anterior y recomienda AZT/3TC y nevirapina como primera línea, hoy desplazados. Verificar con las recomendaciones nacionales vigentes del Ministerio de Salud."
+        "nota": "El protocolo principal es de un centro español (guía institucional, no argentina); está actualizado a 2022 y con revisión prevista en 2026. La guía argentina de la carpeta (Sardá 2012) es anterior y recomienda AZT/3TC y nevirapina como primera línea, hoy desplazados. Verificar con las recomendaciones nacionales vigentes del Ministerio de Salud. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "contraste": {
@@ -4240,7 +4853,76 @@
       },
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Gestante con VIH: prevención de la transmisión perinatal",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Cribado universal de VIH en la gestación y retesteo a las 32 semanas en las negativas; ARN viral si hay sospecha de período ventana"
+          },
+          {
+            "t": "accion",
+            "txt": "Carga viral, CD4, hemograma, perfil hepático, proteinuria y cribado de ITS; test de resistencia si hubo exposiciones previas"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Ya recibe tratamiento antirretroviral?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "No suspender: ajustar con el infectólogo evitando fármacos con niveles bajos en el 2.º y 3.er trimestre"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es un diagnóstico tardío (final del 2.º o 3.er trimestre)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "TAR urgente priorizando un inhibidor de integrasa (dolutegravir o raltegravir)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "TAR lo antes posible, aun en el primer trimestre: 2 análogos (tenofovir/emtricitabina) + dolutegravir, raltegravir o un inhibidor de proteasa potenciado"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Carga viral a las 34–36 semanas para decidir la vía de parto"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Carga viral indetectable entre las semanas 34 y 36, con TAR sostenido y buena adherencia?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Puede intentarse el parto vaginal, sin zidovudina IV"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Cesárea electiva a las 38 semanas con zidovudina IV desde 3 horas antes (2 mg/kg la primera hora y luego 1 mg/kg/h hasta el clampeo)"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Parto: mantener las membranas íntegras el mayor tiempo posible; evitar la sonda de Foley y la metilergonovina con inhibidores de proteasa"
+          },
+          {
+            "t": "fin",
+            "txt": "Posparto: lactancia contraindicada (inhibirla) y profilaxis antirretroviral en el recién nacido"
+          }
+        ]
+      }
     },
     {
       "id": "obs-sifilis",
@@ -4453,12 +5135,109 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas para toxoplasmosis, Chagas, CMV, rubéola ni varicela. Verificar con la Guía de Infecciones Perinatales del Ministerio de Salud."
+        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas para toxoplasmosis, Chagas, CMV, rubéola ni varicela. Verificar con la Guía de Infecciones Perinatales del Ministerio de Salud. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Serologías de la primera consulta prenatal",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Primera consulta: VDRL, toxoplasmosis (IgG), Chagas, HBsAg, VIH e IgG de rubéola"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Toxoplasmosis: IgM positiva (infección aguda)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Espiramicina 3 g/día hasta la semana 15–18; PCR en líquido amniótico para ver la infección fetal"
+              },
+              {
+                "t": "accion",
+                "txt": "Si el feto está infectado: pirimetamina con ácido folínico más sulfadiazina"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "IgG negativa: prevención (carne bien cocida, lavar verduras, evitar heces de gato) y serología cada 2–3 meses"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Chagas positivo (2 pruebas)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "No se trata durante el embarazo; estudiar al recién nacido"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Sin conducta específica"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿HBsAg positivo?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Al recién nacido, en las primeras 12 horas: inmunoglobulina específica 0,5 ml más vacuna 0,5 ml IM"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Vacunar a la embarazada con factores de riesgo"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Cultivo de introito y recto positivo para estreptococo B a las 35–37 semanas?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "No tratar la colonización antes del parto"
+              },
+              {
+                "t": "fin",
+                "txt": "Profilaxis intraparto: penicilina G 5.000.000 UI EV y luego 2.500.000 UI cada 4 h; ampicilina si no hay penicilina; clindamicina si hay alergia"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Sin profilaxis, salvo hijo previo con infección por EGB, bacteriuria por EGB, fiebre intraparto, RPM ≥ 18 h o parto prematuro"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Rubéola: IgG negativa?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Vacunar en el puerperio (la vacuna no se da en el embarazo)"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Inmune: sin conducta"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-covid",
@@ -4517,12 +5296,73 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Anexo del apunte de estudiante; no hay guía de sociedad en las carpetas. Las recomendaciones de COVID cambian con el tiempo: verificar con la normativa vigente."
+        "nota": "Anexo del apunte de estudiante; no hay guía de sociedad en las carpetas. Las recomendaciones de COVID cambian con el tiempo: verificar con la normativa vigente. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Gestante o puérpera con COVID-19",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Evaluar con CURB-65 o criterios ATS/IDSA, fiebre persistente > 38 °C, radiografía de tórax y marcadores de severidad"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Cumple criterios de ingreso (neumonía, marcadores de gravedad, CURB-65 ≥ 1 o motivos obstétricos)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Internar con abordaje multidisciplinario; HBPM profiláctica durante toda la internación"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Necesita corticoides por neumonía grave?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Dexametasona 6 mg/12 h EV por 48 horas"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Si hay riesgo de parto pretérmino, betametasona 12 mg IM, 2 dosis"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Manejo ambulatorio con pautas de alarma y control"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿La situación materna es grave o crítica?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Cesárea; si la gestante está estable, la infección no es indicación de adelantar el parto"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Parto según indicación obstétrica, preferentemente superado el período de contagio"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Lactancia permitida con aislamiento de gotas, mascarilla e higiene de manos; HBPM al alta (mínimo 10 días o hasta 6 semanas posparto con otros factores)"
+          }
+        ]
+      }
     },
     {
       "id": "gin-tamizaje-ccu",
@@ -4716,7 +5556,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Anexo del apunte de estudiante. Existen consensos FASGO de reproducción humana y de evaluación de la pareja infértil (2013) en las carpetas, no contrastados."
+        "nota": "Anexo del apunte de estudiante. Existen consensos FASGO de reproducción humana y de evaluación de la pareja infértil (2013) en las carpetas, no contrastados. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -4730,7 +5570,48 @@
       },
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Pareja que no logra el embarazo",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "12 meses de relaciones sin protección (6 meses si la mujer tiene 35 años o más): estudio simultáneo y escalonado de la pareja"
+          },
+          {
+            "t": "accion",
+            "txt": "Interrogatorio de ambos (regularidad menstrual, cirugías pelvianas, EPI, tóxicos, edad, IMC) y examen físico"
+          },
+          {
+            "t": "accion",
+            "txt": "Mujer: FSH, LH y estradiol del día 2 al 4, prolactina, TSH, AMH, ecografía transvaginal con recuento de folículos antrales y cultivos cervicovaginales"
+          },
+          {
+            "t": "accion",
+            "txt": "Varón: espermograma con abstinencia de 2 a 7 días (concentración, movilidad y morfología)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿La mujer ovula (ciclos regulares)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Histerosalpingografía en la primera fase del ciclo (permeabilidad tubaria)"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Estudiar la causa de la anovulación (SOP, hiperprolactinemia, tiroides, insuficiencia ovárica)"
+              }
+            ]
+          },
+          {
+            "t": "fin",
+            "txt": "Con los resultados, definir el tratamiento específico o derivar a reproducción asistida (consensos FASGO)"
+          }
+        ]
+      }
     },
     {
       "id": "gin-masa-anexial",
@@ -4811,12 +5692,57 @@
         "anio": 2021,
         "archivo": "CONSENSO_MASA_ANEXIAL_SOGIBA_2021.pdf",
         "tipo": "guia",
-        "nota": "Los algoritmos del consenso son imágenes; la conducta por riesgo se tomó del texto."
+        "nota": "Los algoritmos del consenso son imágenes; la conducta por riesgo se tomó del texto. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec3"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Masa anexial",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "β-hCG en edad fértil, examen pélvico con bimanual y rectovaginal; ecografía transvaginal con Doppler (O-RADS, IOTA o RMI/ROMA)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Tiene signos de malignidad (sólida irregular, ≥ 4 papilas, ascitis, flujo intratumoral, multilocular irregular > 10 cm)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "CA 125 (y HE4); en menores de 40 años pensar en células germinales (hCG, LDH, αFP, inhibina)"
+              },
+              {
+                "t": "fin",
+                "txt": "Derivar de inmediato a ginecología oncológica: cirugía por oncólogo"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es una lesión de bajo riesgo (unilocular o septada simple, asintomática)?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Seguimiento ecográfico sin cirugía; no hace falta medir marcadores"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Riesgo intermedio: ecografía y CA 125 cada 4 semanas durante 3 meses"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Si el riesgo aumenta, derivar a oncología; en posmenopáusicas puede ser preferible la cirugía (laparoscopia con extracción en bolsa)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-hiperplasia-endometrio",
@@ -4879,7 +5805,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; no se detallan dosis ni esquemas de progestágenos. Los consensos FASGO 2019 y SOGIBA de cáncer de endometrio no se contrastaron."
+        "nota": "Apunte de estudiante; no se detallan dosis ni esquemas de progestágenos. Los consensos FASGO 2019 y SOGIBA de cáncer de endometrio no se contrastaron. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -4893,7 +5819,64 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Hiperplasia de endometrio",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Metrorragia de causa desconocida, sangrado posmenopáusico o endometrio engrosado: biopsia de endometrio (al menos 15 días después de la menstruación)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay atipia?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Tiene deseo de fertilidad?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Tratamiento hormonal y reevaluación histológica cada 3 meses, al menos durante 1 año"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Descartar un adenocarcinoma coexistente antes de elegir esta opción"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Histerectomía; conservar o extirpar los ovarios según edad, deseo, historia familiar y comorbilidades"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Desea fertilidad?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Inductores de la ovulación seguidos de progestágenos"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Manejo hormonal (no es indicación de histerectomía): progestágenos en la segunda mitad del ciclo; anticonceptivos combinados en adolescentes y premenopáusicas sexualmente activas"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Control histológico periódico: la compleja sin atipia revierte sola en el 56 %"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-polipo-endometrial",
@@ -4952,7 +5935,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad contrastada. El consenso FASGO de SUA 2022 incluye un capítulo de pólipos (no leído)."
+        "nota": "Apunte de estudiante; sin guía de sociedad contrastada. El consenso FASGO de SUA 2022 incluye un capítulo de pólipos (no leído). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -4965,7 +5948,40 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Pólipo endometrial",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sospecha en la ecografía transvaginal (sangrado anormal o hallazgo)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es sintomático (sangrado)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Polipectomía histeroscópica (nunca a ciegas) con visión directa y estudio histológico"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Repetir la ecografía transvaginal posmenstrual tras 4–6 ciclos antes de operar"
+              },
+              {
+                "t": "fin",
+                "txt": "Si persiste, polipectomía histeroscópica"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "El carcinoma de endometrio es más frecuente en quienes tuvieron adenomas: controlar a la posmenopáusica con pólipos repetidos"
+          }
+        ]
+      }
     },
     {
       "id": "gin-cancer-endometrio",
@@ -5080,7 +6096,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf; Consenso_2019_Cancer_de_Endometrio.pdf (no leído en detalle)",
         "tipo": "apunte",
-        "nota": "Contrastada con el consenso FASGO 2019: ver bloque «Contraste con consensos»."
+        "nota": "Contrastada con el consenso FASGO 2019: ver bloque «Contraste con consensos». Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "contraste": {
@@ -5094,7 +6110,84 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Sangrado posmenopáusico y cáncer de endometrio",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sangrado posmenopáusico: ecografía transvaginal (espesor normal hasta 4 mm; hasta 12 mm con THM)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿El endometrio está engrosado (> 4–5 mm), o la paciente sangra bajo tamoxifeno?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Biopsia dirigida por histeroscopía (gold standard)"
+              },
+              {
+                "t": "decision",
+                "txt": "¿La biopsia confirma cáncer de endometrio?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Estadificación con RM de pelvis con contraste (TC si no hay RM)"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Anexohisterectomía total con salpingooforectomía bilateral y lavado peritoneal, preferentemente por laparoscopia; ganglio centinela o linfadenectomía según el riesgo"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Es de bajo riesgo (IA G1–2 sin invasión linfovascular)?",
+                    "si": [
+                      {
+                        "t": "fin",
+                        "txt": "Observación; sin linfadenectomía"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿Es de riesgo intermedio (IB G1–2 sin ILV, IA G3, o estadio I G1–2 con ILV)?",
+                        "si": [
+                          {
+                            "t": "fin",
+                            "txt": "Braquiterapia de cúpula (ILV negativa) o radioterapia externa pelviana (ILV positiva)"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "fin",
+                            "txt": "Alto riesgo (IB G3, estadio II o III, o histología no endometroide): radioterapia externa pelviana con o sin quimioterapia; estadio III: quimiorradioterapia concurrente"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Estadio IV o recurrencia: citorreducción más quimioterapia con carboplatino y paclitaxel; hormonoterapia en endometroide G1–2 con receptores positivos"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Hiperplasia u otra causa: manejo según la histología"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Endometrio atrófico: seguimiento clínico; reevaluar si el sangrado persiste"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-cancer-cuello",
@@ -5177,7 +6270,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; la estadificación FIGO descrita es la clínica clásica y el apunte no detalla los cambios posteriores. En tus carpetas están SOGIBA 2019 y FASGO (manejo terapéutico) que deben contrastarse."
+        "nota": "Apunte de estudiante; la estadificación FIGO descrita es la clínica clásica y el apunte no detalla los cambios posteriores. En tus carpetas están SOGIBA 2019 y FASGO (manejo terapéutico) que deben contrastarse. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "contraste": {
@@ -5192,7 +6285,64 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Cáncer de cuello uterino",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Metrorragia poscoital, lesión visible o NIC de alto grado: examen con espéculo, colposcopía y biopsia dirigida (conización si hay sospecha de microinvasión)"
+          },
+          {
+            "t": "accion",
+            "txt": "Estadificación clínica FIGO (examen rectovaginal, radiografía de tórax, cistoscopia y rectoscopia según el caso); RM de pelvis para tamaño e infiltración"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay contraindicación quirúrgica?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Radioterapia externa con braquiterapia, sola o con quimioterapia concurrente radiosensibilizante"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es una enfermedad invasora temprana (IA, IB1 o IIA1)?",
+                "si": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Es un estadio IA1 sin invasión linfovascular?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Conización con márgenes libres (si desea fertilidad) o histerectomía simple extrafascial"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "IA2 a IIA1: histerectomía radical (Piver II–III) con linfadenectomía pelviana bilateral; con deseo de fertilidad, traquelectomía radical"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Estadios IB2 a IVA: quimiorradioterapia concurrente con cisplatino más braquiterapia como tratamiento estándar"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Recurrencia central posradioterapia: Piver V o exenteración pelviana"
+          }
+        ]
+      }
     },
     {
       "id": "gin-mama-benigna",
@@ -5266,12 +6416,65 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; no hay guía de sociedad en las carpetas. No trata la mastalgia cíclica con esquema terapéutico ni la mastitis puerperal (esta última aparece en el capítulo de puerperio)."
+        "nota": "Apunte de estudiante; no hay guía de sociedad en las carpetas. No trata la mastalgia cíclica con esquema terapéutico ni la mastitis puerperal (esta última aparece en el capítulo de puerperio). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Nódulo o secreción mamaria benigna",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Examen clínico; ecografía mamaria como primera evaluación en menores de 30–35 años y mamografía en mayores; punción o biopsia según el hallazgo"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay telorragia (secreción serosa o hemática por un conducto)?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Papiloma intraductal (60 % de las telorragias): extirpación quirúrgica completa"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es un nódulo duro-elástico, móvil, de 15 a 30 años?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Fibroadenoma: confirmar con clínica, ecografía y citología o histología; cirugía porque no desaparece y puede crecer"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Hay secreción espesa parda o verdosa en una perimenopáusica de 40 a 60 años?",
+                    "si": [
+                      {
+                        "t": "fin",
+                        "txt": "Ectasia ductal: resección parcial o total de los conductos dilatados"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Nódulo de crecimiento rápido o recidivante: biopsia (tumor phyllodes: tumorectomía; mastectomía simple si es muy grande o recidivante)"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "Hiperplasia atípica, carcinoma in situ, cicatriz radiada o ciertos papilomas en una biopsia: biopsia quirúrgica"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-cancer-mama",
@@ -5346,7 +6549,7 @@
         "anio": 2024,
         "archivo": "Consenso_FASGO_2024_Control_Ginecologico_en_la_Mujer_Sana.pdf; Consenso Nacional Inter-Sociedades (lesiones subclínicas).pdf; Cancer_de_mama_Version_Profesionales_de_la_Salud.pdf; GUIA-CA-MAMA.pdf",
         "tipo": "guia",
-        "nota": "El resumen del PDQ en la carpeta llega hasta los factores pronósticos; los esquemas de cirugía, radioterapia y quimioterapia por estadio no figuran en el texto relevado. NCCN v2.2023 trata tamizaje y diagnóstico (no se resumió completo)."
+        "nota": "El resumen del PDQ en la carpeta llega hasta los factores pronósticos; los esquemas de cirugía, radioterapia y quimioterapia por estadio no figuran en el texto relevado. NCCN v2.2023 trata tamizaje y diagnóstico (no se resumió completo). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "contraste": {
@@ -5360,7 +6563,84 @@
       "up": [
         "up4",
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Lesión mamaria sospechosa y conducta",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Hallazgo clínico o en el tamizaje: mamografía y ecografía; clasificar con BI-RADS"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es una lesión sospechosa (BI-RADS 4 o 5) o nódulo nuevo, creciente o en paciente de mayor riesgo?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Biopsia percutánea con aguja gruesa (core, no menos de 14 G, 5–10 muestras) bajo control de imágenes; mamografía bilateral al diagnóstico"
+              },
+              {
+                "t": "decision",
+                "txt": "¿El resultado es concordante con la sospecha por imagen?",
+                "si": [
+                  {
+                    "t": "decision",
+                    "txt": "¿La biopsia confirma cáncer?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Definir subtipo: receptor hormonal positivo, HER2 positivo o triple negativo"
+                      },
+                      {
+                        "t": "accion",
+                        "txt": "Cirugía (conservadora o mastectomía) con biopsia radioguiada del ganglio centinela"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "Radioterapia, quimioterapia, hormonoterapia y terapia anti-HER2 según estadio, grado y subtipo"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "fin",
+                        "txt": "Benigna concordante: control; hiperplasia atípica, carcinoma in situ o cicatriz radiada → biopsia quirúrgica"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Repetir con biopsia quirúrgica"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es BI-RADS 3 (probablemente benigno)?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Control mamográfico semestral durante 3 años"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Tamizaje habitual: mamografía cada 1–2 años desde los 40 hasta los 70, con ecografía en mamas densas"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Si hay mutación BRCA: consejería, estudio genético de familiares y riesgo de cáncer de ovario"
+          }
+        ]
+      }
     },
     {
       "id": "gin-incontinencia",
@@ -5441,7 +6721,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "El consenso FASGO «Alteraciones del piso pelviano» está en tus carpetas y no se leyó en detalle; contrastar."
+        "nota": "El consenso FASGO «Alteraciones del piso pelviano» está en tus carpetas y no se leyó en detalle; contrastar. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -5455,7 +6735,80 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Incontinencia urinaria en la mujer",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Escape de orina: examen físico, análisis y urocultivo, ecografía vesical con residuo; descartar infección y cáncer vesical (hematuria)"
+          },
+          {
+            "t": "accion",
+            "txt": "Medidas generales: restricción hídrica, pérdida de peso, dejar de fumar, más fibra; estrógenos si hay déficit en el climaterio"
+          },
+          {
+            "t": "decision",
+            "txt": "¿El escape ocurre con esfuerzo (tos, risa, Valsalva)?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Hay urgencia miccional súbita e imperiosa asociada (incontinencia mixta)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Tratar primero el componente más molesto; urodinamia para evaluar el detrusor"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Incontinencia de esfuerzo"
+                  }
+                ]
+              },
+              {
+                "t": "accion",
+                "txt": "Medidas generales y ejercicios del piso pélvico (series de 10 contracciones de 8 segundos, 3 veces al día, durante 20 semanas)"
+              },
+              {
+                "t": "accion",
+                "txt": "Pesario si no desea cirugía"
+              },
+              {
+                "t": "fin",
+                "txt": "Si fracasa: sling mediouretral (retropúbico o transobturador) o cirugía de Burch"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Hay urgencia miccional con escape y sin escape con la tos (inestabilidad del detrusor)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Micciones programadas (terapia conductual) y reeducación vesical"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Segunda línea: antimuscarínicos (oxibutinina, tolterodina) o mirabegrón, o combinados si es refractaria"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Tercera línea: toxina botulínica intravesical 100 U o neuromodulación sacra; la cirugía no ha dado resultados"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Residuo ≥ 150 ml en 2 ocasiones: sospechar daño neurológico y derivar"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-prolapso",
@@ -5513,7 +6866,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "El consenso FASGO «Alteraciones del piso pelviano» está en tus carpetas y no se leyó en detalle; contrastar."
+        "nota": "El consenso FASGO «Alteraciones del piso pelviano» está en tus carpetas y no se leyó en detalle; contrastar. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -5526,7 +6879,48 @@
       },
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Prolapso genital",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Presión o masa vaginal, incontinencia, dificultad defecatoria: examen físico con POP-Q (estadios I a IV)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es sintomática o tiene afectación de otros sistemas (hidroureteronefrosis, obstrucción intestinal)?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿La paciente es anciana con mal estado general o de alto riesgo quirúrgico?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Pesario o colpocleisis (cirugía obliterativa) en ancianas con mal estado general"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Cirugía: histerectomía con colporrafia y colposuspensión"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Ejercicios del piso pélvico antes y después"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Asintomática: observación y ejercicios del piso pélvico"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-control-prenatal",
@@ -5718,12 +7112,69 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Sin dosis de antibióticos."
+        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Sin dosis de antibióticos. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec5"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Fiebre en el puerperio",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Fiebre posparto: examen de útero, loquios, mamas, herida y miembros inferiores; hemograma, cultivos y hemocultivos; ecografía si se sospecha retención o absceso"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay compromiso del estado general (escalofríos, fiebre alta, deterioro)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Septicemia puerperal: iniciar antibióticos IV en las primeras 6 horas («hora de oro»): ceftriaxona + clindamicina + ampicilina; o ampicilina + gentamicina + metronidazol; o carbapenemes + vancomicina según gravedad"
+              },
+              {
+                "t": "fin",
+                "txt": "Si hay edema doloroso de miembro inferior: pensar en tromboflebitis útero-pelviana o flegmasia"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Hay loquios fétidos o útero doloroso (endometritis)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Antibióticos IV de amplio espectro (con cobertura de anaerobios) y evaluar restos con ecografía"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Hay dolor, enrojecimiento y fiebre en la mama?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Mastitis: seguir amamantando o extrayendo la leche y tratar con antibióticos"
+                      },
+                      {
+                        "t": "fin",
+                        "txt": "Si hay absceso (fiebre en picos): drenaje"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Tratar la causa local (vulvitis, grietas del pezón, herida)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-induccion-parto",
@@ -5970,12 +7421,73 @@
         "anio": 2021,
         "archivo": "Consenso_Anticoncepcion_libre_de_esterogenos.pdf",
         "tipo": "guia",
-        "nota": "No cubre los anticonceptivos combinados, los métodos de barrera ni los naturales en detalle: esos contenidos están en el apunte de Pontelli y no se resumieron aquí."
+        "nota": "No cubre los anticonceptivos combinados, los métodos de barrera ni los naturales en detalle: esos contenidos están en el apunte de Pontelli y no se resumieron aquí. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec1"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Elección de anticoncepción sin estrógenos",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Estrógenos contraindicados o no deseados (fumadora ≥ 35 años, riesgo cardiovascular, HTA, obesidad, lactancia, posparto): revisar los criterios de elegibilidad de la OMS"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Quiere un método de larga duración (LARC)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "DIU de cobre (3 a 10 años), SIU-LNG (3 a 5 años) o implante de etonogestrel (3 años)"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Está en el posparto entre las 48 horas y las 4 semanas, o tiene sepsis, endometritis o sangrado sin diagnóstico?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "No colocar el DIU (categoría 4): elegir implante u otro método"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "DIU o implante, que son los métodos más efectivos independientemente del cumplimiento"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Píldora de solo progestágeno (desogestrel 75 µg continuo, drospirenona 4 mg o levonorgestrel 30 µg) o inyectable de medroxiprogesterona 150 mg cada 13 semanas (no más de 2 años por pérdida de densidad ósea)"
+              },
+              {
+                "t": "fin",
+                "txt": "En lactancia: MELA desde el día 30 posparto con ≥ 4 tomas por día, hasta 90 días y 1 año posparto como máximo"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Necesita anticoncepción de emergencia?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Levonorgestrel 1,5 mg en dosis única hasta 72 horas; o DIU de cobre TCu380 o SIU 52 mg dentro de las 120 horas"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Preservativo y otros métodos de barrera como complemento"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-osteoporosis",
@@ -6065,12 +7577,73 @@
         "anio": 2025,
         "archivo": "Consenso_Osteoporosis_FASGO_2025.pdf",
         "tipo": "guia",
-        "nota": "Consenso extenso (≈190 KB de texto); se resumió el tratamiento. Verificar disponibilidad de cada fármaco en Argentina."
+        "nota": "Consenso extenso (≈190 KB de texto); se resumió el tratamiento. Verificar disponibilidad de cada fármaco en Argentina. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-10",
       "up": [
         "up4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Osteoporosis posmenopáusica",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Densitometría (DXA) y riesgo de fractura a 10 años con FRAX; laboratorio básico (calcemia, fosfatemia, 25OH vitamina D, función renal, TSH)"
+          },
+          {
+            "t": "accion",
+            "txt": "Medidas generales: calcio 700–1200 mg/día (preferentemente en la dieta), vitamina D 800–1000 UI/día si la 25OHD < 30 ng/ml, ejercicio de fuerza y prevención de caídas"
+          },
+          {
+            "t": "decision",
+            "txt": "¿T-score ≤ −2,5, fractura por fragilidad o FRAX alto (fractura mayor ≥ 20 % o de cadera ≥ 3 %)?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Riesgo muy alto (fractura reciente ≤ 12 meses, fracturas múltiples, T < −3,0, glucocorticoides o inhibidores de aromatasa, FRAX muy alto)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Anabólicos (teriparatida, abaloparatida o romosozumab) por 12–24 meses o antirresortivo potente"
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Seguir con un antirresortivo para consolidar"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Es menor de 60 años o tiene menos de 10 años de menopausia, con síntomas vasomotores y sin contraindicaciones?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Terapia hormonal de la menopausia como primera elección osteoactiva (estradiol 1 mg VO, parche de 25 µg o tibolona 1,25 mg)"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Bifosfonato de primera línea: alendronato 70 mg semanal, risedronato, ibandronato o zoledronato 5 mg IV anual; reevaluar a los 3–5 años"
+                      }
+                    ]
+                  },
+                  {
+                    "t": "fin",
+                    "txt": "Denosumab 60 mg SC cada 6 meses: no suspender sin pasar a un bifosfonato (riesgo de fracturas vertebrales múltiples)"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Riesgo bajo: medidas generales y reevaluar en 2 a 3 años"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-embarazo-adolescente",
@@ -6133,13 +7706,50 @@
         "anio": 2019,
         "archivo": "Consenso_SOGIBA_2019_Embarazo_Adolescente.pdf",
         "tipo": "guia",
-        "nota": "Consenso de 90 KB de texto; se resumieron atención prenatal, parto y anticoncepción."
+        "nota": "Consenso de 90 KB de texto; se resumieron atención prenatal, parto y anticoncepción. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec1",
         "up3-sec4"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Embarazo en la adolescencia",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Adolescente embarazada (10 a 19 años): consejería, testeo de VIH y sífilis, ecografía del primer trimestre; acompañamiento por quien elija e inclusión del varón cogestante y la familia"
+          },
+          {
+            "t": "accion",
+            "txt": "Control prenatal: mínimo 8 contactos en bajo riesgo con cuidado multidisciplinario; hierro 30–60 mg y ácido fólico 400 µg por día; calcio 1,5–2 g/día si la dieta es baja en calcio"
+          },
+          {
+            "t": "accion",
+            "txt": "Ecografías a las 16–20 y a las 32–34 semanas para crecimiento fetal y riesgo de parto pretérmino"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Tiene menos de 15 años?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Atención del parto en una institución de la mayor complejidad disponible"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Atención según el nivel de riesgo obstétrico"
+              }
+            ]
+          },
+          {
+            "t": "fin",
+            "txt": "Posparto: alta a las 48 h (vaginal) o 72 h (cesárea), control a los 7 días y a las 4 semanas, y anticoncepción inmediata posevento obstétrico con LARC"
+          }
+        ]
+      }
     },
     {
       "id": "gin-malformaciones-mullerianas",
@@ -6217,12 +7827,77 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas."
+        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Sospecha de malformación mülleriana",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Amenorrea primaria, dolor cíclico, dismenorrea desde la menarca, abortos o partos pretérmino repetidos: ecografía, histerosalpingografía y resonancia magnética"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay agenesia de útero y vagina (Mayer-Rokitansky-Küster-Hauser)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Equipo multidisciplinario (esquema corporal, relaciones sexuales, imposibilidad de gestar)"
+              },
+              {
+                "t": "fin",
+                "txt": "Neovagina: dilatación con tutores progresivos o cirugía si fallan"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Es un útero tabicado (el más común) con pérdidas reiteradas o infertilidad?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Resección histeroscópica del tabique (sin obligar a cesárea)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Hay un cuerno rudimentario con cavidad no comunicante (útero unicorne)?",
+                    "si": [
+                      {
+                        "t": "fin",
+                        "txt": "Resección del cuerno rudimentario para aliviar el dolor cíclico"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿Hay un tabique vaginal transversal obstructivo o longitudinal sintomático?",
+                        "si": [
+                          {
+                            "t": "fin",
+                            "txt": "Cirugía, preferentemente vaginal"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "fin",
+                            "txt": "Bicorne o didelfo asintomático: sin cirugía; arcuato: buen resultado reproductivo"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "cobertura": {
