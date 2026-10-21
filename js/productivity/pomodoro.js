@@ -69,6 +69,13 @@ const PomodoroModule = (() => {
         Object.keys(grouped).forEach(k => {
           localStorage.setItem(k, grouped[k].toString());
         });
+        // La nube manda: una clave local que ya no tiene sesiones (por ejemplo, tras descontar horas duplicadas) se borra
+        try {
+          for (let i = localStorage.length - 1; i >= 0; i--) {
+            const k = localStorage.key(i);
+            if (k && k.indexOf('nika_time_') === 0 && !(k in grouped)) localStorage.removeItem(k);
+          }
+        } catch (_) {}
 
         if (currentView === 'stats') {
             render();
