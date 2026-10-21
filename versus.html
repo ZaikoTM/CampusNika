@@ -791,8 +791,16 @@
         flash: 10,
     };
 
-    function mostrarVistaIA() {
-        mostrarVista('view-ia-modo');
+    async function mostrarVistaIA() {
+        if (!window.NikaVersusPlus) { mostrarVista('view-ia-modo'); return; }
+        const cfg = await window.NikaVersusPlus.pedirConfig({ tipo: 'ia', titulo: '🤖 Duelo vs IA', subtitulo: 'Elegí qué se juega; después, la dificultad de la IA.', boton: 'Elegir dificultad →' });
+        if (!cfg) return;
+        modoIAActual = window.NikaVersusPlus.modoPool(cfg);
+        const up = window.NikaVersusPlus.upParaPool(cfg);
+        upEspecificaIAActual = up != null ? up : upEspecificaIAActual;
+        const inp = document.getElementById('ia-cantidad-preguntas'); if (inp) inp.value = cfg.cantidad;
+        playSound('click');
+        mostrarVista('view-ia-dificultad');
     }
 
     function seleccionarModoIA(modo, element) {
@@ -815,7 +823,7 @@
     }
 
     function volverAModoIA() {
-        mostrarVista('view-ia-modo');
+        mostrarVistaIA();
     }
 
     async function iniciarDueloVsIA(dificultadKey) {
@@ -1076,7 +1084,7 @@
                 if (roomState.isHost) {
                     try {
                         const cfg = configOnlineActual || {};
-                        const preguntas = await _cargarPreguntasParaDuelo(cfg.cantidad || cantidadPreguntasOnlineActual, window.NikaVersusPlus.modoPool(cfg), cfg.up);
+                        const preguntas = await _cargarPreguntasParaDuelo(cfg.cantidad || cantidadPreguntasOnlineActual, window.NikaVersusPlus.modoPool(cfg), window.NikaVersusPlus.upParaPool(cfg));
                         window.DuelosManager.iniciarLoopPreguntas(preguntas, { tiempoPorPregunta: cfg.tiempo || 20, modo: cfg.modoDuelo === 'muerte_subita' ? 'muerte_subita' : 'normal' });
                     } catch (err) {
                         console.error('[versus] No se pudo armar el duelo:', err);
@@ -1110,7 +1118,7 @@
         const idsParcial = (k) => (UNIDADES_MAT && T && T.parciales && T.parciales[k] && T.parciales[k].unidadesParcial) || null;
         if (modo === 'parcial_1') { const l = idsParcial(0); return l ? todas.filter((u) => l.includes(u.id)) : todas.filter((u) => u.n <= 5); }
         if (modo === 'parcial_2') { const l = idsParcial(1); return l ? todas.filter((u) => l.includes(u.id)) : todas.filter((u) => u.n >= 6); }
-        if (modo === 'up_especifica' && upEspecifica != null) return todas.filter((u) => String(u.n) === String(upEspecifica) || u.id === String(upEspecifica));
+        if (modo === 'up_especifica' && upEspecifica != null) { const L = (Array.isArray(upEspecifica) ? upEspecifica : [upEspecifica]).map(String); return todas.filter((u) => L.includes(String(u.n)) || L.includes(String(u.id))); }
         return todas;
     }
 
@@ -1132,6 +1140,7 @@
         upEspecificaIAActual = todas[0] ? todas[0].id : 1;
     }
     document.addEventListener('DOMContentLoaded', _adaptarUIMateria);
+    document.addEventListener('DOMContentLoaded', () => { document.body.dataset.materia = MODULO; });
     document.addEventListener('DOMContentLoaded', () => {
         if (!window.NikaVersusPlus) return;
         const parciales = () => {
@@ -1144,6 +1153,7 @@
             unidades: () => _todasLasUnidades().map((u) => ({ id: u.id, n: u.n, label: u.label || ('UP ' + u.n) })),
             parciales,
             pool: ({ modo, up }) => _poolParaEntrenamiento(modo, up),
+            unidadesParcial: (modo) => _unidadesDelModo(modo).map((u) => u.id),
             mostrarVista: (id) => mostrarVista(id),
             toast: (m) => showToast(m),
             sonido: (t) => playSound(t),

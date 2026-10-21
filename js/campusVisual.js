@@ -136,7 +136,7 @@
       if (!m) { ultimo = txt; return; }
       const fin = parseFloat(m[1].replace(',', '.')), dec = /[.,]/.test(m[1]) ? (m[1].split(/[.,]/)[1] || '').length : 0;
       const pre = txt.slice(0, m.index), pos = txt.slice(m.index + m[1].length);
-      if (reducido || !(fin > 0)) { ultimo = txt; return; }
+      if (reducido || !(fin > 0) || (txt.match(/\d+/g) || []).length > 1) { ultimo = txt; return; }  // '33h 41m' tiene dos números: animar solo uno mostraba totales falsos a mitad de camino
       cancelAnimationFrame(raf);
       const t0 = performance.now(), dur = 900;
       const paso = (t) => {

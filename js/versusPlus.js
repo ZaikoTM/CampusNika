@@ -98,58 +98,115 @@
     const mat = (MATERIAS.find((m) => m.id === (A && A.modulo)) || {}).label || '';
     let area = 'Todas las unidades';
     if (cfg.alcance === 'parcial_1' || cfg.alcance === 'parcial_2') { const p = (A.parciales() || []).find((x) => x.modo === cfg.alcance); area = p ? p.label : cfg.alcance; }
-    else if (cfg.alcance === 'up') { const u = (A.unidades() || []).find((x) => String(x.id) === String(cfg.up)); area = u ? (u.label || ('UP ' + u.id)) : ('UP ' + cfg.up); }
+    else if (cfg.alcance === 'up') { const ids = upsDe(cfg).map(String), us = (A.unidades() || []).filter((x) => ids.includes(String(x.id))); area = us.length === 1 ? (us[0].label || ('UP ' + us[0].id)) : us.length + ' unidades'; }
+    else if (cfg.alcance === 'flash') area = 'Flash'; else if (cfg.alcance === 'residencia') area = 'Estilo residencia';
     else if (cfg.alcance === 'errores') area = 'Mis errores';
     return [mat, area, cfg.cantidad + ' preguntas', cfg.tiempo ? cfg.tiempo + ' s' : ''].filter(Boolean).join(' · ');
   }
-  const modoPool = (cfg) => (cfg.alcance === 'up' ? 'up_especifica' : cfg.alcance === 'todas' ? 'final' : cfg.alcance);
+  const modoPool = (cfg) => (cfg.alcance === 'up' ? 'up_especifica' : (cfg.alcance === 'todas' || cfg.alcance === 'flash' || cfg.alcance === 'residencia') ? 'final' : cfg.alcance);
+
+  // Identidad visual por materia (acento del modal y de la arena)
+  const ACENTOS = {
+    cirugia: { a: '#0ea5e9', b: '#6366f1', ico: '🔪', nombre: 'Cirugía' },
+    ginecologia: { a: '#ec4899', b: '#a855f7', ico: '🌸', nombre: 'Ginecología' },
+    siam: { a: '#f43f5e', b: '#fb923c', ico: '🩺', nombre: 'S.I.A.M.' },
+  };
+  // unidades elegidas (acepta cfg.ups, o el cfg.up de siempre)
+  const upsDe = (cfg) => (cfg && Array.isArray(cfg.ups) && cfg.ups.length ? cfg.ups.slice() : (cfg && cfg.up != null && cfg.up !== '' ? [cfg.up] : []));
+  function upParaPool(cfg) { const u = upsDe(cfg); return u.length > 1 ? u : (u[0] != null ? u[0] : null); }
 
   function pedirConfig(op) {
     op = op || {};
     return new Promise((resolver) => {
       const guardada = leer(LS_CFG, {});
-      const cfg = Object.assign({ alcance: 'todas', up: null, cantidad: 10, tiempo: 20, modoDuelo: 'normal', estilo: op.estilo || 'practica' }, guardada);
+      const cfg = Object.assign({ alcance: 'todas', up: null, ups: [], cantidad: 10, tiempo: 20, modoDuelo: 'normal', estilo: op.estilo || 'practica' }, guardada);
       if (op.estilo) cfg.estilo = op.estilo;
+      if (!Array.isArray(cfg.ups)) cfg.ups = [];
       const unidades = A.unidades() || [], parciales = A.parciales() || [], nErr = listarErrores().length;
-      if (!cfg.up && unidades[0]) cfg.up = unidades[0].id;
-      if (cfg.alcance === 'errores' && op.tipo === 'online') cfg.alcance = 'todas';
+      const idsValidos = new Set(unidades.map((u) => String(u.id)));
+      cfg.ups = cfg.ups.filter((x) => idsValidos.has(String(x)));
+      if (!cfg.ups.length && unidades[0]) cfg.ups = [unidades[0].id];
+      if (['todas', 'up', 'flash', 'residencia', 'errores'].indexOf(cfg.alcance) < 0 && !parciales.some((p) => p.modo === cfg.alcance)) cfg.alcance = 'todas';
+      if (cfg.alcance === 'errores' && op.tipo !== 'solo') cfg.alcance = 'todas';
+      const ac = ACENTOS[A.modulo] || ACENTOS.cirugia;
       const ov = document.createElement('div'); ov.className = 'vp-overlay'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
+      ov.style.setProperty('--vp-a', ac.a); ov.style.setProperty('--vp-b', ac.b);
       const chip = (grupo, val, txt) => '<button type="button" class="vp-chip" data-g="' + grupo + '" data-v="' + esc(val) + '">' + txt + '</button>';
-      const alcances = [chip('alcance', 'todas', '🌐 Todas las unidades')]
-        .concat(parciales.map((p) => chip('alcance', p.modo, '📚 ' + esc(p.label))))
-        .concat([chip('alcance', 'up', '🎯 Una unidad')])
-        .concat(op.tipo === 'solo' ? [chip('alcance', 'errores', '🧠 Mis errores (' + nErr + ')')] : []);
-      const estilos = op.tipo === 'solo' && !op.sinEstilos ? '<div class="vp-campo"><label>Cómo querés jugar</label><div class="vp-estilos">' +
+      // tarjetas de alcance (mismo lenguaje visual que el Simulador Choice)
+      const TARJ = [{ v: 'todas', ico: '🌐', t: 'Examen integrador', d: 'Todas las unidades de ' + ac.nombre + '.', h: 205 }]
+        .concat(parciales.map((p, i) => ({ v: p.modo, ico: i ? '📚' : '📝', t: p.label, d: 'Las unidades de ese parcial.', h: i ? 150 : 330 })))
+        .concat([{ v: 'residencia', ico: '🏥', t: 'Estilo residencia', d: 'Banco completo, tanda larga y exigente.', h: 160 }, { v: 'up', ico: '🎯', t: 'Unidades a elección', d: 'Elegí una o varias unidades.', h: 35 }, { v: 'flash', ico: '⚡', t: 'Flash', d: '10 preguntas al azar, rápido.', h: 190 }])
+        .concat(op.tipo === 'solo' ? [{ v: 'errores', ico: '🧠', t: 'Mis errores', d: nErr + ' pregunta' + (nErr === 1 ? '' : 's') + ' para repasar.', h: 275 }] : []);
+      const tarjeta = (x) => '<button type="button" class="vp-alc" data-g="alcance" data-v="' + esc(x.v) + '" style="--h:' + x.h + '"><span class="vp-alc-ico">' + x.ico + '</span><span class="vp-alc-t">' + esc(x.t) + '</span><span class="vp-alc-d">' + esc(x.d) + '</span><i class="vp-tilde">✓</i></button>';
+      const estilos = op.tipo === 'solo' && !op.sinEstilos ? '<div class="vp-campo"><label>1 · Cómo querés jugar</label><div class="vp-estilos">' +
         Object.keys(ESTILOS).filter((k) => !op.estilosPermitidos || op.estilosPermitidos.includes(k)).map((k) => '<button type="button" class="vp-estilo" data-g="estilo" data-v="' + k + '"><b>' + ESTILOS[k].ico + ' ' + ESTILOS[k].nombre + '</b><span>' + ESTILOS[k].desc + '</span></button>').join('') + '</div></div>' : '';
-      ov.innerHTML = '<div class="vp-modal"><h2>' + esc(op.titulo || 'Configurá el duelo') + '</h2><div class="vp-sub">' + esc(op.subtitulo || 'Elegí qué áreas querés practicar.') + '</div>' + estilos +
-        '<div class="vp-campo"><label>Área a responder</label><div class="vp-chips">' + alcances.join('') + '</div><select id="vp-up" aria-label="Unidad">' + unidades.map((u) => '<option value="' + esc(u.id) + '">' + esc(u.label || ('UP ' + u.id)) + '</option>').join('') + '</select></div>' +
-        '<div class="vp-campo"><label>Cantidad de preguntas</label><div class="vp-chips">' + [5, 10, 15, 20, 30].map((n) => chip('cantidad', n, n)).join('') + '</div></div>' +
-        '<div class="vp-campo" id="vp-c-tiempo"><label>Tiempo por pregunta</label><div class="vp-chips">' + [15, 20, 30, 45, 60].map((n) => chip('tiempo', n, n + ' s')).join('') + '</div></div>' +
-        (op.tipo === 'online' ? '<div class="vp-campo"><label>Modo del duelo</label><div class="vp-chips">' + chip('modoDuelo', 'normal', '⚔️ Normal') + chip('modoDuelo', 'muerte_subita', '💀 Muerte súbita') + '</div></div>' : '') +
+      const n0 = estilos ? 2 : 1;
+      const online = op.tipo === 'online', ia = op.tipo === 'ia';
+      ov.innerHTML = '<div class="vp-modal vp-modal--wiz">' +
+        '<div class="vp-cab"><span class="vp-cab-ico">' + ac.ico + '</span><div><h2>' + esc(op.titulo || 'Configurá el duelo') + '</h2><div class="vp-sub">' + esc(op.subtitulo || 'Elegí qué querés practicar.') + '</div></div></div>' +
+        '<div class="vp-migas"><span>' + esc(ac.nombre) + '</span><i>›</i><span id="vp-miga-alc"></span><i>›</i><span id="vp-miga-cant"></span></div>' + estilos +
+        '<div class="vp-campo"><label>' + n0 + ' · ¿Qué querés rendir?</label><div class="vp-alcances">' + TARJ.map(tarjeta).join('') + '</div>' +
+        '<div class="vp-ups" id="vp-ups"><div class="vp-ups-cab"><b>Unidades</b><span><button type="button" class="vp-mini" data-a="todasups">Todas</button><button type="button" class="vp-mini" data-a="ningunaups">Ninguna</button></span></div><div class="vp-ups-grid">' +
+        unidades.map((u) => '<button type="button" class="vp-up" data-u="' + esc(u.id) + '"><i>✓</i><span>' + esc(u.label || ('UP ' + u.id)) + '</span></button>').join('') + '</div></div>' +
+        '<details class="vp-temas-det" id="vp-det"><summary>📖 ¿Qué unidades abarca?</summary><div id="vp-det-lista"></div></details></div>' +
+        '<div class="vp-campo" id="vp-c-cant"><label>' + (n0 + 1) + ' · Cantidad de preguntas</label><div class="vp-chips">' + [5, 10, 15, 20, 30, 50].map((n) => chip('cantidad', n, n)).join('') + '<input type="number" id="vp-cant-libre" min="3" max="100" placeholder="otra" aria-label="Cantidad personalizada"></div><div class="vp-nota" id="vp-nota-cant"></div></div>' +
+        (ia ? '' : '<div class="vp-campo" id="vp-c-tiempo"><label>' + (n0 + 2) + ' · Tiempo por pregunta</label><div class="vp-chips">' + [15, 20, 30, 45, 60, 90].map((n) => chip('tiempo', n, n + ' s')).join('') + '</div></div>') +
+        (online ? '<div class="vp-campo"><label>' + (n0 + 3) + ' · Modo del duelo</label><div class="vp-modos">' +
+          '<button type="button" class="vp-alc" data-g="modoDuelo" data-v="normal" style="--h:200"><span class="vp-alc-ico">⚔️</span><span class="vp-alc-t">Normal</span><span class="vp-alc-d">Cinco escudos: gana quien termine con más aciertos.</span><i class="vp-tilde">✓</i></button>' +
+          '<button type="button" class="vp-alc" data-g="modoDuelo" data-v="muerte_subita" style="--h:5"><span class="vp-alc-ico">💀</span><span class="vp-alc-t">Muerte súbita</span><span class="vp-alc-d">El primero que falla pierde un escudo de golpe.</span><i class="vp-tilde">✓</i></button></div></div>' : '') +
+        '<div class="vp-resumen-bar"><span id="vp-resumen"></span></div>' +
         '<div class="vp-acciones"><button type="button" class="btn-secondary" data-a="no">Cancelar</button><button type="button" class="btn-primary" data-a="ok">' + esc(op.boton || 'Empezar') + '</button></div></div>';
       document.body.appendChild(ov);
-      const pintar = () => {
-        ov.querySelectorAll('[data-g]').forEach((b) => { const g = b.dataset.g; b.classList.toggle('on', String(cfg[g]) === String(b.dataset.v)); });
-        $('#vp-up', ov).style.display = cfg.alcance === 'up' ? 'block' : 'none'; $('#vp-up', ov).value = cfg.up;
-        const sinTiempo = op.tipo === 'solo' && (cfg.estilo === 'practica' || cfg.estilo === 'relampago');
-        $('#vp-c-tiempo', ov).style.display = sinTiempo ? 'none' : 'block';
-        const cantEstilo = op.tipo === 'solo' && (cfg.estilo === 'relampago' || cfg.estilo === 'supervivencia');
-        const cant = ov.querySelectorAll('[data-g="cantidad"]'); cant.forEach((b) => { b.parentElement.parentElement.style.display = cantEstilo ? 'none' : 'block'; });
+      const cantidadDe = () => { const r = cfg.alcance === 'flash' ? 10 : cfg.cantidad; return Math.max(3, Math.min(100, Number(r) || 10)); };
+      const nombreAlc = () => { const t = TARJ.find((x) => x.v === cfg.alcance); return t ? t.t : ''; };
+      const unidadesDelAlcance = () => {
+        if (cfg.alcance === 'up') return unidades.filter((u) => cfg.ups.map(String).includes(String(u.id)));
+        const p = (parciales || []).find((x) => x.modo === cfg.alcance);
+        if (p && A.unidadesParcial) return unidades.filter((u) => (A.unidadesParcial(p.modo) || []).map(String).includes(String(u.id)));
+        return unidades;
       };
-      const cerrar = (r) => { ov.remove(); document.removeEventListener('keydown', teclas); resolver(r); };
+      const pintar = () => {
+        if (cfg.alcance === 'flash') cfg.cantidad = 10;
+        ov.querySelectorAll('[data-g]').forEach((b) => { const g = b.dataset.g; b.classList.toggle('on', String(cfg[g]) === String(b.dataset.v)); });
+        ov.querySelectorAll('.vp-up').forEach((b) => b.classList.toggle('on', cfg.ups.map(String).includes(b.dataset.u)));
+        $('#vp-ups', ov).classList.toggle('abierto', cfg.alcance === 'up');
+        const lista = unidadesDelAlcance();
+        $('#vp-det-lista', ov).innerHTML = lista.length ? '<ul>' + lista.map((u) => '<li>' + esc(u.label || ('UP ' + u.id)) + '</li>').join('') + '</ul>' : '<p>Elegí al menos una unidad.</p>';
+        $('#vp-det', ov).style.display = cfg.alcance === 'errores' ? 'none' : 'block';
+        const sinTiempo = ia || (op.tipo === 'solo' && (cfg.estilo === 'practica' || cfg.estilo === 'relampago'));
+        const ct = $('#vp-c-tiempo', ov); if (ct) ct.style.display = sinTiempo ? 'none' : 'block';
+        const cantEstilo = op.tipo === 'solo' && (cfg.estilo === 'relampago' || cfg.estilo === 'supervivencia');
+        $('#vp-c-cant', ov).style.display = cantEstilo ? 'none' : 'block';
+        const libre = $('#vp-cant-libre', ov); if (document.activeElement !== libre) libre.value = [5, 10, 15, 20, 30, 50].includes(Number(cfg.cantidad)) ? '' : cfg.cantidad;
+        $('#vp-nota-cant', ov).textContent = cfg.alcance === 'flash' ? 'Flash siempre es de 10 preguntas.' : (cfg.alcance === 'residencia' && cfg.cantidad < 20 ? 'Residencia rinde mejor con 20 o más preguntas.' : '');
+        $('#vp-miga-alc', ov).textContent = nombreAlc() + (cfg.alcance === 'up' ? ' (' + cfg.ups.length + ')' : '');
+        $('#vp-miga-cant', ov).textContent = cantidadDe() + ' preguntas';
+        $('#vp-resumen', ov).textContent = [ac.nombre, nombreAlc(), cantidadDe() + ' preg.', sinTiempo ? '' : cfg.tiempo + ' s c/u', cfg.modoDuelo === 'muerte_subita' && online ? '💀 muerte súbita' : ''].filter(Boolean).join(' · ');
+      };
+      const cerrar = (r) => { ov.classList.add('saliendo'); setTimeout(() => ov.remove(), 180); document.removeEventListener('keydown', teclas); resolver(r); };
       const teclas = (e) => { if (e.key === 'Escape') cerrar(null); };
       document.addEventListener('keydown', teclas);
       ov.addEventListener('click', (e) => {
         if (e.target === ov) return cerrar(null);
+        const u = e.target.closest('.vp-up');
+        if (u) { const id = u.dataset.u, i = cfg.ups.map(String).indexOf(id); if (i >= 0) cfg.ups.splice(i, 1); else cfg.ups.push((unidades.find((x) => String(x.id) === id) || {}).id); SONIDO('click'); return pintar(); }
         const b = e.target.closest('[data-g]');
-        if (b) { const g = b.dataset.g; cfg[g] = (g === 'cantidad' || g === 'tiempo') ? Number(b.dataset.v) : b.dataset.v; SONIDO('click'); return pintar(); }
+        if (b) {
+          const g = b.dataset.g; cfg[g] = (g === 'cantidad' || g === 'tiempo') ? Number(b.dataset.v) : b.dataset.v; SONIDO('click');
+          if (g === 'alcance') { if (b.dataset.v === 'residencia' && cfg.cantidad < 20) cfg.cantidad = 20; if (b.dataset.v === 'flash') cfg.cantidad = 10; }
+          return pintar();
+        }
         const a = e.target.closest('[data-a]'); if (!a) return;
         if (a.dataset.a === 'no') return cerrar(null);
+        if (a.dataset.a === 'todasups') { cfg.ups = unidades.map((x) => x.id); return pintar(); }
+        if (a.dataset.a === 'ningunaups') { cfg.ups = []; return pintar(); }
         if (cfg.alcance === 'errores' && !nErr) return aviso('Todavía no tenés errores guardados: ¡buena señal!');
+        if (cfg.alcance === 'up' && !cfg.ups.length) return aviso('Elegí al menos una unidad.');
+        cfg.cantidad = cantidadDe(); cfg.up = cfg.ups[0] != null ? cfg.ups[0] : null;
         guardar(LS_CFG, Object.assign({}, cfg, { alcance: cfg.alcance === 'errores' ? 'todas' : cfg.alcance }));
-        cerrar(Object.assign({}, cfg));
+        cerrar(Object.assign({}, cfg, { ups: cfg.ups.slice() }));
       });
-      $('#vp-up', ov).addEventListener('change', (e) => { cfg.up = e.target.value; });
+      $('#vp-cant-libre', ov).addEventListener('input', (e) => { const n = parseInt(e.target.value, 10); if (n >= 3 && n <= 100) { cfg.cantidad = n; pintar(); } });
       pintar();
     });
   }
@@ -176,7 +233,7 @@
     let pool;
     try {
       if (cfg.alcance === 'errores') pool = listarErrores();
-      else pool = await A.pool({ modo: modoPool(cfg), up: cfg.up });
+      else pool = await A.pool({ modo: modoPool(cfg), up: upParaPool(cfg) });
     } catch (e) { return aviso((e && e.message) || 'No se pudieron cargar las preguntas.'); }
     pool = (pool || []).filter((q) => q && q.opciones && q.opciones.some((o) => o.correcta) && q.opciones.length >= 2);
     if (!pool.length) return aviso('No hay preguntas disponibles para esa selección.');
@@ -376,5 +433,5 @@
     montarSelector();
   }
 
-  window.NikaVersusPlus = { init, pedirConfig, describir, modoPool, iniciarSolo, registrarError, listarErrores, mostrarHistorial, confeti, aplicarTema };
+  window.NikaVersusPlus = { init, pedirConfig, describir, modoPool, upParaPool, upsDe, iniciarSolo, registrarError, listarErrores, mostrarHistorial, confeti, aplicarTema };
 })();
