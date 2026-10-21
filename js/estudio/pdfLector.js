@@ -595,8 +595,21 @@
       let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
       if (!resp.ok) resp = await fetch(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
       if (!resp.ok) throw new Error('drive ' + resp.status);
-      if (Number(resp.headers.get('content-length') || 0) > 90e6) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // libros enormes: se ven con el visor de Drive
-      const buf = new Uint8Array(await resp.arrayBuffer());
+      const total = Number(resp.headers.get('content-length') || 0);
+      if (total > 700e6) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // por encima de ~700 MB el navegador no lo aguanta en memoria: se ve con el visor de Drive
+      let buf;
+      if (total && resp.body && resp.body.getReader) {
+        // descarga con progreso (los libros pesados tardan): se arma directo en un solo bloque de memoria
+        buf = new Uint8Array(total); let n = 0; const rd = resp.body.getReader();
+        for (;;) {
+          const { done, value } = await rd.read(); if (done) break;
+          if (S !== mi) { try { rd.cancel(); } catch (_) {} return; }
+          if (n + value.length > buf.length) { const g = new Uint8Array(n + value.length); g.set(buf.subarray(0, n)); buf = g; }
+          buf.set(value, n); n += value.length;
+          if (total > 15e6) mensaje(root, `<div class="sp"></div><div>Descargando el PDF… ${Math.round(n / 1e6)} de ${Math.round(total / 1e6)} MB</div>`);
+        }
+        if (n !== buf.length) buf = buf.subarray(0, n);
+      } else buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('no es un PDF');
       if (S !== mi) return;
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
