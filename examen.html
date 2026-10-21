@@ -211,6 +211,8 @@
 
         .q-content-col { padding: 24px; flex: 1; display: flex; flex-direction: column; }
         .q-text { font-size: 1.1rem; margin-bottom: 20px; color: var(--text-main); line-height: 1.6; font-weight: 700; white-space: pre-line; }
+        .q-text .q-pregunta { display: block; }
+        .q-text .q-caso { display: block; font-weight: 500; margin-bottom: 12px; padding: 12px 14px; border-left: 4px solid var(--primary, #0288d1); border-radius: 10px; background: rgba(2,136,209,.07); }
         
         .option-wrap { padding: 14px 18px; margin-bottom: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: flex-start; transition: 0.15s; border: 1px solid var(--border); background: var(--card-bg); }
         .option-wrap:hover { background-color: var(--bg-body); border-color: var(--nika-primary); }
@@ -5762,14 +5764,15 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             }
             ov.style.display = 'flex';
             const etiquetaUp = /^\d+$/.test(String(q.up)) ? 'UP ' + q.up : q.up;
-            document.getElementById('errata-q').textContent = `Pregunta ${idx + 1} (${etiquetaUp}): ${q.q}`;
+            const qPlano = String(q.q).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+            document.getElementById('errata-q').textContent = `Pregunta ${idx + 1} (${etiquetaUp}): ${qPlano}`;
             const ta = document.getElementById('errata-just'); ta.value = ''; ta.focus();
             document.getElementById('errata-send').onclick = async () => {
                 const just = ta.value.trim();
                 if (just.length < 10) { showToast('Contanos un poco más el error (mínimo 10 caracteres).'); return; }
                 if (!window.SyncManager || !SyncManager.userIdCacheado()) { showToast('Iniciá sesión para reportar una errata.'); return; }
                 // Envío directo: así el alumno ve el error real si algo falla. Solo sin señal se guarda en la cola para reintentar.
-                const payload = { preguntaTexto: `[${etiquetaUp}] ${q.q}`, justificacion: just };
+                const payload = { preguntaTexto: `[${etiquetaUp}] ${qPlano}`, justificacion: just };
                 const btnEnviar = document.getElementById('errata-send'); btnEnviar.disabled = true;
                 try {
                     let enviada = false, detalle = '';
@@ -6077,7 +6080,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 '.kp{display:flex;gap:8px;margin:12px 0 16px}.kp div{flex:1;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:8px;text-align:center}.kp b{display:block;font-size:16px;color:#4338ca}.kp span{font-size:10px;color:#6b7280}' +
                 '.q{border:1px solid #e5e7eb;border-left:5px solid #22c55e;border-radius:10px;padding:10px 12px;margin:0 0 10px;break-inside:avoid}.q.m{border-left-color:#ef4444}' +
                 '.qh{display:flex;gap:8px;align-items:center;margin-bottom:5px}.n{background:#6366f1;color:#fff;border-radius:6px;padding:1px 8px;font-weight:800}.up{color:#6b7280;font-size:10px}.est{margin-left:auto;font-weight:800;font-size:10px;color:#16a34a}.q.m .est{color:#dc2626}' +
-                '.enun{margin:0 0 6px;font-weight:600}ul{list-style:none;padding:0;margin:0}li{padding:3px 8px;border-radius:6px;margin:2px 0}li.ok{background:#dcfce7;color:#14532d}li.mal{background:#fee2e2;color:#7f1d1d}li em{font-style:normal;font-weight:700;font-size:10px}' +
+                '.enun{margin:0 0 6px;font-weight:600}.q-caso{display:block;font-weight:500;margin-bottom:6px;padding:6px 9px;border-left:3px solid #6366f1;background:#f5f3ff;border-radius:6px}.q-pregunta{display:block}ul{list-style:none;padding:0;margin:0}li{padding:3px 8px;border-radius:6px;margin:2px 0}li.ok{background:#dcfce7;color:#14532d}li.mal{background:#fee2e2;color:#7f1d1d}li em{font-style:normal;font-weight:700;font-size:10px}' +
                 '.just{margin-top:7px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:7px 10px;color:#312e81}' +
                 '.ft{margin-top:14px;padding-top:8px;border-top:2px solid #c7d2fe;font-size:9.5px;color:#6b7280;text-align:center}.ft b{color:#4338ca}' +
                 '</style></head><body><div class="hd"><div><h1>⚕️ NikaMed · Resultados del simulacro</h1><p>' + esc(fecha) + ' · ' + n + ' preguntas · ' + min + ' min</p></div><div class="nota"><b>' + nota + '</b><span>/ 10 · ' + pct + '%</span></div></div>' +
