@@ -110,6 +110,25 @@
 .nkpdf-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#334155;font-weight:700;background:#f1f5f9;z-index:6}
 .nkpdf-msg .sp{width:34px;height:34px;border:4px solid #cbd5e1;border-top-color:#7c3aed;border-radius:50%;animation:nkpdfSp .8s linear infinite}
 @keyframes nkpdfSp{to{transform:rotate(360deg)}}
+.nkpdf-carga{width:min(460px,92%);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.nkpdf-robot{width:110px;height:126px;animation:nkpdfFlota 2.6s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(15,23,42,.25))}
+.nkpdf-robot svg{width:100%;height:100%;overflow:visible}
+.nkpdf-robot .rb-ojo{transform-box:fill-box;transform-origin:center;animation:nkpdfParp 4s infinite}
+.nkpdf-robot .rb-bq{transform-box:fill-box;transform-origin:70% 10%;animation:nkpdfBrazo 1.4s ease-in-out infinite}
+.nkpdf-robot .rb-bs{transform-box:fill-box;transform-origin:30% 10%;animation:nkpdfBrazo 1.4s ease-in-out .7s infinite reverse}
+.nkpdf-robot .rb-boca{transform-box:fill-box;transform-origin:center;animation:nkpdfHabla 1.1s ease-in-out infinite}
+@keyframes nkpdfFlota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+@keyframes nkpdfParp{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes nkpdfBrazo{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(14deg)}}
+@keyframes nkpdfHabla{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.5)}}
+.nkpdf-globo{position:relative;background:#fff;border:2px solid #c4b5fd;border-radius:16px;padding:11px 14px;font-size:.86rem;line-height:1.35;color:#334155;font-weight:600;box-shadow:0 8px 22px rgba(124,58,237,.14);min-height:62px;display:flex;align-items:center;animation:nkpdfIn .35s ease both}
+.nkpdf-globo:before{content:"";position:absolute;top:-9px;left:50%;margin-left:-8px;width:14px;height:14px;background:#fff;border-left:2px solid #c4b5fd;border-top:2px solid #c4b5fd;transform:rotate(45deg)}
+.nkpdf-peso{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:.74rem;font-weight:800;background:#ede9fe;color:#6d28d9}
+.nkpdf-peso.p2{background:#fef3c7;color:#b45309}.nkpdf-peso.p3{background:#ffe4e6;color:#be123c}
+.nkpdf-barra{width:100%;height:14px;border-radius:999px;background:#e2e8f0;overflow:hidden;box-shadow:inset 0 1px 3px rgba(15,23,42,.18)}
+.nkpdf-barra b{display:block;height:100%;width:6%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#a855f7,#38bdf8);background-size:200% 100%;animation:nkpdfBarra 1.2s linear infinite;transition:width .35s ease}
+@keyframes nkpdfBarra{to{background-position:-200% 0}}
+.nkpdf-stat{font-size:.76rem;color:#64748b;font-weight:700;font-variant-numeric:tabular-nums}
 .nkpdf-toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:7;display:flex;gap:10px;align-items:center;padding:9px 14px;border-radius:12px;background:#0f172a;color:#fff;font-size:.8rem;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:nkpdfIn .3s ease both;max-width:92%}
 .nkpdf-toast button{background:linear-gradient(135deg,#7e22ce,#a855f7);border:0;color:#fff;border-radius:8px;padding:5px 11px;font:inherit;cursor:pointer}
 .nkpdf-toast .z{background:transparent;color:#94a3b8;padding:5px 6px}
@@ -578,16 +597,56 @@
     m.innerHTML = html; return m;
   }
 
+  // Pantalla de carga: el robot Nika explica qué se está haciendo y por qué demora (más si el archivo pesa mucho)
+  const ROBOT = '<svg viewBox="0 0 200 230" aria-hidden="true"><defs><linearGradient id="nkrB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#eef2f7"/><stop offset="1" stop-color="#cdd7e3"/></linearGradient><linearGradient id="nkrV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16395f"/><stop offset="1" stop-color="#08162b"/></linearGradient></defs><ellipse cx="100" cy="222" rx="36" ry="6.5" fill="#020617" opacity=".25"/><g class="rb-bq"><path d="M62 134 C48 136 38 152 40 172 C41 183 53 185 59 176 C66 162 68 146 68 138 Z" fill="url(#nkrB)" stroke="#c4d0dd" stroke-width="1.6"/></g><g class="rb-bs"><path d="M138 134 C152 136 162 152 160 172 C159 183 147 185 141 176 C134 162 132 146 132 138 Z" fill="url(#nkrB)" stroke="#c4d0dd" stroke-width="1.6"/></g><path d="M62 152 C62 130 80 122 100 122 C120 122 138 130 138 152 C138 184 124 208 100 208 C76 208 62 184 62 152 Z" fill="url(#nkrB)" stroke="#c4d0dd" stroke-width="1.6"/><circle cx="100" cy="190" r="6.5" fill="#38bdf8"/><path d="M100 186v8M96 190h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><rect x="22" y="64" width="19" height="40" rx="9.5" fill="#cfd8e3" stroke="#b3c0ce" stroke-width="1.4"/><rect x="159" y="64" width="19" height="40" rx="9.5" fill="#cfd8e3" stroke="#b3c0ce" stroke-width="1.4"/><rect x="32" y="38" width="136" height="90" rx="42" fill="url(#nkrB)" stroke="#c4d0dd" stroke-width="1.6"/><rect x="45" y="52" width="110" height="64" rx="30" fill="url(#nkrV)"/><path class="rb-ojo" d="M66 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="rb-ojo" d="M106 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="rb-boca" d="M91 99 Q100 112 109 99 Q100 103 91 99 Z" fill="#35e0f7" stroke="#35e0f7" stroke-width="2" stroke-linejoin="round"/></svg>';
+  const fmtMB = (b) => b >= 1e9 ? (b / 1e9).toFixed(2).replace('.', ',') + ' GB' : Math.round(b / 1e6) + ' MB';
+  function cargaUI(root) {
+    root.querySelector('.nkpdf-msg')?.remove();
+    const m = document.createElement('div'); m.className = 'nkpdf-msg';
+    m.innerHTML = `<div class="nkpdf-carga"><div class="nkpdf-robot">${ROBOT}</div><span class="nkpdf-peso" hidden></span><div class="nkpdf-globo" aria-live="polite"><span>¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…</span></div><div class="nkpdf-barra"><b></b></div><div class="nkpdf-stat">Conectando…</div></div>`;
+    root.appendChild(m);
+    const q = (s) => m.querySelector(s);
+    const globo = q('.nkpdf-globo span'), barra = q('.nkpdf-barra b'), stat = q('.nkpdf-stat'), peso = q('.nkpdf-peso');
+    let frases = [], k = 0, timer = null, t0 = Date.now(), tot = 0;
+    const decir = (t) => { globo.parentNode.style.animation = 'none'; void globo.offsetWidth; globo.parentNode.style.animation = ''; globo.textContent = t; };
+    const rotar = () => { if (!m.isConnected) { clearInterval(timer); return; } if (!frases.length) return; k = (k + 1) % frases.length; decir(frases[k]); };
+    return {
+      tamano(total) {
+        tot = total;
+        const mb = total / 1e6, cl = mb < 25 ? 0 : mb < 120 ? 1 : mb < 500 ? 2 : 3;
+        peso.hidden = false; peso.className = 'nkpdf-peso' + (cl === 2 ? ' p2' : cl === 3 ? ' p3' : '');
+        peso.textContent = (['⚡ Archivo liviano', '📦 Archivo mediano', '🐘 Archivo pesado', '🏔️ Libro enorme'][cl]) + ' · ' + fmtMB(total);
+        const fr = {
+          0: ['Es liviano: en unos segundos lo tenés listo ⚡', 'Lo descargo completo para que puedas subrayar, marcar y guardar tu progreso.'],
+          1: ['Pesa ' + fmtMB(total) + ': lo bajo entero a tu dispositivo para que después se mueva sin trabarse.', 'Con el PDF ya descargado, subrayar y pasar de página es instantáneo ✨', 'Tus marcas y tu progreso se guardan solos en tu cuenta.'],
+          2: ['Este PDF pesa ' + fmtMB(total) + ': demora un poco más, pero vale la pena 🐘', 'Lo descargo completo de Drive porque el lector necesita tener todas las páginas para dejarte subrayar y buscar.', 'Mientras tanto, tomá agua 💧 o repasá el tema que viene.', 'Cuando termine, abre de una y no lo vuelvo a bajar mientras no cierres el lector.'],
+          3: ['¡Este es un libro enorme (' + fmtMB(total) + ')! 🏔️ Puede tardar varios minutos según tu internet.', 'Lo bajo entero para que todas las páginas queden disponibles sin conexión con Drive y puedas subrayarlas.', 'Mejor en computadora y con Wi-Fi: en celular puede costarle. Si querés algo más rápido, abrí un capítulo suelto.', 'Dejá esta pestaña abierta: no cierres ni cambies de sección hasta que termine 🙏', '¡Ya falta menos! Después de esto, a estudiar con todo el libro a mano 📚'],
+        }[cl];
+        frases = fr; k = 0; decir(fr[0]); clearInterval(timer); timer = setInterval(rotar, 5500);
+        if (cl >= 2 && !(navigator.deviceMemory > 4) && /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)) frases.push('Estás en el celular: si se cierra por falta de memoria, probá en una compu o con un capítulo más chico.');
+      },
+      avance(n) {
+        const p = tot ? Math.min(100, n / tot * 100) : 0, seg = Math.max(0.5, (Date.now() - t0) / 1000), vel = n / seg;
+        barra.style.width = Math.max(4, p) + '%';
+        const falta = vel > 0 && tot ? Math.ceil((tot - n) / vel) : 0;
+        const eta = falta > 90 ? 'unos ' + Math.ceil(falta / 60) + ' min' : falta > 0 ? falta + ' s' : '';
+        stat.textContent = tot ? `${Math.round(p)}% · ${fmtMB(n)} de ${fmtMB(tot)} · ${(vel / 1e6).toFixed(1).replace('.', ',')} MB/s` + (eta && p < 99 ? ' · faltan ' + eta : '') : fmtMB(n) + ' descargados';
+      },
+      armando() { clearInterval(timer); barra.style.width = '100%'; decir('¡Listo! Estoy preparando las páginas… 📖'); stat.textContent = 'Abriendo el visor'; },
+      fin() { clearInterval(timer); },
+    };
+  }
+
   async function abrir(op) {
     cerrar(); css(); ultimoOp = op; quitarVolver();
     const { wrapper, fileId, title, fallback } = op;
     const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = 'none';   // el lector trae su propio botón de pantalla completa
     const iframe = $('iframe', wrapper); if (iframe) iframe.style.display = 'none';
     const root = document.createElement('div'); root.className = 'nkpdf m-sel'; wrapper.appendChild(root);
-    mensaje(root, '<div class="sp"></div><div>Abriendo el PDF…</div>');
+    const ui = cargaUI(root);
     S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
-    const volver = (motivo) => { if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
+    const volver = (motivo) => { ui.fin(); if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
     try {
       await cargarLib();
       // PDF subido a Drive: descarga directa. Presentaciones y documentos de Google (nativos): se exportan a PDF.
@@ -596,20 +655,24 @@
       if (!resp.ok) resp = await fetch(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
       if (!resp.ok) throw new Error('drive ' + resp.status);
       const total = Number(resp.headers.get('content-length') || 0);
-      if (total > 700e6) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // por encima de ~700 MB el navegador no lo aguanta en memoria: se ve con el visor de Drive
+      if (total > 2e9) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // por encima de 2 GB el navegador no lo aguanta en memoria: se ve con el visor de Drive
+      if (total) ui.tamano(total);
       let buf;
       if (total && resp.body && resp.body.getReader) {
         // descarga con progreso (los libros pesados tardan): se arma directo en un solo bloque de memoria
-        buf = new Uint8Array(total); let n = 0; const rd = resp.body.getReader();
+        try { buf = new Uint8Array(total); } catch (_) { throw new Error('sin memoria para el archivo'); }
+        let n = 0, ult = 0; const rd = resp.body.getReader();
         for (;;) {
           const { done, value } = await rd.read(); if (done) break;
           if (S !== mi) { try { rd.cancel(); } catch (_) {} return; }
           if (n + value.length > buf.length) { const g = new Uint8Array(n + value.length); g.set(buf.subarray(0, n)); buf = g; }
           buf.set(value, n); n += value.length;
-          if (total > 15e6) mensaje(root, `<div class="sp"></div><div>Descargando el PDF… ${Math.round(n / 1e6)} de ${Math.round(total / 1e6)} MB</div>`);
+          const ahora = Date.now(); if (ahora - ult > 200) { ult = ahora; ui.avance(n); }
         }
+        ui.avance(n);
         if (n !== buf.length) buf = buf.subarray(0, n);
       } else buf = new Uint8Array(await resp.arrayBuffer());
+      ui.armando();
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('no es un PDF');
       if (S !== mi) return;
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
@@ -621,7 +684,7 @@
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
       mi.escala = Math.max(0.6, Math.min(1.8, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
-      armar(mi);
+      ui.fin(); armar(mi);
     } catch (e) {
       if (S === mi) volver(e && e.message);
     }
