@@ -220,11 +220,17 @@ const PomodoroEngine = (() => {
   async function insertRow(client, row) {
     // Idempotente: si ya está en Supabase (respuesta perdida en un intento previo) no se duplica
     try {
-      const ya = await client.from('study_sessions').select('user_id', { head: true, count: 'exact' })
-        .eq('user_id', row.user_id).eq('completed_at', row.completed_at).eq('modulo', row.modulo).eq('up_id', row.up_id);
+      let q = client.from('study_sessions').select('user_id', { head: true, count: 'exact' }).eq('user_id', row.user_id);
+      q = row.shared_key ? q.eq('shared_key', row.shared_key) : q.eq('completed_at', row.completed_at).eq('modulo', row.modulo).eq('up_id', row.up_id);
+      const ya = await q;
       if (!ya.error && (ya.count || 0) > 0) return { error: null };
     } catch (_) {}
     let { error } = await client.from('study_sessions').insert(row);
+    if (error && /shared_key/i.test(error.message || '')) {
+      // Falta la columna de la sesión compartida (10_pomodoro_compartido.sql): se guarda igual, sin la clave
+      const { shared_key: _k, ...sinClave } = row; row = sinClave;
+      ({ error } = await client.from('study_sessions').insert(row));
+    }
     if (error && /completed/i.test(error.message || '')) {
       if (!row.completed) return { error: null };
       const { completed: _o, ...sinFlag } = row;
@@ -328,7 +334,7 @@ const PomodoroEngine = (() => {
     } catch (_) {}
   }
 
-  async function registerStudySession(moduleId, upId, minutes, completed = true) {
+  async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null) {
     if (!minutes) return;
     // Un Pomodoro iniciado sin Unidad Problema asignada igual cuenta como tiempo de estudio
     const modulo = moduleId || 'general';
@@ -339,14 +345,14 @@ const PomodoroEngine = (() => {
     // 1) Se suma al instante en las tarjetas; 2) se guarda; 3) se avisa con el dato real
     let optId = null;
     try { if (window.NikaRendimiento && window.NikaRendimiento.registrarOptimista) optId = window.NikaRendimiento.registrarOptimista({ modulo, up_id: up, duration_minutes: minutes, completed, completed_at: completedAt }); } catch (_) {}
-    try { await registerStudySessionCore(modulo, up, minutes, completed, completedAt); }
+    try { await registerStudySessionCore(modulo, up, minutes, completed, completedAt, sharedKey); }
     finally {
       try { if (optId && window.NikaRendimiento) window.NikaRendimiento.resolverOptimista(optId); } catch (_) {}
       avisarRendimiento({ origen: 'pomodoro', minutes });
     }
   }
 
-  async function registerStudySessionCore(moduleId, upId, minutes, completed = true, completedAt) {
+  async function registerStudySessionCore(moduleId, upId, minutes, completed = true, completedAt, sharedKey = null) {
     if (!moduleId || !upId || !minutes) return;
 
     // Copia local (la usa la vista de métricas del Pomodoro)
@@ -369,6 +375,8 @@ const PomodoroEngine = (() => {
         completed,
         completed_at: completedAt || new Date().toISOString(),
       };
+      // Sesión compartida: la misma clave que usa el Anfitrión al acreditarla (la base no permite dos filas con esa clave)
+      if (sharedKey) row.shared_key = sharedKey;
 
       // Sin conexión: directo a la cola
       if (isOfflineNow()) { await queueStudySession(row); return; }
@@ -437,7 +445,7 @@ const PomodoroEngine = (() => {
       return window.NikaRendimiento.registrarSesionCompartida(p).catch((e) => console.error('[PomodoroEngine] Sesión compartida:', e));
     }
     if (!claimSharedKey(p.sharedKey)) return Promise.resolve();
-    return registerStudySession(p.moduleId, p.upId, p.minutes, p.completed);
+    return registerStudySession(p.moduleId, p.upId, p.minutes, p.completed, p.sharedKey);
   }
 
   // Guarda ESTA fase para el usuario local, con las reglas de la sesión compartida:
@@ -447,7 +455,9 @@ const PomodoroEngine = (() => {
   //    y los dos quedan con EXACTAMENTE los mismos números.
   // Devuelve los minutos que efectivamente se acreditaron (0 = nada).
   function registerSharedPhase(sh, p) {
-    if (!p.moduleId || !p.upId || !(p.minutes > 0)) return 0;
+    if (!(p.minutes > 0)) return 0;
+    // Igual que en solitario: un bloque sin Unidad asignada igual cuenta como tiempo de estudio (antes se perdía)
+    p = { ...p, moduleId: p.moduleId || 'general', upId: p.upId || 'general' };
     let mins = p.minutes;
     let done = !!p.completed;
     if (sh.role === 'guest' && sh.lateMin > 0) { mins = Math.max(0, mins - sh.lateMin); done = false; }

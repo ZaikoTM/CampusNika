@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
-    <script src="js/pomodoroEngine.js?v=7"></script>
+    <script src="js/pomodoroEngine.js?v=8"></script>
     <script src="js/planPomodoro.js?v=1"></script>
     <script src="js/speechManager.js"></script>
     <!-- NikaMed+: límite de 2 usos gratuitos en los simuladores de IA (ver gateSimulacionIA) -->
@@ -1119,7 +1119,8 @@
     <link rel="stylesheet" href="css/examen-navbar.css?v=2">
     <link rel="stylesheet" href="css/micro.css?v=1">
     <link rel="stylesheet" href="css/nika-imprimir.css?v=1">
-    <script src="js/nikaImprimir.js?v=1"></script>
+    <script src="js/nikaPdf.js?v=1"></script>
+    <script src="js/nikaImprimir.js?v=2"></script>
 </head>
 <body>
     <div class="ex-fondo" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -6087,6 +6088,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 '<div class="kp"><div><b>' + ok + '</b><span>Correctas</span></div><div><b>' + (n - ok) + '</b><span>Incorrectas / sin responder</span></div><div><b>' + pct + '%</b><span>Efectividad</span></div></div>' + pregs +
                 (esFree ? '<p class="ft">Las justificaciones están disponibles con <b>NikaMed+</b>.</p>' : '') +
                 '<div class="ft"><b>nikamed.com.ar</b> · Material educativo de estudio; no reemplaza la bibliografía ni el criterio clínico.</div></body></html>';
+            if (window.NikaPdf) { window.NikaPdf.imprimir(html, 'nikamed-resultados-simulacro'); return; }
             const fr = document.createElement('iframe');
             fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
             document.body.appendChild(fr);

@@ -135,7 +135,7 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=7"></script>
+    <script src="js/pomodoroEngine.js?v=8"></script>
     <script src="js/planPomodoro.js?v=1"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
@@ -1451,6 +1451,28 @@
     function _planesLocales(userId) {
         try { return JSON.parse(localStorage.getItem('nika_planes_examen_v1_' + userId) || '[]'); } catch (_) { return []; }
     }
+    // NikaPlan: trae los planes de la nube y los FUSIONA con los de este dispositivo (sin pisar progreso). Una vez por carga.
+    let _planesSync = null;
+    function _sincronizarPlanes(userId) {
+        if (_planesSync) return _planesSync;
+        _planesSync = (async () => {
+            try {
+                const client = _clienteDb(); if (!client || !userId) return;
+                if (!window.NikaPlanFusion) await new Promise((ok) => { const s = document.createElement('script'); s.src = 'js/planFusion.js?v=1'; s.onload = ok; s.onerror = ok; document.head.appendChild(s); });
+                if (!window.NikaPlanFusion) return;
+                const { aSubir } = await window.NikaPlanFusion.sincronizar(client, userId);
+                for (const p of aSubir) await window.NikaPlanFusion.subirPlan(client, userId, p);
+            } catch (e) { console.warn('[NikaPlan] sincronización de planes:', e && e.message); }
+        })();
+        return _planesSync;
+    }
+    // Al volver a la pestaña se refresca el porcentaje del plan (otro dispositivo pudo avanzar)
+    let _ultimaVistaPlanes = Date.now();
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden || Date.now() - _ultimaVistaPlanes < 30000) return;
+        _ultimaVistaPlanes = Date.now(); _planesSync = null;
+        try { cargarPlanificacionCampus(); actualizarBannerExamen(); } catch (_) {}
+    });
     function _planDeEvento(userId, ev) {
         const l = _planesLocales(userId);
         return l.find(p => p.evento_id === ev.id) || l.find(p => p.fecha_examen === ev.fecha && p.materia === ev.modulo) || null;
@@ -1460,9 +1482,11 @@
             const hoy = _fechaLocalISO();
             const tot = p.dias.reduce((a, d) => a + (d.horas || 0), 0) || 1;
             const prog = (d) => { const it = (d.temas || []).concat(d.checklist || []); return it.length ? it.filter(x => x.hecho).length / it.length : 0; };
-            const hechas = p.dias.reduce((a, d) => a + (d.horas || 0) * prog(d), 0);
+            // igual que en NikaPlan: cuentan los temas tildados Y las horas de Pomodoro acreditadas al día
+            const hd = (d) => { const h = d.horas || 0; return Math.max(h * prog(d), Math.min(h, d.estudiado || 0)); };
+            const hechas = p.dias.reduce((a, d) => a + hd(d), 0);
             const venc = p.dias.filter(d => d.fecha < hoy);
-            const hv = venc.reduce((a, d) => a + (d.horas || 0), 0), cv = venc.reduce((a, d) => a + (d.horas || 0) * prog(d), 0);
+            const hv = venc.reduce((a, d) => a + (d.horas || 0), 0), cv = venc.reduce((a, d) => a + hd(d), 0);
             const falta = Math.max(0, tot - hechas), dias = Math.max(1, p.dias.filter(d => d.fecha >= hoy).length), hdia = falta / dias, prom = tot / Math.max(1, p.dias.length);
             if (hechas >= tot - 0.01 || hv === 0) return { ico: '🟢', pct: Math.round(hechas / tot * 100) };
             const r = cv / hv;
@@ -1505,6 +1529,7 @@
                 hoyEl.innerHTML = proxEl.innerHTML = '<span class="plan-vacio">Iniciá sesión para ver tu planificación.</span>';
                 return;
             }
+            await _sincronizarPlanes(user.id);
             const hoy = _fechaLocalISO();
             const [rHoy, rProx] = await Promise.all([
                 client.from('calendario_eventos')
@@ -1807,6 +1832,7 @@
 
             textEl.innerHTML = `⏳ Recordatorio: tenés un <strong>${tipoLabel}</strong>${moduloLabel ? ` de <strong>${moduloLabel}</strong>` : ''} el ${fechaLegible} (${cuando})`;
             banner.dataset.eventId = evento.id;
+            await _sincronizarPlanes(user.id);
             const pl = _planDeEvento(user.id, evento), lk = document.getElementById('exam-countdown-plan');
             if (lk) {
                 if (pl) { const r = _resumenPlan(pl); lk.href = 'plan_examen.html?plan=' + encodeURIComponent(pl.id); lk.textContent = `${r ? r.ico + ' ' : '🗓️ '}Ver plan de estudio${r ? ' · ' + r.pct + '%' : ''}`; }

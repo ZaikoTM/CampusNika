@@ -398,6 +398,7 @@ body.bn .pie .marca i { background: #000; }
       const a = e.target.closest('[data-a]'); if (!a) return;
       if (a.dataset.a === 'imprimir') {
         if (!fr.contentWindow) return;
+        if (window.NikaPdf && window.NikaPdf.esMovil()) { window.NikaPdf.imprimir('<!doctype html>' + fr.contentDocument.documentElement.outerHTML, 'nikaplan-' + (p.titulo || 'plan')); return; }
         try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (_) { toast('No se pudo abrir la impresión: probá desde otro navegador'); }
       } else {
         a.disabled = true; const txt = a.textContent; a.textContent = 'Preparando…';

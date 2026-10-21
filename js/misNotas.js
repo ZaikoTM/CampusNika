@@ -460,6 +460,7 @@
     const doc = '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>' + esc(titulo) + '</title><style>' + css + '</style></head><body>'
       + '<div class="cab"><span class="e">' + emoji + '</span><div><h1>' + esc(titulo) + '</h1><p>' + esc(sub) + ' · ' + lista.length + (lista.length === 1 ? ' nota' : ' notas') + ' · ' + hoy + '</p></div></div>'
       + '<div class="g">' + items + '</div><div class="pie">Campus Nika · Mis notas</div></body></html>';
+    if (window.NikaPdf && window.NikaPdf.esMovil()) { window.NikaPdf.imprimir(doc, 'mis-notas-' + titulo); return; }
     const f = document.createElement('iframe'); f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
     document.body.appendChild(f);
     const d = f.contentWindow.document; d.open(); d.write(doc); d.close();

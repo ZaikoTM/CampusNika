@@ -42,6 +42,7 @@
       '<div class="np-hd"><div><h1>⚕️ NikaMed · ' + esc(o.titulo) + '</h1><p>' + esc(fecha) + (o.sub ? ' · ' + esc(o.sub) : '') + '</p></div><div class="np-nota">' + esc(o.nota) + ' / 10</div></div>' +
       panelPilares(o.pilares) + (o.cuerpo || '') +
       '<div class="np-ft"><b>nikamed.com.ar</b> · ' + esc(o.pie || 'Corrección orientativa hecha por IA; material educativo que no reemplaza la bibliografía ni el criterio clínico.') + '</div></body></html>';
+    if (window.NikaPdf) { window.NikaPdf.imprimir(html, 'nikamed-' + (o.titulo || 'resultados')); return; }
     const fr = document.createElement('iframe');
     fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
     document.body.appendChild(fr);

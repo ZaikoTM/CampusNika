@@ -19,6 +19,32 @@
     const it = (d.temas || []).concat(d.checklist || []);
     return it.length ? it.filter((x) => x.hecho).length / it.length : 0;
   }
+  // Sube a la nube el plan que acaba de recibir horas, FUSIONADO con lo que ya hay allá (nunca pisa lo de otro dispositivo).
+  // Si falla (sin señal), las horas quedan en este dispositivo y se suben solas al abrir NikaPlan o el campus.
+  const temporizadores = {};
+  function cargarFusion() {
+    if (window.NikaPlanFusion) return Promise.resolve();
+    return new Promise((ok) => { const s = document.createElement('script'); s.src = 'js/planFusion.js?v=1'; s.onload = ok; s.onerror = ok; document.head.appendChild(s); });
+  }
+  function empujarNube(clave, idPlan) {
+    clearTimeout(temporizadores[idPlan]);
+    temporizadores[idPlan] = setTimeout(async () => {
+      try {
+        if (!navigator.onLine) return;
+        const c = window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase);
+        if (!c || !c.auth) return;
+        const { data } = await c.auth.getUser();
+        const uid = data && data.user && data.user.id; if (!uid || clave !== PREFIJO + uid) return;
+        await cargarFusion(); if (!window.NikaPlanFusion) return;
+        const planes = JSON.parse(localStorage.getItem(clave) || '[]');
+        const plan = planes.find((x) => x.id === idPlan); if (!plan) return;
+        const m = await window.NikaPlanFusion.empujar(c, uid, plan);
+        // trae a este dispositivo lo que otro había acreditado (suma de horas), sin tocar nada más
+        const otra = JSON.parse(localStorage.getItem(clave) || '[]'); const q = otra.find((x) => x.id === idPlan);
+        if (q) { window.NikaPlanFusion.fusionarEnSitio(q, m); localStorage.setItem(clave, JSON.stringify(otra)); }
+      } catch (err) { console.warn('[PlanPomodoro] sin subir todavía:', err && err.message); }
+    }, 2500);
+  }
   function acreditar(detalle) {
     const minutos = Number(detalle && detalle.minutes);
     if (!(minutos >= 1)) return;
@@ -43,6 +69,7 @@
     }
     if (!cambio) return;
     try { localStorage.setItem(k, JSON.stringify(planes)); } catch (_) { return; }
+    elegidos.slice(0, 1).forEach((p) => empujarNube(k, p.id));
     try { if (typeof window.showToast === 'function') window.showToast(`🍅 +${minutos} min en ${titulos.length === 1 ? 'tu plan «' + titulos[0] + '»' : titulos.length + ' planes'}`); } catch (_) {}
   }
   window.addEventListener('nika:pomodoro-minutos', (e) => { try { acreditar(e.detail); } catch (err) { console.warn('[PlanPomodoro]', err && err.message); } });

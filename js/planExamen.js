@@ -127,25 +127,42 @@
     return { id, user_id: S.user.id, titulo, materia, fecha_examen, datos, actualizado_en: actualizado_en || new Date().toISOString() };
   }
   function deFila(r) { return Object.assign({ id: r.id, titulo: r.titulo, materia: r.materia, fecha_examen: r.fecha_examen, creado_en: r.creado_en, actualizado_en: r.actualizado_en }, r.datos || {}); }
+  // Sincroniza con la nube FUSIONANDO campo por campo (js/planFusion.js): las horas de Pomodoro y los temas tildados en un dispositivo
+  // no se pierden por haber tocado el mismo plan en otro. Si una subida falla, se reintenta sola (ya no se apaga la sincronización).
+  let tReintento = null;
   async function cargarNube() {
     const c = db(); if (!c || !S.user) return;
     try {
-      const { data, error } = await c.from('planes_examen').select('*').eq('user_id', S.user.id);
-      if (error) throw error;
+      const F = window.NikaPlanFusion;
+      if (!F) throw new Error('planFusion.js no cargó');
+      const foto = new Map(S.planes.map((p) => [p.id, String(p.actualizado_en || '')]));
+      const { planes, aSubir } = await F.sincronizar(c, S.user.id, S.planes.map((p) => JSON.parse(JSON.stringify(p))));
       S.nube = true;
-      const remotos = (data || []).map(deFila), mapa = {};
-      S.planes.forEach((p) => { mapa[p.id] = p; });
-      remotos.forEach((r) => { const l = mapa[r.id]; if (!l || String(r.actualizado_en) >= String(l.actualizado_en || '')) mapa[r.id] = r; });
-      S.planes = Object.keys(mapa).map((k) => mapa[k]);
+      // Se aplica sobre los planes que están en pantalla: si el usuario tocó algo mientras tanto, no se pierde
+      planes.forEach((m) => {
+        const cur = S.planes.find((x) => x.id === m.id);
+        if (!cur) { S.planes.push(m); return; }
+        const intacto = String(cur.actualizado_en || '') === foto.get(m.id);
+        if (intacto && m.__origen === 'b') Object.assign(cur, m);       // la estructura más nueva viene de otro dispositivo
+        else F.fusionarEnSitio(cur, m);
+      });
       guardarLocal();
-      const ids = new Set(remotos.map((r) => r.id));
-      S.planes.filter((p) => !ids.has(p.id)).forEach(subir);
-      remotos.forEach((r) => { const l = S.planes.find((x) => x.id === r.id); if (l && String(l.actualizado_en || '') > String(r.actualizado_en || '')) subir(l); });
-    } catch (e) { S.nube = false; }
+      if (S.plan) S.plan = S.planes.find((x) => x.id === S.plan.id) || S.plan;
+      for (const p of aSubir) await F.subirPlan(c, S.user.id, p);
+    } catch (e) { S.nube = false; programarReintento(); }
+  }
+  function programarReintento() {
+    clearTimeout(tReintento);
+    tReintento = setTimeout(() => { cargarNube().then(() => { const ae = document.activeElement; if (S.nube && !(ae && /INPUT|TEXTAREA|SELECT/.test(ae.tagName))) { try { render(); } catch (_) {} } }); }, 20000);
   }
   async function subir(p) {
-    if (!S.nube || !S.user) return;
-    try { const { error } = await db().from('planes_examen').upsert(aFila(p)); if (error) throw error; } catch (_) { S.nube = false; }
+    if (!S.user) return;
+    if (!S.nube) { programarReintento(); return; }
+    try {
+      // se fusiona con la nube antes de subir: nunca pisa el progreso de otro dispositivo
+      if (window.NikaPlanFusion) { const m = await window.NikaPlanFusion.empujar(db(), S.user.id, p); window.NikaPlanFusion.fusionarEnSitio(p, m); guardarLocal(); }
+      else { const { error } = await db().from('planes_examen').upsert(aFila(p)); if (error) throw error; }
+    } catch (_) { S.nube = false; programarReintento(); }
   }
   function guardar(p) {
     if (p) p.actualizado_en = new Date().toISOString();
@@ -938,7 +955,7 @@
           target = cand.slice().sort((a, b) => (a.temas.length / Math.max(1, a.horas || 1)) - (b.temas.length / Math.max(1, b.horas || 1)))[0];
         } else target = p.dias.find((x) => x.id === dest);
         if (!target) return;
-        c.tema.hecho = false; c.tema.movidoDe = c.de; target.temas.push(c.tema);
+        c.tema.hecho = false; c.tema.hecho_ts = new Date().toISOString(); c.tema.movidoDe = c.de; target.temas.push(c.tema);
       });
       guardar(p); cerrar(); render(); toast(`📆 Moviste ${cola.length} ${cola.length === 1 ? 'tema' : 'temas'} a tus próximos días`);
     });
@@ -1392,7 +1409,8 @@
       case 'completar': {
         const d = buscarDia(el.dataset.d); if (!d) return;
         const todo = itemsDia(d).every((x) => x.hecho);
-        itemsDia(d).forEach((x) => { x.hecho = !todo; });
+        const ts = new Date().toISOString();
+        itemsDia(d).forEach((x) => { x.hecho = !todo; x.hecho_ts = ts; });
         guardar(p); S.diaId = d.id; render(); if (!todo) celebrar(root.querySelector('#dia-' + d.id)); return;
       }
       case 'nuevo-dia': {
@@ -1423,7 +1441,7 @@
       const d = buscarDia(el.dataset.d); if (!d) return;
       const it = (a === 'tema' ? d.temas : d.checklist).find((x) => x.id === el.dataset.t); if (!it) return;
       const antes = estadoDia(d);
-      it.hecho = el.checked; guardar(p);
+      it.hecho = el.checked; it.hecho_ts = new Date().toISOString(); guardar(p);
       const fila = el.closest('.pe-item'); if (fila) fila.classList.toggle('ok', el.checked);
       refrescarProgreso(d);
       if (antes !== 'listo' && estadoDia(d) === 'listo') { celebrar(root.querySelector('#dia-' + d.id)); toast('🎉 ¡Día completo!'); }
@@ -1507,4 +1525,9 @@
   document.addEventListener('DOMContentLoaded', iniciar);
   // Al volver la conexión se sincronizan solos los planes que se editaron sin señal (gana el cambio más reciente de cada plan)
   window.addEventListener('online', () => { cargarNube().then(() => { try { render(); } catch (_) {} }); });
+  // Al volver a la pestaña (otro dispositivo pudo haber acreditado horas o tildado temas) se trae lo último de la nube
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden || !S.user) return;
+    cargarNube().then(() => { const ae = document.activeElement; if (!(ae && /INPUT|TEXTAREA|SELECT/.test(ae.tagName))) { try { render(); } catch (_) {} } });
+  });
 })();
