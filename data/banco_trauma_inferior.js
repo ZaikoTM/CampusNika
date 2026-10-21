@@ -47,7 +47,7 @@ const bancoTraumaInferior = [
       "d": "Resonancia Magnética Nuclear (RMN) de alta resolución."
     },
     "correct": "b",
-    "feedback": "Según la cátedra de la UNER, ante la sospecha de fractura de pelvis, la radiografía de frente asociada a ambas proyecciones oblicuas (oblicua obturadora y oblicua ilíaca) es el par de certeza inicial que mayor información provee sobre el acetábulo, las ramas ilio e isquiopubianas, el alerón ilíaco y las articulaciones sacroilíacas."
+    "feedback": "Según la cátedra, ante la sospecha de fractura de pelvis, la radiografía de frente asociada a ambas proyecciones oblicuas (oblicua obturadora y oblicua ilíaca) es el par de certeza inicial que mayor información provee sobre el acetábulo, las ramas ilio e isquiopubianas, el alerón ilíaco y las articulaciones sacroilíacas."
   },
   {
     "up": "Trauma MI",
@@ -179,7 +179,7 @@ const bancoTraumaInferior = [
       "d": "Se trata preferentemente con fijación interna rígida en los pacientes jóvenes."
     },
     "correct": "b",
-    "feedback": "¡Pregunta de examen directo de la UNER! Las fracturas de cuello femoral (mediales) son siempre quirúrgicas, incluso si se presentan de forma incompleta, impactada o sin desplazamiento. El tratamiento conservador está proscrito debido al altísimo riesgo de desplazamiento secundario posterior e interrupción abrupta de la irrigación de la cabeza femoral."
+    "feedback": "¡Pregunta de examen directo! Las fracturas de cuello femoral (mediales) son siempre quirúrgicas, incluso si se presentan de forma incompleta, impactada o sin desplazamiento. El tratamiento conservador está proscrito debido al altísimo riesgo de desplazamiento secundario posterior e interrupción abrupta de la irrigación de la cabeza femoral."
   },
   {
     "up": "Trauma MI",
@@ -431,11 +431,11 @@ const bancoTraumaInferior = [
       "d": "Indicar resonancia de tobillo y de ambulatoria directa."
     },
     "correct": "c",
-    "feedback": "¡Dato crucial de la clase teórica de la UNER! En las caídas de altura con impacto de pie que provocan fractura de calcáneo, la energía de compresión axial se transmite a lo largo de todo el miembro inferior hacia el raquis. Existe una asociación estadística muy alta de fracturas vertebrales lumbares por compresión concomitantes, por lo que es obligatorio radiografiar la columna lumbar aunque el dolor sea leve o ausente al inicio."
+    "feedback": "¡Dato crucial de la clase teórica! En las caídas de altura con impacto de pie que provocan fractura de calcáneo, la energía de compresión axial se transmite a lo largo de todo el miembro inferior hacia el raquis. Existe una asociación estadística muy alta de fracturas vertebrales lumbares por compresión concomitantes, por lo que es obligatorio radiografiar la columna lumbar aunque el dolor sea leve o ausente al inicio."
   },
   {
     "up": "Trauma MI",
-    "q": "Durante la confección de una férula suropédica posterior (bota corta de yeso) en el taller práctico de la UNER, ¿por qué es un criterio de aprobación crítico que el límite proximal de la venda de yeso finalice estrictamente dos dedos (o 4-6 cm) por debajo de la rodilla (cuello del peroné)?",
+    "q": "Durante la confección de una férula suropédica posterior (bota corta de yeso) en el taller práctico, ¿por qué es un criterio de aprobación crítico que el límite proximal de la venda de yeso finalice estrictamente dos dedos (o 4-6 cm) por debajo de la rodilla (cuello del peroné)?",
     "options": {
       "a": "Para evitar comprimir la arteria poplítea en el hueco poplíteo.",
       "b": "Para permitir que el tendón rotuliano cicatrice libremente.",

@@ -71,7 +71,7 @@ const bancoTraumaSuperior = [
       "d": "Fractura-luxación de Galeazzi"
     },
     "correct": "d",
-    "feedback": "La fractura-luxación de Galeazzi consiste en la fractura de la diáfisis radial (usualmente en la unión del 3° medio con el distal) asociada a la luxación de la articulación radiocubital distal. Por el contrario, Monteggia es la fractura del cúbito proximal con luxación de la cúpula radial. ⚠️ Trampa: Regla mnemotécnica UNER: Monteggia = Misma altura (Cúbito proximal / cúpula radial superior); Galeazzi = Gravedad (Radio distal / radiocubital inferior)."
+    "feedback": "La fractura-luxación de Galeazzi consiste en la fractura de la diáfisis radial (usualmente en la unión del 3° medio con el distal) asociada a la luxación de la articulación radiocubital distal. Por el contrario, Monteggia es la fractura del cúbito proximal con luxación de la cúpula radial. ⚠️ Trampa: Regla mnemotécnica: Monteggia = Misma altura (Cúbito proximal / cúpula radial superior); Galeazzi = Gravedad (Radio distal / radiocubital inferior)."
   },
   {
     "up": "Trauma MS",
@@ -287,7 +287,7 @@ const bancoTraumaSuperior = [
       "d": "Desde tres centímetros debajo del pliegue cubital hasta el pliegue palmar distal"
     },
     "correct": "d",
-    "feedback": "Según los manuales oficiales del Taller de Inmovilizaciones de la UNER, la férula antebraquiopalmar se extiende proximalmente desde 3 cm por debajo del pliegue anterior del codo (para permitir la flexión libre del codo a 90°) y distalmente hasta el pliegue palmar distal (permitiendo la flexión completa de las articulaciones metacarpofalángicas de los dedos 2° a 5°), dejando el pulgar totalmente libre. ⚠️ Trampa: Si la férula sobrepasa el pliegue palmar distal e inmoviliza las metacarpofalángicas sin indicación específica, se comete un error técnico que favorece la rigidez articular de los dedos."
+    "feedback": "Según los manuales oficiales del Taller de Inmovilizaciones, la férula antebraquiopalmar se extiende proximalmente desde 3 cm por debajo del pliegue anterior del codo (para permitir la flexión libre del codo a 90°) y distalmente hasta el pliegue palmar distal (permitiendo la flexión completa de las articulaciones metacarpofalángicas de los dedos 2° a 5°), dejando el pulgar totalmente libre. ⚠️ Trampa: Si la férula sobrepasa el pliegue palmar distal e inmoviliza las metacarpofalángicas sin indicación específica, se comete un error técnico que favorece la rigidez articular de los dedos."
   },
   {
     "up": "Trauma MS",
@@ -479,7 +479,7 @@ const bancoTraumaSuperior = [
       "d": "Férula digital desde la metacarpofalángica hasta la tercera falange"
     },
     "correct": "d",
-    "feedback": "En la normativa técnica del Taller de Inmovilizaciones de la UNER, la férula digital (confeccionada con bajalenguas de madera adaptado, tablilla de aluminio espumado o valva de yeso digital) tiene como límites anatómicos desde la articulación metacarpofalángica (MCF) hasta la cara distal de la tercera falange (pulpejo) del dedo lesionado, manteniendo el dedo en posición funcional de reposo. ⚠️ Trampa: La férula digital inmoviliza exclusivamente el radio digital afectado desde la MCF hasta la interfalángica distal, sin bloquear el resto de la mano ni la muñeca."
+    "feedback": "En la normativa técnica del Taller de Inmovilizaciones, la férula digital (confeccionada con bajalenguas de madera adaptado, tablilla de aluminio espumado o valva de yeso digital) tiene como límites anatómicos desde la articulación metacarpofalángica (MCF) hasta la cara distal de la tercera falange (pulpejo) del dedo lesionado, manteniendo el dedo en posición funcional de reposo. ⚠️ Trampa: La férula digital inmoviliza exclusivamente el radio digital afectado desde la MCF hasta la interfalángica distal, sin bloquear el resto de la mano ni la muñeca."
   },
   {
     "up": "Trauma MS",
@@ -563,7 +563,7 @@ const bancoTraumaSuperior = [
       "d": "Desde el tercio medio del brazo hasta el pliegue palmar distal dejando la columna del pulgar libre"
     },
     "correct": "c",
-    "feedback": "La bota o yeso para escafoides normatizado en el taller de inmovilizaciones de la UNER abarca desde 3 cm por debajo del pliegue anterior del codo (permitiendo flexión libre a 90°), se extiende por el antebrazo con la muñeca en discreta dorsiflexión (15-20°) e inclinación radial, e incluye la primera columna del pulgar en posición de oposición hasta la articulación interfalángica del pulgar, dejando libre la falange distal y los dedos 2° a 5° a nivel de los pliegues palmares. ⚠️ Trampa: No inmovilizar el codo salvo que sea una fractura inestable desplazada. El pulgar debe quedar inmovilizado en posición de \"agarrar una copa\" o \"pinza en oposición\"."
+    "feedback": "La bota o yeso para escafoides normatizado en el taller de inmovilizaciones abarca desde 3 cm por debajo del pliegue anterior del codo (permitiendo flexión libre a 90°), se extiende por el antebrazo con la muñeca en discreta dorsiflexión (15-20°) e inclinación radial, e incluye la primera columna del pulgar en posición de oposición hasta la articulación interfalángica del pulgar, dejando libre la falange distal y los dedos 2° a 5° a nivel de los pliegues palmares. ⚠️ Trampa: No inmovilizar el codo salvo que sea una fractura inestable desplazada. El pulgar debe quedar inmovilizado en posición de \"agarrar una copa\" o \"pinza en oposición\"."
   },
   {
     "up": "Trauma MS",
@@ -719,6 +719,6 @@ const bancoTraumaSuperior = [
       "d": "Olecranon, epicóndilo, epitróclea y apófisis estiloides del radio y del cúbito"
     },
     "correct": "d",
-    "feedback": "Según los manuales de procedimientos del Taller de Inmovilizaciones de la UNER, durante la confección de cualquier molde o valva de yeso en el miembro superior, es obligatorio acolchar con almohadillado adicional de guata (soft-ban) todos los relieves óseos conspicuos: el olecranon, el epicóndilo y la epitróclea a nivel del codo, y las apófisis estiloides del radio y del cúbito a nivel de la muñeca. La falta de protección sobre estas prominencias genera decúbito y escaras iatrogénicas bajo la compresión del yeso rígido. ⚠️ Trampa: Jamás aplicar las vendas enyesadas directamente sobre la piel o sobre relieves óseos desprotegidos. Las prominencias óseas son las zonas de mayor riesgo de ulceración por presión."
+    "feedback": "Según los manuales de procedimientos del Taller de Inmovilizaciones, durante la confección de cualquier molde o valva de yeso en el miembro superior, es obligatorio acolchar con almohadillado adicional de guata (soft-ban) todos los relieves óseos conspicuos: el olecranon, el epicóndilo y la epitróclea a nivel del codo, y las apófisis estiloides del radio y del cúbito a nivel de la muñeca. La falta de protección sobre estas prominencias genera decúbito y escaras iatrogénicas bajo la compresión del yeso rígido. ⚠️ Trampa: Jamás aplicar las vendas enyesadas directamente sobre la piel o sobre relieves óseos desprotegidos. Las prominencias óseas son las zonas de mayor riesgo de ulceración por presión."
   }
 ];
