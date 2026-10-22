@@ -83,11 +83,6 @@
     const opciones = { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] };
     const obs = new MutationObserver(() => { if (modal.style.display !== 'none') { clearTimeout(iniciar._t); iniciar._t = setTimeout(() => { obs.disconnect(); try { todo(); } finally { obs.observe(modal, opciones); } }, 40); } });
     obs.observe(modal, opciones);
-    // delegado: «Añadir» → feedback inmediato
-    modal.addEventListener('click', (e) => {
-      const b = e.target.closest('.friends-add-btn'); if (!b || b.disabled) return;
-      setTimeout(() => { if (b.isConnected && !b.classList.contains('fr-enviada')) { b.classList.add('fr-enviada'); b.textContent = '✓ Enviada'; } }, 450);
-    });
     // la presencia cambia sola: se refresca mientras el modal está abierto
     setInterval(() => { if (modal.style.display !== 'none' && modal.style.display !== '') lista(); }, 8000);
     window.addEventListener('nika:friends-changed', () => setTimeout(todo, 300));

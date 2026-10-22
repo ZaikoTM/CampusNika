@@ -482,7 +482,20 @@
       try { localStorage.setItem(LS_SOL, JSON.stringify(Array.from(solVistas).slice(-200))); } catch (_) {}
     } catch (_) {}
   }
+  // ¿aceptaron una solicitud que yo había mandado? (las enviadas pendientes se recuerdan entre páginas)
+  const LS_ENV = 'nika_sol_enviadas';
+  async function revisarAceptadas() {
+    try {
+      if (!window.NikaFriends) return;
+      let previas = []; try { previas = JSON.parse(localStorage.getItem(LS_ENV) || '[]'); } catch (_) {}
+      const [pend, amigos] = await Promise.all([window.NikaFriends.listOutgoing(), window.NikaFriends.listFriends()]);
+      const vigentes = new Set(pend.map((p) => p.friendshipId));
+      previas.forEach((id) => { if (vigentes.has(id)) return; const a = amigos.find((f) => f.friendshipId === id); if (a) aviso('solicitud_amistad', { titulo: '@' + a.username + ' aceptó tu solicitud', cuerpo: '¡Ya son amigos! Ahora podés invitarlo a estudiar y compartirle notas.', datos: { url: 'campus.html' } }); });
+      localStorage.setItem(LS_ENV, JSON.stringify(Array.from(vigentes)));
+    } catch (_) {}
+  }
   function vigilarSolicitudes() {
+    revisarAceptadas(); window.addEventListener('nika:friends-changed', revisarAceptadas);
     revisarSolicitudes();
     window.addEventListener('nika:friends-changed', revisarSolicitudes);
     try { window.NikaFriends.startRealtime(); } catch (_) {}

@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css?v=20261001e">
+    <link rel="stylesheet" href="css/admin-filtros.css?v=1">
 <link rel="stylesheet" href="css/accesibilidad.css?v=1">
 </head>
 <body class="as-page as-verificando">
@@ -98,7 +99,39 @@
                 </button>
                 <div class="as-body"><div class="as-inner"><div class="as-content">
                     <div class="as-tools">
-                        <input class="as-search" id="usr-q" type="search" placeholder="Buscar por nombre o usuario…" autocomplete="off">
+                        <input class="as-search" id="usr-q" type="search" placeholder="Buscar por nombre, usuario o correo…" autocomplete="off">
+                    </div>
+                    <div class="uf-panel" id="usr-filtros">
+                        <div class="uf-grupo"><span class="uf-tit">Rango</span>
+                            <div class="as-chips" id="uf-rango">
+                                <button type="button" class="as-chip on" data-v="todos">Todos</button>
+                                <button type="button" class="as-chip" data-v="admin">👑 Admin</button>
+                                <button type="button" class="as-chip" data-v="plus">✨ NikaMed+</button>
+                                <button type="button" class="as-chip" data-v="free">Gratis</button>
+                                <button type="button" class="as-chip" data-v="ban">⛔ Suspendidos</button>
+                            </div></div>
+                        <div class="uf-grupo"><span class="uf-tit">Cuenta creada</span>
+                            <div class="as-chips" id="uf-fecha">
+                                <button type="button" class="as-chip on" data-v="cualquiera">Cualquier fecha</button>
+                                <button type="button" class="as-chip" data-v="hoy">Hoy</button>
+                                <button type="button" class="as-chip" data-v="7">7 días</button>
+                                <button type="button" class="as-chip" data-v="30">30 días</button>
+                                <button type="button" class="as-chip" data-v="mes">Este mes</button>
+                                <button type="button" class="as-chip" data-v="anio">Este año</button>
+                                <button type="button" class="as-chip" data-v="rango">Entre fechas…</button>
+                            </div>
+                            <div class="uf-fechas" id="uf-rango-fechas" hidden>
+                                <label>Desde <input type="date" class="as-input" id="uf-desde"></label>
+                                <label>Hasta <input type="date" class="as-input" id="uf-hasta"></label>
+                            </div></div>
+                        <div class="uf-fila">
+                            <label class="uf-sel"><span class="uf-tit">Año de cursada</span><select class="as-input" id="uf-anio"><option value="">Todos</option></select></label>
+                            <label class="uf-sel"><span class="uf-tit">Última actividad</span><select class="as-input" id="uf-act">
+                                <option value="cualquiera">Cualquiera</option><option value="hoy">Hoy</option><option value="7">Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="inactivo30">Inactivos hace +30 días</option><option value="nunca">Nunca ingresaron</option></select></label>
+                            <label class="uf-sel"><span class="uf-tit">Ordenar por</span><select class="as-input" id="uf-orden">
+                                <option value="reciente">Más recientes</option><option value="antiguo">Más antiguos</option><option value="az">Nombre A → Z</option><option value="za">Nombre Z → A</option><option value="actividad">Última actividad</option></select></label>
+                        </div>
+                        <div class="uf-pie"><span id="uf-cuenta" class="uf-cuenta">—</span><button type="button" class="as-btn" id="uf-limpiar">✕ Limpiar filtros</button></div>
                     </div>
                     <div class="as-list" id="usr-lista"></div>
                 </div></div></div>
@@ -217,7 +250,7 @@
     (function () {
         function cargar(src, ok, fallo) { var s = document.createElement('script'); s.src = src; s.async = false; s.onload = ok; s.onerror = fallo; document.head.appendChild(s); }
         var sdk = ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2', 'https://unpkg.com/@supabase/supabase-js@2'];
-        var resto = ['supabaseClient.js', 'js/moderacion.js?v=20261001e', 'js/examModesConfig.js?v=74', 'js/admin.js?v=20261017a'];
+        var resto = ['supabaseClient.js', 'js/moderacion.js?v=20261001e', 'js/examModesConfig.js?v=74', 'js/admin.js?v=20261022a'];
         function seguir(i) { if (i >= resto.length) return; cargar(resto[i], function () { seguir(i + 1); }, function () { seguir(i + 1); }); }
         function probar(i) { if (i >= sdk.length) { seguir(0); return; } cargar(sdk[i], function () { seguir(0); }, function () { probar(i + 1); }); }
         probar(0);

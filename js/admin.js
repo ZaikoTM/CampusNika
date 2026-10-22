@@ -20,7 +20,7 @@
   let c = null;
   let perfiles = [];
   let pagos = [];
-  const estado = { subsFiltro: 'todos', subsQ: '', usrQ: '', usrMax: PAGINA, pagosFiltro: 'aprobados' };
+  const estado = { subsFiltro: 'todos', subsQ: '', usrQ: '', usrMax: PAGINA, pagosFiltro: 'aprobados', uf: { rango: 'todos', fecha: 'cualquiera', desde: '', hasta: '', anio: '', act: 'cualquiera', orden: 'reciente' } };
   const cargado = { pagos: false, reportes: false, fallos: false };
   let stats = null; // RPC admin_stats (usuarios, simulacros, efectividad, reportes)
 
@@ -61,7 +61,7 @@
   // ------------------------------------------------------------
   async function cargarPerfiles() {
     const { data, error } = await c.from('profiles')
-      .select('id, username, fullname, avatar, role, tipo_cuenta, plan_activo, fecha_inicio_suscripcion, fecha_fin_suscripcion, created_at')
+      .select('id, username, fullname, avatar, role, tipo_cuenta, plan_activo, fecha_inicio_suscripcion, fecha_fin_suscripcion, created_at, email, anio_cursada, is_banned, last_seen_at, last_login_at')
       .order('fullname', { ascending: true }).limit(3000);
     if (error) { console.error('[Admin] perfiles:', error); toast('No se pudieron leer los perfiles (¿corriste 07_rango_nikamed_plus.sql?).'); return; }
     perfiles = data || [];
@@ -218,16 +218,17 @@
     return acc;
   }
 
-  function filaPerfil(p, i, conBarra) {
+  function filaPerfil(p, i, conBarra, conAlta) {
     const s = suscripcion(p);
     const row = el('div', 'as-row' + (s.premium ? ' vip' : '')); row.style.animationDelay = Math.min(i, 12) * 0.03 + 's';
     const main = el('button', 'as-row-main'); main.type = 'button';
     const av = el('img', 'as-av'); av.src = p.avatar || AVATAR; av.alt = ''; av.loading = 'lazy';
     av.addEventListener('error', () => { av.src = AVATAR; }, { once: true });
     const who = el('div', 'as-who');
-    who.append(el('b', null, nombreDe(p)), el('small', null, '@' + (p.username || '—') + (s.fin ? ' · vence ' + fmtFecha(s.fin) : '')));
+    who.append(el('b', null, nombreDe(p)), el('small', null, '@' + (p.username || '—') + (s.fin ? ' · vence ' + fmtFecha(s.fin) : '') + (conAlta ? ' · alta ' + fmtFecha(p.created_at) + ' · ' + visto(p) : '')));
     main.append(av, who);
     if (p.role === 'admin') main.appendChild(el('span', 'as-tag gris', 'Admin'));
+    if (p.is_banned) main.appendChild(el('span', 'as-tag bad', 'Suspendido'));
     if (s.premium) {
       main.appendChild(el('span', 'as-tag vip', '✨ NikaMed+'));
       const txt = s.clave === 'vencido' ? 'Vencido' : s.clave === 'porvencer' ? `${Math.max(s.dias, 0)} d` : s.dias == null ? 'Sin vencimiento' : `${s.dias} días`;
@@ -273,17 +274,80 @@
   // ------------------------------------------------------------
   // Mosaico: usuarios
   // ------------------------------------------------------------
+  const ultimaVez = (p) => { const t = Math.max(p.last_seen_at ? new Date(p.last_seen_at).getTime() : 0, p.last_login_at ? new Date(p.last_login_at).getTime() : 0); return t || null; };
+  function visto(p) {
+    const t = ultimaVez(p); if (!t) return 'nunca ingresó';
+    const d = (Date.now() - t) / DIA_MS;
+    return d < 1 ? 'visto hoy' : d < 2 ? 'visto ayer' : d < 60 ? 'visto hace ' + Math.floor(d) + ' d' : 'visto ' + fmtFecha(t);
+  }
+  function inicioDia(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+  function limitesFecha(f) {
+    const hoy = inicioDia(new Date());
+    if (f.fecha === 'hoy') return [hoy, null];
+    if (f.fecha === '7') return [new Date(hoy.getTime() - 6 * DIA_MS), null];
+    if (f.fecha === '30') return [new Date(hoy.getTime() - 29 * DIA_MS), null];
+    if (f.fecha === 'mes') return [new Date(hoy.getFullYear(), hoy.getMonth(), 1), null];
+    if (f.fecha === 'anio') return [new Date(hoy.getFullYear(), 0, 1), null];
+    if (f.fecha === 'rango') return [f.desde ? inicioDia(f.desde + 'T00:00:00') : null, f.hasta ? new Date(inicioDia(f.hasta + 'T00:00:00').getTime() + DIA_MS - 1) : null];
+    return [null, null];
+  }
+  function usuariosFiltrados() {
+    const f = estado.uf, q = norm(estado.usrQ), [d0, d1] = limitesFecha(f), ahora = Date.now();
+    let filas = perfiles.filter((p) => {
+      if (q && !(norm(nombreDe(p)).includes(q) || norm(p.username).includes(q) || norm(p.email).includes(q))) return false;
+      const su = suscripcion(p);
+      if (f.rango === 'admin' && p.role !== 'admin') return false;
+      if (f.rango === 'plus' && !su.premium) return false;
+      if (f.rango === 'free' && (su.premium || p.role === 'admin')) return false;
+      if (f.rango === 'ban' && !p.is_banned) return false;
+      const alta = p.created_at ? new Date(p.created_at) : null;
+      if (d0 && (!alta || alta < d0)) return false;
+      if (d1 && (!alta || alta > d1)) return false;
+      if (f.anio && String(p.anio_cursada || '') !== f.anio) return false;
+      const uv = ultimaVez(p);
+      if (f.act === 'nunca' && uv) return false;
+      if (f.act === 'hoy' && !(uv && uv >= inicioDia(new Date()).getTime())) return false;
+      if (f.act === '7' && !(uv && ahora - uv <= 7 * DIA_MS)) return false;
+      if (f.act === '30' && !(uv && ahora - uv <= 30 * DIA_MS)) return false;
+      if (f.act === 'inactivo30' && !(uv && ahora - uv > 30 * DIA_MS)) return false;
+      return true;
+    });
+    const ts = (p) => (p.created_at ? new Date(p.created_at).getTime() : 0);
+    const nom = (a, b) => nombreDe(a).localeCompare(nombreDe(b), 'es', { sensitivity: 'base' });
+    filas.sort(f.orden === 'antiguo' ? (a, b) => ts(a) - ts(b) : f.orden === 'az' ? nom : f.orden === 'za' ? (a, b) => nom(b, a) : f.orden === 'actividad' ? (a, b) => (ultimaVez(b) || 0) - (ultimaVez(a) || 0) : (a, b) => ts(b) - ts(a));
+    return filas;
+  }
   function pintarUsuarios() {
     const lista = $('usr-lista'); lista.textContent = '';
-    const q = norm(estado.usrQ);
-    const filas = perfiles.filter((p) => !q || norm(nombreDe(p)).includes(q) || norm(p.username).includes(q));
-    if (!filas.length) { lista.appendChild(el('div', 'as-vacio', 'No se encontraron usuarios.')); return; }
-    filas.slice(0, estado.usrMax).forEach((p, i) => lista.appendChild(filaPerfil(p, i, false)));
+    const filas = usuariosFiltrados();
+    const cu = $('uf-cuenta'); if (cu) cu.innerHTML = '<b>' + filas.length + '</b> de ' + perfiles.length + ' usuarios';
+    const hay = estado.usrQ || estado.uf.rango !== 'todos' || estado.uf.fecha !== 'cualquiera' || estado.uf.anio || estado.uf.act !== 'cualquiera' || estado.uf.orden !== 'reciente';
+    const lim = $('uf-limpiar'); if (lim) lim.style.visibility = hay ? 'visible' : 'hidden';
+    const sel = $('uf-anio');
+    if (sel && sel.options.length <= 1) {
+      Array.from(new Set(perfiles.map((p) => p.anio_cursada).filter(Boolean))).sort().forEach((a) => { const o = document.createElement('option'); o.value = a; o.textContent = a; sel.appendChild(o); });
+    }
+    if (!filas.length) { lista.appendChild(el('div', 'as-vacio', 'No se encontraron usuarios con esos filtros.')); return; }
+    filas.slice(0, estado.usrMax).forEach((p, i) => lista.appendChild(filaPerfil(p, i, false, true)));
     if (filas.length > estado.usrMax) {
       const mas = el('button', 'as-btn as-mas', `Mostrar más (${filas.length - estado.usrMax} restantes)`); mas.type = 'button';
       mas.addEventListener('click', () => { estado.usrMax += PAGINA; pintarUsuarios(); });
       lista.appendChild(mas);
     }
+  }
+  function enlazarFiltrosUsuarios() {
+    const cambio = () => { estado.usrMax = PAGINA; pintarUsuarios(); };
+    const chips = (id, clave) => { const g = $(id); if (!g) return; g.addEventListener('click', (e) => { const b = e.target.closest('.as-chip'); if (!b) return; estado.uf[clave] = b.dataset.v; g.querySelectorAll('.as-chip').forEach((x) => x.classList.toggle('on', x === b)); if (clave === 'fecha') $('uf-rango-fechas').hidden = b.dataset.v !== 'rango'; cambio(); }); };
+    chips('uf-rango', 'rango'); chips('uf-fecha', 'fecha');
+    [['uf-desde', 'desde'], ['uf-hasta', 'hasta'], ['uf-anio', 'anio'], ['uf-act', 'act'], ['uf-orden', 'orden']].forEach(([id, k]) => { const x = $(id); if (x) x.addEventListener('change', () => { estado.uf[k] = x.value; cambio(); }); });
+    const lim = $('uf-limpiar');
+    if (lim) lim.addEventListener('click', () => {
+      estado.uf = { rango: 'todos', fecha: 'cualquiera', desde: '', hasta: '', anio: '', act: 'cualquiera', orden: 'reciente' }; estado.usrQ = '';
+      $('usr-q').value = ''; ['uf-desde', 'uf-hasta'].forEach((id) => { $(id).value = ''; }); $('uf-anio').value = ''; $('uf-act').value = 'cualquiera'; $('uf-orden').value = 'reciente';
+      $('uf-rango-fechas').hidden = true;
+      document.querySelectorAll('#uf-rango .as-chip, #uf-fecha .as-chip').forEach((b, k) => b.classList.toggle('on', b.dataset.v === 'todos' || b.dataset.v === 'cualquiera'));
+      cambio();
+    });
   }
 
   // ------------------------------------------------------------
@@ -645,6 +709,7 @@
     });
     let t1, t2;
     $('subs-q').addEventListener('input', (e) => { clearTimeout(t1); t1 = setTimeout(() => { estado.subsQ = e.target.value; pintarSubs(); }, 120); });
+    enlazarFiltrosUsuarios();
     $('usr-q').addEventListener('input', (e) => { clearTimeout(t2); t2 = setTimeout(() => { estado.usrQ = e.target.value; estado.usrMax = PAGINA; pintarUsuarios(); }, 120); });
     $('news-publicar').addEventListener('click', publicarNovedad);
     $('erratas-filtros').addEventListener('click', (e) => {

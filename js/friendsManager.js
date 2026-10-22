@@ -92,6 +92,24 @@ const NikaFriends = (() => {
     return withProfiles(rows.filter((r) => r.status === 'pending' && r.addressee_id === me), me);
   }
 
+  // Solicitudes que yo mandé y todavía no respondieron
+  async function listOutgoing() {
+    const { me, rows } = await fetchRows();
+    return withProfiles(rows.filter((r) => r.status === 'pending' && r.requester_id === me), me);
+  }
+
+  // Estado de mi relación con cada persona: { [userId]: { state: 'friends' | 'sent' | 'received', friendshipId } }
+  async function statusMap() {
+    const { me, rows } = await fetchRows();
+    const m = {};
+    rows.forEach((r) => {
+      const other = r.requester_id === me ? r.addressee_id : r.requester_id;
+      if (r.status === 'accepted') m[other] = { state: 'friends', friendshipId: r.id };
+      else if (r.status === 'pending') m[other] = { state: r.requester_id === me ? 'sent' : 'received', friendshipId: r.id };
+    });
+    return m;
+  }
+
   // Relación con un usuario puntual: 'none' | 'sent' | 'received' | 'friends'
   async function relationWith(userId) {
     const { me, rows } = await fetchRows();
@@ -185,7 +203,7 @@ const NikaFriends = (() => {
     channel = null;
   }
 
-  return { esc, listFriends, listIncoming, relationWith, sendRequest, acceptById, acceptFrom, remove, startRealtime, stopRealtime };
+  return { esc, listFriends, listIncoming, listOutgoing, statusMap, relationWith, sendRequest, acceptById, acceptFrom, remove, startRealtime, stopRealtime };
 })();
 
 window.NikaFriends = NikaFriends;

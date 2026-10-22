@@ -150,7 +150,7 @@
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
     <link rel="stylesheet" href="css/campus-premium.css?v=3">
     <link rel="stylesheet" href="css/campus-cuenta.css?v=2">
-    <link rel="stylesheet" href="css/campus-amigos.css?v=1">
+    <link rel="stylesheet" href="css/campus-amigos.css?v=2">
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/sidebar-grupos.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
@@ -1386,7 +1386,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
     <script src="js/nikaMusic.js?v=15"></script>
     <script src="js/rachas.js?v=2"></script>
     <script src="js/campusCuenta.js?v=2"></script>
-    <script src="js/campusAmigos.js?v=1"></script>
+    <script src="js/campusAmigos.js?v=2"></script>
     <script src="js/atajos.js"></script>
 
 </body>
@@ -3784,8 +3784,16 @@ async function handleLogout() {
                 return;
             }
 
+            let _estados = {};
+            try { _estados = await NikaFriends.statusMap(); } catch (_) {}
+            if (myToken !== _searchUsersToken) return;
             resultsBox.innerHTML = filtered.map(u => {
                 const rango = _rangoTarjetaAmigo(u.role, u.es_nikamed_plus);
+                const _st = _estados[u.id] || null;
+                const _accion = !_st ? `<button class="friends-add-btn" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>`
+                    : _st.state === 'sent' ? `<span class="fr-estado fr-sent" title="Esperando que te acepte">⏳ Solicitud enviada</span><button class="friend-action-btn danger fr-cancel" title="Cancelar solicitud" aria-label="Cancelar solicitud" onclick="cancelarSolicitudEnviada('${_st.friendshipId}')">✕</button>`
+                    : _st.state === 'received' ? `<button class="friends-add-btn" onclick="acceptFriend('${_st.friendshipId}')">✓ Aceptar solicitud</button>`
+                    : `<span class="fr-estado fr-amigos">✓ Amigos</span>`;
                 return `
                 <div class="friend-card">
                     <div class="friend-card-avatar-wrap">
@@ -3798,7 +3806,7 @@ async function handleLogout() {
                     </div>
                     <div class="friend-card-actions">
                         <button class="friend-action-btn" title="Ver perfil" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
-                        <button class="friends-add-btn" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                        ${_accion}
                     </div>
                 </div>`;
             }).join('');
@@ -3818,20 +3826,21 @@ async function handleLogout() {
             const reqBox = document.getElementById('friends-view-req');
             if (!reqBox) return;
             if (!localStorage.getItem('nika_currentUser')) return;
-            let incoming;
+            let incoming, outgoing = [];
             try {
                 incoming = await NikaFriends.listIncoming();
+                try { outgoing = await NikaFriends.listOutgoing(); } catch (_) {}
             } catch (err) {
                 reqBox.innerHTML = '<div class="friends-empty-state"><p>No se pudieron cargar las solicitudes.</p></div>';
                 return;
             }
             updateFriendsBadge(incoming.length);
-            if (incoming.length === 0) {
+            if (incoming.length === 0 && outgoing.length === 0) {
                 reqBox.innerHTML = '<div class="friends-empty-state"><div class="friends-empty-icon">📭</div><p>No tenés solicitudes pendientes.</p></div>';
                 return;
             }
             const esc = NikaFriends.esc;
-            reqBox.innerHTML = incoming.map(u => `
+            const recibidas = incoming.map(u => `
                 <div class="friend-request-card">
                     <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
                     <div class="friend-card-body">
@@ -3843,6 +3852,20 @@ async function handleLogout() {
                         <button class="friend-action-btn danger" title="Rechazar" onclick="rejectFriend('${esc(u.friendshipId)}')">✕</button>
                     </div>
                 </div>`).join('');
+            const enviadas = outgoing.map(u => `
+                <div class="friend-request-card fr-env">
+                    <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
+                    <div class="friend-card-body">
+                        <div class="friend-card-name">${esc(u.fullname)}</div>
+                        <div class="friend-card-meta">@${esc(u.username)} · esperando respuesta</div>
+                    </div>
+                    <div class="friend-request-actions">
+                        <span class="fr-estado fr-sent">⏳ Enviada</span>
+                        <button class="friend-action-btn danger" title="Cancelar solicitud" aria-label="Cancelar solicitud" onclick="cancelarSolicitudEnviada('${esc(u.friendshipId)}')">✕</button>
+                    </div>
+                </div>`).join('');
+            reqBox.innerHTML = (incoming.length ? `<div class="fr-sec">Recibidas · ${incoming.length}</div>${recibidas}` : '')
+                + (outgoing.length ? `<div class="fr-sec">Enviadas · ${outgoing.length}</div>${enviadas}` : '');
         }
 
         // friendshipId = id de la fila en la tabla friendships
@@ -3931,7 +3954,7 @@ async function handleLogout() {
         window.addEventListener('nika:friends-changed', () => {
             renderDashboardOnlineFriends();
             const modal = document.getElementById('friends-modal');
-            if (modal && modal.style.display === 'flex') { renderFriendsList(); renderFriendRequests(); }
+            if (modal && modal.style.display === 'flex') { renderFriendsList(); renderFriendRequests(); const _bi = document.getElementById('friend-search-input'); if (_bi && _bi.value.trim()) _searchUsersSupabase(); }
             if (window.NikaFriends) {
                 NikaFriends.listFriends().then(friends => _actualizarPillAmigosPerfil(friends.length)).catch(() => {});
             }
@@ -4788,6 +4811,14 @@ async function handleLogout() {
         if (error) console.warn("La solicitud se guardó, pero no se pudo crear la notificación:", error);
 
         showToast("¡Solicitud de amistad enviada con éxito!");
+        try { _searchUsersSupabase(); renderFriendRequests(); } catch (_) {}
+    }
+
+    async function cancelarSolicitudEnviada(friendshipId) {
+        const res = await NikaFriends.remove(friendshipId);
+        if (!res.ok) { showToast(res.error || 'No se pudo cancelar la solicitud.'); return; }
+        showToast('Solicitud cancelada.');
+        try { _searchUsersSupabase(); renderFriendRequests(); } catch (_) {}
     }
 
     function retarDueloUsuario(destinatarioId) {
@@ -6084,7 +6115,7 @@ async function handleLogout() {
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
         handleAvatarPreview, handleBannerPreview, previsualizarPerfil, quitarBannerPerfil, cancelarRecorteAvatar, confirmarRecorteAvatar, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
-        cargarNotificaciones, toggleNotificationsPanel, nbpCerrar, actualizarCampana, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
+        cancelarSolicitudEnviada, cargarNotificaciones, toggleNotificationsPanel, nbpCerrar, actualizarCampana, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openSimuladoresHub, closeSimuladoresHub,
         openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
         abrirPerfilPublico, closePublicProfileModal, volverDesdePerfilPublico,
@@ -6350,6 +6381,6 @@ async function handleLogout() {
 
     <script src="js/chatFlotante.js?v=10"></script>
 <script src="js/micro.js?v=2" defer></script>
-    <script src="js/nikaNotificaciones.js?v=5" defer></script>
+    <script src="js/nikaNotificaciones.js?v=6" defer></script>
 </body>
 </html>
