@@ -152,6 +152,69 @@
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/sidebar-grupos.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
+
+<style id="nbp-css">
+/* Campana y panel de notificaciones del campus (junto con js/nikaNotificaciones.js) */
+#notification-bell.nbp-campana{position:relative;width:42px;height:42px;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border-radius:14px!important;border:1px solid color-mix(in srgb,var(--nika-primary,#0284c7) 28%,transparent)!important;background:linear-gradient(145deg,color-mix(in srgb,var(--nika-primary,#0284c7) 14%,transparent),color-mix(in srgb,#a855f7 10%,transparent))!important;color:var(--nika-primary,#0284c7);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s,background .25s}
+#notification-bell.nbp-campana:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 10px 22px -8px color-mix(in srgb,var(--nika-primary,#0284c7) 60%,transparent)}
+#notification-bell.nbp-campana:active{transform:scale(.92)}
+#notification-bell.nbp-campana svg{width:22px;height:22px;transform-origin:50% 8%}
+#notification-bell.nbp-campana:hover svg{animation:nbpTimbre .7s ease}
+#notification-bell.nbp-campana.tiene svg{animation:nbpTimbre 1.1s ease .3s 2}
+#notification-bell.nbp-campana.tiene{box-shadow:0 0 0 0 color-mix(in srgb,#ef4444 55%,transparent);animation:nbpAnillo 2.4s ease-out infinite}
+#notification-bell.nbp-campana.nn-silencio svg{opacity:.5}
+#notification-bell .nbp-n{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font:800 .68rem/20px "Plus Jakarta Sans",system-ui,sans-serif;text-align:center;box-shadow:0 0 0 3px var(--card-bg,#fff),0 4px 10px rgba(239,68,68,.45);display:none}
+#notification-bell .nbp-n.on{display:block;animation:nbpPop .45s cubic-bezier(.3,1.9,.5,1)}
+@keyframes nbpTimbre{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-14deg)}45%{transform:rotate(10deg)}60%{transform:rotate(-7deg)}75%{transform:rotate(3deg)}}
+@keyframes nbpAnillo{0%{box-shadow:0 0 0 0 color-mix(in srgb,#ef4444 50%,transparent)}70%,100%{box-shadow:0 0 0 12px transparent}}
+@keyframes nbpPop{from{transform:scale(0)}to{transform:scale(1)}}
+#notifications-panel.nbp-panel{display:none;position:absolute;right:-6px;top:54px;width:min(372px,calc(100vw - 20px));z-index:2000;padding:0;border-radius:20px;overflow:hidden;background:color-mix(in srgb,var(--card-bg,#fff) 94%,transparent);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid color-mix(in srgb,var(--nika-primary,#0284c7) 22%,var(--border,#e2e8f0));box-shadow:0 28px 60px -18px rgba(15,23,42,.45),0 0 0 1px rgba(255,255,255,.04) inset;transform-origin:calc(100% - 28px) -8px}
+#notifications-panel.nbp-panel.abierto{display:block;animation:nbpAbre .38s cubic-bezier(.2,.95,.3,1.2) both}
+#notifications-panel.nbp-panel.cierra{display:block;animation:nbpCierra .18s ease forwards}
+@keyframes nbpAbre{from{opacity:0;transform:translateY(-10px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes nbpCierra{to{opacity:0;transform:translateY(-8px) scale(.95)}}
+.nbp-panel::before{content:"";position:absolute;right:20px;top:-7px;width:14px;height:14px;background:inherit;border-left:1px solid color-mix(in srgb,var(--nika-primary,#0284c7) 22%,var(--border,#e2e8f0));border-top:1px solid color-mix(in srgb,var(--nika-primary,#0284c7) 22%,var(--border,#e2e8f0));transform:rotate(45deg)}
+.nbp-cab{position:relative;display:flex;align-items:center;gap:12px;padding:16px 18px 14px;background:linear-gradient(120deg,color-mix(in srgb,var(--nika-primary,#0284c7) 16%,transparent),color-mix(in srgb,#a855f7 14%,transparent));border-bottom:1px solid var(--border,#e2e8f0)}
+.nbp-cab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--nika-primary,#0284c7),#a855f7,transparent);background-size:200% 100%;animation:nbpFlujo 4s linear infinite}
+@keyframes nbpFlujo{to{background-position:-200% 0}}
+.nbp-cab .ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,var(--nika-primary,#0284c7),#a855f7);color:#fff;box-shadow:0 8px 18px -8px var(--nika-primary,#0284c7)}
+.nbp-cab h4{margin:0;font:800 .98rem "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-main,#0f172a)}
+.nbp-cab small{display:block;margin-top:1px;color:var(--text-muted,#64748b);font-weight:700;font-size:.72rem}
+.nbp-cab button{margin-left:auto;border:0;background:color-mix(in srgb,var(--nika-primary,#0284c7) 12%,transparent);color:var(--nika-primary,#0284c7);border-radius:10px;padding:6px 10px;font:800 .72rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;transition:transform .15s,background .15s}
+.nbp-cab button:hover{background:color-mix(in srgb,var(--nika-primary,#0284c7) 22%,transparent);transform:translateY(-1px)}
+.nbp-lista{max-height:min(360px,52vh);overflow-y:auto;padding:12px 12px 6px;display:flex;flex-direction:column;gap:9px;scrollbar-width:thin}
+.nbp-sec{font:800 .66rem "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted,#64748b);margin:2px 4px -2px}
+.nbp-it{--c:#0284c7;position:relative;display:flex;gap:11px;padding:11px 12px;border-radius:14px;background:var(--bg-body,#f8fafc);border:1px solid var(--border,#e2e8f0);cursor:default;overflow:hidden;animation:nbpIt .4s cubic-bezier(.2,.9,.3,1.15) both;animation-delay:calc(var(--i,0) * 55ms);transition:transform .2s,box-shadow .2s,border-color .2s}
+.nbp-it::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+.nbp-it:hover{transform:translateX(-3px);box-shadow:0 10px 22px -12px var(--c);border-color:color-mix(in srgb,var(--c) 45%,var(--border,#e2e8f0))}
+.nbp-it.nl::after{content:"";position:absolute;right:10px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 0 0 var(--c);animation:nbpLate 1.8s ease-out infinite}
+@keyframes nbpIt{from{opacity:0;transform:translateX(24px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes nbpLate{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 60%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+.nbp-av{flex:none;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;background:color-mix(in srgb,var(--c) 16%,transparent);transition:transform .3s cubic-bezier(.3,1.7,.5,1)}
+.nbp-it:hover .nbp-av{transform:rotate(-8deg) scale(1.1)}
+.nbp-tx{min-width:0;flex:1}
+.nbp-tx b{display:block;font:800 .82rem/1.3 "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-main,#0f172a)}
+.nbp-tx p{margin:2px 0 0;font:600 .76rem/1.35 "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-muted,#64748b)}
+.nbp-tx .t{display:block;margin-top:3px;font:700 .66rem "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-muted,#94a3b8);opacity:.8}
+.nbp-acc{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.nbp-btn{border:0;border-radius:10px;padding:6px 12px;font:800 .72rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;transition:transform .15s,filter .15s,box-shadow .15s}
+.nbp-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}.nbp-btn:active{transform:scale(.94)}
+.nbp-btn.ok{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 6px 14px -6px rgba(34,197,94,.6)}
+.nbp-btn.no{background:var(--border,#e2e8f0);color:var(--text-main,#0f172a)}
+.nbp-vacio{text-align:center;padding:26px 16px 22px}
+.nbp-vacio .campana{display:inline-block;font-size:42px;animation:nbpFlota 3s ease-in-out infinite;filter:drop-shadow(0 10px 10px rgba(2,132,199,.25))}
+.nbp-vacio .estrellas{display:block;font-size:14px;letter-spacing:6px;margin-top:2px;animation:nbpTitila 2.2s ease-in-out infinite}
+.nbp-vacio b{display:block;margin-top:8px;font:800 .95rem "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-main,#0f172a)}
+.nbp-vacio span.s{display:block;margin-top:3px;font:600 .78rem "Plus Jakarta Sans",system-ui,sans-serif;color:var(--text-muted,#64748b)}
+@keyframes nbpFlota{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(6deg)}}
+@keyframes nbpTitila{0%,100%{opacity:.35}50%{opacity:1}}
+.nbp-pie{display:flex;gap:8px;padding:10px 12px 14px;border-top:1px solid var(--border,#e2e8f0)}
+.nbp-pie button{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border,#e2e8f0);background:var(--bg-body,#f8fafc);color:var(--text-main,#0f172a);border-radius:12px;padding:9px 8px;font:800 .74rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;transition:transform .18s cubic-bezier(.3,1.5,.5,1),box-shadow .2s,border-color .2s,background .2s}
+.nbp-pie button:hover{transform:translateY(-2px);border-color:var(--nika-primary,#0284c7);box-shadow:0 10px 18px -12px var(--nika-primary,#0284c7);background:color-mix(in srgb,var(--nika-primary,#0284c7) 9%,var(--bg-body,#f8fafc))}
+.nbp-pie button:active{transform:scale(.95)}
+.nbp-pie button span.e{font-size:15px;display:inline-block;transition:transform .3s cubic-bezier(.3,1.8,.5,1)}.nbp-pie button:hover span.e{transform:rotate(-12deg) scale(1.2)}
+@media (prefers-reduced-motion:reduce){.nbp-panel,.nbp-panel *,#notification-bell,#notification-bell *{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
     <script src="js/splashNika.js?v=4"></script>
@@ -261,21 +324,24 @@
                 <span data-nika-net-slot></span>
                 <!-- Racha diaria (js/rachas.js) -->
                 <span data-nika-racha-slot></span>
-                <!-- Widget de Notificaciones con Campanita -->
+                <!-- Widget de Notificaciones con Campanita (estilos: #nbp-css; datos: cargarNotificaciones + js/nikaNotificaciones.js) -->
                 <div class="notifications-wrapper" style="position: relative; display: inline-flex; align-items: center;">
-                    <button id="notification-bell" onclick="toggleNotificationsPanel()" class="toggle-sidebar-btn" style="position: relative; padding: 8px 12px; background: rgba(2, 132, 199, 0.1); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 1rem;">
-                        🔔 <span id="notif-badge" style="position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 50%; display: none; font-weight: 800;">0</span>
+                    <button id="notification-bell" onclick="toggleNotificationsPanel()" class="toggle-sidebar-btn nbp-campana" aria-label="Notificaciones" aria-haspopup="true" aria-expanded="false" title="Notificaciones">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+                        <span id="notif-badge" class="nbp-n">0</span>
                     </button>
-                    
-                    <!-- Panel Desplegable de Notificaciones -->
-                    <div id="notifications-panel" style="display: none; position: absolute; right: 0; top: 45px; width: 300px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); z-index: 2000; padding: 15px;">
-                        <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; color: var(--text-main);">Notificaciones y Solicitudes</h4>
-                        <div id="notifications-list" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
-                            <span style="font-size: 0.78rem; color: var(--text-muted); text-align: center; display: block; padding: 10px 0;">No hay ninguna novedad</span>
+
+                    <!-- Panel desplegable -->
+                    <div id="notifications-panel" class="nbp-panel" role="dialog" aria-label="Notificaciones">
+                        <div class="nbp-cab"><span class="ico">🔔</span><div><h4>Notificaciones</h4><small id="nbp-sub">Todo al día</small></div><button type="button" id="nbp-leidas" title="Marcar todo como leído">✓ Leídas</button></div>
+                        <div class="nbp-lista">
+                            <div id="nn-lista"></div>
+                            <div id="notifications-list" style="display:flex;flex-direction:column;gap:9px"></div>
                         </div>
-                        <div style="display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap">
-                            <button type="button" data-nn-abrir onclick="if(window.NikaNotif){document.getElementById('notifications-panel').style.display='none';NikaNotif.abrirCentro('notif');}" style="flex:1;border:1px solid var(--border);background:rgba(2,132,199,.08);color:var(--text-main);border-radius:8px;padding:7px 8px;font-weight:700;font-size:.74rem;cursor:pointer">🕘 Avisos recientes<span id="nn-cuenta"></span></button>
-                            <button type="button" data-nn-abrir onclick="if(window.NikaNotif){document.getElementById('notifications-panel').style.display='none';NikaNotif.abrirCentro('pref');}" style="flex:1;border:1px solid var(--border);background:rgba(2,132,199,.08);color:var(--text-main);border-radius:8px;padding:7px 8px;font-weight:700;font-size:.74rem;cursor:pointer">🔊 Sonidos y avisos</button>
+                        <div class="nbp-pie">
+                            <button type="button" data-nn-abrir onclick="if(window.NikaNotif){nbpCerrar();NikaNotif.abrirCentro('notif');}"><span class="e">🕘</span>Historial<span id="nn-cuenta"></span></button>
+                            <button type="button" data-nn-abrir onclick="if(window.NikaNotif){nbpCerrar();NikaNotif.abrirCentro('amigos');}"><span class="e">👥</span>Amigos</button>
+                            <button type="button" data-nn-abrir onclick="if(window.NikaNotif){nbpCerrar();NikaNotif.abrirCentro('pref');}"><span class="e">🔊</span>Sonidos</button>
                         </div>
                     </div>
                 </div>
@@ -4533,10 +4599,9 @@ async function handleLogout() {
             const esc = (t) => String(t == null ? '' : t)
                 .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-            badge.style.display = 'inline-block';
-            badge.textContent = data.length;
+            _legacyNotif = data.length; actualizarCampana();
             
-            list.innerHTML = data.map(n => {
+            list.innerHTML = data.map((n, idx) => {
                 const s = senders[n.sender_id];
                 let textoHtml = n.message;
                 if (n.type === 'friend_request' && s) {
@@ -4545,33 +4610,77 @@ async function handleLogout() {
                     textoHtml = `<strong>${esc(nombre)}</strong>${alias} te ha enviado una solicitud de amistad.`;
                 }
                 return `
-                <div style="background: var(--bg-body); padding: 10px; border-radius: 8px; font-size: 0.8rem; border-left: 3px solid var(--nika-primary);">
-                    <p style="margin-bottom: 6px; color: var(--text-main); font-weight: 600;">${textoHtml}</p>
-                    <div style="display: flex; gap: 6px; justify-content: flex-end;">
-                        ${n.type === 'friend_request' ? `
-                            <button onclick="aceptarSolicitud('${n.id}', '${n.sender_id}')" style="background: var(--success); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem; font-weight: 700;">Aceptar</button>
-                        ` : ''}
-                        <button onclick="marcarLeida('${n.id}')" style="background: var(--border); color: var(--text-main); border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem;">Cerrar</button>
+                <div class="nbp-it nl" style="--c:#22c55e;--i:${idx}">
+                    <span class="nbp-av">${n.type === 'friend_request' ? '🤝' : '🔔'}</span>
+                    <div class="nbp-tx">
+                        <p style="color:var(--text-main);margin:0;font-weight:600">${textoHtml}</p>
+                        <div class="nbp-acc">
+                            ${n.type === 'friend_request' ? `<button class="nbp-btn ok" onclick="aceptarSolicitud('${n.id}', '${n.sender_id}')">Aceptar</button>` : ''}
+                            <button class="nbp-btn no" onclick="marcarLeida('${n.id}')">Cerrar</button>
+                        </div>
                     </div>
                 </div>
             `;
             }).join('');
         } else {
-            badge.style.display = 'none';
-            list.innerHTML = `
-                <div class="empty-state">
-                    <strong>✨ Todo al día</strong>
-                    <span>No tenés notificaciones pendientes por ahora.</span>
-                </div>
-            `;
+            _legacyNotif = 0; actualizarCampana();
+            list.innerHTML = '';
+            nbpVacio();
         }
     }
 
+    // ---- campana y panel de notificaciones (estilos #nbp-css) ----
+    let _legacyNotif = 0;
+    function actualizarCampana() {
+        const b = document.getElementById('notif-badge'), btn = document.getElementById('notification-bell');
+        const nn = (window.NikaNotif && window.NikaNotif.noLeidas) ? window.NikaNotif.noLeidas() : 0;
+        const total = _legacyNotif + nn;
+        if (b) { const antes = b.textContent; b.textContent = total > 9 ? '9+' : total; b.classList.toggle('on', total > 0); if (antes !== b.textContent && total > 0) { b.style.animation = 'none'; void b.offsetWidth; b.style.animation = ''; } }
+        if (btn) { btn.classList.toggle('tiene', total > 0); btn.title = total ? total + ' notificaciones sin leer' : 'Notificaciones'; }
+        const sub = document.getElementById('nbp-sub'); if (sub) sub.textContent = total ? total + (total === 1 ? ' sin leer' : ' sin leer') : 'Todo al día';
+    }
+    function nbpVacio() {
+        const l = document.getElementById('notifications-list'), n = document.getElementById('nn-lista'); if (!l || !n) return;
+        const hay = l.querySelector('.nbp-it') || n.children.length;
+        if (!hay) l.innerHTML = '<div class="nbp-vacio"><span class="campana">🔔</span><span class="estrellas">✦ ✧ ✦</span><b>¡Todo al día!</b><span class="s">Acá vas a ver las invitaciones de tus amigos, las notas que te compartan y las solicitudes de amistad.</span></div>';
+        else if (l.querySelector('.nbp-vacio')) l.innerHTML = '';
+    }
+    const _nnIco = { invitacion_pomodoro: ['🍅', '#f97316'], nota_compartida: ['📝', '#a855f7'], mensaje: ['💬', '#38bdf8'], desafio: ['⚔️', '#ef4444'], solicitud_amistad: ['🤝', '#22c55e'], sistema: ['🔔', '#eab308'] };
+    function pintarAvisosNika() {
+        const box = document.getElementById('nn-lista'); if (!box) return;
+        const h = (window.NikaNotif && window.NikaNotif.historial) ? window.NikaNotif.historial().slice(0, 5) : [];
+        const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const hace = (iso) => { const m = Math.max(0, (Date.now() - new Date(iso).getTime()) / 60000); return m < 1 ? 'ahora' : m < 60 ? 'hace ' + Math.floor(m) + ' min' : m < 1440 ? 'hace ' + Math.floor(m / 60) + ' h' : 'hace ' + Math.floor(m / 1440) + ' d'; };
+        box.innerHTML = h.length ? '<div class="nbp-sec" style="margin-bottom:8px">Avisos recientes</div><div style="display:flex;flex-direction:column;gap:9px;margin-bottom:9px">' + h.map((n, i) => {
+            const t = n.tipo === 'reto' ? 'desafio' : (_nnIco[n.tipo] ? n.tipo : 'sistema'), ic = _nnIco[t];
+            return `<div class="nbp-it ${n.leida ? '' : 'nl'}" data-nn-i="${i}" style="--c:${ic[1]};--i:${i};cursor:pointer"><span class="nbp-av">${ic[0]}</span><div class="nbp-tx"><b>${esc(n.titulo)}</b>${n.cuerpo ? `<p>${esc(n.cuerpo)}</p>` : ''}<span class="t">${hace(n.creada_en)}</span></div></div>`;
+        }).join('') + '</div>' : '';
+        nbpVacio(); actualizarCampana();
+    }
+    document.addEventListener('click', (e) => {
+        const it = e.target.closest && e.target.closest('[data-nn-i]');
+        if (it && window.NikaNotif) { const n = window.NikaNotif.historial()[+it.dataset.nnI]; if (n) { nbpCerrar(); window.NikaNotif.accion(n); } return; }
+        if (e.target.closest && e.target.closest('#nbp-leidas')) { if (window.NikaNotif) window.NikaNotif.marcarTodas(); _marcarLegacyLeidas(); return; }
+        const p = document.getElementById('notifications-panel');
+        if (p && p.classList.contains('abierto') && !e.target.closest('.notifications-wrapper')) nbpCerrar();
+    });
+    async function _marcarLegacyLeidas() {
+        try { if (typeof supabase === 'undefined') return; const { data: { user } } = await supabase.auth.getUser(); if (!user) return; await supabase.from('notifications').update({ status: 'read' }).eq('user_id', user.id).eq('status', 'unread'); cargarNotificaciones(user.id); } catch (_) {}
+    }
+    window.addEventListener('nika:notif-cambio', pintarAvisosNika);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') nbpCerrar(); });
+    function nbpCerrar() {
+        const p = document.getElementById('notifications-panel'), b = document.getElementById('notification-bell');
+        if (!p || !p.classList.contains('abierto')) return;
+        p.classList.remove('abierto'); p.classList.add('cierra'); if (b) b.setAttribute('aria-expanded', 'false');
+        setTimeout(() => p.classList.remove('cierra'), 190);
+    }
     function toggleNotificationsPanel() {
-        const panel = document.getElementById('notifications-panel');
-        if (panel) {
-            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-        }
+        const panel = document.getElementById('notifications-panel'), b = document.getElementById('notification-bell');
+        if (!panel) return;
+        if (panel.classList.contains('abierto')) { nbpCerrar(); return; }
+        pintarAvisosNika();
+        panel.classList.remove('cierra'); panel.classList.add('abierto'); if (b) b.setAttribute('aria-expanded', 'true');
     }
 
     async function marcarLeida(id) {
@@ -5953,7 +6062,7 @@ async function handleLogout() {
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
         handleAvatarPreview, handleBannerPreview, previsualizarPerfil, quitarBannerPerfil, cancelarRecorteAvatar, confirmarRecorteAvatar, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
-        cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
+        cargarNotificaciones, toggleNotificationsPanel, nbpCerrar, actualizarCampana, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openSimuladoresHub, closeSimuladoresHub,
         openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
         abrirPerfilPublico, closePublicProfileModal, volverDesdePerfilPublico,
@@ -6219,6 +6328,6 @@ async function handleLogout() {
 
     <script src="js/chatFlotante.js?v=10"></script>
 <script src="js/micro.js?v=2" defer></script>
-    <script src="js/nikaNotificaciones.js?v=3" defer></script>
+    <script src="js/nikaNotificaciones.js?v=4" defer></script>
 </body>
 </html>

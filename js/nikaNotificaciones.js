@@ -321,7 +321,7 @@
 
   // ---------------------------------------------------------------- datos y tiempo real
   let canal = null, sondeo = null;
-  function recontar() { noLeidas = hist.filter((n) => !n.leida).length; badgeApp(); const bc = document.getElementById('nn-cuenta'); if (bc) bc.textContent = noLeidas ? ' (' + noLeidas + ')' : ''; }
+  function recontar() { noLeidas = hist.filter((n) => !n.leida).length; badgeApp(); const bc = document.getElementById('nn-cuenta'); if (bc) bc.textContent = noLeidas ? ' (' + noLeidas + ')' : ''; try { window.dispatchEvent(new CustomEvent('nika:notif-cambio')); } catch (_) {} }
   async function marcarLeida(n) {
     if (!n || n.leida) return; n.leida = true; recontar(); pintarPanel();
     if (!n.local) { try { await sb().from('notificaciones').update({ leida: true }).eq('id', n.id); } catch (_) {} } else guardarLocal();
@@ -523,6 +523,6 @@
     if (n < 40) setTimeout(() => esperar(n + 1), 500);
   }
 
-  window.NikaNotif = { enviar, aviso, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, _iniciar: iniciar };
+  window.NikaNotif = { enviar, aviso, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, historial: () => hist.slice(), noLeidas: () => noLeidas, marcarTodas, accion: (n) => { accionPorDefecto(n); marcarLeida(n); }, _iniciar: iniciar };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => esperar(0)); else esperar(0);
 })();
