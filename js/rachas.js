@@ -137,7 +137,7 @@ const NikaRachas = (() => {
 
   function pintar(r) {
     if (!btn) return;
-    ultimo = r;
+    ultimo = r; btn.dataset.pintada = '1'; btn.style.display = '';
     const n = r.racha;
     document.getElementById('nika-racha-texto').innerHTML = `${n} <span class="nika-racha-texto-largo">${n === 1 ? 'día' : 'días'} de racha</span>`;
     btn.classList.toggle('is-cero', n === 0);
@@ -155,8 +155,13 @@ const NikaRachas = (() => {
     if (!montar()) return;
     try {
       const dias = await cargarDias();
-      if (!dias) { btn.style.display = 'none'; return; }
-      btn.style.display = '';
+      if (!dias) {
+        // sin datos por ahora (red o sesión que todavía no cargó): se conserva lo que ya estaba pintado y se reintenta
+        if (!btn.dataset.pintada) btn.style.display = 'none';
+        if ((refrescar._n = (refrescar._n || 0) + 1) <= 5) setTimeout(refrescar, 2500 * refrescar._n);
+        return;
+      }
+      refrescar._n = 0; btn.style.display = '';
       const r = calcular(dias);
       r._dias = dias;
       pintar(r);
