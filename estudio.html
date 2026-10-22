@@ -295,6 +295,33 @@
         .resource-item:hover .resource-open-btn { border-color: var(--nika-primary); color: var(--nika-primary); }
         .resource-open-btn svg { width: 15px; height: 15px; }
 
+        /* Capítulos de libros agrupados: una tarjeta desplegable por libro con mosaico de capítulos */
+        .nk-lib { border: 1px solid var(--border); border-radius: 14px; background: var(--bg-page); overflow: hidden; transition: box-shadow .25s, border-color .25s; }
+        .nk-lib[open] { border-color: var(--nika-primary); box-shadow: var(--shadow); }
+        .nk-lib > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 14px 16px; user-select: none; }
+        .nk-lib > summary::-webkit-details-marker { display: none; }
+        .nk-lib-ico { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; background: linear-gradient(135deg, #7e22ce, #0284c7); color: #fff; box-shadow: 0 4px 12px rgba(2,132,199,.28); transition: transform .3s; }
+        .nk-lib:hover .nk-lib-ico { transform: rotate(-6deg) scale(1.06); }
+        .nk-lib-tit { flex: 1; min-width: 0; }
+        .nk-lib-tit b { display: block; font-size: .95rem; color: var(--nika-dark); }
+        .nk-lib-tit small { font-size: .74rem; color: var(--text-muted); font-weight: 700; }
+        .nk-lib-prog { font-weight: 800; color: #15803d; }
+        .nk-lib-chev { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(2,132,199,.1); color: var(--nika-primary); transition: transform .3s; flex-shrink: 0; }
+        .nk-lib[open] .nk-lib-chev { transform: rotate(180deg); }
+        .nk-lib-cuerpo { padding: 0 14px 14px; animation: nkLibIn .3s ease both; }
+        @keyframes nkLibIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+        .nk-lib-buscar { width: 100%; margin: 0 0 10px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--border); font: inherit; font-size: .85rem; background: #fff; color: var(--nika-dark); }
+        .nk-lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+        .nk-lib-grid .resource-item { padding: 11px 12px; gap: 10px; background: #fff; }
+        .nk-lib-grid .resource-item:hover { transform: translateY(-2px); }
+        .nk-lib-grid .resource-open-btn { display: none; }
+        .nk-lib-grid .resource-icon { width: 34px !important; height: 34px !important; }
+        .nk-lib-vacio { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: .85rem; padding: 10px; }
+        body.dark-mode .nk-lib { background: #111827; border-color: #1e293b; }
+        body.dark-mode .nk-lib-tit b { color: #f8fafc; }
+        body.dark-mode .nk-lib-grid .resource-item, body.dark-mode .nk-lib-buscar { background: #0b1220; color: #f8fafc; border-color: #1e293b; }
+        @media (max-width: 600px) { .nk-lib-grid { grid-template-columns: 1fr; } }
+
         .placeholder-panel { text-align: center; padding: 50px 20px; color: var(--text-muted); font-size: 0.88rem; }
 
         /* Panel lateral: Bloc de Notas + Pomodoro */
@@ -665,7 +692,7 @@
 
     <!-- 4. Lógica de Estudio -->
     <script src="js/estudio/notasEstudio.js?v=4"></script>
-    <script src="js/estudio/estudio.js?v=105"></script>
+    <script src="js/estudio/estudio.js?v=106"></script>
     <script src="js/estudio/pdfNotas.js?v=1"></script>
     <script src="js/estudio/pdfLector.js?v=12"></script>
 

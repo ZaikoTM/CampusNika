@@ -912,8 +912,22 @@ function renderUpDetail(unit) {
     const materialesListEl = document.getElementById('up-materiales-list');
     if (materialesListEl) {
         materialesListEl.innerHTML = materiales.length
-            ? materiales.map(renderResourceItem).join('')
+            ? renderMaterialesAgrupados(materiales, unit.id || '')
             : `<div class="placeholder-panel">No hay materiales cargados aún para esta unidad.</div>`;
+        if (!materialesListEl._nkLibListo) {
+            materialesListEl._nkLibListo = true;
+            // recuerda qué libros dejó abiertos y filtra los capítulos por palabra
+            materialesListEl.addEventListener('toggle', (e) => {
+                const d = e.target; if (!d.classList || !d.classList.contains('nk-lib')) return;
+                try { const k = 'nika_lib_abiertos', o = JSON.parse(localStorage.getItem(k) || '{}'); if (d.open) o[d.dataset.k] = 1; else delete o[d.dataset.k]; localStorage.setItem(k, JSON.stringify(o)); } catch (_) {}
+            }, true);
+            materialesListEl.addEventListener('input', (e) => {
+                const i = e.target; if (!i.classList || !i.classList.contains('nk-lib-buscar')) return;
+                const q = i.value.trim().toLowerCase(); let n = 0;
+                i.closest('.nk-lib-cuerpo').querySelectorAll('.resource-item').forEach(it => { const ok = !q || decodeURIComponent(it.dataset.title || '').toLowerCase().includes(q); it.style.display = ok ? '' : 'none'; if (ok) n++; });
+                const v = i.closest('.nk-lib-cuerpo').querySelector('.nk-lib-vacio'); if (v) v.style.display = n ? 'none' : '';
+            });
+        }
     }
 
     actualizarProgresoRecursos();
@@ -1203,6 +1217,7 @@ function actualizarProgresoRecursos() {
                 if (!mejor || t > mejor.t) mejor = { it, r, t };
             }
         });
+        actualizarContadoresLibros();
         if (mejor) {
             const b = document.createElement('div');
             b.id = 'up-continuar'; b.className = 'up-continuar'; b.setAttribute('role', 'button'); b.tabIndex = 0;
@@ -1215,6 +1230,42 @@ function actualizarProgresoRecursos() {
     }, 150);
 }
 document.addEventListener('nika-pdf-progreso', actualizarProgresoRecursos);
+
+// Capítulos de libros ("📖 Cap. 8 Menopausia · Ginecología de Gori 3.ª ed."): si un libro tiene varios en la lista, se agrupan en una tarjeta desplegable con mosaico.
+const NK_LIB_MIN = 4;   // con menos capítulos de un mismo libro se dejan sueltos
+function nkLibDe(r) {
+    const m = /^📖\s+(.+?)\s+·\s+([^·]+)$/.exec(String(r.title || ''));
+    return m ? { cap: m[1], libro: m[2].trim() } : null;
+}
+function renderMaterialesAgrupados(materiales, uid) {
+    const grupos = {};
+    materiales.forEach(r => { const l = nkLibDe(r); if (l) (grupos[l.libro] = grupos[l.libro] || []).push(r); });
+    let abiertos = {}; try { abiertos = JSON.parse(localStorage.getItem('nika_lib_abiertos') || '{}'); } catch (_) {}
+    const hechos = new Set();
+    return materiales.map(r => {
+        const l = nkLibDe(r);
+        if (!l || grupos[l.libro].length < NK_LIB_MIN) return renderResourceItem(r);
+        if (hechos.has(l.libro)) return '';
+        hechos.add(l.libro);
+        const lista = grupos[l.libro], k = uid + '|' + l.libro;
+        const abierto = abiertos[k] || lista.some(x => x.url === EstudioState.activeResourceUrl);
+        const items = lista.map(x => renderResourceItem({ ...x, title: nkLibDe(x).cap })).join('');
+        const buscador = lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : '';
+        const nom = l.libro.replace(/</g, '&lt;');
+        return `<details class="nk-lib" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
+            <summary><span class="nk-lib-ico">📖</span><span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} capítulos<span class="nk-lib-leidos"></span></small></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+            <div class="nk-lib-cuerpo">${buscador}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide con la búsqueda.</div></div></div>
+        </details>`;
+    }).join('');
+}
+function actualizarContadoresLibros() {
+    document.querySelectorAll('#up-materiales-list .nk-lib').forEach(d => {
+        const todos = d.querySelectorAll('.resource-item[data-fid]').length;
+        const ok = d.querySelectorAll('.res-prog[data-estado="ok"]').length;
+        const el = d.querySelector('.nk-lib-leidos');
+        if (el) el.innerHTML = ok ? ` · <span class="nk-lib-prog">${ok}/${todos} leídos ✓</span>` : '';
+    });
+}
 
 function renderResourceItem(resource) {
     const meta = getResourceMeta(resource);
