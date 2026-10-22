@@ -1529,7 +1529,7 @@ function cambiarModoVisor(modo) {
 function closeInlineViewer() {
     // salir de la pantalla completa (real o ficticia) antes de cerrar
     try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (_) {}
-    { const cf = document.getElementById('nika-inline-viewer-container'); if (cf) { cf.classList.remove('is-fs', 'nkpdf-fsfix', 'nk-sin-notas'); } }
+    { const cf = document.getElementById('nika-inline-viewer-container'); if (cf) { cf.classList.remove('is-fs', 'nkpdf-fsfix', 'nk-sin-notas', 'nk-con-notas'); } }
     if (typeof _marcarBotonFs === 'function') _marcarBotonFs(false);
     EstudioState.activeResourceUrl = null;
     document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('active-resource'));
@@ -1560,9 +1560,8 @@ function toggleViewerFullscreen() {
 }
 function toggleNotasFs() {
     const c = document.getElementById('nika-inline-viewer-container'); if (!c) return;
-    const oculto = c.classList.toggle('nk-sin-notas');
-    try { localStorage.setItem('nika_notas_ocultas', oculto ? '1' : '0'); } catch (_) {}
-    const b = document.getElementById('nika-notas-btn'); if (b) b.style.opacity = oculto ? '0.6' : '1';
+    const con = c.classList.toggle('nk-con-notas');   // por defecto cerradas: se abren solo si las pedís
+    const b = document.getElementById('nika-notas-btn'); if (b) b.style.opacity = con ? '1' : '0.6';
 }
 function _marcarBotonFs(on) {
     const fsBtn = document.getElementById('nika-fs-btn');

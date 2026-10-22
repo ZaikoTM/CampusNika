@@ -164,6 +164,12 @@ body.dark-mode #nk-notas .nkn-hoja textarea, body.tema-premium #nk-notas .nkn-ho
 #nika-inline-viewer-container:not(.nk-modo-drive) #nika-subrayar-btn { display: none !important; }
 #nika-inline-viewer-container.nk-sin-notas:fullscreen, #nika-inline-viewer-container.nk-sin-notas.is-fs { grid-template-columns: minmax(0, 1fr) 0; }
 #nika-inline-viewer-container.nk-sin-notas:fullscreen #nk-notas, #nika-inline-viewer-container.nk-sin-notas.is-fs #nk-notas { display: none !important; }
+/* Las notas de la sala NO se abren solas en pantalla completa: se muestran solo si se toca «📝 Notas» (clase nk-con-notas) y solo con el visor de Drive */
+#nika-inline-viewer-container:fullscreen:not(.nk-con-notas), #nika-inline-viewer-container.is-fs:not(.nk-con-notas) { grid-template-columns: minmax(0, 1fr) 0; }
+#nika-inline-viewer-container:fullscreen:not(.nk-con-notas) #nk-notas, #nika-inline-viewer-container.is-fs:not(.nk-con-notas) #nk-notas { display: none !important; }
+#nika-inline-viewer-container:not(.nk-modo-drive):fullscreen #nk-notas, #nika-inline-viewer-container:not(.nk-modo-drive).is-fs #nk-notas { display: none !important; }
+#nika-inline-viewer-container:not(.nk-modo-drive) #nika-notas-btn { display: none !important; }
+@media (max-width: 820px) { #nika-inline-viewer-container:fullscreen:not(.nk-con-notas), #nika-inline-viewer-container.is-fs:not(.nk-con-notas) { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); } }
 @media (max-width: 820px) { #nika-inline-viewer-container.nk-sin-notas:fullscreen, #nika-inline-viewer-container.nk-sin-notas.is-fs { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); } }
 `;
     document.head.appendChild(st);

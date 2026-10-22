@@ -102,22 +102,18 @@
 .nn-card button{flex:1;border:0;border-radius:10px;padding:9px 10px;font:800 13px inherit;font-family:inherit;cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s}
 .nn-card button:hover{filter:brightness(1.12);transform:translateY(-1px)}.nn-card button:active{transform:scale(.95)}
 .nn-ok{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 4px 14px rgba(34,197,94,.35)}.nn-no{background:#1e293b;color:#e2e8f0}
+.nn-conf{position:absolute;top:6px;right:30px;background:none!important;border:0;color:#64748b!important;font-size:14px!important;flex:none!important;padding:2px 6px!important;width:auto}.nn-conf:hover{color:#e2e8f0!important}
 .nn-x{position:absolute;top:6px;right:8px;background:none!important;border:0;color:#64748b!important;font-size:16px!important;flex:none!important;padding:2px 6px!important;width:auto}
 .nn-barra{position:absolute;left:0;bottom:0;height:3px;background:var(--c);width:100%;transform-origin:left;animation:nnTiempo linear forwards}
-@keyframes nnIn{from{opacity:0;transform:translateX(60px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes nnIn{from{opacity:0;transform:translate(50px,-18px) scale(.92)}to{opacity:1;transform:none}}
 @keyframes nnOut{to{opacity:0;transform:translateX(60px) scale(.95)}}
 @keyframes nnLate{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.12) rotate(-9deg)}60%{transform:scale(1.05) rotate(8deg)}}
 @keyframes nnTiempo{from{transform:scaleX(1)}to{transform:scaleX(0)}}
-#nn-campana{position:fixed;left:14px;bottom:14px;z-index:2147482000;width:46px;height:46px;border-radius:50%;border:1px solid #334155;background:linear-gradient(145deg,#1e293b,#0f172a);color:#e2e8f0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
-#nn-campana:hover{transform:scale(1.1) rotate(-8deg);box-shadow:0 10px 28px rgba(56,189,248,.35)}
-#nn-campana{padding:0}#nn-campana svg{width:22px;height:22px;flex:none;transform-origin:50% 0}
-#nn-campana.tiembla svg{animation:nnCampana 1s ease}
-#nn-campana .n{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#ef4444;color:#fff;font:800 11px/20px system-ui;text-align:center;padding:0 5px;box-shadow:0 0 0 3px #0f172a;animation:nnPop .4s cubic-bezier(.3,1.8,.5,1)}
-#nn-campana .n[hidden]{display:none}
-#nn-campana.silencio::after{content:"";position:absolute;width:30px;height:3px;background:#f87171;border-radius:2px;transform:rotate(-45deg);box-shadow:0 0 0 2px #0f172a}
+#notification-bell.nn-tiembla{animation:nnCampana 1s ease}
+#notification-bell.nn-silencio{opacity:.55}
 @keyframes nnCampana{0%,100%{transform:rotate(0)}15%{transform:rotate(18deg)}30%{transform:rotate(-16deg)}45%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}75%{transform:rotate(4deg)}}
 @keyframes nnPop{from{transform:scale(0)}to{transform:scale(1)}}
-#nn-panel{position:fixed;left:14px;bottom:70px;z-index:2147482500;width:min(380px,calc(100vw - 28px));max-height:min(560px,calc(100vh - 100px));display:none;flex-direction:column;background:#0b1220;color:#f1f5f9;border:1px solid #334155;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden;font:600 13.5px/1.4 "Plus Jakarta Sans",system-ui,sans-serif}
+#nn-panel{position:fixed;right:14px;top:62px;z-index:2147482500;width:min(380px,calc(100vw - 28px));max-height:min(560px,calc(100vh - 100px));display:none;flex-direction:column;background:#0b1220;color:#f1f5f9;border:1px solid #334155;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden;font:600 13.5px/1.4 "Plus Jakarta Sans",system-ui,sans-serif}
 #nn-panel.on{display:flex;animation:nnPanel .3s cubic-bezier(.2,.9,.3,1.15)}
 @keyframes nnPanel{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
 .nn-cab{display:flex;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid #1e293b}
@@ -148,8 +144,8 @@
 .nn-modal h3{margin:0 0 8px;font:800 18px inherit}.nn-modal .nn-b{display:flex;gap:10px;margin-top:16px}.nn-modal .nn-b button{flex:1;border:0;border-radius:12px;padding:11px;font:800 14px inherit;font-family:inherit;cursor:pointer}
 .nn-modal .nota{margin-top:10px;padding:12px;border-radius:12px;background:#16223a;border-left:4px solid #a855f7;white-space:pre-wrap;max-height:220px;overflow:auto}
 @keyframes nnFade{from{opacity:0}to{opacity:1}}
-@media (max-width:600px){#nn-caja{left:10px;right:10px;max-width:none}#nn-campana{bottom:84px}#nn-panel{bottom:140px}}
-@media (prefers-reduced-motion:reduce){.nn-card,.nn-card h4 .i,#nn-campana,#nn-campana *,#nn-panel,.nn-fila,.nn-modal>div{animation:none!important;transition:none!important}}`;
+@media (max-width:600px){#nn-caja{left:10px;right:10px;max-width:none}#nn-panel{right:8px;left:8px;width:auto;top:56px}}
+@media (prefers-reduced-motion:reduce){.nn-card,.nn-card h4 .i,#notification-bell,#nn-panel,.nn-fila,.nn-modal>div{animation:none!important;transition:none!important}}`;
     document.head.appendChild(st);
   }
 
@@ -164,9 +160,10 @@
     const t = tipoDe(n.tipo), T = TIPOS[t];
     const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color); el.dataset.id = n.id || '';
     const dur = (opc && opc.dur) || 12000;
-    el.innerHTML = `<button class="nn-x" aria-label="Cerrar">×</button><h4><span class="i">${T.ico}</span><span>${esc(n.titulo)}</span></h4>${n.cuerpo ? `<p>${esc(n.cuerpo)}</p>` : ''}${opc && opc.botones ? `<div class="nn-b"></div>` : ''}<i class="nn-barra" style="animation-duration:${dur}ms"></i>`;
+    el.innerHTML = `<button class="nn-conf" data-nn-abrir aria-label="Preferencias de notificaciones" title="Preferencias de sonido y avisos">⚙</button><button class="nn-x" aria-label="Cerrar">×</button><h4><span class="i">${T.ico}</span><span>${esc(n.titulo)}</span></h4>${n.cuerpo ? `<p>${esc(n.cuerpo)}</p>` : ''}${opc && opc.botones ? `<div class="nn-b"></div>` : ''}<i class="nn-barra" style="animation-duration:${dur}ms"></i>`;
     const cierra = () => { el.classList.add('nn-sale'); setTimeout(() => el.remove(), 300); };
     el.querySelector('.nn-x').addEventListener('click', (e) => { e.stopPropagation(); cierra(); if (opc && opc.alCerrar) opc.alCerrar(); });
+    el.querySelector('.nn-conf').addEventListener('click', (e) => { e.stopPropagation(); abrirCentro('pref'); });
     if (opc && opc.botones) {
       const b = el.querySelector('.nn-b');
       opc.botones.forEach((bt) => { const x = document.createElement('button'); x.className = bt.clase; x.textContent = bt.txt; x.addEventListener('click', () => { cierra(); bt.fn && bt.fn(); }); b.appendChild(x); });
@@ -201,7 +198,7 @@
 
   // ---------------------------------------------------------------- acciones por tipo
   async function unirse(n) {
-    marcarLeida(n);
+    if (n.id) marcarLeida(n);
     const d = n.datos || {};
     const payload = { fromUsername: n.de_username, toUsername: yo(), sessionId: d.sessionId, tema: d.tema, autoAceptar: true };
     if (typeof window.NikaPomodoroUnirse === 'function') { window.NikaPomodoroUnirse(payload); return; }
@@ -227,9 +224,10 @@
     if (t === 'invitacion_pomodoro' && window.PomodoroSyncManager && !desdeCarga) setTimeout(() => { if (!document.getElementById('nika-pomo-invite') && !n.leida) mostrar(); }, 900);
     else mostrar();
     if (!desdeCarga) {
-      sonar(t);
+      const de = String(n.de_username || '').toLowerCase(); if (t === 'invitacion_pomodoro' || t === 'nota_compartida') recNotif[de] = Date.now();
+      if (!(recMsg[de] && Date.now() - recMsg[de] < 6000)) sonar(t);
       if (!noMolestar()) { parpadear(n.titulo); avisoSistema(n, () => accionPorDefecto(n)); }
-      const cb = document.getElementById('nn-campana'); if (cb) { cb.classList.remove('tiembla'); void cb.offsetWidth; cb.classList.add('tiembla'); }
+      campanaTiembla();
     }
   }
   function rechazarInvitacion(n) {
@@ -287,28 +285,43 @@
   }
 
   // ---------------------------------------------------------------- envío (RPC con validación de amistad)
+  // Además de la tarjeta, el aviso llega como mensaje en el chat (con botón «Unirme» en las invitaciones)
+  async function mensajeAlChat(para, tipo, titulo, cuerpo, datos) {
+    try {
+      const cm = window.ChatManager; if (!cm || !cm.enviarMensaje) return;
+      let txt = null;
+      if (tipo === 'invitacion_pomodoro') txt = '🍅 Te invito a estudiar juntos' + ((datos && datos.tema) ? ': ' + datos.tema : '') + ' [[estudiar:' + ((datos && datos.sessionId) || 'x') + ']]';
+      else if (tipo === 'nota_compartida') txt = '📝 Te compartí una nota' + ((datos && datos.recurso_titulo) ? ' de «' + datos.recurso_titulo + '»' : '') + (datos && datos.pagina ? ' (pág. ' + datos.pagina + ')' : '') + ': ' + String(cuerpo || '').slice(0, 160) + ' [[nota]]';
+      if (txt) await cm.enviarMensaje(para, txt);
+    } catch (_) {}
+  }
   async function enviar(para, tipo, titulo, cuerpo, datos) {
     try {
       const c = sb(); if (!c) return { ok: false, reason: 'sin_conexion' };
       const { data, error } = await c.rpc('nika_notificar', { p_para: para, p_tipo: tipo, p_titulo: titulo || '', p_cuerpo: cuerpo || '', p_datos: datos || {} });
       if (error) return { ok: false, reason: 'error', detalle: error.message };
       if (data && data.ok === false && data.reason === 'no_amigo') cartelAmistad(para);
+      if (data && data.ok) mensajeAlChat(para, tipo, titulo, cuerpo, datos);
       return data || { ok: false, reason: 'error' };
     } catch (e) { return { ok: false, reason: 'error', detalle: e && e.message }; }
   }
 
   // ---------------------------------------------------------------- avisos locales (chat, desafíos...) que también suenan y quedan en la campanita
+  const recNotif = {}, recMsg = {};   // última notificación / mensaje recibido por remitente (para no sonar dos veces por lo mismo)
   function aviso(tipo, n) {
+    if (tipo === 'mensaje') {
+      const de = n && n.datos && n.datos.chat; if (de) { recMsg[String(de).toLowerCase()] = Date.now(); if (Date.now() - (recNotif[String(de).toLowerCase()] || 0) < 6000) return null; }
+    }
     const fila = Object.assign({ id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6), tipo, titulo: '', cuerpo: '', datos: {}, leida: false, creada_en: new Date().toISOString(), local: true }, n || {});
     hist.unshift(fila); hist = hist.slice(0, 60); guardarLocal(); recontar(); pintarPanel();
     sonar(tipo); if (!noMolestar()) { parpadear(fila.titulo); avisoSistema(fila, () => { if (fila.datos && fila.datos.url) location.href = fila.datos.url; }); }
-    const cb = document.getElementById('nn-campana'); if (cb) { cb.classList.remove('tiembla'); void cb.offsetWidth; cb.classList.add('tiembla'); }
+    campanaTiembla();
     return fila;
   }
 
   // ---------------------------------------------------------------- datos y tiempo real
   let canal = null, sondeo = null;
-  function recontar() { noLeidas = hist.filter((n) => !n.leida).length; const b = document.querySelector('#nn-campana .n'); if (b) { b.hidden = !noLeidas; b.textContent = noLeidas > 9 ? '9+' : noLeidas; } badgeApp(); }
+  function recontar() { noLeidas = hist.filter((n) => !n.leida).length; badgeApp(); const bc = document.getElementById('nn-cuenta'); if (bc) bc.textContent = noLeidas ? ' (' + noLeidas + ')' : ''; }
   async function marcarLeida(n) {
     if (!n || n.leida) return; n.leida = true; recontar(); pintarPanel();
     if (!n.local) { try { await sb().from('notificaciones').update({ leida: true }).eq('id', n.id); } catch (_) {} } else guardarLocal();
@@ -341,23 +354,22 @@
     } catch (_) {}
   }
 
-  // ---------------------------------------------------------------- campanita y panel
+  // la campana del campus (si la página la tiene) se sacude cuando llega algo
+  function campanaTiembla() { const cb = document.getElementById('notification-bell'); if (cb) { cb.classList.remove('nn-tiembla'); void cb.offsetWidth; cb.classList.add('nn-tiembla'); } }
+
+  // ---------------------------------------------------------------- panel de notificaciones
   let panel = null, pestana = 'notif';
   function montarUI() {
-    if (document.getElementById('nn-campana')) return;
+    if (panel) return;
     estilos();
-    const b = document.createElement('button'); b.id = 'nn-campana'; b.type = 'button'; b.setAttribute('aria-label', 'Notificaciones'); b.title = 'Notificaciones';
-    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="n" hidden>0</span>';
-    b.addEventListener('click', () => abrirCentro());
-    document.body.appendChild(b);
     panel = document.createElement('div'); panel.id = 'nn-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Centro de notificaciones');
     document.body.appendChild(panel);
-    document.addEventListener('click', (e) => { if (panel.classList.contains('on') && !panel.contains(e.target) && !b.contains(e.target)) panel.classList.remove('on'); });
+    // no hay ícono propio: se abre con el ⚙ de cada aviso o con la campana del campus
+    document.addEventListener('click', (e) => { if (panel.classList.contains('on') && !panel.contains(e.target) && !e.target.closest('[data-nn-abrir]') && !e.target.closest('.nn-x')) panel.classList.remove('on'); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') panel.classList.remove('on'); });
-    marcarSilencio();
   }
-  function marcarSilencio() { const b = document.getElementById('nn-campana'); if (b) b.classList.toggle('silencio', !!prefs.silencio); }
-  function abrirCentro(tab) { if (!panel) return; if (tab) pestana = tab; pintarPanel(); panel.classList.toggle('on', tab ? true : !panel.classList.contains('on')); }
+  function marcarSilencio() { const b = document.getElementById('notification-bell'); if (b) b.classList.toggle('nn-silencio', !!prefs.silencio); }
+  function abrirCentro(tab) { if (!panel) return; if (typeof tab !== 'string') tab = null; if (tab) pestana = tab; pintarPanel(); panel.classList.toggle('on', tab ? true : !panel.classList.contains('on')); }
 
   function filaHtml(n, i) {
     const t = tipoDe(n.tipo), T = TIPOS[t];
@@ -511,6 +523,6 @@
     if (n < 40) setTimeout(() => esperar(n + 1), 500);
   }
 
-  window.NikaNotif = { enviar, aviso, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, _iniciar: iniciar };
+  window.NikaNotif = { enviar, aviso, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, _iniciar: iniciar };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => esperar(0)); else esperar(0);
 })();

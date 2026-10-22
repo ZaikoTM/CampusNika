@@ -93,6 +93,11 @@
 .nkpdf.m-bor .nkpdf-scroll{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24' fill='%23fecaca' stroke='%23991b1b' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M3 17l8-12 9 6-7 10H7z'/%3E%3C/svg%3E") 4 22,pointer}
 .nk-pg{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 4px 14px rgba(15,23,42,.25);border-radius:3px}
 .nk-pg canvas{display:block;width:100%;height:100%;border-radius:3px}
+.nkpdf-fantasma{display:none;position:absolute;z-index:6;pointer-events:none}
+.nkpdf-fantasma.pin{font-size:30px;line-height:1;transform:translate(-50%,-100%) rotate(-12deg);transform-origin:50% 100%;filter:drop-shadow(0 4px 4px rgba(15,23,42,.4));animation:nkpdfFant .9s ease-in-out infinite}
+.nkpdf-fantasma.texto{font:700 13px 'Plus Jakarta Sans',system-ui,sans-serif;color:rgba(15,23,42,.55);padding:5px 12px 6px 20px;border-radius:8px;border:2px dashed #7c3aed;background:rgba(253,230,138,.7);animation:nkpdfFant2 1.2s ease-in-out infinite}
+@keyframes nkpdfFant{0%,100%{transform:translate(-50%,-100%) rotate(-12deg)}50%{transform:translate(-50%,-108%) rotate(8deg) scale(1.08)}}
+@keyframes nkpdfFant2{0%,100%{opacity:.75}50%{opacity:1;transform:translateY(-2px)}}
 .nk-hl{position:absolute;inset:0;pointer-events:none}
 .nk-hl i{position:absolute;mix-blend-mode:multiply;border-radius:2px;opacity:.62;animation:nkpdfHl .35s ease both;transform-origin:left center}
 @keyframes nkpdfHl{from{opacity:0;transform:scaleX(.2)}to{opacity:.62;transform:none}}
@@ -388,8 +393,17 @@
   }
 
   // aro que muestra el tamaño del pincel/borrador siguiendo al cursor
+  // vista previa de lo que se va a colocar (📌 o caja de texto) siguiendo al cursor, para que se sienta la herramienta antes de tocar
+  function moverFantasma(e) {
+    const f = $('.nkpdf-fantasma', S.root); if (!f) return;
+    const r = $('.nkpdf-cuerpo', S.root).getBoundingClientRect();
+    const sobrePagina = S.pags.some((p) => p.el.contains(e.target)) && !(e.target.closest && e.target.closest('.nk-an > *'));
+    if (!(S.modo === 'pin' || S.modo === 'texto') || e.pointerType === 'touch' || !sobrePagina || e.clientX > r.right - 6 || e.clientX < r.left || e.clientY < r.top || e.clientY > r.bottom) { f.style.display = 'none'; return; }
+    f.className = 'nkpdf-fantasma ' + S.modo; f.textContent = S.modo === 'pin' ? '📌' : 'Escribí acá…';
+    f.style.display = 'block'; f.style.left = (e.clientX - r.left) + 'px'; f.style.top = (e.clientY - r.top) + 'px';
+  }
   function moverAro(e) {
-    if (!S) return; const aro = $('.nkpdf-aro', S.root); if (!aro) return;
+    if (!S) return; moverFantasma(e); const aro = $('.nkpdf-aro', S.root); if (!aro) return;
     if (!(S.modo === 'pincel' || S.modo === 'bor')) { aro.style.display = 'none'; return; }
     const r = $('.nkpdf-cuerpo', S.root).getBoundingClientRect();
     if (e.clientX > r.right - 6 || e.clientX < r.left || e.clientY < r.top || e.clientY > r.bottom) { aro.style.display = 'none'; return; }
@@ -549,7 +563,7 @@
   };
   function modo(m) {
     S.modo = m; cerrarPop();
-    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel', 'm-texto', 'm-pin'); if (S.modo !== 'texto' && window.NikaPdfAnot) window.NikaPdfAnot.deseleccionar(); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m);
+    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel', 'm-texto', 'm-pin'); if (S.modo !== 'texto' && window.NikaPdfAnot) window.NikaPdfAnot.deseleccionar(); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m); const fan = $('.nkpdf-fantasma', S.root); if (fan) fan.style.display = 'none';
     S.root.querySelectorAll('[data-modo]').forEach((b) => b.classList.toggle('on', b.dataset.modo === m));
     const h = $('.nkpdf-hint span', S.root); if (h) h.textContent = AYUDA[m];
   }
@@ -746,7 +760,7 @@
       </div>
       <div class="nkpdf-cuerpo">
         <div class="nkpdf-scroll"></div>
-        <i class="nkpdf-aro"></i>
+        <i class="nkpdf-aro"></i><i class="nkpdf-fantasma" aria-hidden="true"></i>
         <aside class="nkpdf-panel" aria-label="Mis subrayados"><h4><span>📝 Mis subrayados</span><button data-accion="cerrar-lista" aria-label="Cerrar">✕</button></h4><div class="nkpdf-lista"></div></aside>
       </div>`);
     mi.scroll = $('.nkpdf-scroll', root);
@@ -763,7 +777,7 @@
 
     mi.scroll.addEventListener('pointerdown', (e) => iniciarTrazo(e, mi));
     mi.scroll.addEventListener('pointermove', moverAro);
-    mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; });
+    mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; const f = $('.nkpdf-fantasma', mi.root); if (f) f.style.display = 'none'; });
     const rango = $('.nkpdf-rango', root); rango.addEventListener('input', () => { mi.tam = +rango.value; $('.nkpdf-tam b', root).textContent = mi.tam; });
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));

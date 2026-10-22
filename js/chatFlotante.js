@@ -207,8 +207,17 @@
       const h = document.createElement('strong'); h.textContent = '📋 Pregunta compartida' + (q.up ? ' · ' + q.up : ''); el.appendChild(h);
     }
     const marca = !m.shared_question && /\[\[desafio:([0-9a-f-]{36})\]\]/i.exec(m.content || '');
-    const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (marca ? String(m.content).replace(marca[0], '').trim() : (m.content || '')); el.appendChild(t);
+    const marcaEst = !m.shared_question && /\[\[estudiar:([^\]]*)\]\]/.exec(m.content || '');
+    const marcaNota = !m.shared_question && /\[\[nota\]\]/.exec(m.content || '');
+    const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (marca ? String(m.content).replace(marca[0], '').trim() : marcaEst ? String(m.content).replace(marcaEst[0], '').trim() : marcaNota ? String(m.content).replace(marcaNota[0], '').trim() : (m.content || '')); el.appendChild(t);
     if (marca) decorarDesafio(el, marca[1], mia);
+    if ((marcaEst || marcaNota) && !mia) {
+      const fila = document.createElement('div'); fila.style.cssText = 'display:flex;gap:6px;margin-top:8px;flex-wrap:wrap'; el.appendChild(fila);
+      const vigente = !m.created_at || Date.now() - new Date(m.created_at).getTime() < 5 * 60 * 1000;
+      const b = document.createElement('button'); b.type = 'button'; b.style.cssText = 'border:0;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;color:#fff;background:#16a34a';
+      if (marcaEst && !vigente) { const s = document.createElement('small'); s.style.cssText = 'opacity:.8;font-weight:700'; s.textContent = '⌛ La invitación venció'; fila.appendChild(s); }
+      else { b.textContent = marcaEst ? '🍅 Unirme' : '📝 Ver nota'; b.onclick = () => { if (!window.NikaNotif) return; if (marcaEst) window.NikaNotif.unirse({ de_username: m.from_username, datos: { sessionId: marcaEst[1] === 'x' ? null : marcaEst[1] } }); else window.NikaNotif.abrirCentro('notif'); }; fila.appendChild(b); }
+    }
     const meta = document.createElement('em'); meta.innerHTML = esc(hora(m.created_at)) + (mia ? CM.tickHTML(CM.estadoDeEntrega(m)) : ''); el.appendChild(meta);
     box.appendChild(el); box.scrollTop = box.scrollHeight;
   }

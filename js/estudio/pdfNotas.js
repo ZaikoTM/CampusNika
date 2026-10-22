@@ -35,13 +35,15 @@
     if (document.getElementById('nkn-css')) return;
     const st = document.createElement('style'); st.id = 'nkn-css';
     st.textContent = `
-.nkn-panel{position:absolute;top:0;right:0;bottom:0;width:min(380px,92%);z-index:7;display:flex;flex-direction:column;background:#0f172a;color:#e2e8f0;box-shadow:-12px 0 30px rgba(0,0,0,.4);transform:translateX(105%);transition:transform .3s cubic-bezier(.22,1,.36,1);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.nkn-panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,88%);z-index:7;display:flex;flex-direction:column;background:#0f172a;color:#e2e8f0;box-shadow:-12px 0 30px rgba(0,0,0,.4);transform:translateX(105%);transition:transform .3s cubic-bezier(.22,1,.36,1);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 .nkn-panel.on{transform:none}
 .nkn-panel h4{margin:0;padding:12px 14px;font-size:.88rem;font-weight:800;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.1)}
 .nkn-panel h4 button{background:none;border:0;color:#94a3b8;font-size:1.1rem;cursor:pointer}
-.nkn-cuerpo{flex:1;overflow-y:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px}
-.nkn-hoja{--c:#fef9c3;position:relative;padding:22px 16px 14px 34px;border-radius:6px 6px 14px 14px;background-color:var(--c);color:#1e293b;box-shadow:0 14px 26px -14px rgba(0,0,0,.65);
-  background-image:linear-gradient(90deg,transparent 26px,rgba(239,68,68,.55) 26px,rgba(239,68,68,.55) 28px,transparent 28px),repeating-linear-gradient(transparent 0,transparent 27px,rgba(59,130,246,.28) 27px,rgba(59,130,246,.28) 28px);
+.nkn-cuerpo{flex:1;min-height:0;overflow-y:scroll;padding:12px 12px 18px;display:flex;flex-direction:column;gap:10px;scrollbar-width:auto;scrollbar-color:#7c3aed rgba(255,255,255,.12);scroll-behavior:smooth}
+.nkn-cuerpo::-webkit-scrollbar{width:14px}.nkn-cuerpo::-webkit-scrollbar-track{background:rgba(255,255,255,.1);border-radius:8px}.nkn-cuerpo::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:8px;border:3px solid #0f172a}.nkn-cuerpo::-webkit-scrollbar-thumb:hover{background:#a855f7}
+.nkn-desp{display:flex;gap:4px;margin-left:auto;margin-right:6px}.nkn-desp button{background:rgba(255,255,255,.1)!important;border-radius:8px;width:28px;height:26px;font-size:.8rem!important;color:#e2e8f0!important}.nkn-desp button:hover{background:#7c3aed!important}
+.nkn-hoja{--c:#fef9c3;position:relative;padding:20px 12px 10px 30px;border-radius:6px 6px 14px 14px;background-color:var(--c);color:#1e293b;box-shadow:0 14px 26px -14px rgba(0,0,0,.65);
+  background-image:linear-gradient(90deg,transparent 22px,rgba(239,68,68,.55) 22px,rgba(239,68,68,.55) 24px,transparent 24px),repeating-linear-gradient(transparent 0,transparent 23px,rgba(59,130,246,.28) 23px,rgba(59,130,246,.28) 24px);
   transform:rotate(-.6deg);transition:background-color .25s}
 .nkn-hoja.edit{transform:none;box-shadow:0 0 0 3px #a855f7,0 14px 26px -14px rgba(0,0,0,.65)}
 .nkn-hoja::before{content:'';position:absolute;left:50%;top:-10px;width:86px;height:22px;margin-left:-43px;background:rgba(255,255,255,.55);border:1px solid rgba(15,23,42,.12);transform:rotate(-2deg);box-shadow:0 2px 6px rgba(0,0,0,.18)}
@@ -49,16 +51,16 @@
 .nkn-edit-cab{display:flex;align-items:center;gap:8px;font:800 .78rem inherit;font-family:inherit;color:#6d28d9;line-height:28px}
 .nkn-edit-cab button{margin-left:auto}
 .nkn-hoja label.f{display:block;font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#64748b;margin:0 0 2px}
-.nkn-fila{display:flex;align-items:center;gap:8px;line-height:28px;min-height:28px;flex-wrap:wrap}
+.nkn-fila{display:flex;align-items:center;gap:6px;line-height:24px;min-height:24px;flex-wrap:wrap}
 .nkn-hoja input[type=number],.nkn-hoja select{font:inherit;font-weight:700;font-size:.86rem;padding:2px 8px;border-radius:8px;border:1.5px solid rgba(15,23,42,.25);background:rgba(255,255,255,.7);color:#0f172a;line-height:1.3}
 .nkn-hoja input[type=number]{width:64px}
 .nkn-hoja select{max-width:100%;width:100%}
 .nkn-hoja .mini{border:0;border-radius:8px;padding:2px 9px;font:800 .72rem inherit;font-family:inherit;cursor:pointer;background:rgba(15,23,42,.12);color:#0f172a}
 .nkn-hoja .mini:hover{background:rgba(15,23,42,.22)}
-.nkn-hoja .op{display:flex;align-items:center;gap:6px;font-size:.84rem;font-weight:700;cursor:pointer;line-height:28px}
+.nkn-hoja .op{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;cursor:pointer;line-height:24px}
 .nkn-titulo,.nkn-texto{width:100%;box-sizing:border-box;border:0;background:transparent;color:#0f172a;font:inherit;outline:0;padding:0;resize:none}
-.nkn-titulo{font-weight:800;font-size:1rem;line-height:28px;height:28px}
-.nkn-texto{font-size:.92rem;line-height:28px;min-height:140px;background-attachment:local}
+.nkn-titulo{font-weight:800;font-size:.92rem;line-height:24px;height:24px}
+.nkn-texto{font-size:.86rem;line-height:24px;min-height:96px;height:96px;background-attachment:local}
 .nkn-titulo::placeholder,.nkn-texto::placeholder{color:rgba(15,23,42,.4)}
 .nkn-cols{display:flex;gap:7px;align-items:center;padding:2px 0 6px}
 .nkn-col{width:20px;height:20px;border-radius:50%;border:2px solid rgba(15,23,42,.25);cursor:pointer;padding:0;transition:transform .15s}
@@ -68,7 +70,7 @@
 .nkn-chip:hover{transform:translateY(-1px)}.nkn-chip.on{background:#7c3aed;color:#fff;border-color:#7c3aed;animation:nknPop .25s ease}
 .nkn-etq input{width:110px;font:700 .72rem inherit;font-family:inherit;border:1.5px dashed rgba(15,23,42,.3);border-radius:999px;padding:2px 9px;background:transparent;color:#0f172a;outline:0}
 @keyframes nknPop{0%{transform:scale(.8)}60%{transform:scale(1.12)}100%{transform:none}}
-.nkn-guardar{margin-top:6px;width:100%;border:0;border-radius:12px;padding:11px;font:800 .9rem inherit;font-family:inherit;cursor:pointer;color:#fff;background:linear-gradient(135deg,#7c3aed,#6366f1);transition:transform .15s,box-shadow .2s}
+.nkn-guardar{margin-top:4px;width:100%;border:0;border-radius:12px;padding:9px;font:800 .84rem inherit;font-family:inherit;cursor:pointer;color:#fff;background:linear-gradient(135deg,#7c3aed,#6366f1);transition:transform .15s,box-shadow .2s}
 .nkn-guardar:hover{transform:translateY(-2px);box-shadow:0 12px 20px -12px #7c3aed} .nkn-guardar:disabled{opacity:.6}
 .nkn-msg{font-size:.78rem;font-weight:700;min-height:18px;color:#166534}
 .nkn-msg.err{color:#b91c1c}
@@ -136,8 +138,8 @@
 
   // ---- interfaz
   function construir(S) {
-    const p = document.createElement('aside'); p.className = 'nkn-panel'; p.setAttribute('aria-label', 'Notas de lectura');
-    p.innerHTML = `<h4><span>📒 Notas de lectura</span><button type="button" data-n="cerrar" aria-label="Cerrar">✕</button></h4>
+    const p = document.createElement('aside'); p.className = 'nkn-panel'; p.setAttribute('aria-label', 'Mis notas de este PDF');
+    p.innerHTML = `<h4><span>📒 Mis notas de este PDF</span><span class="nkn-desp"><button type="button" data-n="arriba" aria-label="Subir" title="Subir">▲</button><button type="button" data-n="abajo" aria-label="Bajar" title="Bajar">▼</button></span><button type="button" data-n="cerrar" aria-label="Cerrar">✕</button></h4>
       <div class="nkn-cuerpo">
         <div class="nkn-hoja">
           <div class="nkn-edit-cab" hidden><span class="nkn-edit-tit">✏️ Editando</span><button type="button" class="mini" data-n="cancelar-edicion">Cancelar</button></div>
@@ -151,7 +153,7 @@
           <div class="nkn-msg" role="status"></div>
           <button type="button" class="nkn-guardar" data-n="guardar">💾 Guardar nota</button>
         </div>
-        <div class="nkn-sub">Notas de este archivo</div>
+        <div class="nkn-sub">Todo lo que anotaste en este PDF</div>
         <div class="nkn-filtro"></div>
         <div class="nkn-lista"></div>
       </div>`;
@@ -241,6 +243,7 @@
       const q = e.target.closest('[data-etq]'); if (q) { const t = q.dataset.etq; p._etiq = p._etiq.includes(t) ? p._etiq.filter((x) => x !== t) : p._etiq.concat([t]); p._pintarFormulario(); return; }
       const b = e.target.closest('[data-n],[data-color]'); if (!b) return;
       if (b.dataset.color) { p._color = b.dataset.color; p._pintarFormulario(); return; }
+      if (b.dataset.n === 'arriba' || b.dataset.n === 'abajo') { const c = p.querySelector('.nkn-cuerpo'); c.scrollBy({ top: (b.dataset.n === 'abajo' ? 1 : -1) * Math.max(140, c.clientHeight * 0.8), behavior: 'smooth' }); return; }
       if (b.dataset.n === 'cerrar') { abrir(S); return; }
       if (b.dataset.n === 'cancelar-edicion') { salirEdicion(); return; }
       if (b.dataset.n === 'actual') { $('.nkn-pag').value = S.actual || 1; return; }
