@@ -251,7 +251,7 @@
       const tx = pg.el.querySelector('.nk-tx'); tx.innerHTML = '';
       const contenido = await page.getTextContent();
       await window.pdfjsLib.renderTextLayer({ textContentSource: contenido, container: tx, viewport: vp, textDivs: [] }).promise;
-      pg.hecho = true; pintarMarcas(pg); marcarLeida(pg);
+      pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); marcarLeida(pg);
     } catch (e) { if (!(e && e.name === 'RenderingCancelledException')) console.warn('[NikaPdf] página', pg.num, e && e.message ? e.message : e); }
     pg.cargando = false;
   }
@@ -328,8 +328,15 @@
 
   // ---------- pincel (trazo libre, tamaño ajustable) y borrador de arrastre ----------
   function paginaBajo(e) { return S.pags.find((p) => p.el.contains(e.target)); }
+  function desplazarConDedo(e) {   // «Solo lápiz»: con touch-action:none el navegador no desplaza, así que lo hacemos a mano
+    let y0 = e.clientY; const sc = S.scroll;
+    const mv = (ev) => { sc.scrollTop -= ev.clientY - y0; y0 = ev.clientY; };
+    const fin = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin); };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+  }
   function iniciarTrazo(e, mi) {
     if (S !== mi || e.button) return;
+    if (S.soloLapiz && e.pointerType === 'touch' && (S.modo === 'pincel' || S.modo === 'bor')) return desplazarConDedo(e);
     const pg = paginaBajo(e); if (!pg || !pg.hecho) return;
     const sparse = pg.el.querySelectorAll('.nk-tx span').length < 8;
     const modoPincel = S.modo === 'pincel' || (S.modo === 'sub' && sparse);
@@ -489,7 +496,7 @@
     if (!S) return; let a = $('.nkpdf-aviso', S.root); if (!a) { a = document.createElement('div'); a.className = 'nkpdf-aviso'; S.root.appendChild(a); }
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
-  const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['1 – 4', 'Color del subrayado'], ['[  ]', 'Tamaño del pincel y borrador'],
+  const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 4', 'Color del subrayado'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
@@ -505,6 +512,11 @@
   }
 
   function clickEnMarca(e) {
+    if (S && (S.modo === 'texto' || S.modo === 'pin')) {
+      const pg0 = paginaBajo(e);
+      if (pg0 && pg0.hecho && !e.target.closest('.nk-an > *') && window.NikaPdfAnot && !(S.soloLapiz && e.pointerType === 'touch')) window.NikaPdfAnot.colocar(S, e, pg0, S.modo);
+      return;
+    }
     if (!S || !window.getSelection().isCollapsed) return;
     if (S.modo === 'bor' || S.modo === 'pincel') return;
     const pg = paginaBajo(e); if (!pg) { cerrarPop(); return; }
@@ -531,11 +543,13 @@
     sel: 'Seleccioná texto para subrayarlo · tocá un subrayado para cambiarle el color o borrarlo',
     sub: 'Modo subrayar: lo que selecciones se subraya al instante · en páginas escaneadas (sin texto) funciona como pincel',
     pincel: 'Pincel: arrastrá para marcar a mano alzada (consejo: mantené Mayús, o activá el botón Línea recta, para trazar una recta desde donde empezás) · ajustá el tamaño con el deslizador o con [ y ] · sirve en cualquier PDF, también escaneados',
+    texto: 'Texto: tocá un lugar de la página y escribí · arrastrá ⠿ para moverlo · el círculo violeta cambia el ancho · usá la barra oscura para letra, color, etiquetas, compartir o borrar',
+    pin: 'Marcador: tocá un lugar de la página y se abre una nota atada a ese punto · después tocá el 📌 para leerla o editarla · se sincroniza con tus Notas de lectura',
     bor: 'Borrador: pasalo por encima de lo marcado (texto, pincel o áreas) para quitarlo · ajustá el tamaño con el deslizador o con [ y ]',
   };
   function modo(m) {
     S.modo = m; cerrarPop();
-    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel'); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m);
+    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel', 'm-texto', 'm-pin'); if (S.modo !== 'texto' && window.NikaPdfAnot) window.NikaPdfAnot.deseleccionar(); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m);
     S.root.querySelectorAll('[data-modo]').forEach((b) => b.classList.toggle('on', b.dataset.modo === m));
     const h = $('.nkpdf-hint span', S.root); if (h) h.textContent = AYUDA[m];
   }
@@ -699,11 +713,14 @@
           <button data-modo="sub" title="Subrayar (H)">${ICO.sub}<span class="nkpdf-txt">Subrayar</span></button>
           <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
+          <button data-modo="texto" title="Escribir texto sobre el PDF (T): tocá donde quieras escribir">📝<span class="nkpdf-txt">Texto</span></button>
+          <button data-modo="pin" title="Marcador 📌 (M): tocá la página y se abre una nota atada a ese lugar">📌<span class="nkpdf-txt">Marcador</span></button>
         </div>
         <div class="nkpdf-grupo" aria-label="Edición">
           <button data-accion="undo" title="Deshacer (Ctrl+Z)" disabled>↶<span class="nkpdf-txt">Deshacer</span></button>
           <button data-accion="redo" title="Rehacer (Ctrl+Y)" disabled>↷<span class="nkpdf-txt">Rehacer</span></button>
           <button data-accion="supr" title="Borrar la marca seleccionada (Supr). Tocá una marca para seleccionarla">🗑<span class="nkpdf-txt">Borrar marca</span></button>
+          <button data-accion="lapiz" title="Solo lápiz (tablets): con el dedo se mueve la página y solo el lápiz dibuja o escribe">✍️<span class="nkpdf-txt">Solo lápiz</span></button>
           <button data-accion="recta" title="Línea recta: el pincel traza una recta desde donde empezás (también con Mayús)">📏<span class="nkpdf-txt">Línea recta</span></button>
         </div>
         <div class="nkpdf-grupo" aria-label="Color del subrayado">
@@ -736,7 +753,7 @@
     for (let i = 1; i <= mi.n; i++) {
       const el = document.createElement('div'); el.className = 'nk-pg'; el.dataset.p = i;
       el.style.width = mi.base.w * mi.escala + 'px'; el.style.height = mi.base.h * mi.escala + 'px';
-      el.innerHTML = '<canvas></canvas><div class="nk-hl"></div><div class="nk-tx"></div><span class="nk-num">' + i + '</span>';
+      el.innerHTML = '<canvas></canvas><div class="nk-hl"></div><div class="nk-tx"></div><div class="nk-an"></div><span class="nk-num">' + i + '</span>';
       mi.scroll.appendChild(el); mi.pags.push({ num: i, el, hecho: false, cargando: false });
     }
     mi.io = new IntersectionObserver((es) => {
@@ -772,6 +789,7 @@
         case 'undo': deshacer(); break;
         case 'redo': rehacer(); break;
         case 'supr': if (mi.sel && mi.marcas.includes(mi.sel)) eliminar(mi.sel); else aviso('Tocá primero una marca para seleccionarla'); break;
+        case 'lapiz': mi.soloLapiz = !mi.soloLapiz; b.classList.toggle('on', mi.soloLapiz); mi.root.classList.toggle('solo-lapiz', mi.soloLapiz); aviso(mi.soloLapiz ? 'Solo lápiz: el dedo mueve la página, el lápiz dibuja' : 'Dedo y lápiz dibujan'); break;
         case 'recta': mi.recta = !mi.recta; b.classList.toggle('on', mi.recta); if (mi.recta && mi.modo !== 'pincel') modo('pincel'); aviso(mi.recta ? 'Línea recta activada' : 'Línea recta desactivada'); break;
       }
     });
@@ -789,7 +807,7 @@
       if (k === 'delete' || k === 'backspace') { if (mi.sel && mi.marcas.includes(mi.sel)) { e.preventDefault(); cerrarPop(); eliminar(mi.sel); } else aviso('Tocá primero una marca para seleccionarla'); return; }
       if (k === 'escape') { cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove(); return; }
       if (k === '?' || (k === '/' && e.shiftKey)) { atajos(); return; }
-      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'p' || k === 'a') modo('pincel'); else if (k === 'e') modo('bor');
+      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'p' || k === 'a') modo('pincel'); else if (k === 'e') modo('bor'); else if (k === 't') modo('texto'); else if (k === 'm') modo('pin');
       else if (k === '[' || k === ']') { mi.tam = Math.max(4, Math.min(64, mi.tam + (k === ']' ? 4 : -4))); const rg = $('.nkpdf-rango', root); if (rg) rg.value = mi.tam; $('.nkpdf-tam b', root).textContent = mi.tam; }
       else if (k === 'f') pantalla();
       else if (['1', '2', '3', '4'].includes(k)) { mi.color = Object.keys(COLORES)[+k - 1]; marcarColor(); modo('sub'); }
@@ -805,10 +823,11 @@
     }, 1000);
 
     marcarColor(); actualizarBarra(); actualizarFs();
+    if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
     const ult = mi.prog && mi.prog.ultima_pagina;
     if (ult && ult > 1 && ult <= mi.n && window._nikaReanudar) { window._nikaReanudar = false; irA(ult, true); }
     else if (ult && ult > 1 && ult <= mi.n) toast(`Seguías en la página ${ult} de ${mi.n}`, 'Continuar', () => irA(ult, true));
-    else if (!mi.marcas.length) toast('Probá la herramienta Subrayar: seleccioná un texto y queda guardado en tu cuenta', 'Probar', () => modo('sub'));
+    else if (!mi.marcas.length) toast('Novedad: 📝 escribí y 📌 poné marcadores sobre el PDF, o subrayá un texto', 'Probar 📌', () => modo('pin'));
     mi.actual = 1;
   }
 
@@ -826,5 +845,5 @@
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { abrir, cerrar, pantalla, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
+  window.NikaPdf = { abrir, cerrar, pantalla, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
 })();

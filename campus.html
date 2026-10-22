@@ -1281,7 +1281,7 @@
     <script src="js/novedadesAviso.js"></script>
     <script src="js/perfilRedes.js?v=1"></script>
     <script src="js/retoCrear.js?v=2"></script>
-    <script src="js/salaEstudio.js?v=4"></script>
+    <script src="js/salaEstudio.js?v=5"></script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
@@ -1290,9 +1290,9 @@
     <script src="js/guardiaModal.js?v=12"></script>
     <script src="js/rendimiento.js?v=5"></script>
     <!-- Chart.js se quitó: ninguna pantalla lo usa (ahorra ~200 KB bloqueantes al abrir el campus) -->
-    <script src="js/chatManager.js?v=4"></script>
-    <script src="js/pomodoroSyncManager.js?v=7"></script>
-    <script src="js/onboardingTour.js?v=3"></script>
+    <script src="js/chatManager.js?v=5"></script>
+    <script src="js/pomodoroSyncManager.js?v=8"></script>
+    <script src="js/onboardingTour.js?v=4"></script>
     <script src="js/pomodoroBar.js?v=9"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js?v=3"></script>
@@ -5826,7 +5826,7 @@ async function handleLogout() {
         try {
             const amigos = await NikaFriends.listFriends();
             if (amigos.some(f => f.username === username)) return true;
-            if (avisar) showToast('Solo podés sincronizar el Pomodoro con tus amigos.');
+            if (avisar) { if (window.NikaNotif) window.NikaNotif.cartelAmistad(username); else showToast('Solo podés sincronizar el Pomodoro con tus amigos.'); }
             return false;
         } catch (_) { return siFalla; }
     }
@@ -5919,6 +5919,23 @@ async function handleLogout() {
         }
         showToast(`🧉 Te uniste a la sesión de @${payload.fromUsername}. Solo el Host controla el reloj.`, 'success');
     }
+
+    // Invitaciones aceptadas desde la tarjeta global (cualquier página): unirse acá o, si venías de otra página, al llegar
+    window.NikaPomodoroUnirse = (p) => _mostrarInvitacionPomodoro(Object.assign({}, p, { autoAceptar: true }));
+    (function _unirsePendienteDeOtraPagina() {
+        let p = null;
+        try { p = JSON.parse(sessionStorage.getItem('nika_unirse_pendiente') || 'null'); sessionStorage.removeItem('nika_unirse_pendiente'); } catch (_) {}
+        if (!p) {
+            const q = new URLSearchParams(location.search);
+            if (q.get('unirme') && q.get('sid')) { p = { at: Date.now(), fromUsername: q.get('unirme'), sessionId: q.get('sid'), tema: q.get('tema') || null }; try { history.replaceState(null, '', location.pathname); } catch (_) {} }
+        }
+        if (!p || !p.fromUsername || Date.now() - (p.at || 0) > 5 * 60 * 1000) return;
+        let intentos = 0;
+        const t = setInterval(() => {
+            if (window.PomodoroEngine && window.PomodoroSyncManager && ++intentos > 2) { clearInterval(t); _mostrarInvitacionPomodoro(Object.assign({}, p, { autoAceptar: true })); }
+            else if (intentos > 40) clearInterval(t);
+        }, 500);
+    })();
 
     function closePomodoroSyncModal() {
         const modal = document.getElementById('pomodoro-sync-modal');
@@ -6198,5 +6215,6 @@ async function handleLogout() {
 
     <script src="js/chatFlotante.js?v=9"></script>
 <script src="js/micro.js?v=2" defer></script>
+    <script src="js/nikaNotificaciones.js?v=2" defer></script>
 </body>
 </html>

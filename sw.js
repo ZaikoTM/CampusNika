@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v323";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v324";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -29,7 +29,7 @@ const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
 
 const PRECACHE_URLS = [
-    "index.html", "campus.html", "plan_examen.html", "css/plan-examen.css", "css/plan-examen-v2.css", "css/plan-examen-v3.css", "css/tema-premium-salas.css", "js/planExamen.js", "js/planFusion.js", "js/campusVisual.js", "retos.html", "js/nikaVoz.js", "js/vozLocal.js", "js/vozLocalWorker.js", "examen_oral.html", "js/examenOral.js", "js/nikaPdf.js", "js/versusPlus.js", "css/versus-plus.css", "js/desafiosGlobal.js", "js/nikaImprimir.js", "css/nika-imprimir.css", "css/examen-oral.css", "js/retos.js", "js/retoCrear.js", "css/retos.css", "css/retos-form.css", "js/resumenSemanal.js", "css/resumen-semanal.css", "js/estudio/notasEstudio.js", "mis_notas.html", "js/misNotas.js", "css/mis-notas.css", "js/nikaAccesibilidad.js", "js/nikaMetricas.js", "css/accesibilidad.css", "css/campus-visual.css", "js/planPomodoro.js", "js/planImprimir.js", "js/vendor/qrcode-generator.min.js", "css/plan-imprimir.css", "ml_estudio.html", "recorrido.html", "data/recorrido_ginecologia.json", "data/recorrido_cirugia.json", "data/recorrido_medicinadeportiva.json", "js/mlEstudio.js", "css/ml-estudio.css", "data/medicinalegal.json", "data/medicinadeportiva.json", "data/medicinalegal_recorrido.json", "js/programaTemas.js", "data/pfo_data.json", "data/planes/gineco_integrador_up1_3.json", "data/planes/gineco_final_up1_4.json", "data/planes/cirugia_parcial1_up1_5.json", "data/planes/cirugia_parcial2_up6_11.json", "data/planes/cirugia_final_up1_11.json", "data/planes/siam_parcial1_up1_5.json", "data/planes/siam_parcial2_up6_9.json", "data/planes/siam_final_up1_9.json", "nikasim.html", "sala_estudio.html", "css/sala-estudio.css", "js/salaEstudioHub.js", "nikasim-data.js", "js/nikasim.js", "css/nikasim.css", "recetarios.html", "js/recetarios.js", "css/tema-oscuro-paginas.css", "js/temaOscuro.js", "js/chatFlotante.js", "js/recetariosExamen.js", "js/examIntegridad.js", "css/examen-integridad.css", "js/recetariosShare.js", "js/recetariosData.js", "css/recetarios.css", "assets/TEXTO%20VECTOR%20NIKA.png", "liga.html", "foro.html", "ateneos.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
+    "index.html", "campus.html", "plan_examen.html", "css/plan-examen.css", "css/plan-examen-v2.css", "css/plan-examen-v3.css", "css/tema-premium-salas.css", "js/planExamen.js", "js/planFusion.js", "js/campusVisual.js", "retos.html", "js/nikaVoz.js", "js/vozLocal.js", "js/vozLocalWorker.js", "examen_oral.html", "js/examenOral.js", "js/nikaPdf.js", "js/versusPlus.js", "css/versus-plus.css", "js/desafiosGlobal.js", "js/nikaImprimir.js", "css/nika-imprimir.css", "css/examen-oral.css", "js/retos.js", "js/retoCrear.js", "css/retos.css", "css/retos-form.css", "js/resumenSemanal.js", "css/resumen-semanal.css", "js/estudio/notasEstudio.js", "mis_notas.html", "js/misNotas.js", "css/mis-notas.css", "js/nikaAccesibilidad.js", "js/nikaMetricas.js", "css/accesibilidad.css", "css/campus-visual.css", "js/planPomodoro.js", "js/planImprimir.js", "js/vendor/qrcode-generator.min.js", "css/plan-imprimir.css", "ml_estudio.html", "recorrido.html", "data/recorrido_ginecologia.json", "data/recorrido_cirugia.json", "data/recorrido_medicinadeportiva.json", "js/mlEstudio.js", "css/ml-estudio.css", "data/medicinalegal.json", "data/medicinadeportiva.json", "data/medicinalegal_recorrido.json", "js/programaTemas.js", "data/pfo_data.json", "data/planes/gineco_integrador_up1_3.json", "data/planes/gineco_final_up1_4.json", "data/planes/cirugia_parcial1_up1_5.json", "data/planes/cirugia_parcial2_up6_11.json", "data/planes/cirugia_final_up1_11.json", "data/planes/siam_parcial1_up1_5.json", "data/planes/siam_parcial2_up6_9.json", "data/planes/siam_final_up1_9.json", "nikasim.html", "sala_estudio.html", "css/sala-estudio.css", "js/salaEstudioHub.js", "nikasim-data.js", "js/nikasim.js", "css/nikasim.css", "recetarios.html", "js/recetarios.js", "css/tema-oscuro-paginas.css", "js/temaOscuro.js", "js/chatFlotante.js", "js/nikaNotificaciones.js", "js/recetariosExamen.js", "js/examIntegridad.js", "css/examen-integridad.css", "js/recetariosShare.js", "js/recetariosData.js", "css/recetarios.css", "assets/TEXTO%20VECTOR%20NIKA.png", "liga.html", "foro.html", "ateneos.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
     "terminos.html", "privacidad.html", "reembolsos.html", "offline.html", "manifest.json", "styles.css", "favicon.ico",
     "supabaseClient.js",
     "js/auth-guard.js", "js/assistant.js", "js/social.js", "js/moderacion.js",
@@ -46,7 +46,7 @@ const PRECACHE_URLS = [
     "assets/icons/icon-192.png", "assets/icons/icon-512.png",
     "assets/icons/favicon-32.png", "assets/icons/favicon-192.png",
     // Archivos que cargan las páginas principales (agregado al reinventar el Modo Guardia)
-    "acreditaciones.html", "admin.html", "assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png", "assets/N%20NIKA.png", "assets/icons/apple-touch-icon.png", "css/acreditaciones.css", "css/campus-premium-espacio.css", "css/campus-premium.css", "css/examen-navbar.css", "css/micro.css", "css/nika-navbar.css", "css/pfo-estudio.css", "css/pfo.css", "css/productividad.css", "css/sidebar-grupos.css", "css/tema-premium-salas.css", "duelosManager.js", "gineco_hub.html", "js/acreditaciones/fx.js", "js/acreditaciones/monitor.js", "js/acreditaciones/motor.js", "js/avisoVencimiento.js", "js/campusEspacio.js", "js/campusTema.js", "js/casosPacientes.js", "js/estudio/pdfLector.js", "js/examModesConfig.js", "js/examNavbarMovil.js", "js/examPromptsMaterias.js", "js/formatoEvaluacion.js", "js/micro.js", "js/nikaAcceso.js", "js/novedadesAviso.js", "js/perfilRedes.js", "js/pfoCasoChat.js", "js/pfoEcoe.js", "js/pfoEstudio.js", "js/pomodoroBar.js", "js/presenciaCampus.js", "js/programaTemas.js", "js/salaEstudio.js", "js/sidebarGrupos.js", "js/speechManager.js", "js/splashNika.js", "nikamed-plus.html", "notificacionesManager.js", "pfo_ecoe.html", "pfo_estudio.html", "siam_hub.html",
+    "acreditaciones.html", "admin.html", "assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png", "assets/N%20NIKA.png", "assets/icons/apple-touch-icon.png", "css/acreditaciones.css", "css/campus-premium-espacio.css", "css/campus-premium.css", "css/examen-navbar.css", "css/micro.css", "css/nika-navbar.css", "css/pfo-estudio.css", "css/pfo.css", "css/productividad.css", "css/sidebar-grupos.css", "css/tema-premium-salas.css", "duelosManager.js", "gineco_hub.html", "js/acreditaciones/fx.js", "js/acreditaciones/monitor.js", "js/acreditaciones/motor.js", "js/avisoVencimiento.js", "js/campusEspacio.js", "js/campusTema.js", "js/casosPacientes.js", "js/estudio/pdfLector.js", "js/estudio/pdfAnotaciones.js", "js/examModesConfig.js", "js/examNavbarMovil.js", "js/examPromptsMaterias.js", "js/formatoEvaluacion.js", "js/micro.js", "js/nikaAcceso.js", "js/novedadesAviso.js", "js/perfilRedes.js", "js/pfoCasoChat.js", "js/pfoEcoe.js", "js/pfoEstudio.js", "js/pomodoroBar.js", "js/presenciaCampus.js", "js/programaTemas.js", "js/salaEstudio.js", "js/sidebarGrupos.js", "js/speechManager.js", "js/splashNika.js", "nikamed-plus.html", "notificacionesManager.js", "pfo_ecoe.html", "pfo_estudio.html", "siam_hub.html",
 ];
 
 const CDN_HOSTS = ["cdn.jsdelivr.net", "cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"];
@@ -222,6 +222,45 @@ self.addEventListener("fetch", (event) => {
 });
 
 // ---------------- Background Sync ----------------
+// ---------------------------------------------------------------------------
+// Web Push (aviso con la app cerrada): lo manda la Edge Function enviar-push al crearse una notificación.
+// Si hay una ventana de NikaMed visible, no se muestra nada (la página ya avisa sola, con sonido).
+// ---------------------------------------------------------------------------
+self.addEventListener("push", (event) => {
+    let d = {};
+    try { d = event.data ? event.data.json() : {}; } catch (_) { d = { titulo: "NikaMed", cuerpo: event.data ? event.data.text() : "" }; }
+    event.waitUntil((async () => {
+        const ventanas = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+        if (ventanas.some((c) => c.visibilityState === "visible")) return;
+        const esInv = d.tipo === "invitacion_pomodoro";
+        await self.registration.showNotification(d.titulo || "NikaMed", {
+            body: d.cuerpo || "",
+            icon: "assets/n-nika-192.webp",
+            badge: "assets/n-nika-96.webp",
+            tag: d.id || ("nn-" + Date.now()),
+            renotify: true,
+            requireInteraction: esInv,
+            vibrate: esInv ? [200, 100, 200, 100, 300] : [120],
+            data: { url: d.url || "campus.html", vence: d.vence || null },
+            actions: esInv ? [{ action: "unirme", title: "🍅 Unirme" }, { action: "cerrar", title: "Ahora no" }] : [],
+        });
+    })());
+});
+
+self.addEventListener("notificationclick", (event) => {
+    event.notification.close();
+    if (event.action === "cerrar") return;
+    const url = (event.notification.data && event.notification.data.url) || "campus.html";
+    event.waitUntil((async () => {
+        const ventanas = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+        const dest = new URL(url, self.registration.scope).href;
+        for (const c of ventanas) {
+            if (c.url.startsWith(self.registration.scope) && "focus" in c) { try { await c.focus(); if ("navigate" in c) await c.navigate(dest); return; } catch (_) {} }
+        }
+        if (self.clients.openWindow) await self.clients.openWindow(dest);
+    })());
+});
+
 self.addEventListener("sync", (event) => {
     if (event.tag === "nika-sync") event.waitUntil(avisarClientes({ type: "NIKA_SYNC" }));
 });

@@ -35,6 +35,7 @@
     el.querySelector('.nb-x').addEventListener('click', (e) => { e.stopPropagation(); cerrarBanner(true); });
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('is-in'));
+    try { if (window.NikaNotif && !window.__nkNovSonada) { window.__nkNovSonada = new Set(); } if (window.NikaNotif && !window.__nkNovSonada.has(n.id)) { window.__nkNovSonada.add(n.id); window.NikaNotif.aviso('sistema', { titulo: 'Nueva novedad en el tablero', cuerpo: n.title || '', datos: { url: 'campus.html' } }); } } catch (_) {}
   }
 
   async function revisar(mostrar) {

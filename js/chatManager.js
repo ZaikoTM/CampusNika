@@ -336,7 +336,13 @@ const ChatManager = (function () {
 
         if (!_idsEntrantes.has(ref.id)) {
             _idsEntrantes.add(ref.id);
-            if (sonidoActivado) _reproducirSonidoMensaje();
+            if (sonidoActivado) {
+                const abierta = _norm(conversacionActual) === _norm(ref.from_username) && !document.hidden;
+                if (window.NikaNotif) {
+                    if (abierta) window.NikaNotif.sonar('mensaje');
+                    else window.NikaNotif.aviso('mensaje', { titulo: '@' + ref.from_username + ' te escribió', cuerpo: (origen === 'dm' && ref.content) ? String(ref.content).slice(0, 90) : '', datos: { chat: ref.from_username } });
+                } else _reproducirSonidoMensaje();
+            }
             _confirmarRecepcion(ref);
         }
 

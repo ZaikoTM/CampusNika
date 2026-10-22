@@ -30,7 +30,7 @@ const GuardiaModal = (() => {
 
   const BASE_URLS = ['campus.html', 'estudio.html', 'sala_estudio.html', 'examen.html', 'nikasim.html', 'acreditaciones.html', 'pfo_estudio.html',
     'recetarios.html', 'nikafarma.html', 'cirugia_hub.html', 'siam_hub.html', 'gineco_hub.html', 'offline.html', 'styles.css', 'supabaseClient.js',
-    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js',
+    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js', 'js/estudio/pdfAnotaciones.js', 'js/nikaNotificaciones.js',
     'js/pfoEstudio.js', 'css/pfo-estudio.css', 'css/pfo.css', 'js/acreditaciones/motor.js', 'js/recetarios.js', 'js/recetariosData.js', 'css/recetarios.css',
     'data/modulos.json'];
 

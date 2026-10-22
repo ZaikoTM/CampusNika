@@ -36,6 +36,7 @@ const PomodoroSyncManager = (function () {
     const HOST_GRACE_MS = 5 * 60 * 1000;  // el Invitado espera 5 min a un Host desconectado antes de soltarse
     const SOLICITUD_TTL_MS = 60 * 1000;   // validez de un pedido "Acompañar en el estudio"
 
+    const _invisible = () => { try { return !!(window.NikaNotif && window.NikaNotif.prefs().invisible); } catch (_) { return false; } };   // modo invisible: no se anuncia en la presencia
     let canal = null;
     let heartbeatInterval = null;
     let onFriendsStateChange = null; // callback: (estadosPorUsername) => void
@@ -117,7 +118,7 @@ const PomodoroSyncManager = (function () {
             if (chGlobal !== canal) return;   // evento de un canal que ya reemplazamos
             if (status === "SUBSCRIBED") {
                 intentosCanal = 0;
-                try { await chGlobal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
+                try { if (_invisible()) await chGlobal.untrack(); else await chGlobal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
                 _iniciarHeartbeat();
                 _reabrirSalaSiCorresponde(); // recargué la página en medio de una sesión compartida
             } else if (status === "CLOSED" || status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
@@ -186,7 +187,7 @@ const PomodoroSyncManager = (function () {
         if (!canal) return;
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) return;
-        try { canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
+        try { if (!_invisible()) canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
     }
 
     function _iniciarHeartbeat() {
@@ -270,7 +271,7 @@ const PomodoroSyncManager = (function () {
         if (!canal) return;
 
         const username = window.NikaSupabase.getNikaCurrentUsername();
-        await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
+        if (!_invisible()) await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
     }
 
     // ------------------------------------------------------------
@@ -290,7 +291,14 @@ const PomodoroSyncManager = (function () {
     async function invitarASincronizar(toUsername, extra) {
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) throw new Error("No hay usuario logueado.");
-        if (!canal) throw new Error("Presence no iniciado.");
+        // Notificación persistente: le llega al amigo en cualquier página del sitio (con sonido) y valida que sean amigos.
+        const tema = (extra && extra.tema) || estadoLocal.tema || null;
+        let envio = null;
+        if (window.NikaNotif) {
+            envio = await window.NikaNotif.enviar(toUsername, "invitacion_pomodoro", "@" + username + " te invitó a estudiar", tema ? "Tema: " + tema : "Sala de Pomodoro compartido", { sessionId: (extra && extra.sessionId) || null, tema });
+            if (envio && envio.reason === "no_amigo") throw new Error("no_amigo");
+        }
+        if (!canal) { if (envio && envio.ok) return; throw new Error("Presence no iniciado."); }
 
         await canal.send({
             type: "broadcast",

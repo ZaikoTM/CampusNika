@@ -1564,6 +1564,7 @@
         activeChallengeId = desafio.id;
         document.getElementById('challenge-from').textContent = desafio.from_username;
         document.getElementById('challenge-toast').classList.add('show');
+        try { if (window.NikaNotif) window.NikaNotif.aviso('desafio', { titulo: '@' + desafio.from_username + ' te desafió a un duelo', cuerpo: desafio.tema || '' }); } catch (_) {}
     }
 
     async function responderDesafio(aceptar) {
@@ -1621,5 +1622,6 @@
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>
 <script src="js/nikaMetricas.js?v=1" defer></script>
 <script src="js/ateneoGlobal.js?v=3" defer></script>
+    <script src="js/nikaNotificaciones.js?v=2" defer></script>
 </body>
 </html>

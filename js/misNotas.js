@@ -169,7 +169,7 @@
   const etiquetaRec = (n) => n.recurso_titulo || (n.tipo === 'libre' ? 'Notas sueltas' : n.recurso);
   const visibles = () => {
     const q = $('gn-q2').value.trim().toLowerCase();
-    return delCuaderno().filter((n) => (!filtroRecurso || etiquetaRec(n) === filtroRecurso) && (!q || ((n.texto || '') + ' ' + (n.titulo || '') + ' ' + (n.recurso_titulo || '')).toLowerCase().includes(q)))
+    return delCuaderno().filter((n) => (!filtroRecurso || etiquetaRec(n) === filtroRecurso) && (!q || ((n.texto || '') + ' ' + (n.titulo || '') + ' ' + (n.recurso_titulo || '') + ' ' + (n.etiquetas || []).join(' ')).toLowerCase().includes(q)))
       .sort((a, b) => (a.posicion == null ? 1e12 : a.posicion) - (b.posicion == null ? 1e12 : b.posicion) || +new Date(b.creado_en) - +new Date(a.creado_en));
   };
 
@@ -185,7 +185,8 @@
 
   function tarjeta(n, i) {
     const c = COLORES[n.color] ? n.color : 'amarillo';
-    const pos = n.posicion == null ? '' : '<span class="gn-pos">' + (n.tipo === 'video' ? '⏱ ' + fmt(n.posicion) : '📄 Pág. ' + n.posicion) + '</span>';
+    const pos = n.posicion == null ? '' : '<span class="gn-pos">' + (n.tipo === 'video' ? '⏱ ' + fmt(n.posicion) : (n.anotacion === 'pin' ? '📌 ' : n.anotacion === 'texto' ? '📝 ' : '📄 ') + 'Pág. ' + n.posicion) + '</span>';
+    const etq = (n.etiquetas || []).length ? '<span class="gn-etq" style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto">' + n.etiquetas.map((e) => '<i style="font-style:normal;font-size:.68rem;font-weight:800;background:rgba(15,23,42,.12);border-radius:999px;padding:1px 8px">#' + esc(e) + '</i>').join('') + '</span>' : '';
     const origen = n.recurso_titulo && n.tipo !== 'libre' ? '<span class="gn-origen" title="' + esc(n.recurso_titulo) + '">' + esc(n.recurso_titulo) + '</span>' : '';
     const ir = n.modulo && n.tipo !== 'libre' ? '<a class="gn-ir" href="estudio.html?modulo=' + encodeURIComponent(n.modulo) + '">Ir a la sala →</a>' : '';
     return '<article class="gn-nota" data-id="' + esc(n.id) + '" style="--nk:' + COLORES[c] + ';--i:' + Math.min(i || 0, 14) + '">'
@@ -193,7 +194,7 @@
       + '<span class="gn-acc"><button type="button" data-a="color" title="Color de la nota" aria-label="Color">🎨</button><button type="button" data-a="imprimir" title="Imprimir esta nota" aria-label="Imprimir nota">🖨️</button><button type="button" data-a="borrar" title="Borrar" aria-label="Borrar nota">🗑️</button></span></header>'
       + '<input class="gn-titulo-in" type="text" maxlength="80" style="' + esc(estiloTitulo(n)) + '" value="' + esc(n.titulo || '') + '" placeholder="Título de la nota" aria-label="Título de la nota">'
       + '<div class="gn-texto" contenteditable="true" spellcheck="false" aria-label="Texto de la nota">' + contenido(n) + '</div>'
-      + '<footer><small>' + new Date(n.creado_en).toLocaleDateString('es-AR', { day: '2-digit', month: 'short' }) + '</small>' + ir + '</footer></article>';
+      + '<footer><small>' + new Date(n.creado_en).toLocaleDateString('es-AR', { day: '2-digit', month: 'short' }) + '</small>' + etq + ir + '</footer></article>';
   }
 
   /* ---------- escritura (nube o local) ---------- */
@@ -273,6 +274,7 @@
     ['📚', 'Tu biblioteca de cuadernos', 'Cada materia tiene su cuaderno, agrupados por año. Podés ordenarlos por año (ascendente o descendente), por nombre o por los más recientes con el botón “Ordenar”. Tocá un cuaderno para abrirlo.'],
     ['🔖', 'Notas desde videos y materiales', 'Mientras mirás un video o leés un material en la sala de estudio, escribí una nota: se guarda sola con el minuto o la página. Acá la encontrás en el cuaderno de su materia y, al tocar el marcador, volvés a ese punto.'],
     ['✏️', 'Crear una nota suelta', 'Dentro de un cuaderno tocá “＋ Nueva nota”. Elegí antes el color del post-it con “Post-it nuevo”. Escribí un título arriba y el texto abajo; todo se guarda automáticamente.'],
+    ['📌', 'Anotaciones sobre el PDF y etiquetas', 'Lo que escribís o marcás con 📌 directamente sobre un PDF del Lector NikaMed aparece acá como una nota más, con su página y sus etiquetas (#importante, #repasar…). Buscá por etiqueta en el buscador, y compartí una nota con un amigo desde el lector con 📤: le llega una notificación y puede guardarla como copia propia.'],
     ['🎨', 'Formato como en un procesador de texto', 'Al hacer clic en una nota aparece la barra de formato: tipografía, tamaño con − y +, negrita, cursiva, subrayado, tachado, MAYÚSCULAS, minúsculas, color del texto, resaltado, alineación y listas. Seleccioná texto y aplicá.'],
     ['🖍️', 'Colores de cada nota', 'Con el botón 🎨 de la nota cambiás el color del post-it entre 8 opciones. Usalos para separar temas: por ejemplo, amarillo para conceptos y rosa para dudas.'],
     ['🗑️', 'Arrastrar al tacho', 'Agarrá el post-it con el mouse (o con el dedo) desde cualquier parte que no sea el texto y llevalo al tacho que aparece abajo a la derecha. También podés usar el botón 🗑️. Nada se pierde: va a la papelera.'],

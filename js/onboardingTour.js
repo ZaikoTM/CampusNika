@@ -10,7 +10,7 @@
 
 const NikaOnboarding = (() => {
   const STORAGE_KEY = 'nika_onboarding_visto';
-  const VERSION = 3;   // subir si se agregan pasos importantes: el tour manual siempre está disponible
+  const VERSION = 4;   // subir si se agregan pasos importantes: el tour manual siempre está disponible
 
   // selector ausente => tarjeta centrada (bienvenida / cierre)
   const PASOS = [
@@ -117,6 +117,18 @@ const NikaOnboarding = (() => {
       selector: '#dashboard-community-widget', icono: '🟢', categoria: 'Comunidad', color: '#22c55e', posicion: 'top',
       titulo: 'Compañeros conectados',
       texto: 'Mirá quién está estudiando ahora. Tocá a un compañero para ver su perfil, o sincronizá un Pomodoro en Modo Biblioteca.',
+    },
+    {
+      selector: '#nn-campana', icono: '🔔', categoria: 'Notificaciones', color: '#f97316', posicion: 'right',
+      titulo: 'Notificaciones con sonido en todo el sitio',
+      texto: 'Cuando un amigo te invita a estudiar, te comparte una nota o te desafía, te llega acá en cualquier página, con un sonido distinto para cada cosa.',
+      lista: ['🍅 Invitaciones: aceptás con un solo toque («Unirme»)', '⚙️ Preferencias: silenciá por tipo o todo junto (por defecto todo suena)', '👥 Amigos en línea y modo invisible', '📲 Con el sitio minimizado te avisa el sistema, y con la app cerrada, el celular', 'Solo tus amigos pueden invitarte; si no lo son, te sale el aviso para enviarles una solicitud'],
+    },
+    {
+      icono: '📌', categoria: 'Lector NikaMed', color: '#a855f7',
+      titulo: 'Escribí y poné marcadores sobre tus PDF',
+      texto: 'En cualquier PDF de las salas de estudio, el Lector NikaMed ahora te deja anotar directamente sobre la página.',
+      lista: ['📝 Texto: tocá donde quieras y escribí; cambiá tamaño, color y etiquetas', '📌 Marcador animado: al tocarlo se abre la nota atada a ese lugar', '🏷 Etiquetas (importante, repasar, pregunta de parcial…) para filtrar después', '📒 Todo se sincroniza con tus Notas de lectura y «Mis notas»', '📤 Podés compartir una anotación con un amigo (las tuyas siguen siendo solo tuyas)', '✍️ En tablet: modo «Solo lápiz» para que el dedo desplace y el lápiz escriba'],
     },
     {
       icono: '🚀', categoria: 'Listo', color: '#2563eb',

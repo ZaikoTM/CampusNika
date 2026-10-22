@@ -300,7 +300,7 @@
     try {
       try { await window.NikaSupabase.ready; } catch (_) { return false; }
       if (!yo()) return false;
-      const okCM = await cargarScript('chatManager.js?v=3', () => !!window.ChatManager);
+      const okCM = await cargarScript('chatManager.js?v=5', () => !!window.ChatManager);
       await cargarScript('friendsManager.js', () => !!window.NikaFriends);
       await cargarScript('presenciaCampus.js', () => !!window.NikaPresencia);
       if (!okCM || !window.ChatManager) return false;
@@ -315,7 +315,7 @@
         document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarNoLeidos(); });
       }
       montado = true; resolverListo(true);
-      if (!SOLO_PRESENCIA) cargarScript('desafiosGlobal.js?v=1', () => !!window.NikaDesafios);   // avisos de duelos 1vs1 en cualquier página
+      if (!SOLO_PRESENCIA) cargarScript('desafiosGlobal.js?v=2', () => !!window.NikaDesafios);   // avisos de duelos 1vs1 en cualquier página
       return true;
     } finally { corriendo = false; }
   }

@@ -327,7 +327,10 @@
     try {
       await window.PomodoroSyncManager.invitarASincronizar(u, { sessionId: r.sessionId, tema: r.tema });
       toast(`🧉 Invitación enviada a @${u}.`);
-    } catch (_) { toast('No se pudo enviar la invitación. Probá de nuevo.'); }
+    } catch (e) {
+      if (e && e.message === 'no_amigo') { try { E().releaseInvite(u); } catch (_) {} }
+      else toast('No se pudo enviar la invitación. Probá de nuevo.');
+    }
     render();
   }
 

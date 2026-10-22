@@ -49,6 +49,7 @@
     card.querySelector('.nd-ok').onclick = () => responder(d.id, true);
     card.querySelector('.nd-no').onclick = () => responder(d.id, false);
     cajaToasts().appendChild(card);
+    try { if (window.NikaNotif) window.NikaNotif.aviso('desafio', { titulo: '@' + d.from_username + ' te desafió a un duelo', cuerpo: d.tema || '', datos: { url: 'versus.html?desafio=' + encodeURIComponent(d.id) } }); } catch (_) {}
     try { if (window.navigator.vibrate) navigator.vibrate(120); } catch (_) {}
     if (d.expires_at) setTimeout(() => quitar(d.id), Math.max(1000, new Date(d.expires_at) - Date.now()));
   }

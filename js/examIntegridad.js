@@ -215,7 +215,7 @@ const ExamIntegridad = (() => {
   function activar(opts) {
     hooks = opts || {};
     if (activo) return;
-    activo = true;
+    activo = true; window.NikaNoMolestar = true;   // examen en curso: sin tarjetas ni sonidos (las notificaciones quedan en la campanita)
     document.body.classList.add('ei-protegido');
     document.addEventListener('visibilitychange', onVisibilidad);
     window.addEventListener('blur', onBlur); window.addEventListener('focus', onFocus);
@@ -226,7 +226,7 @@ const ExamIntegridad = (() => {
     window.addEventListener('beforeprint', onBeforePrint);
   }
   function desactivar() {
-    activo = false; enSegundoPlano = null; clearTimeout(timerBlur); timerBlur = null;
+    activo = false; window.NikaNoMolestar = false; enSegundoPlano = null; clearTimeout(timerBlur); timerBlur = null;
     document.body.classList.remove('ei-protegido', 'ei-estricto');
     document.removeEventListener('visibilitychange', onVisibilidad);
     window.removeEventListener('blur', onBlur); window.removeEventListener('focus', onFocus);
