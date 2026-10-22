@@ -6,7 +6,7 @@
 // real dispara el evento window 'nika:friends-changed' para que la interfaz
 // se vuelva a dibujar sola.
 
-const NikaFriends = (() => {
+var NikaFriends = window.NikaFriends || (() => {
   let channel = null;
 
   function esc(t) {

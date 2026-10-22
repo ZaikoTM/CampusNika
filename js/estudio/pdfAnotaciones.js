@@ -237,7 +237,7 @@
     css();
     const api = N(); const d = api.leer(a);
     if (!window.NikaNotif) { alert('Las notificaciones no están disponibles en este momento.'); return; }
-    if (!window.NikaFriends) await new Promise((res) => { const s = document.createElement('script'); s.src = 'js/friendsManager.js'; s.onload = res; s.onerror = res; document.head.appendChild(s); });
+    if (!window.NikaFriends) await new Promise((res) => { if (document.querySelector('script[src*="friendsManager.js"]')) { let n = 0; const t = setInterval(() => { if (window.NikaFriends || ++n > 50) { clearInterval(t); res(); } }, 100); return; } const s = document.createElement('script'); s.src = 'js/friendsManager.js'; s.onload = res; s.onerror = res; document.head.appendChild(s); });
     let amigos = []; try { amigos = await window.NikaFriends.listFriends(); } catch (_) {}
     const m = document.createElement('div'); m.className = 'nk-modal-share';
     m.innerHTML = `<div><h3>📤 Compartir con un amigo</h3><p>Le llega una notificación con tu nota y, si quiere, la guarda como copia propia. Tu anotación sigue siendo solo tuya.</p><input type="search" placeholder="Buscar amigo…" aria-label="Buscar amigo"><div class="lista"></div><button type="button" class="cerrar">Cerrar</button></div>`;

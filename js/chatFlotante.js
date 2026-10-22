@@ -26,9 +26,14 @@
   const hayUsuario = () => { try { return !!JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); } catch (_) { return false; } };
 
   function cargarScript(src, ok) {
+    const cola = (window.__nikaCarga = window.__nikaCarga || {}), k = String(src).split('?')[0];
     return new Promise((res) => {
       if (ok()) return res(true);
-      const s = document.createElement('script'); s.src = BASE + src; s.onload = () => res(true); s.onerror = () => res(false); document.head.appendChild(s);
+      if (cola[k]) { cola[k].then(() => res(!!ok())); return; }   // otro módulo (nikaNotificaciones.js) ya lo está bajando
+      if (document.querySelector('script[src*="' + k + '"]')) { let n = 0; const t = setInterval(() => { if (ok() || ++n > 50) { clearInterval(t); res(!!ok()); } }, 100); return; }
+      const s = document.createElement('script'); s.src = BASE + src;
+      cola[k] = new Promise((r2) => { s.onload = () => r2(true); s.onerror = () => r2(false); });
+      cola[k].then(res); document.head.appendChild(s);
     });
   }
 
@@ -309,7 +314,7 @@
     try {
       try { await window.NikaSupabase.ready; } catch (_) { return false; }
       if (!yo()) return false;
-      const okCM = await cargarScript('chatManager.js?v=5', () => !!window.ChatManager);
+      const okCM = await cargarScript('chatManager.js?v=6', () => !!window.ChatManager);
       await cargarScript('friendsManager.js', () => !!window.NikaFriends);
       await cargarScript('presenciaCampus.js', () => !!window.NikaPresencia);
       if (!okCM || !window.ChatManager) return false;

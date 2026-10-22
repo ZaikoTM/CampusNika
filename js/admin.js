@@ -637,7 +637,7 @@
       const rows = data || [];
       box.textContent = '';
       if (!rows.length) { box.appendChild(el('p', 'as-vacio', 'Todavía no hay datos: se empiezan a juntar cuando los usuarios navegan la plataforma.')); return; }
-      const vistas = rows.filter((r) => r.accion === 'vista'), errs = rows.filter((r) => r.accion === 'error');
+      const vistas = rows.filter((r) => r.accion === 'vista'), errs = rows.filter((r) => r.accion === 'error' && !/^script error\.?$/i.test(String((r.extra && r.extra.msg) || '')));   // 'Script error.' = script de terceros sin detalle: no se puede corregir
       const usuarios = new Set(rows.map((r) => r.user_id)), hoyIni = new Date(); hoyIni.setHours(0, 0, 0, 0);
       const act7 = new Set(rows.filter((r) => new Date(r.creado_en) > new Date(Date.now() - 7 * 86400000)).map((r) => r.user_id));
       const actHoy = new Set(rows.filter((r) => new Date(r.creado_en) >= hoyIni).map((r) => r.user_id));

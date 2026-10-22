@@ -3,7 +3,7 @@
 // Latido a Supabase (RPC nika_heartbeat) mientras la pestaña está visible. Si todavía no corriste
 // sql/presencia_ultima_vez.sql, todo falla en silencio y la interfaz sigue funcionando sin estos datos.
 
-const NikaPresencia = (() => {
+var NikaPresencia = window.NikaPresencia || (() => {
   const LATIDO_MS = 60 * 1000;
   const ONLINE_MS = 3 * 60 * 1000;          // "en línea" = activo en los últimos 3 min
   let timer = null, disponible = true;

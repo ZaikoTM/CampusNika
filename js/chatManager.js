@@ -25,7 +25,7 @@
  * ============================================================
  */
 
-const ChatManager = (function () {
+var ChatManager = window.ChatManager || (function () {
     const sb = () => window.NikaSupabase.client;
 
     // channelName determinístico: siempre el mismo sin importar quién

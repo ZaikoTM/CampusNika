@@ -503,10 +503,15 @@
 
   // ---------------------------------------------------------------- utilidades de carga
   function cargarScript(src, listo) {
+    const cola = (window.__nikaCarga = window.__nikaCarga || {}), k = String(src).split('?')[0];
     return new Promise((res) => {
       if (listo && listo()) return res(true);
+      if (cola[k]) { cola[k].then(() => res(!listo || !!listo())); return; }   // otro módulo ya lo está bajando
+      if (document.querySelector('script[src*="' + k + '"]')) { let n = 0; const t = setInterval(() => { if ((listo && listo()) || ++n > 50) { clearInterval(t); res(!listo || !!listo()); } }, 100); return; }   // ya está en la página
       const base = (() => { const s = document.querySelector('script[src*="nikaNotificaciones.js"]'); return s ? s.src.replace(/nikaNotificaciones\.js.*$/, '') : 'js/'; })();
-      const s = document.createElement('script'); s.src = base + src; s.onload = () => res(true); s.onerror = () => res(false); document.head.appendChild(s);
+      const s = document.createElement('script'); s.src = base + src;
+      cola[k] = new Promise((r2) => { s.onload = () => r2(true); s.onerror = () => r2(false); });
+      cola[k].then(res); document.head.appendChild(s);
     });
   }
 
@@ -528,7 +533,7 @@
     sondeo = setInterval(() => { if (!document.hidden) cargarRemotas(false); }, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarRemotas(false); });
     // presencia global (amigos en línea) en toda página: respeta el modo invisible
-    cargarScript('friendsManager.js', () => !!window.NikaFriends).then(() => { vigilarSolicitudes(); return cargarScript('chatManager.js?v=5', () => !!window.ChatManager); }).then(() => { if (!prefs.invisible && window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(() => {}); });
+    cargarScript('friendsManager.js', () => !!window.NikaFriends).then(() => { vigilarSolicitudes(); return cargarScript('chatManager.js?v=6', () => !!window.ChatManager); }).then(() => { if (!prefs.invisible && window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(() => {}); });
   }
   function esperar(n) {
     if (iniciado) return;
