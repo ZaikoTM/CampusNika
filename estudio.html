@@ -296,31 +296,69 @@
         .resource-open-btn svg { width: 15px; height: 15px; }
 
         /* Capítulos de libros agrupados: una tarjeta desplegable por libro con mosaico de capítulos */
-        .nk-lib { border: 1px solid var(--border); border-radius: 14px; background: var(--bg-page); overflow: hidden; transition: box-shadow .25s, border-color .25s; }
-        .nk-lib[open] { border-color: var(--nika-primary); box-shadow: var(--shadow); }
-        .nk-lib > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 14px 16px; user-select: none; }
+        .nk-lib { --h: 210; --c1: hsl(var(--h) 78% 46%); --c2: hsl(calc(var(--h) + 40) 80% 58%); position: relative; border: 1px solid var(--border); border-radius: 18px; background: var(--bg-page); overflow: hidden; transition: box-shadow .3s, border-color .3s, transform .3s; animation: nkLibEntra .5s cubic-bezier(.2,.8,.2,1) both; }
+        .nk-lib:hover { transform: translateY(-2px); box-shadow: 0 10px 28px hsl(var(--h) 70% 40% / .16); }
+        .nk-lib[open] { border-color: hsl(var(--h) 70% 55% / .6); box-shadow: 0 12px 34px hsl(var(--h) 70% 40% / .18); }
+        .nk-lib::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--c1), var(--c2), var(--c1)); background-size: 200% 100%; animation: nkLibFlujo 6s linear infinite; }
+        @keyframes nkLibEntra { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+        @keyframes nkLibFlujo { to { background-position: -200% 0; } }
+        .nk-lib > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 16px 16px; user-select: none; position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent; }
         .nk-lib > summary::-webkit-details-marker { display: none; }
-        .nk-lib-ico { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; background: linear-gradient(135deg, #7e22ce, #0284c7); color: #fff; box-shadow: 0 4px 12px rgba(2,132,199,.28); transition: transform .3s; }
-        .nk-lib:hover .nk-lib-ico { transform: rotate(-6deg) scale(1.06); }
+        .nk-lib > summary::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, hsl(var(--h) 90% 70% / .16) 50%, transparent 65%); transform: translateX(-120%); transition: transform .7s; pointer-events: none; }
+        .nk-lib > summary:hover::after { transform: translateX(120%); }
+        .nk-lib > summary:focus-visible { outline: 3px solid hsl(var(--h) 90% 60% / .55); outline-offset: -3px; border-radius: 18px; }
+        .nk-lib-ico { position: relative; width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; background: linear-gradient(140deg, var(--c1), var(--c2)); color: #fff; box-shadow: 0 6px 16px hsl(var(--h) 70% 40% / .38), inset 0 1px 0 rgba(255,255,255,.35); transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+        .nk-lib:hover .nk-lib-ico { transform: rotate(-8deg) scale(1.1); }
+        .nk-lib[open] .nk-lib-ico { animation: nkLibLibro .6s ease; }
+        @keyframes nkLibLibro { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg) scale(1.12); } 100% { transform: rotateY(360deg); } }
         .nk-lib-tit { flex: 1; min-width: 0; }
-        .nk-lib-tit b { display: block; font-size: .95rem; color: var(--nika-dark); }
-        .nk-lib-tit small { font-size: .74rem; color: var(--text-muted); font-weight: 700; }
+        .nk-lib-tit b { display: block; font-size: 1rem; font-weight: 800; color: var(--nika-dark); letter-spacing: -.01em; }
+        .nk-lib-tit small { display: block; margin-top: 2px; font-size: .76rem; color: var(--text-muted); font-weight: 700; }
         .nk-lib-prog { font-weight: 800; color: #15803d; }
-        .nk-lib-chev { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(2,132,199,.1); color: var(--nika-primary); transition: transform .3s; flex-shrink: 0; }
+        .nk-anillo { position: relative; width: 46px; height: 46px; flex-shrink: 0; }
+        .nk-anillo svg { width: 46px; height: 46px; transform: rotate(-90deg); }
+        .nk-anillo circle { fill: none; stroke-width: 4.5; }
+        .nk-anillo .f { stroke: hsl(var(--h) 40% 50% / .16); }
+        .nk-anillo .v { stroke: var(--c1); stroke-linecap: round; stroke-dasharray: 113.1; stroke-dashoffset: 113.1; transition: stroke-dashoffset 1s cubic-bezier(.3,.8,.3,1); }
+        .nk-anillo i { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: .7rem; font-weight: 800; color: var(--nika-dark); }
+        .nk-lib-chev { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: hsl(var(--h) 80% 50% / .12); color: var(--c1); transition: transform .4s cubic-bezier(.3,1.5,.5,1), background .2s; flex-shrink: 0; }
+        .nk-lib:hover .nk-lib-chev { background: hsl(var(--h) 80% 50% / .22); }
         .nk-lib[open] .nk-lib-chev { transform: rotate(180deg); }
-        .nk-lib-cuerpo { padding: 0 14px 14px; animation: nkLibIn .3s ease both; }
-        @keyframes nkLibIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-        .nk-lib-buscar { width: 100%; margin: 0 0 10px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--border); font: inherit; font-size: .85rem; background: #fff; color: var(--nika-dark); }
-        .nk-lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
-        .nk-lib-grid .resource-item { padding: 11px 12px; gap: 10px; background: #fff; }
-        .nk-lib-grid .resource-item:hover { transform: translateY(-2px); }
-        .nk-lib-grid .resource-open-btn { display: none; }
-        .nk-lib-grid .resource-icon { width: 34px !important; height: 34px !important; }
-        .nk-lib-vacio { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: .85rem; padding: 10px; }
+        .nk-lib-cuerpo { padding: 2px 14px 16px; animation: nkLibIn .35s ease both; }
+        @keyframes nkLibIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+        .nk-lib-barra { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+        .nk-lib-buscar { flex: 1 1 200px; min-width: 0; padding: 9px 14px 9px 36px; border-radius: 999px; border: 1px solid var(--border); font: inherit; font-size: .84rem; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 12px center / 16px; color: var(--nika-dark); transition: border-color .2s, box-shadow .2s; }
+        .nk-lib-buscar:focus { outline: none; border-color: var(--c1); box-shadow: 0 0 0 3px hsl(var(--h) 90% 60% / .22); }
+        .nk-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+        .nk-chip { border: 1px solid var(--border); background: #fff; color: var(--text-muted); font: inherit; font-size: .74rem; font-weight: 800; padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: transform .2s, background .2s, color .2s, border-color .2s; }
+        .nk-chip:hover { transform: translateY(-1px); border-color: var(--c1); color: var(--c1); }
+        .nk-chip:active { transform: scale(.94); }
+        .nk-chip.on { background: linear-gradient(135deg, var(--c1), var(--c2)); color: #fff; border-color: transparent; box-shadow: 0 4px 12px hsl(var(--h) 70% 40% / .3); }
+        .nk-lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 11px; }
+        .nk-lib-grid .resource-item { --i: 0; position: relative; overflow: hidden; padding: 13px 14px; gap: 12px; background: #fff; border-radius: 14px; border: 1px solid var(--border); animation: nkTile .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 28ms); transition: transform .25s cubic-bezier(.3,1.4,.5,1), box-shadow .25s, border-color .25s; }
+        @keyframes nkTile { from { opacity: 0; transform: translateY(12px) scale(.96); } to { opacity: 1; transform: none; } }
+        .nk-lib-grid .resource-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--c1), var(--c2)); opacity: 0; transition: opacity .25s; }
+        .nk-lib-grid .resource-item:hover { transform: translateY(-4px) scale(1.015); border-color: hsl(var(--h) 70% 55% / .7); box-shadow: 0 12px 26px hsl(var(--h) 70% 40% / .2); background: #fff; }
+        .nk-lib-grid .resource-item:hover::before, .nk-lib-grid .resource-item.active-resource::before { opacity: 1; }
+        .nk-lib-grid .resource-item:active { transform: scale(.97); }
+        .nk-lib-grid .resource-item.active-resource { border-color: var(--c1); box-shadow: 0 0 0 3px hsl(var(--h) 90% 60% / .22); }
+        .nk-lib-grid .resource-item::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), hsl(var(--h) 90% 70% / .22), transparent 55%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+        .nk-lib-grid .resource-item:hover::after { opacity: 1; }
+        .nk-cap-num { flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .95rem; color: #fff; background: linear-gradient(140deg, var(--c1), var(--c2)); box-shadow: 0 5px 12px hsl(var(--h) 70% 40% / .3), inset 0 1px 0 rgba(255,255,255,.35); transition: transform .3s cubic-bezier(.3,1.6,.5,1), background .3s; }
+        .nk-lib-grid .resource-item:hover .nk-cap-num { transform: rotate(-8deg) scale(1.12); }
+        .nk-lib-grid .resource-item:has(.rp-ok) .nk-cap-num { background: linear-gradient(140deg, #16a34a, #4ade80); box-shadow: 0 5px 12px rgba(22,163,74,.35); }
+        .nk-lib-grid .resource-info h5 { font-size: .86rem; line-height: 1.25; margin-bottom: 4px; }
+        .nk-lib-grid .resource-info > span:not(.res-prog) { display: none; }
+        .nk-lib-grid .resource-open-btn { display: flex; width: 28px; height: 28px; border-radius: 50%; border: 0; background: hsl(var(--h) 80% 50% / .1); color: var(--c1); opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .25s; }
+        .nk-lib-grid .resource-item:hover .resource-open-btn { opacity: 1; transform: none; border: 0; }
+        .nk-lib-grid .rp-chk { transition: transform .25s cubic-bezier(.3,1.7,.5,1); }
+        .nk-lib-grid .rp-chk:hover { transform: scale(1.18); }
+        .nk-lib-vacio { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: .85rem; padding: 14px; }
         body.dark-mode .nk-lib { background: #111827; border-color: #1e293b; }
-        body.dark-mode .nk-lib-tit b { color: #f8fafc; }
-        body.dark-mode .nk-lib-grid .resource-item, body.dark-mode .nk-lib-buscar { background: #0b1220; color: #f8fafc; border-color: #1e293b; }
-        @media (max-width: 600px) { .nk-lib-grid { grid-template-columns: 1fr; } }
+        body.dark-mode .nk-lib-tit b, body.dark-mode .nk-anillo i { color: #f8fafc; }
+        body.dark-mode .nk-lib-grid .resource-item, body.dark-mode .nk-lib-buscar, body.dark-mode .nk-chip:not(.on) { background-color: #0b1220; color: #f8fafc; border-color: #1e293b; }
+        @media (max-width: 600px) { .nk-lib-grid { grid-template-columns: 1fr; } .nk-lib-grid .resource-open-btn { opacity: 1; transform: none; } .nk-chips { width: 100%; } }
+        @media (prefers-reduced-motion: reduce) { .nk-lib, .nk-lib *, .nk-lib::before { animation: none !important; transition: none !important; } }
 
         .placeholder-panel { text-align: center; padding: 50px 20px; color: var(--text-muted); font-size: 0.88rem; }
 
@@ -692,7 +730,7 @@
 
     <!-- 4. Lógica de Estudio -->
     <script src="js/estudio/notasEstudio.js?v=4"></script>
-    <script src="js/estudio/estudio.js?v=106"></script>
+    <script src="js/estudio/estudio.js?v=107"></script>
     <script src="js/estudio/pdfNotas.js?v=1"></script>
     <script src="js/estudio/pdfLector.js?v=12"></script>
 

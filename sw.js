@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v322";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v323";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;

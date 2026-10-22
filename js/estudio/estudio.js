@@ -923,10 +923,18 @@ function renderUpDetail(unit) {
             }, true);
             materialesListEl.addEventListener('input', (e) => {
                 const i = e.target; if (!i.classList || !i.classList.contains('nk-lib-buscar')) return;
-                const q = i.value.trim().toLowerCase(); let n = 0;
-                i.closest('.nk-lib-cuerpo').querySelectorAll('.resource-item').forEach(it => { const ok = !q || decodeURIComponent(it.dataset.title || '').toLowerCase().includes(q); it.style.display = ok ? '' : 'none'; if (ok) n++; });
-                const v = i.closest('.nk-lib-cuerpo').querySelector('.nk-lib-vacio'); if (v) v.style.display = n ? 'none' : '';
+                nkLibFiltrar(i.closest('.nk-lib-cuerpo'));
             });
+            materialesListEl.addEventListener('click', (e) => {
+                const c = e.target.closest && e.target.closest('.nk-chip'); if (!c) return;
+                c.parentNode.querySelectorAll('.nk-chip').forEach(x => x.classList.toggle('on', x === c));
+                nkLibFiltrar(c.closest('.nk-lib-cuerpo'));
+            });
+            materialesListEl.addEventListener('pointermove', (e) => {
+                const it = e.target.closest && e.target.closest('.nk-lib-grid .resource-item'); if (!it) return;
+                const r = it.getBoundingClientRect(); it.style.setProperty('--mx', (e.clientX - r.left) + 'px'); it.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+            materialesListEl.addEventListener('toggle', (e) => { const d = e.target; if (d.classList && d.classList.contains('nk-lib') && d.open) { actualizarContadoresLibros(); } }, true);
         }
     }
 
@@ -1242,6 +1250,7 @@ function renderMaterialesAgrupados(materiales, uid) {
     materiales.forEach(r => { const l = nkLibDe(r); if (l) (grupos[l.libro] = grupos[l.libro] || []).push(r); });
     let abiertos = {}; try { abiertos = JSON.parse(localStorage.getItem('nika_lib_abiertos') || '{}'); } catch (_) {}
     const hechos = new Set();
+    const hue = (t) => { let h = 0; for (const c of t) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
     return materiales.map(r => {
         const l = nkLibDe(r);
         if (!l || grupos[l.libro].length < NK_LIB_MIN) return renderResourceItem(r);
@@ -1249,14 +1258,25 @@ function renderMaterialesAgrupados(materiales, uid) {
         hechos.add(l.libro);
         const lista = grupos[l.libro], k = uid + '|' + l.libro;
         const abierto = abiertos[k] || lista.some(x => x.url === EstudioState.activeResourceUrl);
-        const items = lista.map(x => renderResourceItem({ ...x, title: nkLibDe(x).cap })).join('');
-        const buscador = lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : '';
+        const items = lista.map((x, i) => { const cap = nkLibDe(x).cap, m = /^Cap\.\s*(\d+)\s+(.*)$/.exec(cap); return renderResourceItem({ ...x, title: m ? m[2] : cap, _num: m ? m[1] : i + 1, _i: Math.min(i, 24) }); }).join('');
+        const barra = `<div class="nk-lib-barra">${lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : ''}<div class="nk-chips" role="group" aria-label="Filtrar capítulos"><button type="button" class="nk-chip on" data-f="todos">Todos</button><button type="button" class="nk-chip" data-f="no">Sin leer</button><button type="button" class="nk-chip" data-f="curso">En curso</button><button type="button" class="nk-chip" data-f="ok">Leídos</button></div></div>`;
         const nom = l.libro.replace(/</g, '&lt;');
-        return `<details class="nk-lib" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
-            <summary><span class="nk-lib-ico">📖</span><span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} capítulos<span class="nk-lib-leidos"></span></small></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
-            <div class="nk-lib-cuerpo">${buscador}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide con la búsqueda.</div></div></div>
+        return `<details class="nk-lib" style="--h:${hue(l.libro)}" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
+            <summary><span class="nk-lib-ico">📖</span><span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} capítulos<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+            <div class="nk-lib-cuerpo">${barra}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide 🔍</div></div></div>
         </details>`;
     }).join('');
+}
+function nkLibFiltrar(cuerpo) {
+    const i = cuerpo.querySelector('.nk-lib-buscar'), q = i ? i.value.trim().toLowerCase() : '';
+    const c = cuerpo.querySelector('.nk-chip.on'), f = c ? c.dataset.f : 'todos';
+    let n = 0;
+    cuerpo.querySelectorAll('.resource-item').forEach(it => {
+        const est = (it.querySelector('.res-prog') || {}).dataset ? (it.querySelector('.res-prog').dataset.estado || 'no') : 'no';
+        const ok = (!q || decodeURIComponent(it.dataset.title || '').toLowerCase().includes(q)) && (f === 'todos' || est === f);
+        it.style.display = ok ? '' : 'none'; if (ok) n++;
+    });
+    const v = cuerpo.querySelector('.nk-lib-vacio'); if (v) v.style.display = n ? 'none' : '';
 }
 function actualizarContadoresLibros() {
     document.querySelectorAll('#up-materiales-list .nk-lib').forEach(d => {
@@ -1264,6 +1284,11 @@ function actualizarContadoresLibros() {
         const ok = d.querySelectorAll('.res-prog[data-estado="ok"]').length;
         const el = d.querySelector('.nk-lib-leidos');
         if (el) el.innerHTML = ok ? ` · <span class="nk-lib-prog">${ok}/${todos} leídos ✓</span>` : '';
+        const pct = todos ? Math.round(ok / todos * 100) : 0;
+        const v = d.querySelector('.nk-anillo .v'), t = d.querySelector('.nk-anillo i');
+        if (v) v.style.strokeDashoffset = String(113.1 * (1 - pct / 100));
+        if (t) t.textContent = pct + '%';
+        const c = d.querySelector('.nk-lib-cuerpo'); if (c && d.open) nkLibFiltrar(c);
     });
 }
 
@@ -1272,7 +1297,7 @@ function renderResourceItem(resource) {
     const isActive = EstudioState.activeResourceUrl === resource.url ? 'active-resource' : '';
     const actionAttr = resource.type === 'tutorial'
         ? `onclick="location.href='${resource.url}'" style="cursor:pointer;"`   // tutoriales y recorridos interactivos de la PFO: se abren en su propia pantalla
-        : `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;"`;
+        : `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;${resource._i != null ? '--i:' + resource._i + ';' : ''}"`;
 
     const fid = nikaDriveId(resource.url);
     const fidAttr = fid ? ` data-fid="${fid}" data-title="${encodeURIComponent(resource.title)}"` : '';
@@ -1280,7 +1305,7 @@ function renderResourceItem(resource) {
 
     // Clases de YouTube: miniatura real del video (si no carga, queda el ícono de siempre)
     const ytm = String(resource.url).match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    const iconoHtml = ytm
+    const iconoHtml = resource._num != null ? `<div class="nk-cap-num">${resource._num}</div>` : ytm
         ? `<div class="resource-thumb" style="position:relative;width:72px;height:44px;border-radius:8px;overflow:hidden;flex-shrink:0;background:${meta.bg};">
                 <img src="https://i.ytimg.com/vi/${ytm[1]}/mqdefault.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.remove()">
                 <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;">&#9654;</span></span>
