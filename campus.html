@@ -149,6 +149,7 @@
     <script src="js/avisoVencimiento.js"></script>
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
     <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-cuenta.css?v=2">
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/sidebar-grupos.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
@@ -353,7 +354,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                     </div>
                 </div>
 
-                <button class="account-btn" id="header-auth-btn" onclick="handleProfileClick()">👤 Iniciar sesión / Registrarse</button>
+                <button class="account-btn" id="header-auth-btn" onclick="window.NikaCuenta ? NikaCuenta.click() : handleProfileClick()">👤 Iniciar sesión / Registrarse</button>
             </div>
         </header>
 
@@ -648,6 +649,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                 <input type="file" id="prof-banner-file" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleBannerPreview(event)" hidden>
                 <input type="file" id="prof-avatar-file" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleAvatarPreview(event)" hidden>
             </div>
+            <div class="prof-id" id="prof-id" aria-live="polite"></div>
             <p class="prof-hint">Portada: <strong>1200 × 600 px</strong> (2:1, apaisada) · Foto: <strong>400 × 400 px</strong> o más (cuadrada). JPG o PNG. Después podés encuadrarlas y hacer zoom.</p>
 
             <div class="prof-titulo-row">
@@ -740,12 +742,18 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                 </label>
             </section>
 
+            <!-- Sesión: cerrar sesión, claro y separado de guardar / volver -->
+            <section class="prof-card prof-card--sesion">
+                <span class="ses-ic" aria-hidden="true">🚪</span>
+                <div class="ses-tx"><b>Sesión de este dispositivo</b><small>Si compartís la compu o el celular, cerrá tu sesión al terminar. Tu progreso queda guardado.</small></div>
+                <button type="button" class="prof-btn-salir" onclick="window.NikaCuenta ? NikaCuenta.confirmarSalida() : handleLogout()"><span class="p">🚪</span>Cerrar sesión</button>
+            </section>
+
             <!-- Barra de acciones fija -->
             <div class="prof-actions">
-                <button type="button" class="prof-btn prof-btn-danger" onclick="handleLogout()">Cerrar sesión</button>
                 <span class="prof-actions-sp"></span>
-                <button type="button" class="prof-btn prof-btn-sec" onclick="closeProfileModal()">Cerrar</button>
-                <button type="submit" id="btn-save-profile" class="prof-btn prof-btn-pri">💾 Guardar</button>
+                <button type="button" class="prof-btn prof-btn-sec" onclick="closeProfileModal()">← Volver</button>
+                <button type="submit" id="btn-save-profile" class="prof-btn prof-btn-pri">💾 Guardar cambios</button>
             </div>
         </form>
     </div>
@@ -1376,6 +1384,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
     <script src="js/ateneos.js?v=18"></script>
     <script src="js/nikaMusic.js?v=15"></script>
     <script src="js/rachas.js?v=2"></script>
+    <script src="js/campusCuenta.js?v=2"></script>
     <script src="js/atajos.js"></script>
 
 </body>
@@ -2582,7 +2591,10 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                 const user = JSON.parse(userJson);
                 // NikaMed+: insignia junto al nombre (solo cuentas vip / premium)
                 const vipBadge = (window.NikaAcceso && window.NikaAcceso.esVip()) ? window.NikaAcceso.badgeHTML() : '';
-                if (headerBtn) headerBtn.innerHTML = `👤 <span class="account-btn-name">${nikaEsc(user.fullname)}</span>${vipBadge}`;
+                if (headerBtn) {
+                    if (window.NikaCuenta) { headerBtn.classList.add('cu-chip'); headerBtn.setAttribute('aria-haspopup', 'menu'); headerBtn.setAttribute('aria-expanded', 'false'); headerBtn.innerHTML = window.NikaCuenta.chipHtml(user, vipBadge); }
+                    else headerBtn.innerHTML = `👤 <span class="account-btn-name">${nikaEsc(user.fullname)}</span>${vipBadge}`;
+                }
                 if (sidebarName) sidebarName.innerHTML = `${nikaEsc(user.fullname)}${vipBadge}`;
                 if (sidebarRole) sidebarRole.innerText = `@${user.username}`;
                 if (sidebarAvatar && user.avatar) sidebarAvatar.src = user.avatar;
@@ -2608,7 +2620,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                 iniciarAvisosChat();
                 if (window.NikaNovedades) NikaNovedades.iniciar();
             } else {
-                if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
+                if (headerBtn) { headerBtn.classList.remove('cu-chip'); headerBtn.removeAttribute('aria-haspopup'); headerBtn.removeAttribute('aria-expanded'); headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`; }
                 if (sidebarName) sidebarName.innerText = "Invitado";
                 if (sidebarRole) sidebarRole.innerText = "Sin cuenta";
                 if (sidebarAdmin) sidebarAdmin.style.display = 'none';
@@ -3185,6 +3197,7 @@ async function openProfileModal() {
     // 1. Mostrar modal rápido con lo que haya en memoria
     let user = {};
     try { user = JSON.parse(localStorage.getItem('nika_currentUser')) || {}; } catch (e) {}
+    if (window.NikaCuenta) window.NikaCuenta.pintarIdentidad(user);
     
     const fn = document.getElementById('prof-fullname');
     const un = document.getElementById('prof-username');
@@ -6335,6 +6348,6 @@ async function handleLogout() {
 
     <script src="js/chatFlotante.js?v=10"></script>
 <script src="js/micro.js?v=2" defer></script>
-    <script src="js/nikaNotificaciones.js?v=4" defer></script>
+    <script src="js/nikaNotificaciones.js?v=5" defer></script>
 </body>
 </html>

@@ -95,11 +95,11 @@
 #nn-caja{position:fixed;top:14px;right:14px;z-index:2147483000;display:flex;flex-direction:column;gap:10px;max-width:min(360px,calc(100vw - 24px));pointer-events:none}
 .nn-card{--c:#38bdf8;pointer-events:auto;position:relative;overflow:hidden;background:#0f172a;color:#f8fafc;border:1px solid #334155;border-left:5px solid var(--c);border-radius:16px;padding:14px 16px 12px;box-shadow:0 20px 44px rgba(0,0,0,.42);font:600 14px/1.4 "Plus Jakarta Sans",system-ui,sans-serif;animation:nnIn .45s cubic-bezier(.2,.9,.3,1.25) both}
 .nn-card.nn-sale{animation:nnOut .3s ease forwards}
-.nn-card h4{margin:0;font:800 14px/1.3 inherit;display:flex;gap:9px;align-items:center}
+.nn-card h4{margin:0;font-weight:800;font-size:14px;line-height:1.3;font-family:inherit;display:flex;gap:9px;align-items:center}
 .nn-card h4 .i{display:inline-flex;width:34px;height:34px;border-radius:11px;align-items:center;justify-content:center;font-size:18px;background:color-mix(in srgb,var(--c) 22%,#0f172a);animation:nnLate 1.6s ease-in-out infinite}
 .nn-card p{margin:6px 0 0;color:#cbd5e1;font-weight:600;font-size:13px}
 .nn-card .nn-b{display:flex;gap:8px;margin-top:11px}
-.nn-card button{flex:1;border:0;border-radius:10px;padding:9px 10px;font:800 13px inherit;font-family:inherit;cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s}
+.nn-card button{flex:1;border:0;border-radius:10px;padding:9px 10px;font-weight:800;font-size:13px;font-family:inherit;cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s}
 .nn-card button:hover{filter:brightness(1.12);transform:translateY(-1px)}.nn-card button:active{transform:scale(.95)}
 .nn-ok{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 4px 14px rgba(34,197,94,.35)}.nn-no{background:#1e293b;color:#e2e8f0}
 .nn-conf{position:absolute;top:6px;right:30px;background:none!important;border:0;color:#64748b!important;font-size:14px!important;flex:none!important;padding:2px 6px!important;width:auto}.nn-conf:hover{color:#e2e8f0!important}
@@ -117,8 +117,8 @@
 #nn-panel.on{display:flex;animation:nnPanel .3s cubic-bezier(.2,.9,.3,1.15)}
 @keyframes nnPanel{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
 .nn-cab{display:flex;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid #1e293b}
-.nn-cab b{flex:1;font-size:15px}.nn-cab button{background:#1e293b;border:0;color:#cbd5e1;border-radius:9px;padding:6px 9px;cursor:pointer;font:700 12px inherit;font-family:inherit;transition:background .15s}.nn-cab button:hover{background:#334155}
-.nn-tabs{display:flex;gap:4px;padding:8px 10px 0}.nn-tabs button{flex:1;background:none;border:0;color:#94a3b8;padding:8px 4px;border-radius:9px 9px 0 0;cursor:pointer;font:800 12px inherit;font-family:inherit;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nn-cab b{flex:1;font-size:15px}.nn-cab button{background:#1e293b;border:0;color:#cbd5e1;border-radius:9px;padding:6px 9px;cursor:pointer;font-weight:700;font-size:12px;font-family:inherit;transition:background .15s}.nn-cab button:hover{background:#334155}
+.nn-tabs{display:flex;gap:4px;padding:8px 10px 0}.nn-tabs button{flex:1;background:none;border:0;color:#94a3b8;padding:8px 4px;border-radius:9px 9px 0 0;cursor:pointer;font-weight:800;font-size:12px;font-family:inherit;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
 .nn-tabs button.on{color:#7dd3fc;border-color:#38bdf8}
 .nn-cuerpo{overflow:auto;padding:8px 10px 12px;flex:1}
 .nn-fila{display:flex;gap:10px;padding:10px;border-radius:12px;cursor:pointer;position:relative;transition:background .15s,transform .15s;animation:nnIn .35s ease both}
@@ -135,13 +135,13 @@
 .nn-sw i{position:absolute;inset:0;border-radius:12px;background:#334155;transition:background .2s}.nn-sw i::after{content:"";position:absolute;left:3px;top:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
 .nn-sw input:checked+i{background:linear-gradient(135deg,#0ea5e9,#6366f1)}.nn-sw input:checked+i::after{transform:translateX(17px)}
 .nn-sw input:focus-visible+i{box-shadow:0 0 0 3px rgba(56,189,248,.5)}
-.nn-sec{color:#64748b;font:800 11px inherit;text-transform:uppercase;letter-spacing:.6px;margin:12px 4px 4px}
-.nn-aviso{margin:6px 4px 8px;padding:10px 12px;background:#10233f;border:1px solid #1d4ed8;border-radius:12px;font-size:12.5px;color:#bfdbfe}.nn-aviso button{margin-top:7px;background:#2563eb;border:0;color:#fff;border-radius:8px;padding:6px 12px;font:800 12px inherit;font-family:inherit;cursor:pointer}
+.nn-sec{color:#64748b;font-weight:800;font-size:11px;font-family:inherit;text-transform:uppercase;letter-spacing:.6px;margin:12px 4px 4px}
+.nn-aviso{margin:6px 4px 8px;padding:10px 12px;background:#10233f;border:1px solid #1d4ed8;border-radius:12px;font-size:12.5px;color:#bfdbfe}.nn-aviso button{margin-top:7px;background:#2563eb;border:0;color:#fff;border-radius:8px;padding:6px 12px;font-weight:800;font-size:12px;font-family:inherit;cursor:pointer}
 .nn-pt{width:9px;height:9px;border-radius:50%;background:#475569;flex:none;margin-top:5px}.nn-pt.on{background:#22c55e;box-shadow:0 0 8px #22c55e}
-.nn-mini{background:#16223a;border:0;color:#7dd3fc;border-radius:8px;padding:5px 10px;font:800 12px inherit;font-family:inherit;cursor:pointer}.nn-mini:hover{background:#243756}
+.nn-mini{background:#16223a;border:0;color:#7dd3fc;border-radius:8px;padding:5px 10px;font-weight:800;font-size:12px;font-family:inherit;cursor:pointer}.nn-mini:hover{background:#243756}
 .nn-modal{position:fixed;inset:0;z-index:2147483100;background:rgba(2,6,23,.72);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;animation:nnFade .2s ease}
 .nn-modal>div{width:min(440px,100%);background:#0f172a;color:#f8fafc;border:1px solid #334155;border-radius:20px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.6);font:600 14px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;animation:nnIn .35s cubic-bezier(.2,.9,.3,1.2)}
-.nn-modal h3{margin:0 0 8px;font:800 18px inherit}.nn-modal .nn-b{display:flex;gap:10px;margin-top:16px}.nn-modal .nn-b button{flex:1;border:0;border-radius:12px;padding:11px;font:800 14px inherit;font-family:inherit;cursor:pointer}
+.nn-modal h3{margin:0 0 8px;font-weight:800;font-size:18px;font-family:inherit}.nn-modal .nn-b{display:flex;gap:10px;margin-top:16px}.nn-modal .nn-b button{flex:1;border:0;border-radius:12px;padding:11px;font-weight:800;font-size:14px;font-family:inherit;cursor:pointer}
 .nn-modal .nota{margin-top:10px;padding:12px;border-radius:12px;background:#16223a;border-left:4px solid #a855f7;white-space:pre-wrap;max-height:220px;overflow:auto}
 @keyframes nnFade{from{opacity:0}to{opacity:1}}
 @media (max-width:600px){#nn-caja{left:10px;right:10px;max-width:none}#nn-panel{right:8px;left:8px;width:auto;top:56px}}
