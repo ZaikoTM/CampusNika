@@ -60,9 +60,7 @@
   // Carga de datos
   // ------------------------------------------------------------
   async function cargarPerfiles() {
-    const { data, error } = await c.from('profiles')
-      .select('id, username, fullname, avatar, role, tipo_cuenta, plan_activo, fecha_inicio_suscripcion, fecha_fin_suscripcion, created_at, email, anio_cursada, is_banned, last_seen_at, last_login_at')
-      .order('fullname', { ascending: true }).limit(3000);
+    const { data, error } = await c.rpc('admin_listar_perfiles');
     if (error) { console.error('[Admin] perfiles:', error); toast('No se pudieron leer los perfiles (¿corriste 07_rango_nikamed_plus.sql?).'); return; }
     perfiles = data || [];
   }
