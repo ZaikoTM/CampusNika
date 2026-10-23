@@ -22,8 +22,58 @@
     try { const f = JSON.parse(localStorage.getItem('nika_pdf_favs') || 'null'); if (Array.isArray(f) && f.length === 6 && f.every((x) => HEX.test(x))) return f.map((x) => x.toLowerCase()); } catch (_) {}
     return FAV_DEF.slice();
   }
-  const guardarFavs = (f) => { try { localStorage.setItem('nika_pdf_favs', JSON.stringify(f)); } catch (_) {} };
-  const ESCALAS = [0.6, 0.8, 1, 1.25, 1.5, 1.8, 2.2, 2.6];
+  // Los favoritos (con sus ajustes) y el tamaño del pincel se guardan en el navegador y también en la cuenta (tabla pdf_preferencias): así te siguen a cualquier dispositivo.
+  const cfgBase = (c) => ({ b: c, o: 100, s: 100, l: 100 });
+  function cfgFavs() {
+    const f = favoritos();
+    try { const c = JSON.parse(localStorage.getItem('nika_pdf_favs_cfg') || 'null'); if (Array.isArray(c) && c.length === 6 && c.every((x) => x && HEX.test(x.b || ''))) return c.map((x, i) => ({ b: x.b.toLowerCase(), o: +x.o || 100, s: x.s == null ? 100 : +x.s, l: +x.l || 100, fin: f[i] })); } catch (_) {}
+    return f.map(cfgBase);
+  }
+  let _subir = null;
+  async function subirPrefs() {
+    const u = await usuarioId(); if (!u) return;
+    try { await cliente().from('pdf_preferencias').upsert({ favs: favoritos(), cfg: cfgFavs(), tam: S ? S.tam : null, updated_at: new Date().toISOString() }, { onConflict: 'user_id' }); } catch (_) {}
+  }
+  function guardarPrefs() { try { localStorage.setItem('nika_pdf_prefs_t', String(Date.now())); } catch (_) {} clearTimeout(_subir); _subir = setTimeout(subirPrefs, 1200); }
+  const guardarFavs = (f, cfg) => { try { localStorage.setItem('nika_pdf_favs', JSON.stringify(f)); if (cfg) localStorage.setItem('nika_pdf_favs_cfg', JSON.stringify(cfg.map((x) => ({ b: x.b, o: x.o, s: x.s, l: x.l })))); } catch (_) {} guardarPrefs(); };
+  async function cargarPrefs(mi) {
+    const u = await usuarioId(); if (!u) return;
+    try {
+      const { data, error } = await cliente().from('pdf_preferencias').select('favs,cfg,tam,updated_at').maybeSingle();
+      if (error) return;
+      if (!data) { if (localStorage.getItem('nika_pdf_favs')) subirPrefs(); return; }
+      const tl = +localStorage.getItem('nika_pdf_prefs_t') || 0, ts = Date.parse(data.updated_at) || 0;
+      if (ts < tl) { subirPrefs(); return; }   // lo de este dispositivo es más nuevo
+      if (Array.isArray(data.favs) && data.favs.length === 6 && data.favs.every((x) => HEX.test(x))) {
+        localStorage.setItem('nika_pdf_favs', JSON.stringify(data.favs.map((x) => x.toLowerCase())));
+        if (Array.isArray(data.cfg) && data.cfg.length === 6) localStorage.setItem('nika_pdf_favs_cfg', JSON.stringify(data.cfg));
+        mi.color = favoritos()[0];
+      }
+      if (data.tam >= 2 && data.tam <= 120) mi.tam = data.tam;
+      localStorage.setItem('nika_pdf_prefs_t', String(ts));
+    } catch (_) {}
+  }
+  // color final = base + intensidad (saturación) + brillo + opacidad (se mezcla con blanco; las marcas ya se dibujan con transparencia)
+  const h2rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const rgb2h = (a) => '#' + a.map((v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+  function rgb2hsl(a) {
+    const r = a[0] / 255, g = a[1] / 255, b = a[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn; let h = 0, sa = 0;
+    if (d) { sa = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h /= 6; }
+    return [h, sa, l];
+  }
+  function hsl2rgb(a) {
+    const h = a[0], sa = a[1], l = a[2]; if (!sa) return [l * 255, l * 255, l * 255];
+    const q = l < 0.5 ? l * (1 + sa) : l + sa - l * sa, pp = 2 * l - q;
+    const f = (t) => { t = (t + 1) % 1; return 255 * (t < 1 / 6 ? pp + (q - pp) * 6 * t : t < 1 / 2 ? q : t < 2 / 3 ? pp + (q - pp) * (2 / 3 - t) * 6 : pp); };
+    return [f(h + 1 / 3), f(h), f(h - 1 / 3)];
+  }
+  function mezclar(c) {
+    const a = rgb2hsl(h2rgb(c.b)), rgb = hsl2rgb([a[0], Math.min(1, a[1] * c.s / 100), Math.max(0.04, Math.min(0.96, a[2] * c.l / 100))]), k = c.o / 100;
+    return rgb2h(rgb.map((v) => 255 - (255 - v) * k));
+  }
+  const ESCALAS = [0.5, 0.6, 0.8, 1, 1.25, 1.5, 1.8, 2.2, 2.6, 3, 3.5, 4, 5, 6, 8];   // hasta 800 %: pantallas 4K
+  const MOVIL = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '');
+  const PX_MAX = MOVIL ? 9e6 : 3.4e7;   // tope de píxeles por página: a más zoom se baja un poco la nitidez extra en vez de agotar la memoria
   const ICO = {
     sel: '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>',
     sub: '<svg viewBox="0 0 24 24"><path d="M4 20h7M14.5 4.5l5 5L9 20l-5 .5.5-5z"/><path d="M13 6l5 5"/></svg>',
@@ -178,6 +228,15 @@
 .pl-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
 .pl-c{aspect-ratio:1;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.6,.64,1),border-color .18s;padding:0}
 .pl-c:hover{transform:scale(1.22);border-color:#fff;z-index:1;position:relative}
+.nkpdf-paleta{overflow:auto}
+.pl-mix{margin-top:12px;padding:10px;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.pl-mix label{display:grid;grid-template-columns:70px 1fr 40px;align-items:center;gap:8px;margin-bottom:6px;font-size:.74rem;cursor:pointer}
+.pl-mix input[type=range]{width:100%;accent-color:#a855f7;height:4px;padding:0}.pl-mix b{text-align:right;color:#c4b5fd;font-size:.72rem}
+.pl-prev{margin-top:8px;padding:10px;border-radius:10px;background:#fff;color:#0f172a;font-size:.78rem;font-weight:700}.pl-prev span{padding:2px 5px;border-radius:2px;mix-blend-mode:multiply;opacity:.62}
+.nkpdf-lim .papelera{margin:0 0 12px;padding:10px 12px;border-radius:13px;background:rgba(34,197,94,.12);border:1px solid rgba(74,222,128,.4)}
+.nkpdf-lim .papelera h6{margin:0 0 6px;font-size:.8rem;color:#bbf7d0;font-weight:800}
+.nkpdf-lim .papelera .fila{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:.76rem}.nkpdf-lim .papelera .fila span{flex:1}
+.nkpdf-lim .papelera .fila button{border:0;border-radius:9px;padding:6px 10px;font:inherit;font-weight:800;font-size:.74rem;cursor:pointer;color:#04210f;background:linear-gradient(90deg,#4ade80,#22d3ee)}
 .pl-pie{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;font-size:.74rem}
 .pl-pie label{display:flex;align-items:center;gap:6px;margin-right:auto;cursor:pointer}.pl-pie input[type=color]{width:34px;height:26px;padding:0;border:0;border-radius:8px;background:none;cursor:pointer}
 .pl-pie button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#e2e8f0;border-radius:9px;padding:6px 10px;font:inherit;font-weight:700;font-size:.74rem;cursor:pointer}.pl-pie button:hover{background:rgba(255,255,255,.12)}
@@ -315,12 +374,14 @@
       if (!S || S.tok !== tok) return;
       const vp = page.getViewport({ scale: S.escala });
       pg.el.style.width = vp.width + 'px'; pg.el.style.height = vp.height + 'px';
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const cv = pg.el.querySelector('canvas'); cv.width = Math.floor(vp.width * dpr); cv.height = Math.floor(vp.height * dpr);
+      // nitidez: se dibuja con la densidad real de la pantalla (hasta 3x) y, si la página es enorme por el zoom, se achica solo lo justo para no pasar el tope de memoria
+      let dpr = Math.min(window.devicePixelRatio || 1, 3);
+      if (vp.width * vp.height * dpr * dpr > PX_MAX) dpr = Math.max(0.5, Math.sqrt(PX_MAX / (vp.width * vp.height)));
+      const cv = pg.el.querySelector('canvas'); cv.width = Math.max(1, Math.floor(vp.width * dpr)); cv.height = Math.max(1, Math.floor(vp.height * dpr));
       pg.tarea = page.render({ canvasContext: cv.getContext('2d'), viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null });
       await pg.tarea.promise; pg.tarea = null;
       if (!S || S.tok !== tok) return;
-      const tx = pg.el.querySelector('.nk-tx'); tx.innerHTML = '';
+      const tx = pg.el.querySelector('.nk-tx'); tx.innerHTML = ''; tx.style.setProperty('--scale-factor', vp.scale);
       const contenido = await page.getTextContent();
       if (S.tl) S.tl.chars[pg.num] = contenido.items.reduce((a, it) => a + (it.str ? it.str.length : 0), 0);
       await window.pdfjsLib.renderTextLayer({ textContentSource: contenido, container: tx, viewport: vp, textDivs: [] }).promise;
@@ -362,27 +423,48 @@
   function pintarFavoritos() { const g = $('.nkpdf-favs', S.root); if (g) { g.innerHTML = htmlFavoritos(); marcarColor(); } }
   function paleta(btn) {
     const ya = $('.nkpdf-paleta', S.root); if (ya) { ya.remove(); return; }
-    cerrarPop(); const mi = S; let f = favoritos(), slot = Math.max(0, f.indexOf(mi.color));
+    cerrarPop(); const mi = S; let f = favoritos(), cfg = cfgFavs(), slot = Math.max(0, f.indexOf(mi.color));
     const p = document.createElement('div'); p.className = 'nkpdf-paleta'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', 'Colores favoritos');
+    const fin = (i) => mezclar(cfg[i]);
     const dibujar = () => {
-      p.innerHTML = `<h5>🎨 Tus 6 colores favoritos</h5><p>Tocá uno para usarlo. Para cambiarlo, dejalo marcado y elegí un color de abajo: queda guardado para la próxima.</p>
-        <div class="pl-slots">${f.map((c, i) => `<button type="button" class="pl-s${i === slot ? ' on' : ''}" data-slot="${i}" style="background:${c}" aria-label="Favorito ${i + 1}">${i + 1}</button>`).join('')}</div>
-        <div class="pl-grid">${PALETA.map((c) => `<button type="button" class="pl-c" data-c="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join('')}</div>
-        <div class="pl-pie"><label>Color propio <input type="color" class="pl-pick" value="${f[slot]}"></label><button type="button" class="pl-rest">Restaurar</button><button type="button" class="pl-ok">Listo</button></div>`;
+      const c = cfg[slot];
+      p.innerHTML = `<h5>🎨 Tus 6 colores favoritos</h5><p>Tocá uno para usarlo. Para cambiarlo, dejalo marcado y elegí un color abajo. Se guardan en tu cuenta: te siguen a todos tus dispositivos.</p>
+        <div class="pl-slots">${f.map((x, i) => `<button type="button" class="pl-s${i === slot ? ' on' : ''}" data-slot="${i}" style="background:${x}" aria-label="Favorito ${i + 1}">${i + 1}</button>`).join('')}</div>
+        <div class="pl-grid">${PALETA.map((x) => `<button type="button" class="pl-c" data-c="${x}" style="background:${x}" aria-label="Color ${x}"></button>`).join('')}</div>
+        <div class="pl-mix">
+          <label><span>Opacidad</span><input type="range" data-p="o" min="15" max="100" value="${c.o}"><b>${c.o}%</b></label>
+          <label><span>Intensidad</span><input type="range" data-p="s" min="0" max="200" value="${c.s}"><b>${c.s}%</b></label>
+          <label><span>Brillo</span><input type="range" data-p="l" min="50" max="150" value="${c.l}"><b>${c.l}%</b></label>
+          <div class="pl-prev" aria-hidden="true"><span style="background:${f[slot]}">Así se verá tu marca sobre el texto</span></div>
+        </div>
+        <div class="pl-pie"><label>Color propio <input type="color" class="pl-pick" value="${c.b}"></label><button type="button" class="pl-rmix">Ajustes a 100%</button><button type="button" class="pl-rest">Restaurar favoritos</button><button type="button" class="pl-ok">Listo</button></div>`;
     };
-    const poner = (c) => { f[slot] = c.toLowerCase(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); if (mi.modo !== 'sub' && mi.modo !== 'pincel') modo('sub'); dibujar(); };
+    const aplicarSlot = (redibujar) => {
+      f[slot] = fin(slot); guardarFavs(f, cfg); mi.color = f[slot]; pintarFavoritos(); if (mi.modo !== 'sub' && mi.modo !== 'pincel') modo('sub');
+      if (redibujar) dibujar();
+    };
     dibujar();
     p.addEventListener('click', (e) => {
       const b = e.target.closest('button'); if (!b) return;
       if (b.dataset.slot != null) { slot = +b.dataset.slot; mi.color = f[slot]; marcarColor(); dibujar(); }
-      else if (b.dataset.c) poner(b.dataset.c);
-      else if (b.classList.contains('pl-rest')) { f = FAV_DEF.slice(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); dibujar(); }
+      else if (b.dataset.c) { cfg[slot] = cfgBase(b.dataset.c); aplicarSlot(true); }
+      else if (b.classList.contains('pl-rmix')) { cfg[slot] = cfgBase(cfg[slot].b); aplicarSlot(true); }
+      else if (b.classList.contains('pl-rest')) { f = FAV_DEF.slice(); cfg = f.map(cfgBase); guardarFavs(f, cfg); mi.color = f[slot]; pintarFavoritos(); dibujar(); }
       else if (b.classList.contains('pl-ok')) cierra();
     });
-    p.addEventListener('input', (e) => { if (e.target.classList.contains('pl-pick')) { f[slot] = e.target.value.toLowerCase(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); const sl = $('.pl-s.on', p); if (sl) sl.style.background = f[slot]; } });
+    p.addEventListener('input', (e) => {
+      const t = e.target;
+      if (t.classList.contains('pl-pick')) { cfg[slot].b = t.value.toLowerCase(); }
+      else if (t.dataset.p) { cfg[slot][t.dataset.p] = +t.value; const lab = t.parentNode.querySelector('b'); if (lab) lab.textContent = t.value + '%'; }
+      else return;
+      aplicarSlot(false);
+      const sw = $('.pl-s.on', p); if (sw) sw.style.background = f[slot];
+      const pv = $('.pl-prev span', p); if (pv) pv.style.background = f[slot];
+    });
     const rr = mi.root.getBoundingClientRect(), br = btn.getBoundingClientRect();
     mi.root.appendChild(p);
     p.style.top = (br.bottom - rr.top + 8) + 'px'; p.style.left = Math.max(8, Math.min(rr.width - p.offsetWidth - 8, br.left - rr.left - 20)) + 'px';
+    p.style.maxHeight = Math.max(260, rr.height - (br.bottom - rr.top) - 24) + 'px';
     const fuera = (ev) => { if (!p.contains(ev.target) && !btn.contains(ev.target)) cierra(); };
     function cierra() { p.remove(); document.removeEventListener('pointerdown', fuera, true); }
     setTimeout(() => document.addEventListener('pointerdown', fuera, true), 0);
@@ -395,6 +477,18 @@
     if (S.uid && ids.length) { for (let i = 0; i < ids.length; i += 100) { try { await cliente().from('pdf_subrayados').delete().in('id', ids.slice(i, i + 100)); } catch (_) {} } }
     lsSet('hl', S.fileId, S.marcas.filter((x) => x.local));
   }
+  // los borrados de «Limpiar» se guardan 24 horas en este dispositivo para poder restaurarlos
+  const PAPELERA_MS = 24 * 3600 * 1000;
+  function papelera() { const ahora = Date.now(); return (lsGet('pap', S.fileId, []) || []).filter((x) => x && ahora - x.t < PAPELERA_MS); }
+  function guardarPapelera(copia, alcance) {
+    let lista = papelera(); lista.unshift({ t: Date.now(), alcance, marcas: copia }); lista = lista.slice(0, 5);
+    for (let i = 0; i < 4; i++) {
+      try { localStorage.setItem(lsKey('pap', S.fileId), JSON.stringify(lista)); return true; } catch (_) { lista = lista.slice(0, -1); if (!lista.length) break; }
+    }
+    return false;
+  }
+  function quitarDePapelera(t) { const l = papelera().filter((x) => x.t !== t); try { localStorage.setItem(lsKey('pap', S.fileId), JSON.stringify(l)); } catch (_) {} }
+  const hace = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? 'hace instantes' : m < 60 ? 'hace ' + m + ' min' : 'hace ' + Math.round(m / 60) + ' h'; };
   async function restaurarLote(lista) {
     for (const o of lista) { const m = { pagina: o.pagina, color: o.color, texto: o.texto, rects: o.rects }; S.marcas.push(m); await guardarMarca(m); }
     repintarTodas(); actualizarBarra();
@@ -413,9 +507,11 @@
     const coloresDoc = () => [...new Set(mi.marcas.map((m) => colorDe(m.color)))];
     const resumen = (l) => { const t = l.filter(esTrazo).length, s = l.length - t, pags = new Set(l.map((m) => m.pagina)).size; return l.length ? `${l.length} ${l.length === 1 ? 'marca' : 'marcas'} (${s} subrayados, ${t} trazos) en ${pags} ${pags === 1 ? 'página' : 'páginas'}` : ''; };
     const paso1 = () => {
+      const pap = papelera();
       const cd = coloresDoc(); if (!cfg.colores) cfg.colores = new Set(cd);
       const l = sel();
-      ov.innerHTML = `<div><h4>🧹 Limpiar marcas</h4><p class="sub">Elegí qué querés borrar. Antes de borrar te pido confirmar.</p>
+      ov.innerHTML = `<div><h4>🧹 Limpiar marcas</h4><p class="sub">Elegí qué querés borrar. Antes de borrar te pido confirmar, y lo borrado se puede restaurar durante 24 horas.</p>
+        ${pap.length ? `<div class="papelera"><h6>♻️ Borrados recientes (se pueden restaurar)</h6>${pap.map((x) => `<div class="fila"><span>${hace(x.t)} · ${x.marcas.length} ${x.marcas.length === 1 ? 'marca' : 'marcas'} · ${esc(x.alcance)}</span><button type="button" data-rest="${x.t}">Restaurar</button></div>`).join('')}</div>` : ''}
         <label class="op${cfg.alcance === 'pagina' ? ' on' : ''}"><input type="radio" name="al" value="pagina" ${cfg.alcance === 'pagina' ? 'checked' : ''}> Solo esta página (la ${mi.actual})</label>
         <label class="op${cfg.alcance === 'rango' ? ' on' : ''}"><input type="radio" name="al" value="rango" ${cfg.alcance === 'rango' ? 'checked' : ''}> Un rango de páginas: de <input type="number" min="1" max="${mi.n}" value="${cfg.de}" data-r="de"> a <input type="number" min="1" max="${mi.n}" value="${cfg.a}" data-r="a"></label>
         <label class="op${cfg.alcance === 'todo' ? ' on' : ''}"><input type="radio" name="al" value="todo" ${cfg.alcance === 'todo' ? 'checked' : ''}> Todo el documento</label>
@@ -428,7 +524,7 @@
     const paso2 = () => {
       const l = sel(), grande = cfg.alcance === 'todo' || l.length >= 20;
       ov.innerHTML = `<div><h4>⚠️ ¿Seguro que querés borrar?</h4>
-        <div class="peligro">Vas a borrar <b>${resumen(l)}</b>${cfg.alcance === 'todo' ? ' de <b>todo el documento</b>' : cfg.alcance === 'rango' ? ` (páginas ${Math.min(cfg.de, cfg.a)} a ${Math.max(cfg.de, cfg.a)})` : ''}.<br>Después vas a tener 15 segundos para deshacerlo.</div>
+        <div class="peligro">Vas a borrar <b>${resumen(l)}</b>${cfg.alcance === 'todo' ? ' de <b>todo el documento</b>' : cfg.alcance === 'rango' ? ` (páginas ${Math.min(cfg.de, cfg.a)} a ${Math.max(cfg.de, cfg.a)})` : ''}.<br>Podés restaurarlas durante 24 horas desde 🧹 Limpiar.</div>
         ${grande ? '<div class="sub" style="margin:0">Para confirmar, escribí <b>BORRAR</b>:</div><input type="text" data-conf placeholder="BORRAR" autocomplete="off" spellcheck="false">'
           : '<label class="ck" style="display:flex;gap:7px;align-items:center;cursor:pointer"><input type="checkbox" data-conf2> Sí, quiero borrar estas marcas</label>'}
         <div class="acc"><button type="button" data-a="volver">← Volver</button><button type="button" class="del" data-a="borrar" disabled>🗑 Borrar definitivamente</button></div></div>`;
@@ -439,6 +535,8 @@
     ov.addEventListener('click', async (e) => {
       if (e.target === ov) { ov.remove(); return; }
       const col = e.target.closest('[data-col]'); if (col) { const c = col.dataset.col; if (cfg.colores.has(c)) cfg.colores.delete(c); else cfg.colores.add(c); paso1(); return; }
+      const rb = e.target.closest('[data-rest]');
+      if (rb) { const t = +rb.dataset.rest, ent = papelera().find((x) => x.t === t); if (ent) { ov.remove(); await restaurarLote(ent.marcas); quitarDePapelera(t); aviso(ent.marcas.length + ' marcas restauradas'); } return; }
       const b = e.target.closest('[data-a]'); if (!b) return;
       if (b.dataset.a === 'cancelar') ov.remove();
       else if (b.dataset.a === 'seguir') paso2();
@@ -446,8 +544,10 @@
       else if (b.dataset.a === 'borrar') {
         const l = sel(); ov.remove(); if (!l.length) return;
         const copia = l.map((m) => ({ pagina: m.pagina, color: m.color, texto: m.texto, rects: m.rects }));
+        const alc = cfg.alcance === 'todo' ? 'todo el documento' : cfg.alcance === 'rango' ? 'págs. ' + Math.min(cfg.de, cfg.a) + ' a ' + Math.max(cfg.de, cfg.a) : 'página ' + mi.actual;
+        const guardada = guardarPapelera(copia, alc), tEnt = guardada ? papelera()[0].t : null;
         await borrarLote(l);
-        toast(`Se borraron ${l.length} ${l.length === 1 ? 'marca' : 'marcas'}`, 'Deshacer', async () => { await restaurarLote(copia); aviso('Marcas restauradas'); });
+        toast(`Se borraron ${l.length} ${l.length === 1 ? 'marca' : 'marcas'}${guardada ? ' · podés restaurarlas por 24 h desde 🧹 Limpiar' : ''}`, 'Deshacer', async () => { await restaurarLote(copia); if (tEnt) quitarDePapelera(tEnt); aviso('Marcas restauradas'); });
       }
     });
     ov.addEventListener('change', (e) => {
@@ -474,7 +574,7 @@
     a_lapiz: { t: 'Solo lápiz', d: 'Ideal para tablets: con el dedo movés la página y solo el lápiz dibuja o escribe. Así no marcás sin querer al hacer scroll.' },
     a_recta: { t: 'Línea recta', d: 'El Pincel traza una recta perfecta desde donde empezás. Muy útil para subrayar renglones con prolijidad. También funciona manteniendo Mayús.' },
     a_zm: { t: 'Alejar', k: '−', d: 'Reduce el tamaño de la página para ver más contenido.' },
-    a_zp: { t: 'Acercar', k: '+', d: 'Agranda la página, útil para leer letra chica o marcar con más precisión.' },
+    a_zp: { t: 'Acercar', k: '+', d: 'Agranda la página hasta 800 %: ideal para pantallas 4K, letra chica o marcar con precisión. La imagen se vuelve a dibujar nítida en cada zoom. También con Ctrl + rueda.' },
     a_ajustar: { t: 'Ajustar al ancho', d: 'Adapta la página al ancho disponible de la pantalla.' },
     a_leer: { t: 'Marcar página leída', d: 'Marca o desmarca esta página como leída. También se marca sola cuando te quedás unos segundos en ella. Alimenta tu progreso y el tiempo estimado.' },
     a_eta: { t: 'Tiempo restante', d: 'Cuánto te falta para terminar este PDF según tu ritmo real de lectura. Tocalo para ver el detalle y la hora estimada de fin.' },
@@ -606,7 +706,7 @@
   function ajustarAncho() {
     if (!S) return;
     const ancho = Math.max(280, S.scroll.clientWidth - 28);
-    S.escala = Math.max(0.6, Math.min(2.6, ancho / S.base.w)); reconstruir();
+    S.escala = Math.max(0.5, Math.min(8, ancho / S.base.w)); reconstruir();
   }
 
 
@@ -809,7 +909,7 @@
   }
   const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
-    ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
+    ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
     if (!S) return; const ya = $('.nkpdf-atajos', S.root); if (ya) { ya.remove(); return; }
     const d = document.createElement('div'); d.className = 'nkpdf-atajos';
@@ -1016,6 +1116,7 @@
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
       mi.n = mi.pdf.numPages;
       await cargarMarcas(fileId);
+      await cargarPrefs(mi);
       if (S !== mi) return;
       mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
       if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
@@ -1023,7 +1124,7 @@
       if (window.NikaTiempo) { try { window.NikaTiempo.css(); mi.tl = window.NikaTiempo.nuevo(fileId, mi.n); await window.NikaTiempo.cargar(mi.tl); } catch (_) {} }
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
-      mi.escala = Math.max(0.6, Math.min(1.8, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
+      mi.escala = Math.max(0.6, Math.min(6, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
       ui.fin(); armar(mi);
     } catch (e) {
       if (S === mi) volver(e && e.message);
@@ -1095,7 +1196,7 @@
     mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; const f = $('.nkpdf-fantasma', mi.root); if (f) f.style.display = 'none'; });
     const rango = $('.nkpdf-rango', root), num = $('.nkpdf-num', root);
     // el tamaño se puede mover con la barra o escribir con números (2 a 120 px); ambos campos quedan sincronizados
-    const fijarTam = (v, origen) => { v = Math.max(2, Math.min(120, Math.round(+v) || mi.tam)); mi.tam = v; if (origen !== 'r') rango.value = Math.min(64, v); if (origen !== 'n') num.value = v; };
+    const fijarTam = (v, origen) => { v = Math.max(2, Math.min(120, Math.round(+v) || mi.tam)); mi.tam = v; if (origen !== 'r') rango.value = Math.min(64, v); if (origen !== 'n') num.value = v; guardarPrefs(); };
     mi.fijarTam = fijarTam;
     rango.addEventListener('input', () => fijarTam(rango.value, 'r'));
     num.addEventListener('input', () => { const v = +num.value; if (v >= 2 && v <= 120) fijarTam(v, 'n'); });
@@ -1105,6 +1206,7 @@
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));
     mi.scroll.addEventListener('click', clickEnMarca);
+    let zT = 0; mi.scroll.addEventListener('wheel', (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const t = Date.now(); if (t - zT < 130) return; zT = t; zoom(e.deltaY < 0 ? 1 : -1); }, { passive: false });   // Ctrl + rueda (o pellizco en el trackpad) = zoom
     mi.scroll.addEventListener('scroll', () => { cerrarPop(); const a = paginaActual(); if (a !== mi.actual) { mi.actual = a; mi.segs = 0; actualizarBarra(); guardarProgreso(); } }, { passive: true });
 
     const zoom = (d) => { const i = ESCALAS.reduce((b, v, k) => (Math.abs(v - mi.escala) < Math.abs(ESCALAS[b] - mi.escala) ? k : b), 0); mi.escala = ESCALAS[Math.max(0, Math.min(ESCALAS.length - 1, i + d))]; reconstruir(); };
@@ -1151,7 +1253,7 @@
       else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
       else if (k === 'f') pantalla();
       else if (['1', '2', '3', '4', '5', '6'].includes(k)) { mi.color = favoritos()[+k - 1]; marcarColor(); if (mi.modo !== 'pincel') modo('sub'); }
-      else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1);
+      else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1); else if (k === '0') ajustarAncho();
     };
     document.addEventListener('keydown', mi.teclas);
     if (mi.tl) { mi.tlKey = () => window.NikaTiempo.tocar(mi.tl); document.addEventListener('keydown', mi.tlKey, { passive: true }); }
