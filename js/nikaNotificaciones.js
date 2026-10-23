@@ -46,12 +46,16 @@
   // ---------------------------------------------------------------- sonidos (Web Audio, sin archivos)
   let ctx = null, desbloqueado = false;
   function audio() { try { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; if (!ctx || ctx.state === 'closed') ctx = new C(); return ctx; } catch (_) { return null; } }
+  let pendiente = null;   // sonido que no pudo sonar por la política de audio del navegador: suena en el primer toque
   function desbloquear() {
     if (desbloqueado) return;
     const c = audio(); if (!c) return;
-    c.resume().then(() => { desbloqueado = true; ['pointerdown', 'keydown', 'touchstart'].forEach((e) => document.removeEventListener(e, desbloquear, true)); }).catch(() => {});
+    c.resume().then(() => {
+      desbloqueado = true; ['pointerdown', 'pointerup', 'click', 'keydown', 'touchstart', 'touchend'].forEach((e) => document.removeEventListener(e, desbloquear, true));
+      if (pendiente && Date.now() - pendiente.t < 90000) { const p = pendiente; pendiente = null; sonar(p.tipo, { forzar: true }); }
+    }).catch(() => {});
   }
-  ['pointerdown', 'keydown', 'touchstart'].forEach((e) => document.addEventListener(e, desbloquear, { capture: true, passive: true }));
+  ['pointerdown', 'pointerup', 'click', 'keydown', 'touchstart', 'touchend'].forEach((e) => document.addEventListener(e, desbloquear, { capture: true, passive: true }));
   function tono(c, f, t0, dur, vol, tipo) {
     const o = c.createOscillator(), g = c.createGain(), t = c.currentTime + t0;
     o.type = tipo || 'sine'; o.frequency.setValueAtTime(f, t);
@@ -74,12 +78,12 @@
     if (!(opc && opc.forzar) && (!quiereSonido(t) || noMolestar())) return false;
     const c = audio(); if (!c) return false;
     const reproducir = () => { try { const v = 0.18 * Math.max(0.05, Math.min(1, prefs.volumen)); (MELODIAS[t] || MELODIAS.sistema).forEach(([f, t0, d, ty]) => tono(c, f, t0, d, v, ty)); } catch (_) {} };
-    if (c.state === 'suspended') c.resume().then(reproducir).catch(() => {}); else reproducir();
+    if (c.state === 'suspended') c.resume().then(() => { if (c.state === 'running') reproducir(); else pendiente = { tipo: t, t: Date.now() }; }).catch(() => { pendiente = { tipo: t, t: Date.now() }; }); else reproducir();
     return true;
   }
 
   // ---------------------------------------------------------------- no molestar
-  function noMolestar() { return !!(window.NikaNoMolestar || document.fullscreenElement || SIM_PAGINAS.test(location.pathname)); }
+  function noMolestar() { return !!(window.NikaNoMolestar || SIM_PAGINAS.test(location.pathname)); }   // examen en curso y simuladores: silencio. Leyendo un PDF en pantalla completa: suena y se ve
 
   // ---------------------------------------------------------------- historial local (avisos sin fila en la base: chat, desafíos...)
   let uid = null, hist = [], noLeidas = 0;
@@ -154,8 +158,10 @@
   function cajaToasts() {
     if (caja && document.body.contains(caja)) return caja;
     estilos(); caja = document.createElement('div'); caja.id = 'nn-caja'; caja.setAttribute('role', 'status'); caja.setAttribute('aria-live', 'polite');
-    document.body.appendChild(caja); return caja;
+    (document.fullscreenElement || document.body).appendChild(caja); return caja;
   }
+  // en pantalla completa solo se ve lo que está dentro del elemento que ocupa la pantalla: la caja de avisos viaja con él
+  document.addEventListener('fullscreenchange', () => { if (!caja) return; try { (document.fullscreenElement || document.body).appendChild(caja); } catch (_) {} });
   function tarjeta(n, opc) {
     const t = tipoDe(n.tipo), T = TIPOS[t];
     const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color); el.dataset.id = n.id || '';
@@ -398,9 +404,9 @@
         <div class="nn-sec">Por tipo · sonido · aviso en pantalla</div>${Object.keys(TIPOS).map(filaPref).join('')}
         <div class="nn-sec">Más opciones</div>
         <div class="nn-pref"><span class="i">🖥️</span><div class="x">Avisos del sistema<small>Si el sitio está minimizado o en otra pestaña${permiso === 'denied' ? ' · bloqueados en tu navegador' : ''}</small></div><label class="nn-sw"><input type="checkbox" data-g="sistema" ${prefs.sistema && permiso === 'granted' ? 'checked' : ''}><i></i></label></div>
-        <div class="nn-pref"><span class="i">📲</span><div class="x">Avisos con la app cerrada<small>Te llegan al celular o la compu aunque no tengas NikaMed abierto</small></div><label class="nn-sw"><input type="checkbox" data-g="push" ${prefs.push && pushActivo ? 'checked' : ''}><i></i></label></div>
+        <div class="nn-pref"><span class="i">📲</span><div class="x">Avisos con la app cerrada<small>Te llegan al celular o la compu aunque no tengas NikaMed abierto</small></div><label class="nn-sw"><input type="checkbox" data-g="push" ${prefs.push ? 'checked' : ''}><i></i></label></div>${prefs.push && !pushActivo ? `<div class="nn-aviso" style="margin:2px 0 8px">${esc(MOTIVOS_PUSH[pushMotivo] || MOTIVOS_PUSH.permiso)}${pushMotivo === 'permiso' || !pushMotivo ? ' <button class="test" data-x="permiso" style="width:auto;padding:0 10px;margin-left:4px">Permitir</button>' : ''}</div>` : ''}
         <div class="nn-pref"><span class="i">👻</span><div class="x">Aparecer invisible<small>Tus amigos no ven si estás en línea</small></div><label class="nn-sw"><input type="checkbox" data-g="invisible" ${prefs.invisible ? 'checked' : ''}><i></i></label></div>
-        <div class="nn-aviso" style="margin-top:10px">🎯 No molestar automático: en pantalla completa y dentro de los simuladores no suena nada ni aparecen tarjetas (todo queda acá).</div>`;
+        <div class="nn-aviso" style="margin-top:10px">🎯 No molestar automático: durante un examen y dentro de los simuladores no suena nada ni aparecen tarjetas (todo queda acá). Leyendo un PDF en pantalla completa sí te avisamos.</div>`;
     }
     panel.innerHTML = `<div class="nn-cab"><b>🔔 Notificaciones</b><button data-x="todas" title="Marcar todas como leídas">✓ Leídas</button></div>
       <div class="nn-tabs"><button data-p="notif" class="${pestana === 'notif' ? 'on' : ''}">Avisos${noLeidas ? ' · ' + noLeidas : ''}</button><button data-p="amigos" class="${pestana === 'amigos' ? 'on' : ''}">Amigos</button><button data-p="pref" class="${pestana === 'pref' ? 'on' : ''}">⚙️ Preferencias</button></div>
@@ -426,7 +432,7 @@
       else if (t.dataset.g === 'sistema') {
         if (t.checked && 'Notification' in window && Notification.permission !== 'granted') { try { await Notification.requestPermission(); } catch (_) {} }
         prefs.sistema = t.checked && 'Notification' in window && Notification.permission === 'granted'; guardarPrefs(); if (prefs.sistema && prefs.push) await suscribirPush(false); pintarPanel();
-      } else if (t.dataset.g === 'push') { prefs.push = t.checked; guardarPrefs(); if (t.checked) await suscribirPush(true); else await cancelarPush(); pintarPanel(); }
+      } else if (t.dataset.g === 'push') { prefs.push = t.checked; guardarPrefs(); pintarPanel(); if (t.checked) await suscribirPush(true); else { await cancelarPush(); pushMotivo = ''; } pintarPanel(); }
     });
     panel.addEventListener('input', (e) => { if (e.target.hasAttribute('data-vol')) { prefs.volumen = e.target.value / 100; guardarPrefs(); } });
     panel.addEventListener('change', (e) => { if (e.target.hasAttribute('data-vol')) sonar('ok', { forzar: true }); });
@@ -443,23 +449,33 @@
     try { if (prefs.invisible) cm.detenerPresenciaGlobal && cm.detenerPresenciaGlobal(); else cm.iniciarPresenciaGlobal && cm.iniciarPresenciaGlobal(); } catch (_) {}
   }
 
-  // ---------------------------------------------------------------- push con la app cerrada
-  let pushActivo = false;
+  const MOTIVOS_PUSH = {
+    permiso: 'Falta permitir las notificaciones en este navegador para que lleguen con la app cerrada.',
+    denegado: 'Bloqueaste las notificaciones de este sitio en el navegador. Activalas desde el candado de la barra de direcciones y volvé a abrir este panel.',
+    servicio: 'Este navegador no pudo activar los avisos con la app cerrada. En Brave: brave://settings/privacy → activá «Usar Google Services para mensajes push».',
+    soporte: 'Este navegador no admite avisos con la app cerrada. En iPhone, instalá NikaMed en la pantalla de inicio para recibirlos.',
+    guardado: 'No pudimos registrar este dispositivo ahora. Probá de nuevo en unos minutos.',
+    error: 'No se pudo activar en este dispositivo. Probá de nuevo o recargá la página.',
+  };
+  // push con la app cerrada
+  let pushActivo = false, pushMotivo = '';
   const b64 = (s) => { const p = '='.repeat((4 - s.length % 4) % 4), r = atob((s + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from([...r].map((c) => c.charCodeAt(0))); };
   async function estadoPush() {
     try { const reg = await navigator.serviceWorker.getRegistration(); const s = reg && await reg.pushManager.getSubscription(); pushActivo = !!s; } catch (_) { pushActivo = false; }
   }
   async function suscribirPush(pedir) {
     try {
-      if (!VAPID_PUBLICA || !('serviceWorker' in navigator) || !('PushManager' in window)) return false;
-      if (Notification.permission !== 'granted') { if (!pedir) return false; if ((await Notification.requestPermission()) !== 'granted') return false; }
+      if (!VAPID_PUBLICA || !('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) { pushMotivo = 'soporte'; return false; }
+      if (Notification.permission === 'denied') { pushMotivo = 'denegado'; return false; }
+      if (Notification.permission !== 'granted') { if (!pedir) { pushMotivo = 'permiso'; return false; } if ((await Notification.requestPermission()) !== 'granted') { pushMotivo = Notification.permission === 'denied' ? 'denegado' : 'permiso'; return false; } }
       const reg = await navigator.serviceWorker.ready;
       let s = await reg.pushManager.getSubscription();
       if (!s) s = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(VAPID_PUBLICA) });
       const j = s.toJSON();
-      await sb().from('push_suscripciones').upsert({ endpoint: j.endpoint, user_id: uid, p256dh: j.keys.p256dh, auth: j.keys.auth, agente: navigator.userAgent.slice(0, 160) }, { onConflict: 'endpoint' });
-      pushActivo = true; return true;
-    } catch (_) { return false; }
+      const r = await sb().from('push_suscripciones').upsert({ endpoint: j.endpoint, user_id: uid, p256dh: j.keys.p256dh, auth: j.keys.auth, agente: navigator.userAgent.slice(0, 160) }, { onConflict: 'endpoint' });
+      if (r && r.error) { pushMotivo = 'guardado'; return false; }
+      pushActivo = true; pushMotivo = ''; return true;
+    } catch (e) { pushMotivo = /push service|AbortError|NotAllowed|registration failed/i.test(String(e && (e.message || e.name))) ? 'servicio' : 'error'; return false; }
   }
   async function cancelarPush() {
     try { const reg = await navigator.serviceWorker.getRegistration(); const s = reg && await reg.pushManager.getSubscription(); if (s) { await sb().from('push_suscripciones').delete().eq('endpoint', s.endpoint); await s.unsubscribe(); } } catch (_) {}
@@ -530,6 +546,13 @@
     await cargarRemotas(true);
     suscribir();
     estadoPush(); if (prefs.push && VAPID_PUBLICA) suscribirPush(false);
+    // por defecto los avisos con la app cerrada están activados: la primera vez que tocás algo en este dispositivo se pide el permiso del navegador (una sola vez)
+    try {
+      if (prefs.push !== false && 'Notification' in window && Notification.permission === 'default' && !localStorage.getItem('nika_push_pedido')) {
+        const pedir = () => { document.removeEventListener('click', pedir, true); document.removeEventListener('keydown', pedir, true); try { localStorage.setItem('nika_push_pedido', '1'); } catch (_) {} suscribirPush(true).then(() => { try { pintarPanel(); } catch (_) {} }); };
+        document.addEventListener('click', pedir, true); document.addEventListener('keydown', pedir, true);
+      }
+    } catch (_) {}
     sondeo = setInterval(() => { if (!document.hidden) cargarRemotas(false); }, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarRemotas(false); });
     // presencia global (amigos en línea) en toda página: respeta el modo invisible
