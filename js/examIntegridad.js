@@ -176,7 +176,9 @@ const ExamIntegridad = (() => {
     if (TACTIL && motivo !== 'atajo') return;   // en el celular una pulsación larga o el menú de selección no es trampa: se bloquea sin contar
     contarIncidencia('copia_bloqueada', { motivo, ...(extra || {}) });
   }
-  const onCtx = (e) => bloquear(e, 'menu_contextual');
+  // El clic derecho solo se bloquea (no hay menú), pero NO cuenta como incidencia: muchos lo aprietan junto al izquierdo para calmar la ansiedad.
+  // Lo que sí cuenta: copiar/pegar/cortar y los atajos, que siguen detectándose aparte.
+  const onCtx = (e) => { if (activo) { e.preventDefault(); e.stopPropagation(); } };
   const onCopy = (e) => bloquear(e, 'copy');
   const onCut = (e) => bloquear(e, 'cut');
   const onPaste = (e) => bloquear(e, 'paste');
