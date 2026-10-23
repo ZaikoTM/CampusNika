@@ -240,6 +240,7 @@
 @keyframes nkTlLat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 .nk-tl-et{display:inline-flex;align-items:center;gap:5px;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:0!important;text-transform:none!important;color:#0e7490;background:#cffafe;border:1px solid #a5f3fc;opacity:0;animation:nkTlEntra .5s cubic-bezier(.22,1,.36,1) forwards;animation-delay:var(--d,0s);white-space:nowrap}
 .nk-tl-et i{font-style:normal;display:inline-block;animation:nkTlLat 2.4s ease-in-out infinite}
+.nk-lib-grid .res-prog{flex-wrap:wrap;row-gap:4px}.nk-lib-grid .nk-tl-et{margin-left:0;max-width:100%;white-space:normal;overflow:visible}.nk-lib-grid .nk-tl-r{display:none}
 .nk-tl-et.largo{color:#9a3412;background:#ffedd5;border-color:#fed7aa}
 @keyframes nkTlEntra{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 body.dark-mode .nk-tl-et{color:#67e8f9;background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.35)}

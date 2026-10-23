@@ -10,6 +10,19 @@
   const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
   const COLORES = { amarillo: '#fde047', verde: '#86efac', rosa: '#f9a8d4', azul: '#93c5fd' };
   const NOMBRES = { amarillo: 'Amarillo', verde: 'Verde', rosa: 'Rosa', azul: 'Azul' };
+  // Paleta completa y 6 favoritos por usuario (se guardan en el navegador). Las marcas viejas siguen usando los nombres de siempre.
+  const PALETA = ['#fde047', '#fbbf24', '#fb923c', '#f87171', '#ef4444', '#dc2626', '#f9a8d4', '#f472b6', '#ec4899', '#d946ef', '#c084fc', '#a78bfa',
+    '#818cf8', '#93c5fd', '#60a5fa', '#38bdf8', '#22d3ee', '#2dd4bf', '#86efac', '#4ade80', '#a3e635', '#bef264', '#d6d3d1', '#94a3b8',
+    '#fecaca', '#fed7aa', '#fef08a', '#bbf7d0', '#bfdbfe', '#e9d5ff'];
+  const FAV_DEF = ['#fde047', '#86efac', '#f9a8d4', '#93c5fd', '#f87171', '#c4b5fd'];
+  const HEX = /^#[0-9a-f]{6}$/i;
+  const colorDe = (c) => COLORES[c] || (HEX.test(c || '') ? c.toLowerCase() : COLORES.amarillo);
+  const colorGuardar = (c) => { c = String(c || '').toLowerCase(); const k = Object.keys(COLORES).find((x) => COLORES[x] === c); return k || c; };   // los 4 clásicos siguen guardándose con su nombre
+  function favoritos() {
+    try { const f = JSON.parse(localStorage.getItem('nika_pdf_favs') || 'null'); if (Array.isArray(f) && f.length === 6 && f.every((x) => HEX.test(x))) return f.map((x) => x.toLowerCase()); } catch (_) {}
+    return FAV_DEF.slice();
+  }
+  const guardarFavs = (f) => { try { localStorage.setItem('nika_pdf_favs', JSON.stringify(f)); } catch (_) {} };
   const ESCALAS = [0.6, 0.8, 1, 1.25, 1.5, 1.8, 2.2, 2.6];
   const ICO = {
     sel: '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>',
@@ -83,7 +96,8 @@
 .nkpdf-tam{display:none;align-items:center;gap:8px;padding:3px 10px}
 .nkpdf.m-pincel .nkpdf-tam,.nkpdf.m-bor .nkpdf-tam{display:flex}
 .nkpdf-tam input[type=range]{width:96px;accent-color:#a855f7;padding:0;height:4px}
-.nkpdf-tam b{min-width:30px;font-size:.72rem;color:#c4b5fd}
+.nkpdf-tam .nkpdf-num{width:54px!important;padding:4px 6px!important;border-radius:8px;text-align:center;font-weight:800;color:#0f172a;border:0}
+.nkpdf-tam em{font-style:normal;font-size:.68rem;color:#c4b5fd;margin-left:-4px}
 .nkpdf-item .cp{margin-right:4px}
 .nkpdf.m-area .nk-tx{user-select:none;-webkit-user-select:none}
 .nkpdf-rect{position:absolute;pointer-events:none;border:2px dashed rgba(15,23,42,.55);border-radius:3px;z-index:3}
@@ -152,6 +166,42 @@
 .nkpdf-item button{background:none;border:0;color:#94a3b8;cursor:pointer;font-size:.9rem}
 .nkpdf-item button:hover{color:#f87171}
 #nika-inline-viewer-container:fullscreen{width:100vw!important;height:100vh!important;margin:0!important;border-radius:0!important;background:#fff}
+.nkpdf-favs{gap:5px}
+.nkpdf-mas{display:inline-grid!important;place-items:center;font-size:.9rem;font-weight:800;line-height:1;color:#e2e8f0;border:2px dashed rgba(255,255,255,.5)!important;background:transparent!important}
+.nkpdf-mas:hover{background:rgba(255,255,255,.18)!important;border-style:solid!important}
+.nkpdf-paleta{position:absolute;z-index:40;width:292px;max-width:calc(100% - 16px);padding:14px;border-radius:18px;color:#e2e8f0;background:linear-gradient(150deg,#0b1535,#1e1b4b 60%,#312e81);border:1px solid rgba(168,85,247,.55);box-shadow:0 22px 46px rgba(2,6,23,.65);animation:nkEtaPop .3s cubic-bezier(.34,1.4,.64,1);font-weight:600}
+.nkpdf-paleta h5{margin:0 0 4px;font-size:.92rem;font-weight:800;color:#fff}
+.nkpdf-paleta p{margin:0 0 10px;font-size:.72rem;line-height:1.35;color:#a5b4fc}
+.pl-slots{display:flex;gap:7px;margin-bottom:12px}
+.pl-s{flex:1;height:34px;border-radius:11px;border:2px solid rgba(255,255,255,.28);cursor:pointer;font:inherit;font-weight:800;font-size:.78rem;color:rgba(15,23,42,.75);transition:transform .2s,border-color .2s,box-shadow .2s}
+.pl-s:hover{transform:translateY(-2px)}.pl-s.on{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.28),0 8px 14px -6px rgba(0,0,0,.6);transform:translateY(-2px) scale(1.06)}
+.pl-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.pl-c{aspect-ratio:1;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.6,.64,1),border-color .18s;padding:0}
+.pl-c:hover{transform:scale(1.22);border-color:#fff;z-index:1;position:relative}
+.pl-pie{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;font-size:.74rem}
+.pl-pie label{display:flex;align-items:center;gap:6px;margin-right:auto;cursor:pointer}.pl-pie input[type=color]{width:34px;height:26px;padding:0;border:0;border-radius:8px;background:none;cursor:pointer}
+.pl-pie button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#e2e8f0;border-radius:9px;padding:6px 10px;font:inherit;font-weight:700;font-size:.74rem;cursor:pointer}.pl-pie button:hover{background:rgba(255,255,255,.12)}
+.pl-pie .pl-ok{border:0;background:linear-gradient(135deg,#7e22ce,#a855f7);color:#fff}
+.nkpdf-tip{position:absolute;z-index:60;width:max-content;max-width:min(300px,calc(100% - 16px));padding:11px 13px;border-radius:14px;color:#e2e8f0;font-weight:600;font-size:.76rem;line-height:1.4;pointer-events:none;background:linear-gradient(150deg,#0b1535,#1e1b4b 70%);border:1px solid rgba(168,85,247,.55);box-shadow:0 16px 34px rgba(2,6,23,.6);opacity:0;transform:translateY(-6px) scale(.97);transition:opacity .16s,transform .2s cubic-bezier(.34,1.4,.64,1)}
+.nkpdf-tip.on{opacity:1;transform:none}
+.nkpdf-tip b{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:3px;font-size:.84rem;font-weight:800;color:#fff}
+.nkpdf-tip kbd{padding:1px 6px;border-radius:6px;font:inherit;font-size:.68rem;font-weight:800;background:rgba(255,255,255,.14);color:#a5f3fc}
+.nkpdf-tip .rec{padding:1px 8px;border-radius:999px;font-size:.64rem;font-weight:800;background:linear-gradient(90deg,#22c55e,#06b6d4);color:#04210f}
+.nkpdf-tip i{display:block;margin-top:6px;font-style:normal;font-size:.7rem;color:#a5b4fc}
+.nkpdf-lim{position:absolute;inset:0;z-index:70;display:grid;place-items:center;padding:14px;background:rgba(2,6,23,.58);backdrop-filter:blur(4px);animation:nkEtaPop .25s ease}
+.nkpdf-lim>div{width:min(430px,100%);max-height:100%;overflow:auto;padding:20px;border-radius:20px;color:#e2e8f0;background:linear-gradient(150deg,#0b1535,#1e1b4b 65%,#312e81);border:1px solid rgba(168,85,247,.55);box-shadow:0 26px 54px rgba(2,6,23,.7);font-weight:600;font-size:.82rem}
+.nkpdf-lim h4{margin:0 0 4px;font-size:1.05rem;font-weight:800;color:#fff}.nkpdf-lim .sub{margin:0 0 14px;color:#a5b4fc;font-size:.76rem}
+.nkpdf-lim .op{display:flex;align-items:center;gap:8px;padding:9px 11px;margin-bottom:7px;border-radius:12px;border:1px solid rgba(255,255,255,.14);cursor:pointer;transition:background .2s,border-color .2s}.nkpdf-lim .op:hover{background:rgba(255,255,255,.07)}.nkpdf-lim .op.on{border-color:#a855f7;background:rgba(168,85,247,.16)}
+.nkpdf-lim input[type=number]{width:62px;padding:5px;border-radius:8px;border:0;font:inherit;font-weight:800;text-align:center;color:#0f172a}
+.nkpdf-lim .cols{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 4px}.nkpdf-lim .cols button{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.3);cursor:pointer;padding:0;transition:transform .18s}.nkpdf-lim .cols button.off{opacity:.3;transform:scale(.8)}
+.nkpdf-lim .tipos{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}.nkpdf-lim label.ck{display:flex;align-items:center;gap:6px;cursor:pointer}
+.nkpdf-lim .cuenta{margin:12px 0;padding:11px 13px;border-radius:13px;font-weight:800;background:rgba(14,165,233,.14);border:1px solid rgba(56,189,248,.4);color:#bae6fd}
+.nkpdf-lim .cuenta.cero{background:rgba(148,163,184,.14);border-color:rgba(148,163,184,.35);color:#cbd5e1}
+.nkpdf-lim .peligro{margin:10px 0;padding:12px 13px;border-radius:13px;background:rgba(239,68,68,.15);border:1px solid rgba(248,113,113,.5);color:#fecaca;line-height:1.45}
+.nkpdf-lim input[type=text]{width:100%;box-sizing:border-box;margin-top:8px;padding:10px;border-radius:10px;border:2px solid rgba(248,113,113,.5);background:rgba(15,23,42,.6);color:#fff;font:inherit;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.nkpdf-lim .acc{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.nkpdf-lim .acc button{border:1px solid rgba(255,255,255,.22);background:transparent;color:#e2e8f0;border-radius:11px;padding:9px 14px;font:inherit;font-weight:800;font-size:.8rem;cursor:pointer;transition:transform .2s,opacity .2s}.nkpdf-lim .acc button:hover:not(:disabled){transform:translateY(-1px)}
+.nkpdf-lim .acc .go{border:0;color:#fff;background:linear-gradient(135deg,#0284c7,#6366f1 60%,#a855f7)}.nkpdf-lim .acc .del{border:0;color:#fff;background:linear-gradient(135deg,#dc2626,#ef4444)}.nkpdf-lim .acc button:disabled{opacity:.4;cursor:not-allowed}
 .nkpdf-bar button.nkpdf-eta{gap:6px;padding:5px 11px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4);color:#a5f3fc;font-weight:800;position:relative;overflow:hidden}
 .nkpdf-bar button.nkpdf-eta:hover{background:rgba(34,211,238,.26);color:#fff}
 .nkpdf-eta .nk-eta-ic{display:inline-block;animation:nkEtaLat 2.6s ease-in-out infinite}
@@ -200,6 +250,7 @@
       try {
         const { data, error } = await cliente().from('pdf_subrayados').insert({ file_id: S.fileId, pagina: m.pagina, color: m.color, texto: m.texto, rects: m.rects }).select('id').single();
         if (!error && data) { m.id = data.id; return; }
+        if (error && error.code === '23514' && !S.avisoColor) { S.avisoColor = true; aviso('Ese color se guardó solo en este dispositivo (falta activar los colores libres en tu cuenta)'); }
       } catch (_) {}
     }
     m.id = m.id || ('l' + Date.now() + Math.random().toString(36).slice(2, 6)); m.local = true;
@@ -239,7 +290,7 @@
       (m.rects || []).forEach((r) => {
         if (r.t === 'p') { trazos.push([m, r]); return; }
         const i = document.createElement('i');
-        i.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%;background:${COLORES[m.color] || COLORES.amarillo}`;
+        i.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%;background:${colorDe(m.color)}`;
         capa.appendChild(i);
       });
     });
@@ -247,7 +298,7 @@
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', W); svg.setAttribute('height', H);
       trazos.forEach(([m, r]) => {
         const pa = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        pa.setAttribute('d', dTrazo(r.p, W, H)); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', COLORES[m.color] || COLORES.amarillo);
+        pa.setAttribute('d', dTrazo(r.p, W, H)); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', colorDe(m.color));
         pa.setAttribute('stroke-width', Math.max(1, r.w * W)); pa.setAttribute('stroke-linecap', 'round'); pa.setAttribute('stroke-linejoin', 'round');
         svg.appendChild(pa);
       });
@@ -300,6 +351,181 @@
     actualizarEta();
     if (S.n && S.leidas.size >= S.n && S.leidas.size > (S.leidas0 || 0) && !S.fcAvisado) { const sx = S; setTimeout(() => { if (S === sx) cartelFlashcards(sx, true, sx.root); }, 1400); }
     const c = $('.nkpdf-cnt', S.root); if (c) { c.textContent = S.marcas.length; c.style.display = S.marcas.length ? '' : 'none'; }
+  }
+
+  // ---------- colores favoritos y paleta ----------
+  function htmlFavoritos() {
+    const f = favoritos();
+    return f.map((c, i) => `<button class="nkpdf-col${c === S.color ? ' on' : ''}" data-color="${c}" data-n="${i + 1}" style="background:${c}" aria-label="Color favorito ${i + 1}"></button>`).join('')
+      + '<button class="nkpdf-col nkpdf-mas" data-accion="paleta" aria-label="Más colores y favoritos" aria-haspopup="true">＋</button>';
+  }
+  function pintarFavoritos() { const g = $('.nkpdf-favs', S.root); if (g) { g.innerHTML = htmlFavoritos(); marcarColor(); } }
+  function paleta(btn) {
+    const ya = $('.nkpdf-paleta', S.root); if (ya) { ya.remove(); return; }
+    cerrarPop(); const mi = S; let f = favoritos(), slot = Math.max(0, f.indexOf(mi.color));
+    const p = document.createElement('div'); p.className = 'nkpdf-paleta'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', 'Colores favoritos');
+    const dibujar = () => {
+      p.innerHTML = `<h5>🎨 Tus 6 colores favoritos</h5><p>Tocá uno para usarlo. Para cambiarlo, dejalo marcado y elegí un color de abajo: queda guardado para la próxima.</p>
+        <div class="pl-slots">${f.map((c, i) => `<button type="button" class="pl-s${i === slot ? ' on' : ''}" data-slot="${i}" style="background:${c}" aria-label="Favorito ${i + 1}">${i + 1}</button>`).join('')}</div>
+        <div class="pl-grid">${PALETA.map((c) => `<button type="button" class="pl-c" data-c="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join('')}</div>
+        <div class="pl-pie"><label>Color propio <input type="color" class="pl-pick" value="${f[slot]}"></label><button type="button" class="pl-rest">Restaurar</button><button type="button" class="pl-ok">Listo</button></div>`;
+    };
+    const poner = (c) => { f[slot] = c.toLowerCase(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); if (mi.modo !== 'sub' && mi.modo !== 'pincel') modo('sub'); dibujar(); };
+    dibujar();
+    p.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.slot != null) { slot = +b.dataset.slot; mi.color = f[slot]; marcarColor(); dibujar(); }
+      else if (b.dataset.c) poner(b.dataset.c);
+      else if (b.classList.contains('pl-rest')) { f = FAV_DEF.slice(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); dibujar(); }
+      else if (b.classList.contains('pl-ok')) cierra();
+    });
+    p.addEventListener('input', (e) => { if (e.target.classList.contains('pl-pick')) { f[slot] = e.target.value.toLowerCase(); guardarFavs(f); mi.color = f[slot]; pintarFavoritos(); const sl = $('.pl-s.on', p); if (sl) sl.style.background = f[slot]; } });
+    const rr = mi.root.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    mi.root.appendChild(p);
+    p.style.top = (br.bottom - rr.top + 8) + 'px'; p.style.left = Math.max(8, Math.min(rr.width - p.offsetWidth - 8, br.left - rr.left - 20)) + 'px';
+    const fuera = (ev) => { if (!p.contains(ev.target) && !btn.contains(ev.target)) cierra(); };
+    function cierra() { p.remove(); document.removeEventListener('pointerdown', fuera, true); }
+    setTimeout(() => document.addEventListener('pointerdown', fuera, true), 0);
+  }
+
+  // ---------- limpiar marcas (por página, rango, color o todo) con doble confirmación ----------
+  async function borrarLote(lista) {
+    S.marcas = S.marcas.filter((m) => !lista.includes(m)); repintarTodas(); actualizarBarra();
+    const ids = lista.filter((m) => m.id && !m.local).map((m) => m.id);
+    if (S.uid && ids.length) { for (let i = 0; i < ids.length; i += 100) { try { await cliente().from('pdf_subrayados').delete().in('id', ids.slice(i, i + 100)); } catch (_) {} } }
+    lsSet('hl', S.fileId, S.marcas.filter((x) => x.local));
+  }
+  async function restaurarLote(lista) {
+    for (const o of lista) { const m = { pagina: o.pagina, color: o.color, texto: o.texto, rects: o.rects }; S.marcas.push(m); await guardarMarca(m); }
+    repintarTodas(); actualizarBarra();
+  }
+  function limpiar() {
+    if (!S) return; const ya = $('.nkpdf-lim', S.root); if (ya) { ya.remove(); return; }
+    cerrarPop(); const mi = S;
+    const cfg = { alcance: 'pagina', de: mi.actual, a: mi.actual, colores: null, sub: true, trazo: true };
+    const ov = document.createElement('div'); ov.className = 'nkpdf-lim'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'Limpiar marcas');
+    const sel = () => mi.marcas.filter((m) => {
+      if (cfg.alcance === 'pagina' && m.pagina !== mi.actual) return false;
+      if (cfg.alcance === 'rango' && (m.pagina < Math.min(cfg.de, cfg.a) || m.pagina > Math.max(cfg.de, cfg.a))) return false;
+      if (cfg.colores && !cfg.colores.has(colorDe(m.color))) return false;
+      return esTrazo(m) ? cfg.trazo : cfg.sub;
+    });
+    const coloresDoc = () => [...new Set(mi.marcas.map((m) => colorDe(m.color)))];
+    const resumen = (l) => { const t = l.filter(esTrazo).length, s = l.length - t, pags = new Set(l.map((m) => m.pagina)).size; return l.length ? `${l.length} ${l.length === 1 ? 'marca' : 'marcas'} (${s} subrayados, ${t} trazos) en ${pags} ${pags === 1 ? 'página' : 'páginas'}` : ''; };
+    const paso1 = () => {
+      const cd = coloresDoc(); if (!cfg.colores) cfg.colores = new Set(cd);
+      const l = sel();
+      ov.innerHTML = `<div><h4>🧹 Limpiar marcas</h4><p class="sub">Elegí qué querés borrar. Antes de borrar te pido confirmar.</p>
+        <label class="op${cfg.alcance === 'pagina' ? ' on' : ''}"><input type="radio" name="al" value="pagina" ${cfg.alcance === 'pagina' ? 'checked' : ''}> Solo esta página (la ${mi.actual})</label>
+        <label class="op${cfg.alcance === 'rango' ? ' on' : ''}"><input type="radio" name="al" value="rango" ${cfg.alcance === 'rango' ? 'checked' : ''}> Un rango de páginas: de <input type="number" min="1" max="${mi.n}" value="${cfg.de}" data-r="de"> a <input type="number" min="1" max="${mi.n}" value="${cfg.a}" data-r="a"></label>
+        <label class="op${cfg.alcance === 'todo' ? ' on' : ''}"><input type="radio" name="al" value="todo" ${cfg.alcance === 'todo' ? 'checked' : ''}> Todo el documento</label>
+        <div class="sub" style="margin:10px 0 2px">Colores a borrar (tocá para sacar uno)</div>
+        <div class="cols">${cd.map((c) => `<button type="button" data-col="${c}" class="${cfg.colores.has(c) ? '' : 'off'}" style="background:${c}" aria-label="Color ${c}"></button>`).join('') || '<span class="sub">No hay marcas todavía.</span>'}</div>
+        <div class="tipos"><label class="ck"><input type="checkbox" data-t="sub" ${cfg.sub ? 'checked' : ''}> Subrayados de texto</label><label class="ck"><input type="checkbox" data-t="trazo" ${cfg.trazo ? 'checked' : ''}> Trazos de pincel</label></div>
+        <div class="cuenta${l.length ? '' : ' cero'}">${l.length ? 'Se borrarían ' + resumen(l) : 'No hay marcas con esos filtros.'}</div>
+        <div class="acc"><button type="button" data-a="cancelar">Cancelar</button><button type="button" class="go" data-a="seguir" ${l.length ? '' : 'disabled'}>Continuar →</button></div></div>`;
+    };
+    const paso2 = () => {
+      const l = sel(), grande = cfg.alcance === 'todo' || l.length >= 20;
+      ov.innerHTML = `<div><h4>⚠️ ¿Seguro que querés borrar?</h4>
+        <div class="peligro">Vas a borrar <b>${resumen(l)}</b>${cfg.alcance === 'todo' ? ' de <b>todo el documento</b>' : cfg.alcance === 'rango' ? ` (páginas ${Math.min(cfg.de, cfg.a)} a ${Math.max(cfg.de, cfg.a)})` : ''}.<br>Después vas a tener 15 segundos para deshacerlo.</div>
+        ${grande ? '<div class="sub" style="margin:0">Para confirmar, escribí <b>BORRAR</b>:</div><input type="text" data-conf placeholder="BORRAR" autocomplete="off" spellcheck="false">'
+          : '<label class="ck" style="display:flex;gap:7px;align-items:center;cursor:pointer"><input type="checkbox" data-conf2> Sí, quiero borrar estas marcas</label>'}
+        <div class="acc"><button type="button" data-a="volver">← Volver</button><button type="button" class="del" data-a="borrar" disabled>🗑 Borrar definitivamente</button></div></div>`;
+      const btn = $('[data-a="borrar"]', ov), t = $('[data-conf]', ov), c = $('[data-conf2]', ov);
+      const ok = () => { btn.disabled = t ? t.value.trim().toUpperCase() !== 'BORRAR' : !(c && c.checked); };
+      if (t) { t.addEventListener('input', ok); setTimeout(() => t.focus(), 50); } if (c) c.addEventListener('change', ok);
+    };
+    ov.addEventListener('click', async (e) => {
+      if (e.target === ov) { ov.remove(); return; }
+      const col = e.target.closest('[data-col]'); if (col) { const c = col.dataset.col; if (cfg.colores.has(c)) cfg.colores.delete(c); else cfg.colores.add(c); paso1(); return; }
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      if (b.dataset.a === 'cancelar') ov.remove();
+      else if (b.dataset.a === 'seguir') paso2();
+      else if (b.dataset.a === 'volver') paso1();
+      else if (b.dataset.a === 'borrar') {
+        const l = sel(); ov.remove(); if (!l.length) return;
+        const copia = l.map((m) => ({ pagina: m.pagina, color: m.color, texto: m.texto, rects: m.rects }));
+        await borrarLote(l);
+        toast(`Se borraron ${l.length} ${l.length === 1 ? 'marca' : 'marcas'}`, 'Deshacer', async () => { await restaurarLote(copia); aviso('Marcas restauradas'); });
+      }
+    });
+    ov.addEventListener('change', (e) => {
+      const t = e.target;
+      if (t.name === 'al') { cfg.alcance = t.value; paso1(); }
+      else if (t.dataset.t) { cfg[t.dataset.t] = t.checked; paso1(); }
+      else if (t.dataset.r) { cfg[t.dataset.r] = Math.max(1, Math.min(mi.n, +t.value || 1)); cfg.alcance = 'rango'; paso1(); }
+    });
+    paso1(); mi.root.appendChild(ov);
+  }
+
+  // ---------- explicaciones al pasar el mouse por los botones ----------
+  const TIPS = {
+    m_sel: { t: 'Seleccionar', k: 'V', d: 'Elegí texto del PDF para subrayarlo con el color activo. También podés tocar un subrayado para cambiarle el color, copiarlo o borrarlo.' },
+    m_sub: { t: 'Subrayar', k: 'H', d: 'Subraya el texto que selecciones, al instante. Solo prolijo en PDFs con texto. 💡 El Pincel funciona mejor y sirve en cualquier PDF.' },
+    m_pincel: { t: 'Pincel', k: 'P', rec: 1, d: 'Marcá a mano alzada, con cualquier PDF (también escaneados). Es más preciso y más vistoso que Subrayar, por eso lo recomendamos. Ajustá el grosor con el deslizador.', n: 'Mantené Mayús o activá «Línea recta» para trazar rectas.' },
+    m_bor: { t: 'Goma', k: 'E', d: 'Pasala por encima de lo marcado y se quita cada marca que toques. Para borrar muchas juntas usá 🧹 Limpiar.' },
+    m_texto: { t: 'Texto sobre el PDF', k: 'T', d: 'Tocá un lugar de la página y escribí una nota. Podés moverla, cambiarle la letra y el color.' },
+    m_pin: { t: 'Marcador con nota', k: 'M', d: 'Pone un 📌 en un punto exacto y abre una nota atada a ese lugar. Se sincroniza con tus Notas de lectura.' },
+    a_limpiar: { t: 'Limpiar marcas', d: 'Borra muchas marcas de una vez: solo esta página, un rango de páginas o todo el documento, y se puede filtrar por color o tipo. Siempre te pide confirmar y podés deshacer 15 segundos.' },
+    a_undo: { t: 'Deshacer', k: 'Ctrl+Z', d: 'Vuelve atrás la última marca, borrado o cambio de color.' },
+    a_redo: { t: 'Rehacer', k: 'Ctrl+Y', d: 'Repite lo último que deshiciste.' },
+    a_supr: { t: 'Borrar marca', k: 'Supr', d: 'Borra la marca que tenés seleccionada (tocala antes). Para borrar varias, usá la Goma o 🧹 Limpiar.' },
+    a_lapiz: { t: 'Solo lápiz', d: 'Ideal para tablets: con el dedo movés la página y solo el lápiz dibuja o escribe. Así no marcás sin querer al hacer scroll.' },
+    a_recta: { t: 'Línea recta', d: 'El Pincel traza una recta perfecta desde donde empezás. Muy útil para subrayar renglones con prolijidad. También funciona manteniendo Mayús.' },
+    a_zm: { t: 'Alejar', k: '−', d: 'Reduce el tamaño de la página para ver más contenido.' },
+    a_zp: { t: 'Acercar', k: '+', d: 'Agranda la página, útil para leer letra chica o marcar con más precisión.' },
+    a_ajustar: { t: 'Ajustar al ancho', d: 'Adapta la página al ancho disponible de la pantalla.' },
+    a_leer: { t: 'Marcar página leída', d: 'Marca o desmarca esta página como leída. También se marca sola cuando te quedás unos segundos en ella. Alimenta tu progreso y el tiempo estimado.' },
+    a_eta: { t: 'Tiempo restante', d: 'Cuánto te falta para terminar este PDF según tu ritmo real de lectura. Tocalo para ver el detalle y la hora estimada de fin.' },
+    a_notas: { t: 'Notas de lectura', d: 'Abrí un cuaderno al costado para tomar notas mientras leés. Se guardan en Mis notas.' },
+    a_lista: { t: 'Mis subrayados', d: 'Lista de todo lo que marcaste en este PDF. Tocá una para ir a esa página.' },
+    a_drive: { t: 'Visor de Drive', d: 'Abre este archivo con el visor original de Google Drive, sin herramientas de marcado.' },
+    a_atajos: { t: 'Atajos de teclado', k: '?', d: 'Todas las teclas rápidas del lector.' },
+    a_fs: { t: 'Pantalla completa', k: 'F', d: 'Lee a pantalla completa. Salís con el mismo botón o con Esc.' },
+    paleta: { t: 'Más colores', d: 'Elegí entre muchos colores y armá tu propia paleta de 6 favoritos para tenerlos siempre a mano.' },
+    color: { t: 'Color favorito', d: 'Es el color con el que subrayás y pintás. Usá las teclas 1 a 6 para cambiar rápido. Con ＋ cambiás cuáles son tus favoritos.' },
+    rango: { t: 'Tamaño', k: '[  ]', d: 'Grosor del Pincel y de la Goma. Movés la barra o escribís el número (2 a 120 px) y Enter. También con las teclas [ y ].' },
+    pag: { t: 'Ir a una página', d: 'Escribí un número de página y tocá Enter para saltar directo.' },
+    prog: { t: 'Tu avance', d: 'Páginas leídas sobre el total. Se guarda en tu cuenta y se sincroniza entre dispositivos.' },
+  };
+  function tipDe(b) {
+    if (b.dataset.modo) return TIPS['m_' + b.dataset.modo];
+    if (b.dataset.accion === 'paleta') return TIPS.paleta;
+    if (b.dataset.accion) return TIPS['a_' + b.dataset.accion];
+    if (b.classList.contains('nkpdf-col')) { const t = Object.assign({}, TIPS.color); t.k = b.dataset.n; return t; }
+    if (b.classList.contains('nkpdf-rango') || b.classList.contains('nkpdf-num')) return TIPS.rango;
+    if (b.classList.contains('nkpdf-pag')) return TIPS.pag;
+    if (b.closest('.nkpdf-prog')) return TIPS.prog;
+    return null;
+  }
+  function tooltips(mi) {
+    const bar = $('.nkpdf-bar', mi.root); let tip = null, t = null;
+    const ocultar = () => { clearTimeout(t); if (tip) { const x = tip; tip = null; x.classList.remove('on'); setTimeout(() => x.remove(), 180); } };
+    const mostrar = (el) => {
+      if (S !== mi) return;
+      const quitar = el.getAttribute('title'); if (quitar) { el.dataset.tipTitulo = quitar; el.removeAttribute('title'); }
+      let d = tipDe(el); if (!d && el.dataset.tipTitulo) d = { t: el.textContent.trim() || 'Ayuda', d: el.dataset.tipTitulo };
+      if (!d) return; ocultar();
+      const x = document.createElement('div'); x.className = 'nkpdf-tip'; x.setAttribute('role', 'tooltip');
+      x.innerHTML = `<b>${esc(d.t)}${d.k ? '<kbd>' + esc(d.k) + '</kbd>' : ''}${d.rec ? '<span class="rec">⭐ Recomendado</span>' : ''}</b>${esc(d.d)}${d.n ? '<i>' + esc(d.n) + '</i>' : ''}`;
+      mi.root.appendChild(x); tip = x;
+      const rr = mi.root.getBoundingClientRect(), br = el.getBoundingClientRect();
+      x.style.top = (br.bottom - rr.top + 10) + 'px';
+      x.style.left = Math.max(8, Math.min(rr.width - x.offsetWidth - 8, br.left - rr.left + br.width / 2 - x.offsetWidth / 2)) + 'px';
+      requestAnimationFrame(() => x.classList.add('on'));
+    };
+    const objetivo = (e) => e.target.closest && e.target.closest('button, .nkpdf-rango, .nkpdf-num, .nkpdf-pag, .nkpdf-prog');
+    bar.addEventListener('pointerover', (e) => { if (e.pointerType !== 'mouse') return; const el = objetivo(e); if (!el || !bar.contains(el)) return; clearTimeout(t); t = setTimeout(() => mostrar(el), 280); });
+    bar.addEventListener('pointerout', (e) => { if (e.pointerType !== 'mouse') return; const el = objetivo(e); if (el && !el.contains(e.relatedTarget)) ocultar(); });
+    bar.addEventListener('focusin', (e) => { const el = objetivo(e); if (el && e.target.matches(':focus-visible')) mostrar(el); });
+    bar.addEventListener('focusout', ocultar);
+    bar.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') { ocultar(); return; }
+      const el = objetivo(e); if (!el) return; clearTimeout(t); t = setTimeout(() => { mostrar(el); t = setTimeout(ocultar, 4500); }, 520);   // en el celular: mantené apretado para ver la ayuda
+    });
+    ['pointerup', 'pointercancel', 'pointermove'].forEach((ev) => bar.addEventListener(ev, (e) => { if (e.pointerType !== 'mouse' && ev !== 'pointerup') clearTimeout(t); }));
+    mi.scroll.addEventListener('scroll', ocultar, { passive: true });
   }
 
   // ---------- cartel para repasar con flashcards ----------
@@ -423,7 +649,7 @@
     const norm = (ev) => [Math.min(1, Math.max(0, (ev.clientX - b0.left) / W)), Math.min(1, Math.max(0, (ev.clientY - b0.top) / H))];
     const pts = [norm(e)];
     const live = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); live.setAttribute('class', 'nk-live'); live.setAttribute('width', W); live.setAttribute('height', H);
-    const pa = document.createElementNS('http://www.w3.org/2000/svg', 'path'); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', COLORES[S.color]);
+    const pa = document.createElementNS('http://www.w3.org/2000/svg', 'path'); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', colorDe(S.color));
     pa.setAttribute('stroke-width', S.tam); pa.setAttribute('stroke-linecap', 'round'); pa.setAttribute('stroke-linejoin', 'round'); live.appendChild(pa); pg.el.appendChild(live);
     const dibujar = () => pa.setAttribute('d', dTrazo(pts, W, H));
     dibujar();
@@ -437,7 +663,7 @@
       window.removeEventListener('pointermove', mover); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
       live.remove(); if (S !== mi) return;
       const lim = [pts[0]]; for (let i = 1; i < pts.length; i++) { const u = lim[lim.length - 1]; if (Math.hypot((pts[i][0] - u[0]) * W, (pts[i][1] - u[1]) * H) >= 2.5 || i === pts.length - 1) lim.push(pts[i]); }
-      const m = { pagina: pg.num, color: S.color, texto: 'Trazo de pincel', rects: [{ t: 'p', w: S.tam / W, p: lim.map((q) => [+q[0].toFixed(4), +q[1].toFixed(4)]) }] };
+      const m = { pagina: pg.num, color: colorGuardar(S.color), texto: 'Trazo de pincel', rects: [{ t: 'p', w: S.tam / W, p: lim.map((q) => [+q[0].toFixed(4), +q[1].toFixed(4)]) }] };
       S.marcas.push(m); reg({ t: 'add', ms: [m] }); pintarMarcas(pg); actualizarBarra(); panel(); await guardarMarca(m);
     };
     window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
@@ -480,7 +706,7 @@
     if (e.clientX > r.right - 6 || e.clientX < r.left || e.clientY < r.top || e.clientY > r.bottom) { aro.style.display = 'none'; return; }
     aro.style.display = 'block'; aro.style.width = aro.style.height = S.tam + 'px';
     aro.style.left = (e.clientX - r.left) + 'px'; aro.style.top = (e.clientY - r.top) + 'px';
-    aro.style.background = S.modo === 'pincel' ? COLORES[S.color] + '66' : 'rgba(248,113,113,.25)';
+    aro.style.background = S.modo === 'pincel' ? colorDe(S.color) + '66' : 'rgba(248,113,113,.25)';
   }
 
   // ---------- pasar al visor de Drive y volver ----------
@@ -543,11 +769,11 @@
   function seleccion() {
     if (!S || S.modo === 'bor' || S.modo === 'pincel') return;
     const d = recolectar(); if (!d) return;
-    if (S.modo === 'sub') { aplicarSubrayado(d, S.color); return; }
+    if (S.modo === 'sub') { aplicarSubrayado(d, colorGuardar(S.color)); return; }
     const fin = d.rango.getBoundingClientRect();
     popover(fin.left + fin.width / 2, fin.bottom + 8,
-      Object.keys(COLORES).map((k) => `<span class="c" data-c="${k}" title="Subrayar ${NOMBRES[k]}" style="background:${COLORES[k]}"></span>`).join('') + '<button class="x" data-x="cancelar">✕</button>',
-      (t) => { if (t.dataset.x) { cerrarPop(); return; } S.color = t.dataset.c; marcarColor(); aplicarSubrayado(d, t.dataset.c); });
+      favoritos().map((c) => `<span class="c" data-c="${c}" title="Subrayar con este color" style="background:${c}"></span>`).join('') + '<button class="x" data-x="cancelar">✕</button>',
+      (t) => { if (t.dataset.x) { cerrarPop(); return; } S.color = t.dataset.c; marcarColor(); aplicarSubrayado(d, colorGuardar(t.dataset.c)); });
   }
 
   // ---------- deshacer / rehacer ----------
@@ -581,7 +807,7 @@
     if (!S) return; let a = $('.nkpdf-aviso', S.root); if (!a) { a = document.createElement('div'); a.className = 'nkpdf-aviso'; S.root.appendChild(a); }
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
-  const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 4', 'Color del subrayado'], ['[  ]', 'Tamaño del pincel y borrador'],
+  const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
@@ -612,13 +838,14 @@
     if (S.modo === 'sub') return;
     const conTexto = m.texto && !esTrazo(m) && !m.area;
     popover(e.clientX, e.clientY + 10,
-      Object.keys(COLORES).map((k) => `<span class="c" data-c="${k}" title="Cambiar a ${NOMBRES[k]}" style="background:${COLORES[k]}"></span>`).join('') + (conTexto ? '<button class="x" data-x="copiar">📋 Copiar</button>' : '') + '<button class="x" data-x="borrar">🗑 Borrar</button>',
+      favoritos().map((c) => `<span class="c" data-c="${c}" title="Cambiar a este color" style="background:${c}"></span>`).join('') + (conTexto ? '<button class="x" data-x="copiar">📋 Copiar</button>' : '') + '<button class="x" data-x="borrar">🗑 Borrar</button>',
       async (t) => {
         cerrarPop();
         if (t.dataset.x === 'borrar') { eliminar(m); return; }
         if (t.dataset.x === 'copiar') { try { await navigator.clipboard.writeText(m.texto); } catch (_) {} return; }
-        if (t.dataset.c && t.dataset.c !== m.color) {
-          reg({ t: 'color', m, de: m.color, a: t.dataset.c }); await fijarColor(m, t.dataset.c);
+        if (t.dataset.c && colorDe(t.dataset.c) !== colorDe(m.color)) {
+          const nuevo = colorGuardar(t.dataset.c);
+          reg({ t: 'color', m, de: m.color, a: nuevo }); await fijarColor(m, nuevo);
         }
       });
   }
@@ -649,7 +876,7 @@
     const ms = S.marcas.slice().sort((a, b) => a.pagina - b.pagina);
     lista.innerHTML = ms.length ? '' : '<div class="nkpdf-vacio">Todavía no subrayaste nada en este archivo.<br>Elegí la herramienta 🖍 Subrayar y seleccioná un texto.</div>';
     ms.forEach((m) => {
-      const it = document.createElement('div'); it.className = 'nkpdf-item'; it.style.setProperty('--c', COLORES[m.color] || COLORES.amarillo);
+      const it = document.createElement('div'); it.className = 'nkpdf-item'; it.style.setProperty('--c', colorDe(m.color));
       it.innerHTML = `<small><span>Página ${m.pagina}</span><button title="Borrar subrayado">🗑</button></small><p>${esc(m.texto || (esTrazo(m) ? 'Trazo de pincel' : m.area ? 'Área marcada' : ''))}</p>`;
       it.addEventListener('click', (e) => { if (e.target.closest('button')) { eliminar(m); return; } irA(m.pagina, true); });
       lista.appendChild(it);
@@ -706,33 +933,45 @@
     root.appendChild(m);
     const q = (s) => m.querySelector(s);
     const globo = q('.nkpdf-globo span'), barra = q('.nkpdf-barra b'), stat = q('.nkpdf-stat'), peso = q('.nkpdf-peso');
-    let frases = [], k = 0, timer = null, t0 = Date.now(), tot = 0;
+    const CONECTA = ['¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…', 'Buscando tu archivo en Drive 🔎', 'Ya casi: pidiendo el archivo al servidor…', 'Tu progreso y tus marcas se guardan solos en tu cuenta ✨', 'Consejo: el Pincel marca mejor que Subrayar y sirve en cualquier PDF 🖍️'];
+    const GENERAL = ['Descargando tu PDF… ya falta menos 📥', 'Tip: con las teclas 1 a 6 cambiás de color rápido 🎨', 'Tip: el botón ⏱ te dice cuánto te falta para terminar este PDF', 'Tip: con 🧹 Limpiar borrás marcas por página, rango o color', 'Mientras esperás, estirá un poco el cuello 😄'];
+    let frases = CONECTA, k = 0, timer = null, anim = null, t0 = Date.now(), tot = 0, real = 0, falso = 2, tope = 24, fase = 'conecta', n = 0;
     const decir = (t) => { globo.parentNode.style.animation = 'none'; void globo.offsetWidth; globo.parentNode.style.animation = ''; globo.textContent = t; };
-    const rotar = () => { if (!m.isConnected) { clearInterval(timer); return; } if (!frases.length) return; k = (k + 1) % frases.length; decir(frases[k]); };
+    const rotar = () => { if (!m.isConnected) { clearInterval(timer); clearInterval(anim); return; } if (!frases.length) return; k = (k + 1) % frases.length; decir(frases[k]); };
+    // la barra nunca se queda quieta: avanza despacito hacia un tope según la fase y la descarga real la empuja cuando hay datos
+    const pintar = () => {
+      if (!m.isConnected) { clearInterval(anim); return; }
+      falso += (tope - falso) * 0.035;
+      barra.style.width = Math.max(3, Math.min(100, Math.max(real, falso))) + '%';
+      if (fase === 'conecta') stat.textContent = 'Conectando con Drive… ' + Math.round((Date.now() - t0) / 1000) + ' s';
+    };
+    timer = setInterval(rotar, 3400); anim = setInterval(pintar, 300); pintar();
     return {
       tamano(total) {
-        tot = total;
+        tot = total; fase = 'baja'; tope = 92;
         const mb = total / 1e6, cl = mb < 25 ? 0 : mb < 120 ? 1 : mb < 500 ? 2 : 3;
         peso.hidden = false; peso.className = 'nkpdf-peso' + (cl === 2 ? ' p2' : cl === 3 ? ' p3' : '');
         peso.textContent = (['⚡ Archivo liviano', '📦 Archivo mediano', '🐘 Archivo pesado', '🏔️ Libro enorme'][cl]) + ' · ' + fmtMB(total);
         const fr = {
           0: ['Es liviano: en unos segundos lo tenés listo ⚡', 'Lo descargo completo para que puedas subrayar, marcar y guardar tu progreso.'],
           1: ['Pesa ' + fmtMB(total) + ': lo bajo entero a tu dispositivo para que después se mueva sin trabarse.', 'Con el PDF ya descargado, subrayar y pasar de página es instantáneo ✨', 'Tus marcas y tu progreso se guardan solos en tu cuenta.'],
-          2: ['Este PDF pesa ' + fmtMB(total) + ': demora un poco más, pero vale la pena 🐘', 'Lo descargo completo de Drive porque el lector necesita tener todas las páginas para dejarte subrayar y buscar.', 'Mientras tanto, tomá agua 💧 o repasá el tema que viene.', 'Cuando termine, abre de una y no lo vuelvo a bajar mientras no cierres el lector.'],
-          3: ['¡Este es un libro enorme (' + fmtMB(total) + ')! 🏔️ Puede tardar varios minutos según tu internet.', 'Lo bajo entero para que todas las páginas queden disponibles sin conexión con Drive y puedas subrayarlas.', 'Mejor en computadora y con Wi-Fi: en celular puede costarle. Si querés algo más rápido, abrí un capítulo suelto.', 'Dejá esta pestaña abierta: no cierres ni cambies de sección hasta que termine 🙏', '¡Ya falta menos! Después de esto, a estudiar con todo el libro a mano 📚'],
+          2: ['Este PDF pesa ' + fmtMB(total) + ': demora un poco más, pero vale la pena 🐘', 'Lo descargo completo de Drive porque el lector necesita tener todas las páginas para dejarte subrayar y buscar.', 'Mientras tanto, tomá agua 💧'],
+          3: ['¡Este es un libro enorme (' + fmtMB(total) + ')! 🏔️ Puede tardar varios minutos según tu internet.', 'Lo bajo entero para que todas las páginas queden disponibles y puedas subrayarlas.', 'Mejor en compu y con buena conexión.'],
         }[cl];
-        frases = fr; k = 0; decir(fr[0]); clearInterval(timer); timer = setInterval(rotar, 5500);
+        frases = fr.concat(GENERAL); k = 0; decir(fr[0]);
         if (cl >= 2 && !(navigator.deviceMemory > 4) && /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)) frases.push('Estás en el celular: si se cierra por falta de memoria, probá en una compu o con un capítulo más chico.');
       },
-      avance(n) {
-        const p = tot ? Math.min(100, n / tot * 100) : 0, seg = Math.max(0.5, (Date.now() - t0) / 1000), vel = n / seg;
-        barra.style.width = Math.max(4, p) + '%';
-        const falta = vel > 0 && tot ? Math.ceil((tot - n) / vel) : 0;
+      avance(bytes) {
+        n = bytes; if (fase === 'conecta') { fase = 'baja'; tope = tot ? 92 : 88; frases = GENERAL; k = -1; rotar(); }
+        const seg = Math.max(0.5, (Date.now() - t0) / 1000), vel = bytes / seg;
+        real = tot ? Math.min(98, bytes / tot * 100) : 0;
+        const p = Math.max(real, falso);
+        const falta = vel > 0 && tot ? Math.ceil((tot - bytes) / vel) : 0;
         const eta = falta > 90 ? 'unos ' + Math.ceil(falta / 60) + ' min' : falta > 0 ? falta + ' s' : '';
-        stat.textContent = tot ? `${Math.round(p)}% · ${fmtMB(n)} de ${fmtMB(tot)} · ${(vel / 1e6).toFixed(1).replace('.', ',')} MB/s` + (eta && p < 99 ? ' · faltan ' + eta : '') : fmtMB(n) + ' descargados';
+        stat.textContent = tot ? `${Math.round(real)}% · ${fmtMB(bytes)} de ${fmtMB(tot)} · ${(vel / 1e6).toFixed(1).replace('.', ',')} MB/s` + (eta && real < 99 ? ' · faltan ' + eta : '') : fmtMB(bytes) + ' descargados · ' + (vel / 1e6).toFixed(1).replace('.', ',') + ' MB/s';
       },
-      armando() { clearInterval(timer); barra.style.width = '100%'; decir('¡Listo! Estoy preparando las páginas… 📖'); stat.textContent = 'Abriendo el visor'; },
-      fin() { clearInterval(timer); },
+      armando() { fase = 'arma'; tope = 99.5; real = Math.max(real, 92); clearInterval(timer); frases = ['¡Listo! Estoy preparando las páginas… 📖', 'Acomodando tus subrayados y tu progreso ✨', 'Último paso: armando el visor 🚀']; k = 0; decir(frases[0]); timer = setInterval(rotar, 2200); stat.textContent = 'Abriendo el visor'; },
+      fin() { clearInterval(timer); clearInterval(anim); },
     };
   }
 
@@ -743,7 +982,7 @@
     const iframe = $('iframe', wrapper); if (iframe) iframe.style.display = 'none';
     const root = document.createElement('div'); root.className = 'nkpdf m-sel'; wrapper.appendChild(root);
     const ui = cargaUI(root);
-    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
+    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: favoritos()[0], panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
     const volver = (motivo) => { ui.fin(); if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
     try {
@@ -800,6 +1039,7 @@
           <button data-modo="sub" title="Subrayar (H)">${ICO.sub}<span class="nkpdf-txt">Subrayar</span></button>
           <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
+          <button data-accion="limpiar" title="Limpiar marcas">🧹<span class="nkpdf-txt">Limpiar</span></button>
           <button data-modo="texto" title="Escribir texto sobre el PDF (T): tocá donde quieras escribir">📝<span class="nkpdf-txt">Texto</span></button>
           <button data-modo="pin" title="Marcador 📌 (M): tocá la página y se abre una nota atada a ese lugar">📌<span class="nkpdf-txt">Marcador</span></button>
         </div>
@@ -810,10 +1050,8 @@
           <button data-accion="lapiz" title="Solo lápiz (tablets): con el dedo se mueve la página y solo el lápiz dibuja o escribe">✍️<span class="nkpdf-txt">Solo lápiz</span></button>
           <button data-accion="recta" title="Línea recta: el pincel traza una recta desde donde empezás (también con Mayús)">📏<span class="nkpdf-txt">Línea recta</span></button>
         </div>
-        <div class="nkpdf-grupo" aria-label="Color del subrayado">
-          ${Object.keys(COLORES).map((k, i) => `<button class="nkpdf-col" data-color="${k}" title="${NOMBRES[k]} (${i + 1})" style="background:${COLORES[k]}"></button>`).join('')}
-        </div>
-        <div class="nkpdf-grupo nkpdf-tam" title="Tamaño del pincel y del borrador ( [ y ] )"><span style="font-size:.7rem">Tamaño</span><input type="range" class="nkpdf-rango" min="4" max="64" value="${mi.tam}" aria-label="Tamaño"><b>${mi.tam}</b></div>
+        <div class="nkpdf-grupo nkpdf-favs" aria-label="Colores favoritos">${htmlFavoritos()}</div>
+        <div class="nkpdf-grupo nkpdf-tam" title="Tamaño del pincel y del borrador ( [ y ] )"><span style="font-size:.7rem">Tamaño</span><input type="range" class="nkpdf-rango" min="4" max="64" value="${mi.tam}" aria-label="Tamaño"><input type="number" class="nkpdf-num" min="2" max="120" step="1" inputmode="numeric" value="${mi.tam}" aria-label="Tamaño en píxeles (podés escribir el valor)"><em>px</em></div>
         <div class="nkpdf-grupo">
           <button data-accion="zm" title="Alejar (−)">−</button><span class="nkpdf-zoom">100%</span><button data-accion="zp" title="Acercar (+)">＋</button>
           <button data-accion="ajustar" title="Ajustar al ancho">${ICO.ajustar}</button>
@@ -838,6 +1076,7 @@
         <aside class="nkpdf-panel" aria-label="Mis subrayados"><h4><span>📝 Mis subrayados</span><button data-accion="cerrar-lista" aria-label="Cerrar">✕</button></h4><div class="nkpdf-lista"></div></aside>
       </div>`);
     mi.scroll = $('.nkpdf-scroll', root);
+    tooltips(mi);
     for (let i = 1; i <= mi.n; i++) {
       const el = document.createElement('div'); el.className = 'nk-pg'; el.dataset.p = i;
       el.style.width = mi.base.w * mi.escala + 'px'; el.style.height = mi.base.h * mi.escala + 'px';
@@ -854,7 +1093,15 @@
     mi.scroll.addEventListener('pointerdown', (e) => iniciarTrazo(e, mi));
     mi.scroll.addEventListener('pointermove', moverAro);
     mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; const f = $('.nkpdf-fantasma', mi.root); if (f) f.style.display = 'none'; });
-    const rango = $('.nkpdf-rango', root); rango.addEventListener('input', () => { mi.tam = +rango.value; $('.nkpdf-tam b', root).textContent = mi.tam; });
+    const rango = $('.nkpdf-rango', root), num = $('.nkpdf-num', root);
+    // el tamaño se puede mover con la barra o escribir con números (2 a 120 px); ambos campos quedan sincronizados
+    const fijarTam = (v, origen) => { v = Math.max(2, Math.min(120, Math.round(+v) || mi.tam)); mi.tam = v; if (origen !== 'r') rango.value = Math.min(64, v); if (origen !== 'n') num.value = v; };
+    mi.fijarTam = fijarTam;
+    rango.addEventListener('input', () => fijarTam(rango.value, 'r'));
+    num.addEventListener('input', () => { const v = +num.value; if (v >= 2 && v <= 120) fijarTam(v, 'n'); });
+    num.addEventListener('change', () => fijarTam(num.value));
+    num.addEventListener('keydown', (e) => { if (e.key === 'Enter') { fijarTam(num.value); num.blur(); } e.stopPropagation(); });
+    num.addEventListener('wheel', (e) => { if (document.activeElement === num) { e.preventDefault(); fijarTam(mi.tam + (e.deltaY < 0 ? 1 : -1)); } }, { passive: false });
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));
     mi.scroll.addEventListener('click', clickEnMarca);
@@ -871,6 +1118,8 @@
         case 'ajustar': ajustarAncho(); break;
         case 'leer': if (mi.leidas.has(mi.actual)) mi.leidas.delete(mi.actual); else mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); break;
         case 'eta': panelEta(b); break;
+        case 'paleta': paleta(b); break;
+        case 'limpiar': limpiar(); break;
         case 'lista': panel(!mi.panelAbierto); break;
         case 'notas': if (window.NikaPdfNotas) window.NikaPdfNotas.abrir(mi); else aviso('Las notas no están disponibles en este momento'); break;
         case 'cerrar-lista': panel(false); break;
@@ -899,9 +1148,9 @@
       if (k === 'escape') { cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove(); return; }
       if (k === '?' || (k === '/' && e.shiftKey)) { atajos(); return; }
       if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'p' || k === 'a') modo('pincel'); else if (k === 'e') modo('bor'); else if (k === 't') modo('texto'); else if (k === 'm') modo('pin');
-      else if (k === '[' || k === ']') { mi.tam = Math.max(4, Math.min(64, mi.tam + (k === ']' ? 4 : -4))); const rg = $('.nkpdf-rango', root); if (rg) rg.value = mi.tam; $('.nkpdf-tam b', root).textContent = mi.tam; }
+      else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
       else if (k === 'f') pantalla();
-      else if (['1', '2', '3', '4'].includes(k)) { mi.color = Object.keys(COLORES)[+k - 1]; marcarColor(); modo('sub'); }
+      else if (['1', '2', '3', '4', '5', '6'].includes(k)) { mi.color = favoritos()[+k - 1]; marcarColor(); if (mi.modo !== 'pincel') modo('sub'); }
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1);
     };
     document.addEventListener('keydown', mi.teclas);

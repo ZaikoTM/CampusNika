@@ -1221,7 +1221,7 @@ function actualizarProgresoRecursos() {
             if (est) {
                 tlSeg += est.seg; tlCont++;
                 const nueva = !tag._tlVisto; tag._tlVisto = true;
-                tl = `<span class="nk-tl-et${est.seg >= 7200 ? ' largo' : ''}" style="${nueva ? '--d:' + (Math.min(items.indexOf(it), 12) * 0.05) + 's' : 'animation:none;opacity:1'}" title="${TL.fuenteTxt(est)}"><i>⏱</i>${est.fuente === 'estandar' ? '~' : ''}${TL.fmt(est.seg)}${enCurso ? ' restantes' : ''}</span>`;
+                tl = `<span class="nk-tl-et${est.seg >= 7200 ? ' largo' : ''}" style="${nueva ? '--d:' + (Math.min(items.indexOf(it), 12) * 0.05) + 's' : 'animation:none;opacity:1'}" title="${TL.fuenteTxt(est)}"><i>⏱</i>${est.fuente === 'estandar' ? '~' : ''}${TL.fmt(est.seg)}${enCurso ? ' <span class="nk-tl-r">restantes</span>' : ''}</span>`;
             } else if (!completo) tlSin++;
             tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? 'Marcar como no leído' : 'Marcar como leído'}" aria-label="${completo ? 'Marcar como no leído' : 'Marcar como leído'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}${tl}`;
             if (_progPdfRecien === it.dataset.fid) {
@@ -1294,21 +1294,23 @@ function renderMaterialesAgrupados(materiales, uid) {
     let abiertos = {}; try { abiertos = JSON.parse(localStorage.getItem('nika_lib_abiertos') || '{}'); } catch (_) {}
     const hechos = new Set();
     const hue = (t) => { let h = 0; for (const c of t) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-    return materiales.map(r => {
+    const sueltos = [], libros = [];   // los PDFs sueltos van arriba y los libros (mosaicos) al final
+    materiales.forEach(r => {
         const l = nkLibDe(r);
-        if (!l || grupos[l.libro].length < NK_LIB_MIN) return renderResourceItem(r);
-        if (hechos.has(l.libro)) return '';
+        if (!l || grupos[l.libro].length < NK_LIB_MIN) { sueltos.push(renderResourceItem(r)); return; }
+        if (hechos.has(l.libro)) return;
         hechos.add(l.libro);
         const lista = grupos[l.libro], k = uid + '|' + l.libro;
         const abierto = abiertos[k] || lista.some(x => x.url === EstudioState.activeResourceUrl);
         const items = lista.map((x, i) => { const cap = nkLibDe(x).cap, m = /^Cap\.\s*(\d+)\s+(.*)$/.exec(cap); return renderResourceItem({ ...x, title: m ? m[2] : cap, _num: m ? m[1] : i + 1, _i: Math.min(i, 24) }); }).join('');
         const barra = `<div class="nk-lib-barra">${lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : ''}<div class="nk-chips" role="group" aria-label="Filtrar capítulos"><button type="button" class="nk-chip on" data-f="todos">Todos</button><button type="button" class="nk-chip" data-f="no">Sin leer</button><button type="button" class="nk-chip" data-f="curso">En curso</button><button type="button" class="nk-chip" data-f="ok">Leídos</button></div></div>`;
         const nom = l.libro.replace(/</g, '&lt;');
-        return `<details class="nk-lib" style="--h:${hue(l.libro)}" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
+        libros.push(`<details class="nk-lib" style="--h:${hue(l.libro)}" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
             <summary><span class="nk-lib-ico">📖</span><span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} capítulos<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
             <div class="nk-lib-cuerpo">${barra}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide 🔍</div></div></div>
-        </details>`;
-    }).join('');
+        </details>`);
+    });
+    return sueltos.join('') + libros.join('');
 }
 function nkLibFiltrar(cuerpo) {
     const i = cuerpo.querySelector('.nk-lib-buscar'), q = i ? i.value.trim().toLowerCase() : '';
