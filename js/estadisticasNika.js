@@ -89,7 +89,7 @@
     $$('.eg-punto', g).forEach((d, i) => d.classList.toggle('on', i === paso));
     const sig = $('.eg-sig', g), ant = $('.eg-ant', g);
     sig.textContent = p.fin ? '¡Listo!' : paso === 0 ? 'Empezar recorrido →' : 'Siguiente →';
-    ant.style.visibility = paso > 0 ? 'visible' : 'hidden';
+    ant.style.display = paso > 0 ? '' : 'none';
     if (paso === 0) saludar(); else feliz();
   }
   function terminarTour() {
@@ -102,7 +102,7 @@
     const k = datos.a.kpis;
     const saludo = otro ? '' : '¡Hola de nuevo, <b>' + esc(nombre) + '</b>! 👋 ';
     hablar(saludo + motivacion());
-    $('.eg-sig', g).textContent = 'Otro mensaje'; $('.eg-ant', g).style.visibility = 'hidden';
+    $('.eg-sig', g).textContent = 'Otro mensaje'; $('.eg-ant', g).style.display = 'none';
     $$('.eg-punto', g).forEach((d) => d.classList.remove('on'));
     if (!otro) saludar(); else feliz();
     resaltarNav(null);

@@ -294,3 +294,36 @@ body.dark-mode .eg-txt b, body.tema-premium .eg-txt b { background: linear-gradi
 body.dark-mode .eg-ant, body.dark-mode .eg-skip, body.tema-premium .eg-ant, body.tema-premium .eg-skip { color: #e2e8f0; border-color: rgba(148, 163, 184, .45); }
 body.dark-mode .eg-rep, body.tema-premium .eg-rep { color: #a5b4fc; }
 @media (prefers-reduced-motion: reduce) { .est-guia.on { animation: none !important; } .est-guia::before, .est-guia::after { animation: none !important; } }
+
+/* ============================================================
+   CELULAR Y TABLET
+   ============================================================ */
+.est-nav { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
+.est-nav button { flex: 0 0 auto; scroll-snap-align: center; }
+@media (max-width: 900px) {
+  .estadisticas .ns-top { padding: 8px 12px !important; gap: 8px !important; flex-wrap: nowrap !important; }
+  .estadisticas .ns-top h1 { font-size: 1rem !important; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
+  .estadisticas .ns-top h1 small { display: none !important; }
+  .estadisticas .ns-top .ns-acc { gap: 6px !important; flex-wrap: nowrap !important; flex: 0 0 auto; }
+  .estadisticas .ns-top .pl-btn { padding: 7px 10px; }
+  .estadisticas .est-main { padding-left: 12px; padding-right: 12px; }
+  .est-hero { padding: 20px 16px; }
+  .est-orbe.o2 { right: -120px; }
+}
+@media (max-width: 520px) {
+  .est-nav { width: 100%; border-radius: 14px; }
+  .est-nav button { padding: 9px 12px; font-size: .78rem; }
+  .est-card { padding: 16px 14px; border-radius: 18px; }
+  .est-tip { font-size: .8rem; }
+  .est-tit h3 { font-size: 1.1rem; }
+  .est-top { right: 14px; bottom: 120px; }
+  .eg-acc button { flex: 1 1 auto; }
+  .est-radar-w svg { max-width: 300px; }
+  .est-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .est-k { padding: 12px; } .est-k b { font-size: 1.35rem; } .est-k small { padding-right: 24px; font-size: .64rem; }
+  .est-cols { gap: 2px; } .est-col i { max-width: 16px; }
+}
+@media (min-width: 701px) and (max-width: 1024px) {
+  .est-big { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .est-g-const { grid-template-columns: minmax(0, 1fr); }
+}
