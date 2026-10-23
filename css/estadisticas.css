@@ -257,3 +257,40 @@ body.tema-premium .est-card { background: #0e1429; border-color: rgba(192, 132, 
 body.tema-premium .est-card:hover { box-shadow: 0 0 22px -6px rgba(168, 85, 247, .55); }
 body.tema-premium .est-nav { border-color: rgba(192, 132, 252, .45); }
 @media (prefers-reduced-motion: reduce) { .est-guia.on, .eg-orbe, .ne-todo, .ne-sombra, .ne-ojo, .ne-cruz, .ne-brazo-q, .eg-cab, .eg-mojo, .est-nav button.eg-llama, .est-nav button.alerta::after, .est-tip.on { animation: none !important; } .est-pill, .est-top, .est-prog { transition: none; } }
+
+/* ============================================================
+   NIKA INSTRUCTORA · versión con color (va primero en la página)
+   ============================================================ */
+.est-guia { margin-top: 0; padding: 26px 24px 22px 14px; overflow: hidden; color: #fff; border: 0;
+  background: linear-gradient(115deg, #06b6d4 0%, #3b82f6 28%, #7c3aed 58%, #ec4899 100%); background-size: 220% 220%;
+  box-shadow: 0 30px 56px -28px rgba(99, 102, 241, .95), 0 0 0 1px rgba(255, 255, 255, .28) inset; }
+.est-guia.on { animation: egEntra .7s cubic-bezier(.22, 1.2, .36, 1) both, egFondo 10s ease-in-out infinite; }
+@keyframes egFondo { 0%, 100% { background-position: 0% 40%; } 50% { background-position: 100% 60%; } }
+.est-guia::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .75;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, .85) 0 1.5px, transparent 2.5px), radial-gradient(circle, rgba(255, 255, 255, .55) 0 1px, transparent 2px), radial-gradient(circle, rgba(255, 255, 255, .7) 0 2px, transparent 3px);
+  background-size: 110px 110px, 70px 70px, 170px 170px; background-position: 0 0, 30px 40px, 60px 10px; animation: egChispas 22s linear infinite; }
+@keyframes egChispas { to { background-position: 110px -220px, -40px -180px, 230px -340px; } }
+.est-guia::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .22) 50%, transparent 62%); background-size: 260% 100%; animation: estBrillo 6s linear infinite; }
+.eg-orbe { left: 26px; width: 170px; height: 170px; margin-top: -85px; background: radial-gradient(circle, rgba(255, 255, 255, .55), rgba(255, 255, 255, .0) 68%); z-index: 0; }
+.eg-robot { z-index: 1; }
+.eg-burbuja { z-index: 1; border: 0; color: #0f172a; background: rgba(255, 255, 255, .97); box-shadow: 0 18px 34px -16px rgba(30, 27, 75, .65), 0 0 0 3px rgba(255, 255, 255, .35); }
+.eg-burbuja::before { border: 0; background: rgba(255, 255, 255, .97); box-shadow: -3px 3px 0 -1px rgba(255, 255, 255, .35); }
+.eg-nombre { background: linear-gradient(90deg, #0891b2, #6366f1, #db2777); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: .72rem; }
+.eg-txt { color: #1e1b4b; font-size: 1.05rem; }
+.eg-txt b { background: linear-gradient(90deg, #4f46e5, #c026d3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.eg-sig { background: linear-gradient(135deg, #06b6d4, #6366f1 55%, #ec4899); box-shadow: 0 12px 20px -10px #6366f1; }
+.eg-ant, .eg-skip { color: #4338ca; border-color: rgba(99, 102, 241, .35); }
+.eg-punto.on { background: linear-gradient(90deg, #06b6d4, #ec4899); }
+.eg-rep { color: #4f46e5; }
+.est-guia.chica { padding: 10px; } .est-guia.chica .eg-robot { width: 66px; }
+.est-guia ~ .est-hero { margin-top: 18px; }
+@media (max-width: 700px) { .est-guia.on { padding: 18px 14px 14px; } }
+body.dark-mode .est-guia, body.tema-premium .est-guia { background: linear-gradient(115deg, #0891b2 0%, #2563eb 28%, #7c3aed 58%, #db2777 100%); background-size: 220% 220%; border: 0; box-shadow: 0 30px 56px -28px rgba(99, 102, 241, .9), 0 0 0 1px rgba(255, 255, 255, .22) inset; }
+body.dark-mode .eg-burbuja, body.tema-premium .eg-burbuja { background: rgba(15, 23, 42, .9); color: #e2e8f0; border: 0; backdrop-filter: blur(8px); box-shadow: 0 18px 34px -16px rgba(0, 0, 0, .8), 0 0 0 2px rgba(255, 255, 255, .22); }
+body.dark-mode .eg-burbuja::before, body.tema-premium .eg-burbuja::before { background: rgba(15, 23, 42, .9); border: 0; box-shadow: -2px 2px 0 -1px rgba(255, 255, 255, .22); }
+body.dark-mode .eg-txt, body.tema-premium .eg-txt { color: #f1f5f9; }
+body.dark-mode .eg-nombre, body.tema-premium .eg-nombre { background: linear-gradient(90deg, #67e8f9, #a5b4fc, #f9a8d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+body.dark-mode .eg-txt b, body.tema-premium .eg-txt b { background: linear-gradient(90deg, #67e8f9, #f0abfc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+body.dark-mode .eg-ant, body.dark-mode .eg-skip, body.tema-premium .eg-ant, body.tema-premium .eg-skip { color: #e2e8f0; border-color: rgba(148, 163, 184, .45); }
+body.dark-mode .eg-rep, body.tema-premium .eg-rep { color: #a5b4fc; }
+@media (prefers-reduced-motion: reduce) { .est-guia.on { animation: none !important; } .est-guia::before, .est-guia::after { animation: none !important; } }
