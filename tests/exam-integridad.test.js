@@ -55,7 +55,7 @@ test('3 incidencias → advertencia amarilla con el mensaje exacto; la siguiente
   const { EI, disparar, agregados } = cargar();
   let forzada = 0;
   await EI.iniciar({ modulo: 'cirugia', estricto: false, total: 10, limiteSeg: 600, onForzarEntrega: () => { forzada++; } });
-  for (let i = 0; i < 3; i++) disparar('d:contextmenu', { preventDefault() {}, stopPropagation() {} });
+  for (let i = 0; i < 3; i++) disparar('d:copy', { preventDefault() {}, stopPropagation() {} });
   assert.strictEqual(EI.estado.avisado, true);
   const aviso = agregados.find((el) => el._msg && el._msg.textContent);
   assert.strictEqual(aviso._msg.textContent, 'Te macheteaste, en NikaMed no se nos escapa nada, esto es una advertencia, si te observo haciendo trampa de vuelta te obligo a entregar el examen.');
@@ -64,6 +64,18 @@ test('3 incidencias → advertencia amarilla con el mensaje exacto; la siguiente
   disparar('d:paste', { preventDefault() {}, stopPropagation() {} });
   assert.strictEqual(forzada, 1);
   assert.strictEqual(EI.fueForzada(), true);
+});
+
+test('el clic derecho se bloquea pero NO cuenta como incidencia (ni fuerza la entrega)', async () => {
+  const { EI, disparar } = cargar();
+  let forzada = 0;
+  await EI.iniciar({ modulo: 'cirugia', estricto: false, total: 10, limiteSeg: 600, onForzarEntrega: () => { forzada++; } });
+  const e = { prevented: false, preventDefault() { this.prevented = true; }, stopPropagation() {} };
+  for (let i = 0; i < 10; i++) disparar('d:contextmenu', e);
+  assert.strictEqual(e.prevented, true);
+  assert.strictEqual(EI.estado.incidencias.length, 0);
+  assert.strictEqual(EI.estado.avisado, false);
+  assert.strictEqual(forzada, 0);
 });
 
 test('cambio de pestaña: visibilitychange + blur seguidos cuentan una sola vez', async () => {
