@@ -102,6 +102,13 @@
 @keyframes nknCinta { to { background-position: -200% 0; } }
 #nk-notas h5 { margin: 0 0 12px; font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 #nk-notas h5 .nkn-n { background: rgba(14,165,233,.15); color: #0369a1; border-radius: 99px; padding: 1px 9px; font-size: .75rem; }
+.nkn-min { border: 1px solid rgba(100,116,139,.45); background: transparent; color: inherit; border-radius: 99px; padding: 4px 11px; font: inherit; font-size: .74rem; font-weight: 800; cursor: pointer; transition: background .2s, transform .2s; }
+.nkn-min:hover { background: rgba(14,165,233,.14); transform: translateY(-1px); }
+#nk-notas > :not(h5) { transition: opacity .25s ease; }
+#nika-inline-viewer-container:not(:fullscreen):not(.is-fs) #nk-notas.nk-min { padding-bottom: 10px; }
+#nika-inline-viewer-container:not(:fullscreen):not(.is-fs) #nk-notas.nk-min h5 { margin-bottom: 0; }
+#nika-inline-viewer-container:not(:fullscreen):not(.is-fs) #nk-notas.nk-min > :not(h5) { display: none; }
+#nika-inline-viewer-container:fullscreen .nkn-min, #nika-inline-viewer-container.is-fs .nkn-min { display: none; }
 #nk-notas h5 a { margin-left: auto; font-size: .78rem; font-weight: 800; color: #fff !important; background: linear-gradient(135deg, #0284c7, #6366f1); border-radius: 99px; padding: 6px 13px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
 #nk-notas h5 a:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(99,102,241,.8); }
 
@@ -181,13 +188,19 @@ body.dark-mode #nk-notas .nkn-hoja textarea, body.tema-premium #nk-notas .nkn-ho
     let p = document.getElementById('nk-notas');
     if (!p) { p = document.createElement('div'); p.id = 'nk-notas'; cont.appendChild(p); }
     const esVideo = ctx.tipo === 'video';
-    p.innerHTML = '<h5>📝 Mis notas de este ' + (esVideo ? 'video' : 'material') + ' <span class="nkn-n"></span><a href="mis_notas.html">Ver todas mis notas →</a></h5>'
+    p.innerHTML = '<h5>📝 Mis notas de este ' + (esVideo ? 'video' : 'material') + ' <span class="nkn-n"></span><button type="button" class="nkn-min" aria-expanded="true" title="Ocultar o mostrar las notas: así se lee más cómodo"></button><a href="mis_notas.html">Ver todas mis notas →</a></h5>'
       + '<div class="nkn-hoja"><textarea maxlength="1200" placeholder="' + (esVideo ? 'Escribí una nota para este minuto…' : 'Escribí una nota (se guarda con la página que estás leyendo)…') + '"></textarea>'
       + '<div class="nkn-barra"><button type="button" class="nkn-pos" aria-pressed="true" title="Activá o desactivá el marcador de posición"></button>'
       + '<span class="nkn-cols" role="group" aria-label="Color de la nota">'
       + [['amarillo', '#fde047'], ['rosa', '#f9a8d4'], ['celeste', '#7dd3fc'], ['verde', '#86efac']].map((c, i) => '<button type="button" class="nkn-col" data-c="' + c[0] + '" style="background:' + c[1] + '" aria-pressed="' + (i === 0) + '" title="' + c[0] + '"></button>').join('')
       + '</span><button type="button" class="nkn-save">Guardar nota</button></div></div>'
       + '<div class="nkn-lista"></div>';
+    // minimizar: arranca oculto (la lectura necesita lugar) y se acuerda de lo que elijas
+    const bMin = p.querySelector('.nkn-min');
+    const poner = (m, guardar) => { p.classList.toggle('nk-min', m); bMin.setAttribute('aria-expanded', String(!m)); bMin.textContent = m ? '▸ Mostrar notas' : '▾ Ocultar notas'; if (guardar) { try { localStorage.setItem('nika_notas_min', m ? '1' : '0'); } catch (_) {} } };
+    let guardada = null; try { guardada = localStorage.getItem('nika_notas_min'); } catch (_) {}
+    poner(guardada === null ? true : guardada === '1', false);
+    bMin.addEventListener('click', () => poner(!p.classList.contains('nk-min'), true));
     const ta = p.querySelector('textarea'), pos = p.querySelector('.nkn-pos');
     const actualizarPos = () => {
       let v = null;

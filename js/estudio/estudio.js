@@ -1137,6 +1137,28 @@ function badgeObligatorioHtml(resource) {
 
 // ================= PROGRESO DE LECTURA DE LOS PDF (checklist + "continuá donde lo dejaste") =================
 
+// Id estable para guardar "visto / leído" de cualquier recurso: Drive, Google Docs/Presentaciones o, si no hay, un código del enlace (videos, etc.).
+function nikaRecursoId(url) {
+    const d = nikaDriveId(url); if (d) return d;
+    const m = /docs\.google\.com\/(?:presentation|document|spreadsheets)\/d\/([A-Za-z0-9_-]+)/.exec(url || ''); if (m) return m[1];
+    let h = 2166136261; const s = String(url || '').split('#')[0];
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return 'r:' + (h >>> 0).toString(36);
+}
+// Textos de la casilla según el tipo de recurso
+const NK_ETQ = {
+    pdf: { no: 'Sin leer', ok: 'Leído completo', marcar: 'Marcar como leído', desmarcar: 'Marcar como no leído' },
+    video: { no: 'Sin ver', ok: 'Visto', marcar: 'Marcar como visto', desmarcar: 'Marcar como no visto' },
+    doc: { no: 'Sin estudiar', ok: 'Estudiado', marcar: 'Marcar como estudiado', desmarcar: 'Marcar como no estudiado' },
+    tutorial: { no: 'Sin hacer', ok: 'Hecho', marcar: 'Marcar como hecho', desmarcar: 'Marcar como no hecho' },
+};
+function nikaTipoRecurso(r) {
+    if (r.type === 'tutorial') return 'tutorial';
+    if (r.type === 'video' || /youtube\.com|youtu\.be|vimeo\.com/i.test(r.url || '')) return 'video';
+    if (r.type === 'pdf' || nikaDriveId(r.url)) return 'pdf';
+    return 'doc';
+}
+
 function nikaDriveId(url) {
     return (url || '').includes('drive.google.com/file/d/') ? ((url.split('/file/d/')[1] || '').split('/')[0] || null) : null;
 }
@@ -1190,7 +1212,7 @@ function actualizarProgresoRecursos() {
     clearTimeout(_progPdfTimer);
     _progPdfTimer = setTimeout(async () => {
         const corrida = ++_progPdfCorrida;
-        const items = [...document.querySelectorAll('#up-materiales-list .resource-item[data-fid]')];
+        const items = [...document.querySelectorAll('#up-materiales-list .resource-item[data-fid], #up-videos-list .resource-item[data-fid]')];
         const lista = document.getElementById('up-materiales-list');
         if (!lista) return;
         const prev = document.getElementById('up-continuar'); if (prev) prev.remove();
@@ -1212,18 +1234,19 @@ function actualizarProgresoRecursos() {
             const completo = manual || (total > 0 && leidas >= total);
             const enCurso = !completo && (leidas > 0 || (r && r.ultima_pagina > 1));
             const estado = completo ? 'ok' : enCurso ? 'curso' : 'no';
-            const txt = completo ? 'Leído completo' : enCurso ? `En curso · ${leidas}/${total} págs (${pct}%)` : 'Sin leer';
+            const kind = it.dataset.kind || 'pdf', ETQ = NK_ETQ[kind] || NK_ETQ.pdf, enMat = lista.contains(it);
+            const txt = completo ? ETQ.ok : enCurso ? `En curso · ${leidas}/${total} págs (${pct}%)` : ETQ.no;
             const barra = enCurso ? `<i class="rp-barra"><b style="width:${pct}%"></b></i>` : '';
             tag.dataset.estado = estado;
             // tiempo estimado de lectura (promedio propio + comunidad); solo si se conoce el largo del PDF
             let tl = '';
-            const est = TL && !completo ? TL.estimarArchivo(it.dataset.fid, r) : null;
+            const est = TL && !completo && kind === 'pdf' ? TL.estimarArchivo(it.dataset.fid, r) : null;
             if (est) {
                 tlSeg += est.seg; tlCont++;
                 const nueva = !tag._tlVisto; tag._tlVisto = true;
                 tl = `<span class="nk-tl-et${est.seg >= 7200 ? ' largo' : ''}" style="${nueva ? '--d:' + (Math.min(items.indexOf(it), 12) * 0.05) + 's' : 'animation:none;opacity:1'}" title="${TL.fuenteTxt(est)}"><i>⏱</i>${est.fuente === 'estandar' ? '~' : ''}${TL.fmt(est.seg)}${enCurso ? ' <span class="nk-tl-r">restantes</span>' : ''}</span>`;
-            } else if (!completo) tlSin++;
-            tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? 'Marcar como no leído' : 'Marcar como leído'}" aria-label="${completo ? 'Marcar como no leído' : 'Marcar como leído'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}${tl}`;
+            } else if (!completo && kind === 'pdf' && enMat) tlSin++;
+            tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? ETQ.desmarcar : ETQ.marcar}" aria-label="${completo ? ETQ.desmarcar : ETQ.marcar}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}${tl}`;
             if (_progPdfRecien === it.dataset.fid) {
                 _progPdfRecien = null;
                 const chk = tag.querySelector('.rp-chk'); chk.classList.add('rp-pop');
@@ -1234,7 +1257,7 @@ function actualizarProgresoRecursos() {
                 tag._nikaListo = true;
                 tag.addEventListener('click', (e) => { e.stopPropagation(); const rs = tag.dataset; if (e.target.closest('.rp-chk, .rp-txt')) nikaAlternarLeido(it, rs.estado === 'ok'); });
             }
-            if (enCurso) {
+            if (enCurso && enMat) {
                 const t = r.updated_at ? Date.parse(r.updated_at) : 0;
                 if (!mejor || t > mejor.t) mejor = { it, r, t };
             }
@@ -1344,9 +1367,10 @@ function renderResourceItem(resource) {
         ? `onclick="location.href='${resource.url}'" style="cursor:pointer;"`   // tutoriales y recorridos interactivos de la PFO: se abren en su propia pantalla
         : `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;${resource._i != null ? '--i:' + resource._i + ';' : ''}"`;
 
-    const fid = nikaDriveId(resource.url);
-    const fidAttr = fid ? ` data-fid="${fid}" data-title="${encodeURIComponent(resource.title)}"` : '';
-    const progHtml = fid ? `<span class="res-prog" data-fid="${fid}"></span>` : '';
+    const fid = nikaRecursoId(resource.url);   // todos los recursos (PDF, presentaciones, videos, tutoriales) tienen su casilla
+    const tipoRec = nikaTipoRecurso(resource);
+    const fidAttr = ` data-fid="${fid.replace(/"/g, '')}" data-kind="${tipoRec}" data-title="${encodeURIComponent(resource.title)}"`;
+    const progHtml = `<span class="res-prog" data-fid="${fid.replace(/"/g, '')}"></span>`;
 
     // Clases de YouTube: miniatura real del video (si no carga, queda el ícono de siempre)
     const ytm = String(resource.url).match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
