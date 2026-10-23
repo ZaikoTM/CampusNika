@@ -602,7 +602,7 @@
     window.addEventListener('blur', () => { setTimeout(() => { if (!document.hasFocus()) incidencia('perdida_foco'); }, 250); });
     document.addEventListener('paste', (e) => { if (INT.activa) { e.preventDefault(); incidencia('pegado'); } }, true);
     document.addEventListener('copy', () => incidencia('copia'));
-    document.addEventListener('contextmenu', (e) => { if (INT.activa) { e.preventDefault(); incidencia('menu_contextual'); } });
+    document.addEventListener('contextmenu', (e) => { if (INT.activa) e.preventDefault(); });   // clic derecho: se bloquea el menú pero no cuenta como incidencia
     document.addEventListener('keydown', (e) => {
       if (!INT.activa) return;
       const k = String(e.key || '').toLowerCase();
