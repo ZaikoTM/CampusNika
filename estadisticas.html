@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
     <link rel="stylesheet" href="css/resumen-semanal.css?v=3">
-    <link rel="stylesheet" href="css/estadisticas.css?v=1">
+    <link rel="stylesheet" href="css/estadisticas.css?v=2">
 </head>
 <body class="nikasim estadisticas" data-pagina="estadisticas">
 
@@ -76,19 +76,26 @@
                 </div>
             </section>
 
+            <!-- Nika, la instructora -->
+            <section class="est-guia" id="est-guia" aria-label="Nika te explica esta sección"></section>
+
             <nav class="est-nav" id="est-nav" aria-label="Secciones">
+                <i class="est-pill" id="est-pill" aria-hidden="true"></i>
                 <button type="button" class="on" data-sec="est-semana">📅 Semana</button>
                 <button type="button" data-sec="est-academico">🧠 Académico</button>
                 <button type="button" data-sec="est-lectura">📖 Lectura</button>
                 <button type="button" data-sec="est-constancia">🔥 Constancia</button>
+                <i class="est-prog" id="est-prog" aria-hidden="true"></i>
             </nav>
 
             <section class="est-sec" id="est-semana" aria-label="Rendimiento semanal">
+                <div class="est-tip" id="tip-semana"></div>
                 <div id="est-semanal"></div>
             </section>
 
             <section class="est-sec" id="est-academico" aria-label="Rendimiento académico">
                 <div class="est-tit"><small>Rendimiento académico</small><h3>Dónde estás fuerte y qué conviene repasar</h3></div>
+                <div class="est-tip" id="tip-academico"></div>
                 <div class="est-grid2">
                     <div class="est-card est-rev" id="est-radar"><div class="est-sk"></div></div>
                     <div class="est-card est-rev" id="est-olvido"><div class="est-sk"></div></div>
@@ -97,6 +104,7 @@
 
             <section class="est-sec" id="est-lectura" aria-label="Lectura">
                 <div class="est-tit"><small>Lectura</small><h3>Cómo leés y cuánto te falta</h3></div>
+                <div class="est-tip" id="tip-lectura"></div>
                 <div class="est-kpis" id="est-lec-kpis"><div class="est-sk"></div></div>
                 <div class="est-grid2">
                     <div class="est-card est-rev" id="est-lec-dias"><div class="est-sk"></div></div>
@@ -106,6 +114,7 @@
 
             <section class="est-sec" id="est-constancia" aria-label="Constancia">
                 <div class="est-tit"><small>Constancia</small><h3>Tus últimas 12 semanas</h3></div>
+                <div class="est-tip" id="tip-constancia"></div>
                 <div class="est-grid2 est-g-const">
                     <div class="est-card est-rev" id="est-mapa"><div class="est-sk"></div></div>
                     <div class="est-card est-rev" id="est-dona"><div class="est-sk"></div></div>
@@ -114,6 +123,7 @@
         </main>
     </div>
 
+    <button type="button" class="est-top" id="est-top" aria-label="Volver arriba" title="Volver arriba">↑</button>
     <div id="toast">Notificación</div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
@@ -134,7 +144,8 @@
     <script src="js/rendimiento.js?v=5"></script>
     <script src="js/estudio/nikaTiempoLectura.js?v=2"></script>
     <script src="js/resumenSemanal.js?v=5"></script>
-    <script src="js/estadisticas.js?v=1"></script>
+    <script src="js/estadisticasNika.js?v=1"></script>
+    <script src="js/estadisticas.js?v=2"></script>
     <script src="js/chatFlotante.js?v=11"></script>
     <script src="js/assistant.js?v=4"></script>
     <script>

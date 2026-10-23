@@ -133,6 +133,7 @@
     pp.innerHTML = '<h4>📚 PDFs en curso</h4><p class="est-nota">Lo que empezaste y cuánto te falta, según tu ritmo.</p>'
       + (filas.length ? '<div class="est-pdfs">' + filas.slice(0, 12).map(({ r, e }) => { const l = (r.leidas || []).filter((x) => x > 0).length, p = Math.round(l / r.total_paginas * 100); return '<div class="est-pdf"><b title="' + esc(r.titulo || '') + '">' + esc(r.titulo || 'Material') + '</b><div class="bar"><i data-w="' + p + '"></i></div><div class="m"><span>' + l + '/' + r.total_paginas + ' págs · ' + p + '%</span><span>' + (e ? '⏱ ~' + T.fmt(e.seg) : '') + '</span></div></div>'; }).join('') + '</div>' : '<p class="est-vacio">No tenés PDFs empezados. Cuando abras uno en la sala de estudio, aparece acá.</p>');
     revelar($('#est-lectura'));
+    if (window.NikaGuiaEstTipLectura) window.NikaGuiaEstTipLectura(restante ? 'te faltan <b>~' + hm(restante / 60) + '</b> para terminar lo que empezaste.' + (rc.cumplida ? ' ¡Y hoy ya cumpliste tu meta!' : ' Hoy llevás ' + Math.round(rc.hoy / 60) + ' de ' + Math.round(rc.meta / 60) + ' min de lectura.') : (rg.n ? 'tu ritmo es de <b>' + ritmo + '</b> por página. Seguí leyendo y lo afino.' : 'abrí un PDF en el Lector NikaMed y empiezo a medir tu ritmo de lectura.'));
   }
 
   // ---------- constancia ----------
@@ -167,12 +168,23 @@
 
   // ---------- navegación ----------
   function navegacion() {
-    const nav = $('#est-nav'), secs = $$('.est-sec');
-    nav.addEventListener('click', (e) => { const b = e.target.closest('[data-sec]'); if (!b) return; const s = document.getElementById(b.dataset.sec); if (s) s.scrollIntoView({ behavior: sinMov() ? 'auto' : 'smooth', block: 'start' }); });
-    const so = new IntersectionObserver((es) => {
-      es.forEach((en) => { if (en.isIntersecting) $$('button', nav).forEach((b) => b.classList.toggle('on', b.dataset.sec === en.target.id)); });
-    }, { rootMargin: '-35% 0px -55% 0px' });
+    const nav = $('#est-nav'), pill = $('#est-pill'), prog = $('#est-prog'), top = $('#est-top'), secs = $$('.est-sec');
+    const botones = $$('button[data-sec]', nav);
+    // la barra se pega justo debajo del encabezado, sea cual sea su alto
+    const ajustar = () => { const h = $('.ns-top'); document.documentElement.style.setProperty('--est-top', (h ? h.offsetHeight : 64) + 'px'); };
+    ajustar(); window.addEventListener('resize', ajustar);
+    const mover = (b) => { if (!b) return; pill.style.width = b.offsetWidth + 'px'; pill.style.transform = 'translateX(' + b.offsetLeft + 'px)'; pill.classList.add('on'); try { b.scrollIntoView({ inline: 'nearest', block: 'nearest' }); } catch (_) {} };
+    const activar = (id) => { botones.forEach((b) => b.classList.toggle('on', b.dataset.sec === id)); mover(botones.find((b) => b.dataset.sec === id)); };
+    nav.addEventListener('click', (e) => { const b = e.target.closest('[data-sec]'); if (!b) return; const s = document.getElementById(b.dataset.sec); if (!s) return; activar(b.dataset.sec); s.scrollIntoView({ behavior: sinMov() ? 'auto' : 'smooth', block: 'start' }); s.classList.remove('est-foco'); void s.offsetWidth; s.classList.add('est-foco'); setTimeout(() => s.classList.remove('est-foco'), 1800); });
+    const so = new IntersectionObserver((es) => { es.forEach((en) => { if (en.isIntersecting) activar(en.target.id); }); }, { rootMargin: '-35% 0px -55% 0px' });
     secs.forEach((s) => so.observe(s));
+    const scroll = () => {
+      const max = document.documentElement.scrollHeight - innerHeight; prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')';
+      top.classList.toggle('on', scrollY > 700);
+    };
+    window.addEventListener('scroll', scroll, { passive: true }); scroll();
+    top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: sinMov() ? 'auto' : 'smooth' }));
+    setTimeout(() => mover($('button.on', nav)), 60); window.addEventListener('resize', () => mover($('button.on', nav)));
   }
 
   async function iniciar() {
@@ -184,6 +196,9 @@
     const user = window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername && window.NikaSupabase.getNikaCurrentUsername();
     hero(a, user); radar(a); olvido(a); constancia(datos, a);
     revelar(document);
+    const crit = a.olvido.areas.some((x) => x.estado.clave === 'critico') || a.olvido.ups.some((x) => x.estado.clave === 'critico');
+    const bAc = $('#est-nav button[data-sec="est-academico"]'); if (bAc && crit) bAc.classList.add('alerta');
+    if (window.NikaGuiaEst) { try { window.NikaGuiaEst.iniciar({ a, datos, user }); } catch (_) {} }
     lectura();
   }
 
