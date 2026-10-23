@@ -273,7 +273,8 @@
 .nkpdf.m-forma .nkpdf-scroll{cursor:crosshair;touch-action:none}.nkpdf.m-sello .nkpdf-scroll{cursor:copy}.nkpdf.m-forma .nkpdf-tam,.nkpdf.m-sello .nkpdf-tam{display:flex}
 .nk-hl svg.nk-sh{mix-blend-mode:normal;opacity:.92}.nk-live-f{opacity:.92;mix-blend-mode:normal}.nk-hl i.nk-ln{mix-blend-mode:normal;opacity:.9;border-radius:2px}
 /* barra compacta (dos filas con textos) y mínima (solo íconos) */
-.nkpdf-b-compacta .nkpdf-bar,.nkpdf-b-minima .nkpdf-bar{gap:4px 6px;padding:4px 8px;font-size:.72rem}
+.nkpdf-b-compacta .nkpdf-bar{gap:4px 6px;padding:4px 8px;font-size:.76rem}
+.nkpdf-b-minima .nkpdf-bar{gap:4px 6px;padding:4px 8px;font-size:.72rem}
 .nkpdf-b-compacta .nkpdf-grupo,.nkpdf-b-minima .nkpdf-grupo{padding:2px;border-radius:10px;gap:1px}
 .nkpdf-b-compacta .nkpdf-bar button,.nkpdf-b-minima .nkpdf-bar button{padding:4px 6px;gap:4px;border-radius:8px}
 .nkpdf-b-compacta .nkpdf-bar svg,.nkpdf-b-minima .nkpdf-bar svg{width:15px;height:15px}
@@ -318,6 +319,14 @@
 .nkpdf-con-rail .nkpdf-g-herr{display:none!important}
 @media (max-width:760px){.nkpdf-rail{padding:4px 3px 6px}.rl-b{width:34px;height:34px}}
 @media (prefers-reduced-motion:reduce){.nkpdf-rail,.nkpdf-fly,.nkpdf-pref,.nkpdf-oculta .nkpdf-bar{animation:none!important;transition:none!important}}
+/* pulido: el cambio de tamaño de la barra es suave, el ícono activo de la barra vertical rebota y los menús entran uno por uno */
+.nkpdf-bar{transition:padding .25s ease,gap .25s ease}.nkpdf-grupo{transition:padding .25s ease,gap .25s ease,border-radius .25s ease}
+.nkpdf-bar button{transition:background .18s,transform .18s,color .18s,box-shadow .18s,padding .25s ease,gap .25s ease,font-size .25s ease}
+.nkpdf-bar svg{transition:width .25s ease,height .25s ease}
+.rl-b.on svg,.rl-b.on .rl-e{animation:nkpdfPop .38s cubic-bezier(.34,1.56,.64,1)}
+.nkpdf-fly button{animation:flyItem .3s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i,0) * 40ms)}
+@keyframes flyItem{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.nkpdf-fly button,.rl-b.on svg,.rl-b.on .rl-e{animation:none!important}.nkpdf-bar,.nkpdf-grupo,.nkpdf-bar button,.nkpdf-bar svg{transition:none!important}}
 .nkpdf-bar button.nkpdf-eta{gap:6px;padding:5px 11px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4);color:#a5f3fc;font-weight:800;position:relative;overflow:hidden}
 .nkpdf-bar button.nkpdf-eta:hover{background:rgba(34,211,238,.26);color:#fff}
 .nkpdf-eta .nk-eta-ic{display:inline-block;animation:nkEtaLat 2.6s ease-in-out infinite}
@@ -848,7 +857,7 @@
   function abrirFly(items, ancla, g, alElegir) {
     cerrarFly(); cerrarPop();
     const f = document.createElement('div'); f.className = 'nkpdf-fly'; f.setAttribute('role', 'menu'); if (g) f.dataset.g = g;
-    f.innerHTML = items.map((v, i) => `<button type="button" role="menuitem" data-i="${i}"${v.accion && !alElegir ? ` data-accion="${v.accion}"` : ''}><span class="fi">${v.ic || ''}</span><span class="ft">${esc(v.t)}</span><span class="fk">${v.on ? '✓' : ''}</span></button>`).join('');
+    f.innerHTML = items.map((v, i) => `<button type="button" role="menuitem" style="--i:${i}" data-i="${i}"${v.accion && !alElegir ? ` data-accion="${v.accion}"` : ''}><span class="fi">${v.ic || ''}</span><span class="ft">${esc(v.t)}</span><span class="fk">${v.on ? '✓' : ''}</span></button>`).join('');
     S.root.appendChild(f); ubicarFly(f, ancla);
     f.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; const v = items[+b.dataset.i]; cerrarFly(); if (alElegir) alElegir(v); });
     S._flyOff = (ev) => { if (!f.contains(ev.target) && !ancla.contains(ev.target)) cerrarFly(); };
