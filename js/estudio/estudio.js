@@ -1159,6 +1159,7 @@ async function nikaProgresoPdfs(ids) {
 
 let _progPdfTimer = null;
 let _progPdfRecien = null;
+let _progPdfCorrida = 0;   // si dos actualizaciones se pisan, solo vale la última (evita el cartel "Continuá…" duplicado)
 
 async function nikaAlternarLeido(item, estabaLeido) {
     const fid = item.dataset.fid;
@@ -1188,6 +1189,7 @@ async function nikaAlternarLeido(item, estabaLeido) {
 function actualizarProgresoRecursos() {
     clearTimeout(_progPdfTimer);
     _progPdfTimer = setTimeout(async () => {
+        const corrida = ++_progPdfCorrida;
         const items = [...document.querySelectorAll('#up-materiales-list .resource-item[data-fid]')];
         const lista = document.getElementById('up-materiales-list');
         if (!lista) return;
@@ -1197,6 +1199,7 @@ function actualizarProgresoRecursos() {
         const mapa = await nikaProgresoPdfs(ids);
         const TL = window.NikaTiempo;
         if (TL) { TL.css(); try { await TL.datosLista(ids); } catch (_) {} }
+        if (corrida !== _progPdfCorrida) return;
         let mejor = null, tlSeg = 0, tlSin = 0, tlCont = 0;
         items.forEach(it => {
             const r = mapa[it.dataset.fid];
@@ -1237,6 +1240,7 @@ function actualizarProgresoRecursos() {
             }
         });
         actualizarContadoresLibros();
+        document.querySelectorAll('#up-continuar').forEach(x => x.remove());
         if (mejor) {
             const b = document.createElement('div');
             b.id = 'up-continuar'; b.className = 'up-continuar'; b.setAttribute('role', 'button'); b.tabIndex = 0;
@@ -1256,17 +1260,19 @@ document.addEventListener('nika-tl-actualizado', actualizarProgresoRecursos);
 // Resumen de lectura de la unidad: tiempo total, plan hasta el próximo examen y meta diaria con racha.
 async function nikaBandaTiempo(lista, seg, cont, sin) {
     const TL = window.NikaTiempo;
-    const viejo = document.getElementById('up-tiempo');
     const [ex, rc] = await Promise.all([TL.proximoExamen().catch(() => null), TL.racha().catch(() => null)]);
     if (!lista.isConnected) return;
+    const viejo = document.getElementById('up-tiempo');   // se busca recién acá: dos corridas a la vez no deben crear dos bandas
     let plan = '';
     if (ex && seg > 0) {
-        if (ex.dias <= 0) plan = ` · <b>${TL.fmt(seg)}</b> para tu examen de hoy`;
-        else plan = ` · para «${String(ex.titulo || 'tu examen').replace(/</g, '&lt;').slice(0, 40)}» en ${ex.dias} ${ex.dias === 1 ? 'día' : 'días'}: <b>~${TL.fmt(seg / ex.dias)} por día</b>`;
+        const nom = String(ex.titulo || 'tu examen').replace(/</g, '&lt;').slice(0, 40);
+        if (ex.dias <= 0) plan = `<span class="nk-tl-lin"><i>📅</i><span>«${nom}» es hoy: te quedan <b>${TL.fmt(seg)}</b> de lectura.</span></span>`;
+        else plan = `<span class="nk-tl-lin"><i>📅</i><span>Para llegar a «${nom}» (en ${ex.dias} ${ex.dias === 1 ? 'día' : 'días'}): leé <b>~${TL.fmt(seg / ex.dias)} por día</b> <small>(${TL.fmt(seg)} ÷ ${ex.dias})</small></span></span>`;
     }
     const m = rc ? Math.min(100, Math.round(rc.hoy / rc.meta * 100)) : 0;
     const metaHtml = rc ? `<span class="nk-tl-meta${rc.cumplida ? ' ok' : ''}" title="Tu meta diaria de lectura: ${Math.round(rc.meta / 60)} min. Se cambia tocando acá."><i class="nk-tl-aro" style="--p:${m}"></i><span>Hoy ${Math.round(rc.hoy / 60)}/${Math.round(rc.meta / 60)} min${rc.racha ? ' · 🔥 ' + rc.racha : ''}</span></span>` : '';
-    const html = `<span>⏱</span><span>Te quedan <b class="nk-tl-tot">~${TL.fmt(seg)}</b> de lectura en esta unidad${sin ? ` <small style="opacity:.7">(+${sin} sin calcular)</small>` : ''}${plan}</span>${metaHtml}`;
+    const nota = `en ${cont} ${cont === 1 ? 'material' : 'materiales'} con largo conocido${sin ? ` · ${sin} todavía sin calcular (se suman cuando los abras)` : ''}`;
+    const html = `<div class="nk-tl-lins"><span class="nk-tl-lin"><i>⏱</i><span>Lectura pendiente de la unidad: <b class="nk-tl-tot">~${TL.fmt(seg)}</b> <small>${nota}</small></span></span>${plan}</div>${metaHtml}`;
     const el = viejo || document.createElement('div');
     if (viejo && viejo.dataset.h === html) return;
     el.id = 'up-tiempo'; el.className = 'nk-tl-banda'; el.dataset.h = html;

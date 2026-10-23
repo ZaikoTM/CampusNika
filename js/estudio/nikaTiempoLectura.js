@@ -246,6 +246,8 @@ body.dark-mode .nk-tl-et{color:#67e8f9;background:rgba(34,211,238,.14);border-co
 body.dark-mode .nk-tl-et.largo{color:#fdba74;background:rgba(251,146,60,.14);border-color:rgba(251,146,60,.35)}
 .nk-tl-banda{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:linear-gradient(120deg,#ecfeff,#eef2ff);border:1px solid #bae6fd;color:#0c4a6e;font-size:.86rem;animation:nkContIn .45s ease}
 .nk-tl-banda b{font-weight:800}
+.nk-tl-lins{display:flex;flex-direction:column;gap:6px;flex:1;min-width:230px}
+.nk-tl-lin{display:flex;align-items:flex-start;gap:8px;line-height:1.4}.nk-tl-lin>i{font-style:normal}.nk-tl-lin small{display:block;opacity:.72;font-size:.72rem;font-weight:600}
 .nk-tl-meta{display:inline-flex;align-items:center;gap:8px;margin-left:auto;font-size:.78rem;font-weight:700}
 .nk-tl-aro{--p:0;width:30px;height:30px;border-radius:50%;background:conic-gradient(#06b6d4 calc(var(--p)*1%),rgba(148,163,184,.3) 0);display:inline-grid;place-items:center;transition:background .6s}
 .nk-tl-aro::after{content:'';width:22px;height:22px;border-radius:50%;background:#f0f9ff}
