@@ -298,7 +298,21 @@
     const bl = $('.nkpdf-leer', S.root); if (bl) { bl.classList.toggle('on', S.leidas.has(S.actual)); $('.nkpdf-txt', bl).textContent = S.leidas.has(S.actual) ? 'Leída' : 'Marcar leída'; }
     const z = $('.nkpdf-zoom', S.root); if (z) z.textContent = Math.round(S.escala * 100) + '%';
     actualizarEta();
+    if (S.n && S.leidas.size >= S.n && S.leidas.size > (S.leidas0 || 0) && !S.fcAvisado) { const sx = S; setTimeout(() => { if (S === sx) cartelFlashcards(sx, true, sx.root); }, 1400); }
     const c = $('.nkpdf-cnt', S.root); if (c) { c.textContent = S.marcas.length; c.style.display = S.marcas.length ? '' : 'none'; }
+  }
+
+  // ---------- cartel para repasar con flashcards ----------
+  function statsSesion(s) {
+    let p = 0, seg = 0;
+    if (s.tl) Object.values(s.tl.tp).forEach((v) => { if (window.NikaTiempo && window.NikaTiempo.valido(v)) { p++; seg += v; } });
+    return { paginas: p, minutos: seg / 60 };
+  }
+  function cartelFlashcards(s, completo, host) {
+    if (!window.NikaCartelFC || s.fcAvisado) return;
+    const st = statsSesion(s);
+    s.fcAvisado = true;
+    window.NikaCartelFC.mostrar({ fileId: s.fileId, titulo: s.title, paginas: st.paginas, minutos: st.minutos, completo, host });
   }
 
   // ---------- tiempo estimado (chip de la barra + panel) ----------
@@ -766,6 +780,7 @@
       if (S !== mi) return;
       mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
       if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
+      mi.leidas0 = mi.leidas.size;
       if (window.NikaTiempo) { try { window.NikaTiempo.css(); mi.tl = window.NikaTiempo.nuevo(fileId, mi.n); await window.NikaTiempo.cargar(mi.tl); } catch (_) {} }
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
@@ -923,7 +938,9 @@
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
     if (S.tlKey) document.removeEventListener('keydown', S.tlKey);
     const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = '';
-    const s = S; s.cerrando = true; persistir(s); S = null; s.tok = -1;
+    const s = S; s.cerrando = true; persistir(s);
+    if (!s.fcAvisado && s.leidas && s.leidas.size - (s.leidas0 || 0) >= 10) setTimeout(() => cartelFlashcards(s, s.leidas.size >= s.n, null), 700);
+    S = null; s.tok = -1;
     try { s.pdf && s.pdf.destroy(); } catch (_) {}
     if (s.root && s.root.parentNode) s.root.remove();
   }

@@ -14,7 +14,7 @@
   const corto = (ms) => new Date(ms).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
   const ef = (w) => (w.preg ? Math.round(w.ok / w.preg * 100) : null);
 
-  let semanas = [], sel = 0, tab = 'semana', metrica = 'min', cmpA = 0, cmpB = 0, miembro = null, raiz = null, ahora = new Date();
+  let semanas = [], sel = 0, tab = 'semana', metrica = 'min', cmpA = 0, cmpB = 0, miembro = null, raiz = null, ahora = new Date(), compacto = false;
 
   /* ---------- datos ---------- */
   function construir(datos, notas, creado) {
@@ -59,7 +59,7 @@
     + (extra ? '<em class="rs-t-ex">' + extra + '</em>' : '') + (pct == null ? '' : '<span class="rs-t-bar"><i style="--w:' + Math.max(3, Math.min(100, pct)) + '%"></i></span>') + '</div>';
 
   /* ---------- pestaña: semana ---------- */
-  function vistaSemana() {
+  function vistaSemana() {   // en el campus (compacto) solo va el titular y los 4 indicadores; el detalle vive en estadisticas.html
     const A = semanas[sel], P = sel > 0 ? semanas[sel - 1] : null;
     const efA = ef(A), efP = P ? ef(P) : null;
     const hoyIdx = (ahora.getDay() + 6) % 7, esActual = sel === semanas.length - 1;
@@ -84,6 +84,11 @@
     if (flojo) { const kk = flojo.k.split('|'); dest.push('<li><span class="rs-pt" style="background:#ef4444"></span><span><b>Para reforzar:</b> ' + esc(NOMBRES[kk[0]] || kk[0]) + ' · UP ' + esc(kk[1]) + ' (' + Math.round(flojo.p * 100) + '% de aciertos en ' + flojo.total + ' preguntas)</span></li>'); }
     if (A.notas) dest.push('<li><span class="rs-pt" style="background:#f59e0b"></span><span><b>Notas tomadas:</b> ' + A.notas + ' · <a href="mis_notas.html">Ver mis notas →</a></span></li>');
     if (!dest.length) dest.push('<li><span class="rs-pt" style="background:#94a3b8"></span><span>Cuando estudies o hagas simulacros, acá vas a ver tus puntos fuertes y lo que conviene reforzar.</span></li>');
+    if (compacto) return '<p class="rs-titular">' + tit + '</p><div class="rs-kpis">'
+      + kpi('⏱️', 'Tiempo de estudio', hm(A.min), P ? chip(delta(A.min, P.min)) : '', '#0ea5e9')
+      + kpi('🍅', 'Sesiones Pomodoro', A.ses, P ? chip(delta(A.ses, P.ses)) : '', '#ef4444')
+      + kpi('📝', 'Simulacros', A.sim, efA == null ? '<span class="rs-d rs-d--igual">sin datos</span>' : '<span class="rs-d rs-d--igual">' + efA + '% aciertos</span>', '#8b5cf6')
+      + kpi('🔥', 'Días activos', A.dias.size + '<em>/7</em>', P ? chip(A.dias.size - P.dias.size, ' días') : '', '#f59e0b') + '</div>';
     return '<div class="rs-nav"><button type="button" data-rs="ant" ' + (sel === 0 ? 'disabled' : '') + ' aria-label="Semana anterior">‹</button>'
       + '<div class="rs-nav-t"><b>' + etiquetaSemana(sel) + '</b><small>' + rango(A) + '</small></div>'
       + '<button type="button" data-rs="sig" ' + (esActual ? 'disabled' : '') + ' aria-label="Semana siguiente">›</button>'
@@ -152,11 +157,12 @@
   function render() {
     if (!raiz) return;
     const tabs = [['semana', '📅 Semana'], ['evolucion', '📈 Evolución'], ['comparar', '⚖️ Comparar']];
+    if (compacto) tab = 'semana';
     const cuerpo = tab === 'semana' ? vistaSemana() : tab === 'evolucion' ? vistaEvolucion() : vistaComparar();
-    raiz.innerHTML = '<div class="rs-cab"><div><small>Tu progreso</small><h3>📊 Tu rendimiento semanal</h3>'
+    raiz.innerHTML = '<div class="rs-cab"><div><small>Tu progreso</small><h3>📊 ' + (compacto ? 'Tu semana' : 'Tu rendimiento semanal') + '</h3>'
       + '<p class="rs-rango">Miembro desde ' + new Date(miembro).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' }) + ' · ' + semanas.length + (semanas.length === 1 ? ' semana' : ' semanas') + ' de historial</p></div>'
-      + '<a class="rs-ir" href="sala_estudio.html">Ir a estudiar →</a></div>'
-      + '<div class="rs-tabs" role="tablist">' + tabs.map((t) => '<button type="button" role="tab" aria-selected="' + (t[0] === tab) + '" class="' + (t[0] === tab ? 'on' : '') + '" data-rs="tab" data-k="' + t[0] + '">' + t[1] + '</button>').join('') + '</div>'
+      + (compacto ? '<a class="rs-ir" href="estadisticas.html">Ver estadísticas personales →</a>' : '<a class="rs-ir" href="sala_estudio.html">Ir a estudiar →</a>') + '</div>'
+      + (compacto ? '' : '<div class="rs-tabs" role="tablist">' + tabs.map((t) => '<button type="button" role="tab" aria-selected="' + (t[0] === tab) + '" class="' + (t[0] === tab ? 'on' : '') + '" data-rs="tab" data-k="' + t[0] + '">' + t[1] + '</button>').join('') + '</div>')
       + '<div class="rs-cuerpo">' + cuerpo + '</div>';
     requestAnimationFrame(() => requestAnimationFrame(() => raiz.classList.add('rs-anim')));
   }
@@ -190,12 +196,15 @@
 
   async function iniciar() {
     if (raiz || document.getElementById('resumen-semanal') || !window.NikaRendimiento) return;
-    // al final de la página, debajo de "Usuarios en línea"
-    const ancla = document.getElementById('dashboard-online-users-widget') || document.getElementById('dashboard-community-widget') || document.getElementById('continuity-card');
+    // en estadisticas.html se monta completo; en el campus, compacto debajo de "Usuarios en línea"
+    const destino = document.getElementById('est-semanal');
+    compacto = !destino;
+    const ancla = destino || document.getElementById('dashboard-online-users-widget') || document.getElementById('dashboard-community-widget') || document.getElementById('continuity-card');
     if (!ancla) return;
-    const card = document.createElement('section'); card.id = 'resumen-semanal'; card.className = 'rs-card'; card.setAttribute('aria-label', 'Rendimiento semanal');
+    const card = destino || document.createElement('section');
+    card.id = destino ? 'est-semanal' : 'resumen-semanal'; card.classList.add('rs-card'); card.setAttribute('aria-label', 'Rendimiento semanal');
     card.innerHTML = '<div class="rs-cargando"><i></i><i></i><i></i></div>';
-    ancla.insertAdjacentElement('afterend', card);
+    if (!destino) ancla.insertAdjacentElement('afterend', card);
     raiz = card;
     // aparece con efecto al llegar con el scroll
     card.classList.add('rs-on');
@@ -213,9 +222,11 @@
       } catch (_) {}
       ahora = new Date(); semanas = construir(datos, notas, creado);
       sel = semanas.length - 1; cmpA = sel; cmpB = Math.max(0, sel - 1);
-      guardarFoto(); eventos(); render();
-    } catch (_) { card.remove(); raiz = null; }
+      guardarFoto(); if (!compacto) eventos(); render();
+    } catch (_) { if (!destino) card.remove(); else card.innerHTML = '<p class="rs-vacio">No pudimos cargar tus datos ahora. Probá recargar.</p>'; raiz = null; }
   }
+
+  window.NikaResumenSemanal = { semanas: () => semanas };
 
   function arrancar() {
     let t = 0;

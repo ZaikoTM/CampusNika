@@ -256,5 +256,6 @@ body.dark-mode .nk-tl-aro::after{background:#0f172a}
     document.head.appendChild(st);
   }
 
-  window.NikaTiempo = { css, hidratar, datosLista, estimar, estimarArchivo, estimarSesion, nuevo, cargar, tocar, tick, guardar, segsDe, fmt, fmtFin, fuenteTxt, pintar, meta, setMeta, racha, hoySegs, proximoExamen, valido, MIN_VALIDO };
+  const ritmoGlobal = () => { const g = Object.values(G).filter(valido); return { seg: mediana(g), n: g.length }; };
+  window.NikaTiempo = { ritmoGlobal, css, hidratar, datosLista, estimar, estimarArchivo, estimarSesion, nuevo, cargar, tocar, tick, guardar, segsDe, fmt, fmtFin, fuenteTxt, pintar, meta, setMeta, racha, hoySegs, proximoExamen, valido, MIN_VALIDO };
 })();
