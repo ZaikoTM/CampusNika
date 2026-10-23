@@ -152,7 +152,22 @@
 .nkpdf-item button{background:none;border:0;color:#94a3b8;cursor:pointer;font-size:.9rem}
 .nkpdf-item button:hover{color:#f87171}
 #nika-inline-viewer-container:fullscreen{width:100vw!important;height:100vh!important;margin:0!important;border-radius:0!important;background:#fff}
-@media (max-width:760px){.nkpdf-bar{gap:6px;padding:6px 8px}.nkpdf-txt{display:none}.nkpdf-prog{min-width:90px}.nkpdf-hint{display:none}}
+.nkpdf-bar button.nkpdf-eta{gap:6px;padding:5px 11px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4);color:#a5f3fc;font-weight:800;position:relative;overflow:hidden}
+.nkpdf-bar button.nkpdf-eta:hover{background:rgba(34,211,238,.26);color:#fff}
+.nkpdf-eta .nk-eta-ic{display:inline-block;animation:nkEtaLat 2.6s ease-in-out infinite}
+@keyframes nkEtaLat{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.2) rotate(-10deg)}}
+.nkpdf-eta.calc .nk-eta-num{background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.9),rgba(255,255,255,.25)) 0/120px 100% no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;animation:nkTlShimmer 1.3s linear infinite}
+.nkpdf-eta.menos1h{border-color:rgba(74,222,128,.6)!important;color:#bbf7d0!important;background:rgba(34,197,94,.18)!important;box-shadow:0 0 14px rgba(74,222,128,.45)}
+.nkpdf-eta.listo{border-color:rgba(74,222,128,.7)!important;color:#bbf7d0!important;background:rgba(34,197,94,.22)!important}
+.nkpdf-etapop{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:8px;width:min(310px,90vw);padding:14px;border-radius:16px;background:linear-gradient(150deg,#0b1535,#1e1b4b 60%,#312e81);border:1px solid rgba(168,85,247,.5);box-shadow:0 18px 40px rgba(2,6,23,.6);color:#e2e8f0;font-weight:600;font-size:.78rem;z-index:20;animation:nkEtaPop .32s cubic-bezier(.34,1.4,.64,1);cursor:default}
+@keyframes nkEtaPop{from{opacity:0;transform:translateX(-50%) translateY(-8px) scale(.94)}to{opacity:1;transform:translateX(-50%)}}
+.nkpdf-etapop h5{margin:0 0 8px;font-size:.95rem;font-weight:800;color:#fff}
+.nkpdf-etapop .f{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.nkpdf-etapop .f b{color:#a5f3fc;text-align:right}
+.nkpdf-etapop .n{margin-top:8px;color:#a5b4fc;font-size:.7rem;line-height:1.35}
+.nkpdf-etapop .mb{height:6px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:6px}.nkpdf-etapop .mb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#a855f7);transition:width .7s cubic-bezier(.22,1,.36,1)}
+@media (max-width:760px){.nkpdf-bar{gap:6px;padding:6px 8px}.nkpdf-txt{display:none}.nkpdf-prog{min-width:90px}.nkpdf-hint{display:none}.nkpdf-eta .nk-eta-ful{display:none}}
+@media (prefers-reduced-motion:reduce){.nkpdf-eta .nk-eta-ic,.nkpdf-eta.calc .nk-eta-num,.nkpdf-etapop{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.nkpdf *{animation:none!important;transition:none!important}.nkpdf-pop,.nkpdf-toast{animation:none!important}}`;
     document.head.appendChild(st);
   }
@@ -200,6 +215,7 @@
     if (!s || !s.n) return;
     const p = { ultima_pagina: s.actual, total_paginas: s.n, leidas: Array.from(s.leidas).sort((a, b) => a - b) };
     s.prog = p;
+    if (window.NikaTiempo && s.tl) window.NikaTiempo.guardar(s.tl, s.actual, !!s.cerrando);
     const avisar = () => { try { document.dispatchEvent(new CustomEvent('nika-pdf-progreso')); } catch (_) {} };
     if (s.uid && s.remoto !== false) {
       try { await cliente().from('pdf_progreso').upsert({ file_id: s.fileId, titulo: s.title, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' }); avisar(); return; } catch (_) {}
@@ -255,6 +271,7 @@
       if (!S || S.tok !== tok) return;
       const tx = pg.el.querySelector('.nk-tx'); tx.innerHTML = '';
       const contenido = await page.getTextContent();
+      if (S.tl) S.tl.chars[pg.num] = contenido.items.reduce((a, it) => a + (it.str ? it.str.length : 0), 0);
       await window.pdfjsLib.renderTextLayer({ textContentSource: contenido, container: tx, viewport: vp, textDivs: [] }).promise;
       pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); marcarLeida(pg);
     } catch (e) { if (!(e && e.name === 'RenderingCancelledException')) console.warn('[NikaPdf] página', pg.num, e && e.message ? e.message : e); }
@@ -280,7 +297,47 @@
     const inp = $('.nkpdf-pag', S.root); if (inp && document.activeElement !== inp) inp.value = S.actual;
     const bl = $('.nkpdf-leer', S.root); if (bl) { bl.classList.toggle('on', S.leidas.has(S.actual)); $('.nkpdf-txt', bl).textContent = S.leidas.has(S.actual) ? 'Leída' : 'Marcar leída'; }
     const z = $('.nkpdf-zoom', S.root); if (z) z.textContent = Math.round(S.escala * 100) + '%';
+    actualizarEta();
     const c = $('.nkpdf-cnt', S.root); if (c) { c.textContent = S.marcas.length; c.style.display = S.marcas.length ? '' : 'none'; }
+  }
+
+  // ---------- tiempo estimado (chip de la barra + panel) ----------
+  function actualizarEta() {
+    if (!S || !S.tl || !window.NikaTiempo || !S.root) return;
+    const T = window.NikaTiempo, b = $('.nkpdf-eta', S.root); if (!b) return;
+    const e = T.estimarSesion(S.tl, S.leidas, S.n); if (!e) return;
+    S.eta = e; const num = $('.nk-eta-num', b), ful = $('.nk-eta-ful', b);
+    b.classList.remove('calc');
+    if (!e.restantes) { b.classList.add('listo'); b.classList.remove('menos1h'); T.pintar(num, '¡Terminado!'); if (ful) ful.textContent = ''; }
+    else {
+      b.classList.remove('listo'); b.classList.toggle('menos1h', e.seg < 3600);
+      T.pintar(num, (e.fuente === 'estandar' ? '~' : '') + T.fmt(e.seg)); if (ful) ful.textContent = 'restantes';
+    }
+    const p = $('.nkpdf-etapop', S.root); if (p) rellenarEta(p);
+  }
+  function rellenarEta(p) {
+    const T = window.NikaTiempo, e = S.eta; if (!e) return;
+    const t = e.tasa >= 60 ? (Math.floor(e.tasa / 60) + ' min ' + String(Math.round(e.tasa % 60)).padStart(2, '0') + ' s') : (Math.round(e.tasa) + ' s');
+    p.querySelector('[data-r]').innerHTML = `<h5>⏱ ${e.restantes ? 'Te quedan ~' + T.fmt(e.seg) : '¡Terminaste este PDF!'}</h5>
+      <div class="f"><span>Páginas pendientes</span><b>${e.restantes} de ${S.n}</b></div>
+      <div class="f"><span>Tu ritmo</span><b>${t} por página</b></div>
+      ${e.restantes ? `<div class="f"><span>Si seguís de corrido, terminás</span><b>${T.fmtFin(e.seg)}</b></div>` : ''}
+      <div class="f"><span>Hoy leíste</span><b data-hoy></b></div><div class="mb"><i data-mb></i></div>
+      <div class="n">${esc(T.fuenteTxt(e))}${e.nMedidas ? ' · ' + e.nMedidas + ' págs medidas' : ''}. Se recalcula solo cada 30 s mientras leés.</div>`;
+    T.racha().then((r) => {
+      const h = p.querySelector('[data-hoy]'), m = p.querySelector('[data-mb]'); if (!h || !m) return;
+      h.textContent = Math.round(r.hoy / 60) + ' / ' + Math.round(r.meta / 60) + ' min' + (r.racha ? ' · 🔥 ' + r.racha + (r.racha === 1 ? ' día' : ' días') : '');
+      requestAnimationFrame(() => { m.style.width = Math.min(100, Math.round(r.hoy / r.meta * 100)) + '%'; });
+    });
+  }
+  function panelEta(b) {
+    const ya = $('.nkpdf-etapop', S.root);
+    if (ya) { ya.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+    if (!S.eta) { aviso('Todavía no hay datos: leé unas páginas y se calcula solo'); return; }
+    const p = document.createElement('div'); p.className = 'nkpdf-etapop'; p.innerHTML = '<div data-r></div>';
+    b.parentNode.appendChild(p); b.setAttribute('aria-expanded', 'true'); rellenarEta(p);
+    const cierra = (ev) => { if (!p.contains(ev.target) && !b.contains(ev.target)) { p.remove(); b.setAttribute('aria-expanded', 'false'); document.removeEventListener('pointerdown', cierra, true); } };
+    setTimeout(() => document.addEventListener('pointerdown', cierra, true), 0);
   }
 
   function paginaActual() {
@@ -709,6 +766,7 @@
       if (S !== mi) return;
       mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
       if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
+      if (window.NikaTiempo) { try { window.NikaTiempo.css(); mi.tl = window.NikaTiempo.nuevo(fileId, mi.n); await window.NikaTiempo.cargar(mi.tl); } catch (_) {} }
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
       mi.escala = Math.max(0.6, Math.min(1.8, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
@@ -748,6 +806,7 @@
         <div class="nkpdf-grupo"><span class="nkpdf-pagtxt">pág. <input class="nkpdf-pag" type="number" min="1" max="${mi.n}" value="1" aria-label="Ir a la página"> / ${mi.n}</span>
           <button class="nkpdf-leer" data-accion="leer" title="Marcar esta página como leída">${ICO.ok}<span class="nkpdf-txt">Marcar leída</span></button></div>
         <div class="nkpdf-prog" title="Tu avance de lectura"><i><b></b></i><span></span></div>
+        <div class="nkpdf-grupo" style="position:relative"><button class="nkpdf-eta calc" data-accion="eta" title="Tiempo estimado para terminar este PDF" aria-expanded="false"><span class="nk-eta-ic">⏱</span><span class="nk-eta-num">calculando…</span><span class="nk-eta-ful">restantes</span></button></div>
         <div class="nkpdf-grupo"><button data-accion="notas" class="nkpdf-notas" title="Tomar notas mientras leés (se guardan en Mis notas)">📒<span class="nkpdf-txt">Notas</span></button></div>
         <span class="nkpdf-sep"></span>
         <div class="nkpdf-grupo">
@@ -775,6 +834,8 @@
     }, { root: mi.scroll, rootMargin: '700px 0px' });
     mi.pags.forEach((pg) => mi.io.observe(pg.el));
 
+    // actividad para el reloj de lectura (si no tocás ni scrolleás por un rato, no cuenta)
+    if (mi.tl) ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'scroll'].forEach((ev) => mi.scroll.addEventListener(ev, () => window.NikaTiempo.tocar(mi.tl), { passive: true }));
     mi.scroll.addEventListener('pointerdown', (e) => iniciarTrazo(e, mi));
     mi.scroll.addEventListener('pointermove', moverAro);
     mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; const f = $('.nkpdf-fantasma', mi.root); if (f) f.style.display = 'none'; });
@@ -794,6 +855,7 @@
         case 'zp': zoom(1); break;
         case 'ajustar': ajustarAncho(); break;
         case 'leer': if (mi.leidas.has(mi.actual)) mi.leidas.delete(mi.actual); else mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); break;
+        case 'eta': panelEta(b); break;
         case 'lista': panel(!mi.panelAbierto); break;
         case 'notas': if (window.NikaPdfNotas) window.NikaPdfNotas.abrir(mi); else aviso('Las notas no están disponibles en este momento'); break;
         case 'cerrar-lista': panel(false); break;
@@ -828,15 +890,21 @@
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1);
     };
     document.addEventListener('keydown', mi.teclas);
+    if (mi.tl) { mi.tlKey = () => window.NikaTiempo.tocar(mi.tl); document.addEventListener('keydown', mi.tlKey, { passive: true }); }
 
     // una página cuenta como leída si estuvo ~4 s como la principal en pantalla
     mi.reloj = setInterval(() => {
       if (S !== mi || document.hidden) return;
       mi.segs++;
+      if (mi.tl && window.NikaTiempo) {
+        window.NikaTiempo.tick(mi.tl, mi.actual);
+        mi.tlN = (mi.tlN || 0) + 1;
+        if (mi.tlN % 30 === 0) { actualizarEta(); window.NikaTiempo.guardar(mi.tl, mi.actual); }
+      }
       if (mi.segs === 4 && !mi.leidas.has(mi.actual)) { mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); }
     }, 1000);
 
-    marcarColor(); actualizarBarra(); actualizarFs();
+    marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta();
     if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
     const ult = mi.prog && mi.prog.ultima_pagina;
     if (ult && ult > 1 && ult <= mi.n && window._nikaReanudar) { window._nikaReanudar = false; irA(ult, true); }
@@ -853,8 +921,9 @@
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
+    if (S.tlKey) document.removeEventListener('keydown', S.tlKey);
     const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = '';
-    const s = S; persistir(s); S = null; s.tok = -1;
+    const s = S; s.cerrando = true; persistir(s); S = null; s.tok = -1;
     try { s.pdf && s.pdf.destroy(); } catch (_) {}
     if (s.root && s.root.parentNode) s.root.remove();
   }

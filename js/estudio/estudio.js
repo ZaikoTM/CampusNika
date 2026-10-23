@@ -1193,8 +1193,11 @@ function actualizarProgresoRecursos() {
         if (!lista) return;
         const prev = document.getElementById('up-continuar'); if (prev) prev.remove();
         if (!items.length) return;
-        const mapa = await nikaProgresoPdfs([...new Set(items.map(i => i.dataset.fid))]);
-        let mejor = null;
+        const ids = [...new Set(items.map(i => i.dataset.fid))];
+        const mapa = await nikaProgresoPdfs(ids);
+        const TL = window.NikaTiempo;
+        if (TL) { TL.css(); try { await TL.datosLista(ids); } catch (_) {} }
+        let mejor = null, tlSeg = 0, tlSin = 0, tlCont = 0;
         items.forEach(it => {
             const r = mapa[it.dataset.fid];
             const tag = it.querySelector('.res-prog');
@@ -1209,7 +1212,15 @@ function actualizarProgresoRecursos() {
             const txt = completo ? 'Leído completo' : enCurso ? `En curso · ${leidas}/${total} págs (${pct}%)` : 'Sin leer';
             const barra = enCurso ? `<i class="rp-barra"><b style="width:${pct}%"></b></i>` : '';
             tag.dataset.estado = estado;
-            tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? 'Marcar como no leído' : 'Marcar como leído'}" aria-label="${completo ? 'Marcar como no leído' : 'Marcar como leído'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}`;
+            // tiempo estimado de lectura (promedio propio + comunidad); solo si se conoce el largo del PDF
+            let tl = '';
+            const est = TL && !completo ? TL.estimarArchivo(it.dataset.fid, r) : null;
+            if (est) {
+                tlSeg += est.seg; tlCont++;
+                const nueva = !tag._tlVisto; tag._tlVisto = true;
+                tl = `<span class="nk-tl-et${est.seg >= 7200 ? ' largo' : ''}" style="${nueva ? '--d:' + (Math.min(items.indexOf(it), 12) * 0.05) + 's' : 'animation:none;opacity:1'}" title="${TL.fuenteTxt(est)}"><i>⏱</i>${est.fuente === 'estandar' ? '~' : ''}${TL.fmt(est.seg)}${enCurso ? ' restantes' : ''}</span>`;
+            } else if (!completo) tlSin++;
+            tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? 'Marcar como no leído' : 'Marcar como leído'}" aria-label="${completo ? 'Marcar como no leído' : 'Marcar como leído'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}${tl}`;
             if (_progPdfRecien === it.dataset.fid) {
                 _progPdfRecien = null;
                 const chk = tag.querySelector('.rp-chk'); chk.classList.add('rp-pop');
@@ -1235,9 +1246,35 @@ function actualizarProgresoRecursos() {
             b.addEventListener('click', ir); b.addEventListener('keydown', e => { if (e.key === 'Enter') ir(); });
             lista.parentElement.insertBefore(b, lista);
         }
+        if (TL && tlCont) nikaBandaTiempo(lista, tlSeg, tlCont, tlSin);
+        else { const v = document.getElementById('up-tiempo'); if (v) v.remove(); }
     }, 150);
 }
 document.addEventListener('nika-pdf-progreso', actualizarProgresoRecursos);
+document.addEventListener('nika-tl-actualizado', actualizarProgresoRecursos);
+
+// Resumen de lectura de la unidad: tiempo total, plan hasta el próximo examen y meta diaria con racha.
+async function nikaBandaTiempo(lista, seg, cont, sin) {
+    const TL = window.NikaTiempo;
+    const viejo = document.getElementById('up-tiempo');
+    const [ex, rc] = await Promise.all([TL.proximoExamen().catch(() => null), TL.racha().catch(() => null)]);
+    if (!lista.isConnected) return;
+    let plan = '';
+    if (ex && seg > 0) {
+        if (ex.dias <= 0) plan = ` · <b>${TL.fmt(seg)}</b> para tu examen de hoy`;
+        else plan = ` · para «${String(ex.titulo || 'tu examen').replace(/</g, '&lt;').slice(0, 40)}» en ${ex.dias} ${ex.dias === 1 ? 'día' : 'días'}: <b>~${TL.fmt(seg / ex.dias)} por día</b>`;
+    }
+    const m = rc ? Math.min(100, Math.round(rc.hoy / rc.meta * 100)) : 0;
+    const metaHtml = rc ? `<span class="nk-tl-meta${rc.cumplida ? ' ok' : ''}" title="Tu meta diaria de lectura: ${Math.round(rc.meta / 60)} min. Se cambia tocando acá."><i class="nk-tl-aro" style="--p:${m}"></i><span>Hoy ${Math.round(rc.hoy / 60)}/${Math.round(rc.meta / 60)} min${rc.racha ? ' · 🔥 ' + rc.racha : ''}</span></span>` : '';
+    const html = `<span>⏱</span><span>Te quedan <b class="nk-tl-tot">~${TL.fmt(seg)}</b> de lectura en esta unidad${sin ? ` <small style="opacity:.7">(+${sin} sin calcular)</small>` : ''}${plan}</span>${metaHtml}`;
+    const el = viejo || document.createElement('div');
+    if (viejo && viejo.dataset.h === html) return;
+    el.id = 'up-tiempo'; el.className = 'nk-tl-banda'; el.dataset.h = html;
+    if (viejo) { const t = el.querySelector('.nk-tl-tot'); const antes = t && t.textContent; el.innerHTML = html; const n = el.querySelector('.nk-tl-tot'); if (n && antes !== n.textContent) { n.classList.add('nk-tl-cambia'); } }
+    else { el.innerHTML = html; lista.parentElement.insertBefore(el, lista); }
+    const mt = el.querySelector('.nk-tl-meta');
+    if (mt && !mt._ok) { mt._ok = true; mt.style.cursor = 'pointer'; mt.addEventListener('click', () => { const v = prompt('Meta diaria de lectura, en minutos:', Math.round(TL.meta())); if (v && +v > 0) TL.setMeta(+v); }); }
+}
 
 // Capítulos de libros ("📖 Cap. 8 Menopausia · Ginecología de Gori 3.ª ed."): si un libro tiene varios en la lista, se agrupan en una tarjeta desplegable con mosaico.
 const NK_LIB_MIN = 4;   // con menos capítulos de un mismo libro se dejan sueltos
