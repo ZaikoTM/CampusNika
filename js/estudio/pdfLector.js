@@ -1240,8 +1240,9 @@
   // ---------- deshacer / rehacer ----------
   function botonesUndo() {
     if (!S) return;
-    const u = $('[data-accion="undo"]', S.root), r = $('[data-accion="redo"]', S.root);
-    if (u) u.disabled = !S.undo.length; if (r) r.disabled = !S.redo.length;
+    // hay un deshacer/rehacer en la barra de arriba y otro en la barra vertical: se actualizan todos
+    S.root.querySelectorAll('[data-accion="undo"]').forEach((b) => { b.disabled = !S.undo.length; });
+    S.root.querySelectorAll('[data-accion="redo"]').forEach((b) => { b.disabled = !S.redo.length; });
   }
   function reg(a) { S.undo.push(a); if (S.undo.length > 100) S.undo.shift(); S.redo = []; botonesUndo(); }
   async function quitarMs(ms) { S.marcas = S.marcas.filter((x) => !ms.includes(x)); repintarTodas(); actualizarBarra(); for (const m of ms) await borrarMarca(m); }
