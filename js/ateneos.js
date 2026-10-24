@@ -50,6 +50,8 @@ const NikaAteneos = (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const cliente = () => (window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase)) || window.supabaseClient;
+  // El cliente de Supabase se crea de forma asíncrona: antes de usarlo se espera a que esté listo (si no, la ventana de la llamada fallaba en silencio)
+  async function clienteListo() { try { if (window.NikaSupabase && window.NikaSupabase.ready) await window.NikaSupabase.ready; } catch (_) {} return cliente(); }
   const toast = (m) => { if (typeof window.showToast === 'function') window.showToast(m); else console.info('[Ateneos]', m); };
   const DEF_AVATAR = 'assets/N%20NIKA.png';
 
@@ -400,6 +402,10 @@ const NikaAteneos = (() => {
       cbs: {
         onPeers: (l) => {
           const antes = ultimoPeers.length; ultimoPeers = l;
+          if (llamadaActiva) {
+            if (l.some((p) => p.estado === 'connected')) { clearTimeout(tMedios); if (!llamadaActiva.hablando) { llamadaActiva.hablando = true; estadoLlamada('En llamada con ' + (llamadaActiva.otro || 'tu compañero')); } }
+            else if (l.some((p) => p.estado === 'failed')) estadoLlamada('El audio no pudo conectar (red bloqueada). Probá con otra red.');
+          }
           // sonidos: alguien entra / sale; si entra alguien mientras estoy "llamando…", se corta el tono
           if (window.NikaRing && l.length !== antes) {
             if (l.length > antes) { window.NikaRing.llamando(false); window.NikaRing.efecto('unirse'); }
@@ -421,7 +427,7 @@ const NikaAteneos = (() => {
     conectado = { sala, nombre, silenciosa };
     llamadaActiva = opciones.llamada ? Object.assign({ estado: 'llamando' }, opciones.llamada) : null;
     try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: !VoiceManager.yo.meta.muted, llamada: llamadaActiva ? { id: llamadaActiva.id, rol: llamadaActiva.rol, otro: llamadaActiva.otro } : null })); } catch (_) {}
-    if (llamadaActiva) arrancarLlamada();
+    if (llamadaActiva) { arrancarLlamada(); if (llamadaActiva.estado === 'aceptada') { estadoLlamada('Conectando el audio…'); vigilarMedios(); } }
     dock.classList.add('on'); pipVisible = false; pipOculto = false; aplicarModoDock();
     document.body.classList.add('at-en-llamada');
     $('#at-d-name').textContent = nombre;
@@ -480,13 +486,32 @@ const NikaAteneos = (() => {
   const textoErrorLlamada = (e) => { const m = String((e && e.message) || ''); const x = MSG_LLAMADA.find((p) => p[0].test(m)); return x ? x[1] : 'No se pudo completar la llamada.'; };
   const ringOff = () => { try { if (window.NikaRing) window.NikaRing.llamando(false); } catch (_) {} };
 
+  // Lo que pasa con la llamada, a la vista: en la consola ([Llamada]) y en la ventana de la llamada (ateneo-host.html)
+  let _estadoTxt = '';
+  function estadoLlamada(txt) { _estadoTxt = String(txt || ''); try { console.info('[Llamada]', _estadoTxt); } catch (_) {} }
+  function diagnostico() {
+    return { conectado: !!conectado, sala: conectado ? conectado.sala : null, llamada: llamadaActiva ? { id: llamadaActiva.id, rol: llamadaActiva.rol, estado: llamadaActiva.estado } : null,
+      peers: (window.VoiceManager ? VoiceManager.peers : []).map((p) => p.estado), mic: !!(window.VoiceManager && VoiceManager.micActivo), ultimo: _estadoTxt };
+  }
+  let tMedios = null;   // si la llamada se atendió pero el audio no conecta, se avisa con claridad
+  function vigilarMedios() {
+    clearTimeout(tMedios);
+    tMedios = setTimeout(() => {
+      const l = llamadaActiva; if (!l || l.estado !== 'aceptada') return;
+      if (!ultimoPeers.some((p) => p.estado === 'connected')) {
+        estadoLlamada('La llamada se atendió pero el audio no conecta (' + (ultimoPeers.length ? 'estado: ' + ultimoPeers.map((p) => p.estado).join(', ') : 'la otra persona no aparece en la sala') + ')');
+        toast('La llamada se atendió, pero el audio no conecta todavía. Revisá tu conexión o probá de nuevo.');
+      }
+    }, 20000);
+  }
+
   function detenerLatido() { clearTimeout(tLatido); tLatido = null; }
   // El latido le dice al servidor que la llamada sigue viva y trae el estado vigente (si el aviso en tiempo real se perdió).
   // Mientras suena se consulta seguido (así vence a tiempo); ya conectados, cada 20 s.
   async function latidoLlamada() {
     const l = llamadaActiva; if (!l) return null;
     let est = null;
-    try { const r = await cliente().rpc('llamada_latido', { p_id: l.id }); if (!r.error) est = r.data; } catch (_) {}
+    try { const c = await clienteListo(); const r = await c.rpc('llamada_latido', { p_id: l.id }); if (!r.error) est = r.data; else estadoLlamada('latido: ' + r.error.message); } catch (e) { estadoLlamada('latido: ' + (e && e.message)); }
     if (llamadaActiva !== l) return est;
     if (est) alCambioEstado(est);
     if (llamadaActiva === l) tLatido = setTimeout(latidoLlamada, l.estado === 'llamando' ? 8000 : 20000);
@@ -497,11 +522,11 @@ const NikaAteneos = (() => {
   function alCambioEstado(estado) {
     const l = llamadaActiva; if (!l || !estado) return;
     if (estado === 'llamando') { if (l.rol === 'caller' && !l.timbrando) { l.timbrando = true; try { if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {} } return; }
-    if (estado === 'aceptada') { l.estado = 'aceptada'; ringOff(); return; }
+    if (estado === 'aceptada') { if (l.estado !== 'aceptada') { l.estado = 'aceptada'; estadoLlamada('Llamada atendida: conectando el audio…'); vigilarMedios(); } ringOff(); return; }
     // rechazada · cancelada · sin_respuesta · ocupado · finalizada: la llamada terminó para los dos
     const otro = l.otro || 'La otra persona';
     const aviso = { rechazada: otro + ' rechazó la llamada.', sin_respuesta: otro + ' no respondió.', cancelada: 'La llamada se canceló.', ocupado: otro + ' está en otra llamada.', finalizada: (l.estado === 'aceptada' ? otro + ' terminó la llamada.' : 'La llamada terminó.') }[estado] || 'La llamada terminó.';
-    llamadaActiva = null; detenerLatido(); ringOff();
+    llamadaActiva = null; detenerLatido(); ringOff(); clearTimeout(tMedios); estadoLlamada('Terminó: ' + estado);
     try { if (window.NikaRing) window.NikaRing.efecto(estado === 'rechazada' ? 'rechazada' : estado === 'finalizada' ? 'colgar' : 'error'); } catch (_) {}
     toast(aviso);
     desconectar();
@@ -511,7 +536,7 @@ const NikaAteneos = (() => {
     if (canalLl || !usuario()) return;
     try {
       if (window.NikaScriptsReady) await window.NikaScriptsReady;
-      const c = cliente(); if (!c) return;
+      const c = await clienteListo(); if (!c) return;
       const { data } = await c.auth.getSession();
       const uid = data && data.session && data.session.user && data.session.user.id; if (!uid) return;
       canalLl = c.channel('llamadas_estado_' + uid);
@@ -522,7 +547,7 @@ const NikaAteneos = (() => {
   }
 
   async function nombreDe(userId) {
-    try { const { data } = await cliente().from('profiles_public').select('fullname, username').eq('id', userId).limit(1); if (data && data[0]) return data[0].fullname || data[0].username; } catch (_) {}
+    try { const c = await clienteListo(); const { data } = await c.from('profiles_public').select('fullname, username').eq('id', userId).limit(1); if (data && data[0]) return data[0].fullname || data[0].username; } catch (_) {}
     return 'tu compañero';
   }
 
@@ -540,29 +565,33 @@ const NikaAteneos = (() => {
       if (!confirm('Estás en “' + conectado.nombre + '”. ¿Salir de ahí para llamar a ' + nombre + '?')) return;
       await desconectar();
     }
-    const c = cliente();
+    const c = await clienteListo(); if (!c) throw new Error('Todavía no se pudo conectar con el servidor. Probá de nuevo en un momento.');
+    estadoLlamada('Llamando a ' + nombre + '…');
     const { data: perfil } = await c.from('profiles_public').select('id').ilike('username', username).limit(1);
     if (!perfil || !perfil.length) throw new Error('No encontré a ese usuario.');
     const { data: ll, error } = await c.rpc('llamada_crear', { p_callee: perfil[0].id, p_tipo: 'voz' });
-    if (error) throw new Error(textoErrorLlamada(error));
+    if (error) { estadoLlamada('No se pudo crear la llamada: ' + error.message); throw new Error(textoErrorLlamada(error)); }
     if (ll.estado === 'ocupado') { try { if (window.NikaRing) window.NikaRing.efecto('error'); } catch (_) {} toast(nombre + ' está en otra llamada. Probá en un rato.'); return; }
+    estadoLlamada('Llamada creada: conectando con la sala…');
     try {
       await conectarSala(ll.sala, 'Llamada con ' + nombre, false, { llamada: { id: ll.id, rol: 'caller', otro: nombre } });
-    } catch (e) { c.rpc('llamada_cancelar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
+      estadoLlamada('Sonando en el teléfono de ' + nombre + '…');
+    } catch (e) { estadoLlamada('Error al entrar a la sala: ' + (e && e.message)); c.rpc('llamada_cancelar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
   }
 
   // El destinatario atiende (desde la tarjeta de aviso de nikaNotificaciones.js o desde el chat)
   async function aceptarLlamada(id) {
     if (!usuario()) throw new Error('Iniciá sesión para atender.');
     if (llamadaActiva && llamadaActiva.id === id) return;
-    const c = cliente();
+    const c = await clienteListo(); if (!c) throw new Error('Todavía no se pudo conectar con el servidor. Probá de nuevo en un momento.');
     const { data: ll, error } = await c.rpc('llamada_aceptar', { p_id: id });
-    if (error) throw new Error(textoErrorLlamada(error));
+    if (error) { estadoLlamada('No se pudo atender: ' + error.message); throw new Error(textoErrorLlamada(error)); }
+    estadoLlamada('Llamada atendida: entrando a la sala…');
     const nombre = await nombreDe(ll.caller_id);
     if (conectado) await desconectar();
     try {
       await conectarSala(ll.sala, 'Llamada con ' + nombre, false, { llamada: { id: ll.id, rol: 'callee', otro: nombre, estado: 'aceptada' } });
-    } catch (e) { c.rpc('llamada_finalizar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
+    } catch (e) { estadoLlamada('Error al entrar a la sala: ' + (e && e.message)); c.rpc('llamada_finalizar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
   }
   async function unirsePorCodigo() {
     const cod = ($('#at-codigo').value || '').trim().toUpperCase();
@@ -858,7 +887,11 @@ const NikaAteneos = (() => {
     let a = null; try { a = JSON.parse(localStorage.getItem(K_ACTIVA) || 'null'); } catch (_) {}
     if (!a || !usuario() || Date.now() - (a.t || 0) > 12 * 3600 * 1000) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} return; }
     try { await conectarSala(a.sala, a.nombre, a.silenciosa, { micInicial: a.mic, silencioso: true, llamada: a.llamada || null }); }
-    catch (e) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} }
+    catch (e) {
+      estadoLlamada('No se pudo entrar a la sala: ' + ((e && e.message) || e)); toast('No se pudo entrar a la llamada: ' + ((e && e.message) || 'error de conexión'));
+      try { localStorage.removeItem(K_ACTIVA); } catch (_) {}
+      if (a.llamada && a.llamada.id) { try { const c = await clienteListo(); c.rpc(a.llamada.rol === 'caller' ? 'llamada_cancelar' : 'llamada_finalizar', { p_id: a.llamada.id }).then(() => {}, () => {}); } catch (_) {} }   // la otra persona se entera de que no se pudo
+    }
   }
 
   // ------------------------------------------------------------------ sala en curso (escenario + panel lateral)
@@ -1190,7 +1223,7 @@ const NikaAteneos = (() => {
   window.addEventListener('hashchange', () => setTimeout(revisarInvitacion, 100));
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, llamarPrivado, aceptarLlamada, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
+  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, llamarPrivado, aceptarLlamada, diagnostico, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
 })();
 
 window.NikaAteneos = NikaAteneos;

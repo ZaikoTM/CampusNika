@@ -240,8 +240,8 @@
       try {
         if (!window.NikaAteneos) {
           const cargar = (src) => new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = src; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); });
-          if (!window.VoiceManager) await cargar('js/voiceManager.js?v=5');
-          await cargar('js/ateneos.js?v=20');
+          if (!window.VoiceManager) await cargar('js/voiceManager.js?v=6');
+          await cargar('js/ateneos.js?v=21');
         }
         if (!(window.NikaAteneos && window.NikaAteneos.llamarPrivado)) throw new Error('No se pudo iniciar la llamada.');
         await window.NikaAteneos.llamarPrivado(user, f.fullname);

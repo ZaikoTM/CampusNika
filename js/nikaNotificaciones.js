@@ -245,8 +245,8 @@
   // La tarjeta aparece arriba a la derecha con Atender / Rechazar y suena el timbre. Se cierra sola si quien llama corta,
   // si la atiende otro dispositivo o si vence (45 s).
   async function cargarMotorLlamadas() {
-    await cargarScript('voiceManager.js?v=5', () => !!window.VoiceManager);
-    await cargarScript('ateneos.js?v=20', () => !!window.NikaAteneos);
+    await cargarScript('voiceManager.js?v=6', () => !!window.VoiceManager);
+    await cargarScript('ateneos.js?v=21', () => !!window.NikaAteneos);
     if (!window.NikaAteneos) throw new Error('No se pudo cargar el sistema de llamadas.');
     return window.NikaAteneos;
   }

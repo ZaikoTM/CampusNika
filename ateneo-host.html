@@ -42,6 +42,9 @@
         body.mini h1, body.mini p, body.mini .h-logo, body.mini .h-aviso, body.mini #h-sub { display: none; }
         body.mini .h-estado { margin: 0; padding: 8px 12px; }
         body.mini .h-acc { margin-top: 8px; }
+        .h-diag { margin-top: 10px; padding: 9px 12px; border-radius: 12px; border: 1px dashed var(--bd); width: 100%; max-width: 380px; font-size: .74rem; line-height: 1.5; color: var(--mut); text-align: left; word-break: break-word; }
+        .h-diag b { color: var(--txt); }
+        body.mini .h-diag { display: none; }
         .h-aviso { margin-top: 14px; padding: 10px 14px; border-radius: 14px; background: rgba(245,158,11,.14); color: #92400e; font-weight: 700; font-size: .8rem; max-width: 380px; }
     </style>
 </head>
@@ -55,13 +58,14 @@
         <button type="button" class="sec" id="h-red" title="Achicar esta ventana">⬇ Reducir</button>
         <button type="button" class="sec" id="h-amp" title="Volver al tamaño normal" hidden>⬆ Ampliar</button>
     </div>
+    <div class="h-diag" id="h-diag" aria-live="polite">Estado de la llamada: esperando…</div>
     <div class="h-aviso">Al cerrar esta ventana se termina la llamada. Podés moverla, minimizarla o reducirla.</div>
 
     <script>window.__ateneoHost = true; window.showToast = function (m) { var t = document.getElementById('h-sub'); if (t) t.textContent = m; };</script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
-    <script src="js/voiceManager.js?v=5"></script>
-    <script src="js/ateneos.js?v=20"></script>
+    <script src="js/voiceManager.js?v=6"></script>
+    <script src="js/ateneos.js?v=21"></script>
     <script>
         (function () {
             var red = document.getElementById('h-red'), amp = document.getElementById('h-amp'), pipB = document.getElementById('h-pip');
@@ -91,6 +95,15 @@
             }
         })();
         (function () {
+            var diag = document.getElementById('h-diag');
+            setInterval(function () {
+                try {
+                    var d = window.NikaAteneos && NikaAteneos.diagnostico ? NikaAteneos.diagnostico() : null;
+                    if (!d) { diag.textContent = 'Estado de la llamada: cargando…'; return; }
+                    var est = d.llamada ? (d.llamada.estado === 'aceptada' ? 'atendida' : 'sonando') : (d.conectado ? 'en sala' : 'sin llamada');
+                    diag.innerHTML = '<b>Llamada:</b> ' + est + ' · <b>Audio:</b> ' + (d.peers.length ? d.peers.join(', ') : 'sin la otra persona todavía') + ' · <b>Micrófono:</b> ' + (d.mic ? 'activo' : 'apagado o sin permiso') + (d.ultimo ? '<br>' + String(d.ultimo).replace(/</g, '&lt;') : '');
+                } catch (_) {}
+            }, 1000);
             var nombre = document.getElementById('h-nombre'), sub = document.getElementById('h-sub');
             setInterval(function () {
                 try {
@@ -104,6 +117,6 @@
         })();
     </script>
     <script src="js/nikaAnalytics.js" defer></script>
-    <script src="js/nikaNotificaciones.js?v=11" defer></script>
+    <script src="js/nikaNotificaciones.js?v=12" defer></script>
 </body>
 </html>

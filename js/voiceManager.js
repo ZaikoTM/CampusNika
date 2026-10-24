@@ -293,7 +293,9 @@ const VoiceManager = (() => {
       emit('onError', 'No se pudo acceder al micrófono: entrás como oyente.');
     }
 
+    try { if (window.NikaSupabase && window.NikaSupabase.ready) await window.NikaSupabase.ready; } catch (_) {}   // el cliente de Supabase se crea de forma asíncrona
     const c = cliente();
+    if (!c) { await salir(); throw new Error('Todavía no se pudo conectar con el servidor. Recargá la página.'); }
     await cargarTurn();   // antes de crear conexiones: así ya salen con TURN
 
     // Las llamadas 1 a 1 usan un canal PRIVADO (solo los dos participantes, ver sql/llamadas_realtime_privado.sql).
@@ -317,7 +319,9 @@ const VoiceManager = (() => {
         else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') { clearTimeout(t); try { c.removeChannel(ch); } catch (_) {} reject(new Error('Falló la conexión en tiempo real (' + status + ').')); }
       });
     });
-    const privado = !!opts.privado;
+    // Canal privado: solo si se activa a propósito (window.NIKA_CANAL_PRIVADO = true) y el proyecto tiene las políticas de sql/llamadas_realtime_privado.sql.
+    // Si una de las dos personas lo usara y la otra no, no se verían: por eso queda apagado por defecto.
+    const privado = !!opts.privado && window.NIKA_CANAL_PRIVADO === true;
     if (privado) { try { await c.realtime.setAuth(); } catch (_) {} }
     try {
       try { channel = await montarCanal(privado); }
