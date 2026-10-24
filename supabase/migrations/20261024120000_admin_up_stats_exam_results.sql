@@ -23,11 +23,11 @@ begin
            round(100.0 * sum((e.value->>'total')::bigint - (e.value->>'correct')::bigint)
                  / nullif(sum((e.value->>'total')::bigint), 0), 1) as pct_fallos
     from public.exam_results r
-    cross join lateral jsonb_each(coalesce(r.by_up, '{}'::jsonb)) e
+    cross join lateral jsonb_each(coalesce(to_jsonb(r.by_up), '{}'::jsonb)) e
     where jsonb_typeof(e.value) = 'object'
     group by e.key, r.modulo
     having sum((e.value->>'total')::bigint) >= 10
-    order by pct_fallos desc, total desc
+    order by 5 desc, 3 desc
     limit greatest(1, least(coalesce(p_limit, 12), 100));
 end;
 $$;
