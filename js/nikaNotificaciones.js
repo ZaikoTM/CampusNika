@@ -220,6 +220,7 @@
     const t = tipoDe(n.tipo);
     if (t === 'invitacion_pomodoro') { if (venc(n)) { tarjeta({ tipo: 'sistema', titulo: 'La invitación venció', cuerpo: 'Pedile a @' + (n.de_username || 'tu amigo') + ' que te invite de nuevo.' }, { dur: 5000 }); marcarLeida(n); return; } return unirse(n); }
     if (t === 'nota_compartida') return verNotaCompartida(n);
+    if (t === 'solicitud_amistad' && n.datos && n.datos.friendshipId) { marcarLeida(n); abrirCentro('amigos'); return; }
     if (n.datos && n.datos.url) { marcarLeida(n); location.href = n.datos.url; return; }
     marcarLeida(n);
   }
@@ -229,6 +230,7 @@
     const conBotones = t === 'llamada_perdida' ? [{ txt: '📞 Volver a llamar', clase: 'nn-ok', fn: () => { marcarLeida(n); devolverLlamada(n); } }]
       : t === 'invitacion_pomodoro' ? [{ txt: 'Ahora no', clase: 'nn-no', fn: () => { marcarLeida(n); rechazarInvitacion(n); } }, { txt: '🍅 Unirme', clase: 'nn-ok', fn: () => unirse(n) }]
       : t === 'nota_compartida' ? [{ txt: 'Ver nota', clase: 'nn-ok', fn: () => verNotaCompartida(n) }]
+      : (t === 'solicitud_amistad' && n.datos && n.datos.friendshipId) ? [{ txt: 'Rechazar', clase: 'nn-no', fn: () => responderSolicitud(n.datos.friendshipId, false) }, { txt: '✅ Aceptar', clase: 'nn-ok', fn: () => responderSolicitud(n.datos.friendshipId, true) }]
       : (n.datos && n.datos.url) ? [{ txt: 'Abrir', clase: 'nn-ok', fn: () => accionPorDefecto(n) }] : null;
     if (desdeCarga && !(t === 'invitacion_pomodoro' && !venc(n))) return;    const mostrar = () => { if (!noMolestar() && quiereAviso(t)) tarjeta(n, { botones: conBotones, dur: t === 'invitacion_pomodoro' ? 60000 : 12000, alCerrar: () => {} }); };
     // En las páginas con Pomodoro propio la invitación ya llega por su canal y trae su tarjeta: se evita duplicarla
@@ -435,7 +437,7 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') panel.classList.remove('on'); });
   }
   function marcarSilencio() { const b = document.getElementById('notification-bell'); if (b) b.classList.toggle('nn-silencio', !!prefs.silencio); }
-  function abrirCentro(tab) { if (!panel) return; if (typeof tab !== 'string') tab = null; if (tab) pestana = tab; pintarPanel(); panel.classList.toggle('on', tab ? true : !panel.classList.contains('on')); }
+  function abrirCentro(tab) { if (!panel) return; if (typeof tab !== 'string') tab = null; if (tab) pestana = tab; pintarPanel(); if (!panel.classList.contains('on') || tab === 'amigos') cargarAmigos(); panel.classList.toggle('on', tab ? true : !panel.classList.contains('on')); }
 
   function filaHtml(n, i) {
     const t = tipoDe(n.tipo), T = TIPOS[t];
@@ -445,19 +447,36 @@
     const T = TIPOS[t];
     return `<div class="nn-pref"><span class="i">${T.ico}</span><div class="x">${T.nom}</div><button class="test" data-test="${t}" title="Probar el sonido" aria-label="Probar sonido de ${T.nom}">🔊</button><label class="nn-sw" title="Sonido"><input type="checkbox" data-son="${t}" ${prefs.sonido[t] !== false ? 'checked' : ''}><i></i></label><label class="nn-sw" title="Aviso en pantalla"><input type="checkbox" data-avi="${t}" ${prefs.aviso[t] !== false ? 'checked' : ''}><i></i></label></div>`;
   }
-  let amigosCache = [];
+  let amigosCache = [], solicitudesCache = [], amigosEstado = 'cargando';
+  // solicitudes de amistad pendientes (vienen del servidor, así se ven igual en todos tus dispositivos)
+  function solicitudesHtml() {
+    if (!solicitudesCache.length) return '';
+    return `<div class="nn-sec">Solicitudes de amistad · ${solicitudesCache.length}</div>` + solicitudesCache.map((s) => `<div class="nn-fila nl" style="cursor:default"><span class="nn-ico" style="background:color-mix(in srgb,#22c55e 20%,#0b1220)">🤝</span><div style="min-width:0"><b>${esc(s.fullname || s.username)}</b><small>@${esc(s.username)} quiere ser tu amigo</small></div><span style="display:flex;gap:6px;margin-left:auto"><button class="nn-mini" data-sol-no="${esc(s.friendshipId)}">Rechazar</button><button class="nn-mini" data-sol-ok="${esc(s.friendshipId)}">Aceptar</button></span></div>`).join('');
+  }
+  async function responderSolicitud(id, acepta, btn) {
+    if (btn) btn.disabled = true;
+    let r = { ok: false };
+    try { r = acepta ? await window.NikaFriends.acceptById(id) : await window.NikaFriends.remove(id); } catch (e) { r = { ok: false, error: e && e.message }; }
+    if (!r.ok) { if (btn) btn.disabled = false; tarjeta({ tipo: 'sistema', titulo: 'No se pudo responder la solicitud', cuerpo: r.error || 'Probá de nuevo en unos segundos.' }, { dur: 5000 }); }
+    else tarjeta({ tipo: 'sistema', titulo: acepta ? '¡Ya son amigos!' : 'Solicitud rechazada', cuerpo: '' }, { dur: 3500 });
+    hist.forEach((n) => { if (n.datos && n.datos.friendshipId === id) marcarLeida(n); });
+    await cargarAmigos();
+  }
   function pintarPanel() {
     if (!panel) return;
     const permiso = 'Notification' in window ? Notification.permission : 'denied';
     let cuerpo = '';
     if (pestana === 'notif') {
       const aviso = permiso === 'default' ? `<div class="nn-aviso">🔔 Activá los avisos del sistema para enterarte aunque tengas el sitio minimizado.<br><button data-x="permiso">Activar avisos</button></div>` : '';
-      cuerpo = aviso + (hist.length ? hist.map(filaHtml).join('') : `<div class="nn-vacio"><span>🔔</span>Todavía no tenés notificaciones.<br>Acá van a aparecer las invitaciones de tus amigos y las notas que te compartan.</div>`);
+      cuerpo = aviso + solicitudesHtml() + (hist.length ? hist.map(filaHtml).join('') : `<div class="nn-vacio"><span>🔔</span>Todavía no tenés notificaciones.<br>Acá van a aparecer las invitaciones de tus amigos y las notas que te compartan.</div>`);
     } else if (pestana === 'amigos') {
       const on = amigosCache.filter((f) => estaEnLinea(f.username)), off = amigosCache.filter((f) => !estaEnLinea(f.username));
       const fila = (f, en) => `<div class="nn-fila" style="cursor:default"><span class="nn-pt ${en ? 'on' : ''}"></span><div style="min-width:0"><b>${esc(f.fullname || f.username)}</b><small>@${esc(f.username)} · ${en ? 'en línea' : 'desconectado'}</small></div>${en ? `<button class="nn-mini" style="margin-left:auto" data-chat="${esc(f.username)}">💬 Chatear</button>` : ''}</div>`;
       cuerpo = prefs.invisible ? `<div class="nn-aviso">👻 Estás en modo invisible: tus amigos no ven que estás en línea. Podés cambiarlo en Preferencias.</div>` : '';
-      cuerpo += amigosCache.length ? `<div class="nn-sec">En línea · ${on.length}</div>${on.map((f) => fila(f, true)).join('') || '<div class="nn-vacio" style="padding:10px">Nadie conectado ahora.</div>'}<div class="nn-sec">Desconectados · ${off.length}</div>${off.slice(0, 20).map((f) => fila(f, false)).join('')}` : `<div class="nn-vacio"><span>🤝</span>Todavía no tenés amigos.<br>Agregalos desde «Comunidad & Amigos» para invitarlos a estudiar.</div>`;
+      cuerpo += solicitudesHtml();
+      if (!amigosCache.length && amigosEstado === 'cargando') cuerpo += `<div class="nn-vacio"><span>⏳</span>Cargando tus amigos…</div>`;
+      else if (!amigosCache.length && amigosEstado === 'error') cuerpo += `<div class="nn-vacio"><span>⚠️</span>No pudimos cargar tus amigos.<br><button class="nn-mini" data-x="reintentar-amigos" style="margin-top:8px">Reintentar</button></div>`;
+      else cuerpo += amigosCache.length ? `<div class="nn-sec">En línea · ${on.length}</div>${on.map((f) => fila(f, true)).join('') || '<div class="nn-vacio" style="padding:10px">Nadie conectado ahora.</div>'}<div class="nn-sec">Desconectados · ${off.length}</div>${off.slice(0, 20).map((f) => fila(f, false)).join('')}` : `<div class="nn-vacio"><span>🤝</span>Todavía no tenés amigos.<br>Agregalos desde «Comunidad & Amigos» para invitarlos a estudiar.</div>`;
     } else {
       cuerpo = `<div class="nn-pref"><span class="i">🔇</span><div class="x">Silenciar todos los sonidos<small>Las notificaciones siguen apareciendo, sin sonido</small></div><label class="nn-sw"><input type="checkbox" data-g="silencio" ${prefs.silencio ? 'checked' : ''}><i></i></label></div>
         <div class="nn-pref"><span class="i">🎚️</span><div class="x">Volumen<small>Para todos los tonos</small></div><input type="range" min="10" max="100" value="${Math.round(prefs.volumen * 100)}" data-vol style="width:110px"></div>
@@ -476,6 +495,9 @@
     panel.addEventListener('click', async (e) => {
       const q = (s) => e.target.closest(s);
       let el;
+      if ((el = q('[data-sol-ok]'))) return void responderSolicitud(el.dataset.solOk, true, el);
+      if ((el = q('[data-sol-no]'))) return void responderSolicitud(el.dataset.solNo, false, el);
+      if (q('[data-x=reintentar-amigos]')) { amigosEstado = 'cargando'; pintarPanel(); return cargarAmigos(); }
       if ((el = q('[data-p]'))) { pestana = el.dataset.p; if (pestana === 'amigos') cargarAmigos(); pintarPanel(); return; }
       if (q('[data-x=todas]')) return marcarTodas();
       if (q('[data-x=permiso]')) { try { const r = await Notification.requestPermission(); if (r === 'granted') { prefs.sistema = true; guardarPrefs(); sonar('ok', { forzar: true }); if (prefs.push) { await suscribirPush(false); } } } catch (_) {} return pintarPanel(); }
@@ -501,8 +523,12 @@
   // ---------------------------------------------------------------- amigos en línea / invisible
   function estaEnLinea(username) { try { return !!(window.ChatManager && window.ChatManager.estaEnLinea && window.ChatManager.estaEnLinea({ username })); } catch (_) { return false; } }
   async function cargarAmigos() {
-    try { await cargarScript('friendsManager.js', () => !!window.NikaFriends); amigosCache = await window.NikaFriends.listFriends(); } catch (_) { amigosCache = []; }
-    if (pestana === 'amigos') pintarPanel();
+    try {
+      await cargarScript('friendsManager.js', () => !!window.NikaFriends);
+      const [a, s] = await Promise.all([window.NikaFriends.listFriends(), window.NikaFriends.listIncoming()]);
+      amigosCache = a; solicitudesCache = s; amigosEstado = 'ok';
+    } catch (e) { amigosEstado = 'error'; console.warn('[NikaNotif] no se pudieron cargar los amigos:', e && e.message); }
+    pintarPanel();
   }
   function aplicarInvisible() {
     const cm = window.ChatManager; if (!cm) return;
@@ -550,9 +576,12 @@
       if (!window.NikaFriends) return;
       if (!solVistas) { try { const g = localStorage.getItem(LS_SOL); solPrimera = g == null; solVistas = new Set(JSON.parse(g || '[]')); } catch (_) { solVistas = new Set(); } }
       const inc = await window.NikaFriends.listIncoming();
+      const vigentes = new Set(inc.map((f) => f.friendshipId));
+      hist.forEach((n) => { if (n.datos && n.datos.friendshipId && !n.leida && !vigentes.has(n.datos.friendshipId)) marcarLeida(n); });
       inc.forEach((f) => {
         if (solVistas.has(f.friendshipId)) return; solVistas.add(f.friendshipId);
-        if (!solPrimera) aviso('solicitud_amistad', { titulo: '@' + f.username + ' quiere ser tu amigo', cuerpo: 'Aceptá la solicitud desde «Comunidad & Amigos» para poder invitarse a estudiar y compartir notas.', datos: { url: 'campus.html' } });
+        if (hist.some((n) => n.datos && n.datos.friendshipId === f.friendshipId)) return;
+        aviso('solicitud_amistad', { titulo: '@' + f.username + ' quiere ser tu amigo', cuerpo: 'Tocá para aceptarla o rechazarla.', datos: { friendshipId: f.friendshipId } });
       });
       solPrimera = false;
       try { localStorage.setItem(LS_SOL, JSON.stringify(Array.from(solVistas).slice(-200))); } catch (_) {}
@@ -572,6 +601,7 @@
   }
   function vigilarSolicitudes() {
     revisarAceptadas(); window.addEventListener('nika:friends-changed', revisarAceptadas);
+    cargarAmigos(); window.addEventListener('nika:friends-changed', cargarAmigos);
     revisarSolicitudes();
     window.addEventListener('nika:friends-changed', revisarSolicitudes);
     try { window.NikaFriends.startRealtime(); } catch (_) {}
