@@ -110,7 +110,7 @@
     libPromesa = (async () => {
       try { await poner(PDFJS + 'pdf.min.js'); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; }
       catch (e) {   // sin conexión: se usan las copias que guardó pdfOffline.js en el dispositivo
-        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=1', () => window.NikaPdfOffline);
+        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=2', () => window.NikaPdfOffline);
         const u = OFF && await OFF.libUrl('pdf.min.js'), w = OFF && await OFF.libUrl('pdf.worker.min.js');
         if (!u || !w) throw new Error('No se pudo cargar pdf.js');
         await poner(u); window.__nikaPdfWorker = w; window.pdfjsLib.GlobalWorkerOptions.workerSrc = w;
@@ -1519,7 +1519,7 @@
       if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
     };
     try {
-      await cargarModulo('js/estudio/pdfOffline.js?v=1', () => window.NikaPdfOffline);
+      await cargarModulo('js/estudio/pdfOffline.js?v=2', () => window.NikaPdfOffline);
       await cargarLib();
       // ¿Está guardado en este dispositivo? Se abre desde ahí si sigue igual que en Drive (o si no hay conexión)
       let guardado = null;

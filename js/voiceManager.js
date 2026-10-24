@@ -295,27 +295,38 @@ const VoiceManager = (() => {
 
     const c = cliente();
     await cargarTurn();   // antes de crear conexiones: así ya salen con TURN
-    channel = c.channel('ateneo:' + sala, { config: { broadcast: { self: false }, presence: { key: yo.id } } });
 
-    channel.on('presence', { event: 'sync' }, sincronizarPresencia);
-    channel.on('presence', { event: 'leave' }, ({ key }) => { if (key !== yo.id) cerrarPeer(key); });
-    channel.on('broadcast', { event: 'offer' }, ({ payload }) => { if (payload.to === yo.id) alRecibirDescripcion(payload.from, payload.data); });
-    channel.on('broadcast', { event: 'answer' }, ({ payload }) => { if (payload.to === yo.id) alRecibirDescripcion(payload.from, payload.data); });
-    channel.on('broadcast', { event: 'ice-candidate' }, ({ payload }) => { if (payload.to === yo.id) alRecibirIce(payload.from, payload.data); });
-    channel.on('broadcast', { event: 'leave' }, ({ payload }) => cerrarPeer(payload.from));
-    channel.on('broadcast', { event: 'kick' }, ({ payload }) => {
-      // Solo obedece si lo manda quien YO veo como anfitrión
-      if (payload.to === yo.id && payload.from === hostId()) { emit('onKicked'); salir(); }
-    });
-    channel.on('broadcast', { event: 'join' }, ({ payload }) => { if (payload.data) asegurarPeer(payload.from, payload.data); });
-
-    await new Promise((resolve, reject) => {
-      const t = setTimeout(() => reject(new Error('No se pudo conectar con el servidor de la sala.')), 12000);
-      channel.subscribe((status) => {
-        if (status === 'SUBSCRIBED') { clearTimeout(t); resolve(); }
-        else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') { clearTimeout(t); reject(new Error('Falló la conexión en tiempo real (' + status + ').')); }
+    // Las llamadas 1 a 1 usan un canal PRIVADO (solo los dos participantes, ver sql/llamadas_realtime_privado.sql).
+    // Si el proyecto no lo admite todavía, se cae al canal común: la sala sigue siendo un nombre imposible de adivinar.
+    const montarCanal = (privado) => new Promise((resolve, reject) => {
+      const ch = c.channel('ateneo:' + sala, { config: { broadcast: { self: false }, presence: { key: yo.id }, private: !!privado } });
+      ch.on('presence', { event: 'sync' }, sincronizarPresencia);
+      ch.on('presence', { event: 'leave' }, ({ key }) => { if (key !== yo.id) cerrarPeer(key); });
+      ch.on('broadcast', { event: 'offer' }, ({ payload }) => { if (payload.to === yo.id) alRecibirDescripcion(payload.from, payload.data); });
+      ch.on('broadcast', { event: 'answer' }, ({ payload }) => { if (payload.to === yo.id) alRecibirDescripcion(payload.from, payload.data); });
+      ch.on('broadcast', { event: 'ice-candidate' }, ({ payload }) => { if (payload.to === yo.id) alRecibirIce(payload.from, payload.data); });
+      ch.on('broadcast', { event: 'leave' }, ({ payload }) => cerrarPeer(payload.from));
+      ch.on('broadcast', { event: 'kick' }, ({ payload }) => {
+        // Solo obedece si lo manda quien YO veo como anfitrión
+        if (payload.to === yo.id && payload.from === hostId()) { emit('onKicked'); salir(); }
       });
-    }).catch(async (e) => { await salir(); throw e; });
+      ch.on('broadcast', { event: 'join' }, ({ payload }) => { if (payload.data) asegurarPeer(payload.from, payload.data); });
+      const t = setTimeout(() => { try { c.removeChannel(ch); } catch (_) {} reject(new Error('No se pudo conectar con el servidor de la sala.')); }, 12000);
+      ch.subscribe((status) => {
+        if (status === 'SUBSCRIBED') { clearTimeout(t); resolve(ch); }
+        else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') { clearTimeout(t); try { c.removeChannel(ch); } catch (_) {} reject(new Error('Falló la conexión en tiempo real (' + status + ').')); }
+      });
+    });
+    const privado = !!opts.privado;
+    if (privado) { try { await c.realtime.setAuth(); } catch (_) {} }
+    try {
+      try { channel = await montarCanal(privado); }
+      catch (e) {
+        if (!privado) throw e;
+        console.warn('[Voice] canal privado no disponible, se usa el común:', e && e.message);
+        channel = await montarCanal(false);
+      }
+    } catch (e) { await salir(); throw e; }
 
     // Control de cupo: antes de anunciarme veo cuántos hay
     await new Promise((r) => setTimeout(r, 500));

@@ -21,7 +21,7 @@
       if (!window.supabase) await cargar('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
-    if (!window.VoiceManager) await cargar('js/voiceManager.js?v=4');
-    await cargar('js/ateneos.js?v=19');
+    if (!window.VoiceManager) await cargar('js/voiceManager.js?v=5');
+    await cargar('js/ateneos.js?v=20');
   })();
 })();

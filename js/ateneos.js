@@ -396,7 +396,7 @@ const NikaAteneos = (() => {
     }
     detenerPrueba(false); css(); construirDock(); construirPip();
     await VoiceManager.unirse(sala, metaPropia(), {
-      silenciosa, micInicial: opciones.micInicial,
+      silenciosa, micInicial: opciones.micInicial, privado: /^c-[0-9a-f]{32}$/.test(sala),
       cbs: {
         onPeers: (l) => {
           const antes = ultimoPeers.length; ultimoPeers = l;

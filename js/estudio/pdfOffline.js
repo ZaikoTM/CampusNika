@@ -96,6 +96,7 @@
       'x-nika-md5': m.md5 || '', 'x-nika-mod': m.mod || '',
     } }));
     pedirPersistencia();
+    avisarCambio();
     return blob.size;
   }
 
@@ -118,8 +119,9 @@
     try { return new Uint8Array(await r.arrayBuffer()); } catch (_) { return null; }
   }
 
-  async function quitar(id) { try { const c = await caches.open(CACHE); return await c.delete(llave(id)); } catch (_) { return false; } }
-  async function borrarTodo() { try { await caches.delete(CACHE); } catch (_) {} }
+  const avisarCambio = () => { try { window.dispatchEvent(new CustomEvent('nika-pdf-offline')); } catch (_) {} };
+  async function quitar(id) { try { const c = await caches.open(CACHE); const r = await c.delete(llave(id)); avisarCambio(); return r; } catch (_) { return false; } }
+  async function borrarTodo() { try { await caches.delete(CACHE); } catch (_) {} avisarCambio(); }
 
   // Baja un archivo de Drive y lo guarda. alProgreso(bytes, total). Cancelable con AbortController.
   async function descargar(id, titulo, op) {
@@ -355,6 +357,32 @@
     if (!_ocupado) repintar();
     else { const t = _root.querySelector('.pdfo-total'); if (t) repintar(); }
   }
+
+  // ------------------------------------------------------------------ marca «✓ Sin conexión» en la lista de materiales de la sala de estudio
+  let _ids = new Set(), _obsMat = null, _tMat = null;
+  function decorarLista() {
+    document.querySelectorAll('.resource-item[data-url]').forEach((el) => {
+      const id = idDe(el.dataset.url); if (!id) return;
+      const info = el.querySelector('.resource-info'); if (!info) return;
+      let b = info.querySelector('.pdfo-badge'); const guardado = _ids.has(id);
+      if (guardado && !b) { b = document.createElement('span'); b.className = 'pdfo-badge'; b.textContent = '✓ Sin conexión'; b.title = 'Guardado en este dispositivo: se abre aunque no haya internet'; info.appendChild(b); }
+      else if (!guardado && b) b.remove();
+    });
+  }
+  async function refrescarMarcas() { _ids = new Set((await lista()).map((x) => x.id)); decorarLista(); }
+  function iniciarMarcas() {
+    if (_obsMat || !document.body || !hayCache()) return;
+    if (!document.getElementById('pdfo-badge-css')) {
+      const st = document.createElement('style'); st.id = 'pdfo-badge-css';
+      st.textContent = '.pdfo-badge{display:inline-block;margin:3px 0 0 8px;padding:2px 8px;border-radius:999px;background:rgba(22,163,74,.14);color:#16a34a;font-size:.66rem;font-weight:800;vertical-align:middle;white-space:nowrap}';
+      document.head.appendChild(st);
+    }
+    _obsMat = new MutationObserver(() => { clearTimeout(_tMat); _tMat = setTimeout(decorarLista, 250); });
+    _obsMat.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('nika-pdf-offline', refrescarMarcas);
+    refrescarMarcas();
+  }
+  if (/estudio|sala_estudio/i.test(location.pathname)) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciarMarcas); else iniciarMarcas(); }
 
   window.NikaPdfOffline = {
     estado, leer, guardarBuffer, descargar, quitar, lista, espacio, borrarTodo, pintar, asegurarLibs, libUrl, refrescarSiGuardado, metaDrive,
