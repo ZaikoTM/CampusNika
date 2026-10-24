@@ -955,13 +955,24 @@
     "tipo": "guia",
     "guia": "Prospecto FDA (Plan B One-Step)",
     "sociedad": "FDA",
-    "anio": 2026
+    "anio": 2026,
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     },
+     {
+      "t": "Consenso FASGO 2021: anticoncepción libre de estrógenos",
+      "c": "FASGO, 2021"
+     }
+    ],
+    "nota": "Complementado el 24/10/2026 con la guía MSAL 2023."
    },
    "indicaciones": [
     "Reducir la probabilidad de embarazo después de una relación sin protección o de la falla de un método anticonceptivo."
    ],
    "mecanismo": [
-    "El texto del prospecto revisado no detalla el mecanismo de acción."
+    "Bloquea o retrasa la ovulación (inhibe el pico preovulatorio de LH) y espesa el moco cervical. No impide la implantación, no afecta el endometrio y no interrumpe ni daña un embarazo ya establecido (guía MSAL 2023)."
    ],
    "dosis": [
     {
@@ -976,16 +987,38 @@
        "texto": "Si vomita dentro de las 2 horas, consultar a un profesional de la salud por si hay que repetir la dosis."
       }
      ]
+    },
+    {
+     "titulo": "Según la guía argentina (MSAL 2023)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "1,5 mg en una dosis única (preferida) o 0,75 mg dos comprimidos, juntos o separados por 12 horas."
+      },
+      {
+       "etiqueta": "Plazo",
+       "texto": "Lo antes posible, hasta las 120 horas (5 días): 95 % de eficacia en las primeras 12 horas y 58 % entre las 49 y 72 horas."
+      },
+      {
+       "etiqueta": "Doble dosis (3 mg)",
+       "texto": "IMC ≥ 30 o peso mayor de 80 kg (el consenso FASGO 2021 usa IMC ≥ 26 o ≥ 70 kg) y con inductores del CYP450: efavirenz, ritonavir, algunos antituberculosos y antiepilépticos, hierba de San Juan."
+      },
+      {
+       "etiqueta": "Vómitos",
+       "texto": "Si vomita dentro de las 2 horas, repetir la dosis."
+      }
+     ]
     }
    ],
    "contraindicaciones": [
-    "El texto revisado no las detalla."
+    "Guía MSAL 2023: sin contraindicaciones médicas (categorías 1 o 2 de la OMS); solo no se indica con embarazo confirmado, pero puede darse ante la duda."
    ],
    "efectos": [
-    "El texto revisado no los detalla."
+    "La menstruación llega en fecha en el 50 %, antes en el 35 % y con atraso en el 13 %; si el atraso supera una semana, hacer un test. Náuseas, vómitos, dolor abdominal, fatiga, cefalea, mastalgia y mareos."
    ],
    "tiempos": [
-    "Tomar lo antes posible; la eficacia disminuye con el tiempo transcurrido."
+    "Tomar lo antes posible; la eficacia disminuye con el tiempo transcurrido.",
+    "Venta libre sin receta en Argentina (Resolución 1062/2023) y de entrega gratuita en el sistema público."
    ],
    "area": "farmacos",
    "tipo": "farmaco",
@@ -1008,13 +1041,25 @@
     "tipo": "guia",
     "guia": "Prospecto FDA (acetato de medroxiprogesterona, suspensión inyectable)",
     "sociedad": "FDA",
-    "anio": 2026
+    "anio": 2026,
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     },
+     {
+      "t": "Consenso FASGO 2021: anticoncepción libre de estrógenos",
+      "c": "FASGO, 2021"
+     }
+    ],
+    "nota": "Complementado el 24/10/2026 con la guía MSAL 2023."
    },
    "indicaciones": [
     "Anticoncepción en mujeres en edad reproductiva. No se recomienda como método a largo plazo (más de 2 años) salvo que otras opciones sean inadecuadas."
    ],
    "mecanismo": [
-    "Progestágeno de depósito de acción prolongada."
+    "Progestágeno de depósito de acción prolongada.",
+    "Inhibe la ovulación; el consenso FASGO 2021 agrega cambios en el moco cervical y atrofia endometrial."
    ],
    "dosis": [
     {
@@ -1025,16 +1070,35 @@
        "texto": "150 mg IM profunda (glútea o deltoidea) cada 3 meses (13 semanas); agitar bien la jeringa antes de usar."
       }
      ]
+    },
+    {
+     "titulo": "Según la guía argentina (MSAL 2023)",
+     "pasos": [
+      {
+       "etiqueta": "Esquema",
+       "texto": "150 mg por vía intramuscular profunda cada 13 semanas (90 días); la formulación subcutánea de 104 mg tiene duración similar."
+      },
+      {
+       "etiqueta": "Margen",
+       "texto": "Se puede aplicar hasta 2 semanas antes o 4 semanas después de la fecha."
+      },
+      {
+       "etiqueta": "Atraso mayor de 4 semanas",
+       "texto": "Barrera durante los siguientes 7 días o abstención de la penetración pene-vagina hasta recibirla; no esperar la menstruación para reiniciar."
+      }
+     ]
     }
    ],
    "contraindicaciones": [
     "Embarazo conocido o sospechado.",
     "Tromboflebitis activa o antecedente de tromboembolismo o enfermedad cerebrovascular.",
-    "Cáncer de mama conocido o sospechado."
+    "Cáncer de mama conocido o sospechado.",
+    "Guía MSAL 2023: categoría 4 en cáncer de mama actual. Categoría 3: primeras 6 semanas posparto con lactancia, TVP o embolia pulmonar, hipertensión ≥ 160/100, cardiopatía isquémica o ACV, múltiples factores de riesgo cardiovascular, cirrosis grave, tumores hepáticos, LES con anticuerpos antifosfolípidos, sangrado vaginal sin diagnóstico."
    ],
    "efectos": [
     "Pérdida de densidad mineral ósea (advertencia en recuadro), que puede no recuperarse por completo.",
-    "Sangrado irregular, enfermedad tromboembólica, anafilaxia."
+    "Sangrado irregular, enfermedad tromboembólica, anafilaxia.",
+    "Sangrado irregular al inicio y amenorrea al año; aumento gradual de peso; fertilidad que suele volver a los 10 meses de la última inyección. Pérdida leve de densidad mineral ósea que se recupera al suspender: en menores de 18 años, con factores de riesgo de osteoporosis y en mayores de 50, considerar otras opciones; reevaluar cada 2 años."
    ],
    "tiempos": [
     "Vida media aparente tras la inyección IM: unos 50 días.",
@@ -1571,6 +1635,704 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Hormona hipoglucemiante",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-aco-combinado",
+   "titulo": "Anticonceptivos orales combinados (etinilestradiol + gestágeno)",
+   "alias": [
+    "aco",
+    "pastilla anticonceptiva",
+    "pildora anticonceptiva",
+    "etinilestradiol",
+    "levonorgestrel",
+    "drospirenona",
+    "desogestrel",
+    "gestodeno",
+    "dienogest",
+    "ciproterona",
+    "anticonceptivo oral combinado"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción reversible de corta duración, de toma diaria y alta eficacia.",
+    "Beneficios adicionales: protegen contra el cáncer de endometrio, de ovario y de colon y contra la EPI sintomática; reducen el síndrome premenstrual, la dismenorrea, los problemas del sangrado, el hirsutismo y los síntomas del síndrome de ovario poliquístico y de la endometriosis."
+   ],
+   "mecanismo": [
+    "Inhibición fuerte de la FSH por el estrógeno exógeno e inhibición del pico de LH por el gestágeno: se detienen el desarrollo folicular, la ovulación y la formación del cuerpo lúteo. El estrógeno estabiliza el endometrio y regulariza el sangrado de la semana sin toma."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Toma",
+       "texto": "1 comprimido por día a la misma hora. Blíster de 21: 7 días sin tomar y reiniciar el 8.º día. Blíster de 28: sin pausa, los inactivos corresponden al sangrado."
+      },
+      {
+       "etiqueta": "Inicio",
+       "texto": "El primer día de la menstruación (sin respaldo). En otro momento, con razonable certeza de no embarazo y preservativo durante 7 días."
+      },
+      {
+       "etiqueta": "Olvido de 1 comprimido",
+       "texto": "Tomarlo cuando se recuerda y seguir; sin respaldo."
+      },
+      {
+       "etiqueta": "Olvido de 2 o más",
+       "texto": "Tomar el último olvidado ya, seguir y actuar según la semana (preservativo 7 días; AHE en la primera semana si hubo relaciones; en la tercera, saltar la semana libre)."
+      }
+     ]
+    },
+    {
+     "titulo": "Composición y presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Estrógeno",
+       "texto": "Etinilestradiol 35, 30, 20 o 15 µg; valerato de estradiol 2 mg; 17β-estradiol 1,5 mg."
+      },
+      {
+       "etiqueta": "Gestágeno",
+       "texto": "Ciproterona, levonorgestrel o norgestrel, desogestrel, norgestimato, gestodeno, drospirenona, dienogest o nomegestrol."
+      },
+      {
+       "etiqueta": "Blísteres",
+       "texto": "21 comprimidos activos, o 28 (21 activos + 7 inactivos, o 24 activos + 4 inactivos). Monofásicos (los más usados), trifásicos y multifásicos."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Categoría 4: lactancia exclusiva con menos de 6 semanas posparto; mayor de 35 años que fuma más de 15 cigarrillos por día; hipertensión ≥ 160/100; TVP o embolia pulmonar actual o previa; cirugía mayor con inmovilización prolongada; mutaciones trombogénicas; cardiopatía isquémica o ACV; migraña con aura; cáncer de mama actual; LES con anticuerpos antifosfolípidos; cirrosis descompensada y tumores hepáticos.",
+    "Ver la ficha del método para las categorías de elegibilidad completas."
+   ],
+   "efectos": [
+    "Spotting o sangrado irregular los primeros 3 ciclos; cefalea, mareos, náuseas, mastalgia, cambios de peso y de humor; el acné puede mejorar o empeorar; pequeño aumento de la presión arterial.",
+    "Muy raros: trombosis venosa profunda o embolia pulmonar. Extremadamente raros: ACV e infarto agudo de miocardio."
+   ],
+   "tiempos": [
+    "El efecto anticonceptivo requiere 7 días de toma correcta (inmediato si se inicia el primer día de la menstruación).",
+    "La fertilidad se recupera de inmediato al suspender."
+   ],
+   "precauciones": [
+    "Embarazo: no se conoce daño por la exposición a anticonceptivos hormonales en un embarazo no detectado.",
+    "Lactancia: los estrógenos pueden influir en la cantidad y calidad de la leche; se inician desde los 6 meses (categoría 3 entre las 6 semanas y los 6 meses).",
+    "Interacciones: rifampicina, rifabutina y anticonvulsivantes inductores (fenitoína, carbamazepina, barbitúricos, primidona, topiramato, oxcarbazepina) bajan la eficacia (categoría 3); la lamotrigina puede reducirse y provocar convulsiones. Los antibióticos de amplio espectro, antifúngicos y antiparasitarios no la afectan (categoría 1)."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Estrógeno + progestágeno (anticonceptivo hormonal combinado oral)",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-aci-mensual",
+   "titulo": "Anticonceptivo combinado inyectable mensual (Mesigyna®, Cyclofem®)",
+   "alias": [
+    "aci",
+    "inyectable mensual",
+    "mesigyna",
+    "ginediol",
+    "cyclofem",
+    "valerato de estradiol",
+    "enantato de noretisterona",
+    "cipionato de estradiol"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "Complementa el folleto de adherencia del Ministerio sobre la inyección mensual.",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción hormonal combinada mensual para quien no logra sostener una pastilla diaria."
+   ],
+   "mecanismo": [
+    "Inhibe la ovulación."
+   ],
+   "dosis": [
+    {
+     "titulo": "Preparados",
+     "pasos": [
+      {
+       "etiqueta": "Mesigyna® / Ginediol®",
+       "texto": "Valerato de estradiol 5 mg + enantato de noretisterona 50 mg."
+      },
+      {
+       "etiqueta": "Cyclofem®",
+       "texto": "Cipionato de estradiol 5 mg + acetato de medroxiprogesterona 25 mg."
+      },
+      {
+       "etiqueta": "No recomendados",
+       "texto": "Perlutal® / Atrimon® (acetofénido de dihidroxiprogesterona 150 mg + enantato de estradiol 10 mg): más dosis de estrógeno y más trastornos del sangrado."
+      }
+     ]
+    },
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Vía",
+       "texto": "Intramuscular profunda, en cadera, glúteo o parte superior del brazo; no masajear."
+      },
+      {
+       "etiqueta": "Frecuencia",
+       "texto": "Cada 30 días, en la misma fecha del calendario."
+      },
+      {
+       "etiqueta": "Margen",
+       "texto": "Hasta 7 días antes o después de la fecha (se recomienda dentro de los 3 días)."
+      },
+      {
+       "etiqueta": "Inicio",
+       "texto": "Primer día de la menstruación (sin respaldo) u otro día con razonable certeza de no embarazo y preservativo 7 días."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Las de los anticonceptivos combinados, con diferencias: la cirrosis descompensada, el adenoma hepatocelular y la fumadora ≥ 35 años con más de 15 cigarrillos son categoría 3 (4 en los ACO); la patología vesicular sintomática, la colestasis por ACO y las interacciones con rifampicina y anticonvulsivantes son categoría 2 (3 en los ACO)."
+   ],
+   "efectos": [
+    "Primeros 3 meses: sangrado irregular o prolongado; al año, amenorrea o sangrado infrecuente. Aumento de peso, cefalea, mareos y mastalgia."
+   ],
+   "tiempos": [
+    "El sangrado aparece entre los 15 y 20 días de la aplicación.",
+    "Eficacia: menos de 1 embarazo cada 100 con uso correcto (5 por 10.000) y 3 cada 100 con uso habitual. Fertilidad inmediata al suspender."
+   ],
+   "precauciones": [
+    "Conservar las ampollas a temperatura ambiente, no en la heladera.",
+    "Con más de 7 días de demora: preservativo o abstención 7 días después de la nueva inyección y AHE si hubo relaciones."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Estrógeno de acción breve + progestágeno de depósito",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-parche-anillo",
+   "titulo": "Parche transdérmico y anillo vaginal combinados",
+   "alias": [
+    "parche anticonceptivo",
+    "norelgestromina",
+    "evra",
+    "anillo vaginal",
+    "nuvaring",
+    "etonogestrel",
+    "etinilestradiol"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción hormonal combinada con liberación constante, sin absorción gastrointestinal ni primer paso hepático."
+   ],
+   "mecanismo": [
+    "Inhibición de la ovulación (mismo mecanismo que los ACO)."
+   ],
+   "dosis": [
+    {
+     "titulo": "Parche",
+     "pasos": [
+      {
+       "etiqueta": "Liberación diaria",
+       "texto": "20 µg de etinilestradiol + 150 µg de norelgestromina."
+      },
+      {
+       "etiqueta": "Esquema",
+       "texto": "1 parche por semana durante 3 semanas y 1 semana sin parche (sangrado)."
+      }
+     ]
+    },
+    {
+     "titulo": "Anillo",
+     "pasos": [
+      {
+       "etiqueta": "Carga",
+       "texto": "2,7 mg de etinilestradiol y 11,7 mg de etonogestrel; libera por día 15 µg de etinilestradiol y 120 µg de etonogestrel."
+      },
+      {
+       "etiqueta": "Esquema",
+       "texto": "3 semanas colocado, retiro en la cuarta semana (sangrado), 7 días libres y uno nuevo."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Las mismas que los anticonceptivos combinados. Ver la ficha del método para las categorías de elegibilidad completas."
+   ],
+   "efectos": [
+    "Parche: menor eficacia en usuarias de 90 kg o más. Anillo: dolor, irritación, aumento de la secreción vaginal, lesiones epiteliales, incomodidad en el coito, expulsión."
+   ],
+   "tiempos": [
+    "Parche: 2 días adicionales de protección ante un olvido de recambio.",
+    "No están incluidos en la canasta de entrega gratuita."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Estrógeno + progestágeno de liberación continua",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-minipildora",
+   "titulo": "Minipíldora de progestágeno solo (levonorgestrel 0,03 mg / linestrenol 0,5 mg)",
+   "alias": [
+    "minipildora",
+    "aops",
+    "levonorgestrel 30",
+    "linestrenol",
+    "pildora de solo progestageno"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción oral para quien amamanta o tiene contraindicación de estrógenos; en lactancia se asocia al MELA."
+   ],
+   "mecanismo": [
+    "Altera el moco cervical (dificulta el ascenso de los espermatozoides); produce anovulación solo en hasta 40 % de los ciclos."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Presentación",
+       "texto": "Levonorgestrel 0,03 mg en blísteres de 28 o 35 comprimidos activos; linestrenol 0,5 mg en blísteres de 28."
+      },
+      {
+       "etiqueta": "Toma",
+       "texto": "1 comprimido por día a la misma hora, sin descanso entre envases."
+      },
+      {
+       "etiqueta": "Margen de seguridad",
+       "texto": "3 horas (el moco pierde su impenetrabilidad unas 27 horas después de la toma)."
+      },
+      {
+       "etiqueta": "Inicio del efecto",
+       "texto": "2 días (48 horas) de toma correcta."
+      }
+     ]
+    },
+    {
+     "titulo": "Olvido",
+     "pasos": [
+      {
+       "etiqueta": "Menos de 3 horas",
+       "texto": "Tomarla y seguir; sin respaldo."
+      },
+      {
+       "etiqueta": "3 horas o más",
+       "texto": "Tomarla ya, seguir y usar preservativo 48 horas; considerar AHE si hubo relaciones."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Categoría 4: cáncer de mama actual.",
+    "Categoría 3: TVP o embolia pulmonar en curso; cardiopatía isquémica, ACV o migraña con aura que aparecen durante el uso; cáncer de mama pasado con menos de 5 años; cirrosis grave; adenoma y tumores malignos del hígado; LES con anticuerpos antifosfolípidos."
+   ],
+   "efectos": [
+    "Irregularidades del sangrado e incluso amenorrea; cefalea, mareos, cambios de humor o de libido, mastalgia, dolor abdominal, náuseas, acné."
+   ],
+   "tiempos": [
+    "Eficacia: menos de 1 embarazo cada 100 con uso correcto (3 por 1.000) y cerca de 9 con uso habitual."
+   ],
+   "precauciones": [
+    "Lactancia: no afecta el volumen ni la composición de la leche.",
+    "Embarazo: tomada por error no afecta al feto ni el curso del embarazo.",
+    "Vómitos dentro de las 2 horas: tomar otra pastilla."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno oral (anticonceptivo no anovulatorio)",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-desogestrel",
+   "titulo": "Desogestrel 75 µg",
+   "alias": [
+    "desogestrel",
+    "cerazette",
+    "pildora de desogestrel",
+    "aops anovulatoria"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "La falta de efecto sobre la masa ósea, la lactosa como excipiente y la eficacia de 0,3 provienen del consenso FASGO 2021.",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     },
+     {
+      "t": "Consenso FASGO 2021: anticoncepción libre de estrógenos",
+      "c": "FASGO, 2021"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción oral cuando los estrógenos están contraindicados o no se desean (fumadoras, migraña, antecedente de tromboembolismo, hipertensión) y en el posparto con o sin lactancia."
+   ],
+   "mecanismo": [
+    "Inhibe el pico de LH y logra anovulación en 97 % de los ciclos; además espesa el moco cervical."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Presentación",
+       "texto": "0,075 mg en envases de 28 comprimidos activos."
+      },
+      {
+       "etiqueta": "Toma",
+       "texto": "1 comprimido por día a la misma hora, sin pausa entre envases."
+      },
+      {
+       "etiqueta": "Margen de seguridad",
+       "texto": "12 horas."
+      },
+      {
+       "etiqueta": "Inicio del efecto",
+       "texto": "7 días de toma correcta (respaldo 7 días si no se inicia el primer día de la menstruación)."
+      }
+     ]
+    },
+    {
+     "titulo": "Olvido",
+     "pasos": [
+      {
+       "etiqueta": "Menos de 12 horas",
+       "texto": "Tomarla y seguir; sin respaldo."
+      },
+      {
+       "etiqueta": "12 horas o más",
+       "texto": "Tomarla ya, seguir, preservativo 7 días y considerar AHE si hubo relaciones."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Categoría 4: cáncer de mama actual.",
+    "Categoría 3: TVP o embolia pulmonar en curso; cardiopatía isquémica, ACV o migraña con aura que aparecen durante el uso; cáncer de mama pasado con menos de 5 años; cirrosis grave; adenoma y tumores malignos del hígado; LES con anticuerpos antifosfolípidos."
+   ],
+   "efectos": [
+    "Irregularidades del sangrado, amenorrea, cefalea, mareos, cambios de humor y de libido, mastalgia, acné."
+   ],
+   "tiempos": [
+    "Eficacia con uso correcto: 0,3 cada 100 (FASGO); menos de 1 (3 por 1.000) y cerca de 9 con uso habitual (MSAL)."
+   ],
+   "precauciones": [
+    "La píldora contiene lactosa: investigar intolerancia antes de prescribirla.",
+    "No disminuye la densidad mineral ósea en ninguna etapa (FASGO).",
+    "Lactancia: puede iniciarse de inmediato, con o sin amamantamiento."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno oral (anticonceptivo anovulatorio)",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-drospirenona",
+   "titulo": "Drospirenona 4 mg (píldora de solo progestágeno)",
+   "alias": [
+    "drospirenona sola",
+    "slinda",
+    "24/4",
+    "antimineralocorticoide"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Anticoncepción libre de estrógenos",
+    "sociedad": "FASGO",
+    "anio": 2021,
+    "argentinas": [
+     {
+      "t": "Consenso FASGO 2021: anticoncepción libre de estrógenos",
+      "c": "FASGO, 2021"
+     }
+    ],
+    "nota": "No figura en la guía MSAL 2023."
+   },
+   "indicaciones": [
+    "Anticoncepción oral sin estrógeno con sangrado por deprivación predecible; sin contraindicación en hipertensas, fumadoras, con riesgo cardiovascular u obesas."
+   ],
+   "mecanismo": [
+    "Supresión de la ovulación. Actividad antimineralocorticoide comparable a 25 mg de espironolactona. Protege de la hiperproliferación endometrial."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Presentación",
+       "texto": "4 mg: 24 comprimidos activos seguidos de 4 inertes."
+      },
+      {
+       "etiqueta": "Margen de seguridad",
+       "texto": "24 horas para el olvido."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El consenso FASGO no detalla contraindicaciones propias: aplican los criterios generales de los métodos de solo progestágeno (categoría 4 en cáncer de mama actual)."
+   ],
+   "efectos": [
+    "Sangrado por deprivación predecible; menos sangrado irregular imprevisto."
+   ],
+   "tiempos": [
+    "Eficacia: 0,6 cada 100 con uso correcto."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno oral antimineralocorticoide",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-implante",
+   "titulo": "Implante subdérmico (etonogestrel y levonorgestrel)",
+   "alias": [
+    "implante",
+    "implanon",
+    "nexplanon",
+    "jadelle",
+    "levoplant",
+    "sino-implant",
+    "etonogestrel"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     },
+     {
+      "t": "Consenso FASGO 2021: anticoncepción libre de estrógenos",
+      "c": "FASGO, 2021"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción reversible de larga duración, de uso en lactancia, posevento obstétrico inmediato y cuando los estrógenos están contraindicados."
+   ],
+   "mecanismo": [
+    "Inhibe la ovulación y espesa el moco cervical."
+   ],
+   "dosis": [
+    {
+     "titulo": "Preparados",
+     "pasos": [
+      {
+       "etiqueta": "Implanon® / Nexplanon®",
+       "texto": "1 varilla de 4 cm × 2 mm con 68 mg de etonogestrel. 3 años (ANMAT)."
+      },
+      {
+       "etiqueta": "Jadelle®",
+       "texto": "2 varillas con 75 mg de levonorgestrel cada una (150 mg). 5 años."
+      },
+      {
+       "etiqueta": "Levoplant® / Sino-implant II",
+       "texto": "2 varillas con 75 mg de levonorgestrel cada una. 3 años."
+      }
+     ]
+    },
+    {
+     "titulo": "Colocación",
+     "pasos": [
+      {
+       "etiqueta": "Dónde",
+       "texto": "Subdérmico, cara interna de la parte superior del brazo no dominante, evitando el surco entre bíceps y tríceps."
+      },
+      {
+       "etiqueta": "Cuándo",
+       "texto": "Primeros 5 días del ciclo sin respaldo; otro día con razonable certeza de no embarazo y preservativo 7 días."
+      },
+      {
+       "etiqueta": "Quién",
+       "texto": "Profesional entrenado, con anestesia local."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Categoría 4: cáncer de mama actual.",
+    "Categoría 3: TVP o embolia pulmonar en curso; cardiopatía isquémica o ACV mientras lo usaba; migraña con aura de aparición durante el uso; cáncer de mama pasado con menos de 5 años; cirrosis grave; tumores hepáticos; LES con anticuerpos antifosfolípidos; sangrado vaginal sin diagnóstico."
+   ],
+   "efectos": [
+    "Cambios del patrón de sangrado (irregular, ausencia o aumento), aumento de peso y cefalea: principales motivos de retiro. Raro: infección en el sitio o varilla que se asoma."
+   ],
+   "tiempos": [
+    "Eficacia: 0,05 %. Fertilidad inmediata al retirarlo.",
+    "Con levonorgestrel y más de 80 kg, considerar retirar el Jadelle a los 4 años."
+   ],
+   "precauciones": [
+    "Los inductores enzimáticos (rifampicina, anticonvulsivantes) reducen su eficacia (FASGO).",
+    "Lactancia: puede iniciarse de inmediato (categoría 2 si amamanta en las primeras 6 semanas)."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno de liberación prolongada (LARC)",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-siu-levonorgestrel",
+   "titulo": "Sistema intrauterino de levonorgestrel (SIU-LNG)",
+   "alias": [
+    "siu",
+    "mirena",
+    "kyleena",
+    "blusiri",
+    "diu hormonal",
+    "diu con levonorgestrel"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+    "sociedad": "Ministerio de Salud de la Nación · DNSSR",
+    "anio": 2023,
+    "nota": "",
+    "argentinas": [
+     {
+      "t": "Métodos anticonceptivos: guía práctica para profesionales de la salud (edición 2023)",
+      "c": "Ministerio de Salud de la Nación, DNSSR · ISBN 978-950-38-0332-5"
+     }
+    ]
+   },
+   "indicaciones": [
+    "Anticoncepción de larga duración, especialmente en menstruaciones muy abundantes; alternativa a los tratamientos quirúrgicos del sangrado abundante; prevención de la hiperplasia endometrial."
+   ],
+   "mecanismo": [
+    "Altera el moco cervical y evita la proliferación del endometrio (atrofia, resistente a la estimulación estrogénica). Casi sin absorción sistémica; puede inhibir la ovulación solo en los primeros ciclos."
+   ],
+   "dosis": [
+    {
+     "titulo": "Modelos",
+     "pasos": [
+      {
+       "etiqueta": "Mirena®",
+       "texto": "52 mg de levonorgestrel. 5 años (canasta de la DNSSR)."
+      },
+      {
+       "etiqueta": "Kyleena®",
+       "texto": "19,5 mg. 5 años."
+      },
+      {
+       "etiqueta": "Blusiri®",
+       "texto": "13,5 mg. 3 años."
+      }
+     ]
+    },
+    {
+     "titulo": "Colocación",
+     "pasos": [
+      {
+       "etiqueta": "Cuándo",
+       "texto": "En cualquier momento con razonable certeza de no embarazo, de preferencia durante la menstruación; posparto hasta 48 horas o desde la cuarta semana."
+      },
+      {
+       "etiqueta": "Efectivo",
+       "texto": "A los 7 días de colocado (preservativo la primera semana)."
+      },
+      {
+       "etiqueta": "Reemplazo",
+       "texto": "Extraer y colocar el nuevo en el mismo procedimiento."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Categoría 4: embarazo, sepsis puerperal, posaborto séptico, hemorragia vaginal sin diagnóstico, cáncer cervical o endometrial al iniciar, anomalías de la cavidad, EPI o cervicitis purulenta al iniciar, tuberculosis pélvica al iniciar y cáncer de mama actual.",
+    "Ver la ficha del método para las categorías de elegibilidad completas."
+   ],
+   "efectos": [
+    "Sangrado prolongado los primeros 3 a 6 meses, luego más leve; amenorrea en 50 % a los 2 años; goteo persistente inicial; acné, cefalea, tensión mamaria; quistes foliculares transitorios."
+   ],
+   "tiempos": [
+    "Eficacia: 0,2 cada 100 por año. Fertilidad inmediata al retirarlo (80 % de concepción en el primer año).",
+    "La ANMAT no extendió su duración más allá de los 5 años (estudios hasta 8 años)."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno intrauterino (LARC)",
    "unidad": "Anticoncepción y endocrinología ginecológica"
   },
   {

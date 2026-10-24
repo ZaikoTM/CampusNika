@@ -3,6 +3,7 @@
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from datos import FARMACOS, ANTIMICROBIANOS, UNIDADES, P
+from mac import FARMACOS_MAC, PARCHES_MAC
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -43,9 +44,22 @@ def ficha_antimicrobiano(d, usos):
                 mecanismo=[txt(d.get('pharmacology', {}).get('mechanism'))] if d.get('pharmacology', {}).get('mechanism') else [],
                 dosis=dosis, contraindicaciones=contra, efectos=efectos, tiempos=tiempos, precauciones=pre, vademecum=d['id'])
 
+def aplicar_mac(f):
+    """Suma los datos de la guía argentina (MSAL 2023) a fichas de fármacos ya existentes."""
+    p = PARCHES_MAC.get(f['id'])
+    if not p: return f
+    f = dict(f)
+    sin = lambda l: [x for x in (l or []) if not (isinstance(x, str) and 'detalla' in x)]
+    f['mecanismo'] = sin(f.get('mecanismo')) + p.get('mecanismo', [])
+    for k in ('dosis', 'contraindicaciones', 'efectos', 'tiempos'):
+        if k in p: f[k] = sin(f.get(k)) + p[k]
+    fu = dict(f.get('fuente', {})); fu['argentinas'] = p['argentinas']; fu['nota'] = ((fu.get('nota') or '') + ' ' + p['nota']).strip()
+    f['fuente'] = fu
+    return f
+
 def main():
     vm = vademecum(); fichas = []
-    for f in FARMACOS:
+    for f in [aplicar_mac(x) for x in FARMACOS] + FARMACOS_MAC:
         f = dict(f); f.update(area='farmacos', tipo='farmaco', estado='guia', definicion=f.pop('clase'), unidad=UNIDADES[f['up'][0]])
         fichas.append(f)
     for did, usos in ANTIMICROBIANOS:

@@ -166,6 +166,7 @@
     { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => bloquesDe(p.tratamiento), txt: (p) => bloquesTxt(p.tratamiento), filas: (p) => bloquesFilas(p.tratamiento) },
     { id: 'far', ico: '🧴', nom: 'Fármacos', html: (p) => farmHtml(p), txt: (p) => farmTxt(p), filas: (p) => farmacosDe(p).flatMap((f) => [{ h: f.titulo + ' — ' + (f.definicion || '') }].concat((((f.dosis || [])[0] || {}).pasos || []).slice(0, 2).map((x) => ({ e: x.etiqueta, t: x.texto })))) },
     { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => viñ(p.seguimiento), filas: (p) => punt(p.seguimiento) },
+    { id: 'oms25', ico: '🌐', nom: 'Guía OMS 2025 (6.ª edición)', html: (p) => lista(p.oms2025), txt: (p) => viñ(p.oms2025), filas: (p) => punt(p.oms2025) },
     { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p class="fc-def"><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
       txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '', filas: (p) => p.contraste ? [{ h: p.contraste.fuente }].concat(punt(p.contraste.puntos)) : [] }
   ];
