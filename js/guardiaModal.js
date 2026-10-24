@@ -362,7 +362,7 @@ const GuardiaModal = (() => {
   let _pdfOffPromesa = null, _pdfSyncCargado = false;
   function _pdfs(red) {
     if (!window.NikaPdfOffline) {
-      if (!_pdfOffPromesa) _pdfOffPromesa = new Promise((ok) => { const sc = document.createElement('script'); sc.src = 'js/estudio/pdfOffline.js?v=3'; sc.onload = () => ok(true); sc.onerror = () => { _pdfOffPromesa = null; ok(false); }; document.head.appendChild(sc); });
+      if (!_pdfOffPromesa) _pdfOffPromesa = new Promise((ok) => { const sc = document.createElement('script'); sc.src = 'js/estudio/pdfOffline.js?v=4'; sc.onload = () => ok(true); sc.onerror = () => { _pdfOffPromesa = null; ok(false); }; document.head.appendChild(sc); });
       _pdfOffPromesa.then((ok) => { if (ok && _montado) _pdfs(hayRed()); });
       return;
     }

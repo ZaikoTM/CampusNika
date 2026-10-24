@@ -97,13 +97,115 @@
   }
 
   // ---- renderizado de cada formato a un contenedor fuera de pantalla; devuelve los elementos de página
+  // pptx-preview dibuja mal algunas imágenes del patrón de la presentación (fondos y cintas decorativas que quedan miles de veces más grandes):
+  // se detectan por su tamaño imposible y se llevan a la escala correcta
+  function arreglarEscala(slide) {
+    slide.querySelectorAll('*').forEach((e) => {
+      const st = e.style; if (!st) return;
+      let corr = false;
+      ['left', 'top', 'width', 'height'].forEach((k) => {
+        const v = st[k];
+        if (v && /px$/.test(v)) { const x = parseFloat(v); if (Math.abs(x) > 4000) { st[k] = (x / 635) + 'px'; corr = true; } }
+      });
+      if (corr) e.querySelectorAll(':scope > img').forEach((im) => { im.style.width = '100%'; im.style.height = '100%'; });
+    });
+  }
+  const relDe = (xml) => { const o = {}; (xml || '').replace(/<Relationship\b[^>]*>/g, (t) => { const i = /\bId="([^"]+)"/.exec(t), g = /\bTarget="([^"]+)"/.exec(t); if (i && g) o[i[1]] = g[1]; return t; }); return o; };
+  const rutaRel = (base, destino) => { const partes = base.split('/'); partes.pop(); destino.split('/').forEach((d) => { if (d === '..') partes.pop(); else if (d !== '.') partes.push(d); }); return partes.join('/'); };
+  // Imágenes del patrón/plantilla con su posición exacta (EMU), en el orden en que aparecen
+  function picsDe(xml) {
+    const o = [];
+    (xml || '').replace(/<p:pic>[\s\S]*?<\/p:pic>/g, (t) => {
+      const m = /<a:off x="(-?\d+)" y="(-?\d+)"\/>\s*<a:ext cx="(\d+)" cy="(\d+)"/.exec(t);
+      if (m) o.push({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] });
+      return t;
+    });
+    return o;
+  }
+  // Formas (marcos, líneas) del patrón/plantilla que no son marcadores de texto, con su posición exacta
+  function formasDe(xml) {
+    const o = [];
+    (xml || '').replace(/<p:(sp|cxnSp)>[\s\S]*?<\/p:\1>/g, (t) => {
+      if (/<p:ph\b/.test(t)) return t;
+      const m = /<a:off x="(-?\d+)" y="(-?\d+)"\/>\s*<a:ext cx="(\d+)" cy="(\d+)"/.exec(t);
+      if (m) o.push({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] });
+      return t;
+    });
+    return o;
+  }
+  // Se buscan por tamaño (no por orden) y se les corrige la posición
+  function repararFormas(envoltorio, formas) {
+    if (!envoltorio || !formas.length) return;
+    const K = 12700, cand = [...envoltorio.querySelectorAll('div')].filter((d) => d.style.position === 'absolute' && d.querySelector(':scope > svg'));
+    formas.forEach((f) => {
+      const w = f.w / K, h = f.h / K;
+      const d = cand.find((c) => Math.abs(parseFloat(c.style.width || '0') - w) < 2 && Math.abs(parseFloat(c.style.height || '0') - h) < 2) || (h === 0 ? null : null);
+      if (d) { d.style.left = (f.x / K) + 'px'; d.style.top = (f.y / K) + 'px'; }
+    });
+  }
+  // pptx-preview coloca mal las imágenes del patrón cuando están en el borde (x o y = 0 o negativas): se reubican con las medidas exactas del archivo
+  function repararPatron(envoltorio, pics) {
+    if (!envoltorio || !pics.length) return;
+    const conts = [...envoltorio.querySelectorAll('div')].filter((d) => d.style.overflow === 'hidden' && d.firstElementChild && d.firstElementChild.tagName === 'IMG');
+    if (conts.length !== pics.length) return;
+    const K = 12700;   // EMU por punto: el patrón se dibuja en un lienzo de 960 pt de ancho
+    conts.forEach((c, i) => {
+      const p = pics[i], par = c.parentElement;
+      if (par && par !== envoltorio) { par.style.left = (p.x / K) + 'px'; par.style.top = (p.y / K) + 'px'; }
+      c.style.left = '0px'; c.style.top = '0px'; c.style.width = (p.w / K) + 'px'; c.style.height = (p.h / K) + 'px';
+      c.firstElementChild.style.width = '100%'; c.firstElementChild.style.height = '100%';
+    });
+  }
+  // Fondos que el tema define como imagen (p. ej. madera, papel): pptx-preview no los dibuja, se agregan al terminar
+  async function fondosDeTema(zip, cuantas) {
+    const out = Array.from({ length: cuantas }, () => ({ fondo: null, pm: [], pl: [], fm: [], fl: [] })), txt = async (n) => (zip.file(n) ? zip.file(n).async('string') : '');
+    try {
+      const pres = await txt('ppt/presentation.xml'), prels = relDe(await txt('ppt/_rels/presentation.xml.rels'));
+      const ids = [...pres.matchAll(/<p:sldId\b[^>]*r:id="([^"]+)"/g)].map((m) => m[1]);
+      const cacheImg = {};
+      for (let i = 0; i < Math.min(ids.length, cuantas); i++) {
+        const slide = rutaRel('ppt/presentation.xml', prels[ids[i]] || ''); if (!zip.file(slide)) continue;
+        const srel = relDe(await txt(slide.replace(/([^/]+)$/, '_rels/$1.rels')));
+        const layoutRel = Object.values(srel).find((t) => /slideLayouts\//.test(t)); if (!layoutRel) continue;
+        const layout = rutaRel(slide, layoutRel), lrel = relDe(await txt(layout.replace(/([^/]+)$/, '_rels/$1.rels')));
+        const masterRel = Object.values(lrel).find((t) => /slideMasters\//.test(t)); if (!masterRel) continue;
+        const master = rutaRel(layout, masterRel), mrel = relDe(await txt(master.replace(/([^/]+)$/, '_rels/$1.rels')));
+        const themeRel = Object.values(mrel).find((t) => /theme\//.test(t)); if (!themeRel) continue;
+        const theme = rutaRel(master, themeRel);
+        const xm = await txt(master), xl = await txt(layout);
+        out[i].pm = picsDe(xm); out[i].pl = picsDe(xl); out[i].fm = formasDe(xm); out[i].fl = formasDe(xl);
+        let bg = null;
+        for (const parte of [slide, layout, master]) { const x = await txt(parte); const m = /<p:bg>([\s\S]*?)<\/p:bg>/.exec(x); if (m) { bg = m[1]; break; } }
+        const ref = bg && /<p:bgRef\b[^>]*idx="(\d+)"/.exec(bg); if (!ref || +ref[1] < 1001) continue;
+        const tx = await txt(theme), lista = /<a:bgFillStyleLst>([\s\S]*?)<\/a:bgFillStyleLst>/.exec(tx); if (!lista) continue;
+        const estilos = [...lista[1].matchAll(/<a:(solidFill|gradFill|blipFill|noFill|pattFill)\b[\s\S]*?<\/a:\1>|<a:noFill\s*\/>/g)].map((m) => m[0]);
+        const est = estilos[+ref[1] - 1001]; if (!est || !/^<a:blipFill/.test(est)) continue;
+        const emb = /r:embed="([^"]+)"/.exec(est); if (!emb) continue;
+        const trel = relDe(await txt(theme.replace(/([^/]+)$/, '_rels/$1.rels'))), img = trel[emb[1]]; if (!img) continue;
+        const ruta = rutaRel(theme, img);
+        if (!cacheImg[ruta] && zip.file(ruta)) { const ext = (ruta.split('.').pop() || 'png').toLowerCase().replace('jpg', 'jpeg'); cacheImg[ruta] = 'data:image/' + ext + ';base64,' + await zip.file(ruta).async('base64'); }
+        if (cacheImg[ruta]) out[i].fondo = { url: cacheImg[ruta], tile: /<a:tile\b/.test(est) };
+      }
+    } catch (_) {}
+    return out;
+  }
   async function dibujarPptx(zip, bytes, cont) {
     let w = 1280, h = 720;
     try { const x = await zip.file('ppt/presentation.xml').async('string'); const m = /<p:sldSz[^>]*cx="(\d+)"[^>]*cy="(\d+)"/.exec(x); if (m) h = Math.round(w * Number(m[2]) / Number(m[1])); } catch (_) {}
     cont.style.width = w + 'px';
     const prev = window.pptxPreview.init(cont, { width: w, height: h, mode: 'list' });
     await prev.preview(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
-    return [...cont.querySelectorAll('.pptx-preview-slide-wrapper')];
+    const sl = [...cont.querySelectorAll('.pptx-preview-slide-wrapper')];
+    sl.forEach(arreglarEscala);
+    const fondos = await fondosDeTema(zip, sl.length);
+    sl.forEach((el, i) => {
+      const d = fondos[i] || {};
+      try { repararPatron(el.querySelector('.slide-master-wrapper'), d.pm || []); repararPatron(el.querySelector('.slide-layout-wrapper'), d.pl || []); repararFormas(el.querySelector('.slide-master-wrapper'), d.fm || []); repararFormas(el.querySelector('.slide-layout-wrapper'), d.fl || []); } catch (_) {}
+      const f = d.fondo; if (!f) return;
+      const bgEl = el.querySelector('.slide-background') || el;
+      bgEl.style.backgroundImage = 'url(' + f.url + ')'; bgEl.style.backgroundSize = f.tile ? 'auto' : 'cover'; bgEl.style.backgroundRepeat = f.tile ? 'repeat' : 'no-repeat';
+    });
+    return sl;
   }
   async function dibujarDocx(bytes, cont) {
     await window.docx.renderAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), cont, null,
@@ -143,8 +245,9 @@
     const info = await tipoOffice(bytes);
     if (info === 'viejo') throw new Error('Este archivo está en un formato antiguo de Office (.ppt o .doc) y no se puede convertir. Se muestra con el visor de Drive.');
     if (!info) throw new Error('Este tipo de archivo no se puede convertir.');
+    if (op.alFase) op.alFase('Preparando el conversor…', 'Descargando las herramientas necesarias (solo la primera vez)');
     await Promise.all([cargar('h2c'), cargar('pdflib'), cargar(info.t === 'pptx' ? 'pptx' : 'docx')]);
-    if (info.t === 'pptx' && bytes.length > 25 * 1024 * 1024) { const liviano = await aliviarPptx(info.zip); if (liviano) bytes = liviano; }
+    if (info.t === 'pptx' && bytes.length > 25 * 1024 * 1024) { if (op.alFase) op.alFase('Achicando las imágenes pesadas…', 'Así la conversión es más rápida'); const liviano = await aliviarPptx(info.zip); if (liviano) bytes = liviano; }
     const PL = window.PDFLib;
 
     const cont = document.createElement('div');
@@ -153,6 +256,7 @@
     document.body.appendChild(cont);
     let marco = null;
     try {
+      if (op.alFase) op.alFase('Armando las ' + (info.t === 'pptx' ? 'diapositivas' : 'páginas') + '…', 'Puede tardar unos segundos');
       const paginas = info.t === 'pptx' ? await dibujarPptx(info.zip, bytes, cont) : await dibujarDocx(bytes, cont);
       if (!paginas.length) throw new Error('No se encontró contenido para convertir.');
       const pdf = await PL.PDFDocument.create(), fuente = await pdf.embedFont(PL.StandardFonts.Helvetica), cache = new Map();
@@ -200,13 +304,14 @@
             pg.drawText(txt, { x: p.x * K, y: H * K - (p.y - y0 + p.h * 0.82) * K, size, font: fuente, opacity: 0 });
           } catch (_) {}
         });
-        if (i % 2 === 1) await dormir(0);
+        await dormir(20);   // da aire para que el avance se dibuje en pantalla
       }
+      if (op.alFase) op.alFase('Guardando tu documento…', 'Último paso');
       if (op.alAvance) op.alAvance(trabajos.length, trabajos.length);
       pdf.setProducer('NikaMed · convertido para el Lector'); try { pdf.setTitle(op.titulo || 'Documento'); } catch (_) {}
       return await pdf.save();
     } finally { cont.remove(); if (marco) marco.remove(); }
   }
 
-  window.NikaPdfConvertir = { tipo, convertir, MAX_BYTES };
+  window.NikaPdfConvertir = { tipo, convertir, MAX_BYTES, _t: { dibujarPptx, cargar } };
 })();

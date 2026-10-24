@@ -117,7 +117,17 @@
       const md5 = r.headers.get('x-nika-md5') || '', mod = r.headers.get('x-nika-mod') || '';
       if (md && ((md.md5 && md5 && md.md5 !== md5) || (!md.md5 && md.mod && mod && md.mod !== mod))) return null;   // cambió en Drive: se baja de nuevo
     }
-    try { return new Uint8Array(await r.arrayBuffer()); } catch (_) { return null; }
+    return bytesValidos(r, llave(id));
+  }
+
+  // Un archivo guardado que quedó vacío o dañado se descarta (así vuelve a bajarse o convertirse en vez de mandar al visor de Drive)
+  async function bytesValidos(r, clave) {
+    try {
+      const u8 = new Uint8Array(await r.arrayBuffer());
+      if (u8.length > 200 && u8[0] === 0x25 && u8[1] === 0x50 && u8[2] === 0x44 && u8[3] === 0x46) return u8;
+    } catch (_) {}
+    try { const c = await caches.open(CACHE); await c.delete(clave); } catch (_) {}
+    return null;
   }
 
   const avisarCambio = () => { try { window.dispatchEvent(new CustomEvent('nika-pdf-offline')); } catch (_) {} };
@@ -130,12 +140,15 @@
       const md = await metaDrive(id, 3500), md5 = r.headers.get('x-nika-md5') || '', mod = r.headers.get('x-nika-mod') || '';
       if (md && ((md.md5 && md5 && md.md5 !== md5) || (!md.md5 && md.mod && mod && md.mod !== mod))) return null;
     }
-    try { return new Uint8Array(await r.arrayBuffer()); } catch (_) { return null; }
+    return bytesValidos(r, llaveConv(id));
   }
   async function guardarConv(id, titulo, bytes) {
     if (!hayCache()) return;
+    // el Blob se arma YA, de forma síncrona: pdf.js se queda con el buffer original al abrir el documento y, si se espera antes, quedaría vacío
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    if (blob.size < 200) return;
     try {
-      const m = metaTodos()[id] || await metaDrive(id, 4000) || {}, blob = new Blob([bytes], { type: 'application/pdf' });
+      const m = metaTodos()[id] || await metaDrive(id, 4000) || {};
       const c = await caches.open(CACHE);
       await c.put(llaveConv(id), new Response(blob, { headers: { 'Content-Type': 'application/pdf', 'Content-Length': String(blob.size), 'x-nika-titulo': encodeURIComponent(titulo || ''), 'x-nika-ts': String(Date.now()), 'x-nika-md5': m.md5 || '', 'x-nika-mod': m.mod || '' } }));
       pedirPersistencia();

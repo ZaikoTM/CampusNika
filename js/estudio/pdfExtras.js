@@ -374,7 +374,7 @@
     return listo();
   }
   async function popOffline(mi, btn) {
-    const ok = await cargarScript('js/estudio/pdfOffline.js?v=3', () => !!window.NikaPdfOffline);
+    const ok = await cargarScript('js/estudio/pdfOffline.js?v=4', () => !!window.NikaPdfOffline);
     if (!ok) { aviso('No se pudo cargar la descarga sin conexión'); return; }
     const OFF = window.NikaPdfOffline, est = await OFF.estado(mi.fileId), todos = await OFF.lista();
     const totalB = todos.reduce((a, d) => a + d.size, 0);

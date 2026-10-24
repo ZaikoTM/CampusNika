@@ -110,7 +110,7 @@
     libPromesa = (async () => {
       try { await poner(PDFJS + 'pdf.min.js'); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; }
       catch (e) {   // sin conexión: se usan las copias que guardó pdfOffline.js en el dispositivo
-        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=3', () => window.NikaPdfOffline);
+        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=4', () => window.NikaPdfOffline);
         const u = OFF && await OFF.libUrl('pdf.min.js'), w = OFF && await OFF.libUrl('pdf.worker.min.js');
         if (!u || !w) throw new Error('No se pudo cargar pdf.js');
         await poner(u); window.__nikaPdfWorker = w; window.pdfjsLib.GlobalWorkerOptions.workerSrc = w;
@@ -1455,7 +1455,7 @@
     const orig = q('.nkpdf-orig'), globo = q('.nkpdf-globo span'), barra = q('.nkpdf-barra b'), stat = q('.nkpdf-stat'), peso = q('.nkpdf-peso');
     const CONECTA = ['¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…', 'Buscando tu archivo en Drive 🔎', 'Ya casi: pidiendo el archivo al servidor…', 'Tu progreso y tus marcas se guardan solos en tu cuenta ✨', 'Consejo: el Pincel marca mejor que Subrayar y sirve en cualquier PDF 🖍️'];
     const GENERAL = ['Descargando tu PDF… ya falta menos 📥', 'Tip: con las teclas 1 a 6 cambiás de color rápido 🎨', 'Tip: el botón ⏱ te dice cuánto te falta para terminar este PDF', 'Tip: con 🧹 Limpiar borrás marcas por página, rango o color', 'Mientras esperás, estirá un poco el cuello 😄'];
-    let conv = false, grande = false, frases = CONECTA, k = 0, timer = null, anim = null, t0 = Date.now(), tot = 0, real = 0, falso = 2, tope = 24, fase = 'conecta', n = 0;
+    let conv = false, tPag0 = 0, frases = CONECTA, k = 0, timer = null, anim = null, t0 = Date.now(), tot = 0, real = 0, falso = 2, tope = 24, fase = 'conecta', n = 0;
     const decir = (t) => { globo.parentNode.style.animation = 'none'; void globo.offsetWidth; globo.parentNode.style.animation = ''; globo.textContent = t; };
     const rotar = () => { if (!m.isConnected) { clearInterval(timer); clearInterval(anim); return; } if (!frases.length) return; k = (k + 1) % frases.length; decir(frases[k]); };
     // la barra nunca se queda quieta: avanza despacito hacia un tope según la fase y la descarga real la empuja cuando hay datos
@@ -1491,12 +1491,21 @@
         stat.textContent = tot ? `${Math.round(real)}% · ${fmtMB(bytes)} de ${fmtMB(tot)} · ${(vel / 1e6).toFixed(1).replace('.', ',')} MB/s` + (eta && real < 99 ? ' · faltan ' + eta : '') : fmtMB(bytes) + ' descargados · ' + (vel / 1e6).toFixed(1).replace('.', ',') + ' MB/s';
       },
       alOriginal(fn) { orig.onclick = fn; },
+      // etapas previas a las páginas (preparar herramientas, achicar imágenes, armar las diapositivas…)
+      fase(titulo, detalle) {
+        fase = 'arma'; tope = 8; real = 8; falso = Math.min(falso, 8); clearInterval(timer); orig.hidden = false; conv = true;
+        decir('Estamos trabajando para vos 💪 ' + titulo); stat.textContent = detalle || titulo;
+      },
       convirtiendo(i, t) {
-        fase = 'arma'; tope = 99; real = Math.max(real, 80 + (t ? (i / t) * 18 : 0)); clearInterval(timer);
-        orig.hidden = false;
-        if (!conv) { conv = true; frases = ['Estamos cargando tu documento, esto puede tardar unos segundos 📄', 'Es un archivo de PowerPoint o Word: lo preparamos para que puedas subrayar, dibujar y escribir ✍️', 'Estamos armando cada diapositiva o página con su texto para poder subrayar y buscar 🔍', 'Cuando esté todo listo se abre completo, sin esperas 🚀', 'Tarda solo esta vez: después abre al instante y también sin conexión ✨']; k = 0; decir(frases[0]); timer = setInterval(rotar, 4200); }
-        if (t > 40 && !grande) { grande = true; frases.unshift('Es un archivo grande (' + t + ' hojas): puede tardar unos minutos, pero queda guardado y la próxima vez abre al instante 🐘'); k = 0; decir(frases[0]); }
-        stat.textContent = 'Preparando tu documento… ' + Math.min(i + 1, t) + ' de ' + t + (t > 1 ? ' hojas' : '');
+        fase = 'arma'; clearInterval(timer); orig.hidden = false; conv = true;
+        tope = 8 + (t ? (i / t) * 90 : 0); real = tope; falso = Math.min(falso, tope);   // la barra muestra el avance real de la conversión
+        const ahora = Date.now(); if (!tPag0 || i === 0) tPag0 = ahora;
+        let eta = '';
+        if (i >= 1) { const resta = (t - i) * ((ahora - tPag0) / i); eta = resta < 15000 ? 'ya casi termina' : 'tiempo estimado: ' + (resta >= 90000 ? 'unos ' + Math.round(resta / 60000) + ' minutos' : Math.round(resta / 1000) + ' segundos'); }
+        const pag = Math.min(i + 1, t), unidad = 'hoja';
+        const frases2 = ['Estamos trabajando para vos 💪', 'Esto puede demorar un poco, gracias por esperar 🙏', 'Estamos realizando la conversión de las páginas ✨', 'Armamos cada página con su texto para que puedas subrayar y buscar 🔍', 'Tarda solo esta vez: después abre al instante y también sin conexión 🚀'];
+        decir(frases2[(i % frases2.length)] + ' · Vamos por la página ' + pag + ' de ' + t + (t > 40 && i < 3 ? ' (es un archivo grande: puede tardar unos minutos 🐘)' : ''));
+        stat.textContent = 'Convirtiendo página ' + pag + ' de ' + t + (eta ? ' · ' + eta : '');
       },
       armando() { fase = 'arma'; orig.hidden = true; tope = 99.5; real = Math.max(real, 92); clearInterval(timer); frases = ['¡Listo! Estoy preparando las páginas… 📖', 'Acomodando tus subrayados y tu progreso ✨', 'Último paso: armando el visor 🚀']; k = 0; decir(frases[0]); timer = setInterval(rotar, 2200); stat.textContent = 'Abriendo el visor'; },
       fin() { clearInterval(timer); clearInterval(anim); },
@@ -1532,7 +1541,7 @@
       if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
     };
     try {
-      await cargarModulo('js/estudio/pdfOffline.js?v=3', () => window.NikaPdfOffline);
+      await cargarModulo('js/estudio/pdfOffline.js?v=4', () => window.NikaPdfOffline);
       await cargarLib();
       // ¿Está guardado en este dispositivo? Se abre desde ahí si sigue igual que en Drive (o si no hay conexión)
       let guardado = null;
@@ -1566,10 +1575,10 @@
       } else buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') {
         // PowerPoint o Word en Drive: se convierte a PDF en el dispositivo para poder usar el lector (subrayar, dibujar, escribir…)
-        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=2', () => window.NikaPdfConvertir);
+        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=3', () => window.NikaPdfConvertir);
         if (!NC || !NC.tipo(buf)) throw new Error('no es un PDF');
         ui.convirtiendo(0, 1);
-        const pdfConv = await NC.convertir(buf, { titulo: title, alAvance: (i, t) => ui.convirtiendo(i, t), cancelado: () => S !== mi });
+        const pdfConv = await NC.convertir(buf, { titulo: title, alAvance: (i, t) => ui.convirtiendo(i, t), alFase: (a, b) => ui.fase(a, b), cancelado: () => S !== mi });
         if (S !== mi) return;
         if (window.NikaPdfOffline) window.NikaPdfOffline.guardarConv(fileId, title, pdfConv);
         mi.convertido = 'nuevo'; buf = pdfConv;
