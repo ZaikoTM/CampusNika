@@ -1445,13 +1445,13 @@
   function cargaUI(root) {
     root.querySelector('.nkpdf-msg')?.remove();
     const m = document.createElement('div'); m.className = 'nkpdf-msg';
-    m.innerHTML = `<div class="nkpdf-carga"><div class="nkpdf-robot">${ROBOT}</div><span class="nkpdf-peso" hidden></span><div class="nkpdf-globo" aria-live="polite"><span>¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…</span></div><div class="nkpdf-barra"><b></b></div><div class="nkpdf-stat">Conectando…</div></div>`;
+    m.innerHTML = `<div class="nkpdf-carga"><div class="nkpdf-robot">${ROBOT}</div><span class="nkpdf-peso" hidden></span><div class="nkpdf-globo" aria-live="polite"><span>¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…</span></div><div class="nkpdf-barra"><b></b></div><div class="nkpdf-stat">Conectando…</div><button type="button" class="nkpdf-orig" hidden style="margin-top:12px;border:1px solid rgba(124,58,237,.45);background:transparent;color:inherit;border-radius:999px;padding:7px 16px;font:inherit;font-weight:700;font-size:.78rem;cursor:pointer">Ver el original en Drive mientras tanto</button></div>`;
     root.appendChild(m);
     const q = (s) => m.querySelector(s);
-    const globo = q('.nkpdf-globo span'), barra = q('.nkpdf-barra b'), stat = q('.nkpdf-stat'), peso = q('.nkpdf-peso');
+    const orig = q('.nkpdf-orig'), globo = q('.nkpdf-globo span'), barra = q('.nkpdf-barra b'), stat = q('.nkpdf-stat'), peso = q('.nkpdf-peso');
     const CONECTA = ['¡Hola! Soy Nika 🤖 Estoy conectando con Drive para traerte el PDF…', 'Buscando tu archivo en Drive 🔎', 'Ya casi: pidiendo el archivo al servidor…', 'Tu progreso y tus marcas se guardan solos en tu cuenta ✨', 'Consejo: el Pincel marca mejor que Subrayar y sirve en cualquier PDF 🖍️'];
     const GENERAL = ['Descargando tu PDF… ya falta menos 📥', 'Tip: con las teclas 1 a 6 cambiás de color rápido 🎨', 'Tip: el botón ⏱ te dice cuánto te falta para terminar este PDF', 'Tip: con 🧹 Limpiar borrás marcas por página, rango o color', 'Mientras esperás, estirá un poco el cuello 😄'];
-    let conv = false, frases = CONECTA, k = 0, timer = null, anim = null, t0 = Date.now(), tot = 0, real = 0, falso = 2, tope = 24, fase = 'conecta', n = 0;
+    let conv = false, grande = false, frases = CONECTA, k = 0, timer = null, anim = null, t0 = Date.now(), tot = 0, real = 0, falso = 2, tope = 24, fase = 'conecta', n = 0;
     const decir = (t) => { globo.parentNode.style.animation = 'none'; void globo.offsetWidth; globo.parentNode.style.animation = ''; globo.textContent = t; };
     const rotar = () => { if (!m.isConnected) { clearInterval(timer); clearInterval(anim); return; } if (!frases.length) return; k = (k + 1) % frases.length; decir(frases[k]); };
     // la barra nunca se queda quieta: avanza despacito hacia un tope según la fase y la descarga real la empuja cuando hay datos
@@ -1486,12 +1486,15 @@
         const eta = falta > 90 ? 'unos ' + Math.ceil(falta / 60) + ' min' : falta > 0 ? falta + ' s' : '';
         stat.textContent = tot ? `${Math.round(real)}% · ${fmtMB(bytes)} de ${fmtMB(tot)} · ${(vel / 1e6).toFixed(1).replace('.', ',')} MB/s` + (eta && real < 99 ? ' · faltan ' + eta : '') : fmtMB(bytes) + ' descargados · ' + (vel / 1e6).toFixed(1).replace('.', ',') + ' MB/s';
       },
+      alOriginal(fn) { orig.onclick = fn; },
       convirtiendo(i, t) {
         fase = 'arma'; tope = 99; real = Math.max(real, 80 + (t ? (i / t) * 18 : 0)); clearInterval(timer);
-        if (!conv) { conv = true; frases = ['Es un archivo de PowerPoint o Word: lo convierto acá, en tu dispositivo, para que puedas subrayar, dibujar y escribir 📝', 'Cada diapositiva o página se arma como imagen nítida con su texto para subrayar 🔍', 'Tarda solo la primera vez: después abre al instante y también sin conexión ✨']; k = 0; decir(frases[0]); timer = setInterval(rotar, 4200); }
-        stat.textContent = 'Convirtiendo para el lector… ' + Math.min(i + 1, t) + ' de ' + t;
+        orig.hidden = false;
+        if (!conv) { conv = true; frases = ['Estamos cargando tu documento, esto puede tardar unos segundos 📄', 'Es un archivo de PowerPoint o Word: lo preparamos para que puedas subrayar, dibujar y escribir ✍️', 'Estamos armando cada diapositiva o página con su texto para poder subrayar y buscar 🔍', 'Cuando esté todo listo se abre completo, sin esperas 🚀', 'Tarda solo esta vez: después abre al instante y también sin conexión ✨']; k = 0; decir(frases[0]); timer = setInterval(rotar, 4200); }
+        if (t > 40 && !grande) { grande = true; frases.unshift('Es un archivo grande (' + t + ' hojas): puede tardar unos minutos, pero queda guardado y la próxima vez abre al instante 🐘'); k = 0; decir(frases[0]); }
+        stat.textContent = 'Preparando tu documento… ' + Math.min(i + 1, t) + ' de ' + t + (t > 1 ? ' hojas' : '');
       },
-      armando() { fase = 'arma'; tope = 99.5; real = Math.max(real, 92); clearInterval(timer); frases = ['¡Listo! Estoy preparando las páginas… 📖', 'Acomodando tus subrayados y tu progreso ✨', 'Último paso: armando el visor 🚀']; k = 0; decir(frases[0]); timer = setInterval(rotar, 2200); stat.textContent = 'Abriendo el visor'; },
+      armando() { fase = 'arma'; orig.hidden = true; tope = 99.5; real = Math.max(real, 92); clearInterval(timer); frases = ['¡Listo! Estoy preparando las páginas… 📖', 'Acomodando tus subrayados y tu progreso ✨', 'Último paso: armando el visor 🚀']; k = 0; decir(frases[0]); timer = setInterval(rotar, 2200); stat.textContent = 'Abriendo el visor'; },
       fin() { clearInterval(timer); clearInterval(anim); },
     };
   }
@@ -1506,6 +1509,7 @@
     S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: favoritos()[0], panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
     const volver = (motivo) => { ui.fin(); if (S !== mi) return; if (motivo && typeof window.showToast === 'function' && /convert|formato|pesa/i.test(motivo)) window.showToast(motivo); const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
+    ui.alOriginal(() => volver());   // «Ver el original en Drive mientras tanto»: cancela la conversión y muestra el visor de Drive
     const abrirBytes = async (buf) => {
       if (S !== mi) return;
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
@@ -1558,7 +1562,7 @@
       } else buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') {
         // PowerPoint o Word en Drive: se convierte a PDF en el dispositivo para poder usar el lector (subrayar, dibujar, escribir…)
-        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=1', () => window.NikaPdfConvertir);
+        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=2', () => window.NikaPdfConvertir);
         if (!NC || !NC.tipo(buf)) throw new Error('no es un PDF');
         ui.convirtiendo(0, 1);
         const pdfConv = await NC.convertir(buf, { titulo: title, alAvance: (i, t) => ui.convirtiendo(i, t), cancelado: () => S !== mi });

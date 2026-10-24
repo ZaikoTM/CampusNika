@@ -5,7 +5,7 @@
      · cada diapositiva o página se dibuja como imagen nítida (se ve igual que el original)
      · encima se agrega una capa de texto invisible, así «Subrayar» y la búsqueda funcionan sobre las palabras
    El PDF convertido queda guardado en el dispositivo (js/estudio/pdfOffline.js): la próxima vez abre al instante y también sin conexión.
-   No convierte los formatos viejos (.ppt, .doc) ni archivos de más de 60 MB.
+   No convierte los formatos viejos (.ppt, .doc). Los archivos pesados se convierten igual: tardan más y se ve el avance.
    API: NikaPdfConvertir.tipo(bytes) → 'pptx' | 'docx' | 'viejo' | null   ·   NikaPdfConvertir.convertir(bytes, { alAvance(i, n), cancelado() }) → Uint8Array (PDF) */
 (function () {
   'use strict';
@@ -18,7 +18,7 @@
     h2c: ['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', () => window.html2canvas],
     pdflib: ['https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js', () => window.PDFLib],
   };
-  const MAX_BYTES = 60 * 1024 * 1024;
+  const MAX_BYTES = 400 * 1024 * 1024;   // los archivos pesados también se convierten (tardan más)
   const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 
   const _cargando = {};
@@ -112,13 +112,39 @@
     return [...cont.querySelectorAll('section.nkdocx')];
   }
 
+  // Presentaciones pesadas: las imágenes enormes (fotos de 5000 px, PNG de varios MB) se achican a 1900 px antes de dibujar.
+  // Se ven igual en pantalla y la conversión es mucho más rápida y liviana en memoria.
+  async function aliviarPptx(zip) {
+    const nombres = Object.keys(zip.files).filter((n) => /^ppt\/media\/.+\.(png|jpe?g)$/i.test(n) && !zip.files[n].dir);
+    let cambio = false;
+    for (const n of nombres) {
+      try {
+        const u8 = await zip.file(n).async('uint8array');
+        if (u8.length < 400 * 1024) continue;
+        const png = /\.png$/i.test(n);
+        const bmp = await createImageBitmap(new Blob([u8], { type: png ? 'image/png' : 'image/jpeg' }));
+        const m = Math.max(bmp.width, bmp.height);
+        if (m <= 1900 && u8.length < 1.5 * 1024 * 1024) { bmp.close(); continue; }
+        const k = Math.min(1, 1900 / m), cv = document.createElement('canvas');
+        cv.width = Math.max(1, Math.round(bmp.width * k)); cv.height = Math.max(1, Math.round(bmp.height * k));
+        const cx = cv.getContext('2d'); if (!png) { cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height); }
+        cx.drawImage(bmp, 0, 0, cv.width, cv.height); bmp.close();
+        const blob = await new Promise((r) => cv.toBlob(r, png ? 'image/png' : 'image/jpeg', 0.9));
+        cv.width = cv.height = 1;
+        if (blob && blob.size < u8.length) { zip.file(n, await blob.arrayBuffer()); cambio = true; }
+      } catch (_) { /* esa imagen queda como estaba */ }
+    }
+    return cambio ? new Uint8Array(await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE', compressionOptions: { level: 1 } })) : null;
+  }
+
   async function convertir(bytes, op) {
     op = op || {};
-    if (bytes.length > MAX_BYTES) throw new Error('El archivo pesa demasiado para convertirlo en este dispositivo (más de 60 MB). Se muestra con el visor de Drive.');
+    if (bytes.length > MAX_BYTES) throw new Error('El archivo pesa demasiado para convertirlo en este dispositivo. Se muestra con el visor de Drive.');
     const info = await tipoOffice(bytes);
     if (info === 'viejo') throw new Error('Este archivo está en un formato antiguo de Office (.ppt o .doc) y no se puede convertir. Se muestra con el visor de Drive.');
     if (!info) throw new Error('Este tipo de archivo no se puede convertir.');
     await Promise.all([cargar('h2c'), cargar('pdflib'), cargar(info.t === 'pptx' ? 'pptx' : 'docx')]);
+    if (info.t === 'pptx' && bytes.length > 25 * 1024 * 1024) { const liviano = await aliviarPptx(info.zip); if (liviano) bytes = liviano; }
     const PL = window.PDFLib;
 
     const cont = document.createElement('div');
@@ -161,6 +187,7 @@
         const blob = await new Promise((res) => cv.toBlob(res, 'image/jpeg', 0.88));
         const img = await pdf.embedJpg(new Uint8Array(await blob.arrayBuffer()));
         cv.width = cv.height = 1;
+        if (info.t === 'pptx' && el.parentNode) el.remove();   // se libera la diapositiva ya capturada (los archivos pesados no deben llenar la memoria)
         const pg = pdf.addPage([W * K, H * K]);
         pg.drawImage(img, { x: 0, y: 0, width: W * K, height: H * K });
         // capa de texto invisible para subrayar y buscar
