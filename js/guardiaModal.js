@@ -1,6 +1,6 @@
 // js/guardiaModal.js
 // ============================================================================
-// CAMPUS NIKA — Modo Guardia (sin conexión) · paquetes por materia
+// CAMPUS NIKA — Modo Sin conexión · paquetes por materia
 // ----------------------------------------------------------------------------
 // Qué se puede llevar sin señal, organizado por año y materia:
 //   • Salas de estudio (datos de cada materia: objetivos, contenidos, bibliografía, casos y procedimientos)
@@ -30,7 +30,7 @@ const GuardiaModal = (() => {
 
   const BASE_URLS = ['campus.html', 'estudio.html', 'sala_estudio.html', 'examen.html', 'nikasim.html', 'acreditaciones.html', 'pfo_estudio.html',
     'recetarios.html', 'nikafarma.html', 'cirugia_hub.html', 'siam_hub.html', 'gineco_hub.html', 'offline.html', 'styles.css', 'supabaseClient.js',
-    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js', 'js/estudio/pdfAnotaciones.js', 'js/nikaNotificaciones.js',
+    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js', 'js/estudio/pdfOffline.js', 'js/estudio/pdfSync.js', 'js/estudio/pdfExtras.js', 'js/estudio/pdfExportar.js', 'assets/n-nika.svg', 'assets/nika-texto.svg', 'js/estudio/pdfAnotaciones.js', 'js/nikaNotificaciones.js',
     'js/pfoEstudio.js', 'css/pfo-estudio.css', 'css/pfo.css', 'js/acreditaciones/motor.js', 'js/recetarios.js', 'js/recetariosData.js', 'css/recetarios.css',
     'data/modulos.json'];
 
@@ -206,12 +206,12 @@ const GuardiaModal = (() => {
   function _html() {
     const ov = document.createElement('div');
     ov.id = 'guardia-overlay';
-    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Modo Guardia');
+    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Modo Sin conexión');
     ov.innerHTML = `
       <div id="guardia-box">
         <header class="gm-hero">
           <button class="gm-x" data-gm="cerrar" aria-label="Cerrar">✕</button>
-          <h3><span class="sh">🛡️</span> Modo Guardia · sin conexión</h3>
+          <h3><span class="sh">🛡️</span> Modo Sin conexión</h3>
           <p>Llevate tus materias para estudiar y rendir sin señal. Lo que hagas sin conexión se guarda y se sube solo cuando vuelva internet.</p>
         </header>
         <div class="gm-body">
@@ -231,11 +231,13 @@ const GuardiaModal = (() => {
           <div class="gm-bar" id="gm-bar-wrap" style="display:none"><i id="gm-bar"></i></div>
           <div class="gm-msg" id="gm-msg"></div>
           <div id="gm-grupos"></div>
+          <div id="gm-pdfs"></div>
           <details class="gm-info">
             <summary>¿Qué funciona sin conexión y qué no?</summary>
             <ul>
               <li><b>Sin conexión:</b> salas de estudio (datos de cada materia), simuladores Choice (preguntas, con modo práctica), casos y procedimientos de la PFO, pasos del Atlas, NikaFarma y Recetarios.</li>
-              <li><b>Necesita conexión:</b> el Simulador Escrito y la corrección con IA, Pase de Sala, Shock Room, Consultorios y Legales, el ECOE FINAL, el chat de práctica, Ateneos, Foro, Duelos, los PDF y presentaciones de Google Drive, los videos de YouTube y los modelos 3D.</li>
+              <li><b>PDFs:</b> los que descargues en «PDFs de las materias» se leen sin conexión en el Lector Nika, con tus subrayados y notas.</li>
+              <li><b>Necesita conexión:</b> el Simulador Escrito y la corrección con IA, Pase de Sala, Shock Room, Consultorios y Legales, el ECOE FINAL, el chat de práctica, Ateneos, Foro, Duelos, los PDF que no descargaste, las presentaciones de Google Drive, los videos de YouTube y los modelos 3D.</li>
               <li>Tus resultados y notas hechos sin señal se guardan en el dispositivo y se suben solos al volver la conexión.</li>
             </ul>
           </details>
@@ -338,7 +340,9 @@ const GuardiaModal = (() => {
     } catch (_) { $('#gm-s-esp').innerHTML = 'Espacio<b>—</b>'; }
     try {
       const c = await OfflineStorage.contarCola();
-      $('#gm-s-cola').innerHTML = `Pendiente de subir<b class="${c.total ? 'no' : 'ok'}">${c.total ? `${c.total} acción${c.total === 1 ? '' : 'es'}${c.fallidos ? ` (${c.fallidos} con error)` : ''}` : '✓ Todo sincronizado'}</b>`;
+      const pp = window.NikaPdfSync ? NikaPdfSync.contar() : 0;   // marcas y notas de PDF hechas sin señal
+      const tot = c.total + pp;
+      $('#gm-s-cola').innerHTML = `Pendiente de subir<b class="${tot ? 'no' : 'ok'}">${tot ? `${tot} acción${tot === 1 ? '' : 'es'}${c.fallidos ? ` (${c.fallidos} con error)` : ''}` : '✓ Todo sincronizado'}</b>`;
     } catch (_) { $('#gm-s-cola').innerHTML = 'Pendiente de subir<b>—</b>'; }
     $('#gm-warn').innerHTML = red ? '' : '<div class="gm-warn">🟡 Estás sin conexión: podés usar lo que ya descargaste, pero para bajar más contenido necesitás señal.</div>';
     $('#gm-todo').disabled = _ocupado || !red;
@@ -351,6 +355,19 @@ const GuardiaModal = (() => {
         <div class="gm-list">${g.paquetes.map((p) => _filaHtml(p, red)).join('')}</div>
       </section>`).join('');
     _estimado();
+    _pdfs(red);
+  }
+
+  // PDFs de las materias para leer sin conexión en el Lector Nika (js/estudio/pdfOffline.js)
+  let _pdfOffPromesa = null, _pdfSyncCargado = false;
+  function _pdfs(red) {
+    if (!window.NikaPdfOffline) {
+      if (!_pdfOffPromesa) _pdfOffPromesa = new Promise((ok) => { const sc = document.createElement('script'); sc.src = 'js/estudio/pdfOffline.js?v=1'; sc.onload = () => ok(true); sc.onerror = () => { _pdfOffPromesa = null; ok(false); }; document.head.appendChild(sc); });
+      _pdfOffPromesa.then((ok) => { if (ok && _montado) _pdfs(hayRed()); });
+      return;
+    }
+    if (!window.NikaPdfSync && !_pdfSyncCargado) { _pdfSyncCargado = true; const sc = document.createElement('script'); sc.src = 'js/estudio/pdfSync.js?v=1'; document.head.appendChild(sc); }
+    NikaPdfOffline.pintar($('#gm-pdfs'), { red });
   }
 
   function _filaHtml(p, red) {
@@ -611,7 +628,7 @@ const GuardiaModal = (() => {
 
   async function borrarTodo() {
     if (_ocupado) return;
-    if (!confirm('¿Borrar todas las descargas de este dispositivo? (Tu progreso pendiente de subir NO se borra.)')) return;
+    if (!confirm('¿Borrar todas las descargas de este dispositivo, incluidos los PDFs guardados? (Tu progreso pendiente de subir NO se borra.)')) return;
     _ocupado = true;
     try {
       const l = await OfflineStorage.listarUPsLocales('cirugia'); for (const x of l) await OfflineStorage.eliminarUPLocal(x.modulo, x.upId);
@@ -619,6 +636,7 @@ const GuardiaModal = (() => {
       let urls = [...new Set(TODOS.flatMap((p) => p.urls || []).concat([URL_FARMA], BASE_URLS))];
       try { await _listaDe('guias'); Object.values(_listas).forEach((l) => { urls = urls.concat(l); }); urls = [...new Set(urls)]; } catch (_) {}
       await _mensajeSW({ type: 'UNCACHE_URLS', urls }, null, 30000);
+      if (window.NikaPdfOffline) await NikaPdfOffline.borrarTodo();
       guardarMeta({});
       _fin('🗑️ Descargas borradas.');
     } catch (e) { _fin('No se pudo borrar: ' + e.message); }

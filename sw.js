@@ -1,10 +1,10 @@
 /**
- * CAMPUS NIKA — Service Worker (v7 · Modo Guardia Offline-First)
+ * CAMPUS NIKA — Service Worker (v7 · Modo Sin conexión (offline-first))
  * ------------------------------------------------------------------
  * Estrategias:
  *  • App Shell (HTML, CSS, JS, íconos, manifest)  -> Network-First con tiempo límite (3 s)
  *    y fallback a la copia guardada. Con señal siempre abre la versión NUEVA; sin señal o con
- *    señal muy mala cae a la copia guardada (Modo Guardia). [v5: antes era Cache-First y la
+ *    señal muy mala cae a la copia guardada (Modo Sin conexión). [v5: antes era Cache-First y la
  *    PWA instalada abría la versión vieja hasta la apertura siguiente]
  *  • Vademécum /data/nikafarma_api.json           -> Network-First con tiempo límite y
  *    fallback a la Cache API (la página además cae a IndexedDB si todo falla).
@@ -19,11 +19,11 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v353";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v355";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
-const GUARDIA_CACHE = "nika-guardia";   // descargas del Modo Guardia: NO se borra al actualizar la app
+const GUARDIA_CACHE = "nika-guardia";   // descargas del Modo Sin conexión: NO se borra al actualizar la app
 const TIMEOUT_SHELL_MS = 3000;      // HTML/JS/CSS: si la red tarda más, se usa la copia guardada
 const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
@@ -45,8 +45,8 @@ const PRECACHE_URLS = [
     "data/cirugia.json", "preguntas.json", "db_cirugia_organizado.json",
     "assets/icons/icon-192.png", "assets/icons/icon-512.png",
     "assets/icons/favicon-32.png", "assets/icons/favicon-192.png",
-    // Archivos que cargan las páginas principales (agregado al reinventar el Modo Guardia)
-    "acreditaciones.html", "admin.html", "assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png", "assets/N%20NIKA.png", "assets/icons/apple-touch-icon.png", "css/acreditaciones.css", "css/campus-premium-espacio.css", "css/campus-premium.css", "css/examen-navbar.css", "css/micro.css", "css/nika-navbar.css", "css/pfo-estudio.css", "css/pfo.css", "css/productividad.css", "css/sidebar-grupos.css", "css/tema-premium-salas.css", "duelosManager.js", "gineco_hub.html", "js/acreditaciones/fx.js", "js/acreditaciones/monitor.js", "js/acreditaciones/motor.js", "js/avisoVencimiento.js", "js/campusEspacio.js", "js/campusTema.js", "js/casosPacientes.js", "js/estudio/pdfLector.js", "js/estudio/nikaTiempoLectura.js", "js/estudio/nikaCartelFlashcards.js", "js/estudio/pdfAnotaciones.js", "js/examModesConfig.js", "js/examNavbarMovil.js", "js/examPromptsMaterias.js", "js/formatoEvaluacion.js", "js/micro.js", "js/nikaAcceso.js", "js/novedadesAviso.js", "js/perfilRedes.js", "js/pfoCasoChat.js", "js/pfoEcoe.js", "js/pfoEstudio.js", "js/pomodoroBar.js", "js/presenciaCampus.js", "js/programaTemas.js", "js/salaEstudio.js", "js/sidebarGrupos.js", "js/speechManager.js", "js/splashNika.js", "nikamed-plus.html", "notificacionesManager.js", "pfo_ecoe.html", "pfo_estudio.html", "siam_hub.html",
+    // Archivos que cargan las páginas principales (agregado al reinventar el Modo Sin conexión)
+    "acreditaciones.html", "admin.html", "assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png", "assets/N%20NIKA.png", "assets/icons/apple-touch-icon.png", "css/acreditaciones.css", "css/campus-premium-espacio.css", "css/campus-premium.css", "css/examen-navbar.css", "css/micro.css", "css/nika-navbar.css", "css/pfo-estudio.css", "css/pfo.css", "css/productividad.css", "css/sidebar-grupos.css", "css/tema-premium-salas.css", "duelosManager.js", "gineco_hub.html", "js/acreditaciones/fx.js", "js/acreditaciones/monitor.js", "js/acreditaciones/motor.js", "js/avisoVencimiento.js", "js/campusEspacio.js", "js/campusTema.js", "js/casosPacientes.js", "js/estudio/pdfLector.js", "js/estudio/pdfOffline.js", "js/estudio/pdfSync.js", "js/estudio/pdfExtras.js", "js/estudio/pdfExportar.js", "assets/n-nika.svg", "assets/nika-texto.svg", "js/estudio/nikaTiempoLectura.js", "js/estudio/nikaCartelFlashcards.js", "js/estudio/pdfAnotaciones.js", "js/examModesConfig.js", "js/examNavbarMovil.js", "js/examPromptsMaterias.js", "js/formatoEvaluacion.js", "js/micro.js", "js/nikaAcceso.js", "js/novedadesAviso.js", "js/perfilRedes.js", "js/pfoCasoChat.js", "js/pfoEcoe.js", "js/pfoEstudio.js", "js/pomodoroBar.js", "js/presenciaCampus.js", "js/programaTemas.js", "js/salaEstudio.js", "js/sidebarGrupos.js", "js/speechManager.js", "js/splashNika.js", "nikamed-plus.html", "notificacionesManager.js", "pfo_ecoe.html", "pfo_estudio.html", "siam_hub.html",
 ];
 
 const CDN_HOSTS = ["cdn.jsdelivr.net", "cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"];
@@ -130,7 +130,7 @@ async function shellRedPrimero(event, request, key, fallbackFinal) {
     try {
         return await conTimeout(red, TIMEOUT_SHELL_MS);
     } catch (_) {
-        let cacheada = await cache.match(key) || await caches.match(key);   // también busca en las descargas del Modo Guardia
+        let cacheada = await cache.match(key) || await caches.match(key);   // también busca en las descargas del Modo Sin conexión
         if (!cacheada && esNavegacionHTML(request)) {
             // URLs "limpias" (/campus en vez de /campus.html)
             const u = new URL(request.url);
@@ -272,7 +272,7 @@ self.addEventListener("message", (event) => {
 
     if (d.type === "SKIP_WAITING") { self.skipWaiting(); return; }
 
-    // CACHE_URLS: {urls:[...]} -> descarga y guarda en la caché persistente del Modo Guardia; responde progreso por el MessageChannel
+    // CACHE_URLS: {urls:[...]} -> descarga y guarda en la caché persistente del Modo Sin conexión; responde progreso por el MessageChannel
     if (d.type === "CACHE_URLS" && Array.isArray(d.urls)) {
         event.waitUntil((async () => {
             const guardia = await caches.open(GUARDIA_CACHE);
@@ -298,7 +298,7 @@ self.addEventListener("message", (event) => {
         return;
     }
 
-    // UNCACHE_URLS: {urls:[...]} -> saca esas descargas de la caché del Modo Guardia
+    // UNCACHE_URLS: {urls:[...]} -> saca esas descargas de la caché del Modo Sin conexión
     if (d.type === "UNCACHE_URLS" && Array.isArray(d.urls)) {
         event.waitUntil((async () => {
             const guardia = await caches.open(GUARDIA_CACHE);
@@ -315,7 +315,7 @@ self.addEventListener("message", (event) => {
         return;
     }
 
-    // HAS_URLS: {urls:[...]} -> cuáles están guardadas en el Modo Guardia
+    // HAS_URLS: {urls:[...]} -> cuáles están guardadas en el Modo Sin conexión
     if (d.type === "HAS_URLS" && Array.isArray(d.urls)) {
         event.waitUntil((async () => {
             const guardia = await caches.open(GUARDIA_CACHE);

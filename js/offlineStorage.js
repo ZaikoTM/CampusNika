@@ -1,6 +1,6 @@
 // js/offlineStorage.js
 // ============================================================================
-// CAMPUS NIKA — Capa de persistencia local (IndexedDB) para el Modo Guardia
+// CAMPUS NIKA — Capa de persistencia local (IndexedDB) para el Modo Sin conexión
 // ----------------------------------------------------------------------------
 // Base:  CampusNikaDB  (v1)
 // Stores:

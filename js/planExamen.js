@@ -645,7 +645,7 @@
       ['🏆', 'Liga Pomodoro y racha', 'Las horas de estudio suman a tu racha diaria y a tu posición en la Liga.'],
       ['📊', 'Cierre del día', 'Al terminar, compará lo planificado con lo cumplido y ajustá el día siguiente.'],
       ['📹', 'Sala de Ateneos', 'Estudiá acompañado en video con hasta 4 compañeros y ensayen la parte oral entre ustedes.'],
-      ['🛡️', 'Modo Guardia', 'Descargá tus salas de estudio y bancos de preguntas para repasar sin conexión.'],
+      ['🛡️', 'Modo Sin conexión', 'Descargá tus salas de estudio y bancos de preguntas para repasar sin conexión.'],
       ['🧠', 'Asistente Nika', 'Preguntale dudas del tema del día con la bibliografía de tu cátedra.'],
     ],
   };

@@ -304,7 +304,7 @@ const PomodoroEngine = (() => {
     console.warn('[PomodoroEngine] window.SyncManager existe pero NO es el de syncManager.js. Claves:', Object.keys(window.SyncManager));
   }
 
-  // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
+  // Modo Sin conexión: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
   // Si SyncManager no está en la página (estudio.html) o falla, cae a la cola local de respaldo.
   async function queueStudySession(row) {
     if (window.SyncManager && typeof window.SyncManager.encolar === 'function') {

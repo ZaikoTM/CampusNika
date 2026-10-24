@@ -104,15 +104,24 @@
   const cliente = () => window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || null;
 
   function cargarLib() {
-    if (window.pdfjsLib) { window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; return Promise.resolve(); }
+    if (window.pdfjsLib) { window.pdfjsLib.GlobalWorkerOptions.workerSrc = window.__nikaPdfWorker || (PDFJS + 'pdf.worker.min.js'); return Promise.resolve(); }
     if (libPromesa) return libPromesa;
-    libPromesa = new Promise((ok, mal) => {
-      const s = document.createElement('script'); s.src = PDFJS + 'pdf.min.js';
-      s.onload = () => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; ok(); };
-      s.onerror = () => { libPromesa = null; mal(new Error('No se pudo cargar pdf.js')); };
-      document.head.appendChild(s);
-    });
+    const poner = (src) => new Promise((ok, mal) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = mal; document.head.appendChild(s); });
+    libPromesa = (async () => {
+      try { await poner(PDFJS + 'pdf.min.js'); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; }
+      catch (e) {   // sin conexión: se usan las copias que guardó pdfOffline.js en el dispositivo
+        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=1', () => window.NikaPdfOffline);
+        const u = OFF && await OFF.libUrl('pdf.min.js'), w = OFF && await OFF.libUrl('pdf.worker.min.js');
+        if (!u || !w) throw new Error('No se pudo cargar pdf.js');
+        await poner(u); window.__nikaPdfWorker = w; window.pdfjsLib.GlobalWorkerOptions.workerSrc = w;
+      }
+    })().catch((e) => { libPromesa = null; throw e; });
     return libPromesa;
+  }
+  // Carga perezosa de los módulos auxiliares (descarga sin conexión, extras del lector) si la página no los trae
+  function cargarModulo(src, listo) {
+    if (listo()) return Promise.resolve(listo());
+    return new Promise((ok) => { const s = document.createElement('script'); s.src = src; s.onload = () => ok(listo()); s.onerror = () => ok(null); document.head.appendChild(s); });
   }
 
   function css() {
@@ -355,19 +364,42 @@
   const lsGet = (k, f, def) => { try { const v = localStorage.getItem(lsKey(k, f)); return v ? JSON.parse(v) : def; } catch (_) { return def; } };
   const lsSet = (k, f, v) => { try { localStorage.setItem(lsKey(k, f), JSON.stringify(v)); } catch (_) {} };
 
+  // ---- lo que se marca sin señal queda en el dispositivo (clave nika_pdf_hl_/hldel_/prog_) y js/estudio/pdfSync.js lo sube al volver la conexión
+  const lsDel = (k, f) => { try { localStorage.removeItem(lsKey(k, f)); } catch (_) {} };
+  const sinRed = (e) => !navigator.onLine || /failed to fetch|networkerror|network request failed|load failed/i.test(String((e && e.message) || ''));
+  function marcarPend() {
+    try { localStorage.setItem('nika_pdf_sync_pend', '1'); } catch (_) {}
+    if (S && !S.avisoOffline && !navigator.onLine) { S.avisoOffline = true; toast('Sin conexión: lo que marques se guarda en tu dispositivo y se sube solo cuando vuelva internet'); }
+    if (window.NikaPdfSync) setTimeout(() => window.NikaPdfSync.sincronizar(), 1200);
+  }
+  // une lo guardado en el dispositivo con lo de la cuenta: páginas leídas de ambos lados; gana la última página más reciente
+  function unirProg(rem, loc) {
+    if (!loc) return rem; if (!rem) return loc;
+    const leidas = Array.from(new Set([].concat(rem.leidas || [], loc.leidas || []))).sort((a, b) => a - b);
+    const ultima = (loc.t || 0) > (Date.parse(rem.updated_at) || 0) ? loc.ultima_pagina : rem.ultima_pagina;
+    return { ultima_pagina: ultima, total_paginas: loc.total_paginas || rem.total_paginas, leidas };
+  }
+
   async function cargarMarcas(fileId) {
     const uid = await usuarioId(); S.uid = uid;
-    if (!uid) { S.marcas = lsGet('hl', fileId, []); S.prog = lsGet('prog', fileId, null); return; }
+    const locales = lsGet('hl', fileId, []), borrados = lsGet('hldel', fileId, []), progL = lsGet('prog', fileId, null);
+    if (!uid) { S.marcas = locales; S.prog = progL; return; }
     const c = cliente();
     try {
       const [a, b] = await Promise.all([
         c.from('pdf_subrayados').select('id,pagina,color,texto,rects').eq('file_id', fileId).order('created_at'),
-        c.from('pdf_progreso').select('ultima_pagina,total_paginas,leidas').eq('file_id', fileId).maybeSingle(),
+        c.from('pdf_progreso').select('ultima_pagina,total_paginas,leidas,updated_at').eq('file_id', fileId).maybeSingle(),
       ]);
-      S.marcas = (a.data || []).map((m) => ({ id: m.id, pagina: m.pagina, color: m.color, texto: m.texto, rects: m.rects }));
-      S.prog = b.data || null;
-      S.remoto = !a.error;
-    } catch (_) { S.marcas = lsGet('hl', fileId, []); S.prog = lsGet('prog', fileId, null); }
+      if (a.error) { S.marcas = locales; S.remoto = sinRed(a.error) ? undefined : false; }   // sin señal se sigue intentando con la cuenta; si la tabla no existe, queda todo local
+      else {
+        S.remoto = true;
+        const firmas = new Set((a.data || []).map((m) => m.pagina + '|' + JSON.stringify(m.rects)));
+        S.marcas = (a.data || []).filter((m) => !borrados.includes(m.id)).map((m) => ({ id: m.id, pagina: m.pagina, color: m.color, texto: m.texto, rects: m.rects }))
+          .concat(locales.filter((l) => !firmas.has(l.pagina + '|' + JSON.stringify(l.rects))));   // las que ya estaban en la cuenta no se muestran dos veces
+      }
+      S.prog = b.error ? progL : unirProg(b.data || null, progL);
+    } catch (_) { S.marcas = locales; S.prog = progL; }
+    if (locales.length || borrados.length || progL) marcarPend();   // había cosas sin subir de una sesión anterior
   }
 
   async function guardarMarca(m) {
@@ -380,9 +412,14 @@
     }
     m.id = m.id || ('l' + Date.now() + Math.random().toString(36).slice(2, 6)); m.local = true;
     lsSet('hl', S.fileId, S.marcas.filter((x) => x.local));
+    marcarPend();
   }
   async function borrarMarca(m) {
-    if (m.id && !m.local && S.uid) { try { await cliente().from('pdf_subrayados').delete().eq('id', m.id); } catch (_) {} }
+    if (m.id && !m.local && S.uid) {
+      let ok = false;
+      try { const r = await cliente().from('pdf_subrayados').delete().eq('id', m.id); ok = !r.error; } catch (_) {}
+      if (!ok) { const d = lsGet('hldel', S.fileId, []); if (!d.includes(m.id)) d.push(m.id); lsSet('hldel', S.fileId, d); marcarPend(); }   // sin señal: se borra de la cuenta al volver
+    }
     lsSet('hl', S.fileId, S.marcas.filter((x) => x.local && x !== m));
   }
 
@@ -394,14 +431,25 @@
     if (window.NikaTiempo && s.tl) window.NikaTiempo.guardar(s.tl, s.actual, !!s.cerrando);
     const avisar = () => { try { document.dispatchEvent(new CustomEvent('nika-pdf-progreso')); } catch (_) {} };
     if (s.uid && s.remoto !== false) {
-      try { await cliente().from('pdf_progreso').upsert({ file_id: s.fileId, titulo: s.title, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' }); avisar(); return; } catch (_) {}
+      try {
+        const r = await cliente().from('pdf_progreso').upsert({ file_id: s.fileId, titulo: s.title, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' });
+        if (!r.error) { lsDel('prog', s.fileId); avisar(); return; }
+      } catch (_) {}
     }
-    lsSet('prog', s.fileId, p); avisar();
+    lsSet('prog', s.fileId, Object.assign({}, p, { t: Date.now(), titulo: s.title }));   // sin señal: queda en el dispositivo y se sube después
+    if (s.uid) { try { localStorage.setItem('nika_pdf_sync_pend', '1'); } catch (_) {} }
+    avisar();
   }
   function guardarProgreso() {
     clearTimeout(_t);
     const s = S; _t = setTimeout(() => { if (S === s) persistir(s); }, 1500);
   }
+  // cuando pdfSync.js sube lo guardado sin señal, las marcas locales abiertas pasan a tener su id real (así se pueden borrar o deshacer bien)
+  window.addEventListener('nika-pdf-sync', (e) => {
+    const d = e.detail || {}; if (d.tipo !== 'marcas' || !S || S.fileId !== d.fileId) return;
+    d.mapa.forEach((x) => { const m = S.marcas.find((z) => z.id === x.local); if (m) { m.id = x.id; delete m.local; } });
+    lsSet('hl', S.fileId, S.marcas.filter((z) => z.local));
+  });
 
   // ---------- render ----------
   const esTrazo = (m) => !!(m.rects && m.rects[0] && (m.rects[0].t === 'p' || m.rects[0].t === 's' || m.rects[0].t === 'g'));   // pincel, formas y sellos
@@ -489,7 +537,7 @@
       const contenido = await page.getTextContent();
       if (S.tl) S.tl.chars[pg.num] = contenido.items.reduce((a, it) => a + (it.str ? it.str.length : 0), 0);
       await window.pdfjsLib.renderTextLayer({ textContentSource: contenido, container: tx, viewport: vp, textDivs: [] }).promise;
-      pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); marcarLeida(pg);
+      pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); if (window.NikaPdfX) window.NikaPdfX.alRenderizar(S, pg); marcarLeida(pg);
     } catch (e) { if (!(e && e.name === 'RenderingCancelledException')) console.warn('[NikaPdf] página', pg.num, e && e.message ? e.message : e); }
     pg.cargando = false;
   }
@@ -1270,7 +1318,7 @@
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
   const ATAJOS = [['V', 'Seleccionar'], ['G', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
-    ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
+    ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
     if (!S) return; const ya = $('.nkpdf-atajos', S.root); if (ya) { ya.remove(); return; }
@@ -1453,8 +1501,30 @@
     S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: favoritos()[0], panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
     const volver = (motivo) => { ui.fin(); if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
+    const abrirBytes = async (buf) => {
+      if (S !== mi) return;
+      mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+      mi.n = mi.pdf.numPages;
+      await cargarMarcas(fileId);
+      await cargarPrefs(mi);
+      if (S !== mi) return;
+      mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
+      if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
+      mi.leidas0 = mi.leidas.size;
+      if (window.NikaTiempo) { try { window.NikaTiempo.css(); mi.tl = window.NikaTiempo.nuevo(fileId, mi.n); await window.NikaTiempo.cargar(mi.tl); } catch (_) {} }
+      const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
+      const ancho = Math.max(280, wrapper.clientWidth - 28);
+      mi.escala = Math.max(0.6, Math.min(6, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
+      ui.fin(); await cargarModulo('js/estudio/pdfExtras.js?v=1', () => window.NikaPdfX); armar(mi);
+      if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
+    };
     try {
+      await cargarModulo('js/estudio/pdfOffline.js?v=1', () => window.NikaPdfOffline);
       await cargarLib();
+      // ¿Está guardado en este dispositivo? Se abre desde ahí si sigue igual que en Drive (o si no hay conexión)
+      let guardado = null;
+      if (window.NikaPdfOffline) { try { guardado = await window.NikaPdfOffline.leer(fileId); } catch (_) {} }
+      if (guardado) { ui.armando(); await abrirBytes(guardado); return; }
       // PDF subido a Drive: descarga directa. Presentaciones y documentos de Google (nativos): se exportan a PDF.
       const base = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`;
       let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
@@ -1481,19 +1551,9 @@
       ui.armando();
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('no es un PDF');
       if (S !== mi) return;
-      mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
-      mi.n = mi.pdf.numPages;
-      await cargarMarcas(fileId);
-      await cargarPrefs(mi);
-      if (S !== mi) return;
-      mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
-      if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
-      mi.leidas0 = mi.leidas.size;
-      if (window.NikaTiempo) { try { window.NikaTiempo.css(); mi.tl = window.NikaTiempo.nuevo(fileId, mi.n); await window.NikaTiempo.cargar(mi.tl); } catch (_) {} }
-      const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
-      const ancho = Math.max(280, wrapper.clientWidth - 28);
-      mi.escala = Math.max(0.6, Math.min(6, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
-      ui.fin(); armar(mi);
+      await abrirBytes(buf);
+      // si ya estaba guardado en el dispositivo y cambió en Drive, se renueva la copia guardada (sin duplicar el archivo en memoria si no estaba)
+      if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e && S === mi) mi.pdf.getData().then((b) => window.NikaPdfOffline.refrescarSiGuardado(fileId, title, b)).catch(() => {}); });
     } catch (e) {
       if (S === mi) volver(e && e.message);
     }
@@ -1649,6 +1709,7 @@
 
     marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi);
     if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
+    if (window.NikaPdfX) { try { window.NikaPdfX.montar(mi); } catch (e) { console.warn('[NikaPdf] extras', e); } }
     const ult = mi.prog && mi.prog.ultima_pagina;
     if (ult && ult > 1 && ult <= mi.n && window._nikaReanudar) { window._nikaReanudar = false; irA(ult, true); }
     else if (ult && ult > 1 && ult <= mi.n) toast(`Seguías en la página ${ult} de ${mi.n}`, 'Continuar', () => irA(ult, true));
@@ -1662,6 +1723,7 @@
     const c = contenedor();
     if (c && c.classList.contains('nkpdf-fsfix')) quitarFicticia(c);
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
+    if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
     if (S.tlKey) document.removeEventListener('keydown', S.tlKey);
@@ -1673,5 +1735,5 @@
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { abrir, cerrar, pantalla, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
+  window.NikaPdf = { abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
 })();

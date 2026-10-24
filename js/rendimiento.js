@@ -2,7 +2,7 @@
 // CAMPUS NIKA — Resultados de simulacros y analítica de rendimiento (Supabase).
 //
 //  - guardarExamen(): guarda cada simulacro en la tabla exam_results (con el
-//    desglose por Unidad Problema). Si no hay conexión (Modo Guardia), lo encola en
+//    desglose por Unidad Problema). Si no hay conexión (Modo Sin conexión), lo encola en
 //    IndexedDB (sync_queue, ver js/syncManager.js) y se sube solo al volver la señal.
 //    Devuelve { ok, queued, offline }.
 //  - cargarDatos(): trae tus sesiones Pomodoro (study_sessions) y tus

@@ -238,7 +238,7 @@ body.nf-study .nf-study-only{ display:block; }
 .nf-skel{ height:80px; border-radius:16px; background:linear-gradient(90deg,var(--border),transparent,var(--border)); background-size:200% 100%; animation:nfSk 1.2s infinite; margin-bottom:12px; opacity:.5; }
 @keyframes nfSk{ to{ background-position:-200% 0; } }
 
-/* =================== MODO GUARDIA =================== */
+/* =================== MODO SIN CONEXIÓN =================== */
 body.nf-guardia{ --bg-body:#04060a; --card-bg:#0c1118; --text-main:#f8fafc; --text-muted:#cbd5e1; --border:#2a3646; --nika-primary:#38bdf8; }
 body.nf-guardia .nf-theory{ display:none !important; }
 body.nf-guardia .nf-top{ border-bottom:2px solid #ef4444; }
@@ -517,10 +517,10 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
 </div>
 <div id="nfToast" role="status"></div>
 
-<!-- Modo Guardia Offline-First -->
+<!-- Modo Sin conexión (offline-first) -->
 <script src="js/offlineStorage.js"></script>
 <script src="js/syncManager.js"></script>
-<script src="js/guardiaModal.js?v=12"></script>
+<script src="js/guardiaModal.js?v=14"></script>
 <script>
 /* =====================================================================
    NIKAFARMA · Vanilla JS (sin frameworks)
@@ -601,11 +601,11 @@ async function loadData() {
       return json;
     } catch (e) { lastErr = e; }
   }
-  // Sin red ni caché del navegador: copia descargada en IndexedDB (Modo Guardia)
+  // Sin red ni caché del navegador: copia descargada en IndexedDB (Modo Sin conexión)
   try {
     if (window.OfflineStorage) {
       const local = await OfflineStorage.obtenerNikaFarmaLocal();
-      if (local) { setTimeout(() => toast('📴 Modo Guardia: usando el vademécum descargado'), 600); return local; }
+      if (local) { setTimeout(() => toast('📴 Modo Sin conexión: usando el vademécum descargado'), 600); return local; }
     }
   } catch (_) {}
   throw lastErr;
@@ -1077,10 +1077,10 @@ const TOUR = [
   { el: () => $('.nf-sbox'), t: '🔎 Buscador inteligente', x: 'Escribí un fármaco (ceftriaxona), un microorganismo (Acinetobacter) o un cuadro clínico (meningitis, ITU). Te devuelve esquemas empíricos y los fármacos con actividad descripta. Atajo: tecla «/».' },
   { el: () => $('.nf-home'), t: '🗂️ Áreas', x: 'Explorá por categoría: fármacos, síndromes, patógenos, vacunas, profilaxis… Cada una se ordena en grupos desplegables.' },
   { el: () => $('#nfShortcuts') && $('#nfShortcuts').nextElementSibling, t: '⚡ Atajos clínicos', x: 'Un toque y ves directo los esquemas empíricos de ese síndrome.' },
-  { el: () => $('#btnGuardia'), t: '🚨 Modo Guardia', x: 'Pensado para la urgencia: oscurece la pantalla, esconde la teoría y agranda solo dosis, preparación IV, velocidad de infusión y alertas críticas. Tocalo de nuevo para salir.' },
+  { el: () => $('#btnGuardia'), t: '🚨 Modo Sin conexión', x: 'Pensado para la urgencia: oscurece la pantalla, esconde la teoría y agranda solo dosis, preparación IV, velocidad de infusión y alertas críticas. Tocalo de nuevo para salir.' },
   { el: () => $('#swPreg').closest('label'), t: '🤰 Embarazo', x: 'Muestra solo fármacos categoría A/B. Los de riesgo C/D/X o sin dato se ocultan, y en los esquemas empíricos se marcan los de riesgo.' },
   { el: () => $('#swLact').closest('label'), t: '🍼 Lactancia', x: 'Deja únicamente los fármacos compatibles con lactancia.' },
-  { el: () => $('#swStudy').closest('label'), t: '🎓 Modo Estudio', x: 'Suma viñetas high-yield, mecanismos de resistencia y perlas para el final. No convive con el Modo Guardia.' },
+  { el: () => $('#swStudy').closest('label'), t: '🎓 Modo Estudio', x: 'Suma viñetas high-yield, mecanismos de resistencia y perlas para el final. No convive con el Modo Sin conexión.' },
   { el: () => $('#btnTools'), t: '🧮 Calculadora, combinación y scores', x: 'Cargá edad, peso, altura y creatinina: calcula Cockcroft-Gault, IMC y peso ideal/ajustado, resalta la dosis exacta y tacha las que no corresponden. También chequea combinaciones (QT/Torsades, antagonismo, duplicidad, vía en Y) y trae CURB-65 y qSOFA. Los datos del paciente no se guardan.' },
   { el: () => $('#btnTheme'), t: '🌙 Claro / oscuro', x: 'Cambia el tema y queda sincronizado con el resto del Campus.' },
   { el: () => $('#btnHelp'), t: '❓ Ayuda', x: 'Podés repetir este recorrido cuando quieras. Y dentro de cada ficha vas a ver «＋ Combinar» y «📋 HCE» para copiar el plan a la historia clínica. ¡A estudiar y a guardiar! 🩺' }
@@ -1148,7 +1148,7 @@ function setGuardia(on) {
   $('#btnGuardia').setAttribute('aria-pressed', String(on));
   $('#btnGuardia').textContent = on ? '🚨 Guardia ON' : '🚨 Guardia';
   if (on && S.f.study) { S.f.study = false; $('#swStudy').checked = false; document.body.classList.remove('nf-study'); }
-  toast(on ? '🚨 Modo Guardia: solo dosis, preparación, infusión y alertas' : 'Modo Guardia desactivado');
+  toast(on ? '🚨 Modo Sin conexión: solo dosis, preparación, infusión y alertas' : 'Modo Sin conexión desactivado');
 }
 function clickHandler(ev) {
   const t = ev.target.closest('[data-act]'); if (!t) return;
@@ -1229,7 +1229,7 @@ async function init() {
     indexData(await loadData());
   } catch (err) {
     console.error(err);
-    setMain(`<div class="nf-sec"><h2>No pude cargar el vademécum</h2><p>Verificá tu conexión y que <code>/data/nikafarma_api.json</code> esté publicado. Si estás sin señal, necesitás haber usado antes «🛡️ Descargar para Guardia».</p><p style="color:var(--text-muted);font-size:.8rem">${esc(err.message)}</p><div class="nf-row"><button class="nf-btn pri" onclick="location.reload()">Reintentar</button><button class="nf-btn" data-guardia-open>🛡️ Descargar para Guardia</button></div></div>`);
+    setMain(`<div class="nf-sec"><h2>No pude cargar el vademécum</h2><p>Verificá tu conexión y que <code>/data/nikafarma_api.json</code> esté publicado. Si estás sin señal, necesitás haber usado antes «🛡️ Descargar sin conexión».</p><p style="color:var(--text-muted);font-size:.8rem">${esc(err.message)}</p><div class="nf-row"><button class="nf-btn pri" onclick="location.reload()">Reintentar</button><button class="nf-btn" data-guardia-open>🛡️ Descargar sin conexión</button></div></div>`);
     return;
   }
   renderDomainChips(); renderCalcOut(); renderTray(); renderScoresBox(); route();
@@ -1254,6 +1254,6 @@ document.addEventListener('DOMContentLoaded', init);
 <script src="js/nikaMetricas.js?v=1" defer></script>
 <script src="js/ateneoGlobal.js?v=3" defer></script>
     <script src="js/nikaAnalytics.js" defer></script>
-    <script src="js/nikaNotificaciones.js?v=9" defer></script>
+    <script src="js/nikaNotificaciones.js?v=10" defer></script>
 </body>
 </html>

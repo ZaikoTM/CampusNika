@@ -615,7 +615,7 @@ async function listarBancosJSON(modulo) {
 }
 
 async function cargarPreguntasUP({ modulo, upId }) {
-    // Modo Guardia: 1) online -> Supabase; 2) sin señal o falla -> IndexedDB (descargado desde el modal);
+    // Modo Sin conexión: 1) online -> Supabase; 2) sin señal o falla -> IndexedDB (descargado desde el modal);
     // 3) último recurso -> copia vieja en localStorage.
     const OS = window.OfflineStorage;
     const SM = window.SyncManager;

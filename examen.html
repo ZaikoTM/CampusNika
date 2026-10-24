@@ -1133,7 +1133,7 @@
         </div>
         <div class="navbar-actions">
             <span data-nika-net-slot></span>
-            <button class="nav-tool-btn nav-guardia" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
+            <button class="nav-tool-btn nav-guardia" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Sin conexión</button>
             <div class="nav-grupo" role="group" aria-label="Herramientas del simulador">
                 <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
                 <button class="nav-tool-btn" onclick="toggleVozSim()" id="btn-voz" title="Leer en voz alta lo que dice el paciente / evaluador">🗣️ Voz OFF</button>
@@ -1656,7 +1656,7 @@
     <script src="js/auth-guard.js"></script>
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
-    <script src="js/guardiaModal.js?v=12"></script>
+    <script src="js/guardiaModal.js?v=14"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/rendimiento.js?v=5"></script>
     <script src="js/chatManager.js?v=6"></script>
@@ -2106,8 +2106,8 @@
 
             if (pool.length === 0) {
                 if (isLocalBank) { alert('Este banco todavía no tiene preguntas cargadas (revisá js/data/).'); if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; } return; }
-                const msgSinPreguntas = "No se pudieron cargar las preguntas solicitadas. Si estás sin señal, primero tenés que descargarlas con «Descargar para Guardia». Si estás online, verificá que los bancos estén subidos en el Panel de Administración.";
-                if (window.GuardiaModal && confirm(msgSinPreguntas + "\n\n¿Abrir «Descargar para Guardia» ahora?")) GuardiaModal.abrir();
+                const msgSinPreguntas = "No se pudieron cargar las preguntas solicitadas. Si estás sin señal, primero tenés que descargarlas con «Descargar sin conexión». Si estás online, verificá que los bancos estén subidos en el Panel de Administración.";
+                if (window.GuardiaModal && confirm(msgSinPreguntas + "\n\n¿Abrir «Descargar sin conexión» ahora?")) GuardiaModal.abrir();
                 else if (!window.GuardiaModal) alert(msgSinPreguntas);
                 if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
                 return;
@@ -2116,7 +2116,7 @@
             if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
 
             // 3. Mezclamos y preparamos el Examen
-            if (window.SyncManager && SyncManager.estaOffline()) showToast("📴 Modo Guardia: rindiendo con las preguntas descargadas");
+            if (window.SyncManager && SyncManager.estaOffline()) showToast("📴 Modo Sin conexión: rindiendo con las preguntas descargadas");
             pool.sort(() => Math.random() - 0.5);
             const finalCount = (selectedMode === 'flash') ? 10 : Math.min(countInput, pool.length);
             currentExam = pool.slice(0, finalCount);
@@ -5724,7 +5724,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             renderReview(filter);
         }
 
-        // ================= MODO GUARDIA: aviso offline + reporte de erratas en cola =================
+        // ================= MODO SIN CONEXIÓN: aviso offline + reporte de erratas en cola =================
         function mostrarAvisoOffline(r) {
             const box = document.getElementById('offline-result-notice');
             if (!box || !r) return;
@@ -6219,6 +6219,6 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
 <script src="js/nikaMetricas.js?v=1" defer></script>
 <script src="js/ateneoGlobal.js?v=3" defer></script>
     <script src="js/nikaAnalytics.js" defer></script>
-    <script src="js/nikaNotificaciones.js?v=9" defer></script>
+    <script src="js/nikaNotificaciones.js?v=10" defer></script>
 </body>
 </html>

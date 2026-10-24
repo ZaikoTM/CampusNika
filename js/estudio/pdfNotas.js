@@ -17,6 +17,11 @@
   const modulo = () => (window.EstudioState && window.EstudioState.modulo) || null;
   const upActual = () => (window.EstudioState && window.EstudioState.currentUpId) || null;
   const esLocal = (n) => n.local || String(n.id).charAt(0) === 'l';
+  const esPdf = (n) => String(n && n.recurso || '').indexOf('pdf:') === 0;
+  // sin señal las ediciones y borrados de notas ya guardadas esperan en el dispositivo (js/estudio/pdfSync.js los sube al volver internet)
+  const K_OPS = 'nika_pdf_notas_ops';
+  function pendSync() { try { localStorage.setItem('nika_pdf_sync_pend', '1'); } catch (_) {} if (window.NikaPdfSync) setTimeout(() => window.NikaPdfSync.sincronizar(), 1500); }
+  function encolarOp(op) { try { const l = JSON.parse(localStorage.getItem(K_OPS) || '[]'); l.push(op); localStorage.setItem(K_OPS, JSON.stringify(l)); } catch (_) {} pendSync(); }
 
   async function uid() {
     try { const c = cli(); const { data } = await c.auth.getSession(); return data && data.session && data.session.user ? data.session.user.id : null; } catch (_) { return null; }
@@ -119,20 +124,23 @@
       try { const { data, error } = await c.from('notas_estudio').insert(fila).select().single(); if (!error && data) { avisarCambio(); return data; } } catch (_) {}
     }
     const l = Object.assign({}, fila, { id: 'l' + Date.now() + Math.random().toString(36).slice(2, 5), local: true });
-    lsGuardar(lsLeer().concat([l])); avisarCambio(); return l;
+    lsGuardar(lsLeer().concat([l])); if (esPdf(l)) pendSync(); avisarCambio(); return l;
   }
   async function actualizar(n, campos) {
     Object.assign(n, campos);
     if (esLocal(n)) { lsGuardar(lsLeer().map((x) => (x.id === n.id ? Object.assign({}, x, campos) : x))); avisarCambio(); return true; }
     const c = cli(); if (!c) return false;
-    const { error } = await c.from('notas_estudio').update(campos).eq('id', n.id);
+    let error = null; try { ({ error } = await c.from('notas_estudio').update(campos).eq('id', n.id)); } catch (e) { error = e; }
     if (!error) avisarCambio();
+    else if (esPdf(n) || n.anotacion) { encolarOp({ t: 'upd', id: n.id, campos }); avisarCambio(); return true; }   // sin señal: se guarda al volver
     return !error;
   }
   const actualizarTexto = (n, texto) => actualizar(n, { texto });
   async function borrar(n) {
     if (esLocal(n)) { lsGuardar(lsLeer().filter((x) => x.id !== n.id)); avisarCambio(); return; }
-    const c = cli(); if (c) { try { await c.from('notas_estudio').delete().eq('id', n.id); } catch (_) {} }
+    const c = cli(); let ok = false;
+    if (c) { try { const r = await c.from('notas_estudio').delete().eq('id', n.id); ok = !r.error; } catch (_) {} }
+    if (!ok) encolarOp({ t: 'del', id: n.id });
     avisarCambio();
   }
 

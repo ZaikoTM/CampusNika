@@ -613,6 +613,11 @@
         document.addEventListener('click', pedir, true); document.addEventListener('keydown', pedir, true);
       }
     } catch (_) {}
+    // lo que se marcó en el Lector Nika sin conexión se sube solo al volver internet, en cualquier página (js/estudio/pdfSync.js)
+    try {
+      const subirPdf = () => { if (navigator.onLine && localStorage.getItem('nika_pdf_sync_pend') === '1') cargarScript('estudio/pdfSync.js?v=1', () => !!window.NikaPdfSync).then(() => { if (window.NikaPdfSync) window.NikaPdfSync.sincronizar(); }); };
+      subirPdf(); window.addEventListener('online', () => setTimeout(subirPdf, 1500 + Math.random() * 2500));
+    } catch (_) {}
     sondeo = setInterval(() => { if (!document.hidden) cargarRemotas(false); }, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarRemotas(false); });
     // presencia global (amigos en línea) en toda página: respeta el modo invisible

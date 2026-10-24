@@ -1,11 +1,11 @@
 // js/syncManager.js
 // ============================================================================
-// CAMPUS NIKA — Orquestador de sincronización (Modo Guardia Offline-First)
+// CAMPUS NIKA — Orquestador de sincronización (Modo Sin conexión (offline-first))
 // ----------------------------------------------------------------------------
 // Qué hace:
 //  1. Detecta cambios de conectividad (online/offline + "señal de mentira":
 //     el navegador dice online pero las peticiones fallan).
-//  2. Muestra un badge en el navbar:  🟢 Online · 🟡 Modo Guardia (Offline) ·
+//  2. Muestra un badge en el navbar:  🟢 Online · 🟡 Modo Sin conexión ·
 //     🔄 Sincronizando (N)  ·  ⚠️ N sin subir.
 //  3. Procesa la cola `sync_queue` (IndexedDB) de forma SECUENCIAL:
 //       resultado_examen  -> tabla exam_results
@@ -581,11 +581,11 @@ const SyncManager = (() => {
   function _renderBadge() {
     if (!_badgeEl) return;
     const e = estado();
-    let cls = 'on', html = '🟢 <span class="lbl">Online</span>', title = 'Conectado. Tocá para abrir el Modo Guardia (descargas sin conexión).';
+    let cls = 'on', html = '🟢 <span class="lbl">Online</span>', title = 'Conectado. Tocá para abrir el Modo Sin conexión (descargas sin conexión).';
     if (e.sincronizando) {
       cls = 'sync'; html = `<span class="spin">🔄</span> Sincronizando${e.pendientes ? ` (${e.pendientes})` : ''}`; title = 'Subiendo tu progreso…';
     } else if (e.offline) {
-      cls = 'off'; html = `🟡 Modo Guardia (Offline)${e.pendientes ? ` · ${e.pendientes}` : ''}`;
+      cls = 'off'; html = `🟡 Modo Sin conexión${e.pendientes ? ` · ${e.pendientes}` : ''}`;
       title = e.pendientes ? `${e.pendientes} pendiente(s): se suben solos al volver la señal.` : 'Sin conexión: usás lo que descargaste.';
     } else if (e.fallidos > 0) {
       cls = 'err'; html = `⚠️ ${e.fallidos} sin subir`; title = 'Tocá para reintentar la subida.';
