@@ -170,6 +170,52 @@ async function ensureVersusPlayer() {
 // un username, lo resuelve el servidor (Edge Function "login-usuario"):
 // el correo nunca llega al navegador.
 
+// ------------------------------------------------------------
+// Cloudflare Turnstile (captcha gratuito, casi invisible): protege registro, inicio de sesión y recuperación de contraseña.
+//  · NIKA_TURNSTILE_SITEKEY es la clave de SITIO (pública). Vacía = sin captcha: todo funciona como antes.
+//  · Para que el servidor lo EXIJA: Supabase → Authentication → Attack Protection → Enable Captcha → Turnstile (con la Secret Key).
+//  · El widget solo se muestra si Cloudflare duda de que sea una persona; si no, la verificación es invisible.
+// ------------------------------------------------------------
+const NIKA_TURNSTILE_SITEKEY = '0x4AAAAAAFkAM1_umZIIX5RM';
+let _turnstileCarga = null;
+function _cargarTurnstile() {
+    if (window.turnstile) return Promise.resolve();
+    if (!_turnstileCarga) {
+        _turnstileCarga = new Promise((ok, no) => {
+            const s = document.createElement('script');
+            s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            s.async = true; s.onload = () => ok(); s.onerror = () => { _turnstileCarga = null; no(new Error('turnstile')); };
+            document.head.appendChild(s);
+        });
+    }
+    return _turnstileCarga;
+}
+// Devuelve un token de un solo uso (o undefined si el captcha está apagado o no pudo cargar).
+async function _captchaToken() {
+    if (!NIKA_TURNSTILE_SITEKEY) return undefined;
+    try { await _cargarTurnstile(); } catch (_) { return undefined; }
+    return new Promise((resolve) => {
+        const caja = document.createElement('div');
+        caja.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2147483600;padding:14px;border-radius:16px;background:#0f172a;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none';
+        document.body.appendChild(caja);
+        let id = null, terminado = false;
+        const fin = (t) => {
+            if (terminado) return; terminado = true; clearTimeout(tope);
+            try { window.turnstile.remove(id); } catch (_) {}
+            caja.remove(); resolve(t || undefined);
+        };
+        const tope = setTimeout(() => fin(undefined), 45000);
+        try {
+            id = window.turnstile.render(caja, {
+                sitekey: NIKA_TURNSTILE_SITEKEY, appearance: 'interaction-only', theme: 'dark',
+                callback: fin, 'error-callback': () => fin(undefined),
+                'before-interactive-callback': () => { caja.style.display = 'block'; },
+                'after-interactive-callback': () => { caja.style.display = 'none'; },
+            });
+        } catch (_) { fin(undefined); }
+    });
+}
+
 // Registro: crea el usuario en Supabase Auth y dispara el trigger que
 // crea automáticamente su fila en "profiles" (username, fullname, avatar).
 async function registrarUsuario({ fullname, username, email, password, avatar }) {
@@ -189,11 +235,13 @@ async function registrarUsuario({ fullname, username, email, password, avatar })
         return { error: { message: "El usuario ya existe." } };
     }
 
+    const captchaToken = await _captchaToken();
     const { data, error } = await nikaSupabase.auth.signUp({
         email: emailNorm,
         password,
         options: {
             data: { fullname, username: usernameNorm, avatar: avatar || null },
+            captchaToken,
         },
     });
 
@@ -273,7 +321,8 @@ async function iniciarSesion({ identifier, password }) {
     if (id.includes("@")) {
         let resultado;
         try {
-            resultado = await nikaSupabase.auth.signInWithPassword({ email: id.toLowerCase(), password });
+            const captchaToken = await _captchaToken();
+            resultado = await nikaSupabase.auth.signInWithPassword({ email: id.toLowerCase(), password, options: { captchaToken } });
         } catch (err) {
             console.warn("[supabaseClient] Falló signInWithPassword:", err);
             return _esErrorDeRed(err) ? _errorDeRed(err) : _errorLogin("unknown", "No se pudo iniciar sesión. Intentá de nuevo.");
@@ -309,6 +358,7 @@ async function iniciarSesion({ identifier, password }) {
     // ---------- Camino 2: login con usuario (Edge Function "login-usuario") ----------
     let respuesta;
     let cuerpo = {};
+    const captchaToken = await _captchaToken();
     const controlador = typeof AbortController !== "undefined" ? new AbortController() : null;
     const temporizador = controlador ? setTimeout(() => controlador.abort(), LOGIN_TIMEOUT_MS) : null;
     try {
@@ -319,7 +369,7 @@ async function iniciarSesion({ identifier, password }) {
                 apikey: SUPABASE_ANON_KEY,
                 Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
             },
-            body: JSON.stringify({ identificador: id, password }),
+            body: JSON.stringify({ identificador: id, password, captchaToken }),
             signal: controlador ? controlador.signal : undefined,
         });
         cuerpo = await respuesta.json().catch(() => ({}));
@@ -424,8 +474,10 @@ async function cerrarSesion() {
 // ------------------------------------------------------------
 async function solicitarResetPassword(email) {
     await NikaSupabaseReady;
+    const captchaToken = await _captchaToken();
     const { error } = await nikaSupabase.auth.resetPasswordForEmail(email, {
         redirectTo: window.location.origin + window.location.pathname,
+        captchaToken,
     });
     if (error) return { error };
     return { data: true, error: null };
@@ -650,6 +702,7 @@ window.NikaSupabase = {
     ensureVersusPlayer: typeof ensureVersusPlayer !== 'undefined' ? ensureVersusPlayer : undefined,
     registrarUsuario: typeof registrarUsuario !== 'undefined' ? registrarUsuario : undefined,
     iniciarSesion,
+    captchaToken: _captchaToken,
     cerrarSesion,
     restaurarSesionSiExiste,
     solicitarRolAdmin,

@@ -69,7 +69,7 @@ async function manejar(req: Request): Promise<Response> {
   }
   if (req.method !== "POST") return responder(req, 405, { error: "Método no permitido." });
 
-  let cuerpo: { identificador?: unknown; password?: unknown };
+  let cuerpo: { identificador?: unknown; password?: unknown; captchaToken?: unknown };
   try {
     cuerpo = await req.json();
   } catch {
@@ -77,6 +77,8 @@ async function manejar(req: Request): Promise<Response> {
   }
   const identificador = typeof cuerpo.identificador === "string" ? cuerpo.identificador.trim() : "";
   const password = typeof cuerpo.password === "string" ? cuerpo.password : "";
+  // Token de Cloudflare Turnstile (solo hace falta si el captcha está activado en Supabase Auth)
+  const captchaToken = typeof cuerpo.captchaToken === "string" && cuerpo.captchaToken.length < 4096 ? cuerpo.captchaToken : undefined;
   if (identificador.length < 3 || identificador.length > 80 || password.length < 1 || password.length > 200) {
     return responder(req, 400, { error: "Completá usuario y contraseña." });
   }
@@ -141,9 +143,13 @@ async function manejar(req: Request): Promise<Response> {
   const anon = createClient(url, clavePublica, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
   });
-  const { data, error } = await anon.auth.signInWithPassword({ email, password });
+  const { data, error } = await anon.auth.signInWithPassword({ email, password, options: { captchaToken } });
 
   if (error || !data?.session) {
+    // El captcha falló o venció: no cuenta como intento fallido de contraseña
+    if (error && /captcha/i.test(String((error as { code?: string }).code ?? "") + " " + error.message)) {
+      return responder(req, 400, { error: "No pudimos verificar que sos una persona. Recargá la página e intentá de nuevo." });
+    }
     if (error && (error as { code?: string }).code === "email_not_confirmed") {
       return responder(req, 403, { error: "Confirmá tu correo antes de iniciar sesión." });
     }

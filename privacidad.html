@@ -161,7 +161,7 @@
     <header class="legal-hero">
         <span class="legal-eyebrow">Legal</span>
         <h1>Política de Privacidad</h1>
-        <p class="legal-meta">Última actualización: 10 de octubre de 2026</p>
+        <p class="legal-meta">Última actualización: 24 de octubre de 2026</p>
     </header>
 
     <main>
@@ -192,7 +192,8 @@
                 <tr><td>Consultas que le hacés al Asistente Nika (IA)</td><td>Generar la respuesta a partir de bibliografía de cátedra (ver punto 4)</td></tr>
                 <tr><td>Reportes que hagas o recibas, y bloqueos, incluidos los reportes de error en casos clínicos</td><td>Moderación, seguridad de la comunidad y mejora del banco de preguntas</td></tr>
                 <tr><td>Datos de pago (si contratás NikaMed+)</td><td>Procesados directamente por Mercado Pago; nosotros no almacenamos números de tarjeta</td></tr>
-                <tr><td>Datos técnicos mínimos (fecha del último acceso, navegador, registros de errores)</td><td>Seguridad y funcionamiento</td></tr>
+                <tr><td>Registro de llamadas de voz entre amigos: quién llamó, a quién, fecha y hora, duración y resultado (atendida, rechazada, perdida)</td><td>Hacer funcionar las llamadas, avisarte de llamadas perdidas y evitar abusos. <strong>No grabamos ni guardamos el audio ni el video</strong> de las llamadas</td></tr>
+                <tr><td>Datos técnicos mínimos (fecha del último acceso, navegador, registros de errores) y estadísticas de visitas agregadas (páginas vistas, tiempos de carga, país y tipo de dispositivo)</td><td>Seguridad, funcionamiento y mejora de la Plataforma</td></tr>
             </table>
             <p><strong>No pedimos ni queremos datos de salud de pacientes reales.</strong> Te pedimos expresamente que no los publiques en la Plataforma (ver <a href="terminos.html">Términos y Condiciones</a>, punto 5).</p>
         </div>
@@ -222,6 +223,7 @@
                 <li><strong>Google:</strong> inicio de sesión con Google (si lo elegís), tipografías, y contenido embebido de Google Drive o YouTube (estos servicios pueden usar cookies según sus propias políticas).</li>
                 <li><strong>Proveedor de Inteligencia Artificial generativa</strong> (a través de un servicio intermedio propio): procesa las consultas que le hacés al Asistente Nika y genera los casos clínicos simulados.</li>
                 <li><strong>Spotify:</strong> reproducción de playlists y, si lo conectás, acceso a tu cuenta con los permisos de reproducción y lectura de lo que suena; tus credenciales las gestiona Spotify y nosotros guardamos solo los tokens de acceso en tu navegador.</li>
+                <li><strong>Cloudflare:</strong> verificación anti-bots (Turnstile) al registrarte, iniciar sesión o recuperar tu contraseña; estadísticas de visitas sin cookies y sin seguimiento individual (Web Analytics); y un servidor de retransmisión (TURN) que, solo cuando la conexión directa entre dos personas no es posible, reenvía el audio de la llamada ya cifrado, sin poder escucharlo ni guardarlo.</li>
                 <li><strong>Mercado Pago:</strong> procesamiento de pagos de la suscripción NikaMed+.</li>
             </ul>
             <p>Estos proveedores ofrecen medidas de seguridad y contratos de tratamiento de datos; al usar la Plataforma aceptás esta transferencia.</p>
@@ -234,7 +236,7 @@
 
         <div class="legal-card">
             <h2>7. Cookies y almacenamiento local</h2>
-            <p>Usamos almacenamiento del navegador (localStorage, IndexedDB) y una caché de la app (service worker) para mantener tu sesión, guardar tus apuntes y las descargas del Modo Guardia sin conexión, recordar tus preferencias (modo oscuro, Pomodoro, música, privacidad) y hacer funcionar la app instalable. No usamos cookies publicitarias ni de seguimiento de terceros con fines comerciales.</p>
+            <p>Usamos almacenamiento del navegador (localStorage, IndexedDB) y una caché de la app (service worker) para mantener tu sesión, guardar tus apuntes y las descargas del Modo Guardia sin conexión, recordar tus preferencias (modo oscuro, Pomodoro, música, privacidad) y hacer funcionar la app instalable. No usamos cookies publicitarias ni de seguimiento de terceros con fines comerciales. Las estadísticas de visitas (Cloudflare Web Analytics) no usan cookies ni identifican a personas individuales, y respetan la señal «No rastrear» de tu navegador.</p>
         </div>
 
         <div class="legal-card">
@@ -306,5 +308,6 @@
     </footer>
 
 <script src="js/navmovil.js?v=1" defer></script>
+<script src="/js/nikaAnalytics.js" defer></script>
 </body>
 </html>

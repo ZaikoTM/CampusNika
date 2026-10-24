@@ -16,6 +16,8 @@
     invitacion_pomodoro: { ico: '🍅', nom: 'Invitaciones a estudiar', color: '#f97316' },
     nota_compartida: { ico: '📝', nom: 'Notas compartidas', color: '#a855f7' },
     mensaje: { ico: '💬', nom: 'Mensajes de amigos', color: '#38bdf8' },
+    llamada_entrante: { ico: '📞', nom: 'Llamadas entrantes', color: '#22c55e' },
+    llamada_perdida: { ico: '📵', nom: 'Llamadas perdidas', color: '#ef4444' },
     desafio: { ico: '⚔️', nom: 'Desafíos y retos', color: '#ef4444' },
     solicitud_amistad: { ico: '🤝', nom: 'Solicitudes de amistad', color: '#22c55e' },
     sistema: { ico: '🔔', nom: 'Avisos del sitio', color: '#eab308' },
@@ -67,6 +69,8 @@
     invitacion_pomodoro: [[523, 0, .16, 'triangle'], [659, .13, .16, 'triangle'], [784, .26, .18, 'triangle'], [1047, .4, .34, 'triangle']],
     nota_compartida: [[880, 0, .14, 'sine'], [1175, .12, .3, 'sine']],
     mensaje: [[660, 0, .11, 'sine'], [880, .1, .14, 'sine']],
+    llamada_entrante: [[784, 0, .16, 'sine'], [988, .14, .16, 'sine'], [1175, .28, .3, 'sine']],   // si no carga el timbre completo (nikaRing.js)
+    llamada_perdida: [[523, 0, .16, 'sine'], [415, .16, .16, 'sine'], [330, .32, .34, 'sine']],
     desafio: [[392, 0, .12, 'square'], [392, .14, .12, 'square'], [523, .28, .14, 'square'], [659, .44, .3, 'square']],
     solicitud_amistad: [[698, 0, .13, 'sine'], [880, .12, .13, 'sine'], [1047, .24, .3, 'sine']],
     sistema: [[784, 0, .45, 'sine']],
@@ -221,11 +225,12 @@
   }
   function mostrarNotificacion(n, desdeCarga) {
     const t = tipoDe(n.tipo);
-    const conBotones = t === 'invitacion_pomodoro' ? [{ txt: 'Ahora no', clase: 'nn-no', fn: () => { marcarLeida(n); rechazarInvitacion(n); } }, { txt: '🍅 Unirme', clase: 'nn-ok', fn: () => unirse(n) }]
+    if (t === 'llamada_entrante') { tarjetaLlamada(n, desdeCarga); return; }
+    const conBotones = t === 'llamada_perdida' ? [{ txt: '📞 Volver a llamar', clase: 'nn-ok', fn: () => { marcarLeida(n); devolverLlamada(n); } }]
+      : t === 'invitacion_pomodoro' ? [{ txt: 'Ahora no', clase: 'nn-no', fn: () => { marcarLeida(n); rechazarInvitacion(n); } }, { txt: '🍅 Unirme', clase: 'nn-ok', fn: () => unirse(n) }]
       : t === 'nota_compartida' ? [{ txt: 'Ver nota', clase: 'nn-ok', fn: () => verNotaCompartida(n) }]
       : (n.datos && n.datos.url) ? [{ txt: 'Abrir', clase: 'nn-ok', fn: () => accionPorDefecto(n) }] : null;
-    if (desdeCarga && !(t === 'invitacion_pomodoro' && !venc(n))) return;
-    const mostrar = () => { if (!noMolestar() && quiereAviso(t)) tarjeta(n, { botones: conBotones, dur: t === 'invitacion_pomodoro' ? 60000 : 12000, alCerrar: () => {} }); };
+    if (desdeCarga && !(t === 'invitacion_pomodoro' && !venc(n))) return;    const mostrar = () => { if (!noMolestar() && quiereAviso(t)) tarjeta(n, { botones: conBotones, dur: t === 'invitacion_pomodoro' ? 60000 : 12000, alCerrar: () => {} }); };
     // En las páginas con Pomodoro propio la invitación ya llega por su canal y trae su tarjeta: se evita duplicarla
     if (t === 'invitacion_pomodoro' && window.PomodoroSyncManager && !desdeCarga) setTimeout(() => { if (!document.getElementById('nika-pomo-invite') && !n.leida) mostrar(); }, 900);
     else mostrar();
@@ -235,6 +240,57 @@
       if (!noMolestar()) { parpadear(n.titulo); avisoSistema(n, () => accionPorDefecto(n)); }
       campanaTiembla();
     }
+  }
+  // ---------------------------------------------------------------- llamadas 1 a 1 (estado en el servidor: tabla `llamadas`)
+  // La tarjeta aparece arriba a la derecha con Atender / Rechazar y suena el timbre. Se cierra sola si quien llama corta,
+  // si la atiende otro dispositivo o si vence (45 s).
+  async function cargarMotorLlamadas() {
+    await cargarScript('voiceManager.js?v=4', () => !!window.VoiceManager);
+    await cargarScript('ateneos.js?v=19', () => !!window.NikaAteneos);
+    if (!window.NikaAteneos) throw new Error('No se pudo cargar el sistema de llamadas.');
+    return window.NikaAteneos;
+  }
+  const apagarTimbre = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} };
+  function cerrarTarjetaLlamada(id) {
+    document.querySelectorAll('.nn-card[data-llamada="' + id + '"]').forEach((el) => { el.classList.add('nn-sale'); setTimeout(() => el.remove(), 300); });
+    apagarTimbre();
+    hist.filter((x) => x.tipo === 'llamada_entrante' && x.datos && x.datos.llamada === id).forEach((x) => marcarLeida(x));
+  }
+  async function tarjetaLlamada(n, desdeCarga) {
+    const id = n.datos && n.datos.llamada;
+    if (!id || venc(n) || n.leida) return;
+    if (document.querySelector('.nn-card[data-llamada="' + id + '"]')) return;
+    if (noMolestar() || !quiereAviso('llamada_entrante')) return;
+    try {   // ¿sigue sonando? (puede haberse cancelado mientras la página cargaba)
+      const { data } = await sb().from('llamadas').select('estado').eq('id', id).maybeSingle();
+      if (!data || data.estado !== 'llamando') { marcarLeida(n); return; }
+    } catch (_) {}
+    const quien = '@' + (n.de_username || 'alguien');
+    const resta = Math.max(4000, (n.vence_en ? new Date(n.vence_en).getTime() : Date.now() + 45000) - Date.now());
+    let cerrada = false;
+    const fin = () => { cerrada = true; apagarTimbre(); };
+    const el = tarjeta({ id: n.id, tipo: 'llamada_entrante', titulo: quien + ' te está llamando', cuerpo: 'Llamada de voz de NikaMed' }, {
+      dur: resta,
+      alCerrar: fin,
+      botones: [
+        { txt: '✖ Rechazar', clase: 'nn-no', fn: async () => { fin(); marcarLeida(n); try { await sb().rpc('llamada_rechazar', { p_id: id }); } catch (_) {} } },
+        { txt: '📞 Atender', clase: 'nn-ok', fn: async () => {
+          fin(); marcarLeida(n);
+          try { const m = await cargarMotorLlamadas(); await m.aceptarLlamada(id); }
+          catch (e) { tarjeta({ tipo: 'sistema', titulo: 'No se pudo atender', cuerpo: (e && e.message) || 'Probá de nuevo.' }, { dur: 6000 }); }
+        } },
+      ],
+    });
+    el.dataset.llamada = id;
+    if (quiereSonido('llamada_entrante')) cargarScript('nikaRing.js?v=3', () => !!window.NikaRing).then(() => { if (!cerrada && window.NikaRing) window.NikaRing.start(quien); else if (!cerrada) sonar('llamada_entrante'); });
+    parpadear(quien + ' te está llamando');
+    campanaTiembla();
+    // al vencer, el servidor la marca "sin respuesta" y genera la llamada perdida (el latido dispara esa limpieza)
+    setTimeout(() => { if (!cerrada) { fin(); try { sb().rpc('llamada_latido', { p_id: id }).then(() => {}, () => {}); } catch (_) {} } }, resta + 1500);
+  }
+  async function devolverLlamada(n) {
+    try { const m = await cargarMotorLlamadas(); await m.llamarPrivado(n.de_username, n.de_username); }
+    catch (e) { tarjeta({ tipo: 'sistema', titulo: 'No se pudo llamar', cuerpo: (e && e.message) || 'Probá de nuevo.' }, { dur: 6000 }); }
   }
   function rechazarInvitacion(n) {
     try { const m = window.PomodoroSyncManager; if (m && m.rechazarInvitacion) m.rechazarInvitacion(n.de_username, (n.datos || {}).sessionId, 'rechazada'); } catch (_) {}
@@ -355,6 +411,10 @@
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notificaciones', filter: 'para_id=eq.' + uid }, ({ new: n }) => {
           if (!n || hist.some((x) => x.id === n.id)) return;
           hist.unshift(n); recontar(); pintarPanel(); mostrarNotificacion(n, false);
+        })
+        // la llamada cambió de estado (cancelada, atendida en otro dispositivo, vencida…): se apaga la tarjeta y el timbre
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'llamadas', filter: 'callee_id=eq.' + uid }, ({ new: f }) => {
+          if (f && f.estado !== 'llamando') cerrarTarjetaLlamada(f.id);
         })
         .subscribe((estado) => { if (estado === 'CHANNEL_ERROR' || estado === 'TIMED_OUT' || estado === 'CLOSED') { try { c.removeChannel(canal); } catch (_) {} canal = null; setTimeout(suscribir, 6000); } });
     } catch (_) {}

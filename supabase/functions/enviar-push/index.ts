@@ -43,7 +43,7 @@ serve(async (req) => {
   let enviados = 0;
   await Promise.all(subs.map(async (s: any) => {
     try {
-      await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, carga, { TTL: n.tipo === 'invitacion_pomodoro' ? 300 : 86400, urgency: n.tipo === 'invitacion_pomodoro' ? 'high' : 'normal' });
+      await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, carga, { TTL: n.tipo === 'llamada_entrante' ? 45 : n.tipo === 'invitacion_pomodoro' ? 300 : 86400, urgency: (n.tipo === 'invitacion_pomodoro' || n.tipo === 'llamada_entrante') ? 'high' : 'normal' });
       enviados++;
     } catch (e: any) {
       if (e?.statusCode === 404 || e?.statusCode === 410) await admin.from('push_suscripciones').delete().eq('endpoint', s.endpoint);   // suscripción vencida

@@ -31,8 +31,8 @@ const NikaAteneos = (() => {
     const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=5'; document.head.appendChild(sc);
   }
   // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
-  function abrirEnVentana(sala, nombre, silenciosa, mic) {
-    try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: mic !== false })); } catch (_) {}
+  function abrirEnVentana(sala, nombre, silenciosa, mic, llamada) {
+    try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: mic !== false, llamada: llamada || null })); } catch (_) {}
     const w = abrirHost();
     if (!w) return false;
     cargarRemoto();
@@ -49,6 +49,7 @@ const NikaAteneos = (() => {
 
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const cliente = () => (window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase)) || window.supabaseClient;
   const toast = (m) => { if (typeof window.showToast === 'function') window.showToast(m); else console.info('[Ateneos]', m); };
   const DEF_AVATAR = 'assets/N%20NIKA.png';
 
@@ -386,12 +387,12 @@ const NikaAteneos = (() => {
     if (!window.VoiceManager || !VoiceManager.soportado()) throw new Error('Tu navegador no admite videollamadas.');
     if (!SOY_HOST && !opciones.silencioso) {
       if (hostVivo()) {
-        alHost({ cmd: 'conectar', sala, nombre, silenciosa, opciones: { micInicial: opciones.micInicial } });
+        alHost({ cmd: 'conectar', sala, nombre, silenciosa, opciones: { micInicial: opciones.micInicial, llamada: opciones.llamada || null } });
         cargarRemoto(); toast('Entrando a “' + nombre + '” en la ventana de la llamada.');
         try { const w = window.open('', 'nika-ateneo-host'); if (w) w.focus(); } catch (_) {}
         return;
       }
-      if (hostPref() && abrirEnVentana(sala, nombre, silenciosa, opciones.micInicial)) return;
+      if (hostPref() && abrirEnVentana(sala, nombre, silenciosa, opciones.micInicial, opciones.llamada)) return;
     }
     detenerPrueba(false); css(); construirDock(); construirPip();
     await VoiceManager.unirse(sala, metaPropia(), {
@@ -418,7 +419,9 @@ const NikaAteneos = (() => {
       },
     });
     conectado = { sala, nombre, silenciosa };
-    try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: !VoiceManager.yo.meta.muted })); } catch (_) {}
+    llamadaActiva = opciones.llamada ? Object.assign({ estado: 'llamando' }, opciones.llamada) : null;
+    try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: !VoiceManager.yo.meta.muted, llamada: llamadaActiva ? { id: llamadaActiva.id, rol: llamadaActiva.rol, otro: llamadaActiva.otro } : null })); } catch (_) {}
+    if (llamadaActiva) arrancarLlamada();
     dock.classList.add('on'); pipVisible = false; pipOculto = false; aplicarModoDock();
     document.body.classList.add('at-en-llamada');
     $('#at-d-name').textContent = nombre;
@@ -430,6 +433,12 @@ const NikaAteneos = (() => {
 
   // conservar === true: se corta la conexión de esta página pero se deja la sala guardada (para pasarla a la ventana anfitriona)
   async function desconectar(conservar) {
+    if (llamadaActiva) {
+      const l = llamadaActiva; llamadaActiva = null; detenerLatido();
+      if (conservar !== true) {   // quien corta cancela (si todavía suena) o finaliza para los dos; al pasar a la ventana aparte no se toca el estado
+        try { cliente().rpc(l.rol === 'caller' && l.estado === 'llamando' ? 'llamada_cancelar' : 'llamada_finalizar', { p_id: l.id }).then(() => {}, () => {}); } catch (_) {}
+      }
+    }
     try { if (window.NikaRing) { window.NikaRing.llamando(false); if (conservar !== true && conectado) window.NikaRing.efecto('colgar'); } } catch (_) {}
     if (!SOY_HOST && !conectado && hostVivo()) { alHost({ cmd: 'salir' }); return; }
     await VoiceManager.salir();
@@ -458,17 +467,102 @@ const NikaAteneos = (() => {
     if (!abrirEnVentana(sala, nombre, silenciosa, mic)) { toast('Tu navegador bloqueó la ventana: permití las ventanas emergentes de este sitio y probá de nuevo.'); return; }
     await desconectar(true);
   }
+  // ------------------------------------------------------------------ llamadas 1 a 1 (estado en el servidor: tabla `llamadas`, sql/llamadas.sql)
+  // llamadaActiva = { id, rol: 'caller' | 'callee', otro: nombre, estado }
+  let llamadaActiva = null, tLatido = null, canalLl = null;
+  const MSG_LLAMADA = [
+    [/solo podes llamar a tus amigos/i, 'Solo podés llamar a tus amigos confirmados.'],
+    [/no se puede llamar/i, 'No se puede llamar a este usuario.'],
+    [/demasiados intentos/i, 'Hiciste demasiados intentos seguidos: esperá un momento.'],
+    [/ya estas en una llamada/i, 'Ya estás en una llamada.'],
+    [/ya no esta disponible|inexistente/i, 'La llamada ya terminó o la atendió otro dispositivo.'],
+  ];
+  const textoErrorLlamada = (e) => { const m = String((e && e.message) || ''); const x = MSG_LLAMADA.find((p) => p[0].test(m)); return x ? x[1] : 'No se pudo completar la llamada.'; };
+  const ringOff = () => { try { if (window.NikaRing) window.NikaRing.llamando(false); } catch (_) {} };
+
+  function detenerLatido() { clearTimeout(tLatido); tLatido = null; }
+  // El latido le dice al servidor que la llamada sigue viva y trae el estado vigente (si el aviso en tiempo real se perdió).
+  // Mientras suena se consulta seguido (así vence a tiempo); ya conectados, cada 20 s.
+  async function latidoLlamada() {
+    const l = llamadaActiva; if (!l) return null;
+    let est = null;
+    try { const r = await cliente().rpc('llamada_latido', { p_id: l.id }); if (!r.error) est = r.data; } catch (_) {}
+    if (llamadaActiva !== l) return est;
+    if (est) alCambioEstado(est);
+    if (llamadaActiva === l) tLatido = setTimeout(latidoLlamada, l.estado === 'llamando' ? 8000 : 20000);
+    return est;
+  }
+  function arrancarLlamada() { detenerLatido(); latidoLlamada(); }
+
+  function alCambioEstado(estado) {
+    const l = llamadaActiva; if (!l || !estado) return;
+    if (estado === 'llamando') { if (l.rol === 'caller' && !l.timbrando) { l.timbrando = true; try { if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {} } return; }
+    if (estado === 'aceptada') { l.estado = 'aceptada'; ringOff(); return; }
+    // rechazada · cancelada · sin_respuesta · ocupado · finalizada: la llamada terminó para los dos
+    const otro = l.otro || 'La otra persona';
+    const aviso = { rechazada: otro + ' rechazó la llamada.', sin_respuesta: otro + ' no respondió.', cancelada: 'La llamada se canceló.', ocupado: otro + ' está en otra llamada.', finalizada: (l.estado === 'aceptada' ? otro + ' terminó la llamada.' : 'La llamada terminó.') }[estado] || 'La llamada terminó.';
+    llamadaActiva = null; detenerLatido(); ringOff();
+    try { if (window.NikaRing) window.NikaRing.efecto(estado === 'rechazada' ? 'rechazada' : estado === 'finalizada' ? 'colgar' : 'error'); } catch (_) {}
+    toast(aviso);
+    desconectar();
+  }
+
+  async function iniciarLlamadas() {
+    if (canalLl || !usuario()) return;
+    try {
+      if (window.NikaScriptsReady) await window.NikaScriptsReady;
+      const c = cliente(); if (!c) return;
+      const { data } = await c.auth.getSession();
+      const uid = data && data.session && data.session.user && data.session.user.id; if (!uid) return;
+      canalLl = c.channel('llamadas_estado_' + uid);
+      const cambio = ({ new: f }) => { if (f && llamadaActiva && f.id === llamadaActiva.id) alCambioEstado(f.estado); };
+      ['caller_id', 'callee_id'].forEach((col) => canalLl.on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'llamadas', filter: col + '=eq.' + uid }, cambio));
+      canalLl.subscribe((s) => { if (s === 'CHANNEL_ERROR' || s === 'TIMED_OUT' || s === 'CLOSED') { try { c.removeChannel(canalLl); } catch (_) {} canalLl = null; setTimeout(iniciarLlamadas, 6000); } });
+    } catch (e) { canalLl = null; }
+  }
+
+  async function nombreDe(userId) {
+    try { const { data } = await cliente().from('profiles_public').select('fullname, username').eq('id', userId).limit(1); if (data && data[0]) return data[0].fullname || data[0].username; } catch (_) {}
+    return 'tu compañero';
+  }
+
   async function llamarPrivado(username, nombreAmigo) {
     if (!usuario()) throw new Error('Iniciá sesión para llamar.');
     if (!SOY_HOST && !conectado && (hostVivo() || hostPref())) {
       if (hostVivo()) { alHost({ cmd: 'privado', username, nombre: nombreAmigo }); cargarRemoto(); toast('Llamando desde la ventana de la llamada…'); return; }
       try { localStorage.setItem(K_PEND, JSON.stringify({ username, nombre: nombreAmigo, t: Date.now() })); } catch (_) {}
-      if (abrirEnVentana('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false, true)) return;
+      if (abrirHost()) { cargarRemoto(); toast('La llamada se abrió en una ventana aparte.'); return; }
       try { localStorage.removeItem(K_PEND); } catch (_) {}
     }
-    if (!conectado) await conectarSala('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false);
-    await enviarInvitacion(username, true);
-    try { if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {}   // tono de "llamando…" hasta que entre la otra persona
+    if (llamadaActiva) throw new Error('Ya estás en una llamada.');
+    const nombre = nombreAmigo || username;
+    if (conectado) {
+      if (!confirm('Estás en “' + conectado.nombre + '”. ¿Salir de ahí para llamar a ' + nombre + '?')) return;
+      await desconectar();
+    }
+    const c = cliente();
+    const { data: perfil } = await c.from('profiles_public').select('id').ilike('username', username).limit(1);
+    if (!perfil || !perfil.length) throw new Error('No encontré a ese usuario.');
+    const { data: ll, error } = await c.rpc('llamada_crear', { p_callee: perfil[0].id, p_tipo: 'voz' });
+    if (error) throw new Error(textoErrorLlamada(error));
+    if (ll.estado === 'ocupado') { try { if (window.NikaRing) window.NikaRing.efecto('error'); } catch (_) {} toast(nombre + ' está en otra llamada. Probá en un rato.'); return; }
+    try {
+      await conectarSala(ll.sala, 'Llamada con ' + nombre, false, { llamada: { id: ll.id, rol: 'caller', otro: nombre } });
+    } catch (e) { c.rpc('llamada_cancelar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
+  }
+
+  // El destinatario atiende (desde la tarjeta de aviso de nikaNotificaciones.js o desde el chat)
+  async function aceptarLlamada(id) {
+    if (!usuario()) throw new Error('Iniciá sesión para atender.');
+    if (llamadaActiva && llamadaActiva.id === id) return;
+    const c = cliente();
+    const { data: ll, error } = await c.rpc('llamada_aceptar', { p_id: id });
+    if (error) throw new Error(textoErrorLlamada(error));
+    const nombre = await nombreDe(ll.caller_id);
+    if (conectado) await desconectar();
+    try {
+      await conectarSala(ll.sala, 'Llamada con ' + nombre, false, { llamada: { id: ll.id, rol: 'callee', otro: nombre, estado: 'aceptada' } });
+    } catch (e) { c.rpc('llamada_finalizar', { p_id: ll.id }).then(() => {}, () => {}); throw e; }
   }
   async function unirsePorCodigo() {
     const cod = ($('#at-codigo').value || '').trim().toUpperCase();
@@ -763,7 +857,7 @@ const NikaAteneos = (() => {
     if (!SOY_HOST && (hostVivo() || await hostConCandado())) { cargarRemoto(); return; }
     let a = null; try { a = JSON.parse(localStorage.getItem(K_ACTIVA) || 'null'); } catch (_) {}
     if (!a || !usuario() || Date.now() - (a.t || 0) > 12 * 3600 * 1000) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} return; }
-    try { await conectarSala(a.sala, a.nombre, a.silenciosa, { micInicial: a.mic, silencioso: true }); }
+    try { await conectarSala(a.sala, a.nombre, a.silenciosa, { micInicial: a.mic, silencioso: true, llamada: a.llamada || null }); }
     catch (e) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} }
   }
 
@@ -788,6 +882,7 @@ const NikaAteneos = (() => {
   function infoSala(sala) {
     let m = /^p-([A-Z2-9]{6})$/.exec(sala || '');
     if (m) return { nombre: 'Sala privada ' + m[1], silenciosa: false, codigo: m[1] };
+    if (/^c-[0-9a-f]{32}$/.test(sala || '')) return { nombre: 'Llamada privada', silenciosa: false, codigo: null, llamada: true };
     m = /^canal-(general|silenciosa|pase)-([1-6])$/.exec(sala || '');
     if (m) { const c = CANALES.find((x) => x.id === m[1]); return { nombre: c.nombre + (m[2] !== '1' ? ' · Sala ' + m[2] : ''), silenciosa: c.silenciosa, codigo: null }; }
     return null;
@@ -796,6 +891,7 @@ const NikaAteneos = (() => {
     if (!conectado) return '';
     const base = new URL('ateneos.html', location.href).href;
     const m = /^p-([A-Z2-9]{6})$/.exec(conectado.sala);
+    if (/^c-/.test(conectado.sala)) return '';   // las llamadas privadas no se comparten por enlace
     return base + (m ? '#ateneo-' + m[1] : '#sala-' + conectado.sala);
   }
   async function copiar(texto, aviso) {
@@ -871,6 +967,11 @@ const NikaAteneos = (() => {
     if ($('#ats-win')) $('#ats-win').onclick = pasarAVentana;
     $('#ats-link').onclick = () => copiar(enlaceSala(), 'Enlace copiado: pegalo donde quieras.');
     const cod = $('#ats-cod'); if (cod) cod.onclick = () => copiar(info.codigo, 'Código copiado.');
+    if (info.llamada) {   // llamada privada de dos: sin enlace ni invitaciones a terceros
+      const lk = $('#ats-link'); if (lk) lk.remove();
+      const ti = sec.querySelector('.ats-tabs button[data-t="invitar"]'); if (ti) ti.remove();
+      tabLateral = 'participantes';
+    }
     sec.querySelectorAll('.ats-tabs button').forEach((b) => b.addEventListener('click', () => { tabLateral = b.dataset.t; sec.querySelectorAll('.ats-tabs button').forEach((x) => x.classList.toggle('on', x === b)); pintarLateral(); }));
     actualizarTiles(); actualizarDock(); pintarLateral(); sincronizarPip();
   }
@@ -980,7 +1081,7 @@ const NikaAteneos = (() => {
       canalInv = c.channel('ateneo-invitaciones', { config: { broadcast: { self: false } } });
       canalInv.on('broadcast', { event: 'invitacion' }, ({ payload }) => {
         if (!payload || String(payload.para || '').toLowerCase() !== String(metaPropia().username).toLowerCase()) return;
-        if (!infoSala(payload.sala)) return;                       // solo salas con formato válido; el nombre se calcula acá
+        if (!infoSala(payload.sala) || /^c-/.test(payload.sala)) return;   // solo salas con formato válido; las llamadas privadas ya no usan este canal
         mostrarInvitacion(payload);
       });
       canalInv.subscribe();
@@ -989,6 +1090,7 @@ const NikaAteneos = (() => {
 
   async function enviarInvitacion(username, tambienChat) {
     if (!conectado) throw new Error('Primero entrá a una sala.');
+    if (/^c-/.test(conectado.sala)) throw new Error('Las llamadas privadas son solo de dos personas.');
     if (!canalInv) await iniciarInvitaciones();
     const yo = metaPropia();
     if (canalInv) canalInv.send({ type: 'broadcast', event: 'invitacion', payload: { para: username, de: yo.username, deNombre: yo.nombre, sala: conectado.sala } });
@@ -1037,7 +1139,7 @@ const NikaAteneos = (() => {
     const sala = m[1] ? 'p-' + m[1] : m[2];
     const info = infoSala(sala);
     history.replaceState(null, '', location.pathname + location.search);
-    if (!info) return;
+    if (!info || /^c-/.test(sala)) return;
     if (confirm(`¿Unirte a “${info.nombre}” en la Sala de Ateneos?`)) unirseASala(sala).catch((e) => toast(e.message));
   }
 
@@ -1075,7 +1177,7 @@ const NikaAteneos = (() => {
     let p = null; try { p = JSON.parse(localStorage.getItem(K_PEND) || 'null'); } catch (_) {}
     if (!p) return;
     try { localStorage.removeItem(K_PEND); } catch (_) {}
-    if (conectado && Date.now() - (p.t || 0) < 60000) { try { await enviarInvitacion(p.username, true); if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {} }
+    if (Date.now() - (p.t || 0) < 60000) { try { await llamarPrivado(p.username, p.nombre); } catch (e) { toast((e && e.message) || 'No se pudo iniciar la llamada.'); } }
   }
   function init() {
     css();
@@ -1083,12 +1185,12 @@ const NikaAteneos = (() => {
     if (SOY_HOST) { iniciarHost(); try { document.body.classList.add('at-host'); } catch (_) {} }
     Promise.resolve(reconectarSiCorresponde()).then(() => { if (SOY_HOST) procesarPendiente(); });
     setTimeout(revisarInvitacion, 700);
-    if (SOY_HOST || !hostVivo()) setTimeout(iniciarInvitaciones, 1800);
+    if (SOY_HOST || !hostVivo()) { setTimeout(iniciarInvitaciones, 1800); setTimeout(iniciarLlamadas, 1500); }
   }
   window.addEventListener('hashchange', () => setTimeout(revisarInvitacion, 100));
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, llamarPrivado, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
+  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, llamarPrivado, aceptarLlamada, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
 })();
 
 window.NikaAteneos = NikaAteneos;

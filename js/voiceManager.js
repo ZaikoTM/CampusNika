@@ -15,6 +15,18 @@ const VoiceManager = (() => {
     { urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'] },
     { urls: 'stun:stun.cloudflare.com:3478' },
   ] };
+  // TURN: credenciales temporales que entrega la función turn-credentials (Cloudflare). Si no responde, se sigue solo con STUN.
+  let turnServers = [], turnHasta = 0;
+  async function cargarTurn() {
+    if (turnServers.length && Date.now() < turnHasta) return;
+    try {
+      const c = cliente(); if (!c || !c.functions) return;
+      const r = await Promise.race([c.functions.invoke('turn-credentials'), new Promise((res) => setTimeout(() => res(null), 4000))]);
+      const ice = r && r.data && r.data.iceServers;
+      if (Array.isArray(ice) && ice.length) { turnServers = ice; turnHasta = Date.now() + 5 * 3600 * 1000; }
+    } catch (_) { /* sin TURN: funciona igual donde la conexión directa es posible */ }
+  }
+  const iceConfig = () => ({ iceServers: ICE_CONFIG.iceServers.concat(turnServers) });
   const MAX_PARTICIPANTES = 4;
   const UMBRAL_VOZ = 0.035;          // RMS a partir del cual se considera que habla
   const RETENCION_VOZ_MS = 450;      // el halo no parpadea entre sílabas
@@ -94,7 +106,7 @@ const VoiceManager = (() => {
     if (peers.size >= MAX_PARTICIPANTES - 1) return null; // sala llena
     if (meta && meta.username && expulsados.has(meta.username)) { enviar('kick', id, {}); return null; }
 
-    const pc = new RTCPeerConnection(ICE_CONFIG);
+    const pc = new RTCPeerConnection(iceConfig());
     p = {
       id, meta: meta || { nombre: 'Compañero' }, pc, stream: new MediaStream(),
       polite: yo.id > id,                // el de id mayor cede ante una colisión de ofertas
@@ -282,6 +294,7 @@ const VoiceManager = (() => {
     }
 
     const c = cliente();
+    await cargarTurn();   // antes de crear conexiones: así ya salen con TURN
     channel = c.channel('ateneo:' + sala, { config: { broadcast: { self: false }, presence: { key: yo.id } } });
 
     channel.on('presence', { event: 'sync' }, sincronizarPresencia);
