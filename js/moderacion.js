@@ -322,7 +322,7 @@
     if (!box || !c) return;
     const { data, error } = await c.rpc('admin_up_stats', { p_limit: 12 });
     box.textContent = '';
-    if (error) { console.warn('[Moderacion] admin_up_stats:', error.message); box.textContent = 'No se pudieron cargar las estadísticas.'; return; }
+    if (error) { console.warn('[Moderacion] admin_up_stats:', error.message); box.textContent = 'No se pudieron cargar las estadísticas (' + (error.message || error.code || 'error') + ').'; return; }
     if (!data || !data.length) {
       box.appendChild(el('p', { text: 'Todavía no hay suficientes simulacros (mínimo 10 respuestas por unidad).', style: 'color:var(--text-muted);font-size:.85rem;padding:12px;' }));
       return;

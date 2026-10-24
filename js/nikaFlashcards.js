@@ -7,16 +7,18 @@
   const URL_CR = 'data/flashcards_criterios.json';
   const URL_FX = 'data/flashcards_farmacos.json';
   const KEY_OK = 'nika_fc_ok';
-  const PAPEL = { 'cr1': '#c7f9cc', 'cr2': '#fbcfe8', 'cr3': '#fecdd3', 'cr4': '#ddd6fe', 'cr5': '#fde68a', 'cr6': '#bae6fd', 'fx1': '#fecdd3', 'fx2': '#ddd6fe', 'fx3': '#bae6fd', 'fx4': '#fbcfe8', 'fx5': '#bbf7d0', 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
+  const PAPEL = { 'cr1': '#c7f9cc', 'cr2': '#fbcfe8', 'cr3': '#fecdd3', 'cr4': '#ddd6fe', 'cr5': '#fde68a', 'cr6': '#bae6fd', 'fx1': '#fecdd3', 'fx2': '#ddd6fe', 'fx3': '#bae6fd', 'fx4': '#fbcfe8', 'fx5': '#bbf7d0', 'mc1': '#bae6fd', 'mc2': '#fbcfe8', 'mc3': '#ddd6fe', 'mc4': '#fecdd3', 'mc5': '#bbf7d0', 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
   const LOGO = 'assets/N%20NIKA.png';
   const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
-  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : /^cr\d+$/.test(String(u)) ? 'criterios' : /^fx\d+$/.test(String(u)) ? 'farmacos' : 'ginecologia');
-  const unidadInicial = (ar) => (ar === 'cirugia' ? 'cx5' : ar === 'criterios' ? 'cr1' : ar === 'farmacos' ? 'fx1' : 'up3-sec4');
+  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : /^cr\d+$/.test(String(u)) ? 'criterios' : /^fx\d+$/.test(String(u)) ? 'farmacos' : /^mc\d+$/.test(String(u)) ? 'anticoncepcion' : 'ginecologia');
+  const unidadInicial = (ar) => (ar === 'cirugia' ? 'cx5' : ar === 'criterios' ? 'cr1' : ar === 'farmacos' ? 'fx1' : ar === 'anticoncepcion' ? 'mc1' : 'up3-sec4');
   const descargoDe = (d, ar) => ((d.meta.descargos || {})[ar]) || d.meta.descargo;
   const areaDe = (p) => p.area || areaDeUnidad((p.up || [])[0]);
   const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const MC_UNIDADES = { mc1: 'Elegir y orientar', mc2: 'Hormonales combinados', mc3: 'Solo progestágeno y DIU', mc4: 'Emergencia y definitivos', mc5: 'Situaciones especiales' };
+  const MC_FICHAS = { 'mac-marco': 'mc1', 'mac-mela-mbcf': 'mc1', 'mac-barrera': 'mc1', 'mac-cambio-metodo': 'mc1', 'mac-aco': 'mc2', 'mac-cme-combinados': 'mc2', 'mac-aci': 'mc2', 'mac-parche-anillo': 'mc2', 'mac-aops': 'mc3', 'mac-ampd': 'mc3', 'mac-implante': 'mc3', 'mac-diu-cobre': 'mc3', 'mac-siu-lng': 'mc3', 'gin-anticoncepcion-ale': 'mc3', 'mac-ahe': 'mc4', 'mac-quirurgica': 'mc4', 'mac-puerperio': 'mc5', 'mac-adolescencia': 'mc5', 'mac-perimenopausia': 'mc5', 'mac-vih': 'mc5', 'mac-discapacidad': 'mc5', 'mac-trans': 'mc5' };
   let D = null, cargando = null, modal = null;
 
   const leerOk = () => { try { return JSON.parse(localStorage.getItem(KEY_OK) || '{}') || {}; } catch (_) { return {}; } };
@@ -89,6 +91,10 @@
           j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (fx.meta && fx.meta.unidades) || {});
           j.meta.descargos = Object.assign({}, j.meta.descargos || {}, { farmacos: fx.meta && fx.meta.descargo });
         }
+        // Métodos anticonceptivos: sección propia (siguen en UP3 · sección 1 de la sala de estudio)
+        j.meta = j.meta || {};
+        j.meta.unidades = Object.assign({}, j.meta.unidades || {}, MC_UNIDADES);
+        (j.patologias || []).forEach((x) => { const u = MC_FICHAS[x.id]; if (u) { x.area = 'anticoncepcion'; x.up = [u].concat((x.up || []).filter((k) => k !== u)); } });
         return j;
       })
       .then((j) => sincronizar().then(() => j))
@@ -318,7 +324,7 @@
   }
   // Texto que acompaña la imagen en WhatsApp: título, área y unidad, una frase de contexto y el link a la ficha pública
   const mensajeCorto = (p) => {
-    const area = ({ cirugia: 'Cirugía', criterios: 'Criterios y escalas', farmacos: 'Fármacos' })[areaDe(p)] || 'Ginecología y Obstetricia';
+    const area = ({ cirugia: 'Cirugía', criterios: 'Criterios y escalas', farmacos: 'Fármacos', anticoncepcion: 'Métodos anticonceptivos' })[areaDe(p)] || 'Ginecología y Obstetricia';
     const uni = ((D && D.meta && D.meta.unidades) || {})[(p.up || [])[0]] || '';
     let lead = String(p.definicion || '').replace(/\s+/g, ' ').trim();
     const m = lead.match(/^(.+?[.!?])(\s|$)/); if (m && m[1].length > 40) lead = m[1];
@@ -562,7 +568,7 @@
 
   const AREAS_MOSAICO = [
     { id: 'ginecologia', nom: 'Ginecología', ico: '🌸', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', ok: true }, { id: 'anticoncepcion', nom: 'Métodos anticonceptivos', ico: '🛡️', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
   ];
 
@@ -577,7 +583,7 @@
       let area = (opts.ups && opts.ups[0]) ? areaDeUnidad(opts.ups[0]) : (opts.area || 'ginecologia');
       let base = [], unidadesTodas = [];
       const prepararArea = () => {
-        base = fichasDe(opts.ups).filter((p) => areaDe(p) === area);
+        base = fichasDe(opts.ups).filter((p) => opts.ups || areaDe(p) === area);
         unidadesTodas = Object.keys(d.meta.unidades || {}).filter((u) => areaDeUnidad(u) === area);
       };
       prepararArea();
@@ -685,7 +691,7 @@
   // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
     { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', c: '#8b5cf6', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', c: '#14b8a6', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', c: '#8b5cf6', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', c: '#14b8a6', ok: true }, { id: 'anticoncepcion', nom: 'Métodos anticonceptivos', ico: '🛡️', c: '#f43f5e', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️', c: '#f59e0b' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃', c: '#8b5cf6' }
   ];
   const CONTENIDOS = [
@@ -727,9 +733,9 @@
   const poolDe = (st) => {
     let ups = null;
     const ar = st.area || 'ginecologia';
-    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : ar === 'criterios' ? ['cr1', 'cr2', 'cr3', 'cr4', 'cr5', 'cr6'] : ar === 'farmacos' ? ['fx1', 'fx2', 'fx3', 'fx4', 'fx5'] : PARCIAL_UPS;
+    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : ar === 'criterios' ? ['cr1', 'cr2', 'cr3', 'cr4', 'cr5', 'cr6'] : ar === 'farmacos' ? ['fx1', 'fx2', 'fx3', 'fx4', 'fx5'] : ar === 'anticoncepcion' ? Object.keys(MC_UNIDADES) : PARCIAL_UPS;
     const c = CONTENIDOS.find((x) => x.id === st.cont);
-    let l = fichasDe(ups).filter((p) => areaDe(p) === ar && seccionesDe(c).some((s) => tieneSec(p, s)));
+    let l = fichasDe(ups).filter((p) => (areaDe(p) === ar || (ar === 'ginecologia' && st.alcance !== 'unidad' && areaDe(p) === 'anticoncepcion')) && seccionesDe(c).some((s) => tieneSec(p, s)));
     if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
     return l;
   };
@@ -805,7 +811,7 @@
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup"><section class="fcs-sec"><h3><span>1</span> ¿Qué unidad querés practicar?</h3>' +
           '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.alcance === 'final' ? ' on' : '') + '" data-alc="final">Toda la materia</button><button type="button" class="fcs-pill' + (st.alcance === 'parcial' ? ' on' : '') + '" data-alc="parcial">' + (st.area === 'cirugia' ? 'Parcial (UP1–UP6)' : 'Parcial (UP1–UP3)') + '</button></div>' +
-          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.area !== 'cirugia' ? ' on' : '') + '" data-parea="ginecologia">🌸 Ginecología y Obstetricia</button><button type="button" class="fcs-pill' + (st.area === 'cirugia' ? ' on' : '') + '" data-parea="cirugia">🔪 Cirugía</button><button type="button" class="fcs-pill' + (st.area === 'criterios' ? ' on' : '') + '" data-parea="criterios">📊 Criterios y escalas</button></div>' +
+          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.area === 'ginecologia' ? ' on' : '') + '" data-parea="ginecologia">🌸 Ginecología y Obstetricia</button><button type="button" class="fcs-pill' + (st.area === 'cirugia' ? ' on' : '') + '" data-parea="cirugia">🔪 Cirugía</button><button type="button" class="fcs-pill' + (st.area === 'criterios' ? ' on' : '') + '" data-parea="criterios">📊 Criterios y escalas</button><button type="button" class="fcs-pill' + (st.area === 'anticoncepcion' ? ' on' : '') + '" data-parea="anticoncepcion">🛡️ Métodos anticonceptivos</button></div>' +
           selUnidad(d, st.alcance === 'unidad' ? st : Object.assign({}, st, { unidad: '' })) + '</section>' +
           '<section class="fcs-sec"><h3><span>2</span> ¿Qué querés ver al dar vuelta la tarjeta?</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
           '<div class="fcs-go"><label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label>' +

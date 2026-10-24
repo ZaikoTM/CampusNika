@@ -1,6 +1,5 @@
--- "Unidades con más fallos" del panel admin: ahora sale de exam_results (by_up) y por eso incluye
+-- "Unidades con más fallos" del panel admin: sale de exam_results (by_up) y por eso incluye
 -- TODAS las materias (Ginecología, Cirugía, S.I.A.M., Clínica...) y todos los modos de simulacro.
--- Antes solo veía las respuestas de Cirugía y Ginecología nunca aparecía.
 -- Idempotente. Mínimo 10 respuestas por unidad.
 drop function if exists public.admin_up_stats(int);
 
@@ -12,21 +11,25 @@ security definer
 set search_path = public
 as $$
 begin
-  if not public.is_admin() then
+  if not exists (select 1 from public.profiles pr where pr.id = auth.uid() and lower(pr.role::text) = 'admin') then
     raise exception 'No autorizado' using errcode = '42501';
   end if;
   return query
-    select e.key::text as up,
-           r.modulo::text,
-           sum((e.value->>'total')::bigint) as total,
-           sum((e.value->>'total')::bigint - (e.value->>'correct')::bigint) as fallos,
-           round(100.0 * sum((e.value->>'total')::bigint - (e.value->>'correct')::bigint)
-                 / nullif(sum((e.value->>'total')::bigint), 0), 1) as pct_fallos
-    from public.exam_results r
-    cross join lateral jsonb_each(coalesce(to_jsonb(r.by_up), '{}'::jsonb)) e
-    where jsonb_typeof(e.value) = 'object'
-    group by e.key, r.modulo
-    having sum((e.value->>'total')::bigint) >= 10
+    select x.k::text,
+           x.m::text,
+           sum(x.t)::bigint,
+           sum(x.t - x.c)::bigint,
+           round(100.0 * sum(x.t - x.c) / nullif(sum(x.t), 0), 1)
+    from (
+      select r.modulo::text as m, e.key as k,
+             case when (e.value->>'total') ~ '^[0-9]+$' then (e.value->>'total')::bigint else 0 end as t,
+             case when (e.value->>'correct') ~ '^[0-9]+$' then (e.value->>'correct')::bigint else 0 end as c
+      from public.exam_results r
+      cross join lateral jsonb_each(coalesce(to_jsonb(r.by_up), '{}'::jsonb)) e
+      where jsonb_typeof(e.value) = 'object'
+    ) x
+    group by x.k, x.m
+    having sum(x.t) >= 10
     order by 5 desc, 3 desc
     limit greatest(1, least(coalesce(p_limit, 12), 100));
 end;
@@ -34,3 +37,4 @@ $$;
 
 revoke all on function public.admin_up_stats(int) from public, anon;
 grant execute on function public.admin_up_stats(int) to authenticated;
+notify pgrst, 'reload schema';
