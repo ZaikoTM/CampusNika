@@ -30,7 +30,7 @@ const GuardiaModal = (() => {
 
   const BASE_URLS = ['campus.html', 'estudio.html', 'sala_estudio.html', 'examen.html', 'nikasim.html', 'acreditaciones.html', 'pfo_estudio.html',
     'recetarios.html', 'nikafarma.html', 'cirugia_hub.html', 'siam_hub.html', 'gineco_hub.html', 'offline.html', 'styles.css', 'supabaseClient.js',
-    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js', 'js/estudio/pdfOffline.js', 'js/estudio/pdfSync.js', 'js/estudio/pdfExtras.js', 'js/estudio/pdfExportar.js', 'assets/n-nika.svg', 'assets/nika-texto.svg', 'js/estudio/pdfAnotaciones.js', 'js/nikaNotificaciones.js',
+    'js/rendimiento.js', 'js/examen.js', 'js/offlineStorage.js', 'js/syncManager.js', 'js/guardiaModal.js', 'js/estudio/estudio.js', 'js/estudio/pdfLector.js', 'js/estudio/pdfOffline.js', 'js/estudio/pdfSync.js', 'js/estudio/pdfConvertir.js', 'js/estudio/pdfExtras.js', 'js/estudio/pdfExportar.js', 'assets/n-nika.svg', 'assets/nika-texto.svg', 'js/estudio/pdfAnotaciones.js', 'js/nikaNotificaciones.js',
     'js/pfoEstudio.js', 'css/pfo-estudio.css', 'css/pfo.css', 'js/acreditaciones/motor.js', 'js/recetarios.js', 'js/recetariosData.js', 'css/recetarios.css',
     'data/modulos.json'];
 
@@ -362,7 +362,7 @@ const GuardiaModal = (() => {
   let _pdfOffPromesa = null, _pdfSyncCargado = false;
   function _pdfs(red) {
     if (!window.NikaPdfOffline) {
-      if (!_pdfOffPromesa) _pdfOffPromesa = new Promise((ok) => { const sc = document.createElement('script'); sc.src = 'js/estudio/pdfOffline.js?v=2'; sc.onload = () => ok(true); sc.onerror = () => { _pdfOffPromesa = null; ok(false); }; document.head.appendChild(sc); });
+      if (!_pdfOffPromesa) _pdfOffPromesa = new Promise((ok) => { const sc = document.createElement('script'); sc.src = 'js/estudio/pdfOffline.js?v=3'; sc.onload = () => ok(true); sc.onerror = () => { _pdfOffPromesa = null; ok(false); }; document.head.appendChild(sc); });
       _pdfOffPromesa.then((ok) => { if (ok && _montado) _pdfs(hayRed()); });
       return;
     }

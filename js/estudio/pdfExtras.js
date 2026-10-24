@@ -374,7 +374,7 @@
     return listo();
   }
   async function popOffline(mi, btn) {
-    const ok = await cargarScript('js/estudio/pdfOffline.js?v=2', () => !!window.NikaPdfOffline);
+    const ok = await cargarScript('js/estudio/pdfOffline.js?v=3', () => !!window.NikaPdfOffline);
     if (!ok) { aviso('No se pudo cargar la descarga sin conexión'); return; }
     const OFF = window.NikaPdfOffline, est = await OFF.estado(mi.fileId), todos = await OFF.lista();
     const totalB = todos.reduce((a, d) => a + d.size, 0);
@@ -397,7 +397,7 @@
       cerrarPop(mi);
       if (document.fullscreenElement || document.querySelector('.nkpdf-fsfix')) { try { lector().pantalla(); } catch (_) {} await dormir(250); }
       if (!window.OfflineStorage) await cargarScript('js/offlineStorage.js', () => !!window.OfflineStorage);
-      if (!window.GuardiaModal) await cargarScript('js/guardiaModal.js?v=14', () => !!window.GuardiaModal);
+      if (!window.GuardiaModal) await cargarScript('js/guardiaModal.js?v=15', () => !!window.GuardiaModal);
       if (window.GuardiaModal) window.GuardiaModal.abrir({ grupo: 'pdf' }); else aviso('No se pudo abrir el Modo Sin conexión');
     };
   }

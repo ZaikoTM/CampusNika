@@ -33,6 +33,7 @@
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (n) => (n >= 1e9 ? (n / 1e9).toFixed(2).replace('.', ',') + ' GB' : n >= MB ? (n / MB).toFixed(n >= 100 * MB ? 0 : 1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / KB)) + ' KB');
   const llave = (id) => new Request(location.origin + '/__pdf_offline/' + encodeURIComponent(id));
+  const llaveConv = (id) => new Request(location.origin + '/__pdf_conv/' + encodeURIComponent(id));   // PDFs convertidos desde PowerPoint/Word (js/estudio/pdfConvertir.js)
   const hayCache = () => typeof caches !== 'undefined' && !!caches.open;
   const hayRed = () => navigator.onLine !== false;
 
@@ -120,6 +121,26 @@
   }
 
   const avisarCambio = () => { try { window.dispatchEvent(new CustomEvent('nika-pdf-offline')); } catch (_) {} };
+  // Versión convertida (PowerPoint/Word → PDF) de un archivo de Drive: se reutiliza mientras el original no cambie
+  async function leerConv(id) {
+    if (!hayCache()) return null;
+    let r; try { const c = await caches.open(CACHE); r = await c.match(llaveConv(id)); } catch (_) { return null; }
+    if (!r) return null;
+    if (hayRed()) {
+      const md = await metaDrive(id, 3500), md5 = r.headers.get('x-nika-md5') || '', mod = r.headers.get('x-nika-mod') || '';
+      if (md && ((md.md5 && md5 && md.md5 !== md5) || (!md.md5 && md.mod && mod && md.mod !== mod))) return null;
+    }
+    try { return new Uint8Array(await r.arrayBuffer()); } catch (_) { return null; }
+  }
+  async function guardarConv(id, titulo, bytes) {
+    if (!hayCache()) return;
+    try {
+      const m = metaTodos()[id] || await metaDrive(id, 4000) || {}, blob = new Blob([bytes], { type: 'application/pdf' });
+      const c = await caches.open(CACHE);
+      await c.put(llaveConv(id), new Response(blob, { headers: { 'Content-Type': 'application/pdf', 'Content-Length': String(blob.size), 'x-nika-titulo': encodeURIComponent(titulo || ''), 'x-nika-ts': String(Date.now()), 'x-nika-md5': m.md5 || '', 'x-nika-mod': m.mod || '' } }));
+      pedirPersistencia();
+    } catch (_) {}
+  }
   async function quitar(id) { try { const c = await caches.open(CACHE); const r = await c.delete(llave(id)); avisarCambio(); return r; } catch (_) { return false; } }
   async function borrarTodo() { try { await caches.delete(CACHE); } catch (_) {} avisarCambio(); }
 
@@ -385,7 +406,7 @@
   if (/estudio|sala_estudio/i.test(location.pathname)) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciarMarcas); else iniciarMarcas(); }
 
   window.NikaPdfOffline = {
-    estado, leer, guardarBuffer, descargar, quitar, lista, espacio, borrarTodo, pintar, asegurarLibs, libUrl, refrescarSiGuardado, metaDrive,
+    estado, leer, leerConv, guardarConv, guardarBuffer, descargar, quitar, lista, espacio, borrarTodo, pintar, asegurarLibs, libUrl, refrescarSiGuardado, metaDrive,
     ocupado: () => _ocupado, fmt, FUENTES, catalogo,
   };
 })();
