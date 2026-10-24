@@ -816,6 +816,8 @@
     let tm = null;
     mi.uiRO = new ResizeObserver(() => { clearTimeout(tm); tm = setTimeout(() => { if (S === mi) { aplicarUi(mi); clampRail(mi); } }, 120); });
     mi.uiRO.observe(mi.root);
+    const cu0 = $('.nkpdf-cuerpo', mi.root); if (cu0) mi.uiRO.observe(cu0);   // si la barra de arriba cambia de alto (se acomoda, se suman botones), el área de lectura cambia aunque el lector no
+    [200, 700, 1600].forEach((ms) => setTimeout(() => { if (S === mi) clampRail(mi); }, ms));   // el primer cálculo ocurre antes de que termine el armado: se repite al asentarse
     let ult = 0;
     mi.scroll.addEventListener('scroll', () => {   // opcional: la barra se esconde al bajar y vuelve al subir
       const y = mi.scroll.scrollTop, d = y - ult; ult = y;
@@ -950,7 +952,9 @@
   }
   function clampRail(mi) {
     const r = $('.nkpdf-rail', mi.root), cu = $('.nkpdf-cuerpo', mi.root); if (!r || !cu) return;
-    const cr = cu.getBoundingClientRect(), rr = r.getBoundingClientRect(); if (!cr.width) return;
+    const cr = cu.getBoundingClientRect(); if (!cr.width) return;
+    r.style.maxHeight = Math.max(160, cr.height - 24) + 'px';   // el alto disponible cambia cuando la barra de arriba termina de acomodarse: se recalcula siempre
+    const rr = r.getBoundingClientRect();
     const x = Math.max(4, Math.min(cr.width - rr.width - 4, rr.left - cr.left)), y = Math.max(4, Math.min(cr.height - rr.height - 4, rr.top - cr.top));
     r.style.left = x + 'px'; r.style.top = y + 'px'; r.style.right = 'auto';
   }
