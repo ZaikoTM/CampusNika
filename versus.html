@@ -1209,49 +1209,63 @@
     }
     const _itemsDe = (res) => (res && res.data && Array.isArray(res.data)) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
 
+    let _cirOrganizado = null;
+    const _prefijoUnidad = (u) => (UNIDADES_MAT ? `up${u.id}` : `up${u.n}`);
+    const _mapearLista = (items, u) => (items || []).map((item, idx) => _mapearPregunta(item, u.n, idx, _prefijoUnidad(u))).filter(Boolean);
+
+    async function _bancoDeSupabase(u) {
+        try {
+            if (!(window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function')) return [];
+            return _mapearLista(_itemsDe(await window.NikaSupabase.cargarPreguntasUP({ modulo: MODULO, upId: u.id })), u);
+        } catch (err) { console.warn('[Versus] Supabase no respondió para la unidad', u.id, err); return []; }
+    }
+    async function _bancoLocal(u) {
+        try {
+            if (UNIDADES_MAT) {
+                const r = await fetch(u.archivo); if (!r.ok) return [];
+                const j = await r.json(); return _mapearLista(Array.isArray(j) ? j : (j.preguntas || j.questions || []), u);
+            }
+            if (u.n <= 5) {   // Cirugía UP1-5: archivo organizado
+                if (!_cirOrganizado) { const r = await fetch('db_cirugia_organizado.json'); _cirOrganizado = r.ok ? await r.json() : {}; }
+                const bloque = _cirOrganizado[`up${u.n}`];
+                return bloque && bloque.questions ? _mapearLista(bloque.questions, u) : [];
+            }
+            const r = await fetch(`data/banco_up${String(u.n).padStart(2, '0')}.json`); if (!r.ok) return [];   // Cirugía UP6-11
+            const j = await r.json(); return _mapearLista(Array.isArray(j) ? j : (j.preguntas || j.questions || []), u);
+        } catch (err) { console.warn('[Versus] Respaldo local falló para la unidad', u.id, err); return []; }
+    }
+    // Bancos de Trauma y Suturas (Cirugía): solo entran en el duelo «final»
+    function _cargarScriptBanco(src, ya) {
+        return new Promise((ok) => {
+            if (ya()) return ok(true);
+            const sc = document.createElement('script'); sc.src = src; sc.onload = () => ok(ya()); sc.onerror = () => ok(false); document.head.appendChild(sc);
+        });
+    }
+    async function _bancosExtraCirugia() {
+        const extra = [];
+        const fuentes = [
+            ['data/banco_trauma_superior.js', () => typeof bancoTraumaSuperior !== 'undefined', () => bancoTraumaSuperior, 'traumaMS'],
+            ['data/banco_trauma_inferior.js', () => typeof bancoTraumaInferior !== 'undefined', () => bancoTraumaInferior, 'traumaMI'],
+            ['data/banco_suturas.js', () => typeof bancoSuturas !== 'undefined', () => bancoSuturas, 'suturas'],
+        ];
+        for (const [src, ya, dame, pref] of fuentes) {
+            try { if (await _cargarScriptBanco(src, ya)) dame().forEach((item, idx) => extra.push(_mapearPregunta(item, pref, idx, pref))); } catch (_) {}
+        }
+        return extra.filter(Boolean);
+    }
+
     async function _cargarBancoPreguntas(modo, upEspecifica) {
         const unidades = _unidadesDelModo(modo, upEspecifica);
-        bancoPreguntas = [];
-
-        // 1) Supabase (bancos_json); 2) archivo local del sitio (materias nuevas) o db_cirugia_organizado.json (cirugía)
-        try {
-            if (window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
-                const resultados = await Promise.all(unidades.map((u) => window.NikaSupabase.cargarPreguntasUP({ modulo: MODULO, upId: u.id }).catch(() => ({ data: [] }))));
-                resultados.forEach((res, i) => { _itemsDe(res).forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, unidades[i].n, idx, UNIDADES_MAT ? `up${unidades[i].id}` : `up${unidades[i].n}`))); });
-            }
-        } catch (err) {
-            console.warn("[Versus] Error consultando Supabase, recurriendo a respaldo local:", err);
-        }
-        bancoPreguntas = bancoPreguntas.filter(Boolean);
-
-        if (bancoPreguntas.length === 0) {
-            try {
-                if (UNIDADES_MAT) {
-                    for (const u of unidades) {
-                        const r = await fetch(u.archivo); if (!r.ok) continue;
-                        const j = await r.json(); const items = Array.isArray(j) ? j : (j.preguntas || j.questions || []);
-                        items.forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.id}`)));
-                    }
-                } else {
-                    const res = await fetch('db_cirugia_organizado.json');
-                    const raw = await res.json();
-                    unidades.forEach((u) => {
-                        const bloque = raw[`up${u.n}`];
-                        if (bloque && bloque.questions) bloque.questions.forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.n}`)));
-                    });
-                    // Cirugía UP6-11: el archivo organizado solo trae UP1-5, el resto está en data/banco_upNN.json
-                    for (const u of unidades.filter((x) => x.n >= 6)) {
-                        try {
-                            const r = await fetch(`data/banco_up${String(u.n).padStart(2, '0')}.json`); if (!r.ok) continue;
-                            const j = await r.json(); (Array.isArray(j) ? j : (j.preguntas || j.questions || [])).forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.n}`)));
-                        } catch (_) {}
-                    }
-                }
-            } catch (fallbackErr) {
-                console.error("[Versus] Error cargando base de respaldo local:", fallbackErr);
-            }
-        }
-        bancoPreguntas = bancoPreguntas.filter(Boolean);
+        // Por unidad: Cirugía prueba primero Supabase y las materias con catálogo propio sus archivos locales; si la
+        // fuente no trae nada para esa unidad se usa la otra (antes bastaba con que UNA unidad viniera de Supabase
+        // para que las demás no se buscaran en ningún lado).
+        const porUnidad = await Promise.all(unidades.map(async (u) => {
+            let l = UNIDADES_MAT ? await _bancoLocal(u) : await _bancoDeSupabase(u);
+            if (!l.length) l = UNIDADES_MAT ? await _bancoDeSupabase(u) : await _bancoLocal(u);
+            return l;
+        }));
+        bancoPreguntas = porUnidad.flat();
+        if (!UNIDADES_MAT && modo === 'final') bancoPreguntas = bancoPreguntas.concat(await _bancosExtraCirugia());
         return bancoPreguntas;
     }
 
