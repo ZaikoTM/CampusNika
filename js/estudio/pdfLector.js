@@ -110,7 +110,7 @@
     libPromesa = (async () => {
       try { await poner(PDFJS + 'pdf.min.js'); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; }
       catch (e) {   // sin conexión: se usan las copias que guardó pdfOffline.js en el dispositivo
-        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=4', () => window.NikaPdfOffline);
+        const OFF = await cargarModulo('js/estudio/pdfOffline.js?v=5', () => window.NikaPdfOffline);
         const u = OFF && await OFF.libUrl('pdf.min.js'), w = OFF && await OFF.libUrl('pdf.worker.min.js');
         if (!u || !w) throw new Error('No se pudo cargar pdf.js');
         await poner(u); window.__nikaPdfWorker = w; window.pdfjsLib.GlobalWorkerOptions.workerSrc = w;
@@ -1512,6 +1512,28 @@
     };
   }
 
+  // Conversiones de PowerPoint/Word: las hace la cola en segundo plano (js/nikaConversiones.js), que sigue aunque se cierre el lector
+  // o se cambie de página. Acá solo se muestra su avance mientras el lector está esperando ese archivo.
+  function esperarConv(fileId, ui, mi) {
+    const NCV = window.NikaConv;
+    return new Promise((res, rej) => {
+      const suelta = NCV.mirar(fileId);
+      const fin = () => { off(); suelta(); };
+      const aplicar = (m) => {
+        if (S !== mi) { fin(); return; }
+        if (m.k === 'prog') ui.convirtiendo(m.i, m.t);
+        else if (m.k === 'fase') ui.fase(m.a, m.b);
+        else if (m.k === 'baja') ui.fase('Descargando de Drive…', m.det);
+        else if (m.k === 'fin') { fin(); NCV.pdfDe(fileId).then((p) => (p ? res(p) : rej(new Error('No se pudo guardar la conversión'))), rej); }
+        else if (m.k === 'err') { fin(); rej(new Error(m.msg)); }
+        else if (m.k === 'quitado') { fin(); rej(new Error('cancelado')); }
+      };
+      const off = NCV.escuchar((m) => { if (m.id === fileId) aplicar(m); });
+      const v = NCV.estado(fileId);
+      if (v && v.t) ui.convirtiendo(v.i, v.t); else if (v && v.fase) ui.fase(v.fase, v.det);
+    });
+  }
+
   async function abrir(op) {
     cerrar(); css(); ultimoOp = op; quitarVolver();
     const { wrapper, fileId, title, fallback } = op;
@@ -1522,7 +1544,10 @@
     S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: favoritos()[0], panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
     const volver = (motivo) => { ui.fin(); if (S !== mi) return; if (motivo && typeof window.showToast === 'function' && /convert|formato|pesa/i.test(motivo)) window.showToast(motivo); const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
-    ui.alOriginal(() => volver());   // «Ver el original en Drive mientras tanto»: cancela la conversión y muestra el visor de Drive
+    ui.alOriginal(() => {   // «Ver el original en Drive mientras tanto»: muestra el visor de Drive y la conversión sigue en segundo plano
+      if (typeof window.showToast === 'function') window.showToast('Seguimos convirtiendo en segundo plano: te avisamos cuando esté listo ✨');
+      volver();
+    });
     const abrirBytes = async (buf) => {
       if (S !== mi) return;
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
@@ -1541,7 +1566,7 @@
       if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
     };
     try {
-      await cargarModulo('js/estudio/pdfOffline.js?v=4', () => window.NikaPdfOffline);
+      await cargarModulo('js/estudio/pdfOffline.js?v=5', () => window.NikaPdfOffline);
       await cargarLib();
       // ¿Está guardado en este dispositivo? Se abre desde ahí si sigue igual que en Drive (o si no hay conexión)
       let guardado = null;
@@ -1550,6 +1575,12 @@
       let convertido = null;   // ¿ya se convirtió antes este PowerPoint/Word en este dispositivo?
       if (window.NikaPdfOffline) { try { convertido = await window.NikaPdfOffline.leerConv(fileId); } catch (_) {} }
       if (convertido) { ui.armando(); mi.convertido = 'previo'; await abrirBytes(convertido); return; }
+      if (window.NikaConv && await window.NikaConv.enCurso(fileId)) {   // la conversión sigue en segundo plano: se vuelve a mostrar su avance sin bajar el archivo otra vez
+        ui.convirtiendo(0, 1);
+        const pdfConv = await esperarConv(fileId, ui, mi);
+        if (S !== mi) return;
+        mi.convertido = 'nuevo'; ui.armando(); await abrirBytes(pdfConv); return;
+      }
       // PDF subido a Drive: descarga directa. Presentaciones y documentos de Google (nativos): se exportan a PDF.
       const base = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`;
       let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
@@ -1575,12 +1606,13 @@
       } else buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') {
         // PowerPoint o Word en Drive: se convierte a PDF en el dispositivo para poder usar el lector (subrayar, dibujar, escribir…)
-        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=3', () => window.NikaPdfConvertir);
+        const NC = await cargarModulo('js/estudio/pdfConvertir.js?v=4', () => window.NikaPdfConvertir);
         if (!NC || !NC.tipo(buf)) throw new Error('no es un PDF');
+        if (!(await cargarModulo('js/nikaConversiones.js?v=1', () => window.NikaConv))) throw new Error('No se pudo preparar la conversión');
         ui.convirtiendo(0, 1);
-        const pdfConv = await NC.convertir(buf, { titulo: title, alAvance: (i, t) => ui.convirtiendo(i, t), alFase: (a, b) => ui.fase(a, b), cancelado: () => S !== mi });
+        const lista = window.NikaConv.encolar({ id: fileId, title, bytes: buf });
+        const pdfConv = await lista.then(() => esperarConv(fileId, ui, mi));
         if (S !== mi) return;
-        if (window.NikaPdfOffline) window.NikaPdfOffline.guardarConv(fileId, title, pdfConv);
         mi.convertido = 'nuevo'; buf = pdfConv;
       }
       ui.armando();

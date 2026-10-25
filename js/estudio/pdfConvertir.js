@@ -275,22 +275,29 @@
         const { el, pals, y0, y1, W, base } = trabajos[i], H = y1 - y0;
         const esc = Math.min(1.6, 2000 / Math.max(W, 1));
         const opt = { scale: esc, backgroundColor: '#ffffff', useCORS: true, logging: false };
-        let cv;
-        if (info.t === 'docx') {
-          // Word: se muestra una ventana del alto de cada trozo y se desplaza el documento detrás de ella
-          if (!marco) {
-            marco = document.createElement('div'); marco.id = 'nk-conv-marco';
-            marco.style.cssText = 'position:absolute;left:0;top:0;overflow:hidden;background:#fff;opacity:.01;pointer-events:none;z-index:-1';
-            document.body.appendChild(marco); marco.appendChild(cont);
-            cont.style.cssText = 'position:absolute;left:0;top:0;background:#fff';
-          }
-          marco.style.width = W + 'px'; marco.style.height = H + 'px'; cont.style.top = (-(base + y0)) + 'px';
-          await dormir(30);
-          cv = await window.html2canvas(marco, Object.assign({}, opt, { onclone: (d) => { const m = d.getElementById('nk-conv-marco'); if (m) { m.style.opacity = '1'; m.style.zIndex = '0'; } } }));   // la opacidad baja (para que no se vea en pantalla) no debe pasar al dibujo
-        } else cv = await window.html2canvas(el, opt);
-        const blob = await new Promise((res) => cv.toBlob(res, 'image/jpeg', 0.88));
-        const img = await pdf.embedJpg(new Uint8Array(await blob.arrayBuffer()));
-        cv.width = cv.height = 1;
+        // si la conversión se interrumpió (cambio de página, cierre), las hojas ya capturadas se reutilizan y solo se arma lo que falta
+        let jpg = null;
+        if (op.cp) { try { jpg = await op.cp.leer(i); } catch (_) {} }
+        if (!jpg) {
+          let cv;
+          if (info.t === 'docx') {
+            // Word: se muestra una ventana del alto de cada trozo y se desplaza el documento detrás de ella
+            if (!marco) {
+              marco = document.createElement('div'); marco.id = 'nk-conv-marco';
+              marco.style.cssText = 'position:absolute;left:0;top:0;overflow:hidden;background:#fff;opacity:.01;pointer-events:none;z-index:-1';
+              document.body.appendChild(marco); marco.appendChild(cont);
+              cont.style.cssText = 'position:absolute;left:0;top:0;background:#fff';
+            }
+            marco.style.width = W + 'px'; marco.style.height = H + 'px'; cont.style.top = (-(base + y0)) + 'px';
+            await dormir(30);
+            cv = await window.html2canvas(marco, Object.assign({}, opt, { onclone: (d) => { const m = d.getElementById('nk-conv-marco'); if (m) { m.style.opacity = '1'; m.style.zIndex = '0'; } } }));   // la opacidad baja (para que no se vea en pantalla) no debe pasar al dibujo
+          } else cv = await window.html2canvas(el, opt);
+          const blob = await new Promise((res) => cv.toBlob(res, 'image/jpeg', 0.88));
+          jpg = new Uint8Array(await blob.arrayBuffer());
+          cv.width = cv.height = 1;
+          if (op.cp) { try { await op.cp.guardar(i, jpg); } catch (_) {} }
+        }
+        const img = await pdf.embedJpg(jpg);
         if (info.t === 'pptx' && el.parentNode) el.remove();   // se libera la diapositiva ya capturada (los archivos pesados no deben llenar la memoria)
         const pg = pdf.addPage([W * K, H * K]);
         pg.drawImage(img, { x: 0, y: 0, width: W * K, height: H * K });

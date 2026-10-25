@@ -154,6 +154,7 @@
       pedirPersistencia();
     } catch (_) {}
   }
+  async function tieneConv(id) { if (!hayCache()) return false; try { const c = await caches.open(CACHE); return !!(await c.match(llaveConv(id))); } catch (_) { return false; } }
   async function quitar(id) { try { const c = await caches.open(CACHE); const r = await c.delete(llave(id)); avisarCambio(); return r; } catch (_) { return false; } }
   async function borrarTodo() { try { await caches.delete(CACHE); } catch (_) {} avisarCambio(); }
 
@@ -420,6 +421,6 @@
 
   window.NikaPdfOffline = {
     estado, leer, leerConv, guardarConv, guardarBuffer, descargar, quitar, lista, espacio, borrarTodo, pintar, asegurarLibs, libUrl, refrescarSiGuardado, metaDrive,
-    ocupado: () => _ocupado, fmt, FUENTES, catalogo,
+    ocupado: () => _ocupado, fmt, FUENTES, catalogo, tieneConv, metaCache: (id) => metaTodos()[id] || null,
   };
 })();
