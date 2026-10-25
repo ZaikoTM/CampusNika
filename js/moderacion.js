@@ -316,13 +316,21 @@
     });
   }
 
+  let upStatsModulo = '';
   async function renderAdminUpStats(containerId) {
     const box = document.getElementById(containerId);
     const c = client();
     if (!box || !c) return;
-    const { data, error } = await c.rpc('admin_up_stats', { p_limit: 12 });
+    const { data, error } = await c.rpc('admin_up_stats', { p_limit: 12, p_modulo: upStatsModulo || null });
     box.textContent = '';
-    if (error) { console.warn('[Moderacion] admin_up_stats:', error.message); box.textContent = 'No se pudieron cargar las estadísticas (' + (error.message || error.code || 'error') + ').'; return; }
+    const chips = el('div', { style: 'display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;' });
+    [['', 'Todas'], ['cirugia', 'Cirugía'], ['ginecologia', 'Ginecología'], ['siam', 'S.I.A.M.']].forEach(([v, t]) => {
+      const b = el('button', { type: 'button', text: t, style: 'padding:6px 12px;border-radius:999px;border:1px solid #cbd5e1;font-weight:700;font-size:.78rem;cursor:pointer;background:' + (upStatsModulo === v ? '#06b6d4;color:#fff' : '#fff;color:#334155') + ';' });
+      b.addEventListener('click', () => { upStatsModulo = v; renderAdminUpStats(containerId); });
+      chips.appendChild(b);
+    });
+    box.appendChild(chips);
+    if (error) { console.warn('[Moderacion] admin_up_stats:', error.message); box.appendChild(el('p', { text: 'No se pudieron cargar las estadísticas (' + (error.message || error.code || 'error') + ').' })); return; }
     if (!data || !data.length) {
       box.appendChild(el('p', { text: 'Todavía no hay suficientes simulacros (mínimo 10 respuestas por unidad).', style: 'color:var(--text-muted);font-size:.85rem;padding:12px;' }));
       return;

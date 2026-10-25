@@ -1,9 +1,10 @@
 -- "Unidades con más fallos" del panel admin: sale de exam_results (by_up) y por eso incluye
 -- TODAS las materias (Ginecología, Cirugía, S.I.A.M., Clínica...) y todos los modos de simulacro.
--- Idempotente. Mínimo 10 respuestas por unidad.
+-- Idempotente. Mínimo 10 respuestas por unidad. Filtra por materia (p_modulo) y deja afuera los modos escrito y recetario.
 drop function if exists public.admin_up_stats(int);
+drop function if exists public.admin_up_stats(int, text);
 
-create or replace function public.admin_up_stats(p_limit int default 12)
+create or replace function public.admin_up_stats(p_limit int default 12, p_modulo text default null)
 returns table (up text, modulo text, total bigint, fallos bigint, pct_fallos numeric)
 language plpgsql
 stable
@@ -27,6 +28,8 @@ begin
       from public.exam_results r
       cross join lateral jsonb_each(coalesce(to_jsonb(r.by_up), '{}'::jsonb)) e
       where jsonb_typeof(e.value) = 'object'
+        and coalesce(r.mode, '') not like 'recetario%' and coalesce(r.mode, '') <> 'escrito'   -- no son por pregunta
+        and (p_modulo is null or r.modulo::text = p_modulo)
     ) x
     group by x.k, x.m
     having sum(x.t) >= 10
@@ -35,6 +38,6 @@ begin
 end;
 $$;
 
-revoke all on function public.admin_up_stats(int) from public, anon;
-grant execute on function public.admin_up_stats(int) to authenticated;
+revoke all on function public.admin_up_stats(int, text) from public, anon;
+grant execute on function public.admin_up_stats(int, text) to authenticated;
 notify pgrst, 'reload schema';
