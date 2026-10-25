@@ -328,7 +328,7 @@
       '<p class="npg-sub">Término ' + (run.idx + 1) + ' de ' + run.n + ' · ' + run.total + ' puntos · ' + run.errores + (run.errores === 1 ? ' error' : ' errores') + '.' + (run.tiempo ? ' Te quedan ' + C.mmss(run.restante) + '.' : '') + '</p>' +
       '<div class="nw-acc"><button type="button" class="nw-comenzar" data-ir><i>' + IC2.play + '</i>Continuar</button><button type="button" class="nw-volver" data-nueva><i>' + IC2.engr + '</i>Partida nueva</button></div></section></div>' :
       '<div class="nw-cab">' + logoHtml(false) + '<p class="nw-sub">Descubrí el término médico escondido</p><div class="nw-nota">' + (run.retoDe ? esc(run.retoDe) + ' te desafía: ¡superá sus ' + run.retoPts + ' puntos con los mismos términos!' : '¡Poné a prueba tus conocimientos y ganá puntos!') + '</div></div>' +
-      '<div class="nw-cols"><div class="nw-docol">' + DOCTOR({ lado: 'der', clase: 'dr-grande' }) + '</div>' + comoHtml() + configHtml() + '</div>') + '</main></div>';
+      '<div class="nw-cols"><div class="nw-docol">' + DOCTOR({ lado: 'der', clase: 'dr-grande dr-fijo', src: 'assets/nikaplay/doctor/saluda.webp', asp: '420 / 362' }) + '</div>' + comoHtml() + configHtml() + '</div>') + '</main></div>';
     if (!enPausa) pintarConfig();
     dec(enPausa ? '¡Bienvenido de vuelta! Seguimos.' : '¡Vamos a jugar!', enPausa ? 'hola' : 'hola', 0);
   }

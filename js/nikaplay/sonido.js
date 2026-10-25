@@ -21,6 +21,9 @@
   function secuencia(fs, paso, dur, tipo, vol) { fs.forEach(function (f, i) { nota(f, i * paso, dur, tipo, vol); }); }
   function vib(p) { if (mudo) return; try { if (navigator.vibrate) navigator.vibrate(p); } catch (_) {} }
 
+  // el navegador exige un gesto del usuario para activar el audio: se desbloquea con el primer toque o tecla de la página
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { document.addEventListener(ev, function f() { ac(); document.removeEventListener(ev, f, true); }, true); });
+
   NP.sonido = {
     esta: function () { return !mudo; },
     alternar: function () { mudo = !mudo; try { localStorage.setItem(KEY, mudo ? '0' : '1'); } catch (_) {} if (!mudo) this.clic(); return !mudo; },
@@ -37,7 +40,8 @@
     acierto: function () { secuencia([523, 659, 784, 1047], 0.085, 0.2, 'sine', 0.15); vib(35); },
     racha: function (n) { var b = 700 + Math.min(n, 6) * 70; secuencia([b, b * 1.25, b * 1.5], 0.06, 0.14, 'triangle', 0.1); },
     pista: function () { nota(880, 0, 0.1, 'sine', 0.1); nota(1320, 0.09, 0.14, 'sine', 0.1); },
-    tic: function (urgente) { nota(urgente ? 1500 : 1000, 0, 0.035, 'square', urgente ? 0.06 : 0.035); if (urgente) vib(15); },
+    tic: function (urgente) { nota(urgente ? 1250 : 900, 0, urgente ? 0.07 : 0.05, 'square', urgente ? 0.16 : 0.09); if (urgente) { nota(620, 0.09, 0.05, 'sine', 0.1); vib(15); } },
+    desbloquear: function () { ac(); },
     victoria: function () { secuencia([523, 659, 784, 659, 784, 1047, 1319], 0.11, 0.24, 'triangle', 0.15); vib([40, 30, 40, 30, 90]); },
     derrota: function () { secuencia([392, 349, 311, 262], 0.17, 0.3, 'sine', 0.12); vib(80); }
   };

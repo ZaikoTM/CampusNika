@@ -64,7 +64,7 @@
   /** Marca del doctor con globo de diálogo. opts: { lado: 'izq'|'der', clase } */
   function html(opts) {
     opts = opts || {};
-    if (PNG.listo) return '<div class="dr dr-png dr-' + (opts.lado || 'der') + (opts.clase ? ' ' + opts.clase : '') + '" data-e="n" data-p="idle" data-estado="idle" style="--dr-asp:' + PNG.proporcion + '"><div class="dr-burbuja" role="status" aria-live="polite"></div><img class="dr-img" src="' + ruta('idle') + '" alt="" draggable="false"></div>';
+    if (PNG.listo) return '<div class="dr dr-png dr-' + (opts.lado || 'der') + (opts.clase ? ' ' + opts.clase : '') + '" data-e="n" data-p="idle" data-estado="idle" style="--dr-asp:' + (opts.asp || PNG.proporcion) + '"><div class="dr-burbuja" role="status" aria-live="polite"></div><img class="dr-img" src="' + (opts.src || ruta('idle')) + '" alt="" draggable="false"></div>';
     return '<div class="dr dr-' + (opts.lado || 'der') + (opts.clase ? ' ' + opts.clase : '') + '" data-e="n" data-p="idle" data-estado="idle"><div class="dr-burbuja" role="status" aria-live="polite"></div>' + SVG + '</div>';
   }
 
@@ -73,7 +73,7 @@
   function decir(root, estado, texto, ms, base) {
     var d = root && (root.classList && root.classList.contains('dr') ? root : root.querySelector && root.querySelector('.dr')); if (!d) return;
     var s = ESTADOS[estado] || ESTADOS.idle; d.dataset.e = s.e; d.dataset.p = s.p; d.dataset.estado = estado;
-    var im = d.querySelector('.dr-img'); if (im) { var u = ruta(poseUsable(estado)); if (im.getAttribute('src') !== u) im.setAttribute('src', u); }
+    var im = d.querySelector('.dr-img'); if (im && !d.classList.contains('dr-fijo')) { var u = ruta(poseUsable(estado)); if (im.getAttribute('src') !== u) im.setAttribute('src', u); }
     var b = d.querySelector('.dr-burbuja');
     if (b && texto != null) { b.textContent = texto; b.classList.remove('on'); void b.offsetWidth; b.classList.toggle('on', !!texto); b.hidden = !texto; }
     clearTimeout(timers.get(d));
