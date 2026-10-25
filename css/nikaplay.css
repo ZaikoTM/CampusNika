@@ -1,0 +1,245 @@
+/* NikaPlay — lobby visual (Fase 1b). Prototipo con datos de ejemplo.
+   Todo scopeado a body[data-pagina="nikaplay"] y clases .np-*.
+   Temas: claro (por defecto) · oscuro (body.dark-mode) · premium (body.tema-premium, que también lleva dark-mode).
+   Usa las variables globales (--card-bg, --border, --text-main, --text-muted) y define solo tokens --np-* propios. */
+
+/* ---------- Tokens por tema ---------- */
+body[data-pagina="nikaplay"] {
+  --np-ac: #0284c7; --np-ac2: #38bdf8; --np-ink: #0f172a;
+  --np-card: #ffffff; --np-card2: #f1f5f9; --np-line: #d9e3ef;
+  --np-chip: rgba(2, 132, 199, .1); --np-chipfg: #0369a1;
+  --np-btn: linear-gradient(135deg, #0ea5e9, #0284c7); --np-btnfg: #fff;
+  --np-glow: rgba(14, 165, 233, .38); --np-sombra: 0 14px 30px -20px rgba(15, 23, 42, .3);
+  --np-feat: linear-gradient(135deg, #e0f2fe 0%, #ffffff 62%);
+  --np-gold: #d97706; --np-gold2: #fbbf24; --np-ok: #15803d; --np-okbg: rgba(22, 163, 74, .12); --np-aviso-bg: #fef9c3; --np-aviso-fg: #854d0e; --np-aviso-bd: #facc15;
+  --np-sk1: #e8eef6; --np-sk2: #f6f9fc;
+  background: radial-gradient(1000px 420px at 12% -120px, rgba(2, 132, 199, .16), transparent 70%), radial-gradient(800px 380px at 100% 0, rgba(56, 189, 248, .16), transparent 70%), var(--bg-body);
+  color: var(--text-main);
+}
+body.dark-mode[data-pagina="nikaplay"] {
+  --np-ac: #38bdf8; --np-ac2: #7dd3fc; --np-ink: #f8fafc;
+  --np-card: rgba(15, 28, 51, .78); --np-card2: #0b1527; --np-line: #1e3050;
+  --np-chip: rgba(56, 189, 248, .12); --np-chipfg: #bae6fd;
+  --np-btn: linear-gradient(135deg, #7dd3fc, #38bdf8); --np-btnfg: #04111f;
+  --np-glow: rgba(56, 189, 248, .45); --np-sombra: 0 18px 40px -26px rgba(0, 0, 0, .9);
+  --np-feat: linear-gradient(135deg, #10284d 0%, #0b1730 65%);
+  --np-gold: #fbbf24; --np-gold2: #fde68a; --np-ok: #6ee7b7; --np-okbg: rgba(52, 211, 153, .14); --np-aviso-bg: rgba(251, 191, 36, .1); --np-aviso-fg: #fde68a; --np-aviso-bd: rgba(251, 191, 36, .45);
+  --np-sk1: #0b1527; --np-sk2: #13233f;
+  background: radial-gradient(1100px 440px at 20% -120px, rgba(37, 99, 235, .3), transparent 70%), radial-gradient(900px 380px at 100% 0, rgba(56, 189, 248, .12), transparent 70%), var(--bg-body);
+}
+body.tema-premium[data-pagina="nikaplay"] {
+  --np-ac: #c084fc; --np-ac2: #38bdf8; --np-ink: #f8fafc;
+  --np-card: rgba(18, 10, 44, .72); --np-card2: rgba(10, 5, 30, .6); --np-line: rgba(168, 85, 247, .3);
+  --np-chip: rgba(168, 85, 247, .18); --np-chipfg: #e9d5ff;
+  --np-btn: linear-gradient(135deg, #7e22ce, #a855f7 60%, #6366f1); --np-btnfg: #fff;
+  --np-glow: rgba(168, 85, 247, .55); --np-sombra: 0 18px 40px -24px rgba(76, 29, 149, .9);
+  --np-feat: linear-gradient(135deg, #2a1170 0%, #150a36 62%);
+  --np-gold: #fbbf24; --np-gold2: #fde68a;
+  --np-sk1: #150a36; --np-sk2: #261257;
+  background: transparent;
+}
+body[data-pagina="nikaplay"] .pl-main { max-width: 1180px; padding-bottom: 90px; }
+
+/* ---------- Franja de maqueta ---------- */
+.np-aviso { margin: 0 0 16px; padding: 8px 14px; border-radius: 12px; font-size: .78rem; background: var(--np-aviso-bg); border: 1px dashed var(--np-aviso-bd); color: var(--np-aviso-fg); }
+.np-aviso[hidden], .np-proto[hidden] { display: none; }
+.np-proto { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 0 0 18px; font-size: .78rem; color: var(--text-muted); }
+.np-proto button { background: var(--np-card); color: var(--text-main); border: 1px solid var(--np-line); border-radius: 999px; padding: 5px 13px; font: inherit; font-size: .76rem; font-weight: 700; cursor: pointer; transition: border-color .2s, transform .15s; }
+.np-proto button:hover { transform: translateY(-1px); border-color: var(--np-ac); }
+.np-proto button.on { border-color: var(--np-ac); color: var(--np-ac); }
+
+/* ---------- Hero ---------- */
+.np-eyebrow { display: block; font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--np-ac); }
+.np-hero h2 { margin: 6px 0 4px; font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.12; letter-spacing: -.5px; color: var(--np-ink); }
+.np-hero h2 em { font-style: normal; background: linear-gradient(110deg, var(--np-ac), var(--np-ac2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.np-hero > p { margin: 0 0 18px; color: var(--text-muted); max-width: 60ch; }
+
+/* Tarjeta destacada: la única con brillo propio */
+.np-feat { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: auto 1fr auto; gap: 18px 22px; align-items: center; padding: clamp(18px, 3vw, 28px) clamp(18px, 3vw, 28px) clamp(46px, 5vw, 56px);
+  background: var(--np-feat); border: 1px solid color-mix(in srgb, var(--np-gold) 55%, var(--np-ac)); border-radius: 22px; box-shadow: var(--np-sombra), 0 0 0 1px color-mix(in srgb, var(--np-gold) 22%, transparent), 0 0 46px -18px var(--np-glow); }
+.np-feat > .np-feat-barra { position: absolute; z-index: 1; top: 0; left: 8%; right: 8%; height: 3px; border-radius: 0 0 4px 4px; background: linear-gradient(90deg, transparent, var(--np-gold), var(--np-gold2), var(--np-gold), transparent); }
+.np-feat::before { content: ""; position: absolute; z-index: -1; right: -60px; top: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, var(--np-glow), transparent 70%); opacity: .55; }
+.np-feat-ico { width: 68px; height: 68px; border-radius: 18px; display: grid; place-items: center; color: var(--np-gold); background: color-mix(in srgb, var(--np-gold) 14%, var(--np-card)); border: 1px solid color-mix(in srgb, var(--np-gold) 55%, transparent); box-shadow: 0 0 22px -6px color-mix(in srgb, var(--np-gold) 60%, transparent); }
+.np-feat-ico svg { width: 34px; height: 34px; }
+.np-feat-txt h3 { margin: 4px 0 6px; font-size: clamp(1.25rem, 2.2vw, 1.7rem); color: var(--np-ink); }
+.np-feat-txt p { margin: 0 0 10px; color: var(--text-muted); max-width: 52ch; }
+.np-hoy { display: inline-flex; align-items: center; gap: 7px; }
+.np-feat .np-hoy { color: var(--np-gold); }
+.np-hoy i { width: 8px; height: 8px; border-radius: 50%; background: var(--np-gold); box-shadow: 0 0 0 0 color-mix(in srgb, var(--np-gold) 60%, transparent); }
+.np-chip.oro { background: color-mix(in srgb, var(--np-gold) 16%, transparent); color: var(--np-gold); border-color: color-mix(in srgb, var(--np-gold) 45%, transparent); }
+.np-feat-ecg { position: absolute; z-index: -1; left: 0; right: 0; bottom: 8px; height: 30px; width: 100%; opacity: .75; color: var(--np-gold); pointer-events: none; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--np-gold) 55%, transparent)); }
+.np-feat-ecg path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.np-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.np-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; background: var(--np-chip); color: var(--np-chipfg); border: 1px solid color-mix(in srgb, var(--np-ac) 28%, transparent); }
+.np-chip.ok { background: var(--np-okbg); color: var(--np-ok); border-color: color-mix(in srgb, var(--np-ok) 35%, transparent); }
+.np-chip.lock { background: color-mix(in srgb, var(--text-muted) 12%, transparent); color: var(--text-muted); border-color: color-mix(in srgb, var(--text-muted) 28%, transparent); }
+
+/* Botón principal (cian/violeta según tema) */
+.np-btn { position: relative; overflow: hidden; display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 11px 20px; border-radius: 14px; border: 0; font: inherit; font-weight: 800; font-size: .92rem; cursor: pointer; color: var(--np-btnfg); background: var(--np-btn); box-shadow: 0 10px 22px -12px var(--np-glow); transition: transform .18s ease, box-shadow .18s ease; }
+.np-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -12px var(--np-glow); }
+.np-btn:active { transform: translateY(0) scale(.98); }
+.np-btn:focus-visible, .np-juego:focus-visible, .np-link:focus-visible, .np-tile:focus-visible { outline: 2px solid var(--np-ac); outline-offset: 3px; }
+.np-btn .arr { transition: transform .2s ease; } .np-btn:hover .arr { transform: translateX(4px); }
+.np-btn.sec { background: var(--np-card); color: var(--text-main); border: 1px solid var(--np-line); box-shadow: none; }
+.np-btn.sec:hover { border-color: var(--np-ac); box-shadow: 0 8px 18px -12px var(--np-glow); }
+.np-btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+.np-link { background: none; border: 0; color: var(--np-ac); font: inherit; font-weight: 700; font-size: .84rem; cursor: pointer; padding: 6px 2px; }
+.np-link:hover { text-decoration: underline; }
+
+/* ---------- Layout ---------- */
+.np-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(18px, 2.6vw, 34px); align-items: start; margin-top: clamp(22px, 3vw, 34px); }
+.np-aside { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 16px; }
+.np-sec-t { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 14px; }
+.np-sec-t h2 { margin: 0; font-size: 1.35rem; color: var(--np-ink); }
+.np-cat { margin: 0 0 26px; }
+.np-cat-h { display: flex; align-items: baseline; gap: 10px; margin: 0 0 10px; }
+.np-cat-h h3 { margin: 0; font-size: .96rem; color: var(--np-ink); }
+.np-cat-h span { font-size: .76rem; color: var(--text-muted); }
+
+/* ---------- Tarjetas de juego ---------- */
+.np-rail { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.np-juego { position: relative; display: flex; flex-direction: column; gap: 6px; text-align: left; font: inherit; color: inherit; background: var(--np-card); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--np-line); border-radius: 18px; padding: 16px; cursor: pointer; box-shadow: var(--np-sombra); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; overflow: hidden; }
+.np-juego:hover:not(.bloq) { transform: translateY(-4px); border-color: var(--np-ac); box-shadow: var(--np-sombra), 0 14px 30px -18px var(--np-glow); }
+.np-juego:active:not(.bloq) { transform: translateY(-1px) scale(.99); }
+.np-juego .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.np-ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; color: var(--np-ac); background: color-mix(in srgb, var(--np-ac) 12%, var(--np-card2)); border: 1px solid color-mix(in srgb, var(--np-ac) 28%, transparent); transition: transform .25s ease, background .2s ease; }
+.np-ico svg { width: 22px; height: 22px; }
+.np-juego:hover:not(.bloq) .np-ico { transform: scale(1.08) rotate(-4deg); background: color-mix(in srgb, var(--np-ac) 22%, var(--np-card2)); }
+.np-juego h4 { margin: 6px 0 0; font-size: 1.02rem; color: var(--np-ink); }
+.np-juego p { margin: 0; color: var(--text-muted); font-size: .85rem; line-height: 1.4; }
+.np-juego .pie { margin-top: auto; padding-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.np-juego .rec { width: 100%; margin-top: 4px; font-size: .74rem; color: var(--text-muted); }
+.np-juego .go { margin-left: auto; color: var(--np-ac); font-weight: 800; transition: transform .2s ease; }
+.np-juego:hover:not(.bloq) .go { transform: translateX(4px); }
+.np-juego.bloq { cursor: default; opacity: .65; box-shadow: none; }
+.np-juego.bloq .np-ico { color: var(--text-muted); background: var(--np-card2); border-color: var(--np-line); }
+
+/* ---------- Tarjetas laterales ---------- */
+.np-card { background: var(--np-card); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--np-line); border-radius: 20px; padding: 18px; box-shadow: var(--np-sombra); }
+.np-card-h { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.np-card-h h3 { margin: 0; font-size: 1rem; color: var(--np-ink); }
+.np-card-h svg { width: 20px; height: 20px; color: var(--np-ac); }
+.np-vacio-mini { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; color: var(--text-muted); font-size: .86rem; }
+.np-vacio-mini strong { color: var(--np-ink); font-size: .95rem; }
+.np-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.np-tile { background: var(--np-card2); border: 1px solid var(--np-line); border-radius: 14px; padding: 10px 8px; text-align: center; transition: transform .2s ease, border-color .2s ease; }
+.np-tile:hover { transform: translateY(-2px); border-color: var(--np-ac); }
+.np-tile small { display: block; font-size: .64rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
+.np-tile b { display: block; font-size: 1.3rem; color: var(--np-ink); line-height: 1.3; }
+.np-nota { margin: 10px 0 0; font-size: .74rem; color: var(--text-muted); }
+
+/* ---------- Estados: carga / error ---------- */
+.np-sk { height: 128px; border-radius: 18px; border: 1px solid var(--np-line); background: linear-gradient(100deg, var(--np-sk1) 30%, var(--np-sk2) 50%, var(--np-sk1) 70%); background-size: 200% 100%; }
+.np-estado { text-align: center; padding: 34px 18px; border: 1px dashed var(--np-line); border-radius: 18px; color: var(--text-muted); }
+.np-estado svg { width: 34px; height: 34px; margin-bottom: 6px; color: var(--np-ac); }
+.np-estado strong { display: block; color: var(--np-ink); margin-bottom: 4px; }
+.np-estado.error { border-color: color-mix(in srgb, #ef4444 55%, transparent); background: color-mix(in srgb, #ef4444 8%, transparent); }
+.np-estado.error svg { color: #ef4444; }
+.np-estado .np-btn { margin-top: 12px; }
+
+/* ---------- Modal ---------- */
+.np-modal { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(2, 6, 15, .62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.np-modal.open { display: flex; }
+.np-dialog { width: min(520px, 100%); max-height: 90vh; overflow: auto; background: var(--np-card2); color: var(--text-main); border: 1px solid var(--np-ac); border-radius: 22px; padding: 22px; box-shadow: 0 40px 90px -30px #000, 0 0 40px -16px var(--np-glow); }
+body:not(.dark-mode) .np-dialog { background: #fff; }
+.np-dialog h3 { margin: 4px 0 6px; font-size: 1.3rem; color: var(--np-ink); }
+.np-dialog ul { margin: 12px 0; padding-left: 18px; color: var(--text-muted); font-size: .9rem; line-height: 1.55; }
+.np-dialog .acciones { display: flex; gap: 10px; margin-top: 16px; } .np-dialog .acciones .np-btn { flex: 1; }
+.np-tablero { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 14px 0; }
+.np-letra { aspect-ratio: 1; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem; border-radius: 10px; background: var(--np-card); border: 1px solid var(--np-line); color: var(--np-ink); }
+.np-letra.ok { background: rgba(52, 211, 153, .28); border-color: #34d399; } .np-letra.pos { background: rgba(251, 191, 36, .28); border-color: #fbbf24; } .np-letra.no { opacity: .55; }
+.np-explica { margin-top: 12px; padding: 12px; border-radius: 14px; background: var(--np-chip); border: 1px solid color-mix(in srgb, var(--np-ac) 28%, transparent); font-size: .86rem; color: var(--np-chipfg); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .np-layout { grid-template-columns: 1fr; }
+  .np-aside { position: static; display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .np-feat { grid-template-columns: 1fr; gap: 14px; }
+  .np-feat-ico { width: 56px; height: 56px; }
+  .np-feat .np-btn { width: 100%; min-height: 48px; }
+  .np-aside { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body[data-pagina="nikaplay"] .pl-brand span { display: none; }
+  body[data-pagina="nikaplay"] .pl-top { flex-wrap: nowrap; }
+}
+@media (max-width: 640px) {
+  /* Carruseles horizontales con snap: se ve un pedazo de la tarjeta siguiente */
+  .np-rail { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 78%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin: 0 -4px; padding: 4px 4px 12px; scrollbar-width: none; }
+  .np-rail::-webkit-scrollbar { display: none; }
+  .np-rail > * { scroll-snap-align: start; }
+  .np-rail.sk { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; }
+  .np-juego { min-height: 150px; }
+  .np-proto button { min-height: 36px; }
+}
+
+/* ---------- Animaciones (solo sin "reducir movimiento") ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes np-in { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
+  @keyframes np-sk { to { background-position: -200% 0; } }
+  @keyframes np-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--np-gold) 60%, transparent); } 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  @keyframes np-sheen { 0%, 55% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(330%) skewX(-18deg); } }
+  @keyframes np-ecg { 0% { stroke-dashoffset: 1; } 55%, 100% { stroke-dashoffset: 0; } }
+  @keyframes np-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @keyframes np-pop { from { opacity: 0; transform: translateY(14px) scale(.95); } to { opacity: 1; transform: none; } }
+  @keyframes np-fade { from { opacity: 0; } to { opacity: 1; } }
+
+  .np-hero, .np-cat, .np-aside > *, .np-feat { animation: np-in .55s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  .np-juego { animation: np-in .5s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 55ms + 120ms); }
+  .np-sk { animation: np-sk 1.3s linear infinite; }
+  .np-hoy i { animation: np-pulse 2s ease-out infinite; }
+  .np-feat-ico { animation: np-float 4.5s ease-in-out infinite; }
+  .np-feat::after { content: ""; position: absolute; top: 0; left: 0; width: 28%; height: 100%; z-index: -1; pointer-events: none; background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--np-gold) 16%, transparent), transparent); animation: np-sheen 7s ease-in-out infinite; }
+  .np-feat-ecg path { animation: np-ecg 4.5s ease-in-out infinite; }
+  .np-btn::after { content: ""; position: absolute; top: 0; left: -70%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .4), transparent); transform: skewX(-18deg); transition: left .55s ease; }
+  .np-btn:hover::after { left: 130%; }
+  .np-modal.open { animation: np-fade .2s ease both; }
+  .np-modal.open .np-dialog { animation: np-pop .28s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .np-letra { animation: np-pop .4s ease both; animation-delay: calc(var(--i, 0) * 90ms); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np-juego, .np-btn, .np-tile, .np-ico, .np-juego .go { transition: none; }
+}
+
+/* Modal con guía ilustrada (NikaWord): el contenido ya trae su propio diseño */
+.np-dialog.guia { width: min(580px, 100%); padding: 14px; background: var(--np-card2); }
+body:not(.dark-mode) .np-dialog.guia { background: #eaf4fb; }
+.np-dialog.guia .acciones { margin-top: 14px; }
+
+/* =====================================================================
+   NikaPlay — capa de vida: color por juego, degradés, fondos y microanimaciones
+   ===================================================================== */
+body[data-pagina="nikaplay"] { position: relative; }
+body[data-pagina="nikaplay"]::before, body[data-pagina="nikaplay"]::after { content: ""; position: fixed; z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(70px); opacity: .55; }
+body[data-pagina="nikaplay"]::before { width: 46vw; height: 46vw; left: -12vw; top: 8vh; background: radial-gradient(circle, color-mix(in srgb, #38bdf8 70%, transparent), transparent 70%); }
+body[data-pagina="nikaplay"]::after { width: 40vw; height: 40vw; right: -10vw; bottom: -6vh; background: radial-gradient(circle, color-mix(in srgb, #f59e0b 55%, transparent), transparent 70%); }
+body[data-pagina="nikaplay"].dark-mode::before { background: radial-gradient(circle, rgba(56, 189, 248, .35), transparent 70%); } body[data-pagina="nikaplay"].dark-mode::after { background: radial-gradient(circle, rgba(168, 85, 247, .35), transparent 70%); }
+body[data-pagina="nikaplay"] > .pl-main { position: relative; z-index: 1; }
+body[data-pagina="nikaplay"] .np-hero h2 em { background-size: 220% 100%; }
+.np-juego { --ac: var(--np-ac); background: linear-gradient(155deg, color-mix(in srgb, var(--ac) 14%, var(--np-card)) 0, var(--np-card) 62%); border-color: color-mix(in srgb, var(--ac) 28%, var(--np-line)); overflow: hidden; }
+.np-juego::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--ac), color-mix(in srgb, var(--ac) 40%, #fff), var(--ac)); background-size: 200% 100%; }
+.np-juego::after { content: ""; position: absolute; top: -40%; bottom: -40%; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-18deg); opacity: 0; pointer-events: none; }
+.np-juego:hover:not(.bloq)::after { opacity: 1; left: 130%; transition: left .8s ease; }
+.np-juego .np-ico { color: var(--ac); background: color-mix(in srgb, var(--ac) 16%, var(--np-card2)); border-color: color-mix(in srgb, var(--ac) 35%, var(--np-line)); }
+.np-juego:hover:not(.bloq) { border-color: var(--ac); box-shadow: var(--np-sombra), 0 16px 34px -16px color-mix(in srgb, var(--ac) 70%, transparent); }
+.np-juego .go { color: var(--ac); }
+.np-juego[data-juego="nikaword"] { --ac: #0ea5e9; } .np-juego[data-juego="farmamatch"] { --ac: #16a34a; } .np-juego[data-juego="anatomia"] { --ac: #ef4444; }
+.np-juego[data-juego="detective"] { --ac: #8b5cf6; } .np-juego[data-juego="guardia"] { --ac: #f97316; } .np-juego[data-juego="escape"] { --ac: #14b8a6; }
+.np-juego[data-juego="versus"] { --ac: #6366f1; } .np-juego[data-juego="batalla"] { --ac: #ec4899; } .np-juego[data-juego="coop"] { --ac: #eab308; }
+.np-juego.bloq { opacity: .8; filter: saturate(.6); }
+.np-cat-h h3 { position: relative; padding-left: 14px; } .np-cat-h h3::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 1.1em; margin-top: -.55em; border-radius: 3px; background: linear-gradient(var(--np-ac2), var(--np-ac)); }
+.np-feat { background: linear-gradient(120deg, color-mix(in srgb, var(--np-gold) 12%, var(--np-card)), var(--np-card) 45%, color-mix(in srgb, var(--np-ac2) 14%, var(--np-card))); }
+.np-card { background: linear-gradient(170deg, color-mix(in srgb, var(--np-ac2) 9%, var(--np-card)), var(--np-card) 55%); }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes np-deriva { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(4vw, 3vh) scale(1.12); } }
+  @keyframes np-deriva2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-5vw, -4vh) scale(1.15); } }
+  @keyframes np-gradiente { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+  @keyframes np-flota-ico { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-3deg); } }
+  body[data-pagina="nikaplay"]::before { animation: np-deriva 18s ease-in-out infinite; } body[data-pagina="nikaplay"]::after { animation: np-deriva2 22s ease-in-out infinite; }
+  body[data-pagina="nikaplay"] .np-hero h2 em { animation: np-gradiente 6s linear infinite; }
+  .np-juego::before { animation: np-gradiente 4s linear infinite; }
+  .np-juego:not(.bloq) .np-ico { animation: np-flota-ico 4.5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -.6s); }
+  .np-juego:not(.bloq):hover .np-ico { animation: none; }
+}

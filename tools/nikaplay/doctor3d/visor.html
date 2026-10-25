@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="robots" content="noindex"><title>Visor de modelos 3D (herramienta de desarrollo)</title>
+<style>html,body{margin:0;height:100%;background:#8fc9f0}#v{width:100%;height:100%}#i{position:fixed;left:8px;top:8px;background:#0008;color:#fff;font:12px/1.4 monospace;padding:6px 8px;border-radius:6px;max-width:60vw;white-space:pre-wrap}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
+<body><div id="v"></div><div id="i">cargando…</div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const q = new URLSearchParams(location.search), src = q.get('m') || 'modelos/doctor.glb';
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setSize(innerWidth, innerHeight); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmic ? THREE.ACESFilmicToneMapping : 0; document.getElementById('v').appendChild(r.domElement);
+const sc = new THREE.Scene(); sc.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
+const cam = new THREE.PerspectiveCamera(25, innerWidth / innerHeight, 0.01, 1000); const ctl = new OrbitControls(cam, r.domElement);
+const l = new THREE.DirectionalLight(0xffffff, 2.2); l.position.set(3, 6, 6); sc.add(l); sc.add(new THREE.HemisphereLight(0xdceeff, 0xf0dcc8, 0.8));
+const ld = new GLTFLoader(); ld.setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/')); ld.setMeshoptDecoder(MeshoptDecoder);
+ld.load(src, (g) => {
+  const m = g.scene; sc.add(m); const b = new THREE.Box3().setFromObject(m), s = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
+  const d = Math.max(s.y, s.x * 0.8) / 2 / Math.tan(THREE.MathUtils.degToRad(12.5)) * 1.25; cam.position.set(c.x, c.y + s.y * 0.05, c.z + d); ctl.target.copy(c); ctl.update();
+  let tri = 0, mats = new Set(), tex = 0; m.traverse((o) => { if (o.isMesh) { tri += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; (Array.isArray(o.material) ? o.material : [o.material]).forEach((x) => { mats.add(x); if (x.map) tex++; }); } });
+  let bones = 0; m.traverse((o) => { if (o.isBone) bones++; });
+  window.__m = { g, m, cam, ctl, r, sc };
+  document.getElementById('i').textContent = src + '\ntamaño ' + s.x.toFixed(2) + ' × ' + s.y.toFixed(2) + ' × ' + s.z.toFixed(2) + '\ntriángulos ' + Math.round(tri) + ' · materiales ' + mats.size + ' · con textura ' + tex + ' · huesos ' + bones + '\nanimaciones: ' + (g.animations.map((a) => a.name + ' ' + a.duration.toFixed(1) + 's').join(', ') || 'ninguna');
+  (function loop() { requestAnimationFrame(loop); ctl.update(); r.render(sc, cam); })();
+}, undefined, (e) => { document.getElementById('i').textContent = 'ERROR ' + (e.message || e); });
+</script></body></html>

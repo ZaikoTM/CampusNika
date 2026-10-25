@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Doctor 3D (modelo GLB) · NikaPlay — herramienta de desarrollo</title>
+<style>
+  html,body{margin:0;height:100%;background:#9fd3f5;font-family:system-ui,sans-serif}
+  body{display:grid;grid-template-columns:1fr 210px}
+  #vista{position:relative;min-height:0;background:repeating-conic-gradient(#bcdff7 0 25%,#9fd3f5 0 50%) 0 0/24px 24px;display:grid;place-items:center}
+  canvas{max-width:100%;max-height:100vh}
+  aside{padding:10px;background:#0f2f6b;color:#fff;overflow:auto;font-size:13px}
+  aside button{display:block;width:100%;margin:3px 0;padding:6px;border-radius:6px;border:0;background:#2f86e0;color:#fff;font-weight:700;cursor:pointer}
+  aside button.on{background:#ffb61f;color:#3a2400}
+  #estado{margin-top:8px;line-height:1.4;word-break:break-word}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
+<body><div id="vista"></div>
+<aside><b>Doctor 3D (GLB)</b><div id="poses"></div><button id="todo" style="background:#22a95c">Renderizar y guardar las 11 poses</button><div id="estado">Cargando…</div></aside>
+<script type="module" src="modelo.js"></script></body></html>

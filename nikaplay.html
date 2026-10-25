@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>NikaPlay | Campus Nika</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
+    <link rel="stylesheet" href="css/micro.css?v=1">
+    <link rel="stylesheet" href="css/nikaplay.css?v=6">
+    <link rel="stylesheet" href="css/doctor.css?v=3">
+    <link rel="stylesheet" href="css/decor.css?v=1">
+    <link rel="stylesheet" href="css/nikaword.css?v=10">
+    <link rel="stylesheet" href="css/nikaworld.css?v=29">
+    <link rel="stylesheet" href="css/farmamatch.css?v=9">
+    <link rel="stylesheet" href="css/nikaplay-social.css?v=3">
+</head>
+<body class="pagina-lateral" data-pagina="nikaplay">
+
+    <header class="pl-top">
+        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>NikaPlay</small></span>
+        </a>
+        <div class="pl-acciones">
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pl-main">
+        <!-- PENDIENTE AL INTEGRAR DATOS: reemplazar la franja .np-aviso por el estado real (sin datos / con datos) y quitar los controles .np-proto. Hoy solo se muestran con ?demo=1. -->
+        <!-- Etapa visual: todo lo que se ve acá son datos de ejemplo. No hay conexión a Supabase. -->
+        <div class="np-aviso" id="np-aviso" role="note" hidden>Maqueta del lobby: los juegos y los datos son ilustrativos. Los guiones («—») indican que todavía no hay información conectada.</div>
+        <div class="np-proto" id="np-proto" aria-label="Controles de la maqueta" hidden>
+            <span>Ver estado:</span>
+            <button type="button" data-estado="ok" class="on">Normal</button>
+            <button type="button" data-estado="carga">Cargando</button>
+            <button type="button" data-estado="error">Error</button>
+        </div>
+
+        <section class="np-hero" aria-labelledby="np-h1" style="--i:0">
+            <span class="np-eyebrow">NikaPlay · Centro de desafíos</span>
+            <h2 id="np-h1">Pensá rápido. <em>Jugá mejor.</em></h2>
+            <p>Partidas de unos minutos para despejarte, superar tus récords y desafiar a tus compañeros. Los puntos de NikaPlay son solo de juego: no cuentan en tus notas ni en tu rendimiento académico.</p>
+
+            <article class="np-feat" style="--i:1" aria-labelledby="np-feat-t">
+                <span class="np-feat-barra" aria-hidden="true"></span>
+                <svg class="np-feat-ecg" viewBox="0 0 600 30" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 16 H120 l10 -12 l14 24 l10 -12 H300 l10 -12 l14 24 l10 -12 H460 l10 -12 l14 24 l10 -12 H600"/></svg>
+                <div class="np-feat-ico" id="np-feat-ico" aria-hidden="true"></div>
+                <div class="np-feat-txt">
+                    <span class="np-eyebrow np-hoy"><i></i>Destacado · Hoy</span>
+                    <h3 id="np-feat-t">El caso del día</h3>
+                    <p>Cinco decisiones. Un caso clínico. ¿Podés superar tu propio récord?</p>
+                    <div class="np-meta">
+                        <span class="np-chip">⏱ 3–5 min</span>
+                        <span class="np-chip">Individual</span>
+                        <span class="np-chip oro">✨ Un caso nuevo cada día</span>
+                    </div>
+                </div>
+                <button type="button" class="np-btn" data-juego="desafio">Jugar ahora <span class="arr" aria-hidden="true">→</span></button>
+            </article>
+        </section>
+
+        <div class="np-layout">
+            <section id="np-contenido" aria-labelledby="np-eleg" aria-live="polite">
+                <div class="np-sec-t"><h2 id="np-eleg">Elegí tu partida</h2></div>
+                <div id="np-cats"></div>
+            </section>
+
+            <aside class="np-aside" aria-label="Amigos y progreso">
+                <section class="np-card" style="--i:3" aria-labelledby="np-am-t">
+                    <div class="np-card-h"><h3 id="np-am-t">Amigos y salas</h3><span id="np-am-ico"></span></div>
+                    <div id="np-am-cuerpo"><p class="np-nota">Cargando…</p></div>
+                </section>
+
+                <section class="np-card" style="--i:4" aria-labelledby="np-pr-t">
+                    <div class="np-card-h"><h3 id="np-pr-t">Tu progreso</h3><span id="np-pr-ico"></span></div>
+                    <div id="np-pr-cuerpo"><p class="np-nota">Cargando…</p></div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <div class="np-modal" id="np-modal" role="dialog" aria-modal="true" aria-labelledby="np-modal-t">
+        <div class="np-dialog" id="np-dialog"></div>
+    </div>
+    <div id="toast">Notificación</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/campusTema.js?v=3"></script>
+    <script src="js/campusEspacio.js?v=1"></script>
+    <script src="js/micro.js?v=2" defer></script>
+    <script src="js/nikaplay/core.js?v=1"></script>
+    <script src="js/nikaplay/doctor.js?v=4"></script>
+    <script src="js/nikaplay/decor.js?v=1"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/nikaplay/sonido.js?v=1"></script>
+    <script src="js/nikaplay/nube.js?v=2"></script>
+    <script src="js/nikaplay/social.js?v=2"></script>
+<script src="js/nikaplay/nikaword.js?v=30"></script>
+    <script src="js/nikaplay/farmamatch.js?v=8"></script>
+    <script src="js/nikaplay/proto.js?v=13"></script>
+</body>
+</html>

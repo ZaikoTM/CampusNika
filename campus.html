@@ -279,7 +279,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
             <li><button onclick="window.location.href='pfo_ecoe.html'" class="sidebar-link" id="sidebar-ecoe-btn">🎓 ECOE FINAL · 6.° año</button></li>
 
             <div class="sidebar-category">Competir</div>
-            <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Duelos 1vs1</button></li>
+            <li><button onclick="window.location.href='nikaplay.html'" class="sidebar-link" id="sidebar-nikaplay-btn" title="NikaPlay · juegos médicos y duelos 1vs1">🎮 NikaPlay <span class="sidebar-live" style="position:static;transform:none;display:inline-flex;vertical-align:middle;height:auto;min-width:0;font-size:.6rem;padding:2px 7px;margin-left:8px;" aria-label="Nuevo">NUEVO</span></button></li>
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
             <li><button onclick="window.location.href='liga.html'" class="sidebar-link" id="sidebar-liga-btn">🍅 Liga Pomodoro</button></li>
 
@@ -466,11 +466,6 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                     <h4>Sala de Estudio</h4>
                     <span>Elegí tu año y materia para avanzar</span>
                 </div>
-                <div class="action-btn-card" onclick="openVersusModal()">
-                    <div class="action-icon">⚔️</div>
-                    <h4>Desafiar compañero</h4>
-                    <span>Abrí la sala de duelos 1vs1</span>
-                </div>
                 <!-- 3) Simuladores: un único mosaico que abre el hub con las 8 modalidades -->
                 <div class="action-btn-card action-btn-card--sim" id="card-simuladores" role="button" tabindex="0"
                      onclick="openSimuladoresHub()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSimuladoresHub();}">
@@ -490,6 +485,13 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                     <div class="action-icon">🥽</div>
                     <h4>NikaSim</h4>
                     <span>Simulación clínica 3D: recorridos virtuales y acreditaciones de 1° a 6° año</span>
+                </div>
+                <!-- 6) NikaPlay: juegos médicos (NikaWord, FarmaMatch) y duelos 1vs1 -->
+                <div class="action-btn-card" id="card-nikaplay" role="link" tabindex="0"
+                     onclick="location.href='nikaplay.html'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.href='nikaplay.html';}">
+                    <div class="action-icon">🎮</div>
+                    <h4>NikaPlay</h4>
+                    <span>Juegos médicos: NikaWord, FarmaMatch y duelos 1vs1</span>
                 </div>
             </div>
         </div>

@@ -1,0 +1,14 @@
+/* NikaPlay — piezas de decorado (decor.js). Son fondos ilustrados: no reciben clics y se ocultan en pantallas chicas. */
+.dc-amb { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.dc-amb > * { position: absolute; }
+.dc-libreria, .dc-ventana, .dc-lampara, .dc-cuadro { display: block; filter: drop-shadow(0 8px 8px rgba(0, 20, 50, .3)); }
+.dc-libros { display: flex; flex-direction: column-reverse; align-items: flex-start; }
+.dc-libros span { display: flex; align-items: center; width: var(--w); height: 30px; margin-left: var(--x); padding-left: 14px; border-radius: 5px 8px 8px 5px; background: linear-gradient(var(--c), color-mix(in srgb, var(--c) 70%, #000)); border: 2px solid rgba(0, 0, 0, .35); border-left: 8px solid rgba(0, 0, 0, .3); color: rgba(255, 255, 255, .95); font: 800 .68rem 'Plus Jakarta Sans', Georgia, serif; letter-spacing: .3px; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); box-shadow: 0 3px 4px rgba(0, 0, 0, .3); margin-top: -1px; }
+.dc-taza { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 6px 6px 18px 18px; background: linear-gradient(90deg, #fff, #e4edf8); border: 3px solid #b8c7da; box-shadow: 0 4px 6px rgba(0, 0, 0, .3); position: relative; }
+.dc-taza::after { content: ""; position: absolute; right: -18px; top: 10px; width: 20px; height: 30px; border: 6px solid #e4edf8; border-left: 0; border-radius: 0 16px 16px 0; box-shadow: 1px 0 0 #b8c7da; }
+.dc-taza b { font: 900 .6rem 'Plus Jakarta Sans', sans-serif; color: #1e5fb0; }
+.dc-cuaderno { position: relative; width: 130px; height: 80px; border-radius: 4px; background: #fffef6; border: 2px solid #c9d4e4; box-shadow: 0 4px 6px rgba(0, 0, 0, .3); transform: rotate(-6deg); }
+.dc-cuaderno i { position: absolute; left: 12px; right: 12px; height: 2px; background: #b6c9e6; } .dc-cuaderno i:nth-child(1) { top: 22px; } .dc-cuaderno i:nth-child(2) { top: 40px; } .dc-cuaderno i:nth-child(3) { top: 58px; }
+.dc-cuaderno em { position: absolute; right: -26px; top: 30px; width: 80px; height: 8px; border-radius: 4px; background: linear-gradient(#2f74bd, #1c4b85); transform: rotate(-18deg); }
+@media (max-width: 1100px), (max-height: 560px) { .dc-amb { display: none; } }
+@media (prefers-reduced-motion: no-preference) { @keyframes dc-flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } } .dc-lampara { animation: dc-flota 6s ease-in-out infinite; } }

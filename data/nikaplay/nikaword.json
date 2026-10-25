@@ -1,0 +1,1304 @@
+{
+ "version": 1,
+ "estado": "borrador",
+ "revisado": false,
+ "aviso": "Borrador redactado sin revisión médica ni citas: cada definición debe validarse contra bibliografía antes de publicarse.",
+ "terminos": [
+  {
+   "id": "nw001",
+   "t": "Esternón",
+   "n": "ESTERNON",
+   "m": "Anatomía",
+   "d": "Hueso plano en el centro del tórax donde se articulan las costillas verdaderas."
+  },
+  {
+   "id": "nw002",
+   "t": "Clavícula",
+   "n": "CLAVICULA",
+   "m": "Anatomía",
+   "d": "Hueso largo en forma de S que une el esternón con la escápula."
+  },
+  {
+   "id": "nw003",
+   "t": "Escápula",
+   "n": "ESCAPULA",
+   "m": "Anatomía",
+   "d": "Hueso plano y triangular de la espalda, también llamado omóplato."
+  },
+  {
+   "id": "nw004",
+   "t": "Húmero",
+   "n": "HUMERO",
+   "m": "Anatomía",
+   "d": "Hueso largo del brazo."
+  },
+  {
+   "id": "nw005",
+   "t": "Cúbito",
+   "n": "CUBITO",
+   "m": "Anatomía",
+   "d": "Hueso medial del antebrazo, también llamado ulna."
+  },
+  {
+   "id": "nw006",
+   "t": "Rótula",
+   "n": "ROTULA",
+   "m": "Anatomía",
+   "d": "Hueso sesamoideo situado por delante de la articulación de la rodilla."
+  },
+  {
+   "id": "nw007",
+   "t": "Peroné",
+   "n": "PERONE",
+   "m": "Anatomía",
+   "d": "Hueso delgado y lateral de la pierna, también llamado fíbula."
+  },
+  {
+   "id": "nw008",
+   "t": "Vértebra",
+   "n": "VERTEBRA",
+   "m": "Anatomía",
+   "d": "Cada uno de los huesos que forman la columna."
+  },
+  {
+   "id": "nw009",
+   "t": "Diafragma",
+   "n": "DIAFRAGMA",
+   "m": "Anatomía",
+   "d": "Músculo principal de la inspiración que separa el tórax del abdomen."
+  },
+  {
+   "id": "nw010",
+   "t": "Arteria",
+   "n": "ARTERIA",
+   "m": "Anatomía",
+   "d": "Vaso que conduce la sangre desde el corazón hacia los tejidos."
+  },
+  {
+   "id": "nw011",
+   "t": "Aurícula",
+   "n": "AURICULA",
+   "m": "Anatomía",
+   "d": "Cámara superior del corazón que recibe la sangre."
+  },
+  {
+   "id": "nw012",
+   "t": "Esófago",
+   "n": "ESOFAGO",
+   "m": "Anatomía",
+   "d": "Tubo muscular que conduce el alimento desde la faringe hasta el estómago."
+  },
+  {
+   "id": "nw013",
+   "t": "Duodeno",
+   "n": "DUODENO",
+   "m": "Anatomía",
+   "d": "Primera porción del intestino delgado, donde desembocan la bilis y el jugo pancreático."
+  },
+  {
+   "id": "nw014",
+   "t": "Yeyuno",
+   "n": "YEYUNO",
+   "m": "Anatomía",
+   "d": "Porción del intestino delgado que sigue al duodeno."
+  },
+  {
+   "id": "nw015",
+   "t": "Páncreas",
+   "n": "PANCREAS",
+   "m": "Anatomía",
+   "d": "Glándula con función exocrina y endocrina situada detrás del estómago."
+  },
+  {
+   "id": "nw016",
+   "t": "Hígado",
+   "n": "HIGADO",
+   "m": "Anatomía",
+   "d": "Mayor glándula del cuerpo, ubicada en el hipocondrio derecho."
+  },
+  {
+   "id": "nw017",
+   "t": "Uréter",
+   "n": "URETER",
+   "m": "Anatomía",
+   "d": "Conducto que lleva la orina desde la pelvis renal hasta la vejiga."
+  },
+  {
+   "id": "nw018",
+   "t": "Uretra",
+   "n": "URETRA",
+   "m": "Anatomía",
+   "d": "Conducto que elimina la orina desde la vejiga hacia el exterior."
+  },
+  {
+   "id": "nw019",
+   "t": "Próstata",
+   "n": "PROSTATA",
+   "m": "Anatomía",
+   "d": "Glándula masculina que rodea la uretra por debajo de la vejiga."
+  },
+  {
+   "id": "nw020",
+   "t": "Tiroides",
+   "n": "TIROIDES",
+   "m": "Anatomía",
+   "d": "Glándula del cuello que produce T3 y T4."
+  },
+  {
+   "id": "nw021",
+   "t": "Hipófisis",
+   "n": "HIPOFISIS",
+   "m": "Anatomía",
+   "d": "Glándula alojada en la silla turca que regula otras glándulas endocrinas."
+  },
+  {
+   "id": "nw022",
+   "t": "Cerebelo",
+   "n": "CEREBELO",
+   "m": "Anatomía",
+   "d": "Estructura del encéfalo que coordina el movimiento y el equilibrio."
+  },
+  {
+   "id": "nw023",
+   "t": "Tálamo",
+   "n": "TALAMO",
+   "m": "Anatomía",
+   "d": "Núcleo del diencéfalo que retransmite la información sensitiva a la corteza."
+  },
+  {
+   "id": "nw024",
+   "t": "Meninges",
+   "n": "MENINGES",
+   "m": "Anatomía",
+   "d": "Membranas que envuelven el encéfalo y la médula espinal."
+  },
+  {
+   "id": "nw025",
+   "t": "Tráquea",
+   "n": "TRAQUEA",
+   "m": "Anatomía",
+   "d": "Conducto cartilaginoso que lleva el aire desde la laringe hasta los bronquios."
+  },
+  {
+   "id": "nw026",
+   "t": "Bronquio",
+   "n": "BRONQUIO",
+   "m": "Anatomía",
+   "d": "Conducto que lleva el aire de la tráquea hacia los pulmones."
+  },
+  {
+   "id": "nw027",
+   "t": "Alvéolo",
+   "n": "ALVEOLO",
+   "m": "Anatomía",
+   "d": "Unidad del pulmón donde se produce el intercambio gaseoso."
+  },
+  {
+   "id": "nw028",
+   "t": "Pleura",
+   "n": "PLEURA",
+   "m": "Anatomía",
+   "d": "Membrana serosa que recubre el pulmón y la pared torácica."
+  },
+  {
+   "id": "nw029",
+   "t": "Laringe",
+   "n": "LARINGE",
+   "m": "Anatomía",
+   "d": "Órgano del cuello que contiene las cuerdas vocales."
+  },
+  {
+   "id": "nw030",
+   "t": "Faringe",
+   "n": "FARINGE",
+   "m": "Anatomía",
+   "d": "Conducto muscular, común a la vía aérea y la digestiva, ubicado detrás de la boca."
+  },
+  {
+   "id": "nw031",
+   "t": "Tendón",
+   "n": "TENDON",
+   "m": "Anatomía",
+   "d": "Estructura fibrosa que une el músculo con el hueso."
+  },
+  {
+   "id": "nw032",
+   "t": "Ligamento",
+   "n": "LIGAMENTO",
+   "m": "Anatomía",
+   "d": "Estructura fibrosa que une un hueso con otro."
+  },
+  {
+   "id": "nw033",
+   "t": "Cartílago",
+   "n": "CARTILAGO",
+   "m": "Anatomía",
+   "d": "Tejido conectivo flexible y avascular que recubre las superficies articulares."
+  },
+  {
+   "id": "nw034",
+   "t": "Menisco",
+   "n": "MENISCO",
+   "m": "Anatomía",
+   "d": "Fibrocartílago en forma de C que amortigua la articulación de la rodilla."
+  },
+  {
+   "id": "nw035",
+   "t": "Tríceps",
+   "n": "TRICEPS",
+   "m": "Anatomía",
+   "d": "Músculo de la cara posterior del brazo que extiende el codo."
+  },
+  {
+   "id": "nw036",
+   "t": "Bíceps",
+   "n": "BICEPS",
+   "m": "Anatomía",
+   "d": "Músculo de la cara anterior del brazo que flexiona el codo."
+  },
+  {
+   "id": "nw037",
+   "t": "Esfínter",
+   "n": "ESFINTER",
+   "m": "Anatomía",
+   "d": "Anillo muscular que cierra un orificio o conducto."
+  },
+  {
+   "id": "nw038",
+   "t": "Ovario",
+   "n": "OVARIO",
+   "m": "Ginecología y Obstetricia",
+   "d": "Gónada femenina que produce óvulos y hormonas sexuales."
+  },
+  {
+   "id": "nw039",
+   "t": "Cérvix",
+   "n": "CERVIX",
+   "m": "Ginecología y Obstetricia",
+   "d": "Porción inferior del útero que se comunica con la vagina."
+  },
+  {
+   "id": "nw040",
+   "t": "Vagina",
+   "n": "VAGINA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Conducto musculomembranoso que comunica el útero con el exterior."
+  },
+  {
+   "id": "nw041",
+   "t": "Placenta",
+   "n": "PLACENTA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Órgano que une al feto con el útero y permite el intercambio de nutrientes y gases."
+  },
+  {
+   "id": "nw042",
+   "t": "Amnios",
+   "n": "AMNIOS",
+   "m": "Ginecología y Obstetricia",
+   "d": "Membrana más interna que contiene el líquido donde flota el feto."
+  },
+  {
+   "id": "nw043",
+   "t": "Gestación",
+   "n": "GESTACION",
+   "m": "Ginecología y Obstetricia",
+   "d": "Período que transcurre desde la fecundación hasta el parto."
+  },
+  {
+   "id": "nw044",
+   "t": "Puerperio",
+   "n": "PUERPERIO",
+   "m": "Ginecología y Obstetricia",
+   "d": "Período posterior al parto en que el organismo materno vuelve al estado previo."
+  },
+  {
+   "id": "nw045",
+   "t": "Eclampsia",
+   "n": "ECLAMPSIA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Aparición de convulsiones en una gestante con hipertensión del embarazo."
+  },
+  {
+   "id": "nw046",
+   "t": "Amenorrea",
+   "n": "AMENORREA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Ausencia de menstruación."
+  },
+  {
+   "id": "nw047",
+   "t": "Menarca",
+   "n": "MENARCA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Primera menstruación de la vida."
+  },
+  {
+   "id": "nw048",
+   "t": "Lactancia",
+   "n": "LACTANCIA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Período en que el recién nacido se alimenta con leche materna."
+  },
+  {
+   "id": "nw049",
+   "t": "Cesárea",
+   "n": "CESAREA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Nacimiento por una incisión quirúrgica en el abdomen y el útero."
+  },
+  {
+   "id": "nw050",
+   "t": "Mastitis",
+   "n": "MASTITIS",
+   "m": "Ginecología y Obstetricia",
+   "d": "Inflamación de la glándula mamaria, frecuente durante la lactancia."
+  },
+  {
+   "id": "nw051",
+   "t": "Pólipo",
+   "n": "POLIPO",
+   "m": "Ginecología y Obstetricia",
+   "d": "Crecimiento que sobresale de la superficie de una mucosa."
+  },
+  {
+   "id": "nw052",
+   "t": "Quiste",
+   "n": "QUISTE",
+   "m": "Ginecología y Obstetricia",
+   "d": "Cavidad cerrada con contenido líquido o semisólido."
+  },
+  {
+   "id": "nw053",
+   "t": "Eutocia",
+   "n": "EUTOCIA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Parto que evoluciona con normalidad."
+  },
+  {
+   "id": "nw054",
+   "t": "Distocia",
+   "n": "DISTOCIA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Parto de evolución anormal o difícil."
+  },
+  {
+   "id": "nw055",
+   "t": "Nulípara",
+   "n": "NULIPARA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Mujer que nunca ha tenido un parto."
+  },
+  {
+   "id": "nw056",
+   "t": "Multípara",
+   "n": "MULTIPARA",
+   "m": "Ginecología y Obstetricia",
+   "d": "Mujer que ha tenido más de un parto."
+  },
+  {
+   "id": "nw057",
+   "t": "Embrión",
+   "n": "EMBRION",
+   "m": "Ginecología y Obstetricia",
+   "d": "Producto de la concepción durante las primeras semanas de desarrollo."
+  },
+  {
+   "id": "nw058",
+   "t": "Cigoto",
+   "n": "CIGOTO",
+   "m": "Ginecología y Obstetricia",
+   "d": "Célula resultante de la unión del óvulo con el espermatozoide."
+  },
+  {
+   "id": "nw059",
+   "t": "Gónadas",
+   "n": "GONADAS",
+   "m": "Ginecología y Obstetricia",
+   "d": "Órganos que producen gametos y hormonas sexuales."
+  },
+  {
+   "id": "nw060",
+   "t": "Hipoxia",
+   "n": "HIPOXIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Disminución del oxígeno disponible en los tejidos."
+  },
+  {
+   "id": "nw061",
+   "t": "Isquemia",
+   "n": "ISQUEMIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Riego sanguíneo insuficiente para las necesidades de un tejido."
+  },
+  {
+   "id": "nw062",
+   "t": "Infarto",
+   "n": "INFARTO",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Necrosis de un tejido por falta prolongada de riego sanguíneo."
+  },
+  {
+   "id": "nw063",
+   "t": "Necrosis",
+   "n": "NECROSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Muerte celular patológica acompañada de inflamación."
+  },
+  {
+   "id": "nw064",
+   "t": "Apoptosis",
+   "n": "APOPTOSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Muerte celular programada y ordenada, sin inflamación."
+  },
+  {
+   "id": "nw065",
+   "t": "Trombo",
+   "n": "TROMBO",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Masa de plaquetas y fibrina formada dentro de un vaso."
+  },
+  {
+   "id": "nw066",
+   "t": "Embolia",
+   "n": "EMBOLIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Obstrucción de un vaso por un material que viaja en la sangre."
+  },
+  {
+   "id": "nw067",
+   "t": "Fibrina",
+   "n": "FIBRINA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Proteína insoluble que estabiliza el coágulo."
+  },
+  {
+   "id": "nw068",
+   "t": "Plaqueta",
+   "n": "PLAQUETA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Fragmento celular que participa en la hemostasia primaria."
+  },
+  {
+   "id": "nw069",
+   "t": "Trombosis",
+   "n": "TROMBOSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Formación de un coágulo dentro de un vaso."
+  },
+  {
+   "id": "nw070",
+   "t": "Anemia",
+   "n": "ANEMIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Disminución de la hemoglobina por debajo de los valores normales."
+  },
+  {
+   "id": "nw071",
+   "t": "Hipoxemia",
+   "n": "HIPOXEMIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Disminución de la presión parcial de oxígeno en sangre arterial."
+  },
+  {
+   "id": "nw072",
+   "t": "Acidosis",
+   "n": "ACIDOSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Proceso que tiende a disminuir el pH de la sangre."
+  },
+  {
+   "id": "nw073",
+   "t": "Alcalosis",
+   "n": "ALCALOSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Proceso que tiende a aumentar el pH de la sangre."
+  },
+  {
+   "id": "nw074",
+   "t": "Uremia",
+   "n": "UREMIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Síndrome por acumulación de productos nitrogenados en la insuficiencia renal."
+  },
+  {
+   "id": "nw075",
+   "t": "Ascitis",
+   "n": "ASCITIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Acumulación de líquido libre en la cavidad peritoneal."
+  },
+  {
+   "id": "nw076",
+   "t": "Ictericia",
+   "n": "ICTERICIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Coloración amarilla de piel y mucosas por exceso de bilirrubina."
+  },
+  {
+   "id": "nw077",
+   "t": "Disnea",
+   "n": "DISNEA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Sensación subjetiva de falta de aire."
+  },
+  {
+   "id": "nw078",
+   "t": "Arritmia",
+   "n": "ARRITMIA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Alteración del ritmo o de la frecuencia de los latidos."
+  },
+  {
+   "id": "nw079",
+   "t": "Cianosis",
+   "n": "CIANOSIS",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Coloración azulada de piel y mucosas por hemoglobina reducida."
+  },
+  {
+   "id": "nw080",
+   "t": "Insulina",
+   "n": "INSULINA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Hormona del páncreas que favorece el ingreso de glucosa a las células."
+  },
+  {
+   "id": "nw081",
+   "t": "Glucagón",
+   "n": "GLUCAGON",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Hormona pancreática que eleva la glucemia."
+  },
+  {
+   "id": "nw082",
+   "t": "Cortisol",
+   "n": "CORTISOL",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Glucocorticoide principal producido por la corteza suprarrenal."
+  },
+  {
+   "id": "nw083",
+   "t": "Tiroxina",
+   "n": "TIROXINA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Hormona tiroidea también llamada T4."
+  },
+  {
+   "id": "nw084",
+   "t": "Oxitocina",
+   "n": "OXITOCINA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Hormona que estimula las contracciones uterinas y la eyección de leche."
+  },
+  {
+   "id": "nw085",
+   "t": "Estrógeno",
+   "n": "ESTROGENO",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Hormona sexual femenina que promueve los caracteres sexuales secundarios."
+  },
+  {
+   "id": "nw086",
+   "t": "Glucosa",
+   "n": "GLUCOSA",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Principal azúcar usado como fuente de energía por las células."
+  },
+  {
+   "id": "nw087",
+   "t": "Glucógeno",
+   "n": "GLUCOGENO",
+   "m": "Fisiología y Fisiopatología",
+   "d": "Polisacárido ramificado de reserva energética en el hígado y el músculo."
+  },
+  {
+   "id": "nw088",
+   "t": "Estenosis",
+   "n": "ESTENOSIS",
+   "m": "Patología",
+   "d": "Estrechamiento de un conducto u orificio."
+  },
+  {
+   "id": "nw089",
+   "t": "Aneurisma",
+   "n": "ANEURISMA",
+   "m": "Patología",
+   "d": "Dilatación localizada y permanente de una arteria."
+  },
+  {
+   "id": "nw090",
+   "t": "Cirrosis",
+   "n": "CIRROSIS",
+   "m": "Patología",
+   "d": "Fibrosis hepática difusa con nódulos de regeneración."
+  },
+  {
+   "id": "nw091",
+   "t": "Hepatitis",
+   "n": "HEPATITIS",
+   "m": "Patología",
+   "d": "Inflamación del hígado."
+  },
+  {
+   "id": "nw092",
+   "t": "Sepsis",
+   "n": "SEPSIS",
+   "m": "Patología",
+   "d": "Disfunción orgánica causada por una respuesta desregulada a una infección."
+  },
+  {
+   "id": "nw093",
+   "t": "Neoplasia",
+   "n": "NEOPLASIA",
+   "m": "Patología",
+   "d": "Proliferación celular anormal y autónoma."
+  },
+  {
+   "id": "nw094",
+   "t": "Displasia",
+   "n": "DISPLASIA",
+   "m": "Patología",
+   "d": "Alteración de la maduración y la organización de las células de un tejido."
+  },
+  {
+   "id": "nw095",
+   "t": "Atrofia",
+   "n": "ATROFIA",
+   "m": "Patología",
+   "d": "Disminución del tamaño de un órgano o tejido por reducción de sus células."
+  },
+  {
+   "id": "nw096",
+   "t": "Fibrosis",
+   "n": "FIBROSIS",
+   "m": "Patología",
+   "d": "Depósito excesivo de tejido conectivo."
+  },
+  {
+   "id": "nw097",
+   "t": "Absceso",
+   "n": "ABSCESO",
+   "m": "Patología",
+   "d": "Colección localizada de pus."
+  },
+  {
+   "id": "nw098",
+   "t": "Fístula",
+   "n": "FISTULA",
+   "m": "Patología",
+   "d": "Comunicación anormal entre dos cavidades, o entre una cavidad y la piel."
+  },
+  {
+   "id": "nw099",
+   "t": "Hernia",
+   "n": "HERNIA",
+   "m": "Patología",
+   "d": "Salida de un órgano o tejido a través de un defecto de la pared que lo contiene."
+  },
+  {
+   "id": "nw100",
+   "t": "Úlcera",
+   "n": "ULCERA",
+   "m": "Patología",
+   "d": "Pérdida de sustancia de la piel o de una mucosa."
+  },
+  {
+   "id": "nw101",
+   "t": "Gastritis",
+   "n": "GASTRITIS",
+   "m": "Patología",
+   "d": "Inflamación de la mucosa del estómago."
+  },
+  {
+   "id": "nw102",
+   "t": "Colitis",
+   "n": "COLITIS",
+   "m": "Patología",
+   "d": "Inflamación del colon."
+  },
+  {
+   "id": "nw103",
+   "t": "Nefritis",
+   "n": "NEFRITIS",
+   "m": "Patología",
+   "d": "Inflamación del riñón."
+  },
+  {
+   "id": "nw104",
+   "t": "Cistitis",
+   "n": "CISTITIS",
+   "m": "Patología",
+   "d": "Inflamación de la vejiga."
+  },
+  {
+   "id": "nw105",
+   "t": "Uretritis",
+   "n": "URETRITIS",
+   "m": "Patología",
+   "d": "Inflamación del conducto que lleva la orina desde la vejiga hacia el exterior."
+  },
+  {
+   "id": "nw106",
+   "t": "Neumonía",
+   "n": "NEUMONIA",
+   "m": "Patología",
+   "d": "Infección del parénquima pulmonar."
+  },
+  {
+   "id": "nw107",
+   "t": "Enfisema",
+   "n": "ENFISEMA",
+   "m": "Patología",
+   "d": "Agrandamiento de los espacios aéreos distales con destrucción de las paredes alveolares."
+  },
+  {
+   "id": "nw108",
+   "t": "Epilepsia",
+   "n": "EPILEPSIA",
+   "m": "Patología",
+   "d": "Trastorno caracterizado por crisis convulsivas recurrentes."
+  },
+  {
+   "id": "nw109",
+   "t": "Migraña",
+   "n": "MIGRANA",
+   "m": "Patología",
+   "d": "Cefalea recurrente, frecuentemente pulsátil y unilateral."
+  },
+  {
+   "id": "nw110",
+   "t": "Ataxia",
+   "n": "ATAXIA",
+   "m": "Patología",
+   "d": "Falta de coordinación de los movimientos voluntarios."
+  },
+  {
+   "id": "nw111",
+   "t": "Afasia",
+   "n": "AFASIA",
+   "m": "Patología",
+   "d": "Trastorno del lenguaje por lesión cerebral."
+  },
+  {
+   "id": "nw112",
+   "t": "Paresia",
+   "n": "PARESIA",
+   "m": "Patología",
+   "d": "Debilidad parcial de la fuerza muscular."
+  },
+  {
+   "id": "nw113",
+   "t": "Parálisis",
+   "n": "PARALISIS",
+   "m": "Patología",
+   "d": "Pérdida completa de la función motora de un músculo o grupo muscular."
+  },
+  {
+   "id": "nw114",
+   "t": "Temblor",
+   "n": "TEMBLOR",
+   "m": "Patología",
+   "d": "Movimiento oscilatorio involuntario y rítmico."
+  },
+  {
+   "id": "nw115",
+   "t": "Diabetes",
+   "n": "DIABETES",
+   "m": "Patología",
+   "d": "Enfermedad metabólica caracterizada por hiperglucemia crónica."
+  },
+  {
+   "id": "nw116",
+   "t": "Heparina",
+   "n": "HEPARINA",
+   "m": "Farmacología",
+   "d": "Anticoagulante que potencia la acción de la antitrombina."
+  },
+  {
+   "id": "nw117",
+   "t": "Warfarina",
+   "n": "WARFARINA",
+   "m": "Farmacología",
+   "d": "Anticoagulante oral que antagoniza la vitamina K."
+  },
+  {
+   "id": "nw118",
+   "t": "Atropina",
+   "n": "ATROPINA",
+   "m": "Farmacología",
+   "d": "Antimuscarínico usado en la bradicardia sintomática."
+  },
+  {
+   "id": "nw119",
+   "t": "Morfina",
+   "n": "MORFINA",
+   "m": "Farmacología",
+   "d": "Opioide agonista usado para el dolor intenso."
+  },
+  {
+   "id": "nw120",
+   "t": "Naloxona",
+   "n": "NALOXONA",
+   "m": "Farmacología",
+   "d": "Antagonista de los receptores opioides usado en la sobredosis."
+  },
+  {
+   "id": "nw121",
+   "t": "Digoxina",
+   "n": "DIGOXINA",
+   "m": "Farmacología",
+   "d": "Glucósido cardíaco que inhibe la bomba de sodio y potasio."
+  },
+  {
+   "id": "nw122",
+   "t": "Lidocaína",
+   "n": "LIDOCAINA",
+   "m": "Farmacología",
+   "d": "Anestésico local de tipo amida."
+  },
+  {
+   "id": "nw123",
+   "t": "Propofol",
+   "n": "PROPOFOL",
+   "m": "Farmacología",
+   "d": "Hipnótico intravenoso de acción rápida usado en anestesia."
+  },
+  {
+   "id": "nw124",
+   "t": "Ketamina",
+   "n": "KETAMINA",
+   "m": "Farmacología",
+   "d": "Anestésico disociativo antagonista del receptor NMDA."
+  },
+  {
+   "id": "nw125",
+   "t": "Diazepam",
+   "n": "DIAZEPAM",
+   "m": "Farmacología",
+   "d": "Benzodiazepina de acción prolongada usada como ansiolítico y anticonvulsivante."
+  },
+  {
+   "id": "nw126",
+   "t": "Fenitoína",
+   "n": "FENITOINA",
+   "m": "Farmacología",
+   "d": "Anticonvulsivante que bloquea canales de sodio."
+  },
+  {
+   "id": "nw127",
+   "t": "Enalapril",
+   "n": "ENALAPRIL",
+   "m": "Farmacología",
+   "d": "Inhibidor de la enzima convertidora de angiotensina."
+  },
+  {
+   "id": "nw128",
+   "t": "Losartán",
+   "n": "LOSARTAN",
+   "m": "Farmacología",
+   "d": "Antagonista del receptor de angiotensina II."
+  },
+  {
+   "id": "nw129",
+   "t": "Atenolol",
+   "n": "ATENOLOL",
+   "m": "Farmacología",
+   "d": "Betabloqueante cardioselectivo."
+  },
+  {
+   "id": "nw130",
+   "t": "Omeprazol",
+   "n": "OMEPRAZOL",
+   "m": "Farmacología",
+   "d": "Inhibidor de la bomba de protones."
+  },
+  {
+   "id": "nw131",
+   "t": "Dopamina",
+   "n": "DOPAMINA",
+   "m": "Farmacología",
+   "d": "Catecolamina usada como vasopresor e inotrópico; también neurotransmisor."
+  },
+  {
+   "id": "nw132",
+   "t": "Labetalol",
+   "n": "LABETALOL",
+   "m": "Farmacología",
+   "d": "Bloqueante alfa y beta usado en emergencias hipertensivas del embarazo."
+  },
+  {
+   "id": "nw133",
+   "t": "Metildopa",
+   "n": "METILDOPA",
+   "m": "Farmacología",
+   "d": "Antihipertensivo de acción central utilizado en la hipertensión del embarazo."
+  },
+  {
+   "id": "nw134",
+   "t": "Aciclovir",
+   "n": "ACICLOVIR",
+   "m": "Farmacología",
+   "d": "Antiviral análogo de nucleósido usado contra el herpes."
+  },
+  {
+   "id": "nw135",
+   "t": "Estatina",
+   "n": "ESTATINA",
+   "m": "Farmacología",
+   "d": "Fármaco que inhibe la HMG-CoA reductasa y reduce el colesterol."
+  },
+  {
+   "id": "nw136",
+   "t": "Diurético",
+   "n": "DIURETICO",
+   "m": "Farmacología",
+   "d": "Fármaco que aumenta la eliminación renal de sodio y agua."
+  },
+  {
+   "id": "nw137",
+   "t": "Opioide",
+   "n": "OPIOIDE",
+   "m": "Farmacología",
+   "d": "Fármaco que actúa sobre receptores mu, kappa o delta para aliviar el dolor intenso."
+  },
+  {
+   "id": "nw138",
+   "t": "Antídoto",
+   "n": "ANTIDOTO",
+   "m": "Farmacología",
+   "d": "Sustancia que neutraliza o revierte los efectos de un tóxico."
+  },
+  {
+   "id": "nw139",
+   "t": "Anestesia",
+   "n": "ANESTESIA",
+   "m": "Farmacología",
+   "d": "Pérdida temporal y reversible de la sensibilidad, con o sin pérdida de conciencia."
+  },
+  {
+   "id": "nw140",
+   "t": "Anamnesis",
+   "n": "ANAMNESIS",
+   "m": "Clínica y procedimientos",
+   "d": "Interrogatorio dirigido a reconstruir la historia clínica del paciente."
+  },
+  {
+   "id": "nw141",
+   "t": "Palpación",
+   "n": "PALPACION",
+   "m": "Clínica y procedimientos",
+   "d": "Maniobra del examen físico que explora con las manos."
+  },
+  {
+   "id": "nw142",
+   "t": "Percusión",
+   "n": "PERCUSION",
+   "m": "Clínica y procedimientos",
+   "d": "Maniobra del examen físico que consiste en golpear para evaluar la sonoridad."
+  },
+  {
+   "id": "nw143",
+   "t": "Biopsia",
+   "n": "BIOPSIA",
+   "m": "Clínica y procedimientos",
+   "d": "Extracción de una muestra de tejido para su estudio."
+  },
+  {
+   "id": "nw144",
+   "t": "Sutura",
+   "n": "SUTURA",
+   "m": "Clínica y procedimientos",
+   "d": "Técnica que une los bordes de una herida con hilo."
+  },
+  {
+   "id": "nw145",
+   "t": "Incisión",
+   "n": "INCISION",
+   "m": "Clínica y procedimientos",
+   "d": "Corte quirúrgico de los tejidos."
+  },
+  {
+   "id": "nw146",
+   "t": "Drenaje",
+   "n": "DRENAJE",
+   "m": "Clínica y procedimientos",
+   "d": "Evacuación de líquidos o pus de una cavidad."
+  },
+  {
+   "id": "nw147",
+   "t": "Catéter",
+   "n": "CATETER",
+   "m": "Clínica y procedimientos",
+   "d": "Tubo flexible que se introduce en un vaso o cavidad."
+  },
+  {
+   "id": "nw148",
+   "t": "Asepsia",
+   "n": "ASEPSIA",
+   "m": "Clínica y procedimientos",
+   "d": "Ausencia de microorganismos patógenos en un campo o material."
+  },
+  {
+   "id": "nw149",
+   "t": "Triage",
+   "n": "TRIAGE",
+   "m": "Clínica y procedimientos",
+   "d": "Clasificación de los pacientes según la urgencia de su atención."
+  },
+  {
+   "id": "nw150",
+   "t": "Síntoma",
+   "n": "SINTOMA",
+   "m": "Clínica y procedimientos",
+   "d": "Manifestación subjetiva de una enfermedad referida por el paciente."
+  },
+  {
+   "id": "nw151",
+   "t": "Síndrome",
+   "n": "SINDROME",
+   "m": "Clínica y procedimientos",
+   "d": "Conjunto de signos y síntomas que se presentan juntos."
+  },
+  {
+   "id": "nw152",
+   "t": "Etiología",
+   "n": "ETIOLOGIA",
+   "m": "Clínica y procedimientos",
+   "d": "Estudio de las causas de una enfermedad."
+  },
+  {
+   "id": "nw153",
+   "t": "Patogenia",
+   "n": "PATOGENIA",
+   "m": "Clínica y procedimientos",
+   "d": "Mecanismo por el cual una causa produce una enfermedad."
+  },
+  {
+   "id": "nw154",
+   "t": "Epicrisis",
+   "n": "EPICRISIS",
+   "m": "Clínica y procedimientos",
+   "d": "Resumen final de la historia clínica al alta."
+  },
+  {
+   "id": "nw155",
+   "t": "Bacteria",
+   "n": "BACTERIA",
+   "m": "Microbiología e Inmunología",
+   "d": "Microorganismo unicelular procariota."
+  },
+  {
+   "id": "nw156",
+   "t": "Parásito",
+   "n": "PARASITO",
+   "m": "Microbiología e Inmunología",
+   "d": "Organismo que vive a expensas de otro, su huésped."
+  },
+  {
+   "id": "nw157",
+   "t": "Gonococo",
+   "n": "GONOCOCO",
+   "m": "Microbiología e Inmunología",
+   "d": "Diplococo gramnegativo causante de la gonorrea."
+  },
+  {
+   "id": "nw158",
+   "t": "Esporas",
+   "n": "ESPORAS",
+   "m": "Microbiología e Inmunología",
+   "d": "Formas de resistencia o de reproducción de algunas bacterias y hongos."
+  },
+  {
+   "id": "nw159",
+   "t": "Antígeno",
+   "n": "ANTIGENO",
+   "m": "Microbiología e Inmunología",
+   "d": "Molécula capaz de ser reconocida por el sistema inmune."
+  },
+  {
+   "id": "nw160",
+   "t": "Inmunidad",
+   "n": "INMUNIDAD",
+   "m": "Microbiología e Inmunología",
+   "d": "Capacidad del organismo para defenderse de agentes extraños."
+  },
+  {
+   "id": "nw161",
+   "t": "Fagocito",
+   "n": "FAGOCITO",
+   "m": "Microbiología e Inmunología",
+   "d": "Célula que ingiere partículas y microorganismos."
+  },
+  {
+   "id": "nw162",
+   "t": "Linfocito",
+   "n": "LINFOCITO",
+   "m": "Microbiología e Inmunología",
+   "d": "Leucocito clave de la inmunidad adaptativa."
+  },
+  {
+   "id": "nw163",
+   "t": "Macrófago",
+   "n": "MACROFAGO",
+   "m": "Microbiología e Inmunología",
+   "d": "Célula fagocítica derivada de los monocitos que reside en los tejidos."
+  },
+  {
+   "id": "nw164",
+   "t": "Citocina",
+   "n": "CITOCINA",
+   "m": "Microbiología e Inmunología",
+   "d": "Proteína mensajera que regula la respuesta inmune e inflamatoria."
+  },
+  {
+   "id": "nw165",
+   "t": "Alérgeno",
+   "n": "ALERGENO",
+   "m": "Microbiología e Inmunología",
+   "d": "Antígeno que desencadena una reacción de hipersensibilidad."
+  },
+  {
+   "id": "nw166",
+   "t": "Bacilo",
+   "n": "BACILO",
+   "m": "Microbiología e Inmunología",
+   "d": "Bacteria con forma de bastón."
+  },
+  {
+   "id": "nw167",
+   "t": "Vacuna",
+   "n": "VACUNA",
+   "m": "Microbiología e Inmunología",
+   "d": "Preparado que induce inmunidad frente a un agente."
+  },
+  {
+   "id": "nw168",
+   "t": "Epidemia",
+   "n": "EPIDEMIA",
+   "m": "Salud pública",
+   "d": "Aumento inusual de casos de una enfermedad en una zona y tiempo determinados."
+  },
+  {
+   "id": "nw169",
+   "t": "Pandemia",
+   "n": "PANDEMIA",
+   "m": "Salud pública",
+   "d": "Epidemia que se extiende a varios países o continentes."
+  },
+  {
+   "id": "nw170",
+   "t": "Endemia",
+   "n": "ENDEMIA",
+   "m": "Salud pública",
+   "d": "Presencia habitual de una enfermedad en una zona."
+  },
+  {
+   "id": "nw171",
+   "t": "Letalidad",
+   "n": "LETALIDAD",
+   "m": "Salud pública",
+   "d": "Proporción de personas enfermas que mueren por la enfermedad."
+  },
+  {
+   "id": "nw172",
+   "t": "Cohorte",
+   "n": "COHORTE",
+   "m": "Salud pública",
+   "d": "Grupo de personas seguidas en el tiempo en un estudio."
+  },
+  {
+   "id": "nw173",
+   "t": "Neonato",
+   "n": "NEONATO",
+   "m": "Salud pública",
+   "d": "Recién nacido durante sus primeros 28 días."
+  },
+  {
+   "id": "nw174",
+   "t": "Lactante",
+   "n": "LACTANTE",
+   "m": "Salud pública",
+   "d": "Niño pequeño que se alimenta de leche, desde el primer mes hasta aproximadamente los 2 años."
+  },
+  {
+   "id": "nw175",
+   "t": "Ribosoma",
+   "n": "RIBOSOMA",
+   "m": "Biología y Bioquímica",
+   "d": "Orgánulo donde se sintetizan las proteínas."
+  },
+  {
+   "id": "nw176",
+   "t": "Lisosoma",
+   "n": "LISOSOMA",
+   "m": "Biología y Bioquímica",
+   "d": "Orgánulo con enzimas digestivas."
+  },
+  {
+   "id": "nw177",
+   "t": "Núcleo",
+   "n": "NUCLEO",
+   "m": "Biología y Bioquímica",
+   "d": "Estructura celular que contiene el material genético."
+  },
+  {
+   "id": "nw178",
+   "t": "Colágeno",
+   "n": "COLAGENO",
+   "m": "Biología y Bioquímica",
+   "d": "Proteína fibrosa más abundante del tejido conectivo."
+  },
+  {
+   "id": "nw179",
+   "t": "Epitelio",
+   "n": "EPITELIO",
+   "m": "Biología y Bioquímica",
+   "d": "Tejido que recubre superficies y cavidades."
+  },
+  {
+   "id": "nw180",
+   "t": "Enzima",
+   "n": "ENZIMA",
+   "m": "Biología y Bioquímica",
+   "d": "Proteína que acelera las reacciones químicas."
+  },
+  {
+   "id": "nw181",
+   "t": "Lípido",
+   "n": "LIPIDO",
+   "m": "Biología y Bioquímica",
+   "d": "Biomolécula insoluble en agua; incluye grasas y esteroides."
+  },
+  {
+   "id": "nw182",
+   "t": "Proteína",
+   "n": "PROTEINA",
+   "m": "Biología y Bioquímica",
+   "d": "Biomolécula formada por aminoácidos."
+  },
+  {
+   "id": "nw183",
+   "t": "Cromosoma",
+   "n": "CROMOSOMA",
+   "m": "Biología y Bioquímica",
+   "d": "Estructura que contiene el ADN condensado."
+  },
+  {
+   "id": "nw184",
+   "t": "Genoma",
+   "n": "GENOMA",
+   "m": "Biología y Bioquímica",
+   "d": "Conjunto completo del material genético de un organismo."
+  },
+  {
+   "id": "nw185",
+   "t": "Mutación",
+   "n": "MUTACION",
+   "m": "Biología y Bioquímica",
+   "d": "Cambio en la secuencia del ADN."
+  }
+ ],
+ "revision": "Repaso interno de cada definición contra conocimiento médico general (sin consulta de bibliografía). Pendiente de revisión por el equipo."
+}
