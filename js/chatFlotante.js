@@ -90,6 +90,21 @@
   .cf-b .chat-bubble-tick{display:inline-flex;vertical-align:middle;margin-left:4px}.cf-b .chat-bubble-tick svg{width:15px;height:10px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .cf-b .tick-read{color:#7dd3fc}.cf-b .tick-sent,.cf-b .tick-delivered{opacity:.8}
   .cf-b.cf-pregunta{border-left:4px solid #8b5cf6}.cf-b.cf-pregunta strong{display:block;font-size:.74rem;margin-bottom:4px;opacity:.9}
+  .cf-b.cf-solo-emo{background:transparent!important;border:0!important;box-shadow:none;font-size:2.1rem;line-height:1.15;padding:2px 4px;color:inherit}.cf-b.cf-solo-emo em{color:var(--text-muted,#64748b)}
+  .cf-b.cf-del{background:transparent!important;border:1px dashed var(--border,#cbd5e1)!important;color:var(--text-muted,#64748b)!important;font-style:italic;font-size:.82rem}
+  .cf-b.cf-flash{animation:cf-flash 1.2s ease}@keyframes cf-flash{0%,60%{box-shadow:0 0 0 3px rgba(250,204,21,.9)}100%{box-shadow:0 0 0 0 rgba(250,204,21,0)}}
+  .cf-q{display:block;margin:-2px 0 6px;padding:5px 9px;border-left:3px solid #38bdf8;border-radius:8px;background:rgba(15,23,42,.1);cursor:pointer;font-size:.76rem;line-height:1.3}
+  .cf-b.mine .cf-q{background:rgba(255,255,255,.18);border-left-color:#bae6fd}.cf-q b{display:block;font-size:.72rem;opacity:.95}.cf-q span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;white-space:normal;opacity:.85}
+  .cf-resp{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid var(--border,#e2e8f0);background:rgba(2,132,199,.08);font-size:.78rem}.cf-resp[hidden]{display:none}
+  .cf-resp div{flex:1;min-width:0;border-left:3px solid #0284c7;padding-left:8px}.cf-resp b{display:block;font-size:.72rem;color:#0369a1}.cf-resp span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-muted,#64748b)}
+  .cf-resp button{border:0;background:transparent;color:inherit;font-size:1rem;cursor:pointer;padding:4px 8px;border-radius:8px}.cf-resp button:hover{background:rgba(148,163,184,.25)}
+  .cf-menu{position:fixed;z-index:10001;min-width:190px;padding:6px;border-radius:14px;background:var(--card-bg,#fff);color:var(--text-main,#0f172a);border:1px solid var(--border,#e2e8f0);box-shadow:0 14px 34px -10px rgba(0,0,0,.5);font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:cf-entra .15s both}
+  .cf-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:transparent;color:inherit;font:700 .84rem 'Plus Jakarta Sans',sans-serif;text-align:left;cursor:pointer}.cf-menu button:hover{background:rgba(2,132,199,.12)}.cf-menu button.pelig{color:#dc2626}.cf-menu button.pelig:hover{background:rgba(220,38,38,.12)}
+  .cf-emojis{border-top:1px solid var(--border,#e2e8f0);background:var(--card-bg,#fff)}.cf-emojis[hidden]{display:none}
+  .cf-emo-tabs{display:flex;gap:2px;padding:6px 8px 0;overflow-x:auto}.cf-emo-tabs button{border:0;background:transparent;font-size:1.15rem;padding:4px 8px;border-radius:9px;cursor:pointer;opacity:.6}.cf-emo-tabs button.on{opacity:1;background:rgba(2,132,199,.15)}
+  .cf-emo-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;max-height:142px;overflow-y:auto;padding:6px 8px 8px}.cf-emo-grid button{border:0;background:transparent;font-size:1.45rem;line-height:1.2;padding:3px 0;border-radius:8px;cursor:pointer;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}.cf-emo-grid button:hover{background:rgba(2,132,199,.14)}
+  .cf-in .cf-emo-btn{background:transparent;color:inherit;font-size:1.3rem;width:38px;flex-shrink:0}.cf-in .cf-emo-btn:hover,.cf-in .cf-emo-btn.on{background:rgba(2,132,199,.15)}
+  .cf-b{-webkit-touch-callout:none}
   #chat-fab-btn,#dm-inbox-modal,#private-chat-modal{display:none!important}
   .cf-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border,#e2e8f0)}.cf-in input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .88rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-in input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}.cf-in button{width:42px;height:42px;border:0;border-radius:50%;background:#0284c7;color:#fff;font-size:1.05rem;cursor:pointer}
@@ -199,6 +214,80 @@
       mk('Rechazar', '#64748b', async () => { nota('✖️ Duelo rechazado'); try { await c.from('versus_challenges').update({ status: 'rejected' }).eq('id', id).eq('status', 'pending'); } catch (_) {} });
     } catch (_) {}
   }
+  // ---- responder, eliminar y emojis ----
+  let respondiendo = null;   // { id, de, texto } del mensaje que se está contestando
+  const RX_MARCAS = /\[\[(?:desafio:[0-9a-f-]{36}|estudiar:[^\]]*|nota)\]\]/gi;
+  const textoDe = (m) => m.deleted_at ? '' : m.shared_question ? '📋 Pregunta compartida' : String(m.content || '').replace(RX_MARCAS, '').trim().slice(0, 140) || '…';
+  const RX_SOLO_EMOJI = /^(?:\p{Extended_Pictographic}[\u{1F3FB}-\u{1F3FF}️]?(?:‍\p{Extended_Pictographic}[\u{1F3FB}-\u{1F3FF}️]?)*\s*){1,3}$/u;
+  function cerrarMenu() { const x = document.querySelector('.cf-menu'); if (x) x.remove(); }
+  document.addEventListener('click', cerrarMenu); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrarMenu(); }); window.addEventListener('resize', cerrarMenu);
+  function pintarRespuesta() {
+    const r = $('#cf-resp', panel); if (!r) return;
+    if (!respondiendo) { r.hidden = true; r.innerHTML = ''; return; }
+    r.hidden = false; r.innerHTML = `<div><b>Respondiendo a ${esc(respondiendo.de)}</b><span>${esc(respondiendo.texto)}</span></div><button type="button" aria-label="Cancelar respuesta">✕</button>`;
+    r.querySelector('button').onclick = () => { respondiendo = null; pintarRespuesta(); };
+    const i = $('.cf-in input[type=text]', panel); if (i) i.focus();
+  }
+  function marcarBorrado(el) {
+    el.classList.remove('cf-pregunta', 'cf-solo-emo'); el.classList.add('cf-del');
+    el.innerHTML = '🚫 Mensaje eliminado'; el._m = Object.assign({}, el._m || {}, { deleted_at: new Date().toISOString() });
+  }
+  async function eliminar(el, m, todos) {
+    if (todos && !confirm('¿Eliminar este mensaje para todos?')) return;
+    try {
+      await window.ChatManager.borrarMensaje(m.id, todos, actual);
+      if (todos) marcarBorrado(el); else { ids.delete(m.id); el.remove(); }
+    } catch (err) { if (typeof window.showToast === 'function') window.showToast(err && err.friendly ? err.message : 'No se pudo eliminar el mensaje.'); }
+  }
+  function abrirMenu(el, m, mia, x, y) {
+    cerrarMenu(); if (!m.id) return;
+    const men = document.createElement('div'); men.className = 'cf-menu'; men.setAttribute('role', 'menu');
+    const it = (ico, txt, fn, cls) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls || ''; b.innerHTML = `<span>${ico}</span>${txt}`; b.onclick = (e) => { e.stopPropagation(); cerrarMenu(); fn(); }; men.appendChild(b); };
+    if (!m.deleted_at) {
+      it('↩️', 'Responder', () => { respondiendo = { id: m.id, de: mia ? 'ti' : '@' + m.from_username, texto: textoDe(m) }; pintarRespuesta(); });
+      if (!m.shared_question && textoDe(m) !== '…') it('📋', 'Copiar', () => { try { navigator.clipboard.writeText(String(m.content || '').replace(RX_MARCAS, '').trim()); } catch (_) {} });
+    }
+    it('🙈', 'Eliminar para mí', () => eliminar(el, m, false), 'pelig');
+    if (mia && !m.deleted_at) it('🗑️', 'Eliminar para todos', () => eliminar(el, m, true), 'pelig');
+    document.body.appendChild(men);
+    const w = men.offsetWidth, h = men.offsetHeight;
+    men.style.left = Math.max(8, Math.min(x, window.innerWidth - w - 8)) + 'px'; men.style.top = Math.max(8, Math.min(y, window.innerHeight - h - 8)) + 'px';
+  }
+  function habilitarMenu(el, m, mia) {
+    el.addEventListener('contextmenu', (e) => { e.preventDefault(); e.stopPropagation(); abrirMenu(el, el._m || m, mia, e.clientX, e.clientY); });
+    let t = null;
+    el.addEventListener('touchstart', (e) => { const p = e.touches[0], px = p.clientX, py = p.clientY; clearTimeout(t); t = setTimeout(() => abrirMenu(el, el._m || m, mia, px, py), 520); }, { passive: true });
+    ['touchend', 'touchcancel', 'touchmove'].forEach((ev) => el.addEventListener(ev, () => clearTimeout(t), { passive: true }));
+  }
+  const EMOJIS = [
+    ['😀', 'Caras', '😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🫡 🤭 🫢 🤫 🫠 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 💀 ☠️ 💩 🤡 👻 👽 🤖'],
+    ['👋', 'Gestos', '👋 🤚 🖐️ ✋ 🖖 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾 🧠 🫀 🫁 🦷 🦴 👀 👁️ 👅 👄 🫦'],
+    ['❤️', 'Corazones y símbolos', '❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟 ♥️ 💌 💤 💢 💥 💫 💦 💨 💬 🗯️ 💭 ✨ ⭐ 🌟 🔥 🎉 🎊 🎈 🎁 🏆 🥇 🥈 🥉 💯 ✅ ❌ ❓ ❗ ⚠️ 🚫 ♻️ ➕ ➖'],
+    ['🩺', 'Medicina y estudio', '🩺 💉 💊 🩹 🩸 🧬 🦠 🧪 🔬 🩻 🏥 🚑 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🔬 🤰 🤱 👶 🧒 👵 👴 🫀 🧠 🫁 🦷 🦴 🩼 🧴 🧼 🪥 😷 🤒 🤕 🤧 🌡️ ⚕️ 📋 📝 📚 📖 🎓 ✏️ 📅 ⏰ ⏳ 🍅 ☕ 🍫 🎧 💻 📱'],
+    ['🐶', 'Animales y naturaleza', '🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🙈 🙉 🙊 🐔 🐧 🐦 🐤 🦆 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐢 🐍 🦎 🐙 🦑 🦀 🐠 🐟 🐬 🐳 🦈 🐊 🐘 🦒 🐑 🌸 🌼 🌻 🌹 🌷 🌱 🌿 🍀 🌵 🌴 🌳 🌈 ☀️ ⛅ ☁️ 🌧️ ⚡ ❄️ 🌙'],
+    ['🍎', 'Comida', '🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓 🫐 🍒 🍑 🥭 🍍 🥥 🥝 🍅 🥑 🥦 🥕 🌽 🥔 🍞 🥐 🧀 🥚 🍳 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🥗 🍝 🍜 🍣 🍤 🍦 🍩 🍪 🎂 🍰 🍫 🍬 🍭 🍿 ☕ 🍵 🧉 🥤 🍺 🍷 🥂 🍾'],
+    ['⚽', 'Actividades y objetos', '⚽ 🏀 🏈 ⚾ 🎾 🏐 🏉 🎱 🏓 🥊 🏊 🚴 🏃 🧘 🎮 🎯 🎲 🎵 🎶 🎤 🎸 🥁 🎬 📸 🚗 ✈️ 🚀 🏠 🌍 🇦🇷 🏖️ ⛰️ 💡 🔑 🔔 📌 📎 ✂️ 🔒 💰 💳 🎒 👕 👟 👑 💍 🕶️'],
+  ];
+  function montarEmojis(form, input) {
+    const caja = $('#cf-emo', panel), btn = $('.cf-emo-btn', form); if (!caja || !btn) return;
+    let cat = 0;
+    const pintar = () => {
+      caja.innerHTML = '<div class="cf-emo-tabs">' + EMOJIS.map((c, i) => `<button type="button" data-c="${i}" class="${i === cat ? 'on' : ''}" title="${c[1]}" aria-label="${c[1]}">${c[0]}</button>`).join('') + '</div><div class="cf-emo-grid">' + EMOJIS[cat][2].split(' ').map((e) => `<button type="button" data-e="${e}">${e}</button>`).join('') + '</div>';
+    };
+    pintar();
+    caja.addEventListener('mousedown', (e) => e.preventDefault());   // no le saca el foco al campo de texto
+    caja.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const c = e.target.closest('[data-c]'); if (c) { cat = +c.dataset.c; pintar(); return; }
+      const em = e.target.closest('[data-e]'); if (!em) return;
+      const a = input.selectionStart == null ? input.value.length : input.selectionStart, b = input.selectionEnd == null ? a : input.selectionEnd;
+      if (input.value.length - (b - a) + em.dataset.e.length > input.maxLength) return;
+      input.value = input.value.slice(0, a) + em.dataset.e + input.value.slice(b);
+      const pos = a + em.dataset.e.length; input.focus(); try { input.setSelectionRange(pos, pos); } catch (_) {}
+    });
+    btn.onclick = (e) => { e.stopPropagation(); caja.hidden = !caja.hidden; btn.classList.toggle('on', !caja.hidden); if (caja.hidden) input.focus(); };
+  }
+
   function burbuja(m) {
     const box = $('.cf-msgs', panel); if (!box || (m.id && ids.has(m.id))) return; if (m.id) ids.add(m.id);
     const vacio = $('.cf-vacio', box); if (vacio) vacio.remove();
@@ -207,6 +296,13 @@
     const mia = String(m.from_username).toLowerCase() === String(yo()).toLowerCase();
     const CM = window.ChatManager;
     const el = document.createElement('div'); el.className = 'cf-b chat-bubble ' + (mia ? 'mine' : 'theirs'); if (m.id) el.setAttribute('data-msg-id', m.id);
+    el._m = m; habilitarMenu(el, m, mia);
+    if (m.deleted_at) { el.classList.add('cf-del'); el.textContent = '🚫 Mensaje eliminado'; box.appendChild(el); box.scrollTop = box.scrollHeight; return; }
+    if (m.reply_to || m.reply_texto) {
+      const q = document.createElement('div'); q.className = 'cf-q'; q.innerHTML = `<b>${esc(m.reply_de || '')}</b><span>${esc(m.reply_texto || 'Mensaje')}</span>`;
+      q.onclick = () => { const o = m.reply_to && box.querySelector('[data-msg-id="' + m.reply_to + '"]'); if (o) { o.scrollIntoView({ block: 'center', behavior: 'smooth' }); o.classList.remove('cf-flash'); void o.offsetWidth; o.classList.add('cf-flash'); } };
+      el.appendChild(q);
+    }
     if (m.shared_question) {   // tarjeta de pregunta compartida desde un simulacro
       const q = m.shared_question; el.classList.add('cf-pregunta');
       const h = document.createElement('strong'); h.textContent = '📋 Pregunta compartida' + (q.up ? ' · ' + q.up : ''); el.appendChild(h);
@@ -223,16 +319,18 @@
       if (marcaEst && !vigente) { const s = document.createElement('small'); s.style.cssText = 'opacity:.8;font-weight:700'; s.textContent = '⌛ La invitación venció'; fila.appendChild(s); }
       else { b.textContent = marcaEst ? '🍅 Unirme' : '📝 Ver nota'; b.onclick = () => { if (!window.NikaNotif) return; if (marcaEst) window.NikaNotif.unirse({ de_username: m.from_username, datos: { sessionId: marcaEst[1] === 'x' ? null : marcaEst[1] } }); else window.NikaNotif.abrirCentro('notif'); }; fila.appendChild(b); }
     }
+    if (!m.shared_question && !marca && !marcaEst && !marcaNota && !m.reply_to && RX_SOLO_EMOJI.test(String(m.content || '').trim())) el.classList.add('cf-solo-emo');
     const meta = document.createElement('em'); meta.innerHTML = esc(hora(m.created_at)) + (mia ? CM.tickHTML(CM.estadoDeEntrega(m)) : ''); el.appendChild(meta);
     box.appendChild(el); box.scrollTop = box.scrollHeight;
   }
   async function conversacion(user) {
     const CM = window.ChatManager; const f = amigos.find((x) => x.username === user) || { username: user, fullname: '@' + user };
-    actual = user; ids = new Set(); ultimoDia = null;
+    actual = user; ids = new Set(); ultimoDia = null; respondiendo = null;
     panel.innerHTML = `<div class="cf-h"><button type="button" class="cf-back" aria-label="Volver">←</button><span class="cf-av"><img src="${esc(f.avatar || AVATAR)}" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover"></span>
       <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4><button type="button" class="cf-call" title="Iniciar chat de voz privado" aria-label="Iniciar chat de voz privado">📞</button>${cabeceraBtns()}</div>
       <div class="cf-msgs"><div class="cf-vacio">Cargando conversación…</div></div>
-      <form class="cf-in" autocomplete="off"><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
+      <div class="cf-resp" id="cf-resp" hidden></div><div class="cf-emojis" id="cf-emo" hidden></div>
+      <form class="cf-in" autocomplete="off"><button type="button" class="cf-emo-btn" aria-label="Emojis" title="Emojis">😊</button><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
     $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
     const llamar = $('.cf-call', panel);
     if (llamar) llamar.onclick = async (e) => {
@@ -253,6 +351,7 @@
     sincronizarLectura();
     CM.onMensaje = (row) => { if (row.from_username !== user && row.to_username !== user) return; burbuja(row); if (row.from_username === user && abierto && !minimizado && !document.hidden) CM.marcarComoLeido(user).then(refrescarNoLeidos); else refrescarNoLeidos(); };
     CM.onPresenciaCambio = pintarEstado;
+    CM.onBorrado = (id) => { const el = panel.querySelector('.cf-msgs [data-msg-id="' + id + '"]'); if (el) marcarBorrado(el); if (respondiendo && respondiendo.id === id) { respondiendo = null; pintarRespuesta(); } refrescarNoLeidos(); };
     try {
       const hist = await CM.abrirConversacion(user);
       const box = $('.cf-msgs', panel); box.innerHTML = '';
@@ -283,11 +382,12 @@
       await CM.marcarComoLeido(user); refrescarNoLeidos();
     } catch (e) { const box = $('.cf-msgs', panel); if (box) box.innerHTML = '<div class="cf-vacio">No se pudo cargar el chat.</div>'; }
     pintarEstado(CM.estaEnLinea(user));
-    const form = $('.cf-in', panel), input = $('input', form); input.focus();
+    const form = $('.cf-in', panel), input = $('input[type=text]', form); input.focus(); montarEmojis(form, input);
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); const txt = input.value.trim(); if (!txt) return; input.value = '';
-      try { const row = await CM.enviarMensaje(user, txt); if (row) burbuja(row); }
-      catch (err) { input.value = txt; if (typeof window.showToast === 'function') window.showToast(err && err.friendly ? err.message : 'No se pudo enviar el mensaje.'); }
+      const resp = respondiendo; respondiendo = null; pintarRespuesta(); const caja = $('#cf-emo', panel); if (caja && !caja.hidden) { caja.hidden = true; $('.cf-emo-btn', form).classList.remove('on'); }
+      try { const row = await CM.enviarMensaje(user, txt, resp); if (row) burbuja(row); }
+      catch (err) { input.value = txt; respondiendo = resp; pintarRespuesta(); if (typeof window.showToast === 'function') window.showToast(err && err.friendly ? err.message : 'No se pudo enviar el mensaje.'); }
     });
   }
 
@@ -314,7 +414,7 @@
     try {
       try { await window.NikaSupabase.ready; } catch (_) { return false; }
       if (!yo()) return false;
-      const okCM = await cargarScript('chatManager.js?v=6', () => !!window.ChatManager);
+      const okCM = await cargarScript('chatManager.js?v=7', () => !!window.ChatManager);
       await cargarScript('friendsManager.js', () => !!window.NikaFriends);
       await cargarScript('presenciaCampus.js', () => !!window.NikaPresencia);
       if (!okCM || !window.ChatManager) return false;

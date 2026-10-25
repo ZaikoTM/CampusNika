@@ -651,7 +651,7 @@
     sondeo = setInterval(() => { if (!document.hidden) cargarRemotas(false); }, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarRemotas(false); });
     // presencia global (amigos en línea) en toda página: respeta el modo invisible
-    cargarScript('friendsManager.js', () => !!window.NikaFriends).then(() => { vigilarSolicitudes(); return cargarScript('chatManager.js?v=6', () => !!window.ChatManager); }).then(() => { if (!prefs.invisible && window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(() => {}); });
+    cargarScript('friendsManager.js', () => !!window.NikaFriends).then(() => { vigilarSolicitudes(); return cargarScript('chatManager.js?v=7', () => !!window.ChatManager); }).then(() => { if (!prefs.invisible && window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(() => {}); });
   }
   function esperar(n) {
     if (iniciado) return;

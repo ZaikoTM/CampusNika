@@ -1172,23 +1172,39 @@
     }
 
     // Convierte un ítem del banco ({q, options:{a..d}, correct}) en pregunta de duelo
+    // Las opciones llegan como {a..d} (UP1-5 y materias nuevas) o como lista ["A) texto", ...] (Cirugía UP6-11): se unifican en {a..d}
+    function _normalizarOpciones(raw) {
+        const out = {};
+        if (Array.isArray(raw)) {
+            raw.forEach((o, i) => {
+                const t = typeof o === 'string' ? o : String((o && (o.texto || o.text || o.label)) || '');
+                const m = /^\s*([A-Da-d])\s*[\)\.\-:]\s*/.exec(t);
+                out[m ? m[1].toLowerCase() : String.fromCharCode(97 + i)] = m ? t.slice(m[0].length) : t;
+            });
+        } else if (raw && typeof raw === 'object') {
+            Object.keys(raw).forEach((k) => { out[String(k).toLowerCase()] = raw[k]; });
+        }
+        return out;
+    }
     function _mapearPregunta(item, upNum, idx, prefijo) {
-        let cleanQ = item.q != null ? item.q : item.pregunta;                                       // cirugía: {q, options, correct}; SIAM/Ginecología: {pregunta, opciones, respuesta_correcta}
-        const cleanOptions = { ...(item.options || item.opciones || {}) };
-        const correcta = String(item.correct != null ? item.correct : item.respuesta_correcta).trim().toLowerCase();
+        let cleanQ = item.q != null ? item.q : item.pregunta;                                       // cirugía: {q, options, correct}; SIAM/Ginecología: {pregunta, opciones, respuesta_correcta}; Cirugía UP6-11: {pregunta, opciones[], correcta}
+        const cleanOptions = _normalizarOpciones(item.options || item.opciones);
+        let correcta = String(item.correct != null ? item.correct : (item.respuesta_correcta != null ? item.respuesta_correcta : item.correcta)).trim().toLowerCase();
+        if (/^\d$/.test(correcta)) correcta = String.fromCharCode(97 + Number(correcta));
         // Limpieza OCR: rescata texto de opción pegado al enunciado
         if (cleanOptions.a) {
             const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
             if (matchA && matchA[1].trim() !== "") { cleanQ += " " + matchA[1].trim(); cleanOptions.a = matchA[2]; }
         }
         ['a', 'b', 'c', 'd'].forEach((key) => {
-            if (cleanOptions[key]) cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+            if (cleanOptions[key]) cleanOptions[key] = String(cleanOptions[key]).replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
         });
         const opciones = ['a', 'b', 'c', 'd']
             .filter((l) => cleanOptions[l] !== undefined && cleanOptions[l] !== '')
             .map((l) => ({ id: l, texto: cleanOptions[l], correcta: l === correcta }));
         const justificacion = item.justificacion || item.feedback || item.explicacion || item.explanation || '';
         opciones.forEach((o) => { o.texto = _aTexto(o.texto); });
+        if (opciones.length < 2 || !opciones.some((o) => o.correcta)) return null;   // sin respuestas no sirve para un duelo
         return { id: `${prefijo}_${idx}`, up: upNum, pregunta: _aTexto(cleanQ), opciones, justificacion: typeof justificacion === 'string' ? justificacion : '' };
     }
     const _itemsDe = (res) => (res && res.data && Array.isArray(res.data)) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
@@ -1206,6 +1222,7 @@
         } catch (err) {
             console.warn("[Versus] Error consultando Supabase, recurriendo a respaldo local:", err);
         }
+        bancoPreguntas = bancoPreguntas.filter(Boolean);
 
         if (bancoPreguntas.length === 0) {
             try {
@@ -1222,11 +1239,19 @@
                         const bloque = raw[`up${u.n}`];
                         if (bloque && bloque.questions) bloque.questions.forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.n}`)));
                     });
+                    // Cirugía UP6-11: el archivo organizado solo trae UP1-5, el resto está en data/banco_upNN.json
+                    for (const u of unidades.filter((x) => x.n >= 6)) {
+                        try {
+                            const r = await fetch(`data/banco_up${String(u.n).padStart(2, '0')}.json`); if (!r.ok) continue;
+                            const j = await r.json(); (Array.isArray(j) ? j : (j.preguntas || j.questions || [])).forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.n}`)));
+                        } catch (_) {}
+                    }
                 }
             } catch (fallbackErr) {
                 console.error("[Versus] Error cargando base de respaldo local:", fallbackErr);
             }
         }
+        bancoPreguntas = bancoPreguntas.filter(Boolean);
         return bancoPreguntas;
     }
 
@@ -1616,7 +1641,7 @@
     });
 </script>
 
-    <script src="js/chatFlotante.js?v=11"></script>
+    <script src="js/chatFlotante.js?v=12"></script>
 <script src="js/assistant.js?v=4"></script>
 <script src="js/micro.js?v=2" defer></script>
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>

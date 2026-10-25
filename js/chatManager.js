@@ -227,6 +227,7 @@ var ChatManager = window.ChatManager || (function () {
         canal.on('broadcast', { event: 'dm_ping' }, ({ payload }) => _alRecibirMensaje(payload, 'ping'));
         canal.on('broadcast', { event: 'mensaje_recibido' }, ({ payload }) => _alRecibirEntrega(payload));
         canal.on('broadcast', { event: 'mensajes_leidos' }, ({ payload }) => _alRecibirLectura(payload));
+        canal.on('broadcast', { event: 'mensaje_borrado' }, ({ payload }) => _alRecibirBorrado(payload));
 
         await _suscribirYEsperar(canal, async () => {
             await canal.track({ username, online_at: new Date().toISOString() });
@@ -408,6 +409,14 @@ var ChatManager = window.ChatManager || (function () {
         if (onLecturaCambio) onLecturaCambio(friend);
     }
 
+    // El OTRO eliminó un mensaje suyo para todos -> la interfaz lo reemplaza por «Mensaje eliminado»
+    let onBorrado = null;           // (id) => void
+    function _alRecibirBorrado(payload) {
+        if (!payload || !payload.id || _norm(payload.to) !== _norm(_yo())) return;
+        if (onBorrado) { try { onBorrado(payload.id); } catch (e) { console.error(e); } }
+        _avisarLista();
+    }
+
     // ------------------------------------------------------------
     // 1. Abrir/suscribirse a una conversación 1 a 1
     // ------------------------------------------------------------
@@ -435,6 +444,7 @@ var ChatManager = window.ChatManager || (function () {
         });
         canal.on("broadcast", { event: "mensaje_recibido" }, ({ payload }) => _alRecibirEntrega(payload));
         canal.on("broadcast", { event: "mensajes_leidos" }, ({ payload }) => _alRecibirLectura(payload));
+        canal.on("broadcast", { event: "mensaje_borrado" }, ({ payload }) => _alRecibirBorrado(payload));
 
         const _notificarPresencia = () => {
             if (onPresenciaCambio) onPresenciaCambio(_amigoEnLinea(friendUsername));
@@ -500,7 +510,7 @@ var ChatManager = window.ChatManager || (function () {
 
         const { data, error } = await q;
         if (error) throw error;
-        const filas = (data || []).slice(0, limite).reverse();               // cronológico para pintar
+        const filas = (data || []).slice(0, limite).filter((m) => !(yoId && Array.isArray(m.hidden_for) && m.hidden_for.includes(yoId))).reverse();   // sin los que eliminé solo para mí; cronológico para pintar
         filas.forEach((m) => { if (_norm(m.from_username) === _norm(username)) _registrarEnviado(m); });
         filas.hayMas = (data || []).length > limite;
         filas.cursor = filas.length ? filas[0].created_at : null;
@@ -513,13 +523,24 @@ var ChatManager = window.ChatManager || (function () {
     // ------------------------------------------------------------
     // 3. Enviar mensaje de texto
     // ------------------------------------------------------------
-    async function enviarMensaje(toUsername, contenido) {
+    // respuesta (opcional): { id, de, texto } del mensaje al que se contesta
+    async function enviarMensaje(toUsername, contenido, respuesta) {
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) throw new Error("No hay usuario logueado.");
         if (!contenido || !contenido.trim()) return null;
 
-        const row = await _insertarYNotificar({ from_username: username, to_username: toUsername, content: contenido.trim() });
+        const payload = { from_username: username, to_username: toUsername, content: contenido.trim() };
+        if (respuesta && respuesta.id) { payload.reply_to = respuesta.id; payload.reply_de = String(respuesta.de || '').slice(0, 60); payload.reply_texto = String(respuesta.texto || '').slice(0, 140); }
+        const row = await _insertarYNotificar(payload);
         return row;
+    }
+
+    // Eliminar un mensaje: solo para mí (todos = false) o para ambos (todos = true, solo si es mío)
+    async function borrarMensaje(id, todos, friendUsername) {
+        const { data, error } = await sb().rpc('nika_pm_borrar', { p_id: id, p_todos: !!todos });
+        if (error) { const e = new Error(error.code === '42501' ? 'No podés eliminar ese mensaje.' : 'No se pudo eliminar el mensaje.'); e.friendly = true; throw e; }
+        if (todos && friendUsername) _emitirEvento(friendUsername, 'mensaje_borrado', { id, owner: _yo(), to: friendUsername });
+        return !!data;
     }
 
     // ------------------------------------------------------------
@@ -678,6 +699,8 @@ var ChatManager = window.ChatManager || (function () {
         historial,
         cargarAnteriores,
         enviarMensaje,
+        borrarMensaje,
+        set onBorrado(cb) { onBorrado = cb; },
         compartirPregunta,
         contarNoLeidos,
         marcarComoLeido,
