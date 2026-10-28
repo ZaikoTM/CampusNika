@@ -6,7 +6,7 @@ def A(t): return {'t': 'accion', 'txt': t}
 def F(t): return {'t': 'fin', 'txt': t}
 def D(t, si, no): return {'t': 'decision', 'txt': t, 'si': si, 'no': no}
 
-NOTA_GIM = 'Contenido reescrito el 28/10/2026 sobre Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece. Revisar con el docente antes de tomarlo como definitivo.'
+NOTA_GIM = 'Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece.'
 
 def FG(cap, tit, extra=None, guia=None):
     """Fuente basada en Giménez 2025. `extra` agrega una nota; `guia` (dict) pone una guía argentina como fuente principal y a Giménez como complementaria."""

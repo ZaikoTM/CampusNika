@@ -7,7 +7,7 @@ NUEVAS = []
 U4 = 'UP4 · Enfermedad colorrectal y anorrectal'; U9 = 'UP9 · Trauma, quemaduras y procuración'
 P = lambda t: [{'titulo': t[0], 'pasos': [{'etiqueta': e, 'texto': x} for e, x in t[1]]}]
 GAL = lambda cap, tit, arch: {'guia': 'Enciclopedia de Cirugía Digestiva: %s (cap. %s)' % (tit, cap), 'sociedad': 'F. Galindo y colaboradores (Argentina)', 'anio': '2001-2009',
-                              'archivo': arch, 'tipo': 'libro', 'nota': 'Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez; verificar si hay consensos posteriores. Contenido redactado el 28/10/2026; revisar con el docente.'}
+                              'archivo': arch, 'tipo': 'libro', 'nota': 'Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez.'}
 
 def nueva(id, titulo, alias, up, unidad, definicion, diagnostico, estudios, tratamiento, seguimiento, banderas, algoritmo, fuente):
     NUEVAS.append({'id': id, 'area': 'cirugia', 'titulo': titulo, 'alias': alias, 'up': [up], 'unidad': unidad, 'estado': 'verificar',
