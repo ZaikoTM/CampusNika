@@ -75,42 +75,74 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 1 La toma de decisiones en la práctica quirúrgica · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1LMibqinYzCkPkCEx02GQ9Oh2LvNrGkfR/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1LMibqinYzCkPkCEx02GQ9Oh2LvNrGkfR/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 3 Bioética · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1ZdT3_oRXty4_KrHs7VDZaY_1v6rRRjxW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ZdT3_oRXty4_KrHs7VDZaY_1v6rRRjxW/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-consentimiento-bioetica"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 6 Respuesta a la lesión · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1LVmAbkSzBAaQR8jNluUvgUqlH54jpJJk/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1LVmAbkSzBAaQR8jNluUvgUqlH54jpJJk/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cicatrizacion",
+            "cx-sepsis-respuesta-lesion"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 7 Anestesiología · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1DIaGdBtu7nY_3D8sXg53_3wb3pq0lL74/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1DIaGdBtu7nY_3D8sXg53_3wb3pq0lL74/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-evaluacion-preoperatoria",
+            "cx-anestesia-tipos-riesgo"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 9 Infección en Cirugía · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1DrIjEbd8E0sgCl27c5d0ARhRDjvJjZeo/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1DrIjEbd8E0sgCl27c5d0ARhRDjvJjZeo/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-asepsia-higiene-manos",
+            "cx-isq-paquete",
+            "cx-profilaxis-antibiotica",
+            "cx-herida-aguda",
+            "cx-infecciones-piel-forunculo-antrax"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 11 Simulación y entrenamiento en Cirugía · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1wmr6mCrt6ty3IpuOGSkIDr0fBuPWMpAt/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1wmr6mCrt6ty3IpuOGSkIDr0fBuPWMpAt/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 81 Necrosis de partes blandas · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1zWwXgcK4rCi7Yk_Fl6G4tCzXckgtLBvA/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1zWwXgcK4rCi7Yk_Fl6G4tCzXckgtLBvA/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-infecciones-severas-partes-blandas"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 87 Avances tecnológicos en Cirugía · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1i3AkwnmgJquaNmj7Moa-xrnN8IgVllFw/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1i3AkwnmgJquaNmj7Moa-xrnN8IgVllFw/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cirugia-minima-invasion-tecnologia"
+          ]
         },
         {
           "type": "pdf",
@@ -160,7 +192,7 @@
         {
           "type": "pdf",
           "title": "📖 Ortopedia y Traumatología Básica (Orrego y Morán) · Bibliografía de la unidad",
-          "url": "https://drive.google.com/file/d/16sn7JImW9idSYSehZye6xMi0p-Y5FBu4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1b_e5wel1NGdV8DebFvM6CeFyBamV6GAI/view?usp=drive_link"
         },
         {
           "type": "pdf",
@@ -185,57 +217,68 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 1 Respuesta a la injuria · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1FW1YPN32Fni-r76GF6g2e_PvMweqTTLS/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1FW1YPN32Fni-r76GF6g2e_PvMweqTTLS/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 2 Desequilibrios hidroelectrolíticos · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1jMZXvltpHpEM2B3vyPaHVUX0AyFrgowQ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1jMZXvltpHpEM2B3vyPaHVUX0AyFrgowQ/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 4 Infección en cirugía · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1YjhnIWjtJLKyViMq-P1uxx8jyTC4e97s/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1YjhnIWjtJLKyViMq-P1uxx8jyTC4e97s/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 5 Soporte nutricional del paciente quirúrgico · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1PhorAG2njyQMA7YA861Y7ArIWaYz8uPG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1PhorAG2njyQMA7YA861Y7ArIWaYz8uPG/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 6 Hemostasia y trombosis en cirugía · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1uU5sHYOqmT2YElsnB3zT9n19O8J7Fv9r/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1uU5sHYOqmT2YElsnB3zT9n19O8J7Fv9r/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 7 Anestesiología · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1UH-A32OMoEglEfuQD_581PO_vXrJCjTK/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1UH-A32OMoEglEfuQD_581PO_vXrJCjTK/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 8 Dolor en cirugía · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1hG3MoW-Yp14Teq6cZunQqLjQwjDmldB8/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1hG3MoW-Yp14Teq6cZunQqLjQwjDmldB8/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 9 Heridas y cicatrización · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1PRn8kpghADDxkVX5gCg1gL8X7qTdIsvi/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1PRn8kpghADDxkVX5gCg1gL8X7qTdIsvi/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 10 Bioseguridad · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1UCy9vJnyfWOVrV7ubxPmNLi7ehjIvYiX/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1UCy9vJnyfWOVrV7ubxPmNLi7ehjIvYiX/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 12 Aspectos medicolegales de la práctica quirúrgica · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/15205elXxMpyriqL8aOLZZQj6TzX_mgCT/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/15205elXxMpyriqL8aOLZZQj6TzX_mgCT/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 19 Trauma de los miembros · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1pKSnHj9LnQSqfTKgVi3BcQBoCK0D0W8y/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1pKSnHj9LnQSqfTKgVi3BcQBoCK0D0W8y/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -369,17 +412,32 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 10 Manejo de las colecciones abdominales · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1H1N52w6vMg4AmFjscmGC0KDy4PNNGPIX/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1H1N52w6vMg4AmFjscmGC0KDy4PNNGPIX/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-colecciones-abdominales"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 70 Apendicitis aguda · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1ryHu-50bQ6lWSFh-PhEy2-i4kgWte3pc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ryHu-50bQ6lWSFh-PhEy2-i4kgWte3pc/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-apendicitis-aguda",
+            "cx-dolor-fosa-iliaca-derecha"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 84 Abdomen agudo quirúrgico · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1NMXgBcXozY8PaUfcfUZfGkutb8SniD0D/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1NMXgBcXozY8PaUfcfUZfGkutb8SniD0D/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-abdomen-agudo-enfoque",
+            "cx-peritonitis-aguda",
+            "cx-obstruccion-intestinal"
+          ]
         },
         {
           "type": "pdf",
@@ -429,22 +487,26 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 36 Peritoneo · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1PujFx4wo2nSzykklASOSM7tqapMlDJPN/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1PujFx4wo2nSzykklASOSM7tqapMlDJPN/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 42 Intestino delgado · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1K6bLT2bXj0Ocfal0zjJpaHuuSNrnmfrf/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1K6bLT2bXj0Ocfal0zjJpaHuuSNrnmfrf/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 43 Apéndice cecal · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1D89wzxNT6KMlstYdKSeYj8npucDXXQNQ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1D89wzxNT6KMlstYdKSeYj8npucDXXQNQ/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 47 Abdomen agudo médico · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/13eRXFhZvu2udK7VGCSzCTGR7YEr2R_Sq/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/13eRXFhZvu2udK7VGCSzCTGR7YEr2R_Sq/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -537,147 +599,207 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 36 Acalasia y otros trastornos motores del esófago · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1knseiPEQ5dCa1olOOh8rc6fBlwurQSBZ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1knseiPEQ5dCa1olOOh8rc6fBlwurQSBZ/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-disfagia",
+            "cx-acalasia"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 37 Hernia hiatal y enfermedad por reflujo gastroesofágico · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1h7G3zAmtnV2SsRslqf0jPpsoU2AfAIhC/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1h7G3zAmtnV2SsRslqf0jPpsoU2AfAIhC/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-erge-barrett",
+            "cx-hernia-hiatal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 38 Divertículos del esófago · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1JfeOkojbYfBT0DiZ-rWNy4BfUDld561B/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JfeOkojbYfBT0DiZ-rWNy4BfUDld561B/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-diverticulo-zenker"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 39 Cáncer de esófago · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1qcQPIazBaWSIZvIfaz0loIYAce6rzD09/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1qcQPIazBaWSIZvIfaz0loIYAce6rzD09/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-disfagia",
+            "cx-cancer-esofago"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 40 Cáncer de la unión gastroesofágica · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1E_XF1gDpS4DOdJ9uCN2Nmfp0k1aRsnyo/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1E_XF1gDpS4DOdJ9uCN2Nmfp0k1aRsnyo/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-union-esofagogastrica"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 41 Tumores gástricos infrecuentes · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1sDwxNMX5koEyZJlBHrmMkJ6-GLuBe1BZ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1sDwxNMX5koEyZJlBHrmMkJ6-GLuBe1BZ/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-gastricos-benignos-gist"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 42 Cáncer gástrico · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/11lTRcLSogCmk30kTb6D_wQfbZfwwvh0D/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/11lTRcLSogCmk30kTb6D_wQfbZfwwvh0D/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-gastrico"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 43 Complicaciones de la úlcera péptica · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1BvEmlUs-yVrfrOP-Hsu79o1g5nasKSyi/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1BvEmlUs-yVrfrOP-Hsu79o1g5nasKSyi/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-ulcera-peptica-complicada"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 82 Hemorragia digestiva alta · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1rFq9CQS_Lc18E8fWQF-eOZAGgljsJtG4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1rFq9CQS_Lc18E8fWQF-eOZAGgljsJtG4/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hemorragia-digestiva-alta",
+            "cx-hda-variceal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 126 Hemorragia digestiva · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1JTBcpaJmkjNYF58s7t9DfqxxIfKEutVk/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JTBcpaJmkjNYF58s7t9DfqxxIfKEutVk/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 150 Anatomía quirúrgica del esófago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1xlG_xNK-AzFvuK67MSsoUGX4zNiBI33t/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1xlG_xNK-AzFvuK67MSsoUGX4zNiBI33t/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 152 Estudios funcionales del esófago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1yf038RH_CEiYNVoX8qfyt1aiFBDn8f4J/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1yf038RH_CEiYNVoX8qfyt1aiFBDn8f4J/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 157 Trastornos motores primarios del esófago. Acalasia esofágica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1G5cluCsr6nl7IBAduYL7Q3RLrwetWqaX/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1G5cluCsr6nl7IBAduYL7Q3RLrwetWqaX/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 163 Divertículo de Zenker · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1nskEonIPIXKD-Pxqhf8Yb108Rir-rJ9K/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1nskEonIPIXKD-Pxqhf8Yb108Rir-rJ9K/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 170 Reflujo gastroesofágico patológico: de la anatomía a la clínica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1_ctsuiRYUeww53gGHyUvVYG7vV05Kaka/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1_ctsuiRYUeww53gGHyUvVYG7vV05Kaka/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 172 Enfermedad por reflujo gastroesofágico y hernia hiatal: indicación y técnica quirúrgica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1rIaUy7yd9tq3rJcRNAijF7db9eS9UWuM/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1rIaUy7yd9tq3rJcRNAijF7db9eS9UWuM/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 175 Esófago de Barrett · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/11F_Kg6PzUXqZweMgsdCvxcI8XtYQIn4o/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/11F_Kg6PzUXqZweMgsdCvxcI8XtYQIn4o/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 177 Lesiones esofágicas por ingesta de sustancias corrosivas · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1ogNd_CG0RGpC_C_YzOadrArzDqVl5gbV/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ogNd_CG0RGpC_C_YzOadrArzDqVl5gbV/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 180 Tumores benignos del esófago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1YqRTRVGf8dgTYuwLa11Nnb1AIkAgcNYs/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1YqRTRVGf8dgTYuwLa11Nnb1AIkAgcNYs/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 184 Cáncer de esófago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1wb2LizGzwkODWPMvhiCnoaKjit_ncxYl/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1wb2LizGzwkODWPMvhiCnoaKjit_ncxYl/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 186 Tratamiento quirúrgico del cáncer de esófago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1AHAGRyJFY8MN-NDekWXzfXclbkXr84m6/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1AHAGRyJFY8MN-NDekWXzfXclbkXr84m6/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 187 Carcinoma de la unión esofagogástrica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1fsu2DtBIUTAQt9Oay0HBkJ71UjkCwyv3/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1fsu2DtBIUTAQt9Oay0HBkJ71UjkCwyv3/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 200 Anatomía quirúrgica del estómago y duodeno · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1TFepuugukZINx8wH0J3ZnIRZn9QkpUuj/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1TFepuugukZINx8wH0J3ZnIRZn9QkpUuj/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 206 Úlcera gastroduodenal: etiopatogenia, clínica, diagnóstico y tratamiento médico · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1UsxlZgtYL2Cvnoe60j9qef_RxZ-Q7OV7/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1UsxlZgtYL2Cvnoe60j9qef_RxZ-Q7OV7/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 208 Tratamiento quirúrgico de la úlcera gastroduodenal · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1utw__U4bXaEHDwvFSQ_Pmtk7nlYavRyq/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1utw__U4bXaEHDwvFSQ_Pmtk7nlYavRyq/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 209 Complicaciones de las úlceras pépticas · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1lLy9BBQgVvQ_orSmmniqZBDaaHukzxpi/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1lLy9BBQgVvQ_orSmmniqZBDaaHukzxpi/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 217 Complicaciones de las gastrectomías · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1ToGIiSG-Dny6OQKo-JKvhbyfRRJQH8B4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ToGIiSG-Dny6OQKo-JKvhbyfRRJQH8B4/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 220 Tumores benignos del estómago · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1KMRuO3DoR0m-3x2xaC69kH9kAkbqyJBg/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1KMRuO3DoR0m-3x2xaC69kH9kAkbqyJBg/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 223 Carcinoma gástrico · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1jMF1pFfTWlmuNh2fq4R0z4arv4Fisech/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1jMF1pFfTWlmuNh2fq4R0z4arv4Fisech/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -775,162 +897,225 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 64 Patología anal benigna · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1NIa9FDaecjFAMweU-4tLqqDaJlrF41f-/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1NIa9FDaecjFAMweU-4tLqqDaJlrF41f-/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hemorroides",
+            "cx-fisura-anal",
+            "cx-absceso-fistula-anal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 66 Incontinencia fecal · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1q0O3eu4FtahkYhQc2X4INpGx1mhdy3xW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1q0O3eu4FtahkYhQc2X4INpGx1mhdy3xW/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 67 Colopatía inflamatoria (colitis ulcerosa y enfermedad de Crohn) · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1sH8Wn6paXT0lFKEt9f-Z5TGHYs1NMg3w/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1sH8Wn6paXT0lFKEt9f-Z5TGHYs1NMg3w/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-colitis-ulcerosa-crohn"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 68 Megacolon del adulto · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1k7PqghzPmlivlkiAv_qGNHP0c9kiARr9/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1k7PqghzPmlivlkiAv_qGNHP0c9kiARr9/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-volvulo-sigmoides",
+            "cx-megacolon-fecaloma"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 69 Enfermedad diverticular del colon · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/17_Ezxrh4G3JCFeMJxSPpM-NvsMlO2YyE/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/17_Ezxrh4G3JCFeMJxSPpM-NvsMlO2YyE/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-diverticulitis"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 71 Pólipos y poliposis · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1BQhEGDDNW12bxN7GvvD2hcO5JZzodtyK/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1BQhEGDDNW12bxN7GvvD2hcO5JZzodtyK/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-polipos-poliposis"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 72 Cáncer de colon · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/15B_tXRnkJh91kmIWyLVu5Zuq2dRylJ8B/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/15B_tXRnkJh91kmIWyLVu5Zuq2dRylJ8B/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-colorrectal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 73 Cáncer de recto · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1r_FW6tnBagQ3_YJTsEPJSolVDeqdC3WG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1r_FW6tnBagQ3_YJTsEPJSolVDeqdC3WG/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-recto",
+            "cx-ostomias"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 74 Cáncer de ano · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1pG1axoD9-geQg4Xbolv7B-xjoW-8HINs/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1pG1axoD9-geQg4Xbolv7B-xjoW-8HINs/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-ano"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 83 Hemorragia digestiva baja · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/10X3BRRymTEb7ytikvYY1eyyA4HXCl6FN/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/10X3BRRymTEb7ytikvYY1eyyA4HXCl6FN/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hemorragia-digestiva-baja"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 126 Hemorragia digestiva · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1JTBcpaJmkjNYF58s7t9DfqxxIfKEutVk/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JTBcpaJmkjNYF58s7t9DfqxxIfKEutVk/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 300 Anatomía quirúrgica del colon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/121fgSBy4UisEDWc_YJiCK75KDG8qnmCX/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/121fgSBy4UisEDWc_YJiCK75KDG8qnmCX/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 309 Colostomía · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1veYPJ9edsCguskAAhvoOiGjJCM9TQcsB/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1veYPJ9edsCguskAAhvoOiGjJCM9TQcsB/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 311 Complicaciones de las colostomías · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/13b42vTxgFUDTJk63B1Py-zHd0DSZH3EG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/13b42vTxgFUDTJk63B1Py-zHd0DSZH3EG/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 315 Enfermedad diverticular del colon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1ymuzNl_sDgOca40fLEp20oajl5dnqru4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ymuzNl_sDgOca40fLEp20oajl5dnqru4/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 322 Síndrome de Lynch y cáncer familiar · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1loWVDm1mQBRmaqUCNUz-m6No2IQf8rAR/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1loWVDm1mQBRmaqUCNUz-m6No2IQf8rAR/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 325 Oligopoliposis intestinales · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1eNuby9ReZsCxe1yVpIWwW10T29lR_uk3/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1eNuby9ReZsCxe1yVpIWwW10T29lR_uk3/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 326 Pesquisa y seguimiento del cáncer colorrectal · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1pTh6Hrd4mCA-jzRlEtYyjfAeYq_IEs9V/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1pTh6Hrd4mCA-jzRlEtYyjfAeYq_IEs9V/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 330 Carcinoma colorrectal · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/13jBrTLbbDweF7aM692q2zy0XbSGunaFr/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/13jBrTLbbDweF7aM692q2zy0XbSGunaFr/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 342 Isquemia colónica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1tc4qYgVKSYGVq5NhK1Qn4LGcLGZ8tPOQ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1tc4qYgVKSYGVq5NhK1Qn4LGcLGZ8tPOQ/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 343 Ectasias vasculares del colon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1EcwKN12vC5LPBrz7L5bBXJAMtZCW6zhB/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1EcwKN12vC5LPBrz7L5bBXJAMtZCW6zhB/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 345 Megacolon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1bBvk2czMbREqfhjv7mFwTwVd3t_fo0rp/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1bBvk2czMbREqfhjv7mFwTwVd3t_fo0rp/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 348 Colitis ulcerosa: aspectos generales y clínicos · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1kxQz8lrl1nzR16wEZSTO9my2cuCSBlxH/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1kxQz8lrl1nzR16wEZSTO9my2cuCSBlxH/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 355 Enfermedad de Crohn del colon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1_0oSl1yELURvOoPFfWUEI6Hg6l8__owc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1_0oSl1yELURvOoPFfWUEI6Hg6l8__owc/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 357 Traumatismos de colon · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1liCPk5N-UvxbPG3e_IWgyPVp0BKSOxEa/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1liCPk5N-UvxbPG3e_IWgyPVp0BKSOxEa/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 369 Carcinoma de recto: estudio, estadificación y planificación del tratamiento · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/14PS6sk6vCh0eqEmD3IIWrvLypqBY8eod/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/14PS6sk6vCh0eqEmD3IIWrvLypqBY8eod/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 377 Fisura anal · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1tf4NcFzG3rhGN4Ogmg3FjNzHgmxELX_U/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1tf4NcFzG3rhGN4Ogmg3FjNzHgmxELX_U/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 379 Abscesos y fístulas perianales · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1DeGaaN38LoRUlbJbDYFh2kO1n0g9XUwJ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1DeGaaN38LoRUlbJbDYFh2kO1n0g9XUwJ/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 381 Quiste dermoideo sacrocoxígeo · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1mhPLnCIo91lyE-E3QvXttLpGdpjdCuKu/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1mhPLnCIo91lyE-E3QvXttLpGdpjdCuKu/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 383 Prolapso rectal · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/17zYb6Manf6FYWLvEOTRzh5fYVQ5TJFGr/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/17zYb6Manf6FYWLvEOTRzh5fYVQ5TJFGr/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 395 Traumatismos anorrectales · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1xiVpHuXPPP803EcHzFhhFLQTxdQsrRoF/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1xiVpHuXPPP803EcHzFhhFLQTxdQsrRoF/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Enfermedad hemorroidal: fisiopatología, clínica y tratamiento · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1W1LME9fN3JSRCxtSN6jjBx-uJSBVvc9J/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1W1LME9fN3JSRCxtSN6jjBx-uJSBVvc9J/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1058,222 +1243,310 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 47 Anatomía hepática · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1-wqpF6x5sUo1OyQcpEdr2x11b9YfDsNs/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1-wqpF6x5sUo1OyQcpEdr2x11b9YfDsNs/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 48 Quistes parasitarios y no parasitarios del hígado · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1qn1J6eqs3yJEUgNroxug7HcwT-HBlYzg/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1qn1J6eqs3yJEUgNroxug7HcwT-HBlYzg/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hidatidosis-hepatica"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 49 Absceso hepático · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1FCGccwuOXhTnEJn6N-BTWFmhSApM3Jts/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1FCGccwuOXhTnEJn6N-BTWFmhSApM3Jts/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-absceso-hepatico"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 50 Tumores benignos del hígado · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1qBGgV7DXxMzvpyoZdD9UQzJM0Ct4D0O0/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1qBGgV7DXxMzvpyoZdD9UQzJM0Ct4D0O0/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-hepaticos-benignos"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 51 Tumores malignos primarios del hígado · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1sAEZ4loEYbBS7t-I-gPI5hUkPO56HvlW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1sAEZ4loEYbBS7t-I-gPI5hUkPO56HvlW/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-hepaticos",
+            "cx-hepatocarcinoma"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 52 Metástasis hepáticas · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1VkCw8_-YN7Rxte0FDS2k-GtYxRolYZS-/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1VkCw8_-YN7Rxte0FDS2k-GtYxRolYZS-/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-hepaticos"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 53 Litiasis vesicular y colecistitis aguda · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/12BL0_F_IWwAvUFOEoHD9xU6Vy6qjYqHY/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/12BL0_F_IWwAvUFOEoHD9xU6Vy6qjYqHY/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-litiasis-biliar-colico",
+            "cx-colecistitis-aguda"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 54 Tratamiento de la litiasis coledociana · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1sUYG8UGFOPING4sdH1noQIzyGn4u1bwy/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1sUYG8UGFOPING4sdH1noQIzyGn4u1bwy/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-coledocolitiasis-colangitis"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 55 Colangitis aguda · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/16pgIQIHJbsrIqwequ8v4UY4tYcv9-U5n/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/16pgIQIHJbsrIqwequ8v4UY4tYcv9-U5n/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-coledocolitiasis-colangitis"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 56 Cáncer de vesícula · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/14qG5_oy6yrPZhxF6CizXmh7xOdoO_LhG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/14qG5_oy6yrPZhxF6CizXmh7xOdoO_LhG/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-vesicula"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 57 Cáncer de la vía biliar · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1cJRdnHwNmVNLjdo8mgHVw29IQ81YrCfT/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1cJRdnHwNmVNLjdo8mgHVw29IQ81YrCfT/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-via-biliar"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 58 Lesión quirúrgica de la vía biliar · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1U4ldrTez6Ux_r-TMqdkNoNTG-jJBR8Tl/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1U4ldrTez6Ux_r-TMqdkNoNTG-jJBR8Tl/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-lesion-quirurgica-via-biliar"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 59 Pancreatitis aguda · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/196havNMRMyVdECYtQk6M4DA_aBHhX_E7/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/196havNMRMyVdECYtQk6M4DA_aBHhX_E7/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-pancreatitis-aguda"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 60 Indicaciones de cirugía en la pancreatitis crónica · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1tGSbmbZJEsGDQ35MWAAR_tDjtq-HjSp4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1tGSbmbZJEsGDQ35MWAAR_tDjtq-HjSp4/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 61 Tumores periampulares · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1cea-zKk0YD4Yf8oMes6XFE7JwCGTdnBG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1cea-zKk0YD4Yf8oMes6XFE7JwCGTdnBG/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-pancreas"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 62 Conceptos de tumores neuroendocrinos · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1Zgxbumd2KOQjGs3ntTpab30iEnBlEUvu/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1Zgxbumd2KOQjGs3ntTpab30iEnBlEUvu/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 63 Neoplasia intraductal papilomucinosa, neoplásica quística mucinosa y neoplasia quística serosa · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/130t9hG26ciBdfdkoQZXXsJLPAe1AQAOv/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/130t9hG26ciBdfdkoQZXXsJLPAe1AQAOv/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 85 Síndrome de hipertensión canalicular biliar · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1-Aim74C-dHpObBXmpYCM-1XH5fMUcTfM/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1-Aim74C-dHpObBXmpYCM-1XH5fMUcTfM/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-ictericia-obstructiva"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 400 Anatomía quirúrgica del hígado · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1TnB_ZKy-M8At-Tj2jXxpFiXZeyKAYyPa/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1TnB_ZKy-M8At-Tj2jXxpFiXZeyKAYyPa/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 404 Abscesos hepáticos · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/19v7EKbCFvfo01JrYOU-PGJqKTPdEr_z6/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/19v7EKbCFvfo01JrYOU-PGJqKTPdEr_z6/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 407 Tumores benignos sólidos del hígado · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1UiHRWW9hZEzUAJc0dvvGNhEs91vsk-pC/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1UiHRWW9hZEzUAJc0dvvGNhEs91vsk-pC/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 409 Quistes hepáticos no parasitarios · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1rQ3spCA2du95vaz6_PhX1jEWs9nWKgba/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1rQ3spCA2du95vaz6_PhX1jEWs9nWKgba/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 412 Tumores malignos primitivos del hígado. Carcinoma hepatocelular · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1trS1zSXvLnSF8lg9pfxVViPp0t7Gaif0/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1trS1zSXvLnSF8lg9pfxVViPp0t7Gaif0/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 414 Metástasis hepáticas colorrectales · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1JyGH1KFPd6CJkgZRoZl2SbNsaK-By5Fh/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JyGH1KFPd6CJkgZRoZl2SbNsaK-By5Fh/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 416 Tratamiento quirúrgico de las metástasis hepáticas no colorrectales · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1Tyx6_ZqSDwzWQUk_5heTu95gotOi8z9C/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1Tyx6_ZqSDwzWQUk_5heTu95gotOi8z9C/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 422 Hidatidosis hepática · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1GBaLwqAxx_2Zvg49LvoglzyTmFf5PsDd/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1GBaLwqAxx_2Zvg49LvoglzyTmFf5PsDd/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 431 Hipertensión portal: fisiopatología y aspectos clínicos · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/11mvlH-eJ2mWZwzLkV4Kgaat-tQbRMxiW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/11mvlH-eJ2mWZwzLkV4Kgaat-tQbRMxiW/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 437 Anatomía quirúrgica de las vías biliares · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1F4OHMDWCCKJVPgnx2LZyaq8CjjIzTXsc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1F4OHMDWCCKJVPgnx2LZyaq8CjjIzTXsc/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 440 Litiasis biliar · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1ZRYtoyDgNZV7Wzw0oHlRf5XW7hQ_S0E-/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ZRYtoyDgNZV7Wzw0oHlRf5XW7hQ_S0E-/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 441 Colecistitis aguda · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1kcbkczvrbi_1hs7Y-iz_mvFa6Fy8g4-3/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1kcbkczvrbi_1hs7Y-iz_mvFa6Fy8g4-3/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 444 Colangitis aguda · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1Q54_1YI8NTvwj-0Via-6xtkkUv5hbNPK/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1Q54_1YI8NTvwj-0Via-6xtkkUv5hbNPK/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 445 Colangitis crónica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1oMAziDGz2ehSnAY27ABXnnYqmIswOPe8/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1oMAziDGz2ehSnAY27ABXnnYqmIswOPe8/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 448 Exploración de la vía biliar y tratamiento de la litiasis coledociana por vía convencional · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/11Jb8y1Gyni99TU42GJar9u1WR4WX1waG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/11Jb8y1Gyni99TU42GJar9u1WR4WX1waG/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 463 Cáncer de la vesícula biliar · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/17guOxwwOItqE9qnxmZrLRr0pJBrxEadZ/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/17guOxwwOItqE9qnxmZrLRr0pJBrxEadZ/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 466 Carcinoma de vías biliares. Tumor de Klatskin · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1kikkPcC3K-5WscsUtzfOrOHEHds3G8Nn/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1kikkPcC3K-5WscsUtzfOrOHEHds3G8Nn/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 468 Anatomía quirúrgica del páncreas · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1LULiJMFBUCYZu0kC6NqC4bFU-9BH8PU5/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1LULiJMFBUCYZu0kC6NqC4bFU-9BH8PU5/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 472 Pancreatitis aguda · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1nlsh-FxMl_2zgWCZ7NSuZHMiYg8JmvHc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1nlsh-FxMl_2zgWCZ7NSuZHMiYg8JmvHc/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 472 Pancreatitis aguda: clínica (anexo) · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1HRSDfB9P68xvgldNhiFftsIZFPBRO-jn/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1HRSDfB9P68xvgldNhiFftsIZFPBRO-jn/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 474 Complicaciones locales de las pancreatitis agudas. Necrosis pancreática · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1Vq4torWnx_kHn5APrfDciomEL5VdOqh5/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1Vq4torWnx_kHn5APrfDciomEL5VdOqh5/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 480 Pancreatitis crónica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1GlDL5uinS2Ru6lAfrQsSCbinbLcDrStB/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1GlDL5uinS2Ru6lAfrQsSCbinbLcDrStB/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 482 Tumores periampulares · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/197SrFhEg9ZayL2DHiaWwKNAhe2cCUs6C/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/197SrFhEg9ZayL2DHiaWwKNAhe2cCUs6C/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 484 Lesiones quísticas del páncreas · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/19djYMHVP5TWjjAMM3x3I4ldyRVz1C22g/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/19djYMHVP5TWjjAMM3x3I4ldyRVz1C22g/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 485 Carcinoma pancreático · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1c9Q46IP_ZlpPFrJ1xazm4ob6AZou0im8/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1c9Q46IP_ZlpPFrJ1xazm4ob6AZou0im8/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 491 Traumatismos duodenopancreáticos · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1ThCdax8IGV1b8AwrMf4EnSBQepBiY7n2/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ThCdax8IGV1b8AwrMf4EnSBQepBiY7n2/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1396,57 +1669,81 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 12 Hernia inguinal, crural y umbilical · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1-p_jDGH15N2cDTgVxVbFQErO8bBXBFCL/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1-p_jDGH15N2cDTgVxVbFQErO8bBXBFCL/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hernia-inguinal",
+            "cx-hernia-crural",
+            "cx-hernia-umbilical-epigastrica",
+            "cx-hernia-complicada",
+            "cx-dolor-inguinal-diferencial"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 13 Eventraciones y evisceraciones abdominales · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1tIjNhhh8i7yj_J-RLAs_U7o3vc-TF6S9/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1tIjNhhh8i7yj_J-RLAs_U7o3vc-TF6S9/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-eventracion-evisceracion"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 14 Diástasis de los rectos anteriores · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1u25KtBzvOyNHAZVI2Ctkqnq7ueCOeckb/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1u25KtBzvOyNHAZVI2Ctkqnq7ueCOeckb/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 15 Hernias infrecuentes de la pared abdominal · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1E1xanZ04e7_hdgzqJ8MJanlKl_mIHdXX/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1E1xanZ04e7_hdgzqJ8MJanlKl_mIHdXX/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hernias-infrecuentes"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 130 Anatomía quirúrgica de las paredes anterolaterales del abdomen · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1zpBX1YPyHBRQhgDYByX5_svFsqSi_HaW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1zpBX1YPyHBRQhgDYByX5_svFsqSi_HaW/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 132 Hernias inguinocrurales: generalidades y técnicas abiertas sin malla · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1zkj7fV7TZ6Pq3LJQGG0X1Y2Kbmg5VCoT/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1zkj7fV7TZ6Pq3LJQGG0X1Y2Kbmg5VCoT/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 133 Hernioplastia abierta inguinal con malla. Técnica de Lichtenstein · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1XQRPK0K0_NWT9TM0nC8n1aUIvru5HRny/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1XQRPK0K0_NWT9TM0nC8n1aUIvru5HRny/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 134 Hernioplastia inguinal laparoscópica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/15VCNe29l8lPknA120hPdGDRReHGuyFO7/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/15VCNe29l8lPknA120hPdGDRReHGuyFO7/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 135 Hernias de la línea media: umbilical y epigástrica · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1LAR1s5izAmIJQKeNVeuSxY_ploMZTrCu/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1LAR1s5izAmIJQKeNVeuSxY_ploMZTrCu/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 138 Hernias poco frecuentes · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1M25kiDDMu8hnU8wJ4fQ0GCjQ89zM3oTp/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1M25kiDDMu8hnU8wJ4fQ0GCjQ89zM3oTp/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 147 Eventración · Galindo, Enciclopedia de Cirugía Digestiva",
-          "url": "https://drive.google.com/file/d/1F-a8p82GF9UPBGGqGnmRMwP4XZ1i_tm1/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1F-a8p82GF9UPBGGqGnmRMwP4XZ1i_tm1/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1544,37 +1841,61 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 23 Nódulo y cáncer tiroideos · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1EHLlY-gaRqiwjXvpTLFz05NvYLgIkdqe/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1EHLlY-gaRqiwjXvpTLFz05NvYLgIkdqe/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-nodulo-tiroideo",
+            "cx-cancer-diferenciado-tiroides",
+            "cx-complicaciones-tiroidectomia"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 24 Patologías de las glándulas salivales · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1NHLU20IcccNI3AJ4DWrJvOSgyw5v8ab2/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1NHLU20IcccNI3AJ4DWrJvOSgyw5v8ab2/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-glandulas-salivales"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 25 Tumores laterales del cuello · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1mmAHR1ZQTVh0OrSVNpInoKN4AAQzUowp/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1mmAHR1ZQTVh0OrSVNpInoKN4AAQzUowp/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-masa-cervical"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 26 Hiperparatiroidismo primario y secundario · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1ssmQm3kdzu4_vl8fRXgAdtHC0oIaEgqN/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ssmQm3kdzu4_vl8fRXgAdtHC0oIaEgqN/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-hiperparatiroidismo"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 27 Indicaciones y cuidados de la traqueostomía · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1JR1QsaKCx-mCVFmwzAs6xmMy9NFLZHhG/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JR1QsaKCx-mCVFmwzAs6xmMy9NFLZHhG/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-traqueostomia"
+          ]
         },
         {
           "type": "pdf",
           "title": "Estrés en anestesiólogos",
-          "url": "https://drive.google.com/file/d/1uxjMPEByrdsHaMPT0CDMSJWSFfnYiun3/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1uxjMPEByrdsHaMPT0CDMSJWSFfnYiun3/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "Desgaste psíquico en el equipo de salud",
-          "url": "https://drive.google.com/file/d/14rHqPFzAzLcJgsfHiKSDGJ5tb72IWL3V/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/14rHqPFzAzLcJgsfHiKSDGJ5tb72IWL3V/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1584,27 +1905,32 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 21 Tiroides y paratiroides · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1aqlEZpijfgNxFwNGUfH2vsAdbtS51OqI/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1aqlEZpijfgNxFwNGUfH2vsAdbtS51OqI/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 22 Glándulas salivales · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1WT0YDjCCVbSPIkldbsTs3brcHkuThOBO/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1WT0YDjCCVbSPIkldbsTs3brcHkuThOBO/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 23 Quistes y fístulas congénitas, tumores inflamatorios y neoplasias extraglandulares del cuello · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1vv5G6fOU_d5CWLwX8wqBC_CgFqacvoTi/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1vv5G6fOU_d5CWLwX8wqBC_CgFqacvoTi/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 24 Tumores malignos del tracto aerodigestivo superior · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1jRt4nBOJ-FSFnawZJshfznV9oUwZI1v1/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1jRt4nBOJ-FSFnawZJshfznV9oUwZI1v1/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 29 Tráquea · Michans, Cirugía 5.ª ed.",
-          "url": "https://drive.google.com/file/d/1nXPfSRqyaTC8__lGrqqKWPNqjYrSiFYc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1nXPfSRqyaTC8__lGrqqKWPNqjYrSiFYc/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1691,18 +2017,35 @@
         },
         {
           "type": "pdf",
-          "title": "Ortopedia y Traumatología Básica (Orrego y Morán)",
-          "url": "https://drive.google.com/file/d/16sn7JImW9idSYSehZye6xMi0p-Y5FBu4/view?usp=drive_link"
+          "title": "📚 Libro completo · Manual CTO de Medicina y Cirugía 11.ª ed.: Traumatología y cirugía ortopédica",
+          "url": "https://drive.google.com/file/d/1Jx5KLrJnXauLgdu9SsWFbA4tZ9QgNwJT/view?usp=drive_link"
+        },
+        {
+          "type": "pdf",
+          "title": "📚 Libro completo · Ortopedia y Traumatología Básica (Orrego y Morán)",
+          "url": "https://drive.google.com/file/d/1b_e5wel1NGdV8DebFvM6CeFyBamV6GAI/view?usp=drive_link"
+        },
+        {
+          "type": "pdf",
+          "title": "📚 Libro completo · Traumatología (Dr. William Guzmán, QxMedic)",
+          "url": "https://drive.google.com/file/d/1-XOGJ2ey3_tWmmtJUExGxw5X_pYz8jLY/view?usp=drive_link"
+        },
+        {
+          "type": "pdf",
+          "title": "Choice's de Traumatología de miembro inferior",
+          "url": "https://drive.google.com/file/d/1uBg86UAaFfSe4IUy4SYzxdEImh9rtMm0/view?usp=drive_link"
         },
         {
           "type": "pdf",
           "title": "Discapacidad: comunicar a padres, niños y adolescentes (Lillo)",
-          "url": "https://drive.google.com/file/d/1cdYbDW_KG5dDT1Up_VUEFXgzkuWv25uS/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1cdYbDW_KG5dDT1Up_VUEFXgzkuWv25uS/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "Discapacidad y familia: desgaste emocional",
-          "url": "https://drive.google.com/file/d/1KTrcuR51UmL3YSfvbTekdJOryhpdboAc/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1KTrcuR51UmL3YSfvbTekdJOryhpdboAc/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
@@ -1795,52 +2138,85 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 3 Bioética · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1ZdT3_oRXty4_KrHs7VDZaY_1v6rRRjxW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1ZdT3_oRXty4_KrHs7VDZaY_1v6rRRjxW/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 6 Respuesta a la lesión · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1LVmAbkSzBAaQR8jNluUvgUqlH54jpJJk/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1LVmAbkSzBAaQR8jNluUvgUqlH54jpJJk/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 8 Reanimación cardiopulmonar · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1HrzGAVpkxzzxpsWljgemX6foUeY_9Dsj/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1HrzGAVpkxzzxpsWljgemX6foUeY_9Dsj/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-reanimacion-cardiopulmonar"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 29 Manejo del espacio pleural · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1Y3KKncCAF6x9lag0xGCNLg1V0ixKE7yv/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1Y3KKncCAF6x9lag0xGCNLg1V0ixKE7yv/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-neumotorax-derrame-pleural"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 75 Quemaduras · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1H1rGZCCS-3cElnbo7KfFCVHZ0em8Wmow/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1H1rGZCCS-3cElnbo7KfFCVHZ0em8Wmow/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-quemaduras"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 76 Atención inicial hospitalaria de pacientes traumatizados · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/17FSGpptHFYH0WKeWWvBZLIuxzCkeYYTR/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/17FSGpptHFYH0WKeWWvBZLIuxzCkeYYTR/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-trauma-evaluacion-primaria",
+            "cx-shock-hemorragico",
+            "cx-restriccion-espinal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 77 Traumatismos maxilofaciales · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1c6WPeUi5eSFa06ABsjFwdc9BO7Gzo3Hu/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1c6WPeUi5eSFa06ABsjFwdc9BO7Gzo3Hu/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 78 Traumatismos torácicos · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1tSOGZD9bDLVn4y7-hQxy8dKQd4GTBi_e/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1tSOGZD9bDLVn4y7-hQxy8dKQd4GTBi_e/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-trauma-torax"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 79 Traumatismos abdominopelvianos · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1BKO2OJjGwk3sVu95aiuskS52fAU-FP3p/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1BKO2OJjGwk3sVu95aiuskS52fAU-FP3p/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-trauma-abdominal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 94 Procuración y trasplante de órganos · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1WtX3J8dZl2bbVV84oZbpoOxJ-FMjVmS3/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1WtX3J8dZl2bbVV84oZbpoOxJ-FMjVmS3/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-procuracion-muerte-encefalica"
+          ]
         },
         {
           "type": "pdf",
@@ -2058,32 +2434,58 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 16 Isquemia arterial aguda de los miembros · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1xXuoy9R4BF2szPljEvlevttViKO3FUW6/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1xXuoy9R4BF2szPljEvlevttViKO3FUW6/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-isquemia-arterial-aguda"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 17 Isquemia arterial crónica (enfermedad arterial obstructiva crónica de los miembros inferiores) · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1_p0Ck-e7R8mrLP15E2x7pTHMqMGZhrv_/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1_p0Ck-e7R8mrLP15E2x7pTHMqMGZhrv_/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-eami-claudicacion",
+            "cx-pie-diabetico"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 18 Aneurisma de aorta abdominal y poplíteo · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1lSfw4uGmPlUD2oTSR6znXjvihOxIzWVs/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1lSfw4uGmPlUD2oTSR6znXjvihOxIzWVs/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-aneurisma-aorta-abdominal"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 19 Enfermedad carotídea · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1iFF8XQj3m3A32KJ06aDIyqx9jirFF9r4/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1iFF8XQj3m3A32KJ06aDIyqx9jirFF9r4/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-enfermedad-carotidea"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 20 Flebopatías superficiales y profundas · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1boao5WJnuIjPX_9eIgTF-V3gY-8nIr_k/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1boao5WJnuIjPX_9eIgTF-V3gY-8nIr_k/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-trombosis-venosa-profunda",
+            "cx-insuficiencia-venosa-varices"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 89 Cirugía endovascular · Giménez, Cirugía 2.ª ed.",
-          "url": "https://drive.google.com/file/d/1HXWUEJTlKijCh6vqddmeVXR4lMdufvS6/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1HXWUEJTlKijCh6vqddmeVXR4lMdufvS6/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cirugia-endovascular"
+          ]
         },
         {
           "type": "pdf",
@@ -2187,107 +2589,149 @@
         {
           "type": "pdf",
           "title": "📖 Cap. 2 Embriología del aparato genitourinario · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1vIsFwbxLVbXmCKzxMWx73NpnqRMoeVAo/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1vIsFwbxLVbXmCKzxMWx73NpnqRMoeVAo/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 3 Síntomas de trastornos del aparato genitourinario · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/130DELnx3TdBMG4DvmSrtEGec26-jAraa/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/130DELnx3TdBMG4DvmSrtEGec26-jAraa/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 4 Exploración física del aparato genitourinario · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/15oppdNlsQ1VJGElgyGoRL9BlVKlX_qLq/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/15oppdNlsQ1VJGElgyGoRL9BlVKlX_qLq/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 5 Análisis urológicos de laboratorio · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1CCs3ya0YcJxzhFUlcwnaCeGBBEHgNaSL/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1CCs3ya0YcJxzhFUlcwnaCeGBBEHgNaSL/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 6 Radiología de las vías urinarias · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1JEMgkzHd2JzHXcZ11EdWXMmUU3oRj8yO/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JEMgkzHd2JzHXcZ11EdWXMmUU3oRj8yO/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 12 Obstrucción y estasis urinarias · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1KwD5KIhAxMl-Qv2r7T1-9tTa0lYItR3e/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1KwD5KIhAxMl-Qv2r7T1-9tTa0lYItR3e/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-obstruccion-urinaria-alta-baja"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 13 Reflujo vesicoureteral · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1hBXUThm9ujvQkQbWExqRhS8bBewVfPfE/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1hBXUThm9ujvQkQbWExqRhS8bBewVfPfE/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 14 Infecciones bacterianas de las vías genitourinarias · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1_Ytk69ZCgJtDFKLXzX7MZRBOhm0GSn36/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1_Ytk69ZCgJtDFKLXzX7MZRBOhm0GSn36/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 17 Urolitiasis · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1JraRWi-OtwfSayUCLXmH38UMBRe__qYU/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1JraRWi-OtwfSayUCLXmH38UMBRe__qYU/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 18 Lesiones de las vías genitourinarias · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1TX87SPHHtOgeKCvH_Ph6Q9uwSIQuskLB/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1TX87SPHHtOgeKCvH_Ph6Q9uwSIQuskLB/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-trauma-urogenital"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 21 Carcinoma urotelial: cánceres de vejiga, uréter y pelvis renales · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1iuRmDDS_MDT1GDCD0N8yopWZBnKn6zd1/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1iuRmDDS_MDT1GDCD0N8yopWZBnKn6zd1/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-cancer-vejiga-urotelial"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 22 Neoplasias parenquimatosas renales · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1_qoVbS_Dc0z81upNHAbyx_GLQyQM-0z9/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1_qoVbS_Dc0z81upNHAbyx_GLQyQM-0z9/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-renales"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 23 Neoplasias prostáticas · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1pbyqt6Y_aCg4MCRMo4IPko8ipQrmGFY8/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1pbyqt6Y_aCg4MCRMo4IPko8ipQrmGFY8/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 24 Tumores genitales · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1yw-riwjSLOBEwZgYKj3YYQdAlSU3Zf0x/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1yw-riwjSLOBEwZgYKj3YYQdAlSU3Zf0x/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-tumores-testiculares-genitales"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 25 Derivación urinaria y sustituciones de vejiga · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/15JRTLLhUqHw7Re0sSAMzsFVyJmNcfZxC/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/15JRTLLhUqHw7Re0sSAMzsFVyJmNcfZxC/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 32 Trastornos renales · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/16_N-Etji_lQUq3HR--rwAklW5b6BNbt7/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/16_N-Etji_lQUq3HR--rwAklW5b6BNbt7/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 35 Nefropatía crónica y tratamiento de reemplazo renal · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1QkCqzH5Q4Rq-cwZfKBAc0kPEXYbdRofO/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1QkCqzH5Q4Rq-cwZfKBAc0kPEXYbdRofO/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 37 Trastornos del uréter y la unión ureteropélvica · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1VW-RVbFm704muJt0BdWBT5xOSfRB4hDW/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1VW-RVbFm704muJt0BdWBT5xOSfRB4hDW/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 38 Trastornos de vejiga, próstata y vesículas seminales · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1em8IiTjx9MtNvFZxkf6_nzQoZM3rIbsM/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1em8IiTjx9MtNvFZxkf6_nzQoZM3rIbsM/view?usp=drive_link",
+          "obligatorio": true
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 41 Trastornos del pene y la uretra masculina · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/1wEa-jN3V1bdo8ZfZVfUDGJBLwGegMTV8/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/1wEa-jN3V1bdo8ZfZVfUDGJBLwGegMTV8/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-fimosis-parafimosis"
+          ]
         },
         {
           "type": "pdf",
           "title": "📖 Cap. 44 Infertilidad masculina · Smith y Tanagho, Urología general 18.ª ed.",
-          "url": "https://drive.google.com/file/d/12TDnP980IPgbe6VzE0Iol7Sg0vGWZ1EB/view?usp=drive_link"
+          "url": "https://drive.google.com/file/d/12TDnP980IPgbe6VzE0Iol7Sg0vGWZ1EB/view?usp=drive_link",
+          "obligatorio": true,
+          "fichas": [
+            "cx-varicocele-hidrocele"
+          ]
         }
       ],
       "videos": [

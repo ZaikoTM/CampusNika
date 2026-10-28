@@ -334,6 +334,17 @@
         .nk-chip:hover { transform: translateY(-1px); border-color: var(--c1); color: var(--c1); }
         .nk-chip:active { transform: scale(.94); }
         .nk-chip.on { background: linear-gradient(135deg, var(--c1), var(--c2)); color: #fff; border-color: transparent; box-shadow: 0 4px 12px hsl(var(--h) 70% 40% / .3); }
+        .nk-bus { display:flex; justify-content:flex-end; margin:0 0 6px; }
+        .nk-bus input { width:150px; max-width:100%; font:inherit; font-size:.78rem; padding:5px 11px; color:#475569; background:transparent; border:1px solid rgba(148,163,184,.4); border-radius:999px; outline:none; transition:width .2s, border-color .2s, background .2s; }
+        .nk-bus input:focus { width:240px; border-color:#94a3b8; background:#fff; }
+        .nk-bus-vacio { padding:14px; text-align:center; font-size:.85rem; color:#94a3b8; }
+        .resource-item.nk-obl { border-left:3px solid #22c55e !important; background-image:linear-gradient(90deg, rgba(34,197,94,.07), transparent 55%); }
+        .nk-fc-chip { margin-top:5px; padding:2px 9px; font:inherit; font-size:.7rem; font-weight:700; color:#475569; background:rgba(241,245,249,.9); border:1px solid rgba(148,163,184,.45); border-radius:999px; cursor:pointer; }
+        .nk-fc-chip:hover { color:#0f172a; border-color:#94a3b8; }
+        .nk-fc-menu { position:fixed; z-index:9999; width:290px; max-width:calc(100vw - 16px); display:flex; flex-direction:column; gap:2px; padding:8px; background:#fff; border:1px solid #e2e8f0; border-radius:12px; box-shadow:0 10px 30px rgba(15,23,42,.18); }
+        .nk-fc-menu small { padding:2px 8px 6px; font-size:.7rem; color:#94a3b8; }
+        .nk-fc-menu button { text-align:left; padding:8px 10px; font:inherit; font-size:.82rem; color:#1e293b; background:transparent; border:0; border-radius:8px; cursor:pointer; }
+        .nk-fc-menu button:hover { background:#f1f5f9; }
         .nk-lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 11px; }
         .nk-lib-grid .resource-item { --i: 0; position: relative; overflow: hidden; padding: 13px 14px; gap: 12px; background: #fff; border-radius: 14px; border: 1px solid var(--border); animation: nkTile .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 28ms); transition: transform .25s cubic-bezier(.3,1.4,.5,1), box-shadow .25s, border-color .25s; }
         @keyframes nkTile { from { opacity: 0; transform: translateY(12px) scale(.96); } to { opacity: 1; transform: none; } }
@@ -671,6 +682,7 @@
                     <div class="up-tab-panel" id="tab-material">
                         <div class="content-block">
                             <h3>PDFs, Resúmenes y Apuntes</h3>
+                            <div class="nk-bus"><input type="search" id="nk-buscar-sala" placeholder="Buscar un tema…" aria-label="Buscar un tema en esta sala" autocomplete="off"></div>
                             <div class="resource-list" id="up-materiales-list"></div>
                         </div>
                     </div>
@@ -731,7 +743,7 @@
     <!-- 4. Lógica de Estudio -->
     <script src="js/estudio/notasEstudio.js?v=6"></script>
     <script src="js/estudio/nikaTiempoLectura.js?v=5"></script>
-    <script src="js/estudio/estudio.js?v=112"></script>
+    <script src="js/estudio/estudio.js?v=113"></script>
     <script src="js/estudio/pdfNotas.js?v=5"></script>
     <script src="js/estudio/pdfAnotaciones.js?v=3"></script>
     <script src="js/estudio/nikaCartelFlashcards.js?v=1"></script>

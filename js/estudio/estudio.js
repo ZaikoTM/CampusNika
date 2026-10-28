@@ -939,6 +939,7 @@ function renderUpDetail(unit) {
     }
 
     actualizarProgresoRecursos();
+    nkBuscarSalaInit();
 
     const videos = unit.videos || [];
     const videosListEl = document.getElementById('up-videos-list');
@@ -1132,7 +1133,55 @@ function badgeObligatorioHtml(resource) {
         return '';
     }
     if (!resource.obligatorio) return '';
-    return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">OBLIGATORIO</span>`;
+    return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">✅ OBLIGATORIO</span>`;
+}
+
+// ---- Flashcards del capítulo: abre la tarjeta (o un menú si hay varias) sin salir de la sala
+async function nikaVerFichas(item) {
+    const ids = String((item && item.dataset.fichas) || '').split(',').filter(Boolean);
+    const FC = window.NikaFlashcards; if (!FC || !ids.length) return;
+    try { await FC.cargar(); } catch (_) {}
+    if (ids.length === 1) { FC.abrir(ids[0]); return; }
+    const por = ((FC.datos && FC.datos()) || {}).byId || {};
+    document.querySelectorAll('.nk-fc-menu').forEach(x => x.remove());
+    const m = document.createElement('div'); m.className = 'nk-fc-menu';
+    const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    m.innerHTML = '<small>Flashcards de este capítulo</small>' + ids.map(id => `<button type="button" data-id="${esc(id)}">${esc((por[id] && por[id].titulo) || id)}</button>`).join('');
+    const r = item.getBoundingClientRect();
+    m.style.top = Math.min(window.innerHeight - 20 - 40 * (ids.length + 1), r.bottom + 6) + 'px'; m.style.left = Math.max(8, Math.min(window.innerWidth - 300, r.left)) + 'px';
+    m.addEventListener('click', (e) => { const b = e.target.closest('button[data-id]'); if (b) { m.remove(); FC.abrir(b.dataset.id); } });
+    document.body.appendChild(m);
+    setTimeout(() => document.addEventListener('click', function f(e) { if (!m.contains(e.target)) { m.remove(); document.removeEventListener('click', f); } }), 0);
+}
+window.nikaVerFichas = nikaVerFichas;
+
+// ---- Buscador sutil de temas dentro de la sala (título del material y temas de sus flashcards)
+const nkNorm = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+function nkBuscarSala() {
+    const i = document.getElementById('nk-buscar-sala'), lista = document.getElementById('up-materiales-list'); if (!i || !lista) return;
+    const ws = nkNorm(i.value).split(/\s+/).filter(Boolean);
+    const por = ((window.NikaFlashcards && NikaFlashcards.datos && NikaFlashcards.datos()) || {}).byId || {};
+    let hay = 0;
+    lista.querySelectorAll('.resource-item').forEach(it => {
+        let tit = ''; try { tit = decodeURIComponent(it.dataset.title || ''); } catch (_) { tit = it.dataset.title || ''; }
+        const fich = String(it.dataset.fichas || '').split(',').map(id => por[id] ? (por[id].titulo + ' ' + (por[id].alias || []).join(' ')) : '').join(' ');
+        const t = nkNorm(tit + ' ' + fich), ok = ws.every(w => t.includes(w));
+        it.style.display = ok ? '' : 'none'; if (ok) hay++;
+    });
+    lista.querySelectorAll('details.nk-lib').forEach(d => {
+        const n = [...d.querySelectorAll('.resource-item')].filter(x => x.style.display !== 'none').length;
+        d.style.display = (!ws.length || n) ? '' : 'none'; if (ws.length && n) d.open = true;
+    });
+    let msg = lista.querySelector('.nk-bus-vacio');
+    if (ws.length && !hay) { if (!msg) { msg = document.createElement('div'); msg.className = 'nk-bus-vacio'; msg.textContent = 'Ningún material coincide con ese tema.'; lista.appendChild(msg); } }
+    else if (msg) msg.remove();
+}
+function nkBuscarSalaInit() {
+    const i = document.getElementById('nk-buscar-sala'); if (!i) return;
+    i.value = '';
+    if (i._ok) return; i._ok = true;
+    i.addEventListener('focus', () => { if (window.NikaFlashcards) NikaFlashcards.cargar().catch(() => {}); });
+    i.addEventListener('input', nkBuscarSala);
 }
 
 // ================= PROGRESO DE LECTURA DE LOS PDF (checklist + "continuá donde lo dejaste") =================
@@ -1367,6 +1416,7 @@ function renderResourceItem(resource) {
         ? `onclick="location.href='${resource.url}'" style="cursor:pointer;"`   // tutoriales y recorridos interactivos de la PFO: se abren en su propia pantalla
         : `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;${resource._i != null ? '--i:' + resource._i + ';' : ''}"`;
 
+    const fichasIds = Array.isArray(resource.fichas) && resource.fichas.length ? resource.fichas.join(',').replace(/[^A-Za-z0-9_,\-]/g, '') : '';   // flashcards que citan este capítulo
     const fid = nikaRecursoId(resource.url);   // todos los recursos (PDF, presentaciones, videos, tutoriales) tienen su casilla
     const tipoRec = nikaTipoRecurso(resource);
     const fidAttr = ` data-fid="${fid.replace(/"/g, '')}" data-kind="${tipoRec}" data-title="${encodeURIComponent(resource.title)}"`;
@@ -1383,11 +1433,11 @@ function renderResourceItem(resource) {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
             </div>`;
     return `
-        <div class="resource-item ${isActive}" ${actionAttr} data-url="${resource.url}"${fidAttr}>
+        <div class="resource-item ${isActive}${resource.obligatorio ? ' nk-obl' : ''}" ${actionAttr} data-url="${resource.url}"${fidAttr}${fichasIds ? ` data-fichas="${fichasIds}"` : ''}>
             ${iconoHtml}
             <div class="resource-info">
                 <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
-                <span>${meta.label}</span>${progHtml}
+                <span>${meta.label}</span>${progHtml}${fichasIds ? `<button type="button" class="nk-fc-chip" onclick="event.stopPropagation();nikaVerFichas(this.closest('.resource-item'))" title="Repasar este tema con flashcards">🃏 ${fichasIds.includes(',') ? 'Ver flashcards' : 'Ver flashcard'}</button>` : ''}
             </div>
             <div class="resource-open-btn">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
