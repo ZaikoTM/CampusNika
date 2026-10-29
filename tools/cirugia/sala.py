@@ -24,6 +24,16 @@ u8[:] = [m for m in u8 if fid(m) not in (OLD_ORR, NEW['orr'], NEW['cto'], NEW['q
 i = next((k for k, m in enumerate(u8) if m['title'].startswith('Contenidos UP')), 0) + 1
 for t, f in reversed(LIBROS): u8.insert(i, {'type': 'pdf', 'title': t, 'url': url(f)})
 
+# ---- 1b) Manual de Urología SCHU en UP11: libro completo y capítulos (ids de Drive en data/schu_drive.json)
+SD = os.path.join(ROOT, 'tools/cirugia/schu_drive.json')
+if os.path.exists(SD):
+    sd = json.load(open(SD, encoding='utf8'))
+    u11 = por['up11']['materiales']
+    u11[:] = [m for m in u11 if 'Manual de Urología SCHU' not in m['title']]
+    u11.append({'type': 'pdf', 'title': '📚 Libro completo · Manual de Urología SCHU, 3.ª edición (casi 400 MB, tarda en abrir)', 'url': url(sd['libro'])})
+    for k in sorted(sd['caps'], key=int):
+        u11.append({'type': 'pdf', 'title': '📖 Cap. %s %s · Manual de Urología SCHU 3.ª ed.' % (k, sd['titulos'][k]), 'url': url(sd['caps'][k])})
+
 # ---- 2) obligatorio (bibliografía esencial del programa de cada unidad)
 ESENCIAL = {  # libro (texto del título) -> unidades donde es bibliografía esencial
     'Giménez': {'up1', 'up2', 'up3', 'up4', 'up5', 'up6', 'up7', 'up9', 'up10'},
@@ -50,7 +60,7 @@ def caps(texto, clave):
     for m in re.finditer(clave + r'[^:;]{0,80}?cap\.?\s*([0-9]+(?:\s*(?:y|,)\s*[0-9]+)*)', texto):
         out |= {int(x) for x in re.findall(r'\d+', m.group(1))}
     return out
-idx = {'Giménez': {}, 'Smith y Tanagho': {}}
+idx = {'Giménez': {}, 'Smith y Tanagho': {}, 'Manual de Urología SCHU': {}}
 for p in fc:
     f = p.get('fuente', {}); txt = ' '.join([f.get('guia', ''), f.get('nota', '')])
     if str(f.get('guia', '')).startswith('Cirugía: fundamentos'):
@@ -58,11 +68,13 @@ for p in fc:
     for n in caps(txt, 'Giménez'): idx['Giménez'].setdefault(n, []).append(p['id'])
     if 'Smith y Tanagho' in txt:
         for n in caps(txt, 'Smith y Tanagho'): idx['Smith y Tanagho'].setdefault(n, []).append(p['id'])
+    if 'Manual de Urología (SCHU)' in txt:
+        for n in caps(txt, r'Manual de Urología \(SCHU\)'): idx['Manual de Urología SCHU'].setdefault(n, []).append(p['id'])
 tot = 0
 for u in c['units']:
     for m in u['materiales']:
         m.pop('fichas', None)
-        mm = re.match(r'^📖\s+Cap\.\s*(\d+)\s.*·\s*(Giménez|Smith y Tanagho)', m['title'])
+        mm = re.match(r'^📖\s+Cap\.\s*(\d+)\s.*·\s*(Giménez|Smith y Tanagho|Manual de Urología SCHU)', m['title'])
         if not mm: continue
         ids = list(dict.fromkeys(i for i in idx[mm.group(2)].get(int(mm.group(1)), []) if any(u['id'].replace('up', 'cx') in x['up'] for x in fc if x['id'] == i)))
         if ids: m['fichas'] = ids; tot += 1
