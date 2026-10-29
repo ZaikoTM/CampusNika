@@ -8597,124 +8597,174 @@
    ],
    "unidad": "UP11 · Obstrucción urinaria baja y urología",
    "estado": "guia",
-   "definicion": "Obstrucción del flujo de salida vesical por crecimiento prostático benigno en el adulto mayor, con síntomas del tracto urinario inferior (llenado, vaciado y posmiccionales). La EAU considera que lo que se trata es la obstrucción prostática benigna (diagnóstico urodinámico).",
+   "definicion": "Crecimiento benigno de la próstata que, por obstrucción a la salida de la vejiga, produce síntomas del tracto urinario inferior (de vaciado, de llenado y posmiccionales) y puede complicarse con infección urinaria, litiasis vesical, hematuria, insuficiencia renal posrenal y retención urinaria aguda.",
    "diagnostico": [
-    "Síntomas: chorro débil, dificultad al iniciar, goteo, nocturia, urgencia y vaciado incompleto; evaluar con un cuestionario validado (IPSS) y calidad de vida.",
-    "Evaluación inicial: historia, examen con tacto rectal, sedimento urinario, residuo posmiccional y, opcional, uroflujometría; PSA solo si su resultado cambia el manejo."
+    "La evaluación clínica tiene tres objetivos: descartar otros diagnósticos, establecer la severidad de los síntomas (IPSS) e identificar a los pacientes con riesgo de progresión rápida y complicaciones que se beneficiarían de un tratamiento precoz.",
+    "Complicaciones: infección urinaria, litiasis vesical, hematuria, insuficiencia renal posrenal y retención urinaria aguda; su frecuencia depende de la severidad de la obstrucción y del manejo oportuno."
    ],
    "estudios": [
-    "Sedimento de orina, función renal, residuo posmiccional, ecografía, PSA según el caso y uroflujometría."
+    "Orina completa; APE: además de la pesquisa de cáncer, sin cáncer predice el tamaño prostático (más de 40 mL con APE mayor de 1,6, 2,0 y 2,3 ng/mL en hombres de más de 50, 60 y 70 años) y el riesgo de progresión, retención y cirugía; la guía EAU 2024 lo recomienda cuando el diagnóstico de cáncer cambia la conducta.",
+    "Uroflujometría (flujo máximo, flujo promedio, volumen vaciado, patrón) y volumen residual posmiccional; el aumento del residuo puede indicar una vejiga descompensada aún poco sintomática."
    ],
    "tratamiento": [
     {
-     "titulo": "Tratamiento conservador y farmacológico",
+     "titulo": "Tratamiento médico",
      "pasos": [
       {
-       "etiqueta": "Conservador",
-       "texto": "Vigilancia activa en síntomas leves o poco molestos; medidas conductuales (líquidos, cafeína, alcohol, revisar fármacos como diuréticos)."
+       "etiqueta": "Observación",
+       "texto": "LUTS leves a moderados sin complicaciones y poco molestos; el 85 % no progresa al año (65 % a los 5 años). Incluye información, tranquilizar sobre la ausencia de cáncer, estilo de vida y controles con uroflujometría, residuo, IPSS y APE."
       },
       {
        "etiqueta": "Alfabloqueantes",
-       "texto": "Primera línea en síntomas moderados a graves; no previenen la retención aguda ni la cirugía; hipotensión ortostática y síndrome del iris flácido (avisar antes de una cirugía de catarata)."
+       "texto": "Terazosina, doxazosina, tamsulosina, alfuzosina y silodosina, de eficacia comparable; subtipo 1A (70 % de los receptores prostáticos). Primera línea en LUTS moderados a severos con alivio rápido."
       },
       {
-       "etiqueta": "Inhibidores de 5-alfa reductasa",
-       "texto": "En volumen prostático > 40 ml con riesgo de progresión: reducen la retención y la cirugía; tardan meses y pueden afectar la función sexual."
+       "etiqueta": "Inhibidores de la 5 alfa reductasa",
+       "texto": "Finasteride (tipo 2) y dutasteride (tipos 1 y 2): reducen el volumen de la glándula con mejoría a los 6 a 12 meses; indicados en próstatas mayores de 40 mL o con APE mayor de 1,4 a 1,6 ng/mL por el riesgo de progresión."
       },
       {
-       "etiqueta": "Combinados / otros",
-       "texto": "Alfabloqueante + 5-ARI en riesgo de progresión; tadalafilo 5 mg y antimuscarínicos o β3 para síntomas de llenado (no antimuscarínicos si el residuo > 150 ml)."
+       "etiqueta": "Terapia combinada",
+       "texto": "Alfabloqueante más inhibidor de la 5 alfa reductasa: alivio inmediato y prevención de la progresión a largo plazo."
+      },
+      {
+       "etiqueta": "Otros",
+       "texto": "Antimuscarínicos (oxibutinina, solifenacina, tolterodina, trospio, darifenacina, fesoterodina) en síntomas de llenado y no con residuo superior a 150 mL; tadalafilo (único IPDE5 aprobado para LUTS); mirabegron 50 mg (agonista beta 3) para urgencia."
       }
      ]
     },
     {
-     "titulo": "Cirugía",
+     "titulo": "Tratamiento quirúrgico (decisión compartida)",
      "pasos": [
       {
-       "etiqueta": "RTU de próstata",
-       "texto": "Estándar para 30-80 ml con síntomas moderados a graves."
+       "etiqueta": "Adenomectomía abierta",
+       "texto": "Vía transvesical (Freyer) o retropúbica (Millin); para volúmenes mayores de 70 a 80 cc y litiasis vesical concomitante; mejora síntomas en 63 a 86 % y el flujo máximo en 375 %, con estadía de unos 5 días y transfusión en 6,8 a 8,2 %; detrás de la enucleación endoscópica en las guías por su morbilidad."
       },
       {
-       "etiqueta": "< 30 ml sin lóbulo medio",
-       "texto": "Incisión transuretral."
+       "etiqueta": "RTU prostática",
+       "texto": "Monopolar o bipolar, para 30 a 80 cc; eyaculación retrógrada en el 65 %, disfunción eréctil en el 6,5 % y estenosis uretral en el 3,8 %."
       },
       {
-       "etiqueta": "> 80 ml",
-       "texto": "Enucleación endoscópica o prostatectomía abierta si no se dispone de la técnica endoscópica."
+       "etiqueta": "TUIP",
+       "texto": "De elección en LUTS refractarios con próstata menor de 30 cc y sin lóbulo medio: dos incisiones del cuello vesical al veru montanum, sin resecar tejido."
+      },
+      {
+       "etiqueta": "Láser",
+       "texto": "Ablación (KTP, resultados similares a la RTU, retratamiento del 7,7 % a 5 años, seguro con anticoagulación) o enucleación endoscópica con láser (holmio y otros), que trata cualquier volumen; sin muestra para anatomía patológica en la ablación."
       }
      ]
     }
    ],
    "seguimiento": [
-    "Control periódico de síntomas y residuo; reevaluar si hay complicaciones."
+    "Controles periódicos con IPSS, uroflujometría, residuo posmiccional y APE tanto en observación como con tratamiento."
    ],
    "banderas": [
-    "Retención aguda recurrente, infecciones, hematuria, litiasis vesical o insuficiencia renal: indicación de cirugía."
+    "Retención aguda, litiasis vesical, hematuria recurrente, infección recurrente o insuficiencia renal posrenal: indicación de cirugía.",
+    "Evitar antimuscarínicos con residuo posmiccional mayor de 150 mL.",
+    "El APE alto en un hombre con LUTS obliga a pensar en cáncer de próstata antes de atribuirlo al adenoma."
    ],
    "fuente": {
-    "guia": "EAU Guidelines on Management of Non-neurogenic Male LUTS",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/management-of-non-neurogenic-male-luts",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 10: Hiperplasia prostática benigna",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 10",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se conserva la guía EAU como fuente de referencia en los puntos de corte de volumen."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
-    "titulo": "Hiperplasia prostática benigna con síntomas urinarios bajos (guía EAU)",
+    "titulo": "Síntomas urinarios bajos e hiperplasia prostática benigna (Manual SCHU 2025)",
     "nodos": [
      {
       "t": "inicio",
-      "txt": "Chorro débil, dificultad al iniciar, goteo, nocturia, urgencia y vaciado incompleto: historia, tacto rectal, sedimento de orina, residuo posmiccional y puntaje de síntomas"
+      "txt": "Hombre con síntomas del tracto urinario inferior (LUTS): historia, examen físico con tacto rectal, orina, APE según el caso, IPSS, uroflujometría y volumen residual posmiccional; descartar otras causas de LUTS"
      },
      {
       "t": "decision",
-      "txt": "¿Síntomas leves o poco molestos?",
+      "txt": "¿Síntomas leves y con mínimo impacto en la calidad de vida, sin complicaciones?",
       "si": [
        {
         "t": "fin",
-        "txt": "Vigilancia activa y medidas conductuales (líquidos, cafeína, alcohol, revisar fármacos)"
+        "txt": "Observación vigilada: información, estilo de vida (reducir líquidos antes de dormir, moderar cafeína y alcohol, micción relajada con doble vaciado) y control periódico con uroflujometría, residuo, IPSS y APE (el 85 % no progresa al año y el 65 % a los 5 años)"
        }
       ],
       "no": [
        {
         "t": "accion",
-        "txt": "Alfabloqueantes como primera línea en síntomas moderados a graves"
+        "txt": "Síntomas moderados o con impacto: cambios de estilo de vida y tratamiento farmacológico, ajustando según la respuesta"
        },
        {
         "t": "decision",
-        "txt": "¿Volumen prostático mayor de 40 mL con riesgo de progresión?",
+        "txt": "¿Predominan los síntomas de vaciado?",
         "si": [
          {
           "t": "accion",
-          "txt": "Agregar un inhibidor de la 5-alfa reductasa (reduce la retención y la cirugía); tadalafilo o antimuscarínicos/β3 para los síntomas de llenado según el caso"
+          "txt": "Bloqueador alfa 1 (tamsulosina, silodosina, alfuzosina, doxazosina, terazosina): alivio en horas a días; si el volumen prostático es mayor de 40 mL o el APE mayor de 1,4 a 1,6 ng/mL, sumar un inhibidor de la 5 alfa reductasa (finasteride o dutasteride; efecto a los 6 a 12 meses) como terapia combinada"
+         },
+         {
+          "t": "accion",
+          "txt": "Si hay síntomas de llenado: sumar antimuscarínico (si el residuo es menor de 150 mL) o mirabegron; tadalafilo en quienes tienen además disfunción eréctil"
          }
         ],
         "no": [
          {
           "t": "accion",
-          "txt": "Continuar el alfabloqueante"
+          "txt": "Síntomas de llenado: antimuscarínicos o agonistas beta 3, con control del residuo posmiccional"
          }
         ]
        },
        {
         "t": "decision",
-        "txt": "¿Complicación o falla del tratamiento médico (retención, infección, litiasis, deterioro renal)?",
+        "txt": "¿No mejora, no tolera el tratamiento médico, tiene complicaciones (retención, infección, litiasis vesical, hematuria, insuficiencia renal) o prefiere una solución definitiva?",
         "si": [
          {
-          "t": "fin",
-          "txt": "Cirugía: RTU de próstata (30 a 80 mL); incisión transuretral (< 30 mL sin lóbulo medio); enucleación endoscópica o prostatectomía abierta (> 80 mL)"
+          "t": "decision",
+          "txt": "¿El volumen prostático es mayor de 70 a 80 cc?",
+          "si": [
+           {
+            "t": "fin",
+            "txt": "Adenomectomía abierta o enucleación endoscópica con láser"
+           }
+          ],
+          "no": [
+           {
+            "t": "decision",
+            "txt": "¿Es menor de 30 cc y sin lóbulo medio?",
+            "si": [
+             {
+              "t": "fin",
+              "txt": "Incisión prostática transuretral (TUIP)"
+             }
+            ],
+            "no": [
+             {
+              "t": "fin",
+              "txt": "RTU prostática monopolar o bipolar (30 a 80 cc) o ablación o enucleación con láser"
+             }
+            ]
+           }
+          ]
          }
         ],
         "no": [
          {
           "t": "fin",
-          "txt": "Control periódico"
+          "txt": "Continuar el tratamiento médico con controles periódicos"
          }
         ]
        }
       ]
      }
+    ]
+   },
+   "fisiopatologia": [
+    "El crecimiento prostático benigno (CPB) se hace clínicamente relevante cuando se asocia a síntomas del tracto urinario inferior (LUTS) molestos; no todos los hombres con CPB tienen LUTS y algunos con LUTS no tienen CPB (otras causas: hipoactividad o hiperactividad del detrusor, litiasis ureteral distal, poliuria nocturna, tumor vesical, dolor pelviano crónico, estenosis uretral, vejiga neurogénica, infección urinaria).",
+    "La 5 alfa reductasa convierte la testosterona en dihidrotestosterona, el andrógeno principal del crecimiento prostático; los alfabloqueantes corrigen el componente dinámico (relajan el músculo liso del cuello vesical, la cápsula y la uretra prostática)."
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Guía EAU de LUTS no neurogénicos",
+    "puntos": [
+     "El manual SCHU sigue la guía EAU 2024 y sitúa la enucleación endoscópica por delante de la adenomectomía abierta en las guías."
     ]
    }
   },

@@ -3,7 +3,7 @@
 import json, os, sys, importlib
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 ROOT = os.path.dirname(os.path.dirname(HERE))
-MODS = [m for m in ('cx1', 'cx2', 'cx3', 'cx4', 'cx5', 'cx6', 'cx7', 'cx8', 'cx9', 'cx10', 'cx11', 'rev', 'rev2', 'rev3') if os.path.exists(os.path.join(HERE, m + '.py'))]
+MODS = [m for m in ('cx1', 'cx2', 'cx3', 'cx4', 'cx5', 'cx6', 'cx7', 'cx8', 'cx9', 'cx10', 'cx11', 'rev', 'rev2', 'rev3', 'rev4') if os.path.exists(os.path.join(HERE, m + '.py'))]
 UNIDADES = {}
 
 def main():
