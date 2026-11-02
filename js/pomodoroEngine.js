@@ -56,6 +56,149 @@ const PomodoroEngine = (() => {
   }
 
   // ------------------------------------------------------------
+  // Preferencias (⚙️): descanso automático, micro-pausas, meta diaria y presets
+  // ------------------------------------------------------------
+  const PRESETS = [{ w: 25, b: 5 }, { w: 50, b: 10 }, { w: 90, b: 20 }];
+  const MICRO_MIN_BLOCK = 180;              // las micro-pausas solo se avisan en bloques de 3 h o más
+  const lsGet = (k, d) => { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (_) { return d; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, String(v)); } catch (_) {} };
+  // El "día" es el argentino (igual que la racha y la Liga), sin importar la zona del dispositivo
+  const ART_FMT = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Argentina/Buenos_Aires', year: 'numeric', month: '2-digit', day: '2-digit' });
+  const dayKeyOf = (d) => ART_FMT.format(d);
+  const todayKey = () => dayKeyOf(new Date());
+
+  function getPrefs() {
+    return {
+      autoBreak: lsGet('nika_pomo_auto_break', '1') !== '0',
+      microMin: Math.max(0, Math.min(180, parseInt(lsGet('nika_pomo_micro_min', '60'), 10) || 0)),
+      goalMin: Math.max(0, Math.min(1440, parseInt(lsGet('nika_pomo_goal_min', '0'), 10) || 0)),
+    };
+  }
+  function setPrefs(p) {
+    if (!p) return;
+    if ('autoBreak' in p) lsSet('nika_pomo_auto_break', p.autoBreak ? '1' : '0');
+    if ('microMin' in p) lsSet('nika_pomo_micro_min', Math.max(0, Math.min(180, parseInt(p.microMin, 10) || 0)));
+    if ('goalMin' in p) {
+      const g = Math.max(0, Math.min(1440, parseInt(p.goalMin, 10) || 0));
+      if (g !== getPrefs().goalMin) {
+        lsSet('nika_pomo_goal_min', g);
+        lsSet('nika_goal_ts', Date.now());
+        // Si ya la tenés cumplida al fijarla, no se festeja de nuevo
+        if (g > 0 && getTodayMinutes() >= g) lsSet('nika_pomo_goal_done', todayKey());
+        pushGoalToCloud();
+        try { window.dispatchEvent(new CustomEvent('nika:meta-actualizada')); } catch (_) {}
+      }
+    }
+    emit('change', getState());
+  }
+
+  // ---- Meta diaria sincronizada entre dispositivos ----
+  // La meta viaja en los metadatos del usuario (sin tablas nuevas) y los minutos de hoy se leen
+  // de study_sessions, que es lo que ya usan la racha y la Liga.
+  async function pushGoalToCloud() {
+    try {
+      const client = getDbClient();
+      if (!client || !client.auth || !navigator.onLine) return;
+      await client.auth.updateUser({ data: { nika_goal_min: getPrefs().goalMin, nika_goal_ts: parseInt(lsGet('nika_goal_ts', '0'), 10) || Date.now() } });
+    } catch (_) {}
+  }
+
+  let metaSyncTimer = null, metaSyncBusy = false;
+  function scheduleMetaSync(ms) {
+    clearTimeout(metaSyncTimer);
+    metaSyncTimer = setTimeout(syncMetaFromCloud, ms == null ? 1500 : ms);
+  }
+  async function syncMetaFromCloud() {
+    if (metaSyncBusy) return;
+    const client = getDbClient();
+    if (!client || !client.auth || !navigator.onLine) return;
+    metaSyncBusy = true;
+    try {
+      const { data: { user } } = await client.auth.getUser();
+      if (!user) return;
+      const md = user.user_metadata || {};
+      const cloudTs = parseInt(md.nika_goal_ts, 10) || 0, localTs = parseInt(lsGet('nika_goal_ts', '0'), 10) || 0;
+      if (cloudTs > localTs) {                          // otro dispositivo la cambió después
+        lsSet('nika_pomo_goal_min', Math.max(0, Math.min(1440, parseInt(md.nika_goal_min, 10) || 0)));
+        lsSet('nika_goal_ts', cloudTs);
+      } else if (localTs > cloudTs) {                   // este dispositivo tiene la más nueva: se sube
+        pushGoalToCloud();
+      }
+      const before = getTodayMinutes();
+      const dia = todayKey();
+      const { data, error } = await client.from('study_sessions').select('duration_minutes')
+        .eq('user_id', user.id).gte('completed_at', `${dia}T03:00:00.000Z`).limit(2000); // 00:00 ART = 03:00 UTC
+      if (!error && data) {
+        const total = data.reduce((a, r) => a + (r.duration_minutes || 0), 0);
+        lsSet('nika_meta_today', JSON.stringify({ d: dia, m: total }));
+      }
+      const after = getTodayMinutes(), goal = getPrefs().goalMin;
+      if (goal > 0 && before < goal && after >= goal) celebrateGoal(after, goal);
+      try { window.dispatchEvent(new CustomEvent('nika:meta-actualizada')); } catch (_) {}
+      emit('change', getState());
+    } catch (_) {
+    } finally { metaSyncBusy = false; }
+  }
+  function celebrateGoal(minutes, goal) {
+    if (lsGet('nika_pomo_goal_done', '') === todayKey()) return;
+    lsSet('nika_pomo_goal_done', todayKey());
+    if (typeof showToast === 'function') showToast('🎯 ¡Meta diaria cumplida! Tu racha y tu Liga ya suman el día.', 'success');
+    try { window.dispatchEvent(new CustomEvent('nika:meta-diaria', { detail: { minutes, goalMin: goal } })); } catch (_) {}
+  }
+  function getCustomPreset() {
+    try { const c = JSON.parse(lsGet('nika_pomo_custom', 'null')); if (c && c.w > 0 && c.b > 0) return c; } catch (_) {}
+    return null;
+  }
+  function setCustomPreset(w, b) {
+    if (!(w >= 1 && w <= MAX_WORK_MIN && b >= 1 && b <= MAX_BREAK_MIN)) return false;
+    lsSet('nika_pomo_custom', JSON.stringify({ w, b }));
+    return true;
+  }
+
+  // Minutos estudiados hoy: lo mayor entre el contador de este dispositivo (instantáneo, sirve sin
+  // conexión) y lo que ya figura en la nube (suma los demás dispositivos).
+  function getTodayMinutes() {
+    let local = 0, cloud = 0;
+    try { const o = JSON.parse(lsGet('nika_pomo_today', 'null')); if (o && o.d === todayKey()) local = o.m || 0; } catch (_) {}
+    try { const o = JSON.parse(lsGet('nika_meta_today', 'null')); if (o && o.d === todayKey()) cloud = o.m || 0; } catch (_) {}
+    return Math.max(local, cloud);
+  }
+  function addTodayMinutes(min) {
+    const before = getTodayMinutes();
+    let local = 0;
+    try { const o = JSON.parse(lsGet('nika_pomo_today', 'null')); if (o && o.d === todayKey()) local = o.m || 0; } catch (_) {}
+    lsSet('nika_pomo_today', JSON.stringify({ d: todayKey(), m: Math.max(local, before) + min }));
+    const goal = getPrefs().goalMin;
+    if (goal > 0 && before < goal && before + min >= goal) celebrateGoal(before + min, goal);
+    scheduleMetaSync(3500); // cuando la sesión ya subió, se confirma con la nube
+  }
+
+  // Descansos tomados / salteados por día (se conservan 30 días)
+  function recordBreak(kind) {
+    try {
+      const o = JSON.parse(lsGet('nika_pomo_breaks', '{}')) || {};
+      const k = todayKey();
+      o[k] = o[k] || { t: 0, s: 0 };
+      o[k][kind === 'skipped' ? 's' : 't']++;
+      Object.keys(o).sort().slice(0, -30).forEach((x) => delete o[x]);
+      lsSet('nika_pomo_breaks', JSON.stringify(o));
+    } catch (_) {}
+  }
+  function getBreakStats() {
+    let o = {};
+    try { o = JSON.parse(lsGet('nika_pomo_breaks', '{}')) || {}; } catch (_) {}
+    const sum = (days) => {
+      const out = { taken: 0, skipped: 0 };
+      for (let i = 0; i < days; i++) {
+        const k = dayKeyOf(new Date(Date.now() - i * 86400000));
+        if (o[k]) { out.taken += o[k].t; out.skipped += o[k].s; }
+      }
+      return out;
+    };
+    return { today: sum(1), week: sum(7) };
+  }
+
+  // ------------------------------------------------------------
   // Estado persistido
   //   status: 'idle' | 'running' | 'paused'
   //   mode: 'work' | 'break'
@@ -85,6 +228,9 @@ const PomodoroEngine = (() => {
   // Solo entran los que el Host invitó o cuyo pedido aceptó (queda en la lista); cualquier otro 'hello' se rechaza.
   // ------------------------------------------------------------
   const MAX_GUESTS = 4;
+  // Duración máxima configurable por bloque (minutos): 12 h de estudio, 4 h de descanso.
+  const MAX_WORK_MIN = 720;
+  const MAX_BREAK_MIN = 240;
   const RESERVA_MS = 90 * 1000;   // una invitación sin respuesta libera su lugar a los 90 s
 
   function normalizarShared(sh) {
@@ -142,12 +288,18 @@ const PomodoroEngine = (() => {
     } catch (_) {}
   }
 
-  function playAlertSound() {
+  // kind: 'work' (fin de estudio: acorde ascendente), 'break' (fin de descanso: dos notas graves
+  // y más cortas, distinto a propósito) o 'micro' (micro-pausa: una nota suave, un solo golpe).
+  function playAlertSound(kind) {
     try { window.dispatchEvent(new CustomEvent('nika:alerta-sonido')); } catch (_) {} // NikaMusic baja el volumen un momento
     try {
       initAudio();
       if (!audioCtx) return;
-      const freqs = [523.25, 659.25, 783.99, 1046.5];
+      const freqs = kind === 'break' ? [392, 493.88, 587.33]
+        : kind === 'micro' ? [880]
+        : [523.25, 659.25, 783.99, 1046.5];
+      const decay = kind === 'micro' ? 1.2 : (kind === 'break' ? 1.8 : 2.5);
+      const volume = kind === 'micro' ? 0.35 : 1.2;
       const strike = () => {
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const t = audioCtx.currentTime;
@@ -157,16 +309,16 @@ const PomodoroEngine = (() => {
           osc.type = i === 0 ? 'sine' : 'triangle';
           osc.frequency.setValueAtTime(freq, t);
           gain.gain.setValueAtTime(0, t);
-          gain.gain.linearRampToValueAtTime(1.2 / freqs.length, t + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.001, t + 2.5);
+          gain.gain.linearRampToValueAtTime(volume / freqs.length, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + decay);
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.start(t);
-          osc.stop(t + 3.0);
+          osc.stop(t + decay + 0.5);
         });
       };
       strike();
-      setTimeout(strike, 300);
+      if (kind !== 'micro') setTimeout(strike, kind === 'break' ? 500 : 300);
     } catch (e) {
       console.warn('[PomodoroEngine] Error de audio:', e);
     }
@@ -336,6 +488,7 @@ const PomodoroEngine = (() => {
 
   async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null) {
     if (!minutes) return;
+    addTodayMinutes(minutes);
     // Un Pomodoro iniciado sin Unidad Problema asignada igual cuenta como tiempo de estudio
     const modulo = moduleId || 'general';
     const up = upId || 'general';
@@ -584,7 +737,26 @@ const PomodoroEngine = (() => {
     updateTitle();
     emit('tick', remaining);
     if (isHost() && Date.now() - lastSharedSync >= SHARED_SYNC_MS) publishShared('sync'); // latido: repara mensajes perdidos
+    checkMicroBreak(remaining);
     if (state.targetEnd - Date.now() <= 0) completePhase();
+  }
+
+  // Micro-pausas: en bloques de estudio largos avisa cada N min sin cortar el reloj.
+  let microKey = null, microLast = 0;
+  function checkMicroBreak(remainingSec) {
+    if (state.mode !== 'work' || (state.durationMin || 0) < MICRO_MIN_BLOCK) return;
+    const every = getPrefs().microMin;
+    if (!every) return;
+    const elapsedMin = ((state.durationMin * 60) - remainingSec) / 60;
+    const idx = Math.floor(elapsedMin / every);
+    if (microKey !== state.targetEnd) { microKey = state.targetEnd; microLast = idx; return; } // al recargar no repite avisos viejos
+    if (idx > microLast && remainingSec > 90) {
+      microLast = idx;
+      playAlertSound('micro');
+      const txt = `Llevás ${Math.round(idx * every)} min seguidos. Estirate, tomá agua y descansá la vista un minuto: el reloj sigue corriendo.`;
+      if (typeof showToast === 'function') showToast('🧘 Micro-pausa: ' + txt, 'success');
+      notify('🧘 Micro-pausa', txt);
+    }
   }
 
   // ------------------------------------------------------------
@@ -601,14 +773,16 @@ const PomodoroEngine = (() => {
     const sh = state.shared ? { ...state.shared } : null;
     const finished = { mode: state.mode, minutes: state.durationMin, moduleId: state.moduleId, upId: state.upId };
 
-    playAlertSound();
+    playAlertSound(wasWork ? 'work' : 'break');
+    const autoBreak = getPrefs().autoBreak;
 
     if (wasWork) {
       if (sh) registerSharedPhase(sh, { moduleId: finished.moduleId, upId: finished.upId, minutes: finished.minutes, completed: true });
       else registerStudySession(finished.moduleId, finished.upId, finished.minutes);
-      if (typeof showToast === 'function') showToast('🔔 ¡Tiempo finalizado! Inicia tu descanso.', 'success');
+      if (typeof showToast === 'function') showToast(autoBreak ? '🔔 ¡Tiempo finalizado! Inicia tu descanso.' : '🔔 ¡Tiempo finalizado! Iniciá el descanso cuando quieras.', 'success');
       notify('¡Tiempo de estudio finalizado!', 'Buen trabajo. Es hora de tu descanso.');
     } else {
+      recordBreak('taken');
       if (typeof showToast === 'function') showToast('🔔 ¡Descanso terminado! Iniciá el estudio cuando quieras.', 'success');
       notify('¡Descanso terminado!', 'Cuando estés listo, iniciá un nuevo bloque de estudio en Campus Nika.');
     }
@@ -628,7 +802,7 @@ const PomodoroEngine = (() => {
     // Estudio -> Descanso: arranca solo a los 2 segundos (lo dispara SOLO el Host o un usuario en solitario;
     // el Invitado recibe ese 'start' por la sala).
     // Descanso -> Estudio: NO arranca solo; el usuario lo inicia manualmente.
-    if (wasWork && !isGuest()) {
+    if (wasWork && !isGuest() && autoBreak) {
       setTimeout(() => {
         if (state.status === 'idle' && state.mode === nextMode && !isGuest()) start();
       }, AUTO_NEXT_DELAY_MS);
@@ -709,7 +883,7 @@ const PomodoroEngine = (() => {
   // Si se interrumpe un bloque de ESTUDIO (reiniciar, cambiar de fase o de UP, cerrar
   // sesión, salir de una sesión compartida) con al menos MIN_PARTIAL_MIN minutos cumplidos,
   // ese tiempo se guarda igual. Devuelve los minutos acreditados (0 = nada).
-  function savePartialIfNeeded() {
+  function savePartialIfNeeded(minMin) {
     if (state.mode !== 'work' || (state.status !== 'running' && state.status !== 'paused')) return 0;
     if (!state.moduleId || !state.upId) return 0;
     const totalMs = (state.durationMin || getMinutes('work')) * 60 * 1000;
@@ -717,7 +891,7 @@ const PomodoroEngine = (() => {
       ? Math.max(0, state.targetEnd - Date.now())
       : Math.max(0, state.remainingMs || 0);
     const minutes = Math.floor((totalMs - remainingMs) / 60000);
-    if (minutes < MIN_PARTIAL_MIN) return 0;
+    if (minutes < (minMin || MIN_PARTIAL_MIN)) return 0;
 
     let credited = minutes;
     if (state.shared) credited = registerSharedPhase(state.shared, { moduleId: state.moduleId, upId: state.upId, minutes, completed: false });
@@ -732,6 +906,7 @@ const PomodoroEngine = (() => {
     const prev = { mode: state.mode, moduleId: state.moduleId, upId: state.upId, phaseSeq: state.shared ? state.shared.phaseSeq : 0 };
     const savedMin = savePartialIfNeeded();
     const nextMode = mode || state.mode;
+    if (prev.mode === 'break' && nextMode === 'work' && state.status !== 'idle') recordBreak('skipped');
     state = idleState(nextMode, { ...state, ...(ctx || {}) });
     saveState();
     updateTitle();
@@ -740,6 +915,48 @@ const PomodoroEngine = (() => {
       finishedMode: prev.mode, minutes: savedMin, completed: false,
       phaseSeq: prev.phaseSeq, finishedModuleId: prev.moduleId, finishedUpId: prev.upId,
     });
+  }
+
+  // Corta el bloque de estudio y acredita de una vez TODO lo cumplido (desde 1 min, sin el mínimo de 5 de
+  // "Reiniciar"). Deja el descanso listo, sin arrancarlo. Devuelve los minutos acreditados.
+  function finishAndSave() {
+    if (isGuest() || state.mode !== 'work' || (state.status !== 'running' && state.status !== 'paused')) return 0;
+    const prev = { mode: state.mode, moduleId: state.moduleId, upId: state.upId, phaseSeq: state.shared ? state.shared.phaseSeq : 0 };
+    const saved = savePartialIfNeeded(1);
+    state = idleState('break', state);
+    saveState();
+    updateTitle();
+    stopTicking();
+    reportPresence('stop', { finishedMode: prev.mode, minutes: saved, completed: false, phaseSeq: prev.phaseSeq, finishedModuleId: prev.moduleId, finishedUpId: prev.upId });
+    if (!saved && typeof showToast === 'function') showToast('Todavía no llegaste al minuto: no hay tiempo para guardar.', 'info');
+    return saved;
+  }
+
+  // Suma minutos al descanso en curso o en pausa (por defecto 5).
+  function extendBreak(min) {
+    const add = Math.max(1, Math.min(60, parseInt(min, 10) || 5));
+    if (isGuest() || state.mode !== 'break') return false;
+    if (state.status === 'running') state.targetEnd += add * 60000;
+    else if (state.status === 'paused') state.remainingMs = (state.remainingMs || 0) + add * 60000;
+    else return false;
+    state.durationMin = (state.durationMin || getMinutes('break')) + add;
+    saveState();
+    updateTitle();
+    if (isHost()) publishShared('sync');
+    return true;
+  }
+
+  // Saltea el descanso (en curso, en pausa o sin empezar) y deja el próximo bloque de estudio listo.
+  // El descanso no acredita nada, así que las estadísticas ya guardadas no se tocan.
+  function skipBreak() {
+    if (isGuest() || state.mode !== 'break') return false;
+    recordBreak('skipped');
+    state = idleState('work', state);
+    saveState();
+    updateTitle();
+    stopTicking();
+    reportPresence('stop', { finishedMode: 'break', minutes: 0, completed: false, phaseSeq: state.shared ? state.shared.phaseSeq : 0 });
+    return true;
   }
 
   function setContext(ctx) {
@@ -802,8 +1019,8 @@ const PomodoroEngine = (() => {
     if (!isHost() || state.status !== 'idle' || !cfg) return { ok: false };
     const w = parseInt(cfg.workMin, 10), b = parseInt(cfg.breakMin, 10);
     try {
-      if (w >= 1 && w <= 120) localStorage.setItem('nika_pomo_w_mins', String(w));
-      if (b >= 1 && b <= 60) localStorage.setItem('nika_pomo_b_mins', String(b));
+      if (w >= 1 && w <= MAX_WORK_MIN) localStorage.setItem('nika_pomo_w_mins', String(w));
+      if (b >= 1 && b <= MAX_BREAK_MIN) localStorage.setItem('nika_pomo_b_mins', String(b));
     } catch (_) {}
     if (cfg.moduleId && cfg.upId) {
       state.moduleId = cfg.moduleId; state.upId = cfg.upId; state.upLabel = cfg.upLabel || cfg.upId;
@@ -1072,6 +1289,12 @@ const PomodoroEngine = (() => {
   // Al volver a la pestaña recalculamos al instante (sin esperar al próximo tick)
   document.addEventListener('visibilitychange', () => { if (!document.hidden) onTick(); });
 
+  // Meta diaria: al abrir, al volver a la pestaña y cuando cambia el rendimiento se alinea con la nube
+  setTimeout(() => scheduleMetaSync(0), 3000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) scheduleMetaSync(1200); });
+  window.addEventListener('nika:rendimiento-changed', () => scheduleMetaSync(2500));
+  setInterval(() => { if (!document.hidden) scheduleMetaSync(0); }, 5 * 60 * 1000); // si estudiás en otro dispositivo, se entera solo
+
   // ------------------------------------------------------------
   // Arranque: recuperar un timer que quedó corriendo
   // ------------------------------------------------------------
@@ -1103,7 +1326,8 @@ const PomodoroEngine = (() => {
   })();
 
   return {
-    start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
+    start, pause, reset, skipBreak, finishAndSave, extendBreak, getPrefs, setPrefs, PRESETS, getCustomPreset, setCustomPreset,
+    getTodayMinutes, getBreakStats, MAX_WORK_MIN, MAX_BREAK_MIN, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
     getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, kickGuest, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,

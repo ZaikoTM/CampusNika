@@ -29,8 +29,15 @@ const NikaRachas = (() => {
     return fmt.format(new Date(Date.UTC(y, m - 1, d + delta, 12)));
   }
 
+  // Minutos estudiados por día (para la meta diaria) y meta configurada (se sincroniza entre dispositivos, ver pomodoroEngine.js)
+  let minPorDia = {};
+  const metaMin = () => { try { return Math.max(0, parseInt(localStorage.getItem('nika_pomo_goal_min') || '0', 10) || 0); } catch (_) { return 0; } };
+  const fmtMin = (m) => { m = Math.round(m || 0); const h = Math.floor(m / 60); return h > 0 ? `${h} h${m % 60 ? ' ' + (m % 60) + ' min' : ''}` : `${m} min`; };
+
   function calcular(diasActivos, hoy = diaAR(new Date())) {
     const ayer = moverDia(hoy, -1);
+    const meta = metaMin();
+    try { const e = window.PomodoroEngine && window.PomodoroEngine.getTodayMinutes(); if (e > (minPorDia[hoy] || 0)) minPorDia[hoy] = e; } catch (_) {}
     const hoyCumplido = diasActivos.has(hoy);
     let cursor = hoyCumplido ? hoy : (diasActivos.has(ayer) ? ayer : null);
     let racha = 0;
@@ -40,9 +47,16 @@ const NikaRachas = (() => {
       const k = moverDia(hoy, -i);
       const [y, m, d] = k.split('-').map(Number);
       const etiqueta = new Date(Date.UTC(y, m - 1, d, 12)).toLocaleDateString('es-AR', { weekday: 'short', timeZone: 'UTC' });
-      ultimos7.push({ clave: k, etiqueta, cumplido: diasActivos.has(k), esHoy: i === 0 });
+      const min = minPorDia[k] || 0;
+      ultimos7.push({ clave: k, etiqueta, cumplido: diasActivos.has(k), esHoy: i === 0, min, meta: meta > 0 && min >= meta });
     }
-    return { racha, hoyCumplido, ultimos7 };
+    // Días seguidos cumpliendo la meta (igual criterio que la racha: hoy o ayer cuentan como vivo)
+    let rachaMeta = 0;
+    if (meta > 0) {
+      let c = (minPorDia[hoy] || 0) >= meta ? hoy : ((minPorDia[ayer] || 0) >= meta ? ayer : null);
+      while (c && (minPorDia[c] || 0) >= meta) { rachaMeta++; c = moverDia(c, -1); }
+    }
+    return { racha, hoyCumplido, ultimos7, meta, minHoy: minPorDia[hoy] || 0, metaHoy: meta > 0 && (minPorDia[hoy] || 0) >= meta, rachaMeta };
   }
 
   function getClient() {
@@ -57,10 +71,16 @@ const NikaRachas = (() => {
     const desde = new Date(Date.now() - 400 * 86400000).toISOString();
     const dias = new Set();
     const [s, e] = await Promise.all([
-      client.from('study_sessions').select('completed, completed_at').eq('user_id', user.id).gte('completed_at', desde).limit(5000),
+      client.from('study_sessions').select('completed, completed_at, duration_minutes').eq('user_id', user.id).gte('completed_at', desde).limit(5000),
       client.from('exam_results').select('created_at').eq('user_id', user.id).gte('created_at', desde).limit(5000),
     ]);
-    (s.data || []).forEach((r) => { if (r.completed !== false) { const k = diaAR(r.completed_at); if (k) dias.add(k); } });
+    minPorDia = {};
+    (s.data || []).forEach((r) => {
+      const k = diaAR(r.completed_at);
+      if (!k) return;
+      minPorDia[k] = (minPorDia[k] || 0) + (r.duration_minutes || 0);
+      if (r.completed !== false) dias.add(k);
+    });
     (e.data || []).forEach((r) => { const k = diaAR(r.created_at); if (k) dias.add(k); });
     return dias;
   }
@@ -87,6 +107,7 @@ const NikaRachas = (() => {
         background: linear-gradient(135deg, rgba(251,146,60,0.16), rgba(239,68,68,0.12)); color: #c2410c; font-weight: 800; font-size: 0.82rem; cursor: pointer;
         font-family: inherit; white-space: nowrap; transition: transform .15s ease, box-shadow .2s ease; }
       .nika-racha-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px -6px rgba(234,88,12,0.55); }
+      .nika-racha-btn.is-meta { border-color: rgba(250,204,21,.7); box-shadow: 0 0 0 2px rgba(250,204,21,.35); }
       .nika-racha-btn.is-cero { color: #64748b; border-color: rgba(148,163,184,0.4); background: rgba(148,163,184,0.12); }
       .nika-racha-btn.is-cero .nika-racha-fuego { filter: grayscale(1); opacity: .7; }
       .nika-racha-btn.is-pendiente .nika-racha-fuego { animation: nikaRachaLatido 1.6s ease-in-out infinite; }
@@ -107,6 +128,24 @@ const NikaRachas = (() => {
       body.dark-mode .nika-racha-pop h4 { color: #fdba74; }
       body.dark-mode .nika-racha-dot { background: #1e293b; }
       body.dark-mode .nika-racha-msg { color: #94a3b8; }
+      .nika-racha-btn.is-festejo { animation: nikaRachaFesteja .9s ease 2; box-shadow: 0 0 0 0 rgba(250,204,21,.7); }
+      @keyframes nikaRachaFesteja { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250,204,21,.7); } 40% { transform: scale(1.14) rotate(-3deg); } 100% { transform: scale(1); box-shadow: 0 0 0 16px rgba(250,204,21,0); } }
+      .nika-racha-dot { animation: nikaDotPop .35s cubic-bezier(.2,1.4,.4,1) both; animation-delay: calc(var(--i, 0) * 40ms); }
+      @keyframes nikaDotPop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+      .nika-racha-dot.meta { box-shadow: 0 0 0 2px #fbbf24, 0 3px 10px -2px rgba(245,158,11,.7); }
+      .nika-racha-dot.meta::after { content: '🎯'; position: absolute; font-size: .6rem; transform: translate(11px, -11px); }
+      .nika-racha-dot { position: relative; }
+      .nika-meta { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.35); }
+      .nika-meta-top { display: flex; justify-content: space-between; align-items: baseline; font-size: .74rem; font-weight: 800; color: #92400e; margin-bottom: 6px; }
+      .nika-meta-bar { height: 8px; border-radius: 99px; background: rgba(0,0,0,.08); overflow: hidden; }
+      .nika-meta-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, #fbbf24, #f97316); transition: width .9s cubic-bezier(.2,.8,.2,1); position: relative; overflow: hidden; }
+      .nika-meta-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-100%); animation: nikaMetaBrillo 2.4s ease-in-out infinite; }
+      .nika-meta.ok .nika-meta-fill { background: linear-gradient(90deg, #22c55e, #16a34a); }
+      @keyframes nikaMetaBrillo { 60%, 100% { transform: translateX(100%); } }
+      .nika-meta-sub { margin: 6px 0 0; font-size: .7rem; color: #78716c; }
+      body.dark-mode .nika-meta-top { color: #fcd34d; }
+      body.dark-mode .nika-meta-sub { color: #a8a29e; }
+      @media (prefers-reduced-motion: reduce) { .nika-racha-dot, .nika-racha-btn, .nika-meta-fill, .nika-meta-fill::after { animation: none !important; transition: none !important; } }
       @media (max-width: 520px) { .nika-racha-btn span.nika-racha-texto-largo { display: none; } .nika-racha-pop { position: fixed; top: 64px; right: 12px; left: 12px; width: auto; } }
     `;
     document.head.appendChild(st);
@@ -135,6 +174,17 @@ const NikaRachas = (() => {
   function cerrar() { if (!pop) return; pop.classList.remove('open'); if (btn) btn.setAttribute('aria-expanded', 'false'); }
   function alternar() { if (pop && pop.classList.contains('open')) cerrar(); else abrir(); }
 
+  function metaHtml(r) {
+    if (!r.meta) return `<div class="nika-meta"><p class="nika-meta-sub" style="margin:0">🎯 Fijá una <strong>meta diaria</strong> en ⚙️ del Pomodoro y cada día cumplido se marca acá.</p></div>`;
+    const pct = Math.min(100, Math.round(r.minHoy / r.meta * 100));
+    const falta = Math.max(0, r.meta - r.minHoy);
+    return `<div class="nika-meta ${r.metaHoy ? 'ok' : ''}">
+      <div class="nika-meta-top"><span>🎯 Meta de hoy ${r.metaHoy ? '✅' : ''}</span><span>${fmtMin(r.minHoy)} / ${fmtMin(r.meta)}</span></div>
+      <div class="nika-meta-bar"><div class="nika-meta-fill" data-pct="${pct}"></div></div>
+      <p class="nika-meta-sub">${r.metaHoy ? '¡Cumplida! Hoy suma a tu racha y a la Liga.' : `Te faltan ${fmtMin(falta)} para cumplirla.`}${r.rachaMeta > 1 ? ` · 🎯 ${r.rachaMeta} días seguidos con meta` : ''}</p>
+    </div>`;
+  }
+
   function pintar(r) {
     if (!btn) return;
     ultimo = r; btn.dataset.pintada = '1'; btn.style.display = '';
@@ -144,11 +194,15 @@ const NikaRachas = (() => {
     btn.classList.toggle('is-pendiente', n > 0 && !r.hoyCumplido);
     pop.innerHTML = `
       <h4>🔥 ${n} ${n === 1 ? 'día' : 'días'} de racha</h4>
-      <div class="nika-racha-dias">${r.ultimos7.map((d) => `
-        <div class="nika-racha-dia"><span class="nika-racha-dot ${d.cumplido ? 'ok' : ''} ${d.esHoy ? 'hoy' : ''}" title="${d.clave}">${d.cumplido ? '✓' : ''}</span>${d.etiqueta.replace('.', '')}</div>`).join('')}
+      ${metaHtml(r)}
+      <div class="nika-racha-dias">${r.ultimos7.map((d, i) => `
+        <div class="nika-racha-dia"><span class="nika-racha-dot ${d.cumplido ? 'ok' : ''} ${d.meta ? 'meta' : ''} ${d.esHoy ? 'hoy' : ''}" style="--i:${i}" title="${d.clave}${r.meta ? ' · ' + fmtMin(d.min) + (d.meta ? ' · meta cumplida' : '') : ''}">${d.cumplido ? '✓' : ''}</span>${d.etiqueta.replace('.', '')}</div>`).join('')}
       </div>
       <p class="nika-racha-msg">${mensaje(r)}</p>`;
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ dias: [...(r._dias || [])], t: Date.now() })); } catch (_) {}
+    // la barra de la meta se llena con animación (un cuadro después de pintar)
+    requestAnimationFrame(() => requestAnimationFrame(() => { const f = pop.querySelector('.nika-meta-fill'); if (f) f.style.width = f.dataset.pct + '%'; }));
+    btn.classList.toggle('is-meta', !!r.metaHoy);
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ dias: [...(r._dias || [])], min: minPorDia, t: Date.now() })); } catch (_) {}
   }
 
   async function refrescar() {
@@ -175,13 +229,15 @@ const NikaRachas = (() => {
     // Pintado inmediato desde la copia local mientras llega Supabase
     try {
       const c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (c && Array.isArray(c.dias)) { const r = calcular(new Set(c.dias)); r._dias = new Set(c.dias); pintar(r); }
+      if (c && Array.isArray(c.dias)) { minPorDia = c.min || {}; const r = calcular(new Set(c.dias)); r._dias = new Set(c.dias); pintar(r); }
     } catch (_) {}
     refrescar();
     let t = null;
     const diferido = () => { clearTimeout(t); t = setTimeout(refrescar, 800); };
     window.addEventListener('nika:rendimiento-changed', diferido);
     window.addEventListener('nika:estudio-guardado', diferido);
+    window.addEventListener('nika:meta-actualizada', diferido);
+    window.addEventListener('nika:meta-diaria', () => { if (btn) { btn.classList.add('is-festejo'); setTimeout(() => btn && btn.classList.remove('is-festejo'), 2600); } diferido(); });
     try { new BroadcastChannel('nika-rendimiento').onmessage = diferido; } catch (_) {}
     document.addEventListener('visibilitychange', () => { if (!document.hidden) diferido(); });
   }

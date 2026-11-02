@@ -131,7 +131,70 @@ const PomodoroModule = (() => {
     return true;
   }
 
+  // ---- Animaciones y microanimaciones ----
+  let lastView = null, lastGoalPct = 0;
+  (function injectAnimCss() {
+    if (document.getElementById('nika-pomo-anim-css')) return;
+    const st = document.createElement('style');
+    st.id = 'nika-pomo-anim-css';
+    st.textContent = `
+      .pomo-enter { animation: pomoEnter .28s ease both; }
+      @keyframes pomoEnter { from { opacity: 0; transform: translateY(6px) scale(.985); } to { opacity: 1; transform: none; } }
+      [id^="pomodoro-"], [id^="pomo-mode-"], [id^="pomo-view-"], #pomo-presets button, #pomo-save-custom, #pomo-save-config { transition: transform .15s ease, box-shadow .2s ease, filter .2s ease, background .2s ease; }
+      [id^="pomodoro-"]:not(:disabled):hover, [id^="pomo-mode-"]:hover, [id^="pomo-view-"]:hover, #pomo-presets button:hover, #pomo-save-config:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -6px rgba(0,0,0,.35); filter: brightness(1.04); }
+      [id^="pomodoro-"]:not(:disabled):active, [id^="pomo-mode-"]:active, [id^="pomo-view-"]:active, #pomo-presets button:active, #pomo-save-config:active { transform: scale(.95); box-shadow: none; }
+      #pomodoro-finish, #pomodoro-skip-break, #pomodoro-extend-break { animation: pomoPopIn .35s cubic-bezier(.2,1.3,.4,1) both; }
+      @keyframes pomoPopIn { from { opacity: 0; transform: translateY(8px) scale(.92); } to { opacity: 1; transform: none; } }
+      #pomo-time.pomo-corre { animation: pomoRespira 2.4s ease-in-out infinite; }
+      @keyframes pomoRespira { 0%, 100% { text-shadow: 0 0 0 transparent; } 50% { text-shadow: 0 0 18px currentColor; } }
+      .pomo-goal-fill { transition: width .9s cubic-bezier(.2,.8,.2,1); position: relative; overflow: hidden; }
+      .pomo-goal-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-100%); animation: pomoBrillo 2.6s ease-in-out infinite; }
+      @keyframes pomoBrillo { 60%, 100% { transform: translateX(100%); } }
+      .pomo-confeti { position: fixed; top: 0; left: 0; width: 100%; height: 0; z-index: 99999; pointer-events: none; }
+      .pomo-confeti i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; opacity: 0; animation: pomoCae 2.2s ease-out forwards; }
+      @keyframes pomoCae { 0% { opacity: 1; transform: translate3d(0,0,0) rotate(0); } 100% { opacity: 0; transform: translate3d(var(--dx), 105vh, 0) rotate(var(--rot)); } }
+      @media (prefers-reduced-motion: reduce) { .pomo-enter, #pomodoro-finish, #pomodoro-skip-break, #pomodoro-extend-break, #pomo-time.pomo-corre, .pomo-goal-fill, .pomo-goal-fill::after { animation: none !important; transition: none !important; } .pomo-confeti { display: none; } }`;
+    document.head.appendChild(st);
+  })();
+
+  function confeti() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const box = document.createElement('div');
+    box.className = 'pomo-confeti';
+    const colores = ['#f43f5e', '#fbbf24', '#22c55e', '#38bdf8', '#a78bfa', '#fb923c'];
+    for (let i = 0; i < 46; i++) {
+      const p = document.createElement('i');
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.background = colores[i % colores.length];
+      p.style.animationDelay = (Math.random() * 0.5) + 's';
+      p.style.setProperty('--dx', ((Math.random() - 0.5) * 220) + 'px');
+      p.style.setProperty('--rot', ((Math.random() - 0.5) * 900) + 'deg');
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 3200);
+  }
+  window.addEventListener('nika:meta-diaria', confeti);
+
   function render() {
+    if (!containerEl) return;
+    const viewChanged = lastView !== currentView;
+    lastView = currentView;
+    renderInner();
+    const root = containerEl.firstElementChild;
+    if (root && viewChanged) root.classList.add('pomo-enter');
+    const time = containerEl.querySelector('#pomo-time');
+    if (time && isRunning()) time.classList.add('pomo-corre');
+    const fill = containerEl.querySelector('.pomo-goal-fill');
+    if (fill) {
+      const pct = parseFloat(fill.dataset.pct) || 0;
+      fill.style.width = lastGoalPct + '%';
+      requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = pct + '%'; }));
+      lastGoalPct = pct;
+    }
+  }
+
+  function renderInner() {
     if (!containerEl) return;
     const mode = getMode();
     const secondsLeft = getSecondsLeft();
@@ -173,6 +236,30 @@ const PomodoroModule = (() => {
         </div>
       ` : '';
 
+      const stNow = engine().getState();
+      const activo = stNow.status === 'running' || stNow.status === 'paused';
+      const btnStyle = 'flex: 1; border-radius: 8px; padding: 8px; font-weight: 700; font-size: 0.76rem; cursor: pointer;';
+      let extraBtnsHtml = '';
+      if (!bloqueado && isWork && activo) {
+        extraBtnsHtml = `<button id="pomodoro-finish" style="${btnStyle} margin-top: 6px; width: 100%; background: #ecfdf5; color: #047857; border: 1px solid #6ee7b7;" title="Corta el bloque y guarda todo lo que llevás estudiado">✔ Terminar y guardar lo estudiado</button>`;
+      } else if (!bloqueado && !isWork) {
+        extraBtnsHtml = `<div style="display: flex; gap: 6px; margin-top: 6px;">
+            ${activo ? `<button id="pomodoro-extend-break" style="${btnStyle} background: #f0fdf4; color: #166534; border: 1px solid #86efac;" title="Suma 5 minutos al descanso">＋5 min</button>` : ''}
+            <button id="pomodoro-skip-break" style="${btnStyle} flex: 2; background: #fff7ed; color: #c2410c; border: 1px solid #fdba74;" title="Salta el descanso sin perder tus estadísticas de estudio">⏭ Saltar descanso</button>
+          </div>`;
+      }
+      const prefs = engine().getPrefs();
+      let goalHtml = '';
+      if (prefs.goalMin > 0) {
+        const hoy = engine().getTodayMinutes();
+        const pct = Math.min(100, Math.round(hoy / prefs.goalMin * 100));
+        const fmtH = (m) => m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? ' ' + (m % 60) + ' min' : ''}` : `${m} min`;
+        goalHtml = `<div style="margin-top: 10px;" title="Se cuenta lo estudiado hoy en este dispositivo. Al cumplirla suma a tu racha y a la Liga.">
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; color: ${titleColor}; margin-bottom: 3px;"><span>🎯 Meta de hoy</span><span>${fmtH(hoy)} / ${fmtH(prefs.goalMin)}${pct >= 100 ? ' ✅' : ''}</span></div>
+            <div style="height: 7px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden;"><div class="pomo-goal-fill" data-pct="${pct}" style="width: ${pct}%; height: 100%; border-radius: 99px; background: ${pct >= 100 ? '#16a34a' : primaryColor};"></div></div>
+          </div>`;
+      }
+
       containerEl.innerHTML = `
         <div style="background: ${cardBg}; border: 1px solid ${borderColor}; border-radius: 14px; padding: 18px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; box-sizing: border-box; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;">
           <div>
@@ -209,6 +296,8 @@ const PomodoroModule = (() => {
             <button id="pomodoro-pause" style="background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;" ${(!running || bloqueado) ? 'disabled' : ''}>Pausar</button>
             <button id="pomodoro-reset" ${bloqueado ? 'disabled' : ''} style="background: rgba(255,255,255,0.7); color: ${primaryColor}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Reiniciar</button>
           </div>
+          ${extraBtnsHtml}
+          ${goalHtml}
         </div>
       `;
 
@@ -231,6 +320,12 @@ const PomodoroModule = (() => {
       containerEl.querySelector('#pomodoro-start').addEventListener('click', start);
       containerEl.querySelector('#pomodoro-pause').addEventListener('click', pause);
       containerEl.querySelector('#pomodoro-reset').addEventListener('click', resetTimer);
+      const skipBtn = containerEl.querySelector('#pomodoro-skip-break');
+      if (skipBtn) skipBtn.addEventListener('click', () => engine().skipBreak());
+      const extBtn = containerEl.querySelector('#pomodoro-extend-break');
+      if (extBtn) extBtn.addEventListener('click', () => engine().extendBreak(5));
+      const finBtn = containerEl.querySelector('#pomodoro-finish');
+      if (finBtn) finBtn.addEventListener('click', () => { engine().finishAndSave(); }); // el motor avisa cuánto guardó
       const leaveBtn = containerEl.querySelector('#pomo-shared-leave');
       if (leaveBtn) leaveBtn.addEventListener('click', () => engine().leaveShared({ reason: 'manual' }));
 
@@ -254,12 +349,21 @@ const PomodoroModule = (() => {
               </div>
             </div>
           </div>
-          <div style="font-size: 0.68rem; color: #64748b; text-align: center;">Datos sincronizados con la nube.</div>
+          <div style="margin-top: 10px; font-size: 0.78rem; color: #334155; background: rgba(255,255,255,0.7); padding: 9px 12px; border-radius: 8px;">
+            <div style="font-weight: 800; margin-bottom: 4px;">☕ Descansos</div>
+            ${(() => { const b = engine().getBreakStats(); return `<div style="display:flex; justify-content:space-between;"><span>Hoy: ${b.today.taken} tomados</span><strong style="color:${b.today.skipped ? '#c2410c' : '#16a34a'};">${b.today.skipped} salteados</strong></div>
+              <div style="display:flex; justify-content:space-between;"><span>Últimos 7 días: ${b.week.taken} tomados</span><strong style="color:${b.week.skipped > b.week.taken ? '#c2410c' : '#334155'};">${b.week.skipped} salteados</strong></div>
+              ${b.week.skipped > b.week.taken && b.week.skipped >= 3 ? '<div style="margin-top:4px; font-size:0.7rem; color:#c2410c;">Estás salteando más descansos de los que tomás: descansar también rinde.</div>' : ''}`; })()}
+          </div>
+          <div style="font-size: 0.68rem; color: #64748b; text-align: center; margin-top: 8px;">Datos sincronizados con la nube.</div>
         </div>
       `;
       containerEl.querySelector('#pomo-back-from-stats').addEventListener('click', () => { currentView = 'timer'; render(); });
 
     } else if (currentView === 'settings') {
+      const prefs = engine().getPrefs();
+      const custom = engine().getCustomPreset();
+      const chipStyle = `background: rgba(255,255,255,0.8); color: ${titleColor}; border: 1px solid ${borderColor}; border-radius: 99px; padding: 4px 10px; font-size: 0.74rem; font-weight: 800; cursor: pointer;`;
       containerEl.innerHTML = `
         <div style="background: ${cardBg}; border: 1px solid ${borderColor}; border-radius: 14px; padding: 18px; font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; box-sizing: border-box; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
@@ -268,13 +372,30 @@ const PomodoroModule = (() => {
               <button id="pomo-back-from-settings" style="background: rgba(0,0,0,0.06); border: none; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer; color: #334155;">← Volver</button>
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; color: #334155;">
+              <div id="pomo-presets" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                ${engine().PRESETS.map((p) => `<button data-w="${p.w}" data-b="${p.b}" style="${chipStyle}">${p.w}/${p.b}</button>`).join('')}
+                ${custom ? `<button data-w="${custom.w}" data-b="${custom.b}" style="${chipStyle}" title="Tu preset guardado">⭐ ${custom.w}/${custom.b}</button>` : ''}
+                <button id="pomo-save-custom" style="${chipStyle} border-style: dashed;" title="Guarda los minutos de abajo como tu preset">＋ Guardar el mío</button>
+              </div>
               <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;">
                 <span>Estudio (min):</span>
-                <input type="number" id="input-work-min" value="${getWorkMinutes()}" min="1" max="120" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+                <input type="number" id="input-work-min" value="${getWorkMinutes()}" min="1" max="720" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;">
                 <span>Descanso (min):</span>
-                <input type="number" id="input-break-min" value="${getBreakMinutes()}" min="1" max="60" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+                <input type="number" id="input-break-min" value="${getBreakMinutes()}" min="1" max="240" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+              </div>
+              <label style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px; cursor: pointer;">
+                <span>Descanso automático al terminar</span>
+                <input type="checkbox" id="input-auto-break" ${prefs.autoBreak ? 'checked' : ''}>
+              </label>
+              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;" title="Solo en bloques de 3 h o más. 0 = desactivadas">
+                <span>Micro-pausa cada (min):</span>
+                <input type="number" id="input-micro-min" value="${prefs.microMin}" min="0" max="180" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;" title="0 = sin meta">
+                <span>Meta diaria (horas):</span>
+                <input type="number" id="input-goal-h" value="${prefs.goalMin ? +(prefs.goalMin / 60).toFixed(2) : 0}" min="0" max="24" step="0.5" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
               </div>
             </div>
           </div>
@@ -283,11 +404,28 @@ const PomodoroModule = (() => {
       `;
       containerEl.querySelector('#pomo-back-from-settings').addEventListener('click', () => { currentView = 'timer'; render(); });
       
+      containerEl.querySelectorAll('#pomo-presets button[data-w]').forEach((btn) => btn.addEventListener('click', () => {
+        containerEl.querySelector('#input-work-min').value = btn.dataset.w;
+        containerEl.querySelector('#input-break-min').value = btn.dataset.b;
+      }));
+      containerEl.querySelector('#pomo-save-custom').addEventListener('click', () => {
+        const w = parseInt(containerEl.querySelector('#input-work-min').value, 10);
+        const b = parseInt(containerEl.querySelector('#input-break-min').value, 10);
+        if (engine().setCustomPreset(w, b)) { if (typeof showToast === 'function') showToast(`⭐ Preset ${w}/${b} guardado.`, 'success'); render(); }
+        else if (typeof showToast === 'function') showToast(`Estudio 1–${engine().MAX_WORK_MIN} min y descanso 1–${engine().MAX_BREAK_MIN} min.`, 'info');
+      });
+
       containerEl.querySelector('#pomo-save-config').addEventListener('click', () => {
         const w = parseInt(containerEl.querySelector('#input-work-min').value, 10);
         const b = parseInt(containerEl.querySelector('#input-break-min').value, 10);
-        if (w > 0) localStorage.setItem('nika_pomo_w_mins', w);
-        if (b > 0) localStorage.setItem('nika_pomo_b_mins', b);
+        engine().setPrefs({
+          autoBreak: containerEl.querySelector('#input-auto-break').checked,
+          microMin: parseInt(containerEl.querySelector('#input-micro-min').value, 10) || 0,
+          goalMin: Math.round((parseFloat(containerEl.querySelector('#input-goal-h').value) || 0) * 60),
+        });
+        const E = engine();
+        if (w > 0) localStorage.setItem('nika_pomo_w_mins', Math.min(w, E.MAX_WORK_MIN));
+        if (b > 0) localStorage.setItem('nika_pomo_b_mins', Math.min(b, E.MAX_BREAK_MIN));
         currentView = 'timer';
         resetTimer();
       });

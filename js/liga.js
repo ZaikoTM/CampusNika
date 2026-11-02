@@ -63,6 +63,42 @@ const NikaLiga = (() => {
   const nombreModulo = (m) => (window.NikaRendimiento ? window.NikaRendimiento.labelModulo(m) : (m || 'Sin área'));
   const nombreUp = (u) => (window.NikaRendimiento ? (window.NikaRendimiento.normUp(u) || u || '—') : (u || '—'));
 
+  // ---------- Meta diaria (se fija en el Pomodoro y se sincroniza entre dispositivos) ----------
+  function metaInfo() {
+    let goal = 0, hoy = 0;
+    try { goal = Math.max(0, parseInt(localStorage.getItem('nika_pomo_goal_min') || '0', 10) || 0); } catch (_) {}
+    try { if (window.PomodoroEngine) hoy = window.PomodoroEngine.getTodayMinutes(); } catch (_) {}
+    return { goal, hoy, ok: goal > 0 && hoy >= goal, pct: goal > 0 ? Math.min(100, Math.round(hoy / goal * 100)) : 0 };
+  }
+  function metaBarraHtml() {
+    const m = metaInfo();
+    if (!m.goal) return '';
+    return `<div class="lg-meta ${m.ok ? 'ok' : ''}" title="Tu meta diaria: se cumple con el tiempo que estudiás hoy en cualquier dispositivo">
+      <span class="lg-meta-txt">🎯 Meta de hoy ${m.ok ? '✅' : ''} <strong>${fmtMin(m.hoy)} / ${fmtMin(m.goal)}</strong></span>
+      <span class="lg-meta-bar"><span class="lg-meta-fill" style="width:${m.pct}%"></span></span>
+    </div>`;
+  }
+  (function css() {
+    if (document.getElementById('nika-liga-meta-css')) return;
+    const st = document.createElement('style');
+    st.id = 'nika-liga-meta-css';
+    st.textContent = `
+      .lg-barra-pos { flex-wrap: wrap; }
+      .lg-meta { flex-basis: 100%; display: flex; flex-direction: column; gap: 5px; margin-top: 6px; animation: lgMetaIn .4s ease both; }
+      .lg-meta-txt { font-size: .76rem; font-weight: 700; }
+      .lg-meta-bar { height: 8px; border-radius: 99px; background: rgba(0,0,0,.12); overflow: hidden; display: block; }
+      .lg-meta-fill { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #fbbf24, #f97316); transition: width .9s cubic-bezier(.2,.8,.2,1); animation: lgMetaLleno .9s cubic-bezier(.2,.8,.2,1) both; }
+      .lg-meta.ok .lg-meta-fill { background: linear-gradient(90deg, #22c55e, #16a34a); }
+      .lg-meta.ok .lg-meta-txt { animation: lgMetaPulso 1.8s ease-in-out 2; }
+      .lg-meta-ins { display: inline-block; margin-left: 4px; animation: lgMetaPop .5s cubic-bezier(.2,1.5,.4,1) both; }
+      @keyframes lgMetaIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+      @keyframes lgMetaLleno { from { width: 0; } }
+      @keyframes lgMetaPulso { 50% { transform: scale(1.04); } }
+      @keyframes lgMetaPop { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
+      @media (prefers-reduced-motion: reduce) { .lg-meta, .lg-meta-fill, .lg-meta-txt, .lg-meta-ins { animation: none !important; transition: none !important; } }`;
+    document.head.appendChild(st);
+  })();
+
   // ---------- Vista ----------
   function raiz() { return document.getElementById('liga-section'); }
 
@@ -163,7 +199,7 @@ const NikaLiga = (() => {
           <span class="lg-pos">${pos <= 3 ? ['🥇', '🥈', '🥉'][i] : pos}</span>
           <img src="${avatar(f)}" alt="" class="lg-avatar">
           <div class="lg-info">
-            <strong class="lg-nombre">${esc(f.fullname)}${soyYo ? ' <em>(vos)</em>' : ''}</strong>
+            <strong class="lg-nombre">${esc(f.fullname)}${soyYo ? ' <em>(vos)</em>' + (metaInfo().ok ? '<span class="lg-meta-ins" title="Meta diaria cumplida">🎯</span>' : '') : ''}</strong>
             <span class="lg-rango ${r.clase}">${r.icono} ${esc(r.nombre)}</span>
           </div>
           <div class="lg-num"><strong>${fmtMin(f.minutos_periodo)}</strong><span>${f.sesiones_periodo} ${f.sesiones_periodo === 1 ? 'sesión' : 'sesiones'}</span></div>
@@ -186,7 +222,7 @@ const NikaLiga = (() => {
     const idx = filas.findIndex((f) => f.user_id === yo);
     barra.style.display = 'flex';
     if (idx === -1) {
-      barra.innerHTML = `<div class="lg-barra-txt"><strong>Todavía no estás en la liga (${label})</strong><span>Completá un Pomodoro para entrar al ranking.</span></div>`;
+      barra.innerHTML = `<div class="lg-barra-txt"><strong>Todavía no estás en la liga (${label})</strong><span>Completá un Pomodoro para entrar al ranking.</span></div>${metaBarraHtml()}`;
       return;
     }
     const f = filas[idx];
@@ -199,7 +235,7 @@ const NikaLiga = (() => {
     barra.innerHTML = `
       <div class="lg-barra-num">#${idx + 1}</div>
       <div class="lg-barra-txt"><strong>Tu posición (${label}): ${fmtMin(f.minutos_periodo)} · ${f.sesiones_periodo} ${f.sesiones_periodo === 1 ? 'sesión' : 'sesiones'}</strong><span>${falta}</span></div>
-      <button type="button" class="lg-btn" onclick="NikaLiga.irAMiFila()">Ver mi fila ↑</button>`;
+      <button type="button" class="lg-btn" onclick="NikaLiga.irAMiFila()">Ver mi fila ↑</button>${metaBarraHtml()}`;
   }
 
   function irAMiFila() {
@@ -253,6 +289,7 @@ const NikaLiga = (() => {
     clearTimeout(_tLiga);
     _tLiga = setTimeout(cargar, 700);
   }
+  window.addEventListener('nika:meta-actualizada', () => { if (document.getElementById('liga-lista') && filas.length) pintar(); });
   window.addEventListener('nika:rendimiento-changed', refrescarSiVisible);
   window.addEventListener('nika:estudio-guardado', refrescarSiVisible);
   try { new BroadcastChannel('nika-rendimiento').onmessage = refrescarSiVisible; } catch (_) {}

@@ -217,8 +217,8 @@ const NikaPomoBar = (() => {
             </div>
             <div class="nika-pomo-cfg" id="nika-pomo-cfg" role="dialog" aria-label="Configurar Pomodoro">
                 <h4>⚙️ Configurar Pomodoro</h4>
-                <label>Estudio (min) <input type="number" id="nika-cfg-work" min="1" max="120"></label>
-                <label>Descanso (min) <input type="number" id="nika-cfg-break" min="1" max="60"></label>
+                <label>Estudio (min) <input type="number" id="nika-cfg-work" min="1" max="720"></label>
+                <label>Descanso (min) <input type="number" id="nika-cfg-break" min="1" max="240"></label>
                 <label id="nika-cfg-up-row">Unidad <select id="nika-cfg-up"></select></label>
                 <button type="button" class="nika-pomo-cfg-ok" id="nika-cfg-save">Guardar y reiniciar</button>
                 <p class="nika-pomo-cfg-nota">Al guardar, el reloj se reinicia con los nuevos tiempos.</p>
@@ -330,7 +330,7 @@ const NikaPomoBar = (() => {
         const E = window.PomodoroEngine; if (!E) return;
         const w = parseInt(document.getElementById('nika-cfg-work').value, 10);
         const b = parseInt(document.getElementById('nika-cfg-break').value, 10);
-        if (!(w >= 1 && w <= 120) || !(b >= 1 && b <= 60)) { alert('Estudio: 1 a 120 min · Descanso: 1 a 60 min.'); return; }
+        if (!(w >= 1 && w <= E.MAX_WORK_MIN) || !(b >= 1 && b <= E.MAX_BREAK_MIN)) { alert(`Estudio: 1 a ${E.MAX_WORK_MIN} min · Descanso: 1 a ${E.MAX_BREAK_MIN} min.`); return; }
         try { localStorage.setItem('nika_pomo_w_mins', String(w)); localStorage.setItem('nika_pomo_b_mins', String(b)); } catch (_) {}
         const st = E.getState();
         const sel = document.getElementById('nika-cfg-up');
