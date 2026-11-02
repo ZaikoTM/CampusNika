@@ -9139,7 +9139,7 @@
     "anio": "2025",
     "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 33",
     "tipo": "libro",
-    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Urological Trauma."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Urological Trauma. Complementa: Smith y Tanagho, Urología general, 18.ª ed., cap. 18: Lesiones de las vías genitourinarias."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -13394,6 +13394,491 @@
     "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 44: Infertilidad masculina (varicocele)."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-itu-cistitis-pielonefritis",
+   "area": "cirugia",
+   "titulo": "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+   "alias": [
+    "itu",
+    "infeccion urinaria",
+    "cistitis",
+    "pielonefritis",
+    "bacteriuria asintomatica",
+    "urosepsis"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Presencia y multiplicación de microorganismos en la vía urinaria con invasión de tejidos, generalmente con bacteriuria, piuria y síntomas. Se clasifica en localizada (cistitis, sin síntomas sistémicos) y sistémica (fiebre o hipotermia, calofríos, hipotensión, delirium o dolor lumbar), con o sin factores de riesgo; la urosepsis es la disfunción orgánica por una infección de origen urinario o genital masculino.",
+   "diagnostico": [
+    "Cistitis: disuria, polaquiuria, urgencia y dolor suprapúbico sin flujo vaginal patológico; el diagnóstico es clínico y el urocultivo no es obligatorio.",
+    "Pielonefritis: fiebre mayor de 38 °C, calofríos, dolor en el flanco, náuseas, vómitos y puño percusión positiva, con o sin síntomas bajos.",
+    "Agente más frecuente: Escherichia coli (cerca de 85 % ambulatorio); luego Proteus mirabilis, Klebsiella pneumoniae y Staphylococcus saprophyticus. El catéter urinario permanente causa más del 90 % de las ITU intrahospitalarias.",
+    "Bacteriuria asintomática: no se trata, salvo en embarazadas y antes de procedimientos urológicos."
+   ],
+   "estudios": [
+    "Tira reactiva (leucocito esterasa y nitritos), orina completa y urocultivo: significativo con 100.000 UFC/mL o más en orina espontánea.",
+    "Si hay síntomas de pielonefritis: hemograma, PCR y función renal; ecografía renal para descartar obstrucción y tomografía si la fiebre persiste más de 72 horas de tratamiento o se sospecha complicación."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Cistitis aguda",
+     "pasos": [
+      {
+       "etiqueta": "Fosfomicina",
+       "texto": "3 g en dosis única."
+      },
+      {
+       "etiqueta": "Nitrofurantoína",
+       "texto": "100 mg cada 8 a 12 horas por 5 días; la sensibilidad de E. coli se mantiene sobre 95 %."
+      },
+      {
+       "etiqueta": "Otras",
+       "texto": "Cotrimoxazol forte cada 12 horas por 3 días (no en el embarazo), amoxicilina-clavulánico 500 mg cada 8 horas por 5 días o cefadroxilo 500 mg cada 12 horas por 3 días. La ciprofloxacina es alternativa por la selección de cepas resistentes."
+      }
+     ]
+    },
+    {
+     "titulo": "Pielonefritis",
+     "pasos": [
+      {
+       "etiqueta": "No complicada",
+       "texto": "Ambulatoria si tolera la vía oral: fluoroquinolona o cefalosporina, ajustada al urocultivo y al antibiograma."
+      },
+      {
+       "etiqueta": "Con hospitalización",
+       "texto": "Tratamiento endovenoso con aminoglucósido, cefalosporina, penicilina de espectro extendido o carbapenémico según la flora local, y pase a la vía oral con buena tolerancia."
+      }
+     ]
+    },
+    {
+     "titulo": "ITU recurrente",
+     "pasos": [
+      {
+       "etiqueta": "Definición",
+       "texto": "Tres o más episodios al año, o dos en los últimos seis meses. Menos de 15 días desde el fin del tratamiento es recurrencia; 15 días o más, reinfección."
+      },
+      {
+       "etiqueta": "Medidas",
+       "texto": "Ingesta de 2 a 3 L/día, suspender espermicidas, micción poscoital e higiene; estrógeno vaginal en la posmenopáusica, inmunoprofilaxis, probióticos o profilaxis antibiótica en dosis bajas."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Cistitis: control clínico; urocultivo si los síntomas persisten al terminar el antibiótico o reaparecen a las dos semanas.",
+    "ITU recurrente: confirmar cada episodio con urocultivo y estudiar con imagen y cistoscopia ante sospecha de litiasis, obstrucción o residuo posmiccional elevado."
+   ],
+   "banderas": [
+    "Fiebre que persiste más de 72 horas con antibiótico: descartar obstrucción o absceso.",
+    "Pielonefritis obstructiva con signos sistémicos: drenaje urgente de la vía urinaria.",
+    "Elegir el empírico con resistencia local menor de 20 % en cistitis y menor de 10 % en pielonefritis; no usar fluoroquinolona de primera línea si se usó en los últimos 6 meses."
+   ],
+   "algoritmo": {
+    "titulo": "Infección urinaria (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Síntomas urinarios: disuria, polaquiuria, urgencia, dolor suprapúbico o fiebre y dolor lumbar"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hay síntomas o signos sistémicos (fiebre, calofríos, hipotensión, delirium) o dolor lumbar?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "ITU sistémica: urocultivo, hemograma, PCR, función renal y ecografía renal para descartar obstrucción"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Obstrucción, sepsis o intolerancia a la vía oral?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Hospitalizar, antibiótico endovenoso empírico según la flora local y drenaje urgente de la vía urinaria si hay obstrucción; ajustar al antibiograma"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Pielonefritis no complicada: tratamiento ambulatorio con fluoroquinolona o cefalosporina ajustado al cultivo"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "ITU localizada (cistitis): el diagnóstico es clínico; tira reactiva u orina completa"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Es embarazada, o tiene factores de riesgo o recurrencias?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Urocultivo y antibiótico según antibiograma; estudiar causas si es recurrente"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Tratamiento empírico corto: fosfomicina 3 g única, nitrofurantoína 5 días u otra opción según resistencia local"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 13: Infecciones del tracto urinario",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 13",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-its-ulceras-genitales",
+   "area": "cirugia",
+   "titulo": "Infecciones de transmisión sexual con úlcera genital",
+   "alias": [
+    "its",
+    "ets",
+    "herpes genital",
+    "sifilis",
+    "chancroide",
+    "linfogranuloma venereo",
+    "granuloma inguinal",
+    "uretritis"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Las úlceras genitales más frecuentes son herpes genital (la causa más común), linfogranuloma venéreo, chancroide, granuloma inguinal y sífilis. El enfoque actual de las ITS es sindromático: se inicia el tratamiento empírico antes de tener el resultado de laboratorio.",
+   "diagnostico": [
+    "Herpes genital: infección viral crónica por VHS-1 o VHS-2 (el 2 es más genital y más recurrente).",
+    "Sífilis (Treponema pallidum): chancro indoloro de fondo limpio en el punto de inoculación; incubación de 3 a 90 días. Formas precoces (primaria, secundaria y latente precoz) en el primer año; tardías (latente tardía y terciaria) después.",
+    "Chancroide (Haemophilus ducreyi): úlcera blanda y dolorosa; linfogranuloma venéreo (Chlamydia trachomatis L1 a L3): úlcera transitoria con adenopatía inguinal; granuloma inguinal: úlcera indolora, serpiginosa y sin adenitis, con cuerpos de Donovan en la muestra."
+   ],
+   "estudios": [
+    "Pruebas para sífilis (RPR o VDRL) al momento de la consulta y a los 3 meses; serología de VIH y hepatitis B y C; IgG e IgM para VHS.",
+    "Gonorrea y clamidia: test en secreción uretral o primera orina."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento según el síndrome (Manual SCHU)",
+     "pasos": [
+      {
+       "etiqueta": "Linfogranuloma venéreo",
+       "texto": "Doxiciclina 100 mg cada 12 horas por 21 días; alternativas: eritromicina 500 mg cada 6 horas (embarazo), azitromicina 1 g al día o tetraciclina por 21 días. Abstinencia hasta 7 días del inicio del tratamiento y tratar a las parejas de los últimos 30 días."
+      },
+      {
+       "etiqueta": "Chancroide",
+       "texto": "Azitromicina 1 g dosis única, o ceftriaxona 250 mg intramuscular dosis única, o ciprofloxacina 500 mg cada 12 horas por 3 días; eritromicina 500 mg cada 8 horas por 7 días en embarazadas. Reevaluar a la semana y tratar a las parejas de los últimos 10 días."
+      },
+      {
+       "etiqueta": "Granuloma inguinal",
+       "texto": "Azitromicina 1 g por semana o 500 mg diarios por 21 días; alternativas doxiciclina, ciprofloxacina o eritromicina por 21 días. Tratar a las parejas de los últimos 60 días."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control a la semana en chancroide, y hasta verificar la curación en el resto; tratar siempre a las parejas."
+   ],
+   "banderas": [
+    "Toda ITS obliga a descartar las demás, incluido el VIH.",
+    "La embarazada se trata con esquemas propios (eritromicina), sin doxiciclina ni quinolonas."
+   ],
+   "algoritmo": {
+    "titulo": "Úlcera genital: enfoque sindromático (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Úlcera genital: interrogar conducta sexual, examinar lesión y ganglios inguinales"
+     },
+     {
+      "t": "accion",
+      "txt": "Estudio inicial: RPR o VDRL, VIH, hepatitis B y C, IgG e IgM de VHS, test de gonorrea y clamidia"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Úlcera indolora de fondo limpio (chancro)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Sospechar sífilis: confirmar con serología y tratar según estadio (precoz o tardía)"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Úlcera dolorosa y blanda con adenopatía?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Chancroide: azitromicina 1 g única o ceftriaxona 250 mg intramuscular; reevaluar a la semana"
+         }
+        ],
+        "no": [
+         {
+          "t": "decision",
+          "txt": "¿Úlcera serpiginosa, indolora y sin adenitis?",
+          "si": [
+           {
+            "t": "fin",
+            "txt": "Granuloma inguinal: cuerpos de Donovan; azitromicina por 21 días"
+           }
+          ],
+          "no": [
+           {
+            "t": "fin",
+            "txt": "Herpes genital (la causa más común) o linfogranuloma venéreo (doxiciclina por 21 días): confirmar y tratar a las parejas"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 14: Enfermedades de transmisión sexual",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 14",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-criptorquidia-teste-no-descendido",
+   "area": "cirugia",
+   "titulo": "Criptorquidia y teste no descendido",
+   "alias": [
+    "criptorquidia",
+    "testiculo no descendido",
+    "teste retractil",
+    "ectopia testicular",
+    "orquidopexia"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "La criptorquidia es el teste ubicado en algún punto del trayecto normal del descenso; la ectopia testicular es el teste fuera de ese trayecto (la más frecuente, inguinal suprafascial). El teste retráctil baja con facilidad al escroto y permanece allí.",
+   "diagnostico": [
+    "El teste retráctil debe tener asimetría de volumen menor de 20 % para considerarse no patológico; entre 10 y 25 % pueden volverse criptorquídicos o perder volumen, por lo que requieren seguimiento.",
+    "Teste no palpable: el que no se palpa tras examinar en las mejores condiciones (niño tranquilo, ambiente cálido, examinador con experiencia).",
+    "Desde los 6 meses de edad aparecen cambios histológicos por la mayor temperatura, con degeneración de células germinales (de 1 % en normales a 20 % a los 2 años, 40 % a los 6 y 45 % a los 10): riesgo de infertilidad y de cáncer testicular."
+   ],
+   "estudios": [
+    "Ecografía inguinal; en el teste no palpable, examen bajo anestesia y laparoscopia exploradora."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Oportunidad",
+       "texto": "El teste puede bajar hasta pasada la minipubertad (2 a 4 meses). Derivar a los 6 meses y operar antes de los 2 años."
+      },
+      {
+       "etiqueta": "Palpable",
+       "texto": "Orquidopexia: liberar el gubernáculum y el conducto peritoneovaginal, disecar el cordón hacia el retroperitoneo y fijar el teste en el escroto sin tensión."
+      },
+      {
+       "etiqueta": "No palpable",
+       "texto": "Laparoscopia: teste intraabdominal viable (40 %), ausente con vasos ciegos (20 %), atrófico inguinal (30 %) o normal en el canal inguinal (10 %). La técnica depende del hallazgo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento del volumen y la ubicación testicular; el riesgo de cáncer persiste, sobre todo si el descenso fue pospuberal."
+   ],
+   "banderas": [
+    "Derivar a los 6 meses; la cirugía no debe postergarse después de los 2 años.",
+    "Teste retráctil: control periódico, porque puede ascender."
+   ],
+   "algoritmo": {
+    "titulo": "Teste no descendido (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Niño con escroto vacío o hipoplásico: examinar en ambiente cálido, con el niño tranquilo"
+     },
+     {
+      "t": "decision",
+      "txt": "¿El teste se palpa?",
+      "si": [
+       {
+        "t": "decision",
+        "txt": "¿Baja fácilmente al escroto y se queda allí?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Teste retráctil: control periódico (puede ascender); operar si se vuelve criptorquídico o pierde volumen"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Criptorquidia o ectopia palpable: orquidopexia entre los 6 y los 24 meses"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "Teste no palpable: ecografía inguinal y examen bajo anestesia"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Aparece en el canal inguinal bajo anestesia?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Orquidopexia inguinal"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Laparoscopia exploradora: descenso en uno o dos tiempos si es viable; orquiectomía si está atrófico o no es viable"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 35: Urología pediátrica: criptorquidia",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 35",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-hipospadias",
+   "area": "cirugia",
+   "titulo": "Hipospadias",
+   "alias": [
+    "hipospadias",
+    "hipospadia",
+    "curvatura peneana",
+    "meato ectopico"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Defecto congénito del pene por hipoplasia de los tejidos de la cara ventral: meato uretral ventral (entre el glande y el periné), prepucio alado y curvatura peneana ventral (cuerda); no siempre están los tres componentes. Incidencia de 1 en 250 a 300 recién nacidos varones.",
+   "diagnostico": [
+    "Factores sospechados: endocrinopatías, bajo peso al nacer, edad materna avanzada, diabetes materna y disruptores ambientales (pesticidas).",
+    "Con pene muy pequeño (menor que el percentil 3) o genitales ambiguos se sospecha una variación del desarrollo sexual y se evalúa con endocrinología."
+   ],
+   "estudios": [
+    "Diagnóstico clínico al nacer; no circuncidar, porque el prepucio se usa en la reparación."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento quirúrgico",
+     "pasos": [
+      {
+       "etiqueta": "Momento",
+       "texto": "Entre los 6 y los 18 meses, después de la minipubertad y antes del retiro del pañal."
+      },
+      {
+       "etiqueta": "Objetivos (en orden)",
+       "texto": "Corregir la curvatura, lograr un meato normotópico y un glande cónico, una uretra de buen calibre y una cobertura cutánea adecuada. No hay una técnica ideal."
+      },
+      {
+       "etiqueta": "Casos distales",
+       "texto": "Sin curvatura, valorar el beneficio: la cirugía busca recuperar la función y no es solo cosmética. Con pene pequeño, testosterona previa tras la evaluación endocrinológica."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control posoperatorio de la uretra y de la curvatura."
+   ],
+   "banderas": [
+    "No circuncidar a un niño con hipospadias.",
+    "Hipospadias con genitales ambiguos o criptorquidia: pensar en una variación del desarrollo sexual."
+   ],
+   "algoritmo": {
+    "titulo": "Hipospadias (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Recién nacido con meato ventral, prepucio alado o curvatura del pene"
+     },
+     {
+      "t": "accion",
+      "txt": "No circuncidar; examen de los genitales y buscar criptorquidia"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Pene muy pequeño, genitales ambiguos o teste no palpable?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Evaluar una variación del desarrollo sexual con endocrinología; testosterona previa si corresponde"
+       },
+       {
+        "t": "fin",
+        "txt": "Cirugía entre los 6 y los 18 meses"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Hipospadias muy distal y sin curvatura?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Valorar el beneficio de operar: la indicación es funcional, no cosmética"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Uretroplastia entre los 6 y los 18 meses, antes del retiro del pañal"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 35: Urología pediátrica: hipospadias",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 35",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   }
  ],
  "cobertura": {
@@ -13545,7 +14030,11 @@
     "Tumores de testículo, pene y uretra",
     "Obstrucción y estasis urinarias: alta y baja",
     "Fimosis y parafimosis",
-    "Varicocele, hidrocele e infertilidad masculina"
+    "Varicocele, hidrocele e infertilidad masculina",
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "Infecciones de transmisión sexual con úlcera genital",
+    "Criptorquidia y teste no descendido",
+    "Hipospadias"
    ]
   }
  }
