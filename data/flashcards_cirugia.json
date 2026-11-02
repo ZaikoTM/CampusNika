@@ -7864,7 +7864,15 @@
    "fisiopatologia": [
     "El estado de choque es el fallo del suministro de oxígeno con hipoxia celular. Hay cuatro tipos (distributivo, cardiógeno, hipovolémico y obstructivo), cada uno con un perfil hemodinámico propio (Harrison, cap. 303).",
     "El choque hipovolémico reduce el gasto cardiaco por menor precarga y se caracteriza por resistencia vascular sistémica elevada y presiones venosa central y capilar pulmonar de enclavamiento bajas, por la pérdida de volumen intravascular. Se relaciona más a menudo con la hemorragia, externa (traumatismo) o interna (tubo digestivo alto o bajo, embarazo ectópico roto), y también ocurre sin hemorragia: vómitos o diarrea graves, diuresis osmótica (cetoacidosis diabética, diabetes insípida) y pérdida cutánea por quemaduras (Harrison, cap. 303)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 303",
+    "puntos": [
+     "El choque hemorrágico es un choque hipovolémico: tiene presión venosa central y presión capilar pulmonar de enclavamiento bajas, gasto cardíaco bajo y resistencia vascular sistémica alta; se diferencia del distributivo (resistencia baja con gasto alto) y del cardiógeno u obstructivo (presiones de llenado altas).",
+     "Harrison recuerda que el choque hipovolémico también ocurre sin hemorragia (vómitos o diarrea graves, pérdidas renales, quemaduras) y que en el trauma deben descartarse causas obstructivas como el neumotórax a tensión y el taponamiento cardíaco; los tipos no son excluyentes y puede haber choque mixto."
+    ]
+   }
   },
   {
    "id": "cx-trauma-torax",
@@ -11716,7 +11724,15 @@
    "fisiopatologia": [
     "El 80 % del flujo cerebral depende de las arterias carótidas, que irrigan la oftálmica y las cerebrales anterior y media; el sistema vertebrobasilar irriga el circuito posterior, y ambos confluyen en el polígono de Willis (Giménez, cap. 19).",
     "La fisiopatología de la placa ateromatosa carotídea es la de otras arterias: la placa crece con neovascularización (angiogénesis) que puede producir hemorragia intraplaca, romper la capa fibrosa subendotelial y desprender restos, o formar una úlcera que es reservorio de acúmulos plaquetarios que también pueden desprenderse y embolizar (Giménez, cap. 19)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 427",
+    "puntos": [
+     "Coincide en operar la estenosis sintomática dentro de las dos semanas del inicio de los síntomas, que es cuando la endarterectomía rinde más según el metaanálisis de NASCET y ECST. Harrison cuantifica el beneficio: en NASCET, con estenosis de 70 % o más, el infarto ipsolateral a dos años fue de 26 % con tratamiento médico y de 9 % con cirugía (reducción absoluta de 17 %, relativa de 65 %); el efecto fue menor con estenosis de 50 a 70 % y en ECST la cirugía fue perjudicial con estenosis menores de 30 %.",
+     "Si hay estenosis carotídea significativa tras un ACV, Harrison deriva a endarterectomía en la misma internación sin importar el tamaño del infarto. Aclara que NASCET y ECST excluyeron pacientes de alto riesgo con enfermedad grave cardíaca, pulmonar o renal. El tratamiento médico de base incluye aspirina, atorvastatina 80 mg (LDL menor de 70 mg/100 mL) y presión sistólica a largo plazo menor de 120 mmHg."
+    ]
+   }
   },
   {
    "id": "cx-cancer-union-esofagogastrica",
