@@ -213,10 +213,23 @@
     if (f.tipo === 'libro') return '<div class="fc-aviso libro">📘 <span>Fuente validada de la cátedra: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '</span>' + enlaceFuente(f) + '</div>';
     return '<div class="fc-aviso">⚠️ <span>Verificar veracidad con guías actuales. Fuente: ' + esc(f.sociedad) + '</span></div>';
   }
+  // nombre corto del libro de la fuente (para la etiqueta de la tarjeta): "Giménez 2025", "CTO 2019", "Michans 2002", etc.
+  const nombreLibro = (f) => {
+    const g = String((f && (f.guia || '')) + ' ' + (f && f.sociedad || ''));
+    const mapa = [[/Estrés preoperatorio/i, 'Giacomantone y Mejía'], [/Estrés quirúrgico/i, 'Correa Padilla'], [/Desgaste psíquico/i, 'Gatto y Calabrese'], [/Comunicar el diagnóstico/i, 'Lillo y Villavicencio'],
+      [/Cirugía en Medicina General/i, 'Rojas y Marinkovic'], [/Enfermedades del colon/i, 'Colon, recto y ano'], [/Suturas/i, 'Manual de suturas'], [/Ley 27/i, 'Ley 27.447'],
+      [/Delphi/i, 'Consenso Delphi'], [/Actualización sobre medidas|Guía intersociedades|Consenso|Actualización en el manejo/i, 'Consenso argentino'],
+      [/fundamentos para la práctica|Giménez/i, 'Giménez'], [/CTO/, 'CTO'], [/Michans/i, 'Michans'], [/SCHU/, 'Urología SCHU'], [/Orrego/i, 'Orrego y Morán'],
+      [/Schwartz/i, 'Schwartz'], [/Smith y Tanagho/i, 'Smith y Tanagho'], [/Enciclopedia de Cirugía Digestiva|Galindo/i, 'Galindo'], [/Goodman/i, 'Goodman & Gilman'],
+      [/Williams/i, 'Williams'], [/Schwarcz/i, 'Schwarcz'], [/Gori/, 'Gori'], [/QxMedic/i, 'QxMedic']];
+    for (const [rx, n] of mapa) if (rx.test(g)) return n;
+    const t = String((f && f.guia) || '').split(/[:,(]/)[0].trim();
+    return t ? (t.length > 24 ? t.slice(0, 23).trim() + '…' : t) : 'Manual';
+  };
   const etiquetaFuente = (p) => (p.fuente && p.fuente.tipo === 'guia')
     ? '<span class="fc-tag guia">✔ ' + esc((p.fuente.sociedad || '').split('/')[0].trim()) + ' ' + esc(p.fuente.anio || '') + '</span>'
     : (p.fuente && p.fuente.tipo === 'libro')
-      ? '<span class="fc-tag lib" title="Fuente validada de la cátedra">📘 Manual ' + esc(p.fuente.anio || '') + '</span>'
+      ? '<span class="fc-tag lib" title="Fuente validada de la cátedra: ' + esc(p.fuente.guia || '') + '">📘 ' + esc(nombreLibro(p.fuente)) + ' ' + esc(p.fuente.anio || '') + '</span>'
       : '<span class="fc-tag ver" title="Verificar veracidad con guías actuales">⚠️ Verificar con guías</span>';
 
   // ---------- tarjeta completa (detalle) ----------
