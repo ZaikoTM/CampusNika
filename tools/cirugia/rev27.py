@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+"""Fisiopatologia (undecima tanda): traumatologia desde Orrego y Moran, Ortopedia y Traumatologia Basica (2014), cuyos capitulos ya se leyeron para los contrastes."""
+CONTENIDO = {}
+
+def fisio(pid, items): CONTENIDO[pid] = {'fisiopatologia': items}
+
+fisio('cx-fractura-radio-distal', [
+ 'El extremo distal del radio (sus 4 cm distales) es hueso esponjoso con cortical volar gruesa, resistente a la compresión, y dorsal más débil, que soporta tensión. En una muñeca neutra las cargas se reparten 80 % al radio y 20 % a la ulna (Orrego y Morán, cap. 10).',
+ 'El mecanismo clásico es una caída a nivel con apoyo de la muñeca en extensión: la fuerza axial transmitida desde el carpo contra la epífisis radial produce impactación junto con una flexión dorsal violenta (desviación dorsal). Tiene distribución bimodal: mayores de 60 años, sobre todo mujeres (3 a 4 contra 1), por mecanismos de baja energía asociados a osteoporosis, y jóvenes de 20 a 40 años con lesiones complejas por alta energía (Orrego y Morán, cap. 10).'])
+fisio('cx-fractura-pelvis-acetabulo', [
+ 'La estabilidad del anillo pélvico se compromete sobre todo por traumatismos de alta energía (más del 50 %), como accidentes de tránsito y caídas de altura. Las fracturas de baja energía se ven en ancianos osteoporóticos o en jóvenes deportistas de 14 a 17 años, donde la tracción muscular provoca avulsiones y no se altera la estabilidad (Orrego y Morán, cap. 13).',
+ 'El anillo es un conjunto de dos hemicírculos unidos atrás por el sacro y las articulaciones sacroilíacas y adelante por la sínfisis, de modo que cualquier interrupción de huesos o partes blandas genera inestabilidad vertical (estructuras posteriores), rotacional (anteriores) o mixta. Las fracturas de alta energía tienen una mortalidad de 10 a 16 %, por pérdidas sanguíneas de los plexos venosos vesical y presacro o por compromiso de otros sistemas, y de 45 % si son expuestas (Orrego y Morán, cap. 13).'])
+fisio('cx-luxacion-cadera', [
+ 'Es la pérdida completa de la congruencia entre la cabeza femoral y el acetábulo, casi siempre por un mecanismo de alta energía (accidente de tránsito, caída de altura, deportes de contacto). En el 40 a 70 % hay lesiones asociadas (rodilla, cotilo, pierna) y debe descartarse una lesión del esqueleto axial y comprobar el nervio ciático (Orrego y Morán, cap. 13).',
+ 'El 95 % es posterior, con la "posición púdica" (aducción, flexión y rotación interna con acortamiento). Hay que reducir antes de las 6 horas para disminuir la necrosis avascular de la cabeza (Orrego y Morán, cap. 13).'])
+fisio('cx-lumbociatica-radiculopatia', [
+ 'La lumbociática es la irradiación bajo la rodilla por la cara posterior del muslo y lateral de la pierna, por compromiso de las raíces L4, L5 o S1 en los niveles L4-L5 y L5-S1 (95 %); la lumbocruralgia (cara anterior del muslo) compromete L2, L3 y L4 en L2-L3 y L3-L4 (3 %) (Orrego y Morán, cap. 11).',
+ 'El 96 % de los síntomas radiculares es por patología discal (hernia, protrusión, extrusión o secuestro) que irrita o comprime las raíces en el canal, la foramina o fuera de ella; el 4 % restante se debe a estenosis espinal, espondilolistesis, quistes sinoviales, tumores, infecciones o fracturas. El dolor aumenta con la flexión, estar sentado, la tos y el valsalva, y puede haber déficit motor, sensitivo o de reflejos (Orrego y Morán, cap. 11).'])
+fisio('cx-tumores-oseos-metastasis', [
+ 'Los tumores óseos primarios son poco frecuentes (no más del 1 a 2 % de todos los tumores) y los más frecuentes en general son las metástasis, cuya primera causa es el pulmón, seguido por mama, próstata, riñón y tiroides. Entre los primarios predominan los benignos (el más frecuente es el osteocondroma) y el maligno más frecuente es el osteosarcoma (Orrego y Morán, cap. 6).',
+ 'Se clasifican por el tejido de origen (osteogénico, condrogénico, fibroso, etc.) y por la histología; cuanto menor es la diferenciación celular, mayor es la agresividad del tumor (alto grado). Una lesión pseudotumoral es una masa de origen no tumoral que se comporta y se trata como un tumor por su agresividad local (Orrego y Morán, cap. 6).'])
+fisio('cx-fracturas-expuestas', [
+ 'Todas las fracturas expuestas deben considerarse lesiones contaminadas; la clasificación de Gustilo y Anderson, aunque no es definitiva, orienta la elección del antibiótico. La infección es una complicación frecuente de las expuestas, asociada a un desbridamiento inicial inadecuado, a mayor lesión de partes blandas y a mayor contaminación; es una infección exógena, distinta en su fisiopatología de la osteomielitis hematógena (Orrego y Morán, caps. 3 y 4).'])
