@@ -8816,12 +8816,12 @@
     "La retención crónica con insuficiencia renal o sepsis requiere derivación urgente."
    ],
    "fuente": {
-    "guia": "EAU Guidelines on Management of Non-neurogenic Male LUTS (retención y complicaciones)",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/management-of-non-neurogenic-male-luts",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 12: Disfunciones vesicales",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 12",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Management of Non-neurogenic Male LUTS (retención y complicaciones)."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -8926,15 +8926,18 @@
    ],
    "banderas": [
     "Fiebre con cólico y obstrucción: pionefrosis, urgencia de derivación.",
-    "Quimiólisis solo en cálculos de ácido úrico."
+    "Quimiólisis solo en cálculos de ácido úrico.",
+    "Probabilidad de expulsión espontánea del cálculo ureteral: cerca de 80 % si mide menos de 4 mm, 60 % entre 4 y 6 mm y menos de 20 % si supera los 6 mm (Manual SCHU).",
+    "Terapia médica expulsiva (líquidos para diuresis mayor de 2 L/día, AINE, tamsulosina 0,4 mg/día; nifedipino 30 mg/día como alternativa): en cálculos no complicados con dolor controlado se espera 30 a 45 días; si no sale, o hay complicación, se ofrece tratamiento quirúrgico.",
+    "Cálculo ureteral infectado o con hidropionefrosis: descompresión urgente con catéter doble J o nefrostomía percutánea más antibiótico; el tratamiento definitivo se hace después, ya superado el cuadro séptico."
    ],
    "fuente": {
-    "guia": "EAU Guidelines on Urolithiasis",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/urolithiasis",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 8: Litiasis urinaria",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 8",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Urolithiasis."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -9030,15 +9033,17 @@
     "Hasta la mitad desarrolla atrofia aun con detorsión oportuna; riesgo de subfertilidad."
    ],
    "banderas": [
-    "Ante la duda, explorar: la pérdida del testículo es irreversible."
+    "Ante la duda, explorar: la pérdida del testículo es irreversible.",
+    "Sobrevida testicular según el tiempo hasta la cirugía: 90 a 100 % antes de 6 horas, 20 a 50 % entre 6 y 12 horas y menos de 10 % pasadas las 12 horas (Manual SCHU).",
+    "La ecografía Doppler (sensibilidad 82 a 100 %) apoya el diagnóstico, pero el juicio clínico pesa más y la imagen nunca debe retrasar la exploración quirúrgica."
    ],
    "fuente": {
-    "guia": "EAU Guidelines on Paediatric Urology: Acute scrotum (cap. 8)",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/paediatric-urology/chapter/acute-scrotum",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 9: Patología genital benigna",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 9",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Paediatric Urology: Acute scrotum (cap. 8)."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -9124,15 +9129,17 @@
    "banderas": [
     "Casi el 10 % de las lesiones en urgencias se relacionan con el aparato genitourinario; muchas son sutiles: el diagnóstico temprano evita complicaciones graves.",
     "Las fracturas de las costillas inferiores se relacionan con lesiones renales y las fracturas pélvicas con lesiones vesicales y uretrales.",
-    "En hombres, examinar el meato uretral en busca de sangre antes de insertar la sonda."
+    "En hombres, examinar el meato uretral en busca de sangre antes de insertar la sonda.",
+    "Trauma renal: el diagnóstico se apoya en la tomografía computada y el manejo actual es mucho más conservador, con indicaciones de cirugía excepcionales en el paciente estable (Manual SCHU, cap. 33).",
+    "Trauma uretral y vesical: ante sangre en el meato o imposibilidad de orinar, uretrografía retrógrada antes de pasar sonda (Manual SCHU, cap. 34)."
    ],
    "fuente": {
-    "guia": "EAU Guidelines on Urological Trauma",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/urological-trauma",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología. Complementa: Smith y Tanagho, Urología general, 18.ª ed., cap. 18: Lesiones de las vías genitourinarias."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 33: Trauma de vía urinaria superior",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 33",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU Guidelines on Urological Trauma."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -9230,15 +9237,16 @@
     "PSA periódico tras el tratamiento; derivación a urología oncológica."
    ],
    "banderas": [
-    "Lesión T3-T4 o PSA muy elevado: estadificación con imágenes de extensión."
+    "Lesión T3-T4 o PSA muy elevado: estadificación con imágenes de extensión.",
+    "La gradación de Gleason fue reformulada por la ISUP (grupos de grado); el puntaje suma el patrón más común y el de mayor grado (Manual SCHU)."
    ],
    "fuente": {
-    "guia": "EAU-EANM-ESTRO-ESUR-ISUP-SIOG Guidelines on Prostate Cancer",
-    "sociedad": "European Association of Urology (EAU)",
-    "anio": "2026",
-    "archivo": "https://uroweb.org/guidelines/prostate-cancer",
-    "tipo": "guia",
-    "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 26: Cáncer de próstata",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 26",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con EAU-EANM-ESTRO-ESUR-ISUP-SIOG Guidelines on Prostate Cancer."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "algoritmo": {
@@ -12911,12 +12919,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 22: Neoplasias parenquimatosas renales",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 22)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 23: Tumores renales",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 23",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 22: Neoplasias parenquimatosas renales."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   },
@@ -12968,7 +12976,8 @@
    ],
    "banderas": [
     "Hematuria en un adulto, sobre todo fumador: estudiar siempre.",
-    "Un tumor vesical con vejiga fija en el examen bimanual sugiere invasión."
+    "Un tumor vesical con vejiga fija en el examen bimanual sugiere invasión.",
+    "Hematuria: estudio con cistoscopia y tomografía con urografía; la citología urinaria rinde sobre todo en tumores de alto grado y carcinoma in situ (Manual SCHU)."
    ],
    "algoritmo": {
     "titulo": "Carcinoma urotelial de vejiga (Smith y Tanagho 18.ª ed.)",
@@ -13004,12 +13013,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 21: Carcinoma urotelial: cánceres de vejiga, uréter y pelvis renales",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 21)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 25: Cáncer de vejiga",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 25",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 21: Carcinoma urotelial: cánceres de vejiga, uréter y pelvis renales."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   },
@@ -13090,12 +13099,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 24: Tumores genitales",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 24)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 28: Cáncer testicular",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 28",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 24: Tumores genitales."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   },
@@ -13192,12 +13201,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 12: Obstrucción y estasis urinarias",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 12)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 24: Cáncer de vía urinaria alta",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 24",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 12: Obstrucción y estasis urinarias."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   },
@@ -13290,12 +13299,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 41: Trastornos del pene y la uretra masculina",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 41)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 9: Patología genital benigna",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 9",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 41: Trastornos del pene y la uretra masculina."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   },
@@ -13377,12 +13386,12 @@
     ]
    },
    "fuente": {
-    "guia": "Smith y Tanagho. Urología general, 18.ª ed., cap. 44: Infertilidad masculina (varicocele)",
-    "sociedad": "J. W. McAninch y T. F. Lue (eds.), McGraw-Hill Lange",
-    "anio": "2016",
-    "archivo": "smith-y-tanagho-urologia-general-18va-ed.pdf (cap. 44)",
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 17: Infertilidad masculina",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 17",
     "tipo": "libro",
-    "nota": "Libro de referencia de urología; el Giménez 2025 no la incluye. El hidrocele se toma del cap. 24."
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016). Se cotejó con Smith y Tanagho. Urología general, 18.ª ed., cap. 44: Infertilidad masculina (varicocele)."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   }
