@@ -1063,6 +1063,15 @@
       ]
      }
     ]
+   },
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "Orrego y Morán, Ortopedia y Traumatología Básica",
+    "puntos": [
+     "La ficha (CTO) indica reducción cerrada, yeso con controles radiológicos semanales hasta la 4.ª o 5.ª semana y consolidación en unas 6 semanas. Orrego y Morán detalla la maniobra (tracción mantenida, hiperflexión y ulnarización), un yeso braquiopalmar por 3 semanas con control radiológico cada 7 a 10 días y luego antebraquiopalmar hasta completar 6 semanas, con el primer control a los 7 días.",
+     "Indicación de cirugía: la ficha dice inestable o redesplazada. Orrego y Morán la define con los criterios de LaFontaine (índice sagital mayor de 20°, conminución posterior, escalón articular, fractura de la ulna distal y edad mayor de 60 años; tres o más indican alta probabilidad de inestabilidad) y suma la irreductibilidad y el escalón articular mayor de 2 mm tras la reducción. Opciones: agujas de Kirschner, placa y tornillos o fijador externo.",
+     "Orrego y Morán advierte controlar en 24 horas el yeso cerrado por compresión y mover los dedos para evitar el síndrome de dolor regional complejo."
+    ]
    }
   },
   {
@@ -7143,6 +7152,13 @@
       ]
      }
     ]
+   },
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Orrego y Morán, Ortopedia y Traumatología Básica",
+    "puntos": [
+     "Menisco: Orrego y Morán coincide en el manejo conservador de la lesión degenerativa (pacientes de más de 50 años, dolor de larga data, sin bloqueos ni derrame): limitar la actividad, analgésicos y AINE y, si no cede, corticoides intraarticulares con kinesioterapia; advierte evitar la cirugía porque puede empeorar el cuadro. La cirugía queda para pacientes activos con lesiones mecánicas."
+    ]
    }
   },
   {
@@ -7241,6 +7257,15 @@
       ]
      }
     ]
+   },
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Orrego y Morán, Ortopedia y Traumatología Básica",
+    "puntos": [
+     "Orrego y Morán coincide en que el 96 % de los síntomas radiculares es por patología discal y que el compromiso de L4, L5 o S1 (niveles L4-L5 y L5-S1) explica el 95 % de la lumbociática.",
+     "Cauda equina: ciática intensa, habitualmente bilateral, con anestesia en silla de montar y disfunción esfinteriana; el 60 a 80 % tiene menor tono del esfínter anal y es una emergencia quirúrgica.",
+     "Signos de alarma que obligan a estudio y tratamiento urgente: edad menor de 20 o mayor de 50, antecedente de cáncer, pérdida de peso, dolor nocturno o en reposo que no cede con AINE, fiebre, inmunosupresión, trastornos esfinterianos y trauma significativo en los últimos 30 días. Tres o más signos de Waddell cambian el enfoque del manejo."
+    ]
    }
   },
   {
@@ -7264,7 +7289,8 @@
     "Estudios: radiografía, resonancia, centellograma óseo o PET y biopsia planificada con el equipo que realizará la cirugía."
    ],
    "estudios": [
-    "Radiografía simple de la lesión, RM del segmento, TC de tórax, centellograma y biopsia en un centro de referencia."
+    "Radiografía simple de la lesión, RM del segmento, TC de tórax, centellograma y biopsia en un centro de referencia.",
+    "Biopsia (recomendaciones del Manual CTO): incisión longitudinal en una zona extirpable, acceso por el compartimento donde surgió el tumor y a través del músculo y no entre dos músculos, evitando contaminar vasos y nervios; coordinar con anatomía patológica, tomar la muestra de partes blandas y de la periferia (el centro puede estar necrosado), estudiar parte por congelación y enviar siempre cultivos."
    ],
    "tratamiento": [
     {
@@ -7335,6 +7361,14 @@
        }
       ]
      }
+    ]
+   },
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Orrego y Morán y QxMedic",
+    "puntos": [
+     "Coinciden en que los tumores óseos más frecuentes son las metástasis (Orrego y Morán: primero pulmón, luego mama, próstata, riñón y tiroides; QxMedic: mama y próstata según el sexo, y afectan sobre todo las vértebras y los extremos proximales de los huesos largos), y en que el tumor primario maligno más frecuente es el osteosarcoma.",
+     "Osteosarcoma (QxMedic): segunda década de la vida, metáfisis del fémur distal y de la tibia proximal, signo del sol naciente y triángulo de Codman; tratamiento con resección de márgenes amplios y quimioterapia neoadyuvante y coadyuvante, como indica la ficha."
     ]
    }
   },
@@ -12579,7 +12613,15 @@
     "tipo": "libro",
     "nota": "Manual de referencia para la traumatología; el Giménez 2025 no la incluye."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Orrego y Morán, Ortopedia y Traumatología Básica",
+    "puntos": [
+     "Coinciden: conservador (analgesia, reposo y deambulación protegida con bastones) en fracturas estables de baja energía; en las inestables, fijador externo inicial para controlar el shock hemorrágico y osteosíntesis como tratamiento definitivo (placas y tornillos o tornillos percutáneos).",
+     "Orrego y Morán agrega que las fracturas de alta energía tienen una mortalidad de 10 a 16 % (45 % si son expuestas), que la TC es el estudio de elección, que la radiografía anteroposterior detecta el 80 % y que se completa con proyecciones inlet, outlet y de Judet; la ecografía FAST busca hemorragia intraperitoneal y la uretrocistografía se reserva a la sospecha de lesión uretral."
+    ]
+   }
   },
   {
    "id": "cx-luxacion-cadera",
@@ -12670,7 +12712,15 @@
     "tipo": "libro",
     "nota": "Manual de referencia para la traumatología; el Giménez 2025 no la incluye."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "Orrego y Morán, Ortopedia y Traumatología Básica",
+    "puntos": [
+     "La ficha dice reducir \"lo antes posible\". Orrego y Morán precisa reducir de inmediato, antes de las 6 horas, para disminuir la necrosis avascular.",
+     "Orrego y Morán: el 95 % son posteriores, con posición \"púdica\" (aducción, flexión y rotación interna con acortamiento); se asocian a otras lesiones en 40 a 70 % (rodilla, cotilo, pierna) y hay que descartar lesiones del esqueleto axial y comprobar el nervio ciático. Las luxaciones complejas (fractura de cotilo o de cabeza) requieren reducción abierta y osteosíntesis."
+    ]
+   }
   },
   {
    "id": "cx-fractura-columna-vertebral",
@@ -15081,7 +15131,7 @@
    "up": [
     "cx10"
    ],
-   "unidad": "UP10 · Enfermedades vasculares periféricas",
+   "unidad": "UP10 · Enfermedad vascular periférica",
    "estado": "verificar",
    "definicion": "Dilatación de la aorta torácica (aneurisma) o separación de las capas de su pared por una rotura de la íntima (disección). La disección se clasifica por los segmentos afectados: Stanford A (afecta la aorta ascendente) o B (descendente), o DeBakey I a III.",
    "diagnostico": [
@@ -15196,7 +15246,7 @@
    "up": [
     "cx10"
    ],
-   "unidad": "UP10 · Enfermedades vasculares periféricas",
+   "unidad": "UP10 · Enfermedad vascular periférica",
    "estado": "verificar",
    "definicion": "El síndrome de Raynaud es un vasoespasmo periférico intermitente, sobre todo de las manos, ante frío, tabaco o estrés. La enfermedad de Buerger (trombovasculitis obliterante) es una inflamación segmentaria no ateroesclerótica de arterias de pequeño y mediano calibre, venas y nervios de las extremidades.",
    "diagnostico": [
@@ -15403,6 +15453,1247 @@
     "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-ulcera-peptica-hp",
+   "area": "cirugia",
+   "titulo": "Úlcera péptica gastroduodenal e infección por Helicobacter pylori",
+   "alias": [
+    "ulcera peptica",
+    "ulcera gastrica",
+    "ulcera duodenal",
+    "helicobacter pylori",
+    "erradicacion",
+    "ibp",
+    "aines",
+    "misoprostol"
+   ],
+   "up": [
+    "cx3"
+   ],
+   "unidad": "UP3 · Disfagia y patología esofagogástrica",
+   "estado": "verificar",
+   "definicion": "Lesión crónica de la pared esofagogastroduodenal que penetra más allá de la muscular de la mucosa, por desequilibrio entre los factores agresivos (ácido, pepsina, Helicobacter pylori, AINE, tabaco, alcohol, estrés) y los defensivos (moco, bicarbonato, prostaglandinas, microcirculación). Las dos formas principales son la úlcera duodenal y la gástrica.",
+   "diagnostico": [
+    "El ácido clorhídrico, la infección por H. pylori y el consumo de AINE son los tres factores que más hay que destacar.",
+    "Con la úlcera confirmada por radiología con bario o videoendoscopia alta, es un requisito investigar la infección por H. pylori y, si se confirma, erradicarla independientemente de que haya consumo de AINE."
+   ],
+   "estudios": [
+    "Videoendoscopia digestiva alta (o estudio con bario); investigar H. pylori."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento médico",
+     "pasos": [
+      {
+       "etiqueta": "Triple terapia",
+       "texto": "Un IBP más dos antibióticos (amoxicilina, claritromicina, metronidazol o tinidazol, levofloxacina o azitromicina) durante una semana, elegidos según la resistencia; erradicación cercana al 90 % (93 % con pantoprazol 40 mg, amoxicilina 1 g y claritromicina 500 mg dos veces al día)."
+      },
+      {
+       "etiqueta": "Cuádruple",
+       "texto": "IBP más bismuto, metronidazol y tetraciclina durante una semana; supera el 90 % incluso con cepas resistentes al metronidazol. La triple con bismuto sola no está aprobada en Argentina por su baja tasa de erradicación."
+      },
+      {
+       "etiqueta": "Después de erradicar",
+       "texto": "Continuar el mismo IBP hasta completar 4 semanas en la úlcera duodenal y 8 en la gástrica. La recaída pasa de 80 % anual sin erradicar a 2 % anual con erradicación."
+      },
+      {
+       "etiqueta": "Sin H. pylori",
+       "texto": "IBP por 4 semanas (duodenal) u 8 (gástrica), con curación de 80 a 100 % y 70 a 85 %. El tratamiento prolongado se reserva a la úlcera complicada, a quienes no pueden suspender los AINE y a las enfermedades hipersecretoras."
+      },
+      {
+       "etiqueta": "Otros",
+       "texto": "Misoprostol para prevenir la úlcera gástrica por AINE en pacientes de alto riesgo (contraindicado en el embarazo; poco usado por la diarrea); el bismuto protege el nicho y tiene acción anti-H. pylori."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Suspender los AINE y erradicar el H. pylori; control endoscópico de la úlcera gástrica según la evolución."
+   ],
+   "banderas": [
+    "La erradicación del H. pylori reduce de forma importante el resangrado: en el seguimiento de 42 pacientes con HDA por úlcera H. pylori positiva, ninguno resangró en 2 años.",
+    "El misoprostol está contraindicado en el embarazo."
+   ],
+   "algoritmo": {
+    "titulo": "Úlcera péptica (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Dolor epigástrico con úlcera gástrica o duodenal confirmada por endoscopia o bario"
+     },
+     {
+      "t": "accion",
+      "txt": "Suspender los AINE y buscar el Helicobacter pylori"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hay infección por H. pylori?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Esquema de erradicación de una semana: triple (IBP más dos antibióticos) o cuádruple con bismuto"
+       },
+       {
+        "t": "fin",
+        "txt": "Seguir el IBP hasta completar 4 semanas (duodenal) u 8 (gástrica); la recaída baja de 80 % a 2 % anual"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Es una úlcera complicada, no pueden suspender los AINE o hay hipersecreción?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "IBP prolongado"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "IBP por 4 semanas (duodenal) u 8 semanas (gástrica)"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Úlcera gastroduodenal: etiopatogenia, clínica, diagnóstico y tratamiento médico (cap. 206)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 206 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-amoxicilina",
+    "fx-levofloxacina",
+    "fx-metronidazol",
+    "fx-azitromicina"
+   ]
+  },
+  {
+   "id": "cx-gastritis",
+   "area": "cirugia",
+   "titulo": "Gastritis: clasificación y gastritis crónicas",
+   "alias": [
+    "gastritis",
+    "gastritis cronica",
+    "gastritis atrofica",
+    "gastritis autoinmune",
+    "metaplasia intestinal",
+    "helicobacter pylori"
+   ],
+   "up": [
+    "cx3"
+   ],
+   "unidad": "UP3 · Disfagia y patología esofagogástrica",
+   "estado": "verificar",
+   "definicion": "Proceso inflamatorio microscópico de la mucosa gástrica, que puede dar dolor epigástrico, náuseas, vómitos y sangrado, aunque por lo general es asintomático y sin alteraciones endoscópicas demostrables. Se clasifica por etiología: crónicas inespecíficas, infecciosas, granulomatosas y formas especiales (linfocítica, eosinofílica, colágena).",
+   "diagnostico": [
+    "Gastritis difusa de predominio antral (tipo B): por H. pylori, compromete el antro y en general no se asocia con riesgo de cáncer.",
+    "Gastritis atrófica multifocal: atrofia y metaplasia intestinal en parches en cuerpo y antro; se asocia a H. pylori en el 85 % y la metaplasia intestinal es factor de riesgo de cáncer gástrico.",
+    "Gastritis atrófica corporal difusa (autoinmune, tipo A): atrofia del fondo y el cuerpo por destrucción autoinmune de las glándulas fúndicas; anemia perniciosa, anticuerpos contra células parietales y factor intrínseco, aclorhidria o hipoclorhidria e hipergastrinemia."
+   ],
+   "estudios": [
+    "Endoscopia con biopsia: el diagnóstico es histológico; investigar H. pylori."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Gastritis autoinmune",
+       "texto": "Vitamina B12 intramuscular periódica y de por vida (diaria la primera semana, semanal por 2 meses y luego mensual); es urgente si se sospechan trastornos neurológicos, que pueden ser irreversibles."
+      },
+      {
+       "etiqueta": "Gastritis infecciosas",
+       "texto": "Flemonosa (rara, con sepsis): drenaje del estómago, antibióticos endovenosos en dosis altas y soporte hidroelectrolítico. Viral (herpes simple, citomegalovirus, en inmunocomprometidos): antivirales. Por cándida: fluconazol, aunque en general no se trata."
+      },
+      {
+       "etiqueta": "Gastritis atrófica y metaplasia",
+       "texto": "Las tres gastritis crónicas inespecíficas son factores de riesgo de úlcera péptica o de alteraciones neoplásicas; la infección por H. pylori es el agente de la tipo B y un factor de riesgo de la autoinmune."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento de la atrofia y de la metaplasia intestinal por su riesgo de cáncer gástrico; B12 de por vida en la autoinmune."
+   ],
+   "banderas": [
+    "Las tres gastritis crónicas inespecíficas pueden ser factores de riesgo de úlcera péptica o de neoplasia."
+   ],
+   "algoritmo": {
+    "titulo": "Gastritis crónica (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Gastritis diagnosticada por endoscopia y biopsia"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hay H. pylori?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Tratar la infección (ver erradicación en la ficha de úlcera péptica)"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Hay atrofia multifocal o metaplasia intestinal?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Seguimiento por el riesgo de cáncer gástrico"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Control clínico"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Atrofia corporal con anemia perniciosa y anticuerpos antiparietales?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Gastritis autoinmune (tipo A): vitamina B12 intramuscular de por vida (urgente si hay síntomas neurológicos)"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Estudiar otras causas (granulomatosa, linfocítica, eosinofílica, colágena)"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Gastritis (parte B del capítulo de úlcera gastroduodenal) (cap. 206)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 206 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-fluconazol"
+   ]
+  },
+  {
+   "id": "cx-sindromes-posgastrectomia",
+   "area": "cirugia",
+   "titulo": "Complicaciones de las gastrectomías: dumping, gastritis por reflujo alcalino y asa aferente",
+   "alias": [
+    "dumping",
+    "vaciamiento gastrico rapido",
+    "estomago operado",
+    "asa aferente",
+    "gastritis alcalina",
+    "estasis de y de roux",
+    "billroth"
+   ],
+   "up": [
+    "cx3"
+   ],
+   "unidad": "UP3 · Disfagia y patología esofagogástrica",
+   "estado": "verificar",
+   "definicion": "Complicaciones de la cirugía gástrica: intraoperatorias y posoperatorias (inmediatas y alejadas o secuelas). Las alejadas más importantes son el síndrome del vaciado gástrico rápido (dumping), la gastritis por reflujo alcalino, el síndrome del asa aferente y la estasis de la Y de Roux.",
+   "diagnostico": [
+    "Dumping: síntomas digestivos y vasomotores tras las comidas, temprano (debilidad, mareo, sudor frío, palpitaciones; a veces diarrea explosiva) o tardío a las 2 a 4 horas por hipoglucemia. Es más frecuente con el Billroth II y menos con la Y de Roux; el diagnóstico es casi exclusivamente clínico.",
+    "Gastritis por reflujo alcalino: ardor y dolor epigástrico persistente, vómitos biliosos que no alivian y pérdida de peso; confirmación endoscópica (mucosa edematosa, congestiva y sangrante, con lagos biliares). En el asa aferente el vómito sí alivia.",
+    "Asa aferente: exclusivo de la anastomosis gastroyeyunal; dolor y malestar progresivos que alivian con vómitos biliosos explosivos, sin restos alimentarios, con pérdida de peso; se ve el asa dilatada en el estudio contrastado o en la endoscopia.",
+    "Estasis de la Y de Roux: saciedad temprana, dolor epigástrico y a veces vómitos, sin vagotomía ni obstrucción mecánica; descartar una hernia interna o un defecto del pie del asa."
+   ],
+   "estudios": [
+    "Clínica; estudio contrastado, endoscopia o cámara gamma según el síndrome."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Dumping",
+       "texto": "Dietético: restringir líquidos e hidratos de carbono, fraccionar la dieta, comer lentamente y acostarse después de comer; luego anticolinérgicos y análogos de la somatostatina. Si no responde, convertir a Y de Roux."
+      },
+      {
+       "etiqueta": "Gastritis por reflujo alcalino y asa aferente",
+       "texto": "Desmontar la anastomosis y rehacerla en Y de Roux con un pie de al menos 40 cm (la mejor opción según los autores)."
+      },
+      {
+       "etiqueta": "Estasis de la Y de Roux",
+       "texto": "Descartada la causa mecánica, fraccionar la dieta y dar procinéticos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control nutricional del paciente gastrectomizado y de las secuelas alejadas."
+   ],
+   "banderas": [
+    "Los síntomas de gastritis alcalina y de asa aferente se confunden: en la primera el dolor es constante y el vómito no alivia."
+   ],
+   "algoritmo": {
+    "titulo": "Estómago operado: síndromes posgastrectomía (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente gastrectomizado con síntomas tras las comidas o vómitos biliosos"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Síntomas vasomotores y digestivos inmediatos o a las 2 a 4 horas de comer?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Dumping: dieta fraccionada, sin líquidos ni hidratos de carbono concentrados; anticolinérgicos o somatostatina; Y de Roux si falla"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Dolor que alivia con vómito biliar explosivo y asa dilatada?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Asa aferente: reconstruir en Y de Roux (pie de al menos 40 cm)"
+         }
+        ],
+        "no": [
+         {
+          "t": "decision",
+          "txt": "¿Ardor y dolor constantes con vómito que no alivia y gastritis en la endoscopia?",
+          "si": [
+           {
+            "t": "fin",
+            "txt": "Gastritis por reflujo alcalino: Y de Roux"
+           }
+          ],
+          "no": [
+           {
+            "t": "fin",
+            "txt": "Saciedad temprana sin obstrucción mecánica: estasis de la Y de Roux; dieta y procinéticos"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Complicaciones de las gastrectomías (cap. 217)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 217 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-polipos-gastricos",
+   "area": "cirugia",
+   "titulo": "Pólipos gástricos: hiperplásicos, adenomatosos y de las poliposis",
+   "alias": [
+    "polipos gastricos",
+    "polipo hiperplasico",
+    "polipo adenomatoso",
+    "peutz-jeghers",
+    "poliposis adenomatosa familiar",
+    "cowden"
+   ],
+   "up": [
+    "cx3"
+   ],
+   "unidad": "UP3 · Disfagia y patología esofagogástrica",
+   "estado": "verificar",
+   "definicion": "Lesiones polipoideas del estómago, de origen epitelial. Los hiperplásicos o regenerativos son los más frecuentes (75 a 90 %) y los adenomatosos representan el 10 %.",
+   "diagnostico": [
+    "Hiperplásicos: únicos y pequeños (menos de 2 cm), sésiles o pediculados, no son verdaderos tumores y se considera que no se malignizan.",
+    "Adenomatosos: riesgo de malignización cercano al 10 % (3 a 14 %), con frecuente coexistencia de carcinoma; los de poliposis adenomatosa familiar suelen tener esta histología. Los pólipos vellosos son infrecuentes y degeneran más.",
+    "Glándulas fúndicas: son los más frecuentes junto con los hiperplásicos; el uso prolongado de IBP favorecería su producción.",
+    "Síndromes: Peutz-Jeghers (pólipos hamartomatosos y pigmentación mucocutánea; riesgo de cáncer gástrico 29 %), Cowden (pólipos en 60 %) y Cronkhite-Canada."
+   ],
+   "estudios": [
+    "Endoscopia con biopsia y estudio anatomopatológico; descartar otras lesiones asociadas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Hiperplásicos",
+       "texto": "El diagnóstico es endoscópico y anatomopatológico; hay que descartar otras lesiones asociadas. No requieren tratamiento quirúrgico ni se considera necesario el control alejado."
+      },
+      {
+       "etiqueta": "Adenomatosos",
+       "texto": "Por su riesgo de malignización (alrededor de 10 %) y la coexistencia no infrecuente con carcinoma, se estudia la lesión completa con anatomía patológica y se descarta un cáncer asociado."
+      },
+      {
+       "etiqueta": "Poliposis",
+       "texto": "En el síndrome de Cowden se recomienda vigilancia y polipectomía de los pólipos gástricos; con el tratamiento del H. pylori casi desaparecieron los pólipos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Según la histología y el síndrome asociado; los hiperplásicos no requieren control alejado."
+   ],
+   "banderas": [
+    "Un pólipo adenomatoso o velloso exige estudio histológico completo y buscar un carcinoma asociado."
+   ],
+   "algoritmo": {
+    "titulo": "Pólipo gástrico (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Pólipo gástrico en la endoscopia"
+     },
+     {
+      "t": "accion",
+      "txt": "Endoscopia con biopsia y estudio anatomopatológico"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Es hiperplásico?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "No requiere cirugía ni control alejado"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Adenomatoso o velloso?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Estudio anatomopatológico completo y buscar un carcinoma asociado (riesgo de malignización cercano a 10 %)"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Estudiar un síndrome de poliposis (Peutz-Jeghers, Cowden, poliposis adenomatosa familiar)"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Tumores benignos del estómago: pólipos (cap. 220)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 220 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-bezoares-cuerpos-extranos-gastricos",
+   "area": "cirugia",
+   "titulo": "Bezoares y cuerpos extraños del estómago",
+   "alias": [
+    "bezoar",
+    "tricobezoar",
+    "fitobezoar",
+    "cuerpo extraño gastrico",
+    "farmacobezoar"
+   ],
+   "up": [
+    "cx3"
+   ],
+   "unidad": "UP3 · Disfagia y patología esofagogástrica",
+   "estado": "verificar",
+   "definicion": "Los cuerpos extraños ingeridos pueden quedar en el estómago como objetos individuales o formando bezoares: cuerpos extraños de materia orgánica. Los tricobezoares son de pelos, los fitobezoares de fibras vegetales y los tricofitobezoares combinan ambos; las concreciones son formas raras de sustancias químicas solidificadas.",
+   "diagnostico": [
+    "Tricobezoares: mujeres jóvenes con hábitos nerviosos y cabello largo accesible a la boca. Fitobezoares: varones adultos.",
+    "Cuadro clínico: masa epigástrica móvil con dolor abdominal, náuseas y vómitos; complicaciones: obstrucción, ulceración o inanición.",
+    "Cuerpos extraños: frecuentes en niños, presidiarios, pacientes psiquiátricos y alcohólicos; el 75 % pasa el tubo digestivo sin problemas, el 10 a 20 % requiere extracción endoscópica y el 1 a 14 % una operación."
+   ],
+   "estudios": [
+    "Radiografía simple de abdomen para ver si son radiopacos, su ubicación y su tamaño; radiología contrastada con imágenes lacunares grandes y desplazables en el bezoar; la endoscopia confirma el diagnóstico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Bezoares",
+       "texto": "La endoscopia puede desintegrar o disolver la masa; la cirugía sigue siendo una alternativa válida para removerlos."
+      },
+      {
+       "etiqueta": "Cuerpos extraños",
+       "texto": "Observación con control si pasa solo; extracción endoscópica; cirugía ante signos peritoneales."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control del hábito (tricofagia) y de la dieta en los fitobezoares."
+   ],
+   "banderas": [
+    "Cuerpo extraño con signos peritoneales: indicación de cirugía."
+   ],
+   "algoritmo": {
+    "titulo": "Bezoar o cuerpo extraño gástrico (Michans)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Dolor, masa epigástrica móvil, vómitos o antecedente de ingestión de un objeto"
+     },
+     {
+      "t": "accion",
+      "txt": "Radiografía de abdomen, estudio contrastado y endoscopia"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Signos peritoneales, perforación u obstrucción que no se resuelve?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Cirugía"
+       }
+      ],
+      "no": [
+       {
+        "t": "fin",
+        "txt": "Extracción o desintegración endoscópica; el cuerpo extraño pequeño puede pasar solo con control"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 41: Estómago y duodeno (bezoares y cuerpos extraños)",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2002",
+    "archivo": "Capitulos_Michans, cap. 41",
+    "tipo": "libro",
+    "nota": "Michans 5.ª ed. (El Ateneo, 2002; el programa cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni en Galindo; no se hallaron guías argentinas o chilenas en las carpetas provistas."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-colangitis-esclerosante-primaria",
+   "area": "cirugia",
+   "titulo": "Colangitis esclerosante primaria",
+   "alias": [
+    "colangitis esclerosante",
+    "cep",
+    "colangitis cronica",
+    "estenosis biliares multiples",
+    "cuentas de rosario"
+   ],
+   "up": [
+    "cx5"
+   ],
+   "unidad": "UP5 · Patología hepatobiliar y pancreática",
+   "estado": "verificar",
+   "definicion": "Enfermedad idiopática caracterizada por estenosis inflamatorias y fibrosas de los conductos biliares intra y extrahepáticos, no relacionadas con traumatismos operatorios, cálculos coledocianos ni colangiocarcinoma. Sería inmunológica en pacientes predispuestos y evoluciona a la cirrosis biliar.",
+   "diagnostico": [
+    "Se presenta entre los 30 y 45 años, con predominio 2 a 1 en varones: ictericia intermitente, dolor en el hipocondrio derecho, prurito y fatiga, con remisiones y exacerbaciones; hay casos asintomáticos que se descubren por una fosfatasa alcalina muy elevada.",
+    "Se asocia a la enfermedad inflamatoria intestinal en el 50 a 70 % (sobre todo colitis ulcerosa) y también a la fibrosis retroperitoneal y la tiroiditis de Riedel. Hay mayor riesgo de cáncer de colon (colonoscopia anual) y de colangiocarcinoma (8 a 15 %; 30 veces más que la población general).",
+    "Laboratorio: colestasis con fosfatasa alcalina y gamma-glutamil transpeptidasa muy altas, IgM aumentada; no hay marcadores específicos."
+   ],
+   "estudios": [
+    "La colangiografía es la base del diagnóstico: estrecheces y dilataciones irregulares y múltiples con aspecto de \"cuentas de rosario\" (por CPRE). La colangiorresonancia, no invasiva, tiene sensibilidad de 88 % y especificidad de 99 %. La ecografía es de poca utilidad. La biopsia hepática no suele ser diagnóstica, pero estadifica y da pronóstico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Médico",
+       "texto": "Hasta hoy poco eficaz: ninguna droga (inmunosupresores, D-penicilamina, colchicina, metotrexato, ácido ursodesoxicólico) modificó la historia natural. Se trata el prurito con colestiramina (resina), alternativamente colestipol o naloxona, y se reponen las vitaminas liposolubles A, D y K."
+      },
+      {
+       "etiqueta": "Endoscópico",
+       "texto": "Dilatación de las estrecheces dominantes."
+      },
+      {
+       "etiqueta": "Quirúrgico",
+       "texto": "El trasplante hepático es el tratamiento más promisorio; la sobrevida media desde el diagnóstico hasta la muerte o el trasplante es de 10 a 15 años (Modelo Mayo para decidirlo)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Colonoscopia anual si coexiste colitis ulcerosa y vigilancia del colangiocarcinoma."
+   ],
+   "banderas": [
+    "Fosfatasa alcalina muy elevada en un paciente con colitis ulcerosa: pensar en colangitis esclerosante.",
+    "Es una causa de colangiocarcinoma (8 a 15 %): vigilancia continua."
+   ],
+   "algoritmo": {
+    "titulo": "Colangitis esclerosante primaria (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Colestasis con fosfatasa alcalina elevada, a veces en un paciente con colitis ulcerosa"
+     },
+     {
+      "t": "accion",
+      "txt": "Colangiorresonancia (o CPRE) para buscar estrecheces múltiples en \"cuentas de rosario\""
+     },
+     {
+      "t": "decision",
+      "txt": "¿Estrecheces confirmadas sin causa secundaria (cálculos, cirugía biliar, tóxicos)?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Colangitis esclerosante primaria: tratar el prurito, reponer vitaminas A, D y K y vigilar el colangiocarcinoma y el colon"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Cirrosis o insuficiencia hepática progresiva?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Trasplante hepático"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Control periódico; dilatación endoscópica de la estrechez dominante si hay colangitis"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "fin",
+        "txt": "Colangitis esclerosante secundaria: tratar la causa (litiasis, lesión quirúrgica, tóxico)"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Colangitis crónica (colangitis esclerosante primaria) (cap. 445)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 445 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-quiste-coledoco",
+   "area": "cirugia",
+   "titulo": "Quiste del colédoco (quistes biliares)",
+   "alias": [
+    "quiste de coledoco",
+    "quistes biliares",
+    "dilatacion quistica congenita",
+    "todani",
+    "union pancreatobiliar anomala"
+   ],
+   "up": [
+    "cx5"
+   ],
+   "unidad": "UP5 · Patología hepatobiliar y pancreática",
+   "estado": "verificar",
+   "definicion": "Dilatación quística congénita del árbol biliar extrahepático, intrahepático o de ambos, asociada a una anomalía de la unión pancreatobiliar. Es rara en Occidente (1 en 100.000 a 150.000), más frecuente en mujeres (3 a 8 veces) y en Oriente; en la mitad se diagnostica en la adultez.",
+   "diagnostico": [
+    "Más del 90 % tiene una unión anómala del conducto pancreático con el colédoco más de 1 cm proximal a la ampolla: el conducto común largo permite el reflujo de secreciones pancreáticas, que inflama, aumenta la presión biliar y forma el quiste.",
+    "Clasificación en cinco tipos: I fusiforme, más del 50 %; II divertículo sacular, menos del 5 %; III coledococele, cerca de 5 %; IVa (intra y extrahepáticos) y IVb (solo extrahepáticos), 5 a 10 %; V intrahepáticos, cerca de 1 %.",
+    "Los adultos presentan ictericia o colangitis; menos de la mitad tiene la tríada de dolor, ictericia y masa."
+   ],
+   "estudios": [
+    "Ecografía o TC confirman el diagnóstico; para planificar la cirugía se necesita estudio endoscópico, transhepático o colangiorresonancia que defina la anatomía biliar."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Tipos I, II y IV",
+       "texto": "Escisión del árbol biliar extrahepático, con colecistectomía y hepaticoyeyunoanastomosis en Y de Roux. En el tipo IV puede sumarse una resección segmentaria del hígado si hay cálculos, estenosis o abscesos intrahepáticos, o si las dilataciones se limitan a un lóbulo."
+      },
+      {
+       "etiqueta": "Tipo III",
+       "texto": "Esfinterotomía."
+      },
+      {
+       "etiqueta": "Por qué extirpar",
+       "texto": "El colangiocarcinoma aparece en el 15 % de los adultos con quiste coledociano: se recomienda la extirpación completa al diagnosticarlo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento posoperatorio de la anastomosis biliodigestiva y vigilancia del árbol biliar remanente."
+   ],
+   "banderas": [
+    "Riesgo de colangiocarcinoma de 15 % en adultos: no dejar el quiste in situ."
+   ],
+   "algoritmo": {
+    "titulo": "Quiste del colédoco (Schwartz 10.ª ed.)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Ictericia, colangitis o dolor con masa y dilatación quística de la vía biliar en ecografía o TC"
+     },
+     {
+      "t": "accion",
+      "txt": "Colangiorresonancia, CPRE o estudio transhepático para definir el tipo (clasificación en cinco tipos)"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Tipo III (coledococele)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Esfinterotomía"
+       }
+      ],
+      "no": [
+       {
+        "t": "fin",
+        "txt": "Tipos I, II y IV: escisión del árbol biliar extrahepático con colecistectomía y Y de Roux; resección hepática segmentaria en el IV si hay patología intrahepática localizada"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Schwartz, Principios de Cirugía, 10.ª ed., cap. 32: Vesícula biliar y sistema biliar extrahepático: quistes biliares",
+    "sociedad": "F. C. Brunicardi y col., McGraw-Hill",
+    "anio": "2015",
+    "archivo": "Capitulos_Schwartz, cap. 32",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-atresia-biliar",
+   "area": "cirugia",
+   "titulo": "Atresia de vías biliares",
+   "alias": [
+    "atresia biliar",
+    "atresia de vias biliares",
+    "kasai",
+    "portoenterostomia",
+    "colestasis neonatal"
+   ],
+   "up": [
+    "cx5"
+   ],
+   "unidad": "UP5 · Patología hepatobiliar y pancreática",
+   "estado": "verificar",
+   "definicion": "Resultado de un proceso inflamatorio destructivo, de causa desconocida, que afecta los conductos biliares extrahepáticos del recién nacido; sin tratamiento, los pacientes mueren antes de los 2 años por hepatopatía cirrótica. Incidencia de un caso cada 12.000 a 15.000 nacidos vivos.",
+   "diagnostico": [
+    "Sospechar ante colestasis extrahepática en el recién nacido, con hepatomegalia y tendencia a hemorragias por malabsorción de vitamina K.",
+    "Clasificación japonesa: A, atresia del colédoco con un quiste en el hilio; B, atresia del hepático común; C, atresia de los hepáticos derecho e izquierdo. Hay anomalías congénitas asociadas en el 12 a 27 %, sobre todo cardiovasculares."
+   ],
+   "estudios": [
+    "Sondeo duodenal y materia fecal sin pigmentos biliares (diferenciar de hepatitis graves); ecografía con dilatación intrahepática, quistes y ausencia de la vía biliar distal; la falta de excreción del radioisótopo tiene efectividad de 97 % y la biopsia percutánea de 82 %; laparotomía exploradora si hay dudas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento quirúrgico",
+     "pasos": [
+      {
+       "etiqueta": "Atresia quística (tipo 1)",
+       "texto": "Hepatoyeyunostomía en Y de Roux; son las antes llamadas corregibles, del 8 al 15 % de los casos."
+      },
+      {
+       "etiqueta": "Tipos 2 y 3",
+       "texto": "Portoenterostomía en Y de Roux (operación de Kasai): se anastomosa un asa yeyunal al hilio hepático tras escindir los remanentes biliares."
+      },
+      {
+       "etiqueta": "Si falla",
+       "texto": "Trasplante hepático."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control de la colestasis, la nutrición y la evolución hepática tras la cirugía."
+   ],
+   "banderas": [
+    "El sondeo duodenal puede dar falsos negativos frente a las hepatitis graves: hay que diferenciarlas."
+   ],
+   "algoritmo": {
+    "titulo": "Atresia biliar (Michans)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Recién nacido con ictericia colestásica, heces acólicas y hepatomegalia"
+     },
+     {
+      "t": "accion",
+      "txt": "Ecografía, estudio radioisotópico y biopsia hepática percutánea; laparotomía si persisten las dudas"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Atresia quística (tipo 1)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Hepatoyeyunostomía en Y de Roux"
+       }
+      ],
+      "no": [
+       {
+        "t": "fin",
+        "txt": "Portoenterostomía de Kasai (tipos 2 y 3); trasplante hepático si falla"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 38: Vías biliares: atresia biliar",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2002",
+    "archivo": "Capitulos_Michans, cap. 38",
+    "tipo": "libro",
+    "nota": "Michans 5.ª ed. (El Ateneo, 2002; el programa de la cátedra cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-trauma-duodenopancreatico",
+   "area": "cirugia",
+   "titulo": "Traumatismo duodenopancreático",
+   "alias": [
+    "trauma duodenal",
+    "trauma pancreatico",
+    "traumatismo de pancreas",
+    "lesion duodenal",
+    "duodeno-pancreatico"
+   ],
+   "up": [
+    "cx5"
+   ],
+   "unidad": "UP5 · Patología hepatobiliar y pancreática",
+   "estado": "verificar",
+   "definicion": "Lesiones del duodeno y del páncreas, retroperitoneales y de difícil diagnóstico. Las duodenales son menos del 4 % de las laparotomías por trauma abdominal (la segunda porción en el 35 %) y las pancreáticas cerca del 12 %; más de dos tercios son por traumatismos penetrantes. Toda lesión se considera grave.",
+   "diagnostico": [
+    "El diagnóstico se retrasa por la ubicación retroperitoneal y las lesiones asociadas; un golpe en el epigastrio puede estallar el duodeno por aumento brusco de la presión en un asa cerrada entre el píloro y el ángulo de Treitz.",
+    "No se miden amilasas para confirmar o descartar la lesión. Clasificación OISS: duodeno grado I a V y páncreas grado I a V, según el hematoma, la laceración y el daño del conducto."
+   ],
+   "estudios": [
+    "TC con contraste oral y endovenoso en el paciente compensado; puede tardar 24 a 48 horas en mostrar lesiones pancreáticas leves, por lo que un resultado negativo en ese lapso no la excluye. En el paciente descompensado no hay indicación de TC: laparotomía tras la reanimación. La ecografía y el lavado peritoneal diagnóstico no deben usarse para detectar lesiones aisladas.",
+    "La CPRE en el paciente estable permite descartar una lesión del conducto pancreático y del hepatocolédoco. La duda diagnóstica obliga a la laparotomía exploradora."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Prioridades",
+       "texto": "Primero la vida, luego el órgano y por último la función. Tratar el shock, asegurar la vía aérea y manejar desde el inicio la hipotermia, la acidosis y las coagulopatías. Si el paciente está in extremis: cirugía de control de daños."
+      },
+      {
+       "etiqueta": "Duodeno",
+       "texto": "Una lesión pequeña se repara con resección de los bordes y sutura en un plano. La sutura duodenal tiende a dehiscencia y fístula, por lo que se protege con sonda o con exclusión del píloro. Si el defecto supera 3 cm, resección segmentaria con anastomosis término-terminal; en la segunda porción, resección con duodenoyeyunoanastomosis en Y de Roux."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Vigilar fístula duodenal y complicaciones pancreáticas tardías."
+   ],
+   "banderas": [
+    "La morbimortalidad es alta por las fugas o dehiscencias de cualquier reparación y por las lesiones abdominales asociadas.",
+    "Un estudio negativo en las primeras 24 a 48 horas no descarta una lesión pancreática leve."
+   ],
+   "algoritmo": {
+    "titulo": "Trauma duodenopancreático (Galindo)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Traumatismo abdominal cerrado o penetrante con sospecha de lesión retroperitoneal"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hemodinamia inestable?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Reanimación y laparotomía; cirugía de control de daños si está in extremis"
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "TC con contraste oral y endovenoso; CPRE si se sospecha lesión del conducto pancreático"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Hay lesión duodenal o pancreática, o persiste la duda diagnóstica?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Laparotomía: reparar el duodeno (sutura protegida, resección segmentaria o Y de Roux) y tratar el páncreas según el estado del conducto"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Una TC negativa en las primeras 24 a 48 horas no descarta una lesión pancreática leve: la duda diagnóstica obliga a la laparotomía exploradora"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Enciclopedia de Cirugía Digestiva: Traumatismos duodenopancreáticos (cap. 491)",
+    "sociedad": "F. Galindo y colaboradores (Argentina)",
+    "anio": "2001-2009",
+    "archivo": "Capítulo 491 de la Enciclopedia de Cirugía Digestiva (Galindo)",
+    "tipo": "libro",
+    "nota": "Texto argentino de referencia, anterior al Giménez (2025): el tema no está en el Giménez."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-cervicobraquialgia-radiculopatia",
+   "area": "cirugia",
+   "titulo": "Cervicobraquialgia y radiculopatía cervical",
+   "alias": [
+    "cervicobraquialgia",
+    "radiculopatia cervical",
+    "hernia de disco cervical",
+    "dolor cervical",
+    "spurling",
+    "mielopatia cervical"
+   ],
+   "up": [
+    "cx8"
+   ],
+   "unidad": "UP8 · Ortopedia y traumatología de miembros inferiores",
+   "estado": "verificar",
+   "definicion": "Dolor cervical irradiado a la extremidad superior, habitualmente unilateral, por patología de las raíces que forman el plexo braquial. La causa más frecuente es la degenerativa (artrosis facetaria, uncoartrosis, disminución de la altura discal y hernia del núcleo pulposo) a nivel de C5-C6 y C6-C7. Más de la mitad de la población tiene dolor cervical en su vida.",
+   "diagnostico": [
+    "Dolor cervical que aumenta con el movimiento, punzante, lancinante o con calambres; el déficit sensitivo (parestesias en un dermatoma) es más frecuente que el motor.",
+    "Test de Spurling (compresión axial con flexión y lateralización de la cabeza hacia el lado afectado), test de Roger-Bikelas y alivio con la mano sobre la cabeza (\"saludo militar\") indican atrapamiento radicular. El signo de L'Hermitte y los signos de Babinski, clonus y reflejos aumentados indican compromiso medular.",
+    "Raíces: C5 (deltoides, cara lateral del hombro, reflejo bicipital), C6 (bíceps, pulgar, estilo-radial), C7 (tríceps, dedos 2 y 3, tricipital), C8 (dedos 4 y 5) y T1 (interóseos, borde cubital del antebrazo).",
+    "Diagnóstico diferencial: síndrome del túnel del carpo, atrapamiento cubital, manguito rotador, opérculo torácico y fibromialgia; causas médicas como esclerosis múltiple, polineuropatía diabética o déficit de vitamina B.",
+    "Señales de alarma: dolor nocturno o en reposo, antecedente neoplásico, infección crónica o inmunosupresión, trauma, edad menor de 15 o mayor de 55 años, corticoides o drogas endovenosas, deterioro neurológico progresivo, fiebre y pérdida de peso."
+   ],
+   "estudios": [
+    "No hace falta imagen si no hay señales de alarma: la correlación clínico-imagenológica es mala porque hay hallazgos radiológicos en personas asintomáticas. Se empieza con radiografía de columna cervical (anteroposterior, lateral, transoral y oblicuas hasta C7-T1); la resonancia magnética se usa ante dolor con déficit neurológico; la TC mejora el hueso; el cintigrama busca fracturas o metástasis; la electromiografía descarta causas médicas o extravertebrales."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Conservador",
+       "texto": "Es suficiente en la gran mayoría (75 a 90 % mejora): reposo laboral 2 a 3 días con collar blando; analgésicos, luego AINE, relajantes si hay componente miofascial, opiáceos como tercera línea, pregabalina u otros antineuríticos si los síntomas radiculares persisten, y corticoides si predomina la inflamación; fisiokinesioterapia desde el inicio."
+      },
+      {
+       "etiqueta": "Infiltración",
+       "texto": "Bloqueo peridural cervical con anestésico y corticoide, hecho por un anestesista experto por sus complicaciones graves, en quienes no mejoran."
+      },
+      {
+       "etiqueta": "Cirugía",
+       "texto": "Cervicobraquialgia persistente, con o sin déficit, tras más de 1 mes de fracaso del tratamiento médico y de preferencia antes de los 3 meses; nunca operar antes de 1 mes. Hoy se prefiere el abordaje anterior, con 98 % de buenos resultados."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento de la evolución neurológica; derivar de forma precoz si hay mielopatía o déficit progresivo."
+   ],
+   "banderas": [
+    "No operar antes de 1 mes; los resultados empeoran si se opera después de los 3 meses.",
+    "Signos de mielopatía (L'Hermitte, Babinski, clonus): requieren evaluación quirúrgica."
+   ],
+   "algoritmo": {
+    "titulo": "Cervicobraquialgia (Orrego y Morán)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Dolor cervical irradiado al brazo, con o sin parestesias o déficit"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Señales de alarma (fiebre, antecedente neoplásico, trauma, déficit progresivo) o signos de mielopatía?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Estudio por imágenes (radiografía y resonancia) y descartar causas tumorales, infecciosas o traumáticas"
+       },
+       {
+        "t": "fin",
+        "txt": "Evaluación por columna para tratamiento específico"
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "Tratamiento conservador escalonado: reposo corto con collar, analgésicos y AINE, antineuríticos y fisiokinesioterapia"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Persiste tras más de 1 mes de tratamiento médico?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Bloqueo peridural cervical o cirugía de descompresión por abordaje anterior (de preferencia antes de los 3 meses)"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Continuar el tratamiento conservador: mejora el 75 a 90 %"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Ortopedia y Traumatología Básica (Orrego y Morán), cap. 7: Cervicobraquialgia",
+    "sociedad": "M. Orrego y N. Morán, Universidad de los Andes (Chile)",
+    "anio": "2014",
+    "archivo": "Ortopedia y Traumatología Básica, cap. 7",
+    "tipo": "libro",
+    "nota": "Bibliografía complementaria de la cátedra. El tema no está en Giménez 2.ª ed. (2025) ni en el Manual CTO de Traumatología; no se hallaron guías argentinas o chilenas en las carpetas provistas."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-accesos-venosos-centrales",
+   "area": "cirugia",
+   "titulo": "Accesos venosos centrales y periféricos",
+   "alias": [
+    "via central",
+    "cateter venoso central",
+    "subclavia",
+    "yugular interna",
+    "seldinger",
+    "acceso arterial",
+    "flebotomia"
+   ],
+   "up": [
+    "cx10"
+   ],
+   "unidad": "UP10 · Enfermedad vascular periférica",
+   "estado": "verificar",
+   "definicion": "Vías por las que se ingresa al sistema arterial o venoso con fines diagnósticos o terapéuticos: arteriales, venosos y para hemodiálisis. Los venosos pueden ser periféricos o centrales, y transitorios (hasta 7 días) o permanentes.",
+   "diagnostico": [
+    "Arteriales: registro continuo de la presión arterial, medicamentos (quimioterapia), angiografía y procedimientos endovasculares; las arterias más usadas son la radial, la humeral y la femoral.",
+    "Periféricos: venas de los miembros superiores (las de los inferiores si hay contraindicación) con agujas o catéteres cortos, para uso temporario.",
+    "Centrales: vena subclavia y yugular interna, cuando se necesita un acceso más prolongado y con menos complicaciones locales."
+   ],
+   "estudios": [
+    "Radiografía de tórax tras colocar un catéter central para descartar complicaciones: neumotórax, hemotórax, quilotórax, embolia y lesión del plexo braquial."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Técnica y recaudos",
+     "pasos": [
+      {
+       "etiqueta": "Subclavia",
+       "texto": "Punción infraclavicular a 3 cm por fuera del ángulo entre la clavícula y la última costilla, con la cabeza girada al lado opuesto e hiperextendida; la aguja entra a 45° del plano clavicular y 30° bajo el plano transversal y, bajo la clavícula, se horizontaliza y avanza aspirando."
+      },
+      {
+       "etiqueta": "Yugular interna",
+       "texto": "Punción del ángulo entre el borde posterior del esternocleidomastoideo y la yugular externa; la aguja va por la cara profunda del músculo hacia el apéndice xifoides. El catéter se pasa directo o sobre una guía metálica (técnica de Seldinger)."
+      },
+      {
+       "etiqueta": "Permanencia",
+       "texto": "Transitorios si no superan 7 días; si deben durar más, catéteres permanentes de silastic por su menor infección y trombosis."
+      },
+      {
+       "etiqueta": "Contraindicaciones relativas",
+       "texto": "Excitación psicomotriz, alteraciones de la coagulación, asistencia respiratoria mecánica, cirugía o irradiación previa de la zona, infección local y fístula arteriovenosa del mismo lado."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control del sitio de inserción y de signos de infección; la infección del sistema suele tratarse con su extracción."
+   ],
+   "banderas": [
+    "Radiografía de tórax obligatoria tras la colocación de un catéter central.",
+    "Cuidado con la coagulopatía y con la fístula arteriovenosa ipsilateral."
+   ],
+   "algoritmo": {
+    "titulo": "Acceso venoso central (Michans)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente que necesita un acceso venoso prolongado o central (presión venosa central, medicación, nutrición)"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hay contraindicación relativa (coagulopatía, infección local, fístula del mismo lado, ventilación mecánica)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Elegir otro sitio o un acceso periférico; valorar el riesgo y el beneficio"
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "Punción de subclavia o yugular interna y paso del catéter por la técnica de Seldinger"
+       },
+       {
+        "t": "fin",
+        "txt": "Radiografía de tórax para descartar neumotórax, hemotórax y otras complicaciones antes de usar la vía"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 49: Arterias: accesos vasculares",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2002",
+    "archivo": "Capitulos_Michans, cap. 49",
+    "tipo": "libro",
+    "nota": "Michans 5.ª ed. (El Ateneo, 2002; el programa de la cátedra cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-accesos-vasculares-hemodialisis",
+   "area": "cirugia",
+   "titulo": "Accesos vasculares para hemodiálisis",
+   "alias": [
+    "fistula arteriovenosa",
+    "acceso para hemodialisis",
+    "cateter de doble via",
+    "perm cath",
+    "fistula radiocefalica",
+    "protesis ptfe",
+    "brescia cimino"
+   ],
+   "up": [
+    "cx11",
+    "cx10"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Vías para conectar al paciente con insuficiencia renal a la hemodiálisis: catéteres de doble vía y fístulas arteriovenosas, por anastomosis directa o con interposición de una prótesis.",
+   "diagnostico": [
+    "Catéteres de doble vía: reemplazan a las cánulas de Scribner en la diálisis de urgencia; el catéter tunelizado permanente (Perm Cath) se usa cuando no hay sitios para una fístula.",
+    "La fístula de elección es la radiocefálica en la muñeca (Brescia-Cimino), en el antebrazo no dominante: la vena se dilata e hipertrofia y a las 3 semanas puede puncionarse sin hemorragias, hematomas ni seudoaneurismas. Si hubo catéteres en la subclavia, explorar la vena con eco-Doppler: una estenosis significativa contraindica el miembro.",
+    "La fístula con prótesis de PTFE se indica si las venas periféricas son inadecuadas o fracasaron fístulas previas (húmero-basílica en U o húmero-axilar); esperar 2 semanas para dializar por la prótesis."
+   ],
+   "estudios": [
+    "Eco-Doppler venoso previo ante antecedente de catéteres subclavios."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Complicaciones y manejo",
+     "pasos": [
+      {
+       "etiqueta": "Trombosis (la más frecuente)",
+       "texto": "La temprana suele ser una falla técnica y se trata con trombectomía y corrección del defecto; la tardía obliga a hacer una nueva fístula. En las prótesis, la obstrucción tardía es por estenosis de la anastomosis venosa por hiperplasia intimal."
+      },
+      {
+       "etiqueta": "Infección",
+       "texto": "Más frecuente en la insuficiencia renal; el germen habitual es Staphylococcus aureus. Profilaxis con cefalosporinas o vancomicina al confeccionar la fístula y asepsia en cada punción; el absceso se drena y, si falla, o si empieza en las anastomosis, se extrae la prótesis."
+      },
+      {
+       "etiqueta": "Hipertensión venosa e isquemia distal",
+       "texto": "Edema del miembro por una colateral (se liga) o por una estenosis (nueva anastomosis o angioplastia); la isquemia por robo del flujo arterial se corrige o se liga el acceso."
+      },
+      {
+       "etiqueta": "Seudoaneurisma",
+       "texto": "Sutura simple del orificio o interposición protésica."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Vigilar la permeabilidad y el soplo de la fístula, y los signos de infección o isquemia de la mano."
+   ],
+   "banderas": [
+    "No usar el miembro con fístula para accesos venosos centrales del mismo lado.",
+    "La trombosis es la complicación más frecuente: consultar de inmediato."
+   ],
+   "algoritmo": {
+    "titulo": "Acceso para hemodiálisis (Michans, con contraste de Smith y Tanagho)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente con insuficiencia renal crónica que requerirá hemodiálisis"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Necesita diálisis de urgencia?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Catéter de doble vía; el Perm Cath si no hay sitios para una fístula"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Venas periféricas adecuadas en el antebrazo no dominante?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Fístula arteriovenosa radiocefálica (Brescia-Cimino); madura en 3 semanas"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Fístula con prótesis de PTFE (húmero-basílica o húmero-axilar), esperar 2 semanas antes de usarla; Perm Cath si no hay otro sitio"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 49: Arterias: accesos para hemodiálisis",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2002",
+    "archivo": "Capitulos_Michans, cap. 49",
+    "tipo": "libro",
+    "nota": "Michans 5.ª ed. (El Ateneo, 2002; el programa de la cátedra cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Smith y Tanagho, Urología general, 18.ª ed. (2016), cap. 35",
+    "puntos": [
+     "Ambos describen el acceso por fístula arteriovenosa, injerto vascular (autólogo de safena o sintético) o catéter permanente percutáneo; Michans (2002) detalla la fístula radiocefálica, el uso de prótesis de PTFE y el manejo de cada complicación.",
+     "Smith y Tanagho agrega que la diálisis peritoneal se elige cuando el acceso vascular es inviable (cerca de 10 % de las diálisis) y que la hemodiálisis es intermitente, de 3 a 5 horas, tres veces por semana."
+    ]
+   },
+   "farmacos": [
+    "fx-vancomicina"
+   ]
   }
  ],
  "cobertura": {
@@ -15451,7 +16742,12 @@
     "Cáncer gástrico",
     "Tumores gástricos benignos y GIST",
     "Hemorragia digestiva alta variceal (hipertensión portal)",
-    "Cáncer de la unión esofagogástrica (cardias)"
+    "Cáncer de la unión esofagogástrica (cardias)",
+    "Úlcera péptica gastroduodenal e infección por Helicobacter pylori",
+    "Gastritis: clasificación y gastritis crónicas",
+    "Complicaciones de las gastrectomías: dumping, gastritis por reflujo alcalino y asa aferente",
+    "Pólipos gástricos: hiperplásicos, adenomatosos y de las poliposis",
+    "Bezoares y cuerpos extraños del estómago"
    ],
    "cx4": [
     "Enfermedad diverticular y diverticulitis aguda",
@@ -15488,7 +16784,11 @@
     "Cáncer de la vía biliar (colangiocarcinoma)",
     "Tumores benignos sólidos del hígado",
     "Pancreatitis crónica: indicaciones de cirugía",
-    "Tumores quísticos del páncreas"
+    "Tumores quísticos del páncreas",
+    "Colangitis esclerosante primaria",
+    "Quiste del colédoco (quistes biliares)",
+    "Atresia de vías biliares",
+    "Traumatismo duodenopancreático"
    ],
    "cx6": [
     "Hernia inguinal",
@@ -15525,7 +16825,8 @@
     "Luxación traumática de cadera",
     "Fracturas vertebrales y lesión medular",
     "Fracturas del pie: calcáneo, quinto metatarsiano y fracturas por estrés",
-    "Discapacidad: comunicación del diagnóstico y acompañamiento de la familia"
+    "Discapacidad: comunicación del diagnóstico y acompañamiento de la familia",
+    "Cervicobraquialgia y radiculopatía cervical"
    ],
    "cx9": [
     "Politraumatizado: evaluación primaria (ATLS)",
@@ -15549,7 +16850,9 @@
     "Enfermedad carotídea",
     "Cirugía endovascular: angioplastia y stents",
     "Aneurisma de la aorta torácica y disección aórtica",
-    "Síndrome de Raynaud y enfermedad de Buerger"
+    "Síndrome de Raynaud y enfermedad de Buerger",
+    "Accesos venosos centrales y periféricos",
+    "Accesos vasculares para hemodiálisis"
    ],
    "cx11": [
     "Obstrucción urinaria baja por hiperplasia prostática benigna",
@@ -15572,7 +16875,8 @@
     "Cáncer de pene",
     "Trauma vesical y uretral",
     "Cáncer de próstata: grupos de riesgo y tratamiento del localizado",
-    "Cáncer de la vía urinaria alta (pelvis renal y uréter)"
+    "Cáncer de la vía urinaria alta (pelvis renal y uréter)",
+    "Accesos vasculares para hemodiálisis"
    ]
   }
  }

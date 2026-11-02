@@ -3734,6 +3734,77 @@
    "estado": "guia",
    "definicion": "Antibiótico · Derivado del ácido fosfórico",
    "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-levofloxacina",
+   "titulo": "Levofloxacina",
+   "alias": [
+    "Úlcera péptica gastroduodenal e infección por Helicobacter pylori",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Úlcera péptica gastroduodenal e infección por Helicobacter pylori. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad de la topoisomerasa bacteriana II (ADN girasa) y IV dificultando la replicación del ADN bacteriano.  Efecto bactericida concentración dependiente con efecto post antibiótico."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Inf. Severas/Neumonia/ Pseudomonas/ Stenotrophomonas (IV/VO)",
+       "texto": "750 mg c/24 hs"
+      },
+      {
+       "etiqueta": "Otras (IV/VO)",
+       "texto": "500 mg c/24 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 500 mg; Solución IV: 500 mg (25 mg/ml)"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a levofloxacina y otras quinolonas; pacientes con: epilepsia; antecedentes de trastornos del tendón relacionados con la administración de fluoroquinolonas.."
+   ],
+   "efectos": [
+    "Alteraciones gastrointestinales, náuseas, vómitos, diarreas, dolor abdominal. Aumento transitorio de enzimas hepáticas. Reacciones de hipersensibilidad cutánea, urticaria, prurito, fotosensibilidad e hiperpigmentación. Artralgias. Tenosinovitis especialmente de Aquiles con posible rotura.  Alteraciones neurológicas, cefalea, inestabilidad, insomnio, somnolencia, alteraciones de la marcha, agitación, alucinaciones, cuadros psicóticos y convulsiones.   Nefritis intersticial aguda y cristaluria. Prolongación menor del intervalo QT."
+   ],
+   "tiempos": [
+    "Vida media: 7 hs (hasta 76 en IRC)..",
+    "Eliminación: Renal (80% sin modificación).",
+    "Distribución: Vd: 1,4 L/kg (alcanza hasta 80% en LCR)",
+    "Farmacodinamia: bactericida (concentracion_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe otra alternativa (C).",
+    "Lactancia: Si bien se considera de riesgo bajo, de ser imprescindible se recomienda el uso de otras fluoroquinolonas como alternativas (ciprofloxacina, norfloxacina).",
+    "Precauciones: Monitorear: glucosa, tiempo de coagulación, ancianos, mujeres, pacientes con enfermedad de base; Riesgo de: tendinitis y rotura de tendones (cuidado especial en niños), colitis, reacciones hemolíticas en pacientes con deficiencia de G6PDH, reacciones de hipersensibilidad graves, reacciones graves cutáneas, aneurisma, sobreinfección por microorganismos no sensibles en tratamiento prolongado. Evitar exposición UV/solar.",
+    "Administración: - El FA de 25 mg/ml debe ser diluido hasta una CC de 5 mg/ml. - Durante la infusión puede desarrollarse un descenso temporal de la presión sanguínea."
+   ],
+   "vademecum": "levofloxacina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Quinolona 3° generación",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
   }
  ]
 }
