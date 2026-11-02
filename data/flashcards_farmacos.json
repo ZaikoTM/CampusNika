@@ -6,7 +6,7 @@
    "fx3": "Parto pretérmino y maduración fetal",
    "fx4": "Anticoncepción y endocrinología ginecológica",
    "fx5": "Antimicrobianos en Ginecología y Obstetricia",
-   "fx6": "Antimicrobianos en Cirugía y Urología"
+   "fx6": "Fármacos en Cirugía y Urología"
   },
   "descargo": "Resumen educativo de fármacos usados en Ginecología y Obstetricia: toma datos de los prospectos de la FDA, de consensos y guías nacionales y del vademécum de NikaFarma. Las dosis obstétricas fuera de prospecto provienen de las guías indicadas en cada ficha. No reemplaza el prospecto aprobado por la ANMAT, el protocolo de la institución ni el criterio del médico tratante."
  },
@@ -2971,7 +2971,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Cefalosporina 1° generación",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-vancomicina",
@@ -3039,7 +3039,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Glucopéptido",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-amoxicilina",
@@ -3105,7 +3105,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Betalactámico",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-albendazol",
@@ -3174,7 +3174,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antiparasitario · Benzimidazol carbamato",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-ampicilina-sulbactam",
@@ -3241,7 +3241,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Betalactámico",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-piperacilina-tazobactam",
@@ -3308,7 +3308,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Betalactámico",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-linezolid",
@@ -3375,7 +3375,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Oxazolidinona",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-amoxicilina-clavulanico",
@@ -3441,7 +3441,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Betalactámico",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-trimetoprima-sulfametoxazol",
@@ -3516,7 +3516,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Asociación de Diaminopirimidina (Trimetoprima) con Sulfonamida (Sulfametoxasol) en proporción 1:5",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-ciprofloxacina",
@@ -3592,7 +3592,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Quinolona 2° generación",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-nitrofurantoina",
@@ -3658,7 +3658,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Nitrofurano",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-fosfomicina",
@@ -3733,7 +3733,7 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Derivado del ácido fosfórico",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
   },
   {
    "id": "fx-levofloxacina",
@@ -3804,7 +3804,365 @@
    "tipo": "farmaco",
    "estado": "guia",
    "definicion": "Antibiótico · Quinolona 3° generación",
-   "unidad": "Antimicrobianos en Cirugía y Urología"
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-ibp-omeprazol",
+   "titulo": "Inhibidores de la bomba de protones (omeprazol)",
+   "alias": [
+    "omeprazol",
+    "esomeprazol",
+    "pantoprazol",
+    "lansoprazol",
+    "ibp",
+    "inhibidor de la bomba de protones",
+    "gastroproteccion"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 53: Farmacología del tubo digestivo",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Enfermedad por reflujo gastroesofágico y enfermedad ulcerosa péptica; en Cirugía, úlcera péptica complicada, hemorragia digestiva alta y gastroprotección."
+   ],
+   "mecanismo": [
+    "Hay seis IBP: omeprazol, esomeprazol, lansoprazol, dexlansoprazol, rabeprazol y pantoprazol, con eficacia equivalente a dosis comparables. Son profármacos que se activan en el medio ácido de los canalículos de la célula parietal a una sulfenamida que se une de forma covalente a los grupos sulfhidrilo de la H+,K+-ATPasa y la inactiva de modo irreversible. La secreción ácida se suprime 24 a 48 h aunque la vida media plasmática sea de 0,5 a 3 h, y se suprime tanto la secreción basal como la estimulada."
+   ],
+   "dosis": [
+    {
+     "titulo": "Administración (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Pauta",
+       "texto": "Una dosis diaria antes de la primera comida del día (idealmente 30 minutos antes); si hace falta una segunda dosis, antes de la cena."
+      },
+      {
+       "etiqueta": "Inicio del efecto",
+       "texto": "Se necesitan 2 a 5 días de una dosis diaria para inhibir cerca del 70 % de las bombas; dosificar cada 12 h acorta el tiempo pero no mejora el resultado."
+      },
+      {
+       "etiqueta": "Vía parenteral",
+       "texto": "Esomeprazol sódico, omeprazol sódico o pantoprazol, cuando no se dispone de la vía oral."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "No figuran contraindicaciones absolutas en el capítulo; se recomienda limitar el uso a las dosis efectivas más bajas y solo con indicación clínica."
+   ],
+   "efectos": [
+    "Hipergastrinemia con hiperplasia de células ECL, poliposis de glándulas fúndicas y gastritis atrófica; hipersecreción de ácido de rebote al suspender, con dispepsia.",
+    "Con uso crónico: menor absorción de vitamina B12, hipomagnesemia, mayor riesgo de fractura ósea y de infecciones (neumonía nosocomial, Clostridioides difficile, peritonitis bacteriana espontánea en ascitis); asociaciones con proliferación bacteriana del intestino delgado, enfermedad renal crónica y demencia aún no confirmadas."
+   ],
+   "tiempos": [
+    "t1/2 plasmática de 0,5 a 3 h; metabolismo hepático por CYP2C19 y CYP3A4."
+   ],
+   "precauciones": [
+    "Pueden reducir la activación de clopidogrel (CYP2C19), controvertido; es menos probable con pantoprazol. Elevan el metotrexato. Disminuyen la absorción de ketoconazol, ésteres de ampicilina y sales de hierro. Reducir la dosis crónica en quienes tienen genotipo CYP2C19 de función disminuida."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Inhibidor de la bomba de protones · supresión del ácido gástrico",
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-ketorolaco",
+   "titulo": "Ketorolaco",
+   "alias": [
+    "ketorolac",
+    "aine",
+    "analgesico posoperatorio",
+    "antiinflamatorio no esteroideo"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 42: Farmacoterapia de la inflamación, fiebre, dolor y gota",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Dolor agudo, como el posoperatorio, por vía parenteral."
+   ],
+   "mecanismo": [
+    "Los AINE disminuyen la formación de prostaglandinas al inhibir la ciclooxigenasa. El ketorolaco es un analgésico potente y un antiinflamatorio débil."
+   ],
+   "dosis": [
+    {
+     "titulo": "Dosis parenteral (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Esquema",
+       "texto": "60 mg por vía intramuscular y luego 30 mg cada 6 horas, o 30 mg por vía intravenosa cada 6 horas; ver el producto autorizado por la FDA."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Ver los efectos adversos compartidos de los AINE (gastrointestinales, renales, cardiovasculares, plaquetarios y de hipersensibilidad), que definen las situaciones de riesgo."
+   ],
+   "efectos": [
+    "Efectos compartidos de los AINE: dolor abdominal, hemorragia, úlcera y perforación gastrointestinal; inhibición plaquetaria y mayor riesgo de sangrado; insuficiencia renal, nefritis intersticial, retención de sal y agua, hipertensión e hiperpotasemia; edema, insuficiencia cardiaca, infarto de miocardio y accidente cerebrovascular; reacciones anafilactoides y broncoespasmo."
+   ],
+   "tiempos": [
+    "Pico plasmático a los 30 a 60 min; unión a proteínas del 99 %; metabolito glucurónido (90 %); t1/2 de 4 a 6 h."
+   ],
+   "precauciones": [
+    "En quienes tienen enfermedad renal, cardiaca o cirrosis el AINE puede deteriorar la función renal y reducir el efecto de los antihipertensivos y diuréticos."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "AINE · analgésico potente y antiinflamatorio débil",
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-ibuprofeno",
+   "titulo": "Ibuprofeno",
+   "alias": [
+    "aine",
+    "antiinflamatorio no esteroideo",
+    "derivado del acido propionico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 42: Farmacoterapia de la inflamación, fiebre, dolor y gota",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Dolor, fiebre e inflamación."
+   ],
+   "mecanismo": [
+    "Inhibe la ciclooxigenasa y disminuye la formación de prostaglandinas. Es un racemato: el 60 % del enantiómero R se convierte en S-ibuprofeno."
+   ],
+   "dosis": [
+    {
+     "titulo": "Dosis (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Adultos",
+       "texto": "200 a 800 mg, 3 a 6 veces al día junto con los alimentos (máximo 3,2 g/día)."
+      },
+      {
+       "etiqueta": "Niños",
+       "texto": "4 a 10 mg/kg por dosis, 3 a 4 veces al día (máximo pediátrico 2,4 g/día)."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Ver los efectos adversos compartidos de los AINE."
+   ],
+   "efectos": [
+    "Efectos digestivos, renales, cardiovasculares y plaquetarios compartidos por los AINE; el 10 a 15 % suspende el tratamiento; puede aumentar el riesgo de meningitis aséptica."
+   ],
+   "tiempos": [
+    "Pico plasmático a las 2 h (comprimidos); unión a proteínas del 99 %; metabolismo por CYP2C9; t1/2 de 2 a 4 h en adultos; se excreta en la leche materna."
+   ],
+   "precauciones": [
+    "Tomar con alimentos."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "AINE · derivado del ácido propiónico",
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-paracetamol",
+   "titulo": "Paracetamol",
+   "alias": [
+    "acetaminofeno",
+    "analgesico",
+    "antipiretico",
+    "analgesia multimodal"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 42: Farmacoterapia de la inflamación, fiebre, dolor y gota",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Dolor y fiebre; componente de la analgesia multimodal."
+   ],
+   "mecanismo": [
+    "Inhibidor débil e inespecífico de la ciclooxigenasa a las dosis habituales, cuya potencia puede modularse por la peroxidasa. Tiene efectos antiinflamatorios, gastrointestinales y plaquetarios menores que el ácido acetilsalicílico."
+   ],
+   "dosis": [
+    {
+     "titulo": "Dosis (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Adultos",
+       "texto": "650 mg o menos cada 4 horas, con un máximo de 4000 mg en 24 horas; en el capítulo de opioides se sugiere no pasar de 3 g/día en adultos cuando se combina con ellos."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El capítulo no detalla contraindicaciones específicas; el riesgo principal es la sobredosis."
+   ],
+   "efectos": [
+    "La sobredosis produce un metabolito tóxico (NAPQI) que causa necrosis hepática."
+   ],
+   "tiempos": [
+    "Pico plasmático a los 30 a 60 min; unión a proteínas del 20 a 50 %; metabolitos glucurónidos (60 %) y sulfatos (35 %); t1/2 de 2 h."
+   ],
+   "precauciones": [
+    "Revisar el total diario cuando se asocia con opioides u otros preparados que lo contengan."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Analgésico y antipirético · derivado del paraaminofenol",
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-morfina",
+   "titulo": "Morfina y opioides",
+   "alias": [
+    "opioide",
+    "analgesico opioide",
+    "fentanilo",
+    "dolor agudo",
+    "analgesia posoperatoria"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 23: Analgésicos opioides",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Dolor agudo intenso, como el posoperatorio y el del paciente quirúrgico o traumatizado."
+   ],
+   "mecanismo": [
+    "Actúan sobre receptores opioides acoplados a proteína G (clase A). En el tubo digestivo la morfina inhibe la relajación del esfínter esofágico inferior, aumenta la contracción tónica del antro y del duodeno proximal y reduce el tono del reservorio gástrico, lo que prolonga el vaciamiento."
+   ],
+   "dosis": [
+    {
+     "titulo": "Dosis de inicio orientativas (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Adultos de más de 50 kg",
+       "texto": "Morfina 30 mg por vía oral o 10 mg por vía parenteral, cada 3 a 4 horas."
+      },
+      {
+       "etiqueta": "Niños y adultos de menos de 50 kg",
+       "texto": "Morfina 0,3 mg/kg por vía oral o 0,1 mg/kg por vía parenteral, cada 3 a 4 horas."
+      },
+      {
+       "etiqueta": "Aclaración",
+       "texto": "Los datos son orientativos: la respuesta clínica, la función hepática y renal, la edad y los medicamentos concurrentes guían la dosis."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El fentanilo transdérmico está contraindicado en el dolor agudo y en quienes reciben menos de 60 mg de equivalentes de morfina oral por día."
+   ],
+   "efectos": [
+    "Estreñimiento (puede revertirse con antagonistas de acción periférica como la metilnaltrexona); depresión respiratoria; con fentanilo y análogos en dosis altas, rigidez del tórax (\"tórax en madera\") que puede tratarse con relajantes neuromusculares mientras se ventila al paciente."
+   ],
+   "tiempos": [
+    "El fentanilo tiene inicio más rápido y menor duración que la morfina; la depresión respiratoria puede prolongarse con dosis grandes o con infusiones prolongadas."
+   ],
+   "precauciones": [
+    "Si no puede usarse la vía oral, la morfina, la hidromorfona y la oximorfona pueden darse por vía rectal, con dosis equianalgésicas que pueden diferir de las orales y parenterales."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Agonista de los receptores opioides · analgésico",
+   "unidad": "Fármacos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-heparina",
+   "titulo": "Heparina y heparinas de bajo peso molecular",
+   "alias": [
+    "heparina no fraccionada",
+    "enoxaparina",
+    "hbpm",
+    "lmwh",
+    "anticoagulante",
+    "tromboprofilaxis",
+    "protamina",
+    "trombocitopenia inducida por heparina"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "libro",
+    "guia": "Goodman & Gilman, Las bases farmacológicas de la terapéutica, 14.ª ed., cap. 36: Coagulación sanguínea y fármacos anticoagulantes, fibrinolíticos y antiagregantes plaquetarios",
+    "sociedad": "L. L. Brunton y colaboradores, McGraw Hill",
+    "anio": "2023",
+    "nota": "Texto de farmacología de referencia de la carpeta de Medicina. Las dosis son las que figuran en las tablas del libro; ajustar según el prospecto y el criterio clínico."
+   },
+   "indicaciones": [
+    "Profilaxis y tratamiento de la trombosis venosa y la tromboembolia; en Cirugía, tromboprofilaxis perioperatoria."
+   ],
+   "mecanismo": [
+    "La heparina y sus derivados son anticoagulantes parenterales que activan la antitrombina, un inhibidor natural de las proteasas de la coagulación."
+   ],
+   "dosis": [
+    {
+     "titulo": "Reversión (Goodman)",
+     "pasos": [
+      {
+       "etiqueta": "Protamina",
+       "texto": "Se une a la heparina y neutraliza su efecto; la dosis aproximada es 1 mg de protamina por cada 100 unidades de heparina que persistan, hasta un máximo de 50 mg, por vía intravenosa lenta en 10 minutos."
+      },
+      {
+       "etiqueta": "Heparinas de bajo peso molecular",
+       "texto": "La protamina solo revierte de manera parcial su actividad y no tiene efecto sobre el fondaparinux."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "La warfarina no debe usarse en la trombocitopenia inducida por heparina hasta que se normalice el recuento de plaquetas, porque puede desencadenar gangrena venosa o necrosis cutánea."
+   ],
+   "efectos": [
+    "Trombocitopenia inducida por heparina: cerca del 0,5 % de los pacientes tratados la presentan a los 5 a 10 días de iniciar; se debe a anticuerpos IgG contra complejos de heparina y factor plaquetario 4; es más frecuente en pacientes quirúrgicos que en médicos y puede causar trombosis graves; hay que suspender la heparina de inmediato. También se observa con las HBPM y, rara vez, con fondaparinux.",
+    "Alteración de las pruebas hepáticas, osteoporosis con dosis terapéuticas prolongadas (más de 20.000 unidades/día durante 3 a 6 meses; menor riesgo con HBPM) e hiperpotasemia por inhibición de la aldosterona.",
+    "La protamina puede causar hipotensión, edema pulmonar no cardiogénico y vasoconstricción pulmonar si se administra rápido."
+   ],
+   "tiempos": [
+    "Controlar el recuento de plaquetas durante el tratamiento."
+   ],
+   "precauciones": [
+    "Las HBPM tienen menor riesgo de osteoporosis y de trombocitopenia que la heparina no fraccionada."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Anticoagulante parenteral · activador de la antitrombina",
+   "unidad": "Fármacos en Cirugía y Urología"
   }
  ]
 }

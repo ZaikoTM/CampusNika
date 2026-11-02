@@ -1777,7 +1777,8 @@
    ],
    "farmacos": [
     "fx-cefazolina",
-    "fx-metronidazol"
+    "fx-metronidazol",
+    "fx-morfina"
    ]
   },
   {
@@ -2257,7 +2258,10 @@
       ]
      }
     ]
-   }
+   },
+   "farmacos": [
+    "fx-ibp-omeprazol"
+   ]
   },
   {
    "id": "cx-hemorragia-digestiva-alta",
@@ -2403,6 +2407,10 @@
     "La causa principal de la hemorragia no vinculada a hipertensión portal sigue siendo la úlcera péptica, seguida por el síndrome de Mallory-Weiss y las lesiones erosivas; menos comunes son las angiectasias, la lesión de Dieulafoy y las neoplasias.",
     "Melena requiere un sangrado mayor de 50 mL y puede persistir días tras el cese; la hematemesis requiere más de 500 mL.",
     "Peor pronóstico: edad mayor de 60 años (mortalidad hasta 39 %), comorbilidades (cardíaca, renal, cirrosis, diabetes, cáncer), anticoagulación, shock inicial y recidiva temprana (principal factor de mortalidad); úlceras de 2 cm o más, en la parte alta de la curvatura menor o en la cara posterior del bulbo, y estigmas Forrest I y II."
+   ],
+   "farmacos": [
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -2535,6 +2543,11 @@
    "fisiopatologia": [
     "La úlcera péptica es el quiebre de la integridad de la mucosa gástrica o duodenal que llega hasta la muscular de la mucosa, por la acción del ácido; su historia natural va desde la curación espontánea hasta las complicaciones (sangrado y perforación) con riesgo de muerte (Giménez, cap. 43).",
     "Los dos factores más importantes son la infección por Helicobacter pylori y los antiinflamatorios no esteroides, que pueden ser sinérgicos. La mucosa mantiene un equilibrio entre factores agresores (ácido, pepsina, sales biliares, AINE, H. pylori) y protectores (moco, bicarbonato, prostaglandinas y microcirculación); la úlcera aparece cuando se rompe ese balance (Giménez, cap. 43)."
+   ],
+   "farmacos": [
+    "fx-ibp-omeprazol",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -2665,6 +2678,9 @@
     "La acalasia primaria es la pérdida selectiva de las neuronas inhibitorias del plexo mientérico: el esfínter esofágico inferior (EEI) no se relaja con la deglución y el cuerpo esofágico queda aperistáltico.",
     "Para el diagnóstico deben estar presentes los dos criterios: falla de relajación del EEI y ausencia de peristalsis efectiva. La motilidad esofágica ineficaz y el esófago en cascanueces no cumplen los criterios porque el EEI funciona.",
     "Causas secundarias de trastornos motores similares: esclerodermia, amiloidosis, enfermedad de Chagas, sarcoidosis, esofagitis eosinofílica, neoplasia endocrina múltiple 2B; se maneja la enfermedad de base."
+   ],
+   "farmacos": [
+    "fx-ibp-omeprazol"
    ]
   },
   {
@@ -4535,6 +4551,10 @@
     "La formación de cálculos es consecuencia de la alteración de los mecanismos de regulación y de las propiedades físicas y químicas de la bilis; la causa es multifactorial, con factores genéticos y alimentarios (Giménez, cap. 53).",
     "Se produce por la desproporción entre los agentes liposolubles (colesterol y bilirrubina no conjugada) y los agentes anfipáticos que promueven su emulsificación, los fosfolípidos y las sales biliares (Giménez, cap. 53).",
     "Según su composición, los cálculos son de colesterol (más del 50 % de colesterol; predominan en Occidente), mixtos (20 a 40 %) o pigmentarios (menos del 20 %; negros o marrones, blandos y friables; predominan en Oriente) (Giménez, cap. 53)."
+   ],
+   "farmacos": [
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -6402,7 +6422,11 @@
       ]
      }
     ]
-   }
+   },
+   "farmacos": [
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
+   ]
   },
   {
    "id": "cx-complicaciones-tiroidectomia",
@@ -8382,6 +8406,9 @@
    "fisiopatologia": [
     "Embolia: un elemento originado en un sitio proximal, casi siempre un trombo de las cavidades cardíacas, se detiene en una arteria sana, con mayor frecuencia en la bifurcación femoral. Como no hay circulación colateral previa, la isquemia es más grave y es una emergencia que exige revascularización inmediata (Giménez, cap. 16).",
     "Trombosis: proceso local sobre una arteria ya enferma, habitualmente la femoral superficial con accidente de placa en el conducto de Hunter, o la trombosis de un bypass previo. Suele presentarse con menos gravedad por la circulación colateral previa (Giménez, cap. 16)."
+   ],
+   "farmacos": [
+    "fx-heparina"
    ]
   },
   {
@@ -8590,7 +8617,10 @@
       ]
      }
     ]
-   }
+   },
+   "farmacos": [
+    "fx-heparina"
+   ]
   },
   {
    "id": "cx-insuficiencia-venosa-varices",
@@ -9193,6 +9223,11 @@
    "fisiopatologia": [
     "La formación del cálculo requiere que la sal formadora supere su solubilidad en la orina (supersaturación), con aparición de un nido de cristales (nucleación homogénea o heterogénea) que crece y se agrega hasta alojarse en la vía urinaria (Manual SCHU, cap. 8).",
     "Favorecen la litiasis el déficit de inhibidores de la cristalización (citrato y magnesio), el pH urinario (ácido para el ácido úrico, alcalino para la estruvita), la disminución del volumen urinario y la estasis (Manual SCHU, cap. 8)."
+   ],
+   "farmacos": [
+    "fx-morfina",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -9780,7 +9815,9 @@
     "fx-vancomicina",
     "fx-linezolid",
     "fx-metronidazol",
-    "fx-clindamicina"
+    "fx-clindamicina",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -12524,7 +12561,11 @@
     "tipo": "libro",
     "nota": "Manual de referencia para la traumatología; el Giménez 2025 no la incluye. Contenido de las secciones 1.1 a 1.4."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
+   ]
   },
   {
    "id": "cx-fracturas-tratamiento-osteosintesis",
@@ -14665,7 +14706,12 @@
     "tipo": "libro",
     "nota": "Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-morfina",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
+   ]
   },
   {
    "id": "cx-tumores-quisticos-pancreas",
@@ -15686,7 +15732,10 @@
     "fx-amoxicilina",
     "fx-levofloxacina",
     "fx-metronidazol",
-    "fx-azitromicina"
+    "fx-azitromicina",
+    "fx-ibp-omeprazol",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
    ]
   },
   {
@@ -16594,7 +16643,12 @@
     "tipo": "libro",
     "nota": "Bibliografía complementaria de la cátedra. El tema no está en Giménez 2.ª ed. (2025) ni en el Manual CTO de Traumatología; no se hallaron guías argentinas o chilenas en las carpetas provistas."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-morfina",
+    "fx-ketorolaco",
+    "fx-ibuprofeno"
+   ]
   },
   {
    "id": "cx-accesos-venosos-centrales",

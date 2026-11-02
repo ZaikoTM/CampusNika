@@ -22,9 +22,11 @@ PATRONES = [
  ('vancomicina', r'vancomicina'), ('teicoplanina', r'teicoplanina'), ('linezolid', r'linezolid'),
  ('amikacina', r'amikacina'), ('gentamicina', r'gentamicina'), ('metronidazol', r'metronidazol'), ('clindamicina', r'clindamicina'),
  ('azitromicina', r'azitromicina'), ('doxiciclina', r'doxiciclina'), ('penicilina', r'penicilina(?!s?\s+de\s+espectro)'), ('fluconazol', r'fluconazol'),
+ ('ibp-omeprazol', r'omeprazol|esomeprazol|pantoprazol|lansoprazol|inhibidor(?:es)?\s+de\s+la\s+bomba\s+de\s+protones|ibp'), ('ketorolaco', r'ketorolac\w*'), ('ibuprofeno', r'ibuprofeno'),
+ ('paracetamol', r'paracetamol|acetaminofeno'), ('morfina', r'morfina|opioides?|fentanilo|opiaceos?'), ('heparina', r'heparina\w*|enoxaparina|hbpm|hnf'),
  ('albendazol', r'albendazol'), ('rifaximina', r'rifaximina'), ('colistin', r'colisti\w*'),
 ]
-UNIDAD_FX = 'fx6'; NOMBRE_FX = 'Antimicrobianos en Cirugía y Urología'
+UNIDAD_FX = 'fx6'; NOMBRE_FX = 'Fármacos en Cirugía y Urología'
 
 def sin_tildes(s):
     return ''.join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn')
@@ -40,6 +42,7 @@ def textos(x):
 
 def menciones(p):
     t = sin_tildes(' \n '.join(textos(p))); out = []
+    base = t
     for did, rx in PATRONES:
         m = re.search(r'(?<![a-z])(?:' + rx + r')(?![a-z])', t)
         if m:
@@ -48,6 +51,8 @@ def menciones(p):
                 m = re.search(r'(?<![a-z])(?:' + rx + r')(?![a-z])', t)
                 if not m: break
                 t = t[:m.start()] + ' ' * (m.end() - m.start()) + t[m.end():]
+    if re.search(r'(?<![a-z])(?:aines?|antiinflamatorios? no esteroid[a-z]*)(?![a-z])', base):   # "AINE" genérico: enlaza los AINE con ficha
+        out += [x for x in ('ketorolaco', 'ibuprofeno') if x not in out]
     return out
 
 def guardar(path, obj, raw, ind):
@@ -77,6 +82,8 @@ def main():
         p['farmacos'] = [i for i in p['farmacos'] if i in existentes]
         if not p['farmacos']: del p['farmacos']
     fx['meta']['unidades'][UNIDAD_FX] = NOMBRE_FX
+    for f in fx['patologias']:
+        if f.get('up') == [UNIDAD_FX]: f['unidad'] = NOMBRE_FX
     l2 = rc.decode('utf8').splitlines()[1]; guardar(pc, cx, rc, len(l2) - len(l2.lstrip(' ')))
     l2 = rf.decode('utf8').splitlines()[1]; guardar(pf, fx, rf, len(l2) - len(l2.lstrip(' ')))
     print('fichas de Cirugía con fármacos:', sum(1 for p in cx['patologias'] if p.get('farmacos')), '| fichas de fármacos nuevas:', nuevos, '| total fármacos:', len(fx['patologias']))
