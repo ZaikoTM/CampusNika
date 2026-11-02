@@ -30,7 +30,7 @@ begin
     if auth.uid() is null then raise exception 'sin sesion'; end if;
     v_inv := (select id from public.profiles where lower(username) = lower(p_invitado) limit 1);
     if v_inv is null or v_inv = auth.uid() then return false; end if;
-    if p_minutos is null or p_minutos < 1 or p_minutos > 180 then return false; end if;
+    if p_minutos is null or p_minutos < 1 or p_minutos > 720 then return false; end if;
     if p_key is null or length(p_key) > 120 or p_modulo is null or p_up is null then return false; end if;
     if not exists (
         select 1 from public.friendships f
