@@ -17,6 +17,12 @@ CONTRASTE_EXTRA = {
  'cx-accesos-vasculares-hemodialisis': ('coincide', 'Smith y Tanagho, Urología general, 18.ª ed. (2016), cap. 35', [
     'Ambos describen el acceso por fístula arteriovenosa, injerto vascular (autólogo de safena o sintético) o catéter permanente percutáneo; Michans (2002) detalla la fístula radiocefálica, el uso de prótesis de PTFE y el manejo de cada complicación.',
     'Smith y Tanagho agrega que la diálisis peritoneal se elige cuando el acceso vascular es inviable (cerca de 10 % de las diálisis) y que la hemodiálisis es intermitente, de 3 a 5 horas, tres veces por semana.']),
+ 'cx-pancreatitis-aguda': ('coincide', 'Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 348', [
+    'Ambos prefieren el Ringer lactato a la solución salina y titulan la reanimación a la diuresis (más de 0,5 mL/kg/h) con control seriado; Harrison detalla un bolo inicial de 15 a 20 mL/kg seguido de 2 a 3 mL/kg/h y la medición de hematocrito y BUN cada 8 a 12 horas.',
+    'Sobre la nutrición, Harrison indica la vía enteral a los 2 o 3 días del ingreso en las formas graves, en lugar de la parenteral total; el consenso argentino espera de 3 a 5 días para evaluar la tolerancia. Ambos prefieren la vía enteral.',
+    'Ambos recomiendan la colecistectomía en el mismo internamiento si la pancreatitis biliar es leve; Harrison plantea la esfinterotomía endoscópica antes del egreso para quienes no son candidatos a cirugía.']),
+ 'cx-diverticulitis': ('coincide', 'Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 328', [
+    'En la diverticulitis no complicada, Harrison recoge dos estudios aleatorizados (AVOD, con 623 pacientes, y DIABOLO, con 528) en los que los antibióticos no cambiaron el tiempo de resolución, las complicaciones ni la recurrencia, y los resultados de DIABOLO favorecieron la observación ambulatoria; coincide con la ficha, que no indica antibióticos de rutina.']),
 }
 def main():
     p = os.path.join(ROOT, 'data/flashcards_cirugia.json')

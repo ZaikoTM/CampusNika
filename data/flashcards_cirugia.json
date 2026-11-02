@@ -3530,7 +3530,14 @@
    "fisiopatologia": [
     "La diverticulosis colónica es multifactorial y suele ser asintomática; sus manifestaciones específicas son las complicaciones: inflamatorias (diverticulitis aguda y crónica) y hemorrágicas.",
     "Hinchey (1978), modificada con la TC: Ia flemón pericólico, Ib absceso pericólico o mesocólico, II absceso pélvico o a distancia, III peritonitis purulenta generalizada y IV peritonitis fecal generalizada. Grados I y II dan dolor localizado con defensa; III y IV dolor generalizado con reacción peritoneal."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 328",
+    "puntos": [
+     "En la diverticulitis no complicada, Harrison recoge dos estudios aleatorizados (AVOD, con 623 pacientes, y DIABOLO, con 528) en los que los antibióticos no cambiaron el tiempo de resolución, las complicaciones ni la recurrencia, y los resultados de DIABOLO favorecieron la observación ambulatoria; coincide con la ficha, que no indica antibióticos de rutina."
+    ]
+   }
   },
   {
    "id": "cx-cancer-colorrectal",
@@ -4885,7 +4892,7 @@
      "pasos": [
       {
        "etiqueta": "Hidratación",
-       "texto": "Cristaloides, preferentemente Ringer lactato, titulados a la respuesta: presión arterial media 65-85 mmHg, frecuencia < 120/min, diuresis > 0,5-1 ml/h/kg."
+       "texto": "Cristaloides, preferentemente Ringer lactato, titulados a la respuesta: presión arterial media 65-85 mmHg, frecuencia < 120/min, diuresis > 0,5-1 ml/kg/h."
       },
       {
        "etiqueta": "Analgesia",
@@ -5038,7 +5045,16 @@
    },
    "fisiopatologia": [
     "Las causas más frecuentes son la litiasis biliar y el alcohol, seguidas por la hipertrigliceridemia. Otras: anomalías de la convergencia biliopancreática, tumores que obstruyen la papila o el conducto, disfunción del esfínter de Oddi, infecciones, fármacos, causas iatrogénicas (CPRE), autoinmunes, traumáticas, isquémicas e hiperparatiroidismo (Giménez, cap. 59)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 348",
+    "puntos": [
+     "Ambos prefieren el Ringer lactato a la solución salina y titulan la reanimación a la diuresis (más de 0,5 mL/kg/h) con control seriado; Harrison detalla un bolo inicial de 15 a 20 mL/kg seguido de 2 a 3 mL/kg/h y la medición de hematocrito y BUN cada 8 a 12 horas.",
+     "Sobre la nutrición, Harrison indica la vía enteral a los 2 o 3 días del ingreso en las formas graves, en lugar de la parenteral total; el consenso argentino espera de 3 a 5 días para evaluar la tolerancia. Ambos prefieren la vía enteral.",
+     "Ambos recomiendan la colecistectomía en el mismo internamiento si la pancreatitis biliar es leve; Harrison plantea la esfinterotomía endoscópica antes del egreso para quienes no son candidatos a cirugía."
+    ]
+   }
   },
   {
    "id": "cx-cancer-pancreas",
