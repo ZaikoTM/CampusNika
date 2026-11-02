@@ -5,9 +5,9 @@ from rev6 import nueva as _n
 import rev6
 CONTENIDO = {}
 NUEVAS = []
-MICH = lambda cap, tit: {'guia': 'Cirugía de Michans, 5.ª ed., cap. %s: %s' % (cap, tit), 'sociedad': 'P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)', 'anio': '2021',
+MICH = lambda cap, tit: {'guia': 'Cirugía de Michans, 5.ª ed., cap. %s: %s' % (cap, tit), 'sociedad': 'P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)', 'anio': '2002',
                          'archivo': 'Capitulos_Michans, cap. %s' % cap, 'tipo': 'libro',
-                         'nota': 'El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra.'}
+                         'nota': 'Michans 5.ª ed. (El Ateneo, 2002; el programa de la cátedra cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra.'}
 
 def nueva(up, unidad, *a, **k):
     _n(*a, **k); d = rev6.NUEVAS.pop(); d['up'] = [up]; d['unidad'] = unidad; NUEVAS.append(d)
