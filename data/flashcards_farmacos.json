@@ -5,7 +5,8 @@
    "fx2": "Preeclampsia y antihipertensivos del embarazo",
    "fx3": "Parto pretérmino y maduración fetal",
    "fx4": "Anticoncepción y endocrinología ginecológica",
-   "fx5": "Antimicrobianos en Ginecología y Obstetricia"
+   "fx5": "Antimicrobianos en Ginecología y Obstetricia",
+   "fx6": "Antimicrobianos en Cirugía y Urología"
   },
   "descargo": "Resumen educativo de fármacos usados en Ginecología y Obstetricia: toma datos de los prospectos de la FDA, de consensos y guías nacionales y del vademécum de NikaFarma. Las dosis obstétricas fuera de prospecto provienen de las guías indicadas en cada ficha. No reemplaza el prospecto aprobado por la ANMAT, el protocolo de la institución ni el criterio del médico tratante."
  },
@@ -2901,6 +2902,838 @@
    "estado": "guia",
    "definicion": "Antibiótico · Aminoglucósido",
    "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-cefazolina",
+   "titulo": "Cefazolina",
+   "alias": [
+    "Profilaxis antibiótica quirúrgica",
+    "Apendicitis aguda",
+    "Hernia inguinal",
+    "Fractura de cadera",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Profilaxis antibiótica quirúrgica; Apendicitis aguda; Hernia inguinal; Fractura de cadera. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Cefazolina",
+       "texto": "1000-2000 mg c/8 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco Ampolla: 1000 mg polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a cefalosporinas."
+   ],
+   "efectos": [
+    "Hipersensibilidad, aumento de transaminasas, anemia hemolítica, leucopenia. Prueba de coombs positiva."
+   ],
+   "tiempos": [
+    "Vida media: 2 h (hasta 42 hs en IRC).",
+    "Eliminación: Renal 95% inmodificado, biliar < 1%",
+    "Distribución: Vd: 0,13 L/kg. No penetra en LCR.",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Hipersensibilidad a penicilinas, alergias medicamentosas. Riesgo de colitis y sobrecrecimiento de microorganismos no sensibles en tratamiento prolongado. No administrar vía intratecal: toxicidad severa del SNC.",
+    "Administración: - Las soluciones reconstituidas con concentraciones sobre 330 mg/ ml, pueden precipitar. - La administración en conjunto con aminoglucósidos potencia el efecto nefrotóxico de estos. - Contenido de sodio en 1 g: 2 mEq. - Las mezclas de antibacterianos betalactámicos (penicilinas y cefalosporinas) y aminoglucósidos pueden dar lugar a una sustancial inactivación mutua. Si se administran simultáneamente, debe hacerse en sitios separados. No mezclarlos en la misma jeringa o frasco."
+   ],
+   "vademecum": "cefazolina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Cefalosporina 1° generación",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-vancomicina",
+   "titulo": "Vancomicina",
+   "alias": [
+    "Profilaxis antibiótica quirúrgica",
+    "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Profilaxis antibiótica quirúrgica; Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Se une a los residuos D-Ala – D-Ala de los precursores del peptidoglucano bloqueando su incorporación a través de las PBP a la pared bacteriana. Actvidad bactericida tiempo dependiente con efecto post antibiótico moderado."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Vancomicina",
+       "texto": "15-20 mg/kg cada 8-12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco Ampolla: 500 y 1000 mg polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad."
+   ],
+   "efectos": [
+    "Hipersensibilidad (fiebre, escalofrios, exantema, eosinofilia). Sindrome de hombre rojo (si la perfusión de Vancomicina se hace de forma rápida). Nefrotoxicidad (>20% con niveles en valle de 15-20 mg/L). Tromobocitopenia y leucopenia. Ototoxicidad es rara."
+   ],
+   "tiempos": [
+    "Vida media: 6-8 hs (hasta 250 hs en IRC).",
+    "Eliminación: Renal (90-100% inmodificado).",
+    "Distribución: Vd: 0,47-0,94 L/kg (alcanza hasta 20% en LCR aunque suele ser subterapéutica)",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente segura (B). No obstante, la vancomicina penetra en la placenta y no se puede excluir el riesgo de ototoxicidad y nefrotoxicidad embrionaria o neonatal. Por consiguiente, la vancomicina debe administrarse durante el embarazo únicamente en caso de necesidad evidente y después de evaluar riesgos y beneficios.",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Monitorear y ajustar dosis en: alteraciones hematológicas, capacidad auditiva, ancianos, IR, concomitancia con farmacos ototóxicos y/o nefrotóxicos. Riesgo de: colitis y crecimiento de microorganismos no susceptibles, eritema y reacción anafilactoide en niños y en concomitancia con anestésicos; evitar extravasación en infusiones IV.",
+    "Administración: - La administración demasiado rápida puede dar lugar al síndrome del “hombre rojo”, con caída de tensión arterial y eritema en cara, cuello, pecho y extremidades superiores. En caso de presentarse debe enlentecerse la velocidad de infusión. - Máxima cc de administración es 10 mg/ml, se debe infundir por vía central únicamente."
+   ],
+   "vademecum": "vancomicina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Glucopéptido",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-amoxicilina",
+   "titulo": "Amoxicilina",
+   "alias": [
+    "Herida aguda: evaluación y manejo inicial",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Herida aguda: evaluación y manejo inicial. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Amoxicilina",
+       "texto": "500 mg c/ 8 hs  875 mg c/ 12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 250-500-875 mg; Suspensión Oral: 50-100-150 mg/ml"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a ß-lactámicos; antecedentes de reacciones de hipersensibilidad inmediata grave (ej. anafilaxis) a otro agente ß-lactámico. Evitar el tratamiento en caso de mononucleosis infecciosa."
+   ],
+   "efectos": [
+    "Hipersensibilidad (inmediata <0,01%), eritema maculopapular, vasculitis. Anemia, aumento de ALT/AST, náuseas, molestias abdominales, diarrea, dolor de cabeza, rash cutáneo, candidiasis mucocutanea."
+   ],
+   "tiempos": [
+    "Vida media: 1 hora (hasta 20 hs en IRC).",
+    "Eliminación: Renal (70% inmodificado), biliar < 5%.",
+    "Distribución: Vd: 0,25 - 0,42 L/kg. Poca difusión en SNC.",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Monitoreo IR, IH, tiempo de protombina en concomitancia con anticoagulantes; preveer tratamiento soporte en caso de reacción alérgica. Suspender tratamiento en caso de: reacción alérgica, convulsiones, eritema febril generalizado asociado a pústula; riesgo de sobrecrecimiento de microorganismos no sensibles en tratamiento prolongado. Mantener líquidos y diuresis adecuada en dosis alevadas."
+   ],
+   "vademecum": "amoxicilina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Betalactámico",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-albendazol",
+   "titulo": "Albendazol",
+   "alias": [
+    "Quiste hidatídico hepático",
+    "antiparasitario"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Quiste hidatídico hepático. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Se une a la β-tubulina e inhibe su polimerizacion, no se forman los microtubulos y se detiene la división celular."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Hidatidosis, Neurocistercosis, Triquinosis",
+       "texto": "400 mg c/12 hs"
+      },
+      {
+       "etiqueta": "Oxiuriasis, Ascaridiasis, Ancilostomiasis, Trichuriasis, Teniasis",
+       "texto": "400 mg c/24 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 400 mg; Suspensión Oral: 40 mg/ml"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a cualquier componente de la formula. Los comprimidos contienen lactosa en su composición, por lo tanto se desaconseja su uso en personas con insuficiencia de lactasa, galactosemia, o síndrome de malabsorción glucosa/galactosa."
+   ],
+   "efectos": [
+    "Dolor de estómago, náuseas, vómitos, dolor de cabeza, mareos, pérdida reversible del cabello, olor de garganta, fiebre, escalofríos u otros síntomas de infección, sangrado o moretones inusuales, debilidad, fatiga, piel pálida, falta de aliento, sarpullido, urticaria,"
+   ],
+   "tiempos": [
+    "Vida media: 8 a 12 hs..",
+    "Eliminación: Biliar y a través de mucosa intestinal. Renal < 1%.",
+    "Distribución: Las concentraciones plasmáticas máximas de Albendazol sulfóxido generalmente se detectan entre 2 y 5 horas de su administración. Buena penetración en SNC y en quistes (cc en LCR 43% de la cc sérica)."
+   ],
+   "precauciones": [
+    "Embarazo: Su administración durante el embarazo podrá efectuarse solo si el beneficio potencial justifica el posible riesgo para el feto (C).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Se debe tener precaución con la administración simultánea de teofilina, dexametasona, praziquantel y cimetidina. En tratamientos prolongados además, se debe tener presente el reporte de algunos casos fatales por granulocitopenia o pancitopenia. Antes de comenzar el tratamiento por neurocisticercosis, el paciente debe ser examinado para excluir la presencia de lesiones en la retina. Si tales lesiones estuvieran presentes, se deberá evaluar el beneficio del tratamiento contra la posibilidad de daño a la retina causada por las alteraciones inducidas por el fármaco en la lesión pre existente. Se deberá realizar un hepatograma basal, previo al tratamiento. Los pacientes que evidencien alteraciones hepáticas en los resultados de las pruebas hepáticas deberán ser evaluados cuidadosamente, dado que la droga es metabolizada en el hígado."
+   ],
+   "vademecum": "albendazol",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antiparasitario · Benzimidazol carbamato",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-ampicilina-sulbactam",
+   "titulo": "Ampicilina/Sulbactam",
+   "alias": [
+    "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Ampicilina bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas. Sulbactam bloquea transitoriamente la mayoria de betalactamasas de clase A (incluyendo BLEE tipo CTM-X). No inhibe betalactamasas de clase A con actividad carbapenemasa (KPC, GES), las de clase B, C y la mayoría de D."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Ampicilina/Sulbactam",
+       "texto": "1000-2000 mg c/6 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 375 mg (ampicilina: 220 mg + sulbactam: 147 mg) como sultamicilina; Suspensión Oral: 50 mg de sultamicilina/ml; Frasco Ampolla: 1500 mg (ampicilina 1000 mg + sulbactam: 500 mg) polvo liofilizado; Frasco Ampolla: 750 mg (ampicilina 500 mg + sulbactam 250 mg) polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Pacientes alérgicos a penicilinas. Mononucleosis infecciosa."
+   ],
+   "efectos": [
+    "Diarrea (8%), dolor abdominal, exantema.  Erupción maculopapulosa (más frecuente que con penicilina G). Colitis por C. difficile. Hipersensibilidad (inmediata <0,01%), vasculitis. Anemia, aumento de ALT/AST, náuseas, molestias abdominales, dolor de cabeza, rash cutáneo, candidiasis mucocutanea."
+   ],
+   "tiempos": [
+    "Vida media: 1 hora (hasta 20 hs en IRC) para ambos fármacos..",
+    "Eliminación: Renal 70% inmodificado, biliar < 5% para ambos fármacos.",
+    "Distribución: Vd: 0,17-0,31 L/kg para Ampicilina, 0,25-0,5 L/kg para Sulbactam. Penetración en SNC <10% para Ampicilina, 10-15% para Sulbactam.",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Chequear historial de hipersensibilidad a alérgenos. Riesgo de: sobreinfección por microorganismos no susceptibles, alteración de la flora gastrointestinal, colitis y diarrea. Monitorear FR, FH y sistema hematopoyético en tratamiento prolongado, recién nacidos, prematuros y lactantes.",
+    "Administración: - Cada gramo de Ampicilina Sódica aporta 2,9-3,1 mEq de Sodio. - No administrar simultáneamente con antibióticos aminoglucósidos."
+   ],
+   "vademecum": "ampicilina-sulbactam",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Betalactámico",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-piperacilina-tazobactam",
+   "titulo": "Piperacilina/Tazobactam",
+   "alias": [
+    "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas.  Tazobactam bloquea transitoriamente la mayoria de betalactamasas de clase A (incluyendo BLEE tipo CTM-X). No inhibe betalactamasas de clase A con actividad carbapenemasa (KPC, GES), las de clase B, C y la mayoría de D."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Piperacilina /Tazobactam",
+       "texto": "4,5 g c/6-8 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco Ampolla: 4 gr Piperacilina + 0,5 gr Tazobactam polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a piperacilina o ß-lactámico, tazobactam cualquier inhibidor de ß-lactamasas."
+   ],
+   "efectos": [
+    "Diarrea, cefalea, estreñimiento, insomnio, dispepsia, prurito, dolor en el pecho. Reacciones de hipersensibilidad. Exantema, dolor abdominal, náuseas. Anemia hemolítica. Leucopenia y neutropenia en pacientes tratados por más de 3 semanas. Interfiere con la agregación plaquetaria. Sobreinfección por Clostridium difficile (tratamiento prolongado). Puede dar falsos positivos en la determinación de Ag galactomanano."
+   ],
+   "tiempos": [
+    "Vida media: 1,3 hs Piperacilina y 1,1 hs Tazobactam (en IRC 4,5 hs y 17 hs respectivamente).",
+    "Eliminación: Renal (>60% inmodificado), biliar.",
+    "Distribución: Vd: 0,3 L/kg (no penetra en SNC)",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Riesgo de: hipersensibilidad, colitis, sobreinfección y manifestaciones hemorrágicas, excitabilidad neuromuscular o convulsiones. Monitoreo: renal, hepático y hematopoyético en tratamiento prolongado.",
+    "Administración: - Incompatible RL y aminoglucósidos, administrar con una hora de separación entre ellos."
+   ],
+   "vademecum": "piperacilina-tazobactam",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Betalactámico",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-linezolid",
+   "titulo": "Linezolid",
+   "alias": [
+    "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Se une a la subunidad 50s del ribosoma e impide la formación de un complejo funcional 70S, que es indispensable para el proceso de transducción, bloqueando así la síntesis protéica.  Actividad tiempo dependiente bacteriostático frente a estafilococos y enterococos y bactericida frente a estreptococos.  Presenta efecto post antibiótico corto (1-3 hs).  Inhibidor reversible no selectivo de la MAO."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Linezolid",
+       "texto": "600 mg c/12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Solución IV: 600 mg (2 mg/ml); Comprimidos: 600 mg"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad; HTA no controlada, feocromocitoma, s. carcinoide, tirotoxicosis, trastornos psiquiatricos; concomitancia con: IMAO, ISRS, antidepresivos tricíclicos, agonistas 5-HT1, simpaticomiméticos, vasopresores, dopaminérgicos, petidina, buspirona."
+   ],
+   "efectos": [
+    "Alteraciones gastrointestinales, diarrea, náuseas, vómitos, dolor abdominal, prurito y decoloración de la lengua. En tratamiento prolongados se observa trombocitopenia y anemia reversible. Neuritis óptica y polineuritis. Acidosis láctica. Hipoglucemia. Candidiasis. Hipertensión, sindrome serotoninérgico."
+   ],
+   "tiempos": [
+    "Vida media: 5 horas.",
+    "Eliminación: Renal 80% (30% inmodificado y 50% como metabolitos), fecal 10%.",
+    "Distribución: Vd: 0,7 L/kg (alcanza hasta 90 % en LCR).",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe otra alternativa (C).",
+    "Lactancia: Si bien se considera de riesgo bajo, se recomienda evitar.",
+    "Precauciones: Evitar grandes cantidades de alimentos ricos en tiramina; monitorear pacientes con: anemia previa, granulocitopenia, trombocitopenia, Hb o recuento hemático disminuido por medicación concomitante, IR, IH. Riesgo de: mielosupresión, acidosis láctica, sobrecrecimiento de microorganismos no sensibles, colitis , diarrea, neuropatía óptica, convulsiones.",
+    "Administración: - Mantener en su cubierta protectora hasta el momento de usar.  - La solución inyectable puede presentar una coloración ligeramente amarillenta que puede intensificarse con el tiempo sin afectar su potencia."
+   ],
+   "vademecum": "linezolid",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Oxazolidinona",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-amoxicilina-clavulanico",
+   "titulo": "Amoxicilina/Clavulánico",
+   "alias": [
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infección del tracto urinario: cistitis, pielonefritis y recurrente. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Amoxicilina bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas. Ácido clavulánico bloquea transitoriamente la mayoria de betalactamasas de clase A (incluyendo BLEE tipo CTM-X). No inhibe betalactamasas de clase A con actividad carbapenemasa (KPC, GES), las de clase B, C y la mayoría de D."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Amoxicilina/Clavulánico",
+       "texto": "875/125 mg c/8- 12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 500 mg Amoxicilina + 125 ácido clavulánico; Comprimidos: 875 mg Amoxicilina + 125 mg ácido clavulánico; Suspensión Oral: cada 5 ml: 250 mg de Amoxicilina + 62,5 mg ácido clavulánico; Suspensión Oral: cada 5 ml 400 mg de Amoxicilina + 57 de ácido clavulánico; Suspensión Oral: cada 5 ml: 600 mg Amoxicilina + 42,5 mg ácido clavulánico"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a amoxicilina o ác. clavulánico; antecedente de hipersensibilidad a ß-lactámicos; mononucleosis infecciosa y leucemia linfoide (mayor riesgo de exantema). IH, antecedente de ictericia."
+   ],
+   "efectos": [
+    "Náuseas, vómitos y dolor abdominal (puede reducirse tomándolo con comida). Diarrea (5%). Hipersensibilidad (inmediata <0,01%), eritema maculopapular, vasculitis. Hepatitis colestásica, aumento de ALT/AST, dolor de cabeza, rash cutáneo, candidiasis mucocutanea. Anemia."
+   ],
+   "tiempos": [
+    "Vida media: 1 hora (hasta 20 horas en IRC para Amoxicilina, 4 hs para Clavulánico).",
+    "Eliminación: Renal (70% inmodificado para Amoxicilina, 40% para Clavulánico), biliar.",
+    "Distribución: Vd: 0,2 L/kg. Baja difusión al SNC (< 5%)",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Monitoreo y ajustar dosis si se requiere pacientes con: IR, IH, hematológico, diuresis aumentada. Tratamiento prolongado: riesgo de sobreinfección; mantener hidratación para evitar cristaluria. Suspender si aparece: eritema febril generalizado asociado a pústula al iniciar tratamiento, reacción alérgica, convulsión, colitis asociada a antibióticos, alergia grave o asma (mayor riesgo de reacción alérgica). Controlar tiempo de protrombina e INR asociado con anticoagulantes."
+   ],
+   "vademecum": "amoxicilina-clavulanico",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Betalactámico",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-trimetoprima-sulfametoxazol",
+   "titulo": "Trimetoprima/Sulfametoxazol",
+   "alias": [
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infección del tracto urinario: cistitis, pielonefritis y recurrente. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Produce bloqueo secuencial en la síntesis de ácido fólico (bloqueo de las enzimas dihidrofolato reductasa y dihidropteróico sintetasa) sin el cual la bacteria no puede sintetizar timidina, lo que conduce a una interferencia en la síntesis de los ácidos nucleicos y de las proteínas."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Inf. Urinarias",
+       "texto": "160 mg TMP c/12 hs"
+      },
+      {
+       "etiqueta": "Inf. Piel y P. Blandas",
+       "texto": "160 mg TMP c/12 hs"
+      },
+      {
+       "etiqueta": "Neumonía por PJ o Stenotrophomonas",
+       "texto": "15-20 mg/kg/día de TMP c/6-8 h"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 400 mg Sulfametoxasol + 80 mg Trimetoprima; Comprimidos: 800 mg Sulfametoxasol + 160 mg Trimetoprima; Jarabe: 40 mg Sulfametoxasol + 8 mg Trimetoprima por ml"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Antecedentes de hipersensibilidad a principios activos o a sulfonamidas. Porfiria, anemia megaloblástica, IR, IH."
+   ],
+   "efectos": [
+    "Anorexia, náuseas, vómitos, vértigo, fotodermatitis, convulsión. Eritema multiforme, hiperkalemia, hiponatremia, rash, urticaria, sindrome de Steven-Johnson. Agranulocitosis, anemia aplásica. Aumento de enzimas hepáticas, hepatitis. Encefalopatia neonatal (kernicterus)."
+   ],
+   "tiempos": [
+    "Vida media: 10 hs (hasta 49 hs en IRC) para ambas drogas..",
+    "Eliminación: Renal (70% inmodificado para ambas drogas con reabsorción en el túbulo renal para Trimetoprima)",
+    "Distribución: Vd: Trimetoprima 1,3 - 1,8 L/kg, Sulfametoxasol 0,28-0,38 L/kg (difusión hasta 50% en LCR para ambas drogas)",
+    "Farmacodinamia: bactericida."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe otra alternativa (C), sobre todo durante 1° y 3° trimestre.",
+    "Lactancia: Riesgo muy bajo. Evitar en prematuros, niños con hiperbilirrubinemia y en déficit de G6PD.",
+    "Precauciones: Monitorear: alteraciones hematológicas, IR, IH, ancianos, deficiencia de G6PDH, fenilcetonúricos, pacientes con riesgo de hiperpotasemia e hipernatremia, diuresis. Evitar exposición UV solar. Vía IV precaución en pacientes con alergias graves, asma bronquial o HIV.",
+    "Administración: - Presenta muy baja Estabilidad: diluida en SG5% (0,64 mg/ml de TMP 6 horas, 0,8 mg/ml 4 horas, 1,06 mg/ml 2 horas)."
+   ],
+   "vademecum": "trimetoprima-sulfametoxazol",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Asociación de Diaminopirimidina (Trimetoprima) con Sulfonamida (Sulfametoxasol) en proporción 1:5",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-ciprofloxacina",
+   "titulo": "Ciprofloxacina",
+   "alias": [
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "Infecciones de transmisión sexual con úlcera genital",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infección del tracto urinario: cistitis, pielonefritis y recurrente; Infecciones de transmisión sexual con úlcera genital. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad de la topoisomerasa II bacteriana (ADN girasa) y IV dificultando la replicación del ADN bacteriano.  Efecto bactericida concentración dependiente con efecto post antibiótico."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Ciprofloxacina (EV)  Pseudomonas/Severas",
+       "texto": "400 mg c/8 hs"
+      },
+      {
+       "etiqueta": "Ciprofloxacina (EV)  Otras",
+       "texto": "200- 400 mg c/12 hs"
+      },
+      {
+       "etiqueta": "Ciprofloxacina (VO)",
+       "texto": "500 mg c/12 hs Pseudomonas/Severas: 750 mg c/12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 250-500 mg; Solución IV: 200 y 400 mg (2 mg/ml); Gotas oftálmicas: 0,3%."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a quinolonas; no administrar con tizanidina."
+   ],
+   "efectos": [
+    "Alteraciones gastrointestinales, náuseas, vómitos, diarreas, dolor abdominal. Aumento transitorio de enzimas hepáticas. Reacciones de hipersensibilidad cutánea, urticaria, prurito, fotosensibilidad e hiperpigmentación. Artralgias. Tenosinovitis especialmente de Aquiles con posible rotura.  Alteraciones neurológicas, cefalea, inestabilidad, insomnio, somnolencia, alteraciones de la marcha, agitación, alucinaciones, cuadros psicóticos y convulsiones. Nefritis intersticial aguda y cristaluria. Prolongación menor del intervalo QT."
+   ],
+   "tiempos": [
+    "Vida media: 4 hs (hasta 9 hs en IRC).",
+    "Eliminación: Renal 60% (20% en forma de metabolitos), fecal 15%, biliar 15%.",
+    "Distribución: Vd: 2-3 L/kg (alcanza hasta 40% en LCR).",
+    "Farmacodinamia: bactericida (concentracion_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Evidencia actualmente en discusión. Utilizar otra alternativa de ser posible (C).",
+    "Lactancia: La evidencia es discutida y no hay postura clara definida sobre su uso en lactancia. Si bien se elimina en leche materna, lo hace a una cc muy baja y su uso se considera de bajo riesgo. No se recomienda en tratamientos de larga duración.",
+    "Precauciones: Vigilar hidratación. Evaluar riesgo/beneficio en infecciones graves, niños, pacientes con medicación concomitante y con enfermedades de base. Suspender tratamiento en caso de: tendinitis, hipersensibilidad, convulsiones, colitis, hepatopatias. Evitar exposición solar y radiaciones UV.",
+    "Administración: - No guardar en heladera (puede cristalizar). Proteger de la luz."
+   ],
+   "vademecum": "ciprofloxacina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Quinolona 2° generación",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-nitrofurantoina",
+   "titulo": "Nitrofurantoína",
+   "alias": [
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infección del tracto urinario: cistitis, pielonefritis y recurrente. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Mecanismo poco conocido. Probablemente actúa en varios lugares (bloquea la síntesis protéica en el ribosoma tras ser atacado por reductasas bacterianas, rompe cadenas de ADN y bloquea actividad de acetil-coenzima A)."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Nitrofurantoína",
+       "texto": "100 mg c/8-6 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 100 mg; Suspensión Oral: 5 mg/ml"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a nitrofurantoína y nitrofuranos; tratamientos prolongados o intermitentes; IR; porfiria aguda; deficiencias de G6PDH."
+   ],
+   "efectos": [
+    "Náuseas, vómitos (muy común). Neumonitis (aguda e intersticial crónica), edema pulmonar. Hipersensibilidad (urticaria, rash, exantema). Polineuropatías. Eosinofilia, granulocitopenia. Crisis de hemólisis en pacientes con déficit de glucosa-6-fosfato deshidrogenasa eritrocitaria. Hepatotoxicidad (ictericia colestática o daño hepatocelular con el uso prolongado)."
+   ],
+   "tiempos": [
+    "Vida media: < 0,5 hs (1 hora en IRC).",
+    "Eliminación: Renal (30-40% sin modificación). Presenta reabsorción tubular en medio ácido.",
+    "Distribución: Vd: 0,3-0,7 L/kg",
+    "Farmacodinamia: bactericida."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B). Evitar en 3° trimestre (posible hemólisis en recién nacido).",
+    "Lactancia: Riesgo muy bajo. No emplear mientras el lactante sea menor de dos semanas o si tiene déficit de G6PD.",
+    "Precauciones: Monitorear y realizar laboratorios por riesgo hepático, renal; valorar riesgo/beneficio en: antecedentes de infección por microorganismos multirresistente, enf. Pulmonar, alteración de la FH, reacciones alérgicas, anemia, diabetes mellitus, desequilibrio electrolítico, debilidad o déficit de vit. B. Interrumpir tratamiento si se presentan alteraciones hepaticas, pulmorares o neurológicas."
+   ],
+   "vademecum": "nitrofurantoina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Nitrofurano",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
+  },
+  {
+   "id": "fx-fosfomicina",
+   "titulo": "Fosfomicina",
+   "alias": [
+    "Infección del tracto urinario: cistitis, pielonefritis y recurrente",
+    "antibiótico"
+   ],
+   "up": [
+    "fx6"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Aparece en las fichas de Cirugía y Urología: Infección del tracto urinario: cistitis, pielonefritis y recurrente. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Tras penetrar en el citoplasma de la bacteria inhibe de forma competitiva la enzima MurA (enolpiruvato transferasa) que interviene en la síntesis de N-acetilmurámico (componente del peptidoglicano).  Actividad bactericida tiempo dependiente con efecto post antibiótico para BGN."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Fosfomicina Sódica (EV)",
+       "texto": "Cl >60: 4 g c/6 hs Cl 40-60: 4 g c/12 hs"
+      },
+      {
+       "etiqueta": "Fosfomicina Trometamol (Oral)",
+       "texto": "3 g dosis única"
+      },
+      {
+       "etiqueta": "Fosfomicina Cálcica (Oral)",
+       "texto": "500-1000 mg c/8 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco ampolla: 1 gr como polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad; IR grave; hemodializados; niños."
+   ],
+   "efectos": [
+    "Flebitis en zona de inyección. Hipopotasemia si se dan dosis altas IV en menos de 1 hora. Desordenes electrolíticos debido al contenido de sodio (13,5 mol/g). Neutropenia, eosinofilia, trombocitosis y aumento de enzimas hepáticas (poco frecuente). Reacciones de hipersensibilidad, urticaria y erupciones eritematosas."
+   ],
+   "tiempos": [
+    "Vida media: 3 hs (hasta 50 hs en IRC)..",
+    "Eliminación: Renal 85%, fecal 15%.",
+    "Distribución: Vd: 0,3 L/kg (hasta 25% en LCR).",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Riesgo de colitis, diarrea.",
+    "Administración: - El FA de 1 gr contiene 330 mg de Sodio (14,5 mEq)."
+   ],
+   "vademecum": "fosfomicina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Derivado del ácido fosfórico",
+   "unidad": "Antimicrobianos en Cirugía y Urología"
   }
  ]
 }
