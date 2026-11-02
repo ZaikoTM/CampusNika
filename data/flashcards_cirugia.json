@@ -15241,6 +15241,118 @@
     "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-herida-mano-tendones-nervios-vasos",
+   "area": "cirugia",
+   "titulo": "Herida cortante profunda de la mano: tendones, nervios y vasos",
+   "alias": [
+    "herida de mano",
+    "lesion de tendones flexores",
+    "lesion de tendones extensores",
+    "lesion nerviosa de la mano",
+    "lesion vascular de la mano",
+    "dedo en martillo",
+    "ferula"
+   ],
+   "up": [
+    "cx1"
+   ],
+   "unidad": "UP1 · Trauma de miembro superior y generalidades quirúrgicas",
+   "estado": "verificar",
+   "definicion": "Herida cortante que puede comprometer los tendones flexores o extensores, los nervios digitales o los vasos de la mano. Debe explorarse de forma dirigida para reconocer estas lesiones antes de cerrar la herida.",
+   "diagnostico": [
+    "Tendones: la pérdida de la caída normal de los dedos hace sospechar la lesión; si el paciente no coopera, la extensión de la muñeca produce flexión pasiva de los dedos (tenodesis) y evidencia el déficit.",
+    "Nervios: en una lesión cortante, un déficit sensitivo implica lesión nerviosa hasta que se demuestre lo contrario.",
+    "Vasos: una laceración parcial de una arteria a nivel de la muñeca puede causar hemorragia exsanguinante; el dedo tiene dos sitios de flujo arterial y puede sobrevivir con uno."
+   ],
+   "estudios": [
+    "Examen de la movilidad de cada tendón, de la sensibilidad y de la perfusión; radiografía si se sospecha fractura o cuerpo extraño."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta inicial",
+     "pasos": [
+      {
+       "etiqueta": "Hemorragia",
+       "texto": "Presión local continua por no menos de 10 minutos; si no cede, torniquete en el miembro superior 100 mmHg por encima de la presión sistólica y por menos de 2 horas. Pedir valoración urgente por otro especialista ante una lesión arterial y no ligar a ciegas por el riesgo de incluir nervios."
+      },
+      {
+       "etiqueta": "Tendones flexores",
+       "texto": "Siempre se reparan en el quirófano; no es necesario el mismo día, pero cuanto antes, más fácil recuperar los cabos proximales retraídos. Cerrar la piel con material no absorbible y ferular con la muñeca en flexión leve (cerca de 20°). El principio actual es la reparación primaria con movilización temprana controlada."
+      },
+      {
+       "etiqueta": "Tendones extensores",
+       "texto": "No pasan por una vaina en los dedos, por lo que una reparación primaria puede hacerse en urgencias con supervisión y equipo apropiados. El dedo en martillo cerrado se trata con férula en extensión de la articulación interfalángica distal durante seis semanas."
+      },
+      {
+       "etiqueta": "Nervios",
+       "texto": "La reparación requiere equipo microquirúrgico y no debe hacerse en urgencias; no exige exploración inmediata, pero la temprana facilita identificar las estructuras y deja menos cicatriz. El retraso puede obligar a usar un injerto."
+      },
+      {
+       "etiqueta": "Inmovilización",
+       "texto": "Posición de protección: articulaciones metacarpofalángicas a 90°, interfalángicas a 0° y muñeca en 20° de extensión."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control de la herida y de la infección, y rehabilitación guiada de la movilidad."
+   ],
+   "banderas": [
+    "Déficit sensitivo tras una herida cortante: lesión nerviosa hasta demostrar lo contrario.",
+    "Hemorragia activa: compresión local y torniquete por menos de 2 horas; no clampear a ciegas."
+   ],
+   "algoritmo": {
+    "titulo": "Herida cortante profunda de la mano (Schwartz 10.ª ed.)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Herida cortante profunda de la mano o los dedos"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hemorragia activa o signos de compromiso vascular?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Compresión local continua 10 minutos; torniquete 100 mmHg sobre la sistólica por menos de 2 horas; valoración urgente por especialista"
+       }
+      ],
+      "no": [
+       {
+        "t": "accion",
+        "txt": "Explorar movilidad de cada tendón, sensibilidad digital y perfusión"
+       }
+      ]
+     },
+     {
+      "t": "decision",
+      "txt": "¿Hay déficit de movimiento (tendón) o de sensibilidad (nervio)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Lavado, cierre de piel con material no absorbible, férula en posición de protección y reparación del tendón o nervio en quirófano (la nerviosa con microcirugía)"
+       }
+      ],
+      "no": [
+       {
+        "t": "fin",
+        "txt": "Lavar, desbridar y cerrar la herida, inmovilizar, indicar cuidados domiciliarios, signos de alarma y seguimiento"
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Schwartz, Principios de Cirugía, 10.ª ed., cap. 44: Cirugía de mano y muñeca",
+    "sociedad": "F. C. Brunicardi y col., McGraw-Hill",
+    "anio": "2015",
+    "archivo": "Capitulos_Schwartz, cap. 44",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   }
  ],
  "cobertura": {
@@ -15265,7 +15377,8 @@
     "Consentimiento informado y bioética quirúrgica",
     "Respuesta a la lesión, sepsis y falla multiorgánica",
     "Cirugía mínimamente invasiva, robótica y guiada por imágenes",
-    "Soporte nutricional del paciente quirúrgico"
+    "Soporte nutricional del paciente quirúrgico",
+    "Herida cortante profunda de la mano: tendones, nervios y vasos"
    ],
    "cx2": [
     "Abdomen agudo: enfoque inicial y estudios por imágenes",
