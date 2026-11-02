@@ -13382,7 +13382,8 @@
     "embolizacion"
    ],
    "up": [
-    "cx11"
+    "cx11",
+    "cx6"
    ],
    "unidad": "UP11 · Obstrucción urinaria baja y urología",
    "estado": "verificar",
@@ -14552,6 +14553,694 @@
     "nota": "Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-cancer-prostata-riesgo-tratamiento",
+   "area": "cirugia",
+   "titulo": "Cáncer de próstata: grupos de riesgo y tratamiento del localizado",
+   "alias": [
+    "cancer de prostata",
+    "vigilancia activa",
+    "prostatectomia radical",
+    "radioterapia",
+    "braquiterapia",
+    "damico",
+    "protect",
+    "isup"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Adenocarcinoma de la próstata. El tratamiento del cáncer localizado y localmente avanzado sigue siendo controvertido: se elige según el grupo de riesgo, la expectativa de vida, los efectos adversos esperables y la preferencia del paciente.",
+   "diagnostico": [
+    "Los grupos de riesgo (EAU, NCCN, AUA) combinan el grado ISUP de la biopsia, el APE y el estadio clínico, siguiendo el sistema de D'Amico. El riesgo intermedio se divide en favorable y desfavorable.",
+    "Muy bajo riesgo: cT1c, ISUP 1, APE menor de 10 con menos de 3 cores positivos y densidad de APE menor de 0,15. Alto riesgo: ISUP 4 a 5, APE mayor de 20 o cT3 a cT4 (Manual SCHU, cap. 26).",
+    "Los nomogramas (tablas de Partin, Kattan) predicen la extensión, el compromiso ganglionar y los resultados tras el tratamiento, y orientan sobre la linfadenectomía pelviana."
+   ],
+   "estudios": [
+    "Estadificación clínica con tacto rectal, APE, resonancia multiparamétrica y biopsia; PET-TC en casos seleccionados."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Opciones para el cáncer localizado",
+     "pasos": [
+      {
+       "etiqueta": "Vigilancia activa",
+       "texto": "Monitoreo estructurado del cáncer indolente de bajo riesgo en pacientes jóvenes, con tratamiento curativo si hay progresión. A diferencia de la observación expectante, busca diferir el tratamiento sin perder el control oncológico."
+      },
+      {
+       "etiqueta": "Prostatectomía radical",
+       "texto": "Extirpación de la próstata y las vesículas seminales, con linfadenectomía pelviana en algunos casos; es curativa en el localizado o localmente avanzado."
+      },
+      {
+       "etiqueta": "Radioterapia",
+       "texto": "Externa o braquiterapia (de baja o alta tasa); en riesgo intermedio, braquiterapia más radioterapia externa y 4 a 6 meses de hormonoterapia."
+      },
+      {
+       "etiqueta": "Evidencia (ProtecT, 15 años)",
+       "texto": "Mortalidad específica baja y sin diferencias entre vigilancia (3,1 %), cirugía (2,2 %) y radioterapia (2,9 %); las metástasis fueron más frecuentes en vigilancia (9,4 % contra 4,7 % y 5,0 %). La elección se basa en riesgos, efectos secundarios y calidad de vida."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento con APE y control periódico; en vigilancia activa, repetir estudios para detectar progresión."
+   ],
+   "banderas": [
+    "Un APE elevado exige biopsia antes de tratar; no se trata sin estadificar el riesgo.",
+    "En vigilancia activa, la progresión biológica es la indicación de tratamiento curativo."
+   ],
+   "algoritmo": {
+    "titulo": "Cáncer de próstata localizado (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Cáncer de próstata confirmado por biopsia: ISUP, APE, estadio clínico y resonancia"
+     },
+     {
+      "t": "accion",
+      "txt": "Clasificar el riesgo (EAU, NCCN o AUA) y estimar con nomogramas la extensión y el compromiso ganglionar"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Muy bajo o bajo riesgo, paciente con expectativa de vida larga y tumor indolente?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Vigilancia activa con controles estructurados; tratamiento curativo si hay progresión"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Riesgo intermedio o alto, o localmente avanzado?",
+        "si": [
+         {
+          "t": "decision",
+          "txt": "¿Paciente apto y que elige cirugía?",
+          "si": [
+           {
+            "t": "fin",
+            "txt": "Prostatectomía radical ± linfadenectomía pelviana según el riesgo ganglionar"
+           }
+          ],
+          "no": [
+           {
+            "t": "fin",
+            "txt": "Radioterapia externa o braquiterapia, con hormonoterapia 4 a 6 meses en riesgo intermedio combinado"
+           }
+          ]
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Decisión compartida según efectos secundarios y calidad de vida (ProtecT: resultados equivalentes)"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 26: Cáncer de próstata",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 26",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-cancer-via-urinaria-alta",
+   "area": "cirugia",
+   "titulo": "Cáncer de la vía urinaria alta (pelvis renal y uréter)",
+   "alias": [
+    "carcinoma urotelial alto",
+    "cancer de pelvis renal",
+    "cancer de ureter",
+    "nefroureterectomia",
+    "sindrome de lynch",
+    "arsenico"
+   ],
+   "up": [
+    "cx11"
+   ],
+   "unidad": "UP11 · Obstrucción urinaria baja y urología",
+   "estado": "verificar",
+   "definicion": "Tumor urotelial de la pelvis renal o del uréter, poco frecuente y con recidiva en la vejiga. Los factores de riesgo son similares a los del cáncer de vejiga; el tabaquismo está presente en cerca del 65 % y la exposición al arsénico es relevante en Chile.",
+   "diagnostico": [
+    "Hematuria en el 60 a 80 %; dolor en el flanco, anorexia y pérdida de peso suelen indicar enfermedad más avanzada. Entre el 15 y el 33 % se descubre de forma incidental.",
+    "Sospechar síndrome de Lynch si el diagnóstico es antes de los 60 años o hay antecedentes personales o familiares del espectro (colon, endometrio, estómago, ovario): consejería genética."
+   ],
+   "estudios": [
+    "Laboratorio (función renal y hemograma), UroTC como estudio de imagen estándar (precisión de hasta el 88 % para el estadio T; menos sensible en tumores planos o menores de 3 mm) y ureteroscopía con biopsia y citología. La TC de tórax es obligatoria para buscar metástasis.",
+    "La ureteroscopía se correlaciona con la nefroureterectomía en solo 43 a 60 % para el estadio y 87 a 93 % para el grado."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento del localizado",
+     "pasos": [
+      {
+       "etiqueta": "Bajo riesgo",
+       "texto": "Tratamiento endoscópico conservador de nefronas, por ureteroscopía flexible con láser de holmio (ablación), con ureteroscopía de revisión a las 6 a 8 semanas y catéter doble J por al menos una semana; resultados oncológicos equivalentes a la nefroureterectomía en tumores de bajo riesgo. Se abandona la vía percutánea por riesgo de siembra tumoral."
+      },
+      {
+       "etiqueta": "Ureterectomía distal",
+       "texto": "Con reimplante, en tumores del uréter distal de bajo riesgo o de alto riesgo cuando hay que preservar el riñón."
+      },
+      {
+       "etiqueta": "Alto riesgo",
+       "texto": "Nefroureterectomía radical abierta con resección del manguito vesical (estándar), sin abrir la vía urinaria; el abordaje laparoscópico tiene control oncológico equivalente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento estricto con cistoscopía y UroTC; ureteroscopía con citología en los tumores de alto grado."
+   ],
+   "banderas": [
+    "La ureteroscopía aumenta el riesgo de recidiva en la vejiga.",
+    "Hematuria con UroTC normal: completar con ureteroscopía."
+   ],
+   "algoritmo": {
+    "titulo": "Tumor urotelial de la vía urinaria alta (Manual SCHU 2025)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Hematuria o lesión en la pelvis renal o el uréter en la UroTC"
+     },
+     {
+      "t": "accion",
+      "txt": "Ureteroscopía con biopsia y citología; TC de tórax; considerar Lynch si es menor de 60 años"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Tumor de bajo riesgo según la estratificación del manual?",
+      "si": [
+       {
+        "t": "decision",
+        "txt": "¿Es del uréter distal?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Ureterectomía distal con reimplante, o ablación endoscópica con láser"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Ablación por ureteroscopía flexible con láser, revisión a las 6 a 8 semanas y seguimiento estricto"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Es de alto riesgo?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Nefroureterectomía radical con resección del manguito vesical"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Si es del uréter distal y hay que preservar el riñón, ureterectomía distal con reimplante"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Manual de Urología (SCHU), 3.ª ed., cap. 24: Cáncer de vía urinaria alta",
+    "sociedad": "Sociedad Chilena de Urología (SCHU)",
+    "anio": "2025",
+    "archivo": "Manual de Urología SCHU 3ed (libro completo), cap. 24",
+    "tipo": "libro",
+    "nota": "Manual de urología de referencia en español, más actual que Smith y Tanagho 18.ª ed. (2016)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-traumatismo-encefalocraneano",
+   "area": "cirugia",
+   "titulo": "Traumatismo encefalocraneano (TEC)",
+   "alias": [
+    "tec",
+    "traumatismo de craneo",
+    "traumatismo craneoencefalico",
+    "hematoma extradural",
+    "hematoma subdural",
+    "glasgow",
+    "hipertension endocraneana"
+   ],
+   "up": [
+    "cx9"
+   ],
+   "unidad": "UP9 · Trauma, quemaduras y procuración",
+   "estado": "verificar",
+   "definicion": "Lesión de las estructuras craneanas (cobertura o contenido) por la transformación de la energía exógena. Las lesiones pueden ser primarias (absorción de la energía en el impacto) o secundarias (hematomas, hiperemia, edema), y focales o difusas. La mayor incidencia se da entre los 10 y los 20 años, con relación varón-mujer de 3 a 1.",
+   "diagnostico": [
+    "Se considera que hubo TEC ante toda lesión de la frente o del cuero cabelludo, un déficit neurológico ya recuperado (aturdimiento, pérdida de conciencia, convulsión, amnesia) o signos neurológicos al ingreso.",
+    "Gravedad por la escala de Glasgow: leve 13 a 15 (55 % de las admisiones), moderado 9 a 12 (24 %; control estricto: \"hablaron y murieron\") y grave 8 o menos (21 %).",
+    "Fractura de la base del cráneo: signo de Battle o equimosis periorbitaria, hemotímpano, otorragia u otorrea, rinorrea, déficit visual o auditivo, parálisis facial, anosmia.",
+    "Hematoma extradural: intervalo lúcido, anisocoria con midriasis homolateral a la fractura y foco motor contralateral; en la TC, imagen hiperdensa biconvexa; urgencia medicoquirúrgica. Hematoma subdural agudo: ocurre en el 45 % de los TEC graves, imagen hiperdensa sobre la convexidad, mortalidad global cercana al 60 %.",
+    "La injuria axonal difusa es un coma mayor de 8 horas con Glasgow de 8 o menos, sin lesión expansiva, y causa un tercio de las muertes por TEC."
+   ],
+   "estudios": [
+    "La tomografía computada es el método de elección y se indica de urgencia en todo TEC moderado o grave (Glasgow de 13 o menos), con anisocoria o foco neurológico, o con descenso de 2 puntos del Glasgow en un paciente compensado.",
+    "Radiografía simple de cráneo con lesión de partes blandas, amnesia, alteración de la conciencia, signos focales o fístula de LCR; la resonancia no se indica en la urgencia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Medidas generales",
+       "texto": "En el TEC grave, monitorear presión venosa central y presión de perfusión cerebral (PAM menos presión endocraneana); controlar pO2 y pCO2, normalizar la volemia, tratar la hipotensión y las arritmias, sedar y tratar las convulsiones."
+      },
+      {
+       "etiqueta": "Cirugía",
+       "texto": "Nadie se opera sin corregir antes el shock y la hipoxia; las lesiones de tórax o abdomen que amenazan la vida se resuelven primero. Objetivos: remover masas expansivas, focos contusivos de más de 2,5 cm, cerrar brechas y fístulas, derivar el LCR en la hidrocefalia, extraer cuerpos extraños y colocar monitoreo de presión endocraneana en los TEC moderados y graves."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Observación neurológica estricta del TEC leve y moderado, sobre todo si hay fractura de cráneo."
+   ],
+   "banderas": [
+    "Toda fractura de cráneo es indicación de observar la evolución, aun sin déficit: con sensorio conservado el 10 % desarrolla hematoma; si está desorientado, el 66 %.",
+    "La hipotensión sistémica y el shock son el factor concausal más importante de la lesión cerebral isquémica.",
+    "Parámetros críticos: pCO2 mayor de 45, pO2 menor de 50, presión de perfusión cerebral menor de 60 y presión endocraneana mayor de 25 mmHg."
+   ],
+   "algoritmo": {
+    "titulo": "TEC: evaluación inicial (Michans 2021)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente con traumatismo de cráneo: ABCDE con control de la columna cervical y Glasgow"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Glasgow de 13 o menos, anisocoria, foco neurológico o descenso de 2 puntos?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "TC de cráneo de urgencia; estabilizar la oxigenación y la perfusión"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Lesión expansiva (hematoma) o brecha que requiere cirugía?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Corregir shock e hipoxia y operar; evacuar el hematoma extradural es una urgencia"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Cuidados intensivos, monitoreo de la presión endocraneana y de perfusión cerebral, sedación y tratamiento de convulsiones"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Hay fractura de cráneo, amnesia, pérdida de conciencia o signos de fractura de base?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Radiografía o TC según los criterios; observación neurológica estricta"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "TEC leve: observación y pautas de alarma"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 14: Trauma encefalocraneano",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2021",
+    "archivo": "Capitulos_Michans, cap. 14",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-soporte-nutricional-quirurgico",
+   "area": "cirugia",
+   "titulo": "Soporte nutricional del paciente quirúrgico",
+   "alias": [
+    "nutricion en cirugia",
+    "nutricion enteral",
+    "nutricion parenteral",
+    "desnutricion",
+    "requerimientos calorico proteicos",
+    "harris benedict"
+   ],
+   "up": [
+    "cx1"
+   ],
+   "unidad": "UP1 · Trauma de miembro superior y generalidades quirúrgicas",
+   "estado": "verificar",
+   "definicion": "Aporte de nutrientes al paciente quirúrgico que no puede cubrir sus requerimientos por vía oral. La desnutrición calórico-proteica hospitalaria es frecuente: casi la mitad de los pacientes quirúrgicos la presentaba en grado moderado a severo y pasaba inadvertida.",
+   "diagnostico": [
+    "La desnutrición calórico-proteica empeora la cicatrización (dehiscencias de heridas y anastomosis, escaras), deprime la inmunidad con más infecciones, favorece atelectasias y falla respiratoria, debilita la musculatura y altera la barrera intestinal con translocación bacteriana.",
+    "Tres días de ayuno total no causan trastornos funcionales; un ayuno de 15 días, aunque sea parcial, suele asociarse a déficit funcionales."
+   ],
+   "estudios": [
+    "Valorar el grado de depleción, el hipermetabolismo y el hipercatabolismo para definir si el paciente requiere soporte nutricional."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Cuándo, por dónde y cuánto",
+     "pasos": [
+      {
+       "etiqueta": "Momento de inicio (ASPEN 1993)",
+       "texto": "Bien nutrido: entre el 7.º y el 10.º día posoperatorio si la ingesta es insuficiente o se prevé que lo sea. Desnutrido o hipercatabólico: entre el 5.º y el 7.º día. Desnutrición con hipercatabolismo moderado a severo: entre el 3.º y el 5.º día. Se inicia solo con estabilidad clínica y hemodinámica."
+      },
+      {
+       "etiqueta": "Vía",
+       "texto": "Enteral siempre que el aparato digestivo funcione. Parenteral (central o periférica) si hay íleo alto, fístula, hemorragia, diarrea, reposo funcional (pancreatitis, enfermedad inflamatoria) o imposibilidad de colocar sonda u ostomía; puede ser total o complemento de la enteral."
+      },
+      {
+       "etiqueta": "Nutrición enteral temprana",
+       "texto": "En politraumatizados y en trauma de cráneo, dentro de las 24 horas, preferentemente en el yeyuno: el íleo posoperatorio es del estómago y el colon, no del yeyunoíleon, por lo que no se espera a los ruidos hidroaéreos o a los gases."
+      },
+      {
+       "etiqueta": "Calorías",
+       "texto": "Normonutrido normometabólico 25 a 28 kcal/kg/día; hipermetabólico 30 a 35; deplecionado normometabólico 35 a 40; deplecionado hipermetabólico 30 (o la ecuación de Harris-Benedict con el ajuste correspondiente)."
+      },
+      {
+       "etiqueta": "Proteínas",
+       "texto": "Relación kcal no proteicas por gramo de nitrógeno de 150 a 200 en normocatabólicos y de 80 a 120 en hipercatabólicos, donde conviene subir el aporte proteico."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Monitoreo del balance de nitrógeno y de las complicaciones de la nutrición enteral (mecánicas, gastrointestinales, pulmonares y metabólicas); lavar la sonda con 10 a 20 mL de agua cada 6 horas durante la infusión."
+   ],
+   "banderas": [
+    "Ningún paciente se beneficia de privarse de nutrientes: pasados 15 días de ayuno aparecen déficit funcionales.",
+    "Iniciar el soporte solo con estabilidad hemodinámica y corregidos la glucemia, los electrólitos y el equilibrio ácido-base."
+   ],
+   "algoritmo": {
+    "titulo": "Soporte nutricional en cirugía (Michans 2021)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente quirúrgico con ingesta insuficiente o prevista como insuficiente"
+     },
+     {
+      "t": "accion",
+      "txt": "Valorar depleción previa, hipermetabolismo e hipercatabolismo; lograr estabilidad clínica y hemodinámica"
+     },
+     {
+      "t": "decision",
+      "txt": "¿El aparato digestivo es utilizable?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Nutrición enteral (en el yeyuno y temprana en el politraumatizado), progresando a los objetivos en 48 a 72 horas"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Hay íleo alto, fístula, hemorragia, diarrea o reposo digestivo indicado?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Nutrición parenteral, central o periférica, hasta poder pasar a la vía enteral"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Intentar sonda u ostomía de alimentación para usar la vía enteral"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed., cap. 5: Soporte nutricional del paciente quirúrgico",
+    "sociedad": "P. Ferraina y A. Oría (dirs.), Editorial Ateneo (Argentina)",
+    "anio": "2021",
+    "archivo": "Capitulos_Michans, cap. 5",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-aneurisma-aorta-toracica-diseccion",
+   "area": "cirugia",
+   "titulo": "Aneurisma de la aorta torácica y disección aórtica",
+   "alias": [
+    "aneurisma toracico",
+    "diseccion aortica",
+    "stanford",
+    "debakey",
+    "marfan",
+    "aorta ascendente"
+   ],
+   "up": [
+    "cx10"
+   ],
+   "unidad": "UP10 · Enfermedades vasculares periféricas",
+   "estado": "verificar",
+   "definicion": "Dilatación de la aorta torácica (aneurisma) o separación de las capas de su pared por una rotura de la íntima (disección). La disección se clasifica por los segmentos afectados: Stanford A (afecta la aorta ascendente) o B (descendente), o DeBakey I a III.",
+   "diagnostico": [
+    "Aneurisma: se asocia a degeneración de la capa media, disección, alteraciones genéticas (síndromes de Marfan, Loeys-Dietz y Ehlers-Danlos, aorta bivalva), aortitis, infección y traumatismo.",
+    "Disección: dolor intenso en el pecho o la espalda, \"desgarrante\", que migra en dirección distal al avanzar la disección; el dolor en el tórax anterior sugiere afección de la aorta ascendente. El diagnóstico se demora hasta 24 horas de hospitalización en el 39 %."
+   ],
+   "estudios": [
+    "Angio-TC, angiorresonancia o ecocardiografía transesofágica según la estabilidad del paciente."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Aneurisma de la aorta torácica",
+     "pasos": [
+      {
+       "etiqueta": "Indicación quirúrgica",
+       "texto": "Reparación electiva en asintomáticos con aorta ascendente mayor de 5,5 cm o descendente mayor de 6,0 cm, o con crecimiento mayor de 0,5 cm al año; todo aneurisma sintomático se repara. En conjuntivopatías se opera con menor diámetro (4,0 a 5,0 cm en la ascendente y 5,5 a 6,0 cm en la descendente)."
+      },
+      {
+       "etiqueta": "Técnica",
+       "texto": "Reparación abierta con injerto o prótesis endovascular en la aorta descendente, que exige al menos 2 cm de aorta sana proximal y distal para el sellado."
+      }
+     ]
+    },
+    {
+     "titulo": "Disección aórtica aguda",
+     "pasos": [
+      {
+       "etiqueta": "Tratamiento inicial",
+       "texto": "Terapia antiimpulso: reducir la tensión de la pared, la fuerza de expulsión del ventrículo izquierdo y la tasa de variación de la presión (dP/dT) con bloqueadores beta, vasodilatadores, calcioantagonistas o inhibidores de la ECA, en cuidados intensivos."
+      },
+      {
+       "etiqueta": "Stanford A (ascendente)",
+       "texto": "La mayoría requiere sustitución urgente de la aorta ascendente con injerto (a menudo con paro circulatorio hipotérmico)."
+      },
+      {
+       "etiqueta": "Stanford B (descendente)",
+       "texto": "Tratamiento médico; intervención endovascular o abierta si se complica con mala perfusión visceral o de miembros, o con rotura."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Control de la presión arterial y seguimiento por imágenes de la aorta de por vida."
+   ],
+   "banderas": [
+    "Dolor torácico o dorsal intenso y migratorio: pensar en disección; el diagnóstico tardío (hasta 39 % pasadas 24 horas) tiene consecuencias desastrosas.",
+    "El síndrome de perfusión anómala abdominal suele ser letal: reconocer pronto la isquemia visceral."
+   ],
+   "algoritmo": {
+    "titulo": "Disección aórtica aguda (Schwartz 10.ª ed.)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Dolor intenso torácico o dorsal \"desgarrante\" con sospecha de disección aórtica"
+     },
+     {
+      "t": "accion",
+      "txt": "Control de la presión y de la frecuencia (terapia antiimpulso con bloqueadores beta) y estudio por angio-TC, angiorresonancia o ecocardiografía transesofágica"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Compromete la aorta ascendente (Stanford A)?",
+      "si": [
+       {
+        "t": "fin",
+        "txt": "Cirugía urgente: sustitución de la aorta ascendente con injerto"
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Disección descendente complicada (mala perfusión, rotura)?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Intervención endovascular (endoprótesis) o abierta"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Tratamiento médico en cuidados intensivos y control por imágenes"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Schwartz, Principios de Cirugía, 10.ª ed., cap. 22: Aneurismas de la aorta torácica y disección aórtica",
+    "sociedad": "F. C. Brunicardi y col., McGraw-Hill",
+    "anio": "2015",
+    "archivo": "Capitulos_Schwartz, cap. 22",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-raynaud-buerger",
+   "area": "cirugia",
+   "titulo": "Síndrome de Raynaud y enfermedad de Buerger",
+   "alias": [
+    "raynaud",
+    "vasoespasmo",
+    "buerger",
+    "tromboangeitis obliterante",
+    "trombovasculitis obliterante",
+    "isquemia de dedos"
+   ],
+   "up": [
+    "cx10"
+   ],
+   "unidad": "UP10 · Enfermedades vasculares periféricas",
+   "estado": "verificar",
+   "definicion": "El síndrome de Raynaud es un vasoespasmo periférico intermitente, sobre todo de las manos, ante frío, tabaco o estrés. La enfermedad de Buerger (trombovasculitis obliterante) es una inflamación segmentaria no ateroesclerótica de arterias de pequeño y mediano calibre, venas y nervios de las extremidades.",
+   "diagnostico": [
+    "Raynaud: palidez intensa, luego cianosis y hiperemia reactiva; 70 a 90 % son mujeres, la mayoría menores de 40 años. El término abarca las formas primaria y secundaria: entre el 11 y el 65 % desarrolla después una colagenopatía.",
+    "Buerger: varón joven fumador (síntomas antes de los 40 años; rango de 20 a 50). Claudicación de pie, pierna, brazo o mano que avanza a dolor en reposo y úlceras de los dedos; flebitis migratoria superficial en hasta 16 %. El tabaco es esencial para el diagnóstico y la progresión."
+   ],
+   "estudios": [
+    "Raynaud: mediciones no invasivas en el laboratorio vascular; la angiografía se reserva para ulceración digital o sospecha de causa embólica u obstructiva.",
+    "Buerger: excluir diabetes, hiperlipidemia y enfermedades autoinmunes; angiografía de los cuatro miembros: enfermedad distal (infrapoplítea y distal a la humeral), oclusiones segmentarias y colaterales \"en sacacorchos\"."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Raynaud",
+       "texto": "No tiene cura, el tratamiento solo palía. Guantes, calentadores, evitar herramientas vibrantes y frío, abstinencia del tabaco (responde el 90 %). Si es persistente: calcioantagonistas (diltiazem, nifedipina) de elección, fluoxetina; prostaglandinas intravenosas en los graves. Cirugía limitada a desbridar úlceras y amputar dedos gangrenados; la simpatectomía de la extremidad superior alivia al 60 a 70 %."
+      },
+      {
+       "etiqueta": "Buerger",
+       "texto": "Interrupción estricta del tabaco: remisión y mayor chance de evitar la amputación (pérdida de extremidad 35 % si deja de fumar contra 67 % si continúa). La cirugía de revascularización sirve poco porque suele faltar un vaso receptor y las venas autógenas son limitadas."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Seguimiento del hábito tabáquico y cuidado de los dedos con isquemia; en Raynaud secundario, estudiar colagenopatías."
+   ],
+   "banderas": [
+    "Raynaud con ulceración digital: descartar causa embólica u obstructiva con angiografía.",
+    "En Buerger, la única medida que modifica la evolución es suspender el tabaco."
+   ],
+   "algoritmo": {
+    "titulo": "Isquemia de dedos: Raynaud y Buerger (Schwartz 10.ª ed.)",
+    "nodos": [
+     {
+      "t": "inicio",
+      "txt": "Paciente joven con palidez, cianosis y dolor de los dedos, o claudicación de la mano o el pie"
+     },
+     {
+      "t": "decision",
+      "txt": "¿Episodios intermitentes por frío o estrés con hiperemia reactiva?",
+      "si": [
+       {
+        "t": "accion",
+        "txt": "Síndrome de Raynaud: medidas conservadoras (frío, tabaco, vibración)"
+       },
+       {
+        "t": "decision",
+        "txt": "¿Persiste o es grave?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Calcioantagonistas; prostaglandinas en los graves; desbridar úlceras; simpatectomía si falla"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Control; estudiar colagenopatías si es secundario"
+         }
+        ]
+       }
+      ],
+      "no": [
+       {
+        "t": "decision",
+        "txt": "¿Varón joven fumador con isquemia distal de varios miembros?",
+        "si": [
+         {
+          "t": "fin",
+          "txt": "Enfermedad de Buerger: suspender el tabaco, angiografía de los 4 miembros y cuidado local"
+         }
+        ],
+        "no": [
+         {
+          "t": "fin",
+          "txt": "Buscar ateroesclerosis, embolia o vasculitis; angiografía"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "fuente": {
+    "guia": "Schwartz, Principios de Cirugía, 10.ª ed., cap. 23: Enfermedades arteriales: síndrome de Raynaud y enfermedad de Buerger",
+    "sociedad": "F. C. Brunicardi y col., McGraw-Hill",
+    "anio": "2015",
+    "archivo": "Capitulos_Schwartz, cap. 23",
+    "tipo": "libro",
+    "nota": "El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas en las carpetas provistas; se usa Schwartz, más actual que Michans."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   }
  ],
  "cobertura": {
@@ -14575,7 +15264,8 @@
     "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
     "Consentimiento informado y bioética quirúrgica",
     "Respuesta a la lesión, sepsis y falla multiorgánica",
-    "Cirugía mínimamente invasiva, robótica y guiada por imágenes"
+    "Cirugía mínimamente invasiva, robótica y guiada por imágenes",
+    "Soporte nutricional del paciente quirúrgico"
    ],
    "cx2": [
     "Abdomen agudo: enfoque inicial y estudios por imágenes",
@@ -14683,7 +15373,8 @@
     "Quemaduras: evaluación inicial y reanimación",
     "Procuración de órganos y muerte encefálica",
     "Neumotórax y derrame pleural paraneumónico",
-    "Reanimación cardiopulmonar"
+    "Reanimación cardiopulmonar",
+    "Traumatismo encefalocraneano (TEC)"
    ],
    "cx10": [
     "Enfermedad arterial de miembros inferiores: claudicación e isquemia crónica amenazante",
@@ -14693,7 +15384,9 @@
     "Enfermedad venosa crónica y várices",
     "Pie diabético",
     "Enfermedad carotídea",
-    "Cirugía endovascular: angioplastia y stents"
+    "Cirugía endovascular: angioplastia y stents",
+    "Aneurisma de la aorta torácica y disección aórtica",
+    "Síndrome de Raynaud y enfermedad de Buerger"
    ],
    "cx11": [
     "Obstrucción urinaria baja por hiperplasia prostática benigna",
@@ -14714,7 +15407,9 @@
     "Hipospadias",
     "Biopsia de próstata: indicaciones y técnica",
     "Cáncer de pene",
-    "Trauma vesical y uretral"
+    "Trauma vesical y uretral",
+    "Cáncer de próstata: grupos de riesgo y tratamiento del localizado",
+    "Cáncer de la vía urinaria alta (pelvis renal y uréter)"
    ]
   }
  }
