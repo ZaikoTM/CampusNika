@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+"""Fisiopatologia (decimocuarta tanda) desde Gimenez 2.ª ed. (2025): tumores hepaticos benignos (cap. 50), tumores quisticos del pancreas (cap. 63), hernias infrecuentes (cap. 15)."""
+CONTENIDO = {}
+
+def fisio(pid, items): CONTENIDO[pid] = {'fisiopatologia': items}
+
+fisio('cx-tumores-hepaticos-benignos', [
+ 'Hemangioma: es el tumor sólido benigno más frecuente del hígado, formado por células endoteliales que constituyen canales vasculares dilatados. Es congénito y se parece más a una malformación vascular con ectasia que a una neoplasia; no tiene potencial de malignizar. Su relación con las hormonas no está demostrada, aunque hay informes de aumento de tamaño durante el embarazo o con anovulatorios (Giménez, cap. 50).',
+ 'Adenoma hepatocelular: proliferación de hepatocitos con vascularización arterial que asienta en un hígado normal y tiene clara relación hormonal. No se conoce el mecanismo por el que los anovulatorios aumentan su incidencia (se postulan los receptores de estrógenos y progesterona en el tumor); crece durante el embarazo y hasta 6 semanas posparto. Se asocia además a andrógenos y anabolizantes, síndrome de Klinefelter, poliposis familiar y enfermedades metabólicas (diabetes tipo I, glucogenosis, galactosemia, tirosinemia) (Giménez, cap. 50).'])
+fisio('cx-tumores-quisticos-pancreas', [
+ 'La neoplasia intraductal papilomucinosa (NIPM) sigue la secuencia displasia-carcinoma: células columnares displásicas forman papilas dentro de los conductos pancreáticos, con abundante moco y dilatación ductal (que puede ser pasiva por la hipersecreción de moco). Según la etapa hay displasia leve, moderada o grave y carcinoma invasor; el adenocarcinoma invasor se asocia a la glucoproteína MUC1 y los carcinomas de la NIPM a MUC2 (Giménez, cap. 63).',
+ 'La neoplasia quística serosa (antes cistoadenoma seroso) es el tumor quístico más frecuente del páncreas y es benigna, a diferencia de la NIPM y la neoplasia quística mucinosa. Está formada por células cúbicas ricas en glucógeno que revisten múltiples quistes de contenido seroso, con una cicatriz fibrosa central (Giménez, cap. 63).'])
+fisio('cx-hernias-infrecuentes', [
+ 'Hernia de Spiegel: protrusión de grasa preperitoneal o saco peritoneal por un defecto de la fascia de Spiegel (0,1 a 2 % de las hernias de la pared). Afecta a personas de edad avanzada, sobre todo mujeres; la etiología es desconocida y en general adquirida, y suele verse en el ángulo entre la línea semilunar y la línea semicircular de Douglas, donde un vaso perforante facilita la salida (Giménez, cap. 15).',
+ 'Hernia obturatriz: las vísceras siguen el canal del paquete vasculonervioso en la membrana obturatriz hasta el muslo. Es adquirida y típica de mujeres seniles, emaciadas y multíparas; causa el 0,2 a 1,6 % de las oclusiones intestinales, es más frecuente en el lado derecho (60 %, el sigmoides la evitaría a la izquierda) y se presenta con obstrucción aguda en el 63 a 90 % (Giménez, cap. 15).',
+ 'Las hernias lumbares se manifiestan por la región lumbar (entre la 12.ª costilla, la cresta ilíaca, los músculos espinales y el oblicuo mayor); las más comunes son las del triángulo de Petit (inferior) y del cuadrilátero de Grynfelt (superior) (Giménez, cap. 15).'])
