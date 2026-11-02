@@ -30,7 +30,7 @@ if os.path.exists(SD):
     sd = json.load(open(SD, encoding='utf8'))
     u11 = por['up11']['materiales']
     u11[:] = [m for m in u11 if 'Manual de Urología SCHU' not in m['title']]
-    u11.append({'type': 'pdf', 'title': '📚 Libro completo · Manual de Urología SCHU, 3.ª edición (casi 400 MB, tarda en abrir)', 'url': url(sd['libro'])})
+    u11.append({'type': 'pdf', 'title': '📚 Libro completo · Manual de Urología SCHU, 3.ª edición, 2025 (casi 400 MB, tarda en abrir)', 'url': url(sd['libro'])})
     for k in sorted(sd['caps'], key=int):
         u11.append({'type': 'pdf', 'title': '📖 Cap. %s %s · Manual de Urología SCHU 3.ª ed.' % (k, sd['titulos'][k]), 'url': url(sd['caps'][k])})
 
