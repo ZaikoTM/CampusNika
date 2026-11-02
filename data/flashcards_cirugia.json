@@ -4126,7 +4126,7 @@
       },
       {
        "etiqueta": "Quirúrgico",
-       "texto": "Esfinterotomía lateral interna en la crónica refractaria, con alta tasa de curación; riesgo de incontinencia leve."
+       "texto": "Esfinterotomía lateral interna en la crónica refractaria, con alta tasa de curación; riesgo de trastornos de la continencia, que en algunas series llega al 60 % y es mayor en mujeres."
       }
      ]
     }
@@ -4177,7 +4177,7 @@
          },
          {
           "t": "fin",
-          "txt": "Esfinterotomía lateral interna en la refractaria: alta tasa de curación, con riesgo de incontinencia leve"
+          "txt": "Esfinterotomía lateral interna en la refractaria: alta tasa de curación, con riesgo de trastornos de la continencia, que en algunas series llega al 60 % y es mayor en mujeres"
          }
         ],
         "no": [
@@ -4194,7 +4194,15 @@
    "fisiopatologia": [
     "La defecación puede traumatizar el conducto anal, sobre todo en su porción posterior. La irritación eleva la presión de reposo del esfínter interno y, como los vasos que irrigan el esfínter y la mucosa penetran lateralmente, el mayor tono produce isquemia relativa en la fisura y dificulta la cicatrización (Harrison, cap. 328).",
     "Se relaciona con estreñimiento, diarrea, infecciones, traumatismo perianal y enfermedad de Crohn. Una fisura que no está en posición anterior o posterior obliga a pensar en tuberculosis, sífilis, Crohn o cáncer (Harrison, cap. 328)."
-   ]
+   ],
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 27",
+    "puntos": [
+     "El 90 % de las fisuras primarias está en la línea media posterior; las laterales o múltiples obligan a descartar Crohn, colitis ulcerosa, tuberculosis, sífilis, VIH o carcinoma, como dice la ficha. Las agudas curan en 4 a 8 semanas con fibra, laxante suave y baños de asiento tibios dos o tres veces al día.",
+     "La esfinterotomía lateral interna es el tratamiento quirúrgico más eficaz de la fisura crónica, pero conlleva trastornos de la continencia que pueden alcanzar el 60 %, más en mujeres; por eso Farreras prioriza los fármacos que reducen el tono del esfínter: nitroglicerina al 0,2 a 0,5 %, dinitrato de isosorbida, nifedipino o diltiazem, y toxina botulínica (parálisis de 3 a 4 meses)."
+    ]
+   }
   },
   {
    "id": "cx-absceso-fistula-anal",
@@ -4291,7 +4299,15 @@
    "fisiopatologia": [
     "El absceso anorrectal es una cavidad llena de líquido por infección de las glándulas que rodean al conducto anal, que normalmente liberan moco que facilita la defecación; si penetra materia fecal en ellas, se infectan y forman abscesos (Harrison, cap. 328).",
     "Se ubican en la región perianal en el 40 a 50 %, isquiorrectales en el 20 a 25 %, interesfintéricos en el 2 a 5 % y supraelevadores en el 2,5 %. Son 3 veces más frecuentes en varones y más prevalentes en diabéticos, hematológicos, enfermedad inflamatoria intestinal y VIH; las infecciones perianales repetidas obligan a buscar estas condiciones (Harrison, cap. 328)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 27",
+    "puntos": [
+     "Coincide en que el tratamiento del absceso anorrectal es el drenaje quirúrgico lo antes posible, aunque no haya fluctuación franca, y que los antibióticos solos solo retrasan la cirugía; se agregan en inmunodepresión, diabetes, infección sistémica o celulitis extensa.",
+     "Farreras agrega que la mayoría son de origen criptoglandular (infección de una cripta con propagación entre los esfínteres), que la enfermedad de Crohn, los trastornos hematológicos y la inmunodepresión predisponen, y que los abscesos isquioanales y en herradura requieren varias incisiones para drenarse bien."
+    ]
+   }
   },
   {
    "id": "cx-ostomias",
@@ -4419,7 +4435,7 @@
      "pasos": [
       {
        "etiqueta": "Leve",
-       "texto": "Hidratación, reposo intestinal, antibióticos y corrección de la hipotensión; se resuelve en la mayoría."
+       "texto": "Hidratación, reposo intestinal y corrección del bajo gasto o la hipotensión, retirando los vasoconstrictores si es posible; los antibióticos se reservan para las formas moderadas a graves; se resuelve en la mayoría."
       },
       {
        "etiqueta": "Gangrena o peritonitis",
@@ -4480,7 +4496,16 @@
     "El intestino recibe sangre del tronco celíaco y de las arterias mesentéricas superior e inferior, con extensa colateralización. En el colon las colaterales confluyen en el ángulo esplénico y en las porciones descendente y sigmoide: son los puntos de Griffith y Sudeck, zonas limítrofes con riesgo inherente de menor flujo y las localizaciones más comunes de isquemia colónica. La circulación esplácnica recibe hasta el 30 % del gasto cardiaco y se protege con colaterales, autorregulación y mayor extracción de oxígeno (Harrison, cap. 329).",
     "La isquemia oclusiva resulta de un émbolo (de origen cardiaco en más del 75 %) o de una trombosis progresiva en una arteria grande; la trombosis venosa mesentérica (menos del 10 %) suele precipitarse por hipercoagulabilidad. La isquemia no oclusiva es una constricción excesiva de los vasos mesentéricos (vasoespasmo) ante sobrecargas fisiológicas graves, como el shock; sin tratamiento las úlceras tempranas de la mucosa progresan a lesión de todas las capas (Harrison, cap. 329).",
     "La colitis isquémica es la enfermedad digestiva más frecuente que complica la cirugía cardiovascular: 5 a 9 % tras la reparación programada de la aorta, y el triple si es de urgencia (Harrison, cap. 329)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 20",
+    "puntos": [
+     "La colitis isquémica es la forma más frecuente de isquemia intestinal (70 %) y afecta sobre todo los puntos vulnerables: la flexura esplénica (Griffith), la unión rectosigmoidea (Sudeck) y el colon derecho. La mayoría de los episodios son de isquemia no oclusiva en pacientes con aterosclerosis; hasta el 30 % tomó AINE en los días previos, y en jóvenes hay que pensar en cocaína, vasculitis o trombofilia.",
+     "La secuencia típica (dolor abrupto, urgencia defecatoria y diarrea sanguinolenta) ocurre solo en el 50 % de los casos y en el 25 % de las formas gangrenosas; la TC es la exploración inicial (engrosamiento segmentario de la pared mayor de 3 mm, neumatosis o falta de realce indican gravedad) y la colonoscopia precoz (antes de 48 h), sin preparación y con poca insuflación, se contraindica ante peritonitis o gangrena.",
+     "Farreras reserva los antibióticos para las formas moderadas a graves y la nutrición parenteral para quienes no mejoran en 48 a 72 h; recomienda una colonoscopia a los 10 a 14 días del ingreso (cerca del 20 % evoluciona a colitis ulcerativa segmentaria crónica). Indica cirugía ante gangrena con peritonitis, neumoperitoneo o deterioro con signos de infarto; la mortalidad global es del 8 al 10 % y llega al 30 % en las formas gangrenosas."
+    ]
+   }
   },
   {
    "id": "cx-litiasis-biliar-colico",
