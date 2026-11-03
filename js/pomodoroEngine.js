@@ -1031,6 +1031,23 @@ const PomodoroEngine = (() => {
     return { ok: true };
   }
 
+  // Configura el PRÓXIMO bloque de estudio (minutos, descanso y unidad) sin reiniciar el descanso que está en curso.
+  // Solo en descanso o con el reloj parado: durante un bloque de estudio cambiar la unidad falsearía lo ya estudiado.
+  function setNextConfig(cfg) {
+    if (isGuest() || !cfg) return { ok: false, reason: 'guest' };
+    if (state.mode === 'work' && state.status !== 'idle') return { ok: false, reason: 'studying' };
+    const w = parseInt(cfg.workMin, 10), b = parseInt(cfg.breakMin, 10);
+    try {
+      if (w >= 1 && w <= MAX_WORK_MIN) localStorage.setItem('nika_pomo_w_mins', String(w));
+      if (b >= 1 && b <= MAX_BREAK_MIN) localStorage.setItem('nika_pomo_b_mins', String(b));
+    } catch (_) {}
+    if (cfg.moduleId && cfg.upId) { state.moduleId = cfg.moduleId; state.upId = cfg.upId; state.upLabel = cfg.upLabel || cfg.upId; }
+    if (state.status === 'idle') state = idleState(state.mode, state);   // reloj parado: toma los minutos nuevos
+    saveState();
+    try { if (state.shared) reportPresence('sync'); } catch (_) {}
+    return { ok: true };
+  }
+
   // Opción A del menú: "Invitar a estudiar (Host)". Si no hay Pomodoro en marcha, arranca uno.
   function hostSharedSession(partner) {
     const r = becomeHost(partner);
@@ -1327,7 +1344,7 @@ const PomodoroEngine = (() => {
 
   return {
     start, pause, reset, skipBreak, finishAndSave, extendBreak, getPrefs, setPrefs, PRESETS, getCustomPreset, setCustomPreset,
-    getTodayMinutes, getBreakStats, MAX_WORK_MIN, MAX_BREAK_MIN, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
+    getTodayMinutes, getBreakStats, setNextConfig, MAX_WORK_MIN, MAX_BREAK_MIN, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
     getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, kickGuest, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,

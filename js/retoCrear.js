@@ -42,40 +42,46 @@
   function montar(host, opt) {
     opt = opt || {};
     const amigos = opt.amigos || [];
-    const S = { tipo: 'minutos', meta: 10, dias: 7, modulo: '', modo: 'todas', previo: 'ahora', invitados: new Set(), titulo: '' };
+    const E = opt.editar || null;   // reto existente a editar (solo su creador)
+    const S = { tipo: 'minutos', meta: 10, dias: 7, modulo: '', modo: 'todas', previo: 'ahora', invitados: new Set(), titulo: '', diasTocado: false, yaEstan: new Set((opt.miembros || []).map(String)) };
+    if (E) {
+      S.tipo = E.tipo; S.meta = E.tipo === 'minutos' ? Math.max(1, Math.round(E.meta / 60)) : E.meta; S.modulo = E.modulo || ''; S.modo = E.modo || 'todas'; S.titulo = E.titulo; S.previo = 'mantener';
+      S.dias = Math.min(90, Math.max(1, Math.ceil((new Date(E.hasta) - Date.now()) / 86400000)));
+    }
+    const base = () => (E ? Math.max(1, S.yaEstan.size) : 1);
     (opt.preInvitados || []).forEach((u) => { const a = amigos.find((x) => String(x.username) === String(u)); if (a) S.invitados.add(String(a.id)); });
 
     function html() {
       const t = TIPOS[S.tipo];
       return '<div class="rf' + (opt.tema === 'sala' ? ' rf--sala' : '') + '">'
-        + '<div class="rf-head"><div class="rf-ico">🎯</div><div><h3>Nuevo reto</h3><p>Una meta común: entre todos suman, nadie compite.</p></div></div>'
-        + '<div class="rf-plantillas">' + PLANTILLAS.map((p, i) => '<button type="button" data-rf="plantilla" data-i="' + i + '">' + p.n + '</button>').join('') + '</div>'
+        + '<div class="rf-head"><div class="rf-ico">🎯</div><div><h3>' + (E ? 'Editar reto' : 'Nuevo reto') + '</h3><p>' + (E ? 'Cambiá la meta, el plazo, desde cuándo cuenta o sumá compañeros.' : 'Una meta común: entre todos suman, nadie compite.') + '</p></div></div>'
+        + (E ? '' : '<div class="rf-plantillas">' + PLANTILLAS.map((p, i) => '<button type="button" data-rf="plantilla" data-i="' + i + '">' + p.n + '</button>').join('') + '</div>')
         + '<label class="rf-f"><span>Nombre del reto</span><input id="rf-titulo" maxlength="60" placeholder="Ej: Semana de 10 horas de Cirugía" value="' + esc(S.titulo) + '"></label>'
         + '<div class="rf-lbl">¿Qué suman?</div><div class="rf-tipos">' + Object.keys(TIPOS).map((k) => '<button type="button" class="rf-tipo' + (k === S.tipo ? ' on' : '') + '" style="--c:' + TIPOS[k].color + '" data-rf="tipo" data-v="' + k + '"><i>' + TIPOS[k].ico + '</i><span>' + TIPOS[k].nombre + '</span></button>').join('') + '</div>'
         + '<div class="rf-lbl">Meta entre todos <small>' + t.campo + '</small></div>'
         + '<div class="rf-meta"><button type="button" data-rf="menos" aria-label="Menos">−</button><input id="rf-meta" type="number" min="1" max="100000" step="1" value="' + S.meta + '" aria-label="Meta"><button type="button" data-rf="mas" aria-label="Más">+</button>'
         + '<div class="rf-sug">' + t.sug.map((s) => '<button type="button" data-rf="sug" data-v="' + s + '">' + s + '</button>').join('') + '</div></div>'
-        + '<div class="rf-lbl">Duración <small id="rf-dias-t">' + etiquetaDias(S.dias) + '</small></div>'
+        + '<div class="rf-lbl">' + (E ? 'Plazo: días a partir de hoy' : 'Duración') + ' <small id="rf-dias-t">' + etiquetaDias(S.dias) + '</small></div>'
         + '<div class="rf-slider"><input id="rf-dias" type="range" min="1" max="90" value="' + S.dias + '" style="--p:' + Math.round((S.dias - 1) / 89 * 100) + '%" aria-label="Días de duración">'
         + '<div class="rf-marcas"><span>1</span><span>7</span><span>14</span><span>30</span><span>60</span><span>90</span></div></div>'
         + '<div class="rf-chips rf-chips--dur">' + [[1, 'Hoy'], [3, '3 días'], [7, '1 semana'], [14, '2 semanas'], [30, '1 mes']].map((d) => '<button type="button" class="' + (d[0] === S.dias ? 'on' : '') + '" data-rf="dur" data-v="' + d[0] + '">' + d[1] + '</button>').join('') + '</div>'
         + '<div class="rf-lbl">¿Desde cuándo cuenta? <small>así no perdés lo que ya estudiaste</small></div>'
-        + '<div class="rf-chips rf-chips--prev">' + [['ahora', '▶️ Desde ahora'], ['hoy', '☀️ Incluir lo de hoy'], ['semana', '📅 Esta semana'], ['7', '⏪ Últimos 7 días'], ['30', '⏪ Últimos 30 días']].map((d) => '<button type="button" class="' + (d[0] === S.previo ? 'on' : '') + '" data-rf="previo" data-v="' + d[0] + '">' + d[1] + '</button>').join('') + '</div>'
+        + '<div class="rf-chips rf-chips--prev">' + (E ? [['mantener', '📌 Mantener el inicio'], ['hoy', '☀️ Incluir lo de hoy'], ['semana', '📅 Esta semana'], ['7', '⏪ Últimos 7 días'], ['30', '⏪ Últimos 30 días']] : [['ahora', '▶️ Desde ahora'], ['hoy', '☀️ Incluir lo de hoy'], ['semana', '📅 Esta semana'], ['7', '⏪ Últimos 7 días'], ['30', '⏪ Últimos 30 días']]).map((d) => '<button type="button" class="' + (d[0] === S.previo ? 'on' : '') + '" data-rf="previo" data-v="' + d[0] + '">' + d[1] + '</button>').join('') + '</div>'
         + '<div class="rf-lbl">¿Qué sesiones suman?</div>'
         + '<div class="rf-modo"><button type="button" class="' + (S.modo === 'todas' ? 'on' : '') + '" data-rf="modo" data-v="todas"><b>⚡ Todas mis sesiones</b><small>Se suman solas: estudies solo o acompañado.</small></button>'
         + '<button type="button" class="' + (S.modo === 'compartidas' ? 'on' : '') + '" data-rf="modo" data-v="compartidas"><b>🤝 Solo las compartidas</b><small>Cuentan únicamente las sesiones que hagan juntos en la sala.</small></button></div>'
         + '<div class="rf-lbl">Materia</div><div class="rf-chips">' + Object.keys(MATERIAS).map((k) => '<button type="button" class="' + (k === S.modulo ? 'on' : '') + '" data-rf="mat" data-v="' + k + '">' + MATERIAS[k][1] + ' ' + MATERIAS[k][0] + '</button>').join('') + '</div>'
-        + '<div class="rf-lbl">Invitá a tus amigos <small id="rf-n-inv">(' + S.invitados.size + ' elegidos)</small></div><div class="rf-amigos">'
-        + (amigos.length ? amigos.map((a) => '<button type="button" class="rf-am' + (S.invitados.has(String(a.id)) ? ' on' : '') + '" data-rf="amigo" data-id="' + esc(a.id) + '"><span class="rf-av">' + avatar(a) + '</span><span class="rf-am-n">' + esc(a.fullname || a.username) + '</span><i>✓</i></button>').join('')
+        + '<div class="rf-lbl">' + (E ? 'Sumá compañeros al reto' : 'Invitá a tus amigos') + ' <small id="rf-n-inv">(' + S.invitados.size + ' elegidos)</small></div><div class="rf-amigos">'
+        + (amigos.length ? amigos.map((a) => '<button type="button" class="rf-am' + (S.invitados.has(String(a.id)) || S.yaEstan.has(String(a.id)) ? ' on' : '') + (S.yaEstan.has(String(a.id)) ? ' ya' : '') + '" data-rf="amigo" data-id="' + esc(a.id) + '"' + (S.yaEstan.has(String(a.id)) ? ' title="Ya está en el reto"' : '') + '><span class="rf-av">' + avatar(a) + '</span><span class="rf-am-n">' + esc(a.fullname || a.username) + '</span><i>✓</i></button>').join('')
           : '<p class="rf-sinam">Todavía no tenés amigos agregados. Sumalos desde “Comunidad & Amigos”; también podés crear el reto y sumarlos después.</p>') + '</div>'
         + '<div id="rf-como">' + explicar({ tipo: S.tipo, modo: S.modo, modulo: S.modulo, dias: S.dias, previo: S.previo }) + '</div>'
         + '<p class="rf-est" id="rf-est"></p>'
         + '<p class="rf-error" id="rf-error" hidden></p>'
-        + '<div class="rf-acc"><button type="button" class="rf-btn rf-btn--sec" data-rf="cancelar">Cancelar</button><button type="button" class="rf-btn rf-btn--go" id="rf-crear" data-rf="crear"><span class="rf-go-t">🚀 Crear reto</span><span class="rf-spin" aria-hidden="true"></span></button></div></div>';
+        + '<div class="rf-acc"><button type="button" class="rf-btn rf-btn--sec" data-rf="cancelar">Cancelar</button><button type="button" class="rf-btn rf-btn--go" id="rf-crear" data-rf="crear"><span class="rf-go-t">' + (E ? '💾 Guardar cambios' : '🚀 Crear reto') + '</span><span class="rf-spin" aria-hidden="true"></span></button></div></div>';
     }
 
     function estimar() {
-      const personas = 1 + S.invitados.size, meta = S.tipo === 'minutos' ? S.meta * 60 : S.meta;
+      const personas = base() + S.invitados.size, meta = S.tipo === 'minutos' ? S.meta * 60 : S.meta;
       const e = host.querySelector('#rf-est'); if (!e) return;
       const porDia = S.dias > 0 ? meta / personas / S.dias : 0;
       e.innerHTML = '👥 <b>' + personas + (personas === 1 ? ' persona' : ' personas') + '</b> · cada una aporta en promedio <b>' + fmtValor(S.tipo, Math.ceil(meta / personas)) + '</b> en ' + S.dias + (S.dias === 1 ? ' día' : ' días')
@@ -105,6 +111,22 @@
         if (S.previo === 'hoy') desde = ini;
         else if (S.previo === 'semana') desde = new Date(ini.getTime() - ((ini.getDay() + 6) % 7) * 86400000);
         else if (S.previo === '7' || S.previo === '30') desde = new Date(ini.getTime() - Number(S.previo) * 86400000);
+        if (E) {
+          const camb = { titulo: S.titulo, tipo: S.tipo, meta, modulo: S.modulo || null, modo: S.modo };
+          if (S.diasTocado) camb.hasta = hasta.toISOString();
+          if (S.previo !== 'mantener') camb.desde = desde.toISOString();
+          let u = await c.from('retos').update(camb).eq('id', E.id).select('id');
+          if (u.error && /modo/i.test(u.error.message || '')) { delete camb.modo; u = await c.from('retos').update(camb).eq('id', E.id).select('id'); }
+          if (u.error) throw u.error;
+          if (!u.data || !u.data.length) throw new Error('Solo quien creó el reto puede editarlo.');
+          for (const uid of [...S.invitados].filter((x) => !S.yaEstan.has(x))) {   // compañeros nuevos: invitación (si ya estaba, se ignora)
+            const m = await c.from('retos_miembros').insert({ reto_id: E.id, user_id: uid, estado: 'invitado' });
+            if (m.error && !/duplicate|23505/i.test(m.error.message || '')) throw m.error;
+          }
+          btn.classList.remove('cargando'); btn.classList.add('listo'); btn.querySelector('.rf-go-t').textContent = '✅ ¡Guardado!';
+          setTimeout(() => { if (opt.onCreado) opt.onCreado(Object.assign({}, E, camb)); }, 650);
+          return;
+        }
         const fila = { titulo: S.titulo, tipo: S.tipo, meta, modulo: S.modulo || null, modo: S.modo, desde: desde.toISOString(), hasta: hasta.toISOString() };
         // id generado acá: el insert no pide RETURNING (la política de lectura exige ser miembro, y todavía no hay filas en retos_miembros)
         const id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (ch) => { const v = Math.random() * 16 | 0; return (ch === 'x' ? v : (v & 3 | 8)).toString(16); });
@@ -133,18 +155,18 @@
         else if (a === 'crear') crear();
         else if (a === 'plantilla') { const p = PLANTILLAS[Number(b.dataset.i)]; S.tipo = p.tipo; S.meta = p.meta; S.dias = p.dias; S.titulo = p.t; const ti = host.querySelector('#rf-titulo'); if (ti) ti.value = p.t; render(); }
         else if (a === 'tipo') { S.tipo = b.dataset.v; S.meta = TIPOS[S.tipo].def; render(); }
-        else if (a === 'dur') { S.dias = Number(b.dataset.v); render(); }
+        else if (a === 'dur') { S.dias = Number(b.dataset.v); S.diasTocado = true; render(); }
         else if (a === 'previo') { S.previo = b.dataset.v; render(); }
         else if (a === 'modo') { S.modo = b.dataset.v; render(); }
         else if (a === 'mat') { S.modulo = b.dataset.v; render(); }
         else if (a === 'menos' || a === 'mas') { const p = TIPOS[S.tipo].paso, i = host.querySelector('#rf-meta'); S.meta = Math.max(1, (Number(i.value) || S.meta) + (a === 'mas' ? p : -p)); i.value = S.meta; tick(i); estimar(); }
         else if (a === 'sug') { S.meta = Number(b.dataset.v); const i = host.querySelector('#rf-meta'); i.value = S.meta; tick(i); estimar(); }
-        else if (a === 'amigo') { const id = String(b.dataset.id); if (S.invitados.has(id)) S.invitados.delete(id); else S.invitados.add(id); b.classList.toggle('on', S.invitados.has(id)); estimar(); }
+        else if (a === 'amigo') { const id = String(b.dataset.id); if (S.yaEstan.has(id)) return; if (S.invitados.has(id)) S.invitados.delete(id); else S.invitados.add(id); b.classList.toggle('on', S.invitados.has(id)); estimar(); }
       });
       host.addEventListener('input', (e) => {
         if (e.target.id === 'rf-meta') { S.meta = Math.max(1, Number(e.target.value) || 1); estimar(); }
         else if (e.target.id === 'rf-dias') {
-          S.dias = Number(e.target.value) || 1; e.target.style.setProperty('--p', Math.round((S.dias - 1) / 89 * 100) + '%');
+          S.dias = Number(e.target.value) || 1; S.diasTocado = true; e.target.style.setProperty('--p', Math.round((S.dias - 1) / 89 * 100) + '%');
           const t = host.querySelector('#rf-dias-t'); if (t) t.textContent = etiquetaDias(S.dias);
           host.querySelectorAll('.rf-chips--dur button').forEach((c) => c.classList.toggle('on', Number(c.dataset.v) === S.dias));
           const c = host.querySelector('#rf-como'); if (c) c.innerHTML = explicar({ tipo: S.tipo, modo: S.modo, modulo: S.modulo, dias: S.dias, previo: S.previo });

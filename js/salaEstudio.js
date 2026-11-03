@@ -69,6 +69,7 @@
     .sala-cancel{border:0;background:none;color:#fda4af;font-size:.62rem;cursor:pointer;text-decoration:underline;padding:0}
     .sala-picker{position:relative;margin:10px 0 2px;padding:12px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(251,113,133,.3);animation:salaPop .25s ease}
     .sala-picker h4{margin:0 0 8px;font-size:.82rem;font-weight:800}
+    .sala-prox{margin:10px 0 0;font-size:.8rem;color:#fecdd3;text-align:center}.sala-prox b{color:#fff}
     .sala-retos{position:relative;margin:12px 0 4px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(251,191,36,.16),rgba(244,63,94,.14));border:1px solid rgba(251,191,36,.35)}
     .sala-retos-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.84rem}
     .sala-retos-h a{color:#fde68a;font-weight:800;font-size:.76rem;text-decoration:none}
@@ -249,8 +250,9 @@
 
     const tomates = Array.from({ length: 1 + MAX }, (_, i) => `<i class="${i < total ? 'on' : ''}">🍅</i>`).join('');
 
-    const config = curso ? `
+    const config = (curso && st.mode !== 'break') ? `
       <div class="sala-chips"><span class="sala-chip">⏱️ ${w} min estudio</span><span class="sala-chip">☕ ${b} min descanso</span>${tema ? `<span class="sala-chip">📚 ${esc(tema)}</span>` : ''}</div>` : host ? `
+      ${curso ? '<p class="sala-prox">☕ Estás en el descanso: elegí cómo será el <b>próximo Pomodoro</b>.</p>' : ''}
       <div class="sala-config">
         <label class="sala-cfg-item">Estudio (min)<input type="number" id="sala-w" min="1" max="120" value="${w}"></label>
         <label class="sala-cfg-item">Descanso (min)<input type="number" id="sala-b" min="1" max="60" value="${b}"></label>
@@ -382,14 +384,16 @@
   }
 
   function onChange(e) {
-    if (!estadoRoom().host || enCurso) return;
+    const { st: est } = estadoRoom();
+    if (!estadoRoom().host || (enCurso && est.mode !== 'break')) return;
     const w = document.getElementById('sala-w'), b = document.getElementById('sala-b'), up = document.getElementById('sala-up');
     if (!w || !b || !up) return;
     const [moduleId, upId] = String(up.value).split('|');
     let upLabel = 'Estudio libre';
     const u = (unidades[moduleId] || []).find((x) => x.id === upId);
     if (u) upLabel = String(u.title || '').trim();
-    E().setRoomConfig({ workMin: w.value, breakMin: b.value, moduleId, upId, upLabel });
+    if (enCurso) E().setNextConfig({ workMin: w.value, breakMin: b.value, moduleId, upId, upLabel });
+    else E().setRoomConfig({ workMin: w.value, breakMin: b.value, moduleId, upId, upLabel });
   }
 
   // El invitado entra a una sala: se le abre sola la sala de espera

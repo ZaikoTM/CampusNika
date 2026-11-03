@@ -77,10 +77,11 @@
       '<li class="' + (g.estado === 'invitado' ? 'pend' : '') + '"><span class="rt-av">' + avatar(g) + '</span>'
       + '<span class="rt-nm">' + esc(g.fullname || g.username) + (g.id === me ? ' <em>(vos)</em>' : '') + '</span>'
       + (g.estado === 'invitado' ? '<span class="rt-pend">⏳ esperando respuesta</span>' : '<span class="rt-aporte"><i style="--w:' + Math.round(g.valor / maxV * 100) + '%"></i></span><b>' + fmtValor(r.tipo, g.valor) + '</b>')
+      + (r.esMio && g.id !== me && modo === 'act' ? '<button type="button" class="rt-quitar" data-rt="quitar" data-id="' + r.id + '" data-u="' + esc(g.id) + '" title="Sacar del reto" aria-label="Sacar del reto">✕</button>' : '')
       + '</li>').join('');
     const pie = modo === 'inv'
       ? '<div class="rt-acc"><button type="button" class="rt-btn rt-btn--sec" data-rt="rechazar" data-id="' + r.id + '">Rechazar</button><button type="button" class="rt-btn" data-rt="aceptar" data-id="' + r.id + '">¡Me sumo!</button></div>'
-      : '<div class="rt-acc">' + (r.esMio ? '<button type="button" class="rt-btn rt-btn--sec rt-btn--peligro" data-rt="eliminar" data-id="' + r.id + '">Eliminar reto</button>' : '<button type="button" class="rt-btn rt-btn--sec" data-rt="salir" data-id="' + r.id + '">Salir del reto</button>') + '</div>';
+      : '<div class="rt-acc">' + (r.esMio ? (modo === 'fin' ? '' : '<button type="button" class="rt-btn rt-btn--sec" data-rt="editar" data-id="' + r.id + '">✏️ Editar</button><button type="button" class="rt-btn rt-btn--sec" data-rt="sumar" data-id="' + r.id + '">👥 Sumar compañero</button>') + '<button type="button" class="rt-btn rt-btn--sec rt-btn--peligro" data-rt="eliminar" data-id="' + r.id + '">🗑️ Eliminar</button>' : '<button type="button" class="rt-btn rt-btn--sec" data-rt="salir" data-id="' + r.id + '">Salir del reto</button>') + '</div>';
     const insignia = modo === 'fin' ? (logrado ? '<span class="rt-badge ok">✅ Lograda</span>' : '<span class="rt-badge">Terminó</span>')
       : modo === 'inv' ? '<span class="rt-badge inv">📩 Invitación</span>' : '<span class="rt-badge">' + dias + (dias === 1 ? ' día' : ' días') + ' restantes</span>';
     return '<article class="rt-card' + (logrado ? ' logrado' : '') + (modo === 'fin' ? ' fin' : '') + '" data-id="' + r.id + '" style="--c:' + c + '">'
@@ -125,25 +126,26 @@
   }
 
   /* ---------- crear (formulario compartido con la sala Pomodoro) ---------- */
-  async function abrirModal(pre) {
+  async function abrirModal(pre, reto) {
     if (!amigos.length) { try { amigos = (window.NikaFriends && (await window.NikaFriends.listFriends())) || []; } catch (_) { amigos = []; } }
     const m = $('rt-modal');
     m.innerHTML = '<div class="rt-modal-card"><button type="button" class="rt-x" data-rt="cerrar" aria-label="Cerrar">✕</button><div id="rt-form-host"></div></div>';
     m.hidden = false;
     window.NikaRetoCrear.montar($('rt-form-host'), {
-      amigos, preInvitados: pre || [],
+      amigos, preInvitados: pre || [], editar: reto || null, miembros: reto ? reto.gente.map((g) => g.id) : [],
       onCancelar: () => { m.hidden = true; },
       onCreado: () => { m.hidden = true; cargar(); }
     });
     setTimeout(() => { const t = $('rf-titulo'); if (t) t.focus(); }, 120);
   }
 
-  async function accion(a, id) {
+  async function accion(a, id, uid) {
     try {
       if (a === 'aceptar') await cli.from('retos_miembros').update({ estado: 'aceptado' }).eq('reto_id', id).eq('user_id', me);
       else if (a === 'rechazar') await cli.from('retos_miembros').update({ estado: 'rechazado' }).eq('reto_id', id).eq('user_id', me);
       else if (a === 'salir') { if (!confirm('¿Salir de este reto?')) return; await cli.from('retos_miembros').delete().eq('reto_id', id).eq('user_id', me); }
-      else if (a === 'eliminar') { if (!confirm('¿Eliminar el reto para todos?')) return; await cli.from('retos').delete().eq('id', id); }
+      else if (a === 'eliminar') { if (!confirm('¿Eliminar el reto para todos? Esto no se puede deshacer.')) return; await cli.from('retos').delete().eq('id', id); }
+      else if (a === 'quitar') { if (!confirm('¿Sacar a esta persona del reto?')) return; await cli.from('retos_miembros').delete().eq('reto_id', id).eq('user_id', uid); }
     } catch (_) {}
     cargar();
   }
@@ -154,7 +156,8 @@
       const a = b.dataset.rt;
       if (a === 'cerrar') $('rt-modal').hidden = true;
       else if (a === 'nuevo') abrirModal();
-      else accion(a, b.dataset.id);
+      else if (a === 'editar' || a === 'sumar') abrirModal([], retos.find((x) => x.id === b.dataset.id));
+      else accion(a, b.dataset.id, b.dataset.u);
     });
     $('rt-nuevo').addEventListener('click', (ev) => { const b = ev.currentTarget; b.classList.remove('pulso'); void b.offsetWidth; b.classList.add('pulso'); abrirModal(); });
     $('rt-modal').addEventListener('click', (e) => { if (e.target.id === 'rt-modal') $('rt-modal').hidden = true; });

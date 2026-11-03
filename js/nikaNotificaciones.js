@@ -67,19 +67,19 @@
   }
   // cada tipo con su "personalidad" para reconocerlo sin mirar la pantalla
   const MELODIAS = {
-    invitacion_pomodoro: [[523, 0, .16, 'triangle'], [659, .13, .16, 'triangle'], [784, .26, .18, 'triangle'], [1047, .4, .34, 'triangle']],
-    nota_compartida: [[880, 0, .14, 'sine'], [1175, .12, .3, 'sine']],
-    mensaje: [[660, 0, .11, 'sine'], [880, .1, .14, 'sine']],
+    invitacion_pomodoro: [[587, 0, .12, 'sine'], [880, .1, .24, 'sine']],
+    nota_compartida: [[784, 0, .1, 'sine'], [1047, .09, .2, 'sine']],
+    mensaje: [[700, 0, .08, 'sine'], [880, .07, .12, 'sine']],
     llamada_entrante: [[784, 0, .16, 'sine'], [988, .14, .16, 'sine'], [1175, .28, .3, 'sine']],   // si no carga el timbre completo (nikaRing.js)
-    llamada_perdida: [[523, 0, .16, 'sine'], [415, .16, .16, 'sine'], [330, .32, .34, 'sine']],
-    desafio: [[392, 0, .12, 'square'], [392, .14, .12, 'square'], [523, .28, .14, 'square'], [659, .44, .3, 'square']],
-    solicitud_amistad: [[698, 0, .13, 'sine'], [880, .12, .13, 'sine'], [1047, .24, .3, 'sine']],
-    sistema: [[784, 0, .45, 'sine']],
-    nika_asistente: [[523, 0, .1, 'square'], [784, .1, .16, 'square']],
-    nika_bip: [[1040, 0, .035, 'square']],
-    nika_ok: [[523, 0, .1, 'square'], [659, .1, .1, 'square'], [784, .2, .1, 'square'], [1047, .3, .32, 'square']],
-    ok: [[659, 0, .1, 'sine'], [988, .09, .26, 'sine']],
-    error: [[246, 0, .16, 'sawtooth'], [185, .15, .28, 'sawtooth']],
+    llamada_perdida: [[523, 0, .12, 'sine'], [415, .12, .22, 'sine']],
+    desafio: [[523, 0, .1, 'triangle'], [784, .09, .22, 'triangle']],
+    solicitud_amistad: [[698, 0, .1, 'sine'], [988, .09, .22, 'sine']],
+    sistema: [[740, 0, .22, 'sine']],
+    nika_asistente: [[659, 0, .09, 'sine'], [880, .08, .18, 'sine']],
+    nika_bip: [[880, 0, .03, 'sine']],
+    nika_ok: [[659, 0, .1, 'sine'], [880, .09, .1, 'sine'], [1175, .18, .22, 'sine']],
+    ok: [[659, 0, .1, 'sine'], [988, .09, .22, 'sine']],
+    error: [[246, 0, .14, 'triangle'], [196, .13, .24, 'triangle']],
   };
   function sonar(tipo, opc) {
     const t = MELODIAS[tipo] ? tipo : tipoDe(tipo);

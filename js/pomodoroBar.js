@@ -55,8 +55,8 @@ const NikaPomoBar = (() => {
             @keyframes npbBrillo { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
             .nika-pomo-bar--paused { background: linear-gradient(100deg, #475569, #64748b 55%, #7c8aa5); background-size: 100% 100%; animation: none; box-shadow: 0 6px 16px -10px rgba(71,85,105,.8); }
             .nika-pomo-bar--paused::after { display: none; }
-            .nika-pomo-bar--break:not(.nika-pomo-bar--paused) { background: linear-gradient(100deg, #0ea5e9, #14b8a6 50%, #22c55e); background-size: 220% 100%; }
-            .nika-pomo-bar-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding-left: calc(var(--nika-sb-w, 0px) + 14px) !important; display: flex; align-items: center; gap: 10px; padding: 6px 14px; font-size: .82rem; font-weight: 800; }
+            .nika-pomo-bar--break:not(.nika-pomo-bar--paused) { background: linear-gradient(100deg, #0369a1, #0f766e 50%, #15803d); background-size: 220% 100%; }
+            .nika-pomo-bar-inner { position: relative; z-index: 1; width: 100%; max-width: 1500px; margin: 0 auto; box-sizing: border-box; padding-left: calc(var(--nika-sb-w, 0px) + 14px) !important; display: flex; align-items: center; gap: 10px; padding: 6px 14px; font-size: .86rem; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
             .barra-enfoque { display: flex; align-items: center; flex: 1 1 auto; gap: 10px; min-width: 0; }
             /* anillo de progreso */
             .nika-pomo-ring { --p: 0; position: relative; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
@@ -66,12 +66,12 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar.is-running .nika-pomo-ring span { animation: npbLatido 1.8s ease-in-out infinite; }
             @keyframes npbLatido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
             .nika-pomo-bar-time { font-variant-numeric: tabular-nums; font-size: 1.22rem; font-weight: 900; letter-spacing: .02em; text-shadow: 0 2px 8px rgba(0,0,0,.28); min-width: 3.4em; }
-            .nika-pomo-bar-phase { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 11px 3px 9px; font-size: .74rem; white-space: nowrap; backdrop-filter: blur(6px); }
+            .nika-pomo-bar-phase { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,.24); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 11px 3px 9px; font-size: .74rem; white-space: nowrap; backdrop-filter: blur(6px); }
             .nika-pomo-bar-phase i { width: 8px; height: 8px; border-radius: 50%; background: #fde68a; box-shadow: 0 0 0 0 rgba(253,230,138,.8); }
             .nika-pomo-bar.is-running .nika-pomo-bar-phase i { animation: npbPulso 1.6s ease-out infinite; }
             @keyframes npbPulso { 0% { box-shadow: 0 0 0 0 rgba(253,230,138,.85); } 100% { box-shadow: 0 0 0 9px rgba(253,230,138,0); } }
-            .nika-pomo-bar-role { background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 10px; font-size: .7rem; white-space: nowrap; flex-shrink: 0; }
-            .nika-pomo-bar-partner { opacity: .96; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+            .nika-pomo-bar-role { background: rgba(0,0,0,.24); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 10px; font-size: .7rem; white-space: nowrap; flex-shrink: 0; }
+            .nika-pomo-bar-partner { flex: 1 1 auto; font-weight: 800; font-size: .86rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
             /* compañeros */
             .nika-pomo-team { display: flex; align-items: center; flex-shrink: 0; }
             .nika-pomo-av { position: relative; width: 28px; height: 28px; border-radius: 50%; margin-left: -8px; border: 2px solid rgba(255,255,255,.9); display: grid; place-items: center; font-size: .66rem; font-weight: 900; color: #fff; text-transform: uppercase;
@@ -93,17 +93,17 @@ const NikaPomoBar = (() => {
             .nika-pomo-conn.sin { background: rgba(248,113,113,.3); } .nika-pomo-conn.sin i { background: #f87171; }
             @keyframes npbParpadeo { 50% { opacity: .25; } }
             /* botones */
-            .nika-pomo-bar-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; min-width: 32px; padding: 0 9px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px;
-                background: rgba(255,255,255,.2); color: #fff; font: inherit; font-size: .74rem; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); overflow: hidden;
+            .nika-pomo-bar-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; min-width: 32px; padding: 0 9px; border: 1px solid rgba(255,255,255,.45); border-radius: 11px; flex-shrink: 0;
+                background: rgba(0,0,0,.24); color: #fff; font: inherit; font-size: .78rem; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); overflow: hidden;
                 transition: transform .18s cubic-bezier(.34,1.56,.64,1), background .18s, box-shadow .18s; }
-            .nika-pomo-bar-btn:hover { background: rgba(255,255,255,.34); transform: translateY(-2px); box-shadow: 0 8px 16px -8px rgba(0,0,0,.5); }
+            .nika-pomo-bar-btn:hover { background: rgba(0,0,0,.4); transform: translateY(-2px); box-shadow: 0 8px 16px -8px rgba(0,0,0,.5); }
             .nika-pomo-bar-btn:active { transform: scale(.92); }
             .nika-pomo-bar-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
             .nika-pomo-bar-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
             .nika-pomo-bar-btn.main { width: 36px; height: 36px; border-radius: 50%; padding: 0; background: #fff; color: #be185d; font-size: .95rem; border: 0; box-shadow: 0 6px 14px -6px rgba(0,0,0,.55); }
             .nika-pomo-bar-btn.main:hover { background: #fff; transform: scale(1.1); }
-            .nika-pomo-bar-btn .lbl { white-space: nowrap; font-size: .72rem; font-weight: 800; line-height: 1; }
-            .nika-pomo-bar-btn.leave, .nika-pomo-bar-btn.cancel { height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.45); }
+            .nika-pomo-bar-btn .lbl { white-space: nowrap; font-size: .78rem; font-weight: 800; line-height: 1; color: #fff; }
+            .nika-pomo-bar-btn.leave, .nika-pomo-bar-btn.cancel { height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(0,0,0,.32); border-color: rgba(255,255,255,.45); }
             .nika-pomo-bar-btn.leave:hover { background: #ef4444; border-color: #ef4444; }
             .nika-pomo-bar-btn.cancel:hover { background: #f59e0b; border-color: #f59e0b; color: #1c1917; }
             /* confirmación de salida */
@@ -201,7 +201,7 @@ const NikaPomoBar = (() => {
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-room" title="Abrir la sala de estudio" style="display:none;">🍅<span class="lbl">Sala</span></button>
                 <button type="button" class="nika-pomo-bar-btn cancel" id="nika-pomo-bar-cancel" title="Cancelar este Pomodoro" aria-label="Cancelar el Pomodoro" style="display:none;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span class="lbl">Cancelar</span></button>
                 <button type="button" class="nika-pomo-bar-btn leave" id="nika-pomo-bar-leave" title="Salir de la sala compartida" aria-label="Salir de la sala compartida" style="display:none;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span class="lbl">Salir</span></button>
-                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Configurar tiempos" aria-label="Configurar tiempos">⚙️</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Ajustar minutos, unidad y materia del Pomodoro" aria-label="Ajustar el Pomodoro">⚙️<span class="lbl">Ajustar</span></button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-pin" title="Fijar abierta (modo manual)" aria-label="Fijar la barra abierta">📌</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar (modo automático)" aria-label="Minimizar">—</button>
             </div>
@@ -219,9 +219,10 @@ const NikaPomoBar = (() => {
                 <h4>⚙️ Configurar Pomodoro</h4>
                 <label>Estudio (min) <input type="number" id="nika-cfg-work" min="1" max="720"></label>
                 <label>Descanso (min) <input type="number" id="nika-cfg-break" min="1" max="240"></label>
+                <label>Materia <select id="nika-cfg-mod"></select></label>
                 <label id="nika-cfg-up-row">Unidad <select id="nika-cfg-up"></select></label>
                 <button type="button" class="nika-pomo-cfg-ok" id="nika-cfg-save">Guardar y reiniciar</button>
-                <p class="nika-pomo-cfg-nota">Al guardar, el reloj se reinicia con los nuevos tiempos.</p>
+                <p class="nika-pomo-cfg-nota" id="nika-cfg-nota">Al guardar, el reloj se reinicia con los nuevos tiempos.</p>
             </div>
             <button type="button" class="nika-pomo-bar-pill" id="nika-pomo-bar-pill" title="Click para volver a mostrar la barra completa">
                 <span class="mini" id="nika-pomo-mini"><b id="nika-pomo-bar-pill-icon">⏱️</b></span>
@@ -243,6 +244,7 @@ const NikaPomoBar = (() => {
         });
         document.getElementById('nika-pomo-bar-room').addEventListener('click', () => { if (window.abrirSalaEstudio) window.abrirSalaEstudio(); });
         document.getElementById('nika-cfg-save').addEventListener('click', _guardarCfg);
+        document.getElementById('nika-cfg-mod').addEventListener('change', _cambiarMateria);
 
         // Salir de la sala: botón con texto + confirmación (evita salidas por un toque accidental y deja claro que el tiempo se guarda)
         const panelSalir = document.getElementById('nika-pomo-leave');
@@ -311,18 +313,37 @@ const NikaPomoBar = (() => {
         } catch (_) { return []; }
     }
 
+    const MATERIAS_CFG = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', medicinalegal: 'Medicina Legal', medicinadeportiva: 'Medicina Deportiva' };
+    const _opcionesUnidades = (units, upId) => units.map(u => `<option value="${u.id}" ${u.id === upId ? 'selected' : ''}>UP${u.number} · ${String(u.title || '').trim()}</option>`).join('');
+    async function _cambiarMateria() {
+        const st = window.PomodoroEngine.getState();
+        const mod = document.getElementById('nika-cfg-mod').value;
+        const units = await _cargarUnidades(mod);
+        document.getElementById('nika-cfg-up-row').style.display = units.length ? '' : 'none';
+        document.getElementById('nika-cfg-up').innerHTML = _opcionesUnidades(units, mod === st.moduleId ? st.upId : (units[0] && units[0].id));
+    }
+
     async function _toggleCfg() {
         const panel = document.getElementById('nika-pomo-cfg'); if (!panel) return;
         const salir = document.getElementById('nika-pomo-leave'); if (salir) salir.classList.remove('is-open');
         if (panel.classList.contains('is-open')) { panel.classList.remove('is-open'); return; }
         const E = window.PomodoroEngine; if (!E) return;
         const st = E.getState();
+        const soloProximo = st.mode === 'break';          // en el descanso se configura el PRÓXIMO Pomodoro sin cortar el descanso
+        const estudiando = st.mode === 'work' && st.status !== 'idle';
         document.getElementById('nika-cfg-work').value = E.getMinutes('work');
         document.getElementById('nika-cfg-break').value = E.getMinutes('break');
-        const sel = document.getElementById('nika-cfg-up'), fila = document.getElementById('nika-cfg-up-row');
+        const mod = document.getElementById('nika-cfg-mod');
+        const ids = Object.keys(MATERIAS_CFG);
+        if (st.moduleId && !ids.includes(st.moduleId)) ids.unshift(st.moduleId);
+        mod.innerHTML = ids.map(id => `<option value="${id}" ${id === st.moduleId ? 'selected' : ''}>${MATERIAS_CFG[id] || id}</option>`).join('');
         const units = await _cargarUnidades(st.moduleId);
-        fila.style.display = units.length ? '' : 'none';
-        sel.innerHTML = units.map(u => `<option value="${u.id}" ${u.id === st.upId ? 'selected' : ''}>UP${u.number} · ${String(u.title || '').trim()}</option>`).join('');
+        document.getElementById('nika-cfg-up-row').style.display = units.length ? '' : 'none';
+        document.getElementById('nika-cfg-up').innerHTML = _opcionesUnidades(units, st.upId);
+        document.getElementById('nika-cfg-save').textContent = soloProximo ? 'Aplicar al próximo Pomodoro' : (estudiando ? 'Guardar y reiniciar' : 'Guardar');
+        document.getElementById('nika-cfg-nota').textContent = soloProximo
+            ? 'El descanso sigue su curso. Estos valores se usan cuando arranque el próximo Pomodoro.'
+            : (estudiando ? 'Al guardar, el reloj se reinicia con los nuevos tiempos.' : 'Se usa cuando arranques el Pomodoro.');
         panel.classList.add('is-open');
     }
 
@@ -331,14 +352,21 @@ const NikaPomoBar = (() => {
         const w = parseInt(document.getElementById('nika-cfg-work').value, 10);
         const b = parseInt(document.getElementById('nika-cfg-break').value, 10);
         if (!(w >= 1 && w <= E.MAX_WORK_MIN) || !(b >= 1 && b <= E.MAX_BREAK_MIN)) { alert(`Estudio: 1 a ${E.MAX_WORK_MIN} min · Descanso: 1 a ${E.MAX_BREAK_MIN} min.`); return; }
-        try { localStorage.setItem('nika_pomo_w_mins', String(w)); localStorage.setItem('nika_pomo_b_mins', String(b)); } catch (_) {}
         const st = E.getState();
         const sel = document.getElementById('nika-cfg-up');
+        const moduleId = document.getElementById('nika-cfg-mod').value || st.moduleId;
         const upId = sel && sel.value ? sel.value : st.upId;
         const unit = upId && window.EstudioState && EstudioState.unitsById ? EstudioState.unitsById[upId] : null;
         const opt = sel && sel.selectedOptions[0];
-        const upLabel = upId === st.upId ? st.upLabel : (unit ? unit.title : (opt ? opt.textContent.replace(/^UP\d+\s·\s/, '') : upId));
-        E.reset(undefined, { moduleId: st.moduleId, upId, upLabel });
+        const upLabel = (upId === st.upId && moduleId === st.moduleId) ? st.upLabel : (unit ? unit.title : (opt ? opt.textContent.replace(/^UP\d+\s·\s/, '') : upId));
+        if (st.mode === 'break' || (st.mode === 'work' && st.status === 'idle')) {
+            const r = E.setNextConfig({ workMin: w, breakMin: b, moduleId, upId, upLabel });
+            document.getElementById('nika-pomo-cfg').classList.remove('is-open');
+            if (r && r.ok && typeof window.showToast === 'function') window.showToast('✅ Listo: el próximo Pomodoro será de ' + w + ' min · ' + (MATERIAS_CFG[moduleId] || moduleId), 'success');
+            return;
+        }
+        try { localStorage.setItem('nika_pomo_w_mins', String(w)); localStorage.setItem('nika_pomo_b_mins', String(b)); } catch (_) {}
+        E.reset(undefined, { moduleId, upId, upLabel });
         document.getElementById('nika-pomo-cfg').classList.remove('is-open');
     }
 

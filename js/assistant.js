@@ -689,7 +689,7 @@ const NikaAssistant = (() => {
             hablaTy = setInterval(() => {
                 i++; let n = 0, out = '', tag = false;
                 for (const ch of html) { if (ch === '<') tag = true; out += ch; if (ch === '>') { tag = false; continue; } if (!tag) { n++; if (n >= i) break; } }
-                tx.innerHTML = out; if (i % 3 === 0) sonido('nika_bip');
+                tx.innerHTML = out; if (i % 4 === 0 && i <= 24) sonido('nika_bip');
                 if (i >= plano.length) { clearInterval(hablaTy); fin(); }
             }, 26);
         }

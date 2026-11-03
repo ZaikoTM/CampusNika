@@ -147,3 +147,8 @@ body.dark-mode .rt-logro, body.dark-mode .rt-badge.ok { color: #86efac; } body.d
 .rt-como[open] summary { color: #6366f1; }
 .rt-como .rf-como { margin: 0 0 10px; }
 .rt-card > .rf-como { margin: 14px 0 0; }
+
+.rt-quitar { border: 0; background: transparent; color: inherit; opacity: .35; cursor: pointer; width: 24px; height: 24px; border-radius: 50%; font-size: .72rem; transition: opacity .2s, background .2s, transform .2s; }
+.rt-quitar:hover { opacity: 1; background: rgba(239,68,68,.15); color: #b91c1c; transform: rotate(90deg); }
+.rt-acc .rt-btn { transition: transform .18s cubic-bezier(.22, 1.4, .36, 1), box-shadow .18s, background .18s; }
+.rt-acc .rt-btn:hover { transform: translateY(-2px); }

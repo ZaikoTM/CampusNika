@@ -111,3 +111,6 @@
 .rf-como ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: .84rem; line-height: 1.45; }
 .rf-como li::marker { color: #6366f1; }
 .rf--sala .rf-como { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); }
+
+.rf-am.ya { cursor: default; opacity: .75; border-style: dashed; }
+.rf-am.ya:hover { transform: none; }
