@@ -12,7 +12,11 @@
   let retoAbierto = false, retoPre = [], retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  const toast = (m, t) => { if (typeof window.showToast === 'function') window.showToast(m, t); };
+  // Avisos de la sala: los dice Nika (globo con su marco); si el usuario los apagó en Notificaciones, vuelve el toast común
+  const toast = (m, t) => {
+    try { if (window.NikaAssistant && NikaAssistant.hablar && NikaAssistant.hablar({ html: String(m).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])), anim: t === 'success' ? 'celebra' : 'feliz', cara: t === 'success' ? 'fel' : '', ms: 4200 })) return; } catch (_) {}
+    if (typeof window.showToast === 'function') window.showToast(m, t);
+  };
   const yo = () => { try { return JSON.parse(localStorage.getItem('nika_currentUser')) || null; } catch (_) { return null; } };
   const perfil = (u) => amigos.find((a) => a.username === u) || ((yo() && yo().username === u) ? yo() : null);
 

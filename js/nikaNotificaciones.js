@@ -112,6 +112,14 @@
 .nn-card h4 .i{display:inline-flex;width:34px;height:34px;border-radius:11px;align-items:center;justify-content:center;font-size:18px;background:color-mix(in srgb,var(--c) 22%,#0f172a);animation:nnLate 1.6s ease-in-out infinite}
 .nn-card p{margin:6px 0 0;color:#cbd5e1;font-weight:600;font-size:13px}
 .nn-card .nn-b{display:flex;gap:8px;margin-top:11px}
+.nn-card.nn-nika{margin-top:14px;overflow:visible;background:var(--bg);color:var(--tx);border:1.5px solid var(--bd);border-left:1.5px solid var(--bd);border-radius:16px;padding:18px 34px 14px 14px;box-shadow:0 12px 34px var(--sh),0 0 0 4px var(--halo)}
+.nn-card.nn-nika h4{align-items:flex-start;gap:12px}
+.nn-card.nn-nika h4 .tt{display:block;font-weight:800;color:var(--tx)}
+.nn-card.nn-nika h4 .em{position:absolute;left:62px;top:66px;font-size:12px;background:var(--bg);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--bd)}
+.nn-card.nn-nika p{color:var(--mu);margin-left:72px}
+.nn-card.nn-nika .nn-b{margin-left:72px}
+.nn-card.nn-nika .nn-x,.nn-card.nn-nika .nn-conf{color:var(--mu)}
+.nn-card.nn-nika .nn-barra{background:var(--chip)}
 .nn-card button{flex:1;border:0;border-radius:10px;padding:9px 10px;font-weight:800;font-size:13px;font-family:inherit;cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s}
 .nn-card button:hover{filter:brightness(1.12);transform:translateY(-1px)}.nn-card button:active{transform:scale(.95)}
 .nn-ok{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 4px 14px rgba(34,197,94,.35)}.nn-no{background:#1e293b;color:#e2e8f0}
@@ -171,11 +179,14 @@
   }
   // en pantalla completa solo se ve lo que está dentro del elemento que ocupa la pantalla: la caja de avisos viaja con él
   document.addEventListener('fullscreenchange', () => { if (!caja) return; try { (document.fullscreenElement || document.body).appendChild(caja); } catch (_) {} });
+  const MARCO_NIKA = new Set(['invitacion_pomodoro', 'desafio']);   // invitaciones a estudiar y a retos: con el marco de Nika
   function tarjeta(n, opc) {
     const t = tipoDe(n.tipo), T = TIPOS[t];
-    const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color); el.dataset.id = n.id || '';
+    const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color);
+    const marco = MARCO_NIKA.has(t) && window.NikaAssistant && NikaAssistant.cara;
+    if (marco) el.classList.add('nn-nika'); el.dataset.id = n.id || '';
     const dur = (opc && opc.dur) || 12000;
-    el.innerHTML = `<button class="nn-conf" data-nn-abrir aria-label="Preferencias de notificaciones" title="Preferencias de sonido y avisos">⚙</button><button class="nn-x" aria-label="Cerrar">×</button><h4><span class="i">${T.ico}</span><span>${esc(n.titulo)}</span></h4>${n.cuerpo ? `<p>${esc(n.cuerpo)}</p>` : ''}${opc && opc.botones ? `<div class="nn-b"></div>` : ''}<i class="nn-barra" style="animation-duration:${dur}ms"></i>`;
+    el.innerHTML = `<button class="nn-conf" data-nn-abrir aria-label="Preferencias de notificaciones" title="Preferencias de sonido y avisos">⚙</button><button class="nn-x" aria-label="Cerrar">×</button><h4>${marco ? `<span class="nh-nm">NIKA</span>${NikaAssistant.cara('')}<span class="em">${T.ico}</span><span class="tt">${esc(n.titulo)}</span>` : `<span class="i">${T.ico}</span><span>${esc(n.titulo)}</span>`}</h4>${n.cuerpo ? `<p>${esc(n.cuerpo)}</p>` : ''}${opc && opc.botones ? `<div class="nn-b"></div>` : ''}<i class="nn-barra" style="animation-duration:${dur}ms"></i>`;
     const cierra = () => { el.classList.add('nn-sale'); setTimeout(() => el.remove(), 300); };
     el.querySelector('.nn-x').addEventListener('click', (e) => { e.stopPropagation(); cierra(); if (opc && opc.alCerrar) opc.alCerrar(); });
     el.querySelector('.nn-conf').addEventListener('click', (e) => { e.stopPropagation(); abrirCentro('pref'); });
@@ -664,6 +675,6 @@
     if (n < 40) setTimeout(() => esperar(n + 1), 500);
   }
 
-  window.NikaNotif = { enviar, aviso, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, historial: () => hist.slice(), noLeidas: () => noLeidas, marcarTodas, accion: (n) => { accionPorDefecto(n); marcarLeida(n); }, _iniciar: iniciar };
+  window.NikaNotif = { enviar, aviso, tarjeta, estilos, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, historial: () => hist.slice(), noLeidas: () => noLeidas, marcarTodas, accion: (n) => { accionPorDefecto(n); marcarLeida(n); }, _iniciar: iniciar };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => esperar(0)); else esperar(0);
 })();

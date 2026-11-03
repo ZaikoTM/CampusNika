@@ -319,22 +319,35 @@ const NikaAssistant = (() => {
             /* Globo de Nika: se tiñe según el tema del campus (claro, oscuro, premium) */
             #nika-habla { --bg:#ffffff; --bd:#7dd3fc; --sh:rgba(15,23,42,.22); --halo:rgba(56,189,248,.16); --tx:#0f172a; --fbg:#e0f2fe; --hd:#ffffff; --hdb:#94a3b8; --vz:#0c2140; --eye:#22d3ee; --chip:#0284c7; --chipt:#fff; --hl:#0369a1; --seg:#e0f2fe; --on:#22c55e; --onglow:rgba(34,197,94,.4); --mu:#64748b;
                 position: fixed; right: 22px; bottom: 112px; z-index: 2147483000; width: min(400px, calc(100vw - 32px)); border-radius: 16px; background: var(--bg); border: 1.5px solid var(--bd); box-shadow: 0 12px 34px var(--sh), 0 0 0 4px var(--halo); color: var(--tx); cursor: pointer; transform-origin: 90% 100%; animation: nkaGloboIn .45s cubic-bezier(.34,1.56,.64,1) both; }
-            body.dark-mode #nika-habla { --bg:rgba(15,28,52,.94); --bd:rgba(56,189,248,.55); --sh:rgba(0,0,0,.55); --halo:rgba(56,189,248,.1); --tx:#e2e8f0; --fbg:#0b1a33; --hd:#eef2f7; --vz:#0c2140; --eye:#35e0f7; --chip:#38bdf8; --chipt:#06223a; --hl:#7dd3fc; --seg:rgba(148,163,184,.22); --on:#34d399; --onglow:rgba(52,211,153,.5); --mu:#94a3b8; }
-            body.tema-premium #nika-habla { --bg:rgba(24,12,56,.94); --bd:rgba(192,132,252,.6); --sh:rgba(76,29,149,.65); --halo:rgba(168,85,247,.16); --tx:#f8fafc; --fbg:#1a0e3d; --hd:#f1ecff; --hdb:#a78bfa; --vz:#1e1245; --eye:#c4b5fd; --chip:#a855f7; --chipt:#fff; --hl:#d8b4fe; --seg:rgba(168,85,247,.22); --on:#c084fc; --onglow:rgba(192,132,252,.6); --mu:#a5b4d0; }
+            .nn-card.nn-nika { --bg:#ffffff; --bd:#7dd3fc; --sh:rgba(15,23,42,.22); --halo:rgba(56,189,248,.16); --tx:#0f172a; --fbg:#e0f2fe; --hd:#ffffff; --hdb:#94a3b8; --vz:#0c2140; --eye:#22d3ee; --chip:#0284c7; --chipt:#fff; --hl:#0369a1; --seg:#e0f2fe; --on:#22c55e; --onglow:rgba(34,197,94,.4); --mu:#64748b; }
+            body.dark-mode #nika-habla, body.dark-mode .nn-card.nn-nika { --bg:rgba(15,28,52,.94); --bd:rgba(56,189,248,.55); --sh:rgba(0,0,0,.55); --halo:rgba(56,189,248,.1); --tx:#e2e8f0; --fbg:#0b1a33; --hd:#eef2f7; --vz:#0c2140; --eye:#35e0f7; --chip:#38bdf8; --chipt:#06223a; --hl:#7dd3fc; --seg:rgba(148,163,184,.22); --on:#34d399; --onglow:rgba(52,211,153,.5); --mu:#94a3b8; }
+            body.tema-premium #nika-habla, body.tema-premium .nn-card.nn-nika { --bg:rgba(24,12,56,.94); --bd:rgba(192,132,252,.6); --sh:rgba(76,29,149,.65); --halo:rgba(168,85,247,.16); --tx:#f8fafc; --fbg:#1a0e3d; --hd:#f1ecff; --hdb:#a78bfa; --vz:#1e1245; --eye:#c4b5fd; --chip:#a855f7; --chipt:#fff; --hl:#d8b4fe; --seg:rgba(168,85,247,.22); --on:#c084fc; --onglow:rgba(192,132,252,.6); --mu:#a5b4d0; }
             #nika-habla.sale { animation: nkaGloboOut .3s ease-in both; }
             #nika-habla .nh-in { display: flex; gap: 14px; padding: 16px 30px 14px 14px; align-items: flex-start; }
             #nika-habla .nh-nm { position: absolute; left: 14px; top: -11px; background: var(--chip); color: var(--chipt); font: 500 12px 'Pixelify Sans', monospace; letter-spacing: .5px; padding: 2px 10px; border-radius: 7px; }
+            .nn-card.nn-nika .nh-nm { position: absolute; left: 14px; top: -11px; background: var(--chip); color: var(--chipt); font: 500 12px 'Pixelify Sans', monospace; letter-spacing: .5px; padding: 2px 10px; border-radius: 7px; }
             #nika-habla .nh-fc { flex: none; width: 60px; height: 60px; border-radius: 14px; background: var(--fbg); border: 1.5px solid var(--bd); position: relative; overflow: hidden; }
+            .nn-card.nn-nika .nh-fc { flex: none; width: 60px; height: 60px; border-radius: 14px; background: var(--fbg); border: 1.5px solid var(--bd); position: relative; overflow: hidden; }
             #nika-habla .nh-hd { position: absolute; left: 7px; top: 9px; width: 44px; height: 32px; border-radius: 13px; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); }
+            .nn-card.nn-nika .nh-hd { position: absolute; left: 7px; top: 9px; width: 44px; height: 32px; border-radius: 13px; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); }
             #nika-habla .nh-vz { position: absolute; left: 4px; top: 4px; width: 32px; height: 19px; border-radius: 9px; background: var(--vz); }
+            .nn-card.nn-nika .nh-vz { position: absolute; left: 4px; top: 4px; width: 32px; height: 19px; border-radius: 9px; background: var(--vz); }
             #nika-habla .nh-o { position: absolute; top: 9px; width: 7px; height: 8px; border-radius: 3px 3px 1px 1px; background: var(--eye); box-shadow: 0 0 6px var(--eye); transform-origin: 50% 100%; animation: nkaParpadeo 4s infinite; }
+            .nn-card.nn-nika .nh-o { position: absolute; top: 9px; width: 7px; height: 8px; border-radius: 3px 3px 1px 1px; background: var(--eye); box-shadow: 0 0 6px var(--eye); transform-origin: 50% 100%; animation: nkaParpadeo 4s infinite; }
             #nika-habla .nh-o1 { left: 9px; } #nika-habla .nh-o2 { left: 21px; }
+            .nn-card.nn-nika .nh-o1 { left: 9px; } #nika-habla .nh-o2 { left: 21px; }
             #nika-habla .nh-bd { position: absolute; left: 15px; top: 43px; width: 28px; height: 14px; border-radius: 8px 8px 0 0; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); border-bottom: 0; }
+            .nn-card.nn-nika .nh-bd { position: absolute; left: 15px; top: 43px; width: 28px; height: 14px; border-radius: 8px 8px 0 0; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); border-bottom: 0; }
             #nika-habla .fel .nh-o { height: 4px; top: 12px; animation: none; border-radius: 6px 6px 0 0; }
+            .nn-card.nn-nika .fel .nh-o { height: 4px; top: 12px; animation: none; border-radius: 6px 6px 0 0; }
             #nika-habla .can .nh-o { height: 3px; top: 13px; animation: none; }
+            .nn-card.nn-nika .can .nh-o { height: 3px; top: 13px; animation: none; }
             #nika-habla .dor .nh-o { height: 2px; top: 14px; animation: none; box-shadow: none; }
+            .nn-card.nn-nika .dor .nh-o { height: 2px; top: 14px; animation: none; box-shadow: none; }
             #nika-habla .nh-z { display: none; position: absolute; right: 4px; top: 2px; font: 500 11px 'Pixelify Sans', monospace; color: var(--eye); }
+            .nn-card.nn-nika .nh-z { display: none; position: absolute; right: 4px; top: 2px; font: 500 11px 'Pixelify Sans', monospace; color: var(--eye); }
             #nika-habla .dor .nh-z { display: block; animation: nkaZ 2s infinite; }
+            .nn-card.nn-nika .dor .nh-z { display: block; animation: nkaZ 2s infinite; }
             #nika-habla .nh-c { flex: 1; min-width: 0; }
             #nika-habla .nh-tx { font-size: 14.5px; font-weight: 500; line-height: 1.5; min-height: 44px; }
             #nika-habla .nh-tx b { font-weight: 800; color: var(--hl); }
@@ -644,8 +657,8 @@ const NikaAssistant = (() => {
         return '';
     }
     function hablar(opt) {
-        if (!btnEl || !opt) return;
-        try { const pr = window.NikaNotif && NikaNotif.prefs && NikaNotif.prefs(); if (pr && pr.aviso && pr.aviso.nika_asistente === false) return; } catch (_) {}
+        if (!btnEl || !opt) return false;
+        try { const pr = window.NikaNotif && NikaNotif.prefs && NikaNotif.prefs(); if (pr && pr.aviso && pr.aviso.nika_asistente === false) return false; } catch (_) {}
         const prev = document.getElementById('nika-habla'); if (prev) prev.remove();
         clearTimeout(hablaT); clearInterval(hablaTy);
         const partes = opt.partes && opt.partes.length ? opt.partes : [opt.html];
@@ -705,7 +718,9 @@ const NikaAssistant = (() => {
         setTimeout(() => btnEl.classList.remove('habla'), 1800);
         setTimeout(() => btnEl.classList.remove(cls), 2400);
         if (opt.confeti) confeti();
+        return true;
     }
+    const caraHtml = (c) => '<div class="nh-fc ' + (c || '') + '"><div class="nh-hd"><i class="nh-vz"></i><i class="nh-o nh-o1"></i><i class="nh-o nh-o2"></i></div><i class="nh-bd"></i><b class="nh-z">z</b></div>';
     function confeti() {
         if (!btnEl) return;
         const r = btnEl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 3, col = ['#38bdf8', '#22c55e', '#facc15', '#fb7185', '#a78bfa'];
@@ -718,5 +733,7 @@ const NikaAssistant = (() => {
         }
     }
 
-    return { consultarIAProfunda, callNotebookLM, callGeminiFlash, notificar, hablar };
+    return { consultarIAProfunda, callNotebookLM, callGeminiFlash, notificar, hablar, cara: caraHtml };
 })();
+
+try { window.NikaAssistant = NikaAssistant; } catch (_) {}
