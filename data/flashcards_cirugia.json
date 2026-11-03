@@ -2184,7 +2184,8 @@
     "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 330",
     "puntos": [
      "Coincide en el manejo inicial: reanimación con líquidos, reposición de electrólitos, sonda nasogástrica para descompresión y sonda vesical para vigilar la diuresis; los antibióticos son controvertidos pero están indicados de forma profiláctica si hace falta operar. La obstrucción completa es indicación de cirugía; en el cáncer en estadio IV no resecable se puede colocar una endoprótesis, que también permite preparar el intestino para cirugía programada.",
-     "En el íleo el tratamiento es de sostén (líquidos y descompresión nasogástrica), y los antagonistas opioides periféricos (alvimopan, metilnaltrexona) pueden acelerar la recuperación tras cirugía abdominal; en la pseudoobstrucción colónica (Ogilvie) la neostigmina tiene eficacia moderada si se descartó la obstrucción mecánica, con monitorización cardíaca y atropina disponible."
+     "En el íleo el tratamiento es de sostén (líquidos y descompresión nasogástrica), y los antagonistas opioides periféricos (alvimopan, metilnaltrexona) pueden acelerar la recuperación tras cirugía abdominal; en la pseudoobstrucción colónica (Ogilvie) la neostigmina tiene eficacia moderada si se descartó la obstrucción mecánica, con monitorización cardíaca y atropina disponible.",
+     "Farreras 20 (cap. 20) agrega que en la oclusión por bridas puede intentarse el tratamiento conservador con aspiración nasogástrica y reposo digestivo, y que el contraste hidrosoluble oral tiene valor pronóstico y terapéutico: por ser hipertónico reduce el edema parietal y puede favorecer la resolución espontánea; la sonda urinaria permite monitorizar la diuresis."
     ]
    }
   },
@@ -9940,7 +9941,15 @@
    "fisiopatologia": [
     "Los traumatismos renales son cerrados (hasta el 90 %) o penetrantes. Los cerrados se deben a accidentes de tránsito, caídas, deportes de alto riesgo, accidentes laborales y peleas; los penetrantes, a armas blancas o de fuego (Manual SCHU, cap. 33).",
     "Las lesiones contusas ocurren por dos mecanismos: la transmisión de la fuerza de un golpe lumbar o abdominal, con máxima fuerza en la periferia del riñón y una fuerza contraria de las cavidades llenas de orina proporcional a su presión (por eso lesiona más la periferia y a quienes tienen uropatía obstructiva), y los movimientos anteroposteriores o cefalocaudales del riñón por desaceleración brusca, que dañan los vasos renales (Manual SCHU, cap. 33)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., caps. 5 y 14",
+    "puntos": [
+     "ATLS coincide en la evaluación: contusiones, hematomas o equimosis de la espalda o el flanco sugieren lesión renal y hematuria macroscópica es indicación de imágenes del tracto urinario; la TC con contraste intravenoso documenta la extensión de la lesión renal cerrada, que con frecuencia se trata sin operar. Agrega que la trombosis de la arteria renal y la rotura del pedículo renal por desaceleración pueden cursar sin hematuria, y que las lesiones ureterales se sospechan en todo trauma penetrante con hematuria.",
+     "Si se sospecha lesión uretral (sangre en el meato, equimosis perineal) está contraindicada la sonda vesical transuretral hasta hacer una uretrografía retrógrada. Los estudios contrastados no deben retrasar la atención de pacientes con inestabilidad hemodinámica."
+    ]
+   }
   },
   {
    "id": "cx-cancer-prostata-diagnostico",
@@ -11588,7 +11597,15 @@
    "fisiopatologia": [
     "Los colangiocarcinomas son adenocarcinomas bien a moderadamente diferenciados con abundante estroma fibroso y mucina. Se diseminan primero a los ganglios del hilio hepático, invaden órganos vecinos (páncreas, duodeno, estómago) y metastatizan al hígado y al peritoneo (Giménez, cap. 57).",
     "Las mutaciones más frecuentes son KRAS (36 %), TP53 (34 %), ARID1A (14 %) y SMAD4 (10 %). La inflamación crónica de la vía biliar es el factor de riesgo común más frecuente; la colangitis esclerosante primaria tiene un riesgo de 6 a 20 % (Giménez, cap. 57)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 82",
+    "puntos": [
+     "Harrison clasifica el colangiocarcinoma por ubicación anatómica: intrahepático (20 a 30 %), perihiliar (50 a 60 %) y distal (20 a 30 %), con los dos últimos llamados extrahepáticos y las vías biliares de segundo orden como punto de separación (octava edición del AJCC). Los tres subtipos difieren en epidemiología, factores de riesgo, célula de origen, patogenia y tratamiento, y las opciones además de la cirugía son limitadas.",
+     "El intrahepático se origina de colangiocitos, hepatocitos adultos y células progenitoras, a diferencia del carcinoma hepatocelular; los extrahepáticos, del epitelio biliar y las glándulas peribiliares. Su perfil mutacional también difiere (fusiones de FGFR2 y mutaciones de IDH)."
+    ]
+   }
   },
   {
    "id": "cx-tumores-hepaticos-benignos",
@@ -11684,7 +11701,15 @@
    "fisiopatologia": [
     "Hemangioma: es el tumor sólido benigno más frecuente del hígado, formado por células endoteliales que constituyen canales vasculares dilatados. Es congénito y se parece más a una malformación vascular con ectasia que a una neoplasia; no tiene potencial de malignizar. Su relación con las hormonas no está demostrada, aunque hay informes de aumento de tamaño durante el embarazo o con anovulatorios (Giménez, cap. 50).",
     "Adenoma hepatocelular: proliferación de hepatocitos con vascularización arterial que asienta en un hígado normal y tiene clara relación hormonal. No se conoce el mecanismo por el que los anovulatorios aumentan su incidencia (se postulan los receptores de estrógenos y progesterona en el tumor); crece durante el embarazo y hasta 6 semanas posparto. Se asocia además a andrógenos y anabolizantes, síndrome de Klinefelter, poliposis familiar y enfermedades metabólicas (diabetes tipo I, glucogenosis, galactosemia, tirosinemia) (Giménez, cap. 50)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 82",
+    "puntos": [
+     "Coincide en la conducta. Harrison indica que los hemangiomas (cerca del 5 % de la población) se diagnostican por ecografía, salvo en cirróticos y pacientes oncológicos que necesitan imágenes con contraste, y no requieren seguimiento; solo las lesiones sintomáticas por compresión se consideran para resección.",
+     "La hiperplasia nodular focal está en menos del 2 %, sobre todo en mujeres de 40 a 50 años; es una proliferación policlonal por una malformación arterial, la RM tiene especificidad de 100 % con intensificación arterial homogénea y cicatriz central, la forma atípica exige biopsia y no se trata porque no degenera ni se complica. Los adenomas son proliferaciones clonales por mutaciones oncógenas aisladas."
+    ]
+   }
   },
   {
    "id": "cx-polipos-poliposis",
@@ -11817,7 +11842,15 @@
    "fisiopatologia": [
     "La poliposis adenomatosa familiar se debe a mutaciones en el gen APC (brazo largo del cromosoma 5), un supresor tumoral de la vía WNT; la herencia es autosómica dominante con penetrancia de 100 %, aunque en alrededor del 20 % de los casos no se halla la mutación y se descubren otros genes (Giménez, cap. 71).",
     "Por su carácter germinal hay manifestaciones extracolónicas. Según el número de adenomas es atenuada (20 a 99), clásica (100 a 1000) o florida (más de 1000); incidencia de 1 en 10.000 a 20.000 (Giménez, cap. 71)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 81",
+    "puntos": [
+     "Harrison resume los síndromes de poliposis: la poliposis adenomatosa familiar (miles de adenomas en el colon, herencia autosómica dominante, pérdida en el cromosoma 5 con el gen APC) con potencial maligno frecuente; Gardner (intestino delgado y grueso, con osteomas, fibromas, lipomas, quistes epidermoides y cáncer de ampolla); Turcot (con tumores encefálicos); poliposis asociada a MYH; Lynch (sin poliposis, adenomas del colon proximal y tumores de endometrio y ovario).",
+     "Los síndromes de Peutz-Jeghers (hamartomas en delgado, colon y estómago, con pigmentación mucocutánea y tumores de ovario, mama, páncreas y endometrio) y de poliposis juvenil (hamartomas que rara vez degeneran en adenoma) tienen potencial maligno raro."
+    ]
+   }
   },
   {
    "id": "cx-hiperparatiroidismo",
@@ -15384,7 +15417,15 @@
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
    "fisiopatologia": [
     "Los traumatismos cerrados de la uretra son por golpe perineal (uretra anterior, bulbar) o por fractura pélvica (uretra posterior). Otras causas: actividad sexual (fractura de pene, anillos constrictores), cuerpos extraños y lesiones iatrogénicas por sondaje o cirugía urológica, con falsa vía en la región penobulbar, la más vulnerable (Manual SCHU, cap. 34)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., caps. 5 y 14",
+    "puntos": [
+     "ATLS indica que la cistografía convencional o por TC es el método más eficaz para diagnosticar una ruptura vesical intraperitoneal o extraperitoneal: se instilan unos 350 mL de contraste hidrosoluble por gravedad a 40 cm de altura, con 50 mL más para asegurar la distensión, y se toman radiografías antes de drenar, con la vejiga llena y después de drenarla.",
+     "La uretrografía se hace antes de insertar el catéter ante sospecha de lesión uretral: con una sonda de 8 French con el balón inflado a 1,5 a 2 mL en el meato y unos 30 a 35 mL de contraste sin diluir, con una proyección AP y un leve estiramiento del pene; un estudio adecuado muestra contraste pasando a la vejiga. Los no especialistas deben evitar la manipulación excesiva de la uretra y consultar a urología precozmente."
+    ]
+   }
   },
   {
    "id": "cx-pancreatitis-cronica",
