@@ -6425,7 +6425,15 @@
    "fisiopatologia": [
     "Se asocian al desarrollo de nódulos el déficit de yodo, el sexo femenino y la mayor edad; también el tabaquismo, el alcohol, la obesidad, los miomas uterinos y la insulinorresistencia. La radiación en la infancia es factor de riesgo de nódulos benignos y de carcinoma (Giménez, cap. 23).",
     "Mutaciones asociadas al cáncer: BRAF, PTC/RET, RAS y TERT al carcinoma papilar; RAS y PAX8/PPARγ al folicular; CTNNB1 y p53 al anaplásico; el oncogén RET se asocia al medular (Giménez, cap. 23)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 385",
+    "puntos": [
+     "Coincide en que la PAAF informada con el sistema Bethesda define la conducta y en que, si indica malignidad, corresponde la cirugía tras una ecografía previa de los ganglios cervicales. Harrison agrega que las citologías no diagnósticas (5 a 10 %) suelen deberse a lesiones quísticas, que al repetir la PAAF guiada por ecografía se obtiene una citología diagnóstica en casi el 50 %, y que un nódulo benigno con patrón ecográfico poco sospechoso (TR2, TR3) puede observarse, porque los falsos negativos de la citología benigna son menores de 3 %.",
+     "Los nódulos TR5 ameritan varias PAAF por la mayor probabilidad de pasar por alto un cáncer, y la levotiroxina para suprimir la TSH no reduce el tamaño de los nódulos en poblaciones con suficiencia de yodo y no debe usarse."
+    ]
+   }
   },
   {
    "id": "cx-cancer-diferenciado-tiroides",
@@ -11775,7 +11783,15 @@
    "fisiopatologia": [
     "La PTH está regulada por el calcio plasmático y la homeostasis fosfocálcica: actúa sobre el riñón (reabsorción de calcio) y sobre el hueso (remodelado), y baja cuando el calcio sube. En el hiperparatiroidismo primario este freno falla porque las glándulas funcionan de manera autónoma (Giménez, cap. 26).",
     "El 95 % es esporádico. La causa más frecuente es el adenoma paratiroideo (80 %, casi siempre una sola glándula); la hiperplasia de las cuatro glándulas explica el 12 % (Giménez, cap. 26)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 410",
+    "puntos": [
+     "La ficha no detalla cuándo operar el hiperparatiroidismo primario asintomático. Harrison, con base en el Cuarto Taller Internacional (2014), indica cirugía con: calcio sérico más de 1 mg/dL por encima del normal; depuración de creatinina menor de 60 mL/min; calciuria de 24 horas mayor de 400 mg/día con riesgo de cálculos, o nefrolitiasis o nefrocalcinosis en las imágenes; densidad ósea con puntuación T de −2,5 o menos en columna lumbar, cadera total, cuello femoral o tercio distal del radio, o fractura vertebral; o edad menor de 50 años.",
+     "Si no se cumple ninguno, la vigilancia es segura con calcio y creatinina o filtrado estimado anuales y densitometría de tres sitios cada 1 a 2 años. Harrison señala además que la paratiroidectomía bien realizada mejora de forma sostenida la densidad mineral ósea y puede revertir manifestaciones neuromusculares y algunas neuropsiquiátricas."
+    ]
+   }
   },
   {
    "id": "cx-enfermedad-carotidea",
@@ -12631,6 +12647,14 @@
     "nota": "Algoritmo de la fig. 8-4. Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 306",
+    "puntos": [
+     "Coincide en la calidad de las compresiones: 100 a 120 por minuto, con recuperación completa del tórax entre cada una y la menor interrupción posible; Harrison indica una profundidad de 5 cm (la ficha menciona 5 a 6 cm). La relación es de dos ventilaciones cada 30 compresiones para un reanimador entrenado; los legos sin entrenamiento que hacen solo compresiones (\"RCP solo de manos\") obtienen un beneficio similar. Verificar el pulso no debe llevar más de 10 segundos.",
+     "La rapidez de la desfibrilación es un predictor importante del resultado: se aplica un desfibrilador, con más frecuencia un DEA, apenas esté disponible. En el paro por ritmo desfibrilable se agregan epinefrina y amiodarona una vez establecido el acceso intravenoso o intraóseo; en la asistolia o la actividad eléctrica sin pulso se administra epinefrina y se busca tratar las causas reversibles, y para las bradiarritmias se menciona atropina 1 mg IV y marcapasos externo o transvenoso."
+    ]
+   },
    "farmacos": [
     "fx-anestesicos-locales"
    ]
