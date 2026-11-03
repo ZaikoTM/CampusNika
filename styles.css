@@ -266,6 +266,27 @@
         .perf-tile--olvido .perf-tile-icon { background: linear-gradient(135deg, #64748b, #94a3b8); box-shadow: 0 6px 14px -4px rgba(100,116,139,0.55); }
         .perf-tile--olvido:hover { border-color: #64748b; box-shadow: 0 14px 30px -12px rgba(100,116,139,0.35); }
 
+        /* Grilla sin huecos: 7 tarjetas, la de Curva del Olvido ocupa lo que le sobra a la última fila.
+           2 columnas -> ocupa la fila entera; 3 columnas -> fila entera; 4 columnas -> 2 columnas (4 + 2 + 2 + hoy + favorita). */
+        .perf-grid-wrap { container-type: inline-size; width: 100%; }
+        #mi-rendimiento-widget .perf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        #mi-rendimiento-widget .perf-tile--olvido { grid-column: 1 / -1; flex-direction: row; align-items: center; text-align: left; flex-wrap: wrap; }
+        #mi-rendimiento-widget .perf-tile--olvido .perf-tile-icon { margin-bottom: 0; }
+        @container (max-width: 459px) {
+            #mi-rendimiento-widget .perf-grid { grid-template-columns: minmax(0, 1fr); }
+        }
+        @container (min-width: 640px) {
+            #mi-rendimiento-widget .perf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @container (min-width: 880px) {
+            #mi-rendimiento-widget .perf-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            #mi-rendimiento-widget .perf-tile--olvido { grid-column: span 2; }
+        }
+        .perf-olvido-btn { margin-left: auto; flex: 0 0 auto; border: 0; border-radius: 999px; padding: 9px 16px; font: 800 0.8rem/1 inherit; color: #fff; cursor: pointer; background: linear-gradient(135deg, #0284c7, #22d3ee); box-shadow: 0 8px 18px -8px rgba(2,132,199,0.7); transition: transform .15s ease, box-shadow .15s ease; }
+        .perf-olvido-btn[hidden] { display: none; }
+        .perf-olvido-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 22px -8px rgba(2,132,199,0.8); }
+        .perf-olvido-btn:focus-visible { outline: 3px solid rgba(2,132,199,0.45); outline-offset: 2px; }
+
         /* ===== Mosaicos de tiempo de estudio (Mi Rendimiento Académico) ===== */
         .perf-time-tile { position: relative; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 16px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--shadow); text-align: left; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
         .perf-time-tile:hover { transform: translateY(-3px); }

@@ -16,6 +16,32 @@
 
   let semanas = [], sel = 0, tab = 'semana', metrica = 'min', cmpA = 0, cmpB = 0, miembro = null, raiz = null, ahora = new Date(), compacto = false;
 
+  /* ---------- meta semanal (minutos), guardada en este navegador por usuario ---------- */
+  const claveMeta = () => {
+    let u = ''; try { u = (window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername && window.NikaSupabase.getNikaCurrentUsername()) || ''; } catch (_) {}
+    return 'nika_meta_semanal_min_' + u;
+  };
+  const leerMeta = () => { try { const v = Number(localStorage.getItem(claveMeta())); return v > 0 ? v : 0; } catch (_) { return 0; } };
+  const guardarMeta = (min) => { try { if (min > 0) localStorage.setItem(claveMeta(), String(min)); else localStorage.removeItem(claveMeta()); } catch (_) {} };
+  let metaMin = 0, editandoMeta = false;
+  const faltaMeta = (A) => Math.max(0, metaMin - A.min);
+  function bloqueMeta(A, esActual) {
+    if (!esActual) return '';
+    if (editandoMeta) {
+      return '<div class="rs-meta rs-meta--edit"><label for="rs-meta-h">🎯 Meta semanal de estudio (horas)</label>'
+        + '<div class="rs-meta-fila"><input id="rs-meta-h" class="rs-meta-in" type="number" min="0.5" max="80" step="0.5" inputmode="decimal" value="' + (metaMin ? +(metaMin / 60).toFixed(1) : 5) + '">'
+        + '<button type="button" class="rs-meta-ok" data-rs="meta-guardar">Guardar</button><button type="button" class="rs-meta-no" data-rs="meta-cancelar">Cancelar</button>'
+        + (metaMin ? '<button type="button" class="rs-meta-no" data-rs="meta-quitar">Quitar meta</button>' : '') + '</div></div>';
+    }
+    if (!metaMin) {
+      return '<div class="rs-meta rs-meta--vacia"><span>🎯 Fijá una meta semanal de estudio y mirá cuánto te falta para llegar.</span><button type="button" class="rs-meta-ok" data-rs="meta-editar">Fijar meta</button></div>';
+    }
+    const pct = Math.min(100, Math.round(A.min / metaMin * 100)), cumplida = A.min >= metaMin;
+    return '<div class="rs-meta' + (cumplida ? ' rs-meta--ok' : '') + '"><div class="rs-meta-cab"><span>🎯 Meta semanal: <b>' + hm(metaMin) + '</b> · llevás ' + hm(A.min) + ' (' + pct + '%)</span>'
+      + '<button type="button" class="rs-meta-no" data-rs="meta-editar" aria-label="Cambiar la meta semanal">✎ Cambiar</button></div>'
+      + '<span class="rs-meta-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '"><i style="--w:' + Math.max(3, pct) + '%"></i></span></div>';
+  }
+
   /* ---------- datos ---------- */
   function construir(datos, notas, creado) {
     const mapa = new Map();
@@ -84,22 +110,27 @@
     if (flojo) { const kk = flojo.k.split('|'); dest.push('<li><span class="rs-pt" style="background:#ef4444"></span><span><b>Para reforzar:</b> ' + esc(NOMBRES[kk[0]] || kk[0]) + ' · UP ' + esc(kk[1]) + ' (' + Math.round(flojo.p * 100) + '% de aciertos en ' + flojo.total + ' preguntas)</span></li>'); }
     if (A.notas) dest.push('<li><span class="rs-pt" style="background:#f59e0b"></span><span><b>Notas tomadas:</b> ' + A.notas + ' · <a href="mis_notas.html">Ver mis notas →</a></span></li>');
     if (!dest.length) dest.push('<li><span class="rs-pt" style="background:#94a3b8"></span><span>Cuando estudies o hagas simulacros, acá vas a ver tus puntos fuertes y lo que conviene reforzar.</span></li>');
+    // con meta fijada, en la semana en curso el indicador de tiempo dice cuánto falta (no el −% contra la semana pasada)
+    const extraTiempo = (esActual && metaMin)
+      ? (A.min >= metaMin ? '<span class="rs-d rs-d--sube">✔ meta cumplida</span>' : '<span class="rs-d rs-d--meta">te faltan ' + hm(faltaMeta(A)) + ' para tu meta</span>')
+      : (P ? chip(delta(A.min, P.min)) : '');
+    const metaHtml = bloqueMeta(A, esActual);
     if (compacto) return '<p class="rs-titular">' + tit + '</p><div class="rs-kpis">'
-      + kpi('⏱️', 'Tiempo de estudio', hm(A.min), P ? chip(delta(A.min, P.min)) : '', '#0ea5e9')
+      + kpi('⏱️', 'Tiempo de estudio', hm(A.min), extraTiempo, '#0ea5e9')
       + kpi('🍅', 'Sesiones Pomodoro', A.ses, P ? chip(delta(A.ses, P.ses)) : '', '#ef4444')
       + kpi('📝', 'Simulacros', A.sim, efA == null ? '<span class="rs-d rs-d--igual">sin datos</span>' : '<span class="rs-d rs-d--igual">' + efA + '% aciertos</span>', '#8b5cf6')
-      + kpi('🔥', 'Días activos', A.dias.size + '<em>/7</em>', P ? chip(A.dias.size - P.dias.size, ' días') : '', '#f59e0b') + '</div>';
+      + kpi('🔥', 'Días activos', A.dias.size + '<em>/7</em>', P ? chip(A.dias.size - P.dias.size, ' días') : '', '#f59e0b') + '</div>' + metaHtml;
     return '<div class="rs-nav"><button type="button" data-rs="ant" ' + (sel === 0 ? 'disabled' : '') + ' aria-label="Semana anterior">‹</button>'
       + '<div class="rs-nav-t"><b>' + etiquetaSemana(sel) + '</b><small>' + rango(A) + '</small></div>'
       + '<button type="button" data-rs="sig" ' + (esActual ? 'disabled' : '') + ' aria-label="Semana siguiente">›</button>'
       + (esActual ? '' : '<button type="button" class="rs-hoy" data-rs="hoy">Ir a esta semana</button>') + '</div>'
       + '<p class="rs-titular">' + tit + '</p>'
       + '<div class="rs-kpis">'
-      + kpi('⏱️', 'Tiempo de estudio', hm(A.min), P ? chip(delta(A.min, P.min)) : '', '#0ea5e9')
+      + kpi('⏱️', 'Tiempo de estudio', hm(A.min), extraTiempo, '#0ea5e9')
       + kpi('🍅', 'Sesiones Pomodoro', A.ses, P ? chip(delta(A.ses, P.ses)) : '', '#ef4444')
       + kpi('📝', 'Simulacros', A.sim, efA == null ? '<span class="rs-d rs-d--igual">sin datos</span>' : '<span class="rs-d rs-d--igual">' + efA + '% aciertos' + (efP != null ? ' ' + (efA - efP >= 0 ? '▲' : '▼') + Math.abs(efA - efP) + ' pts' : '') + '</span>', '#8b5cf6')
       + kpi('🔥', 'Días activos', A.dias.size + '<em>/7</em>', P ? chip(A.dias.size - P.dias.size, ' días') : '', '#f59e0b')
-      + '</div>'
+      + '</div>' + metaHtml
       + '<div class="rs-fila"><div><h4 class="rs-sub">Minutos por día</h4><div class="rs-barras">' + barras + '</div></div>'
       + '<div><h4 class="rs-sub">Destacados</h4><ul class="rs-dest">' + dest.join('') + '</ul></div></div>';
   }
@@ -171,14 +202,29 @@
     raiz.addEventListener('click', (e) => {
       const b = e.target.closest('[data-rs]'); if (!b || b.tagName === 'SELECT') return;
       const a = b.dataset.rs;
+      let horasMeta = null;
+      if (a === 'meta-guardar') {   // se valida antes de repintar, para no dejar las barras colapsadas si el valor es inválido
+        const inp = raiz.querySelector('.rs-meta-in'), h = inp ? parseFloat(String(inp.value).replace(',', '.')) : NaN;
+        if (!(h >= 0.5 && h <= 80)) { if (inp) { inp.classList.add('rs-meta-err'); inp.focus(); } return; }
+        horasMeta = h;
+      }
       raiz.classList.remove('rs-anim');
-      if (a === 'tab') tab = b.dataset.k;
+      if (a === 'meta-editar') editandoMeta = true;
+      else if (a === 'meta-cancelar') editandoMeta = false;
+      else if (a === 'meta-quitar') { metaMin = 0; guardarMeta(0); editandoMeta = false; }
+      else if (a === 'meta-guardar') { metaMin = Math.round(horasMeta * 60); guardarMeta(metaMin); editandoMeta = false; }
+      else if (a === 'tab') tab = b.dataset.k;
       else if (a === 'ant' && sel > 0) sel--;
       else if (a === 'sig' && sel < semanas.length - 1) sel++;
       else if (a === 'hoy') sel = semanas.length - 1;
       else if (a === 'met') metrica = b.dataset.k;
       else if (a === 'ir') { sel = Number(b.dataset.i); tab = 'semana'; }
       render();
+    });
+    raiz.addEventListener('keydown', (e) => {   // Enter guarda la meta, Escape cancela
+      if (!e.target.classList || !e.target.classList.contains('rs-meta-in')) return;
+      if (e.key === 'Enter') { e.preventDefault(); const ok = raiz.querySelector('[data-rs="meta-guardar"]'); if (ok) ok.click(); }
+      else if (e.key === 'Escape') { const no = raiz.querySelector('[data-rs="meta-cancelar"]'); if (no) no.click(); }
     });
     raiz.addEventListener('change', (e) => {
       const s = e.target.closest('select[data-rs]'); if (!s) return;
@@ -222,7 +268,8 @@
       } catch (_) {}
       ahora = new Date(); semanas = construir(datos, notas, creado);
       sel = semanas.length - 1; cmpA = sel; cmpB = Math.max(0, sel - 1);
-      guardarFoto(); if (!compacto) eventos(); render();
+      metaMin = leerMeta();
+      guardarFoto(); eventos(); render();
     } catch (_) { if (!destino) card.remove(); else card.innerHTML = '<p class="rs-vacio">No pudimos cargar tus datos ahora. Probá recargar.</p>'; raiz = null; }
   }
 

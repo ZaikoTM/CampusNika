@@ -26,9 +26,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=12">
     <link rel="stylesheet" href="css/campus-visual.css?v=15">
-    <link rel="stylesheet" href="css/resumen-semanal.css?v=3">
+    <link rel="stylesheet" href="css/resumen-semanal.css?v=4">
     <link rel="stylesheet" href="css/retos-form.css?v=2">
     <style>
         /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
@@ -142,7 +142,7 @@
     <script src="js/campusTema.js?v=3"></script>
 <script src="js/campusVisual.js?v=12" defer></script>
     <script src="js/nikaAccesibilidad.js?v=1" defer></script>
-    <script src="js/resumenSemanal.js?v=5" defer></script>
+    <script src="js/resumenSemanal.js?v=6" defer></script>
     <script src="js/nikaMetricas.js?v=1" defer></script>
     <script src="js/campusEspacio.js?v=1"></script>
     <script src="js/sidebarGrupos.js?v=1" defer></script>
@@ -503,6 +503,7 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                         <h4>📊 Mi Rendimiento Académico</h4>
                         <span style="font-size: 0.78rem; color: var(--nika-primary); font-weight: 700;">Estadísticas en vivo</span>
                     </div>
+                    <div class="perf-grid-wrap">
                     <div class="perf-grid">
                         <div class="perf-tile perf-tile--exams perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('simulacros')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('simulacros');}" title="Ver el detalle de tus simulacros">
                             <div class="perf-tile-icon">📝</div>
@@ -559,7 +560,9 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                                 <div class="perf-tile-label">Curva del Olvido</div>
                                 <div class="perf-tile-meta perf-tile-meta--ellipsis" id="perf-olvido-sub">Sin actividad todavía</div>
                             </div>
+                            <button type="button" class="perf-olvido-btn" id="perf-olvido-btn" hidden onclick="event.stopPropagation(); repasarAhora();">Repasar ahora →</button>
                         </div>
+                    </div>
                     </div>
                 </div>
 
@@ -2243,8 +2246,10 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
         function renderOlvidoMini(r) {
             const valEl = document.getElementById('perf-olvido-value');
             const subEl = document.getElementById('perf-olvido-sub');
+            const btnEl = document.getElementById('perf-olvido-btn');
             if (!valEl || !subEl) return;
 
+            if (btnEl) btnEl.hidden = true;
             if (!r.olvido.areas.length) {
                 valEl.textContent = '-';
                 valEl.style.color = 'var(--text-muted)';
@@ -2257,12 +2262,21 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
                 valEl.style.color = m.estado.color;
                 subEl.textContent = `Sin repasar ${m.label} · ${m.up}`;
                 subEl.title = subEl.textContent;
+                if (btnEl) btnEl.hidden = false;
             } else {
                 valEl.textContent = 'Al día';
                 valEl.style.color = '#16a34a';
                 subEl.textContent = 'Memoria fresca en todas tus áreas';
                 subEl.title = '';
             }
+        }
+
+        // "Repasar ahora": lleva a la sala de estudio del área que más tiempo lleva sin repasar (misma ruta que "Iniciar Pomodoro" del detalle)
+        function repasarAhora() {
+            const r = window._nikaRendimientoUltimo;
+            const m = r && r.olvido && r.olvido.masOlvidada;
+            if (!m) { abrirDetalleRendimiento('olvido'); return; }
+            window.location.href = 'estudio.html?modulo=' + encodeURIComponent(m.modulo);
         }
 
         // ---------- Detalle completo (modal) ----------
