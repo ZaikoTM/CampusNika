@@ -13,7 +13,7 @@
   let busy = false;
 
   // ---------------------------------------------------------------- modo foco
-  const enFoco = () => { try { const s = window.PomodoroEngine && PomodoroEngine.getState(); return !!(s && s.status === 'running' && s.mode === 'work'); } catch (_) { return false; } };
+  const enFoco = () => { if (ls.get('nika_modo_foco') === '0') return false; try { const s = window.PomodoroEngine && PomodoroEngine.getState(); return !!(s && s.status === 'running' && s.mode === 'work'); } catch (_) { return false; } };
   const cola = [];                       // avisos que esperan a que termine el bloque de estudio
   let ultimoMostrado = 0;
   function emitir(opt, clave, prio) {

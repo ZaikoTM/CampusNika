@@ -100,6 +100,13 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar-btn:active { transform: scale(.92); }
             .nika-pomo-bar-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
             .nika-pomo-bar-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+            #nika-pomo-bar-chat { background: #fff; color: #be185d; border-color: #fff; padding: 0 12px; box-shadow: 0 6px 16px -8px rgba(0,0,0,.6); text-shadow: none; overflow: visible; }
+            #nika-pomo-bar-chat .lbl { color: inherit; text-shadow: none; }
+            #nika-pomo-bar-chat:hover { background: #fff; transform: translateY(-2px) scale(1.04); }
+            #nika-pomo-bar-chat.hay { animation: npbChatLate 1.4s ease-in-out infinite; }
+            .nika-pomo-bar--break:not(.nika-pomo-bar--paused) #nika-pomo-bar-chat { color: #0f766e; }
+            .nika-pomo-bar--paused #nika-pomo-bar-chat { color: #475569; }
+            @keyframes npbChatLate { 0%, 100% { box-shadow: 0 6px 16px -8px rgba(0,0,0,.6), 0 0 0 0 rgba(255,255,255,.7); } 50% { box-shadow: 0 6px 16px -8px rgba(0,0,0,.6), 0 0 0 7px rgba(255,255,255,0); } }
             .nika-pomo-chat-n { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: #ef4444; color: #fff; font-size: .66rem; font-weight: 900; display: grid; place-items: center; border: 2px solid #fff; text-shadow: none; animation: npbAv .35s cubic-bezier(.34,1.56,.64,1) both; }
             .nika-pomo-chat-pop { display: none; position: absolute; top: calc(100% + 8px); right: 12px; width: min(360px, calc(100vw - 24px)); height: min(430px, 70vh); background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); border-radius: 16px; box-shadow: 0 24px 50px -14px rgba(0,0,0,.55); z-index: 2600; overflow: hidden; }
             .nika-pomo-chat-pop.is-open { display: block; animation: nikaCfgIn .2s cubic-bezier(.22,1,.36,1); }
@@ -201,7 +208,7 @@ const NikaPomoBar = (() => {
                 </div>
                 <button type="button" class="nika-pomo-conn" id="nika-pomo-conn" style="display:none;"><i></i><span class="lbl" id="nika-pomo-conn-t">Conectado</span></button>
                 <button type="button" class="nika-pomo-bar-btn main" id="nika-pomo-bar-toggle" title="Pausar / reanudar" aria-label="Pausar o reanudar">⏸️</button>
-                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-chat" title="Chat de la sala" aria-label="Abrir el chat de la sala" style="display:none;">💬<span class="lbl">Chat</span><b class="nika-pomo-chat-n" id="nika-pomo-chat-n" hidden></b></button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-chat" title="Chat de la sala" aria-label="Abrir el chat de la sala" style="display:none;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9.5L5 21v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span class="lbl">Chat</span><b class="nika-pomo-chat-n" id="nika-pomo-chat-n" hidden></b></button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-room" title="Abrir la sala de estudio" style="display:none;">🍅<span class="lbl">Sala</span></button>
                 <button type="button" class="nika-pomo-bar-btn cancel" id="nika-pomo-bar-cancel" title="Cancelar este Pomodoro" aria-label="Cancelar el Pomodoro" style="display:none;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span class="lbl">Cancelar</span></button>
                 <button type="button" class="nika-pomo-bar-btn leave" id="nika-pomo-bar-leave" title="Salir de la sala compartida" aria-label="Salir de la sala compartida" style="display:none;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span class="lbl">Salir</span></button>
@@ -405,7 +412,7 @@ const NikaPomoBar = (() => {
     let _chatCargando = false, _chatEnlazado = false;
     function _enlazarChat() {
         if (_chatEnlazado || !window.NikaChatSala) return; _chatEnlazado = true;
-        window.NikaChatSala.alCambiar((e) => { const n = document.getElementById('nika-pomo-chat-n'); if (n) { n.hidden = !e.noLeidos; n.textContent = e.noLeidos > 99 ? '99+' : String(e.noLeidos || ''); } });
+        window.NikaChatSala.alCambiar((e) => { const b = document.getElementById('nika-pomo-bar-chat'); if (b) b.classList.toggle('hay', !!e.noLeidos); const n = document.getElementById('nika-pomo-chat-n'); if (n) { n.hidden = !e.noLeidos; n.textContent = e.noLeidos > 99 ? '99+' : String(e.noLeidos || ''); } });
     }
     function _render() {
         if (!window.PomodoroEngine) return;
@@ -523,7 +530,7 @@ const NikaPomoBar = (() => {
         const bChat = document.getElementById('nika-pomo-bar-chat');
         if (bChat) {
             bChat.style.display = sh ? '' : 'none';
-            if (sh && !window.NikaChatSala && !_chatCargando) { _chatCargando = true; const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=2'; sc.onload = _enlazarChat; document.head.appendChild(sc); }
+            if (sh && !window.NikaChatSala && !_chatCargando) { _chatCargando = true; const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=3'; sc.onload = _enlazarChat; document.head.appendChild(sc); }
             else if (sh) _enlazarChat();
         }
         document.getElementById('nika-pomo-bar-room').style.display = (sh && (enEspera || !esInvitado) && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta
