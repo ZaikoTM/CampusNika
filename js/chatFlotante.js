@@ -438,7 +438,7 @@
       if (!okCM || !window.ChatManager) return false;
       const CM = window.ChatManager;
       CM.iniciarPresenciaGlobal().catch(() => {});
-      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=1', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
+      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=2', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
       if (!SOLO_PRESENCIA) {
         montarUI();
         CM.alCambiarLista(() => refrescarNoLeidos());
@@ -465,7 +465,7 @@
     abierto = true; panel.classList.add('on'); minimizado = false; aplicarMin();
     await conversacion(real.username);
   }
-  window.NikaChat = { abrir: abrirBandeja, conversacion: abrirConUsuario };
+  window.NikaChat = { abrir: abrirBandeja, conversacion: abrirConUsuario, sala: async () => { await listo; if (SOLO_PRESENCIA || !window.NikaChatSala) return false; abrir(); await vistaSala(); return true; } };
   // En el campus los botones del chat viejo (menú «Mensajes Privados», «Chat» de amigos y perfiles) pasan al chat unificado
   if (!SOLO_PRESENCIA) {
     window.openChatWithFriend = (u) => abrirConUsuario(u);
