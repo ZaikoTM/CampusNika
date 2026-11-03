@@ -56,5 +56,10 @@
     if (!d.minutes || d.minutes < 1) return;
     setTimeout(() => avisar(d), 2800); // da tiempo a que la sesión llegue a Supabase
   });
+  // Al abrir el campus: un aviso con la barra del reto activo (una vez por sesión del navegador)
+  setTimeout(() => {
+    try { if (sessionStorage.getItem('nika_reto_aviso')) return; sessionStorage.setItem('nika_reto_aviso', '1'); } catch (_) {}
+    avisar({ minutes: 0, completed: false });
+  }, 5000);
   window.NikaRetoAviso = { avisar };
 })();
