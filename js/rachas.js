@@ -205,6 +205,7 @@ const NikaRachas = (() => {
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ dias: [...(r._dias || [])], min: minPorDia, t: Date.now() })); } catch (_) {}
   }
 
+  let ultimaR = null;
   async function refrescar() {
     if (!montar()) return;
     try {
@@ -218,7 +219,9 @@ const NikaRachas = (() => {
       refrescar._n = 0; btn.style.display = '';
       const r = calcular(dias);
       r._dias = dias;
+      ultimaR = r;
       pintar(r);
+      try { window.dispatchEvent(new CustomEvent('nika:racha', { detail: { racha: r.racha, hoyCumplido: r.hoyCumplido } })); } catch (_) {}
     } catch (err) {
       console.warn('[Rachas] No se pudo calcular la racha:', err && err.message);
     }
@@ -245,7 +248,7 @@ const NikaRachas = (() => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 
-  return { init, refrescar, calcular, diaAR };
+  return { init, refrescar, calcular, diaAR, get ultima() { return ultimaR; } };
 })();
 
 window.NikaRachas = NikaRachas;

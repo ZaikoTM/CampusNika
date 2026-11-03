@@ -322,7 +322,7 @@ const NikaAssistant = (() => {
             body.dark-mode #nika-habla { --bg:rgba(15,28,52,.94); --bd:rgba(56,189,248,.55); --sh:rgba(0,0,0,.55); --halo:rgba(56,189,248,.1); --tx:#e2e8f0; --fbg:#0b1a33; --hd:#eef2f7; --vz:#0c2140; --eye:#35e0f7; --chip:#38bdf8; --chipt:#06223a; --hl:#7dd3fc; --seg:rgba(148,163,184,.22); --on:#34d399; --onglow:rgba(52,211,153,.5); --mu:#94a3b8; }
             body.tema-premium #nika-habla { --bg:rgba(24,12,56,.94); --bd:rgba(192,132,252,.6); --sh:rgba(76,29,149,.65); --halo:rgba(168,85,247,.16); --tx:#f8fafc; --fbg:#1a0e3d; --hd:#f1ecff; --hdb:#a78bfa; --vz:#1e1245; --eye:#c4b5fd; --chip:#a855f7; --chipt:#fff; --hl:#d8b4fe; --seg:rgba(168,85,247,.22); --on:#c084fc; --onglow:rgba(192,132,252,.6); --mu:#a5b4d0; }
             #nika-habla.sale { animation: nkaGloboOut .3s ease-in both; }
-            #nika-habla .nh-in { display: flex; gap: 14px; padding: 16px 16px 12px 14px; align-items: flex-start; }
+            #nika-habla .nh-in { display: flex; gap: 14px; padding: 16px 30px 14px 14px; align-items: flex-start; }
             #nika-habla .nh-nm { position: absolute; left: 14px; top: -11px; background: var(--chip); color: var(--chipt); font: 500 12px 'Pixelify Sans', monospace; letter-spacing: .5px; padding: 2px 10px; border-radius: 7px; }
             #nika-habla .nh-fc { flex: none; width: 60px; height: 60px; border-radius: 14px; background: var(--fbg); border: 1.5px solid var(--bd); position: relative; overflow: hidden; }
             #nika-habla .nh-hd { position: absolute; left: 7px; top: 9px; width: 44px; height: 32px; border-radius: 13px; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); }
@@ -348,6 +348,12 @@ const NikaAssistant = (() => {
             #nika-habla .nh-ft .nh-fl { margin-left: auto; }
             #nika-habla .nh-ar { color: var(--hl); font-size: .7rem; animation: nkaFlecha .9s ease-in-out infinite; }
             #nika-habla.ok { border-color: #facc15; }
+            #nika-habla .nh-x { position: absolute; top: 7px; right: 8px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: transparent; color: var(--mu); font-size: .8rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s, color .2s, transform .2s; }
+            #nika-habla .nh-x:hover, #nika-habla .nh-x:focus-visible { background: var(--seg); color: var(--tx); transform: rotate(90deg); outline: none; }
+            #nika-habla .nh-t { position: absolute; left: 14px; right: 14px; bottom: 4px; height: 3px; border-radius: 3px; background: transparent; overflow: hidden; }
+            #nika-habla .nh-t b { display: block; height: 100%; width: 100%; border-radius: inherit; background: var(--chip); opacity: .55; transform-origin: left; animation: nkaTimer var(--dur, 8s) linear forwards; }
+            #nika-habla.pausa .nh-t b { animation-play-state: paused; opacity: .9; }
+            @keyframes nkaTimer { from { transform: scaleX(1); } to { transform: scaleX(0); } }
             @keyframes nkaZ { 0% { opacity: 0; transform: translateY(6px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-4px); } }
             @keyframes nkaFlecha { 50% { transform: translateY(3px); } }
             @media (prefers-reduced-motion: reduce) { #nika-habla, #nika-habla *, .nika-confeti { animation: none !important; transition: none !important; } .nika-confeti { display: none; } }
@@ -648,7 +654,7 @@ const NikaAssistant = (() => {
         const g = document.createElement('div'); g.id = 'nika-habla'; g.setAttribute('role', 'status');
         if (opt.pct >= 100) g.classList.add('ok');
         const tieneBarra = typeof opt.pct === 'number';
-        g.innerHTML = '<div class="nh-nm">NIKA</div><div class="nh-in"><div class="nh-fc ' + cara + '"><div class="nh-hd"><i class="nh-vz"></i><i class="nh-o nh-o1"></i><i class="nh-o nh-o2"></i></div><i class="nh-bd"></i><b class="nh-z">z</b></div>'
+        g.innerHTML = '<button class="nh-x" type="button" aria-label="Cerrar aviso" title="Cerrar">✕</button><i class="nh-t" aria-hidden="true"><b></b></i><div class="nh-nm">NIKA</div><div class="nh-in"><div class="nh-fc ' + cara + '"><div class="nh-hd"><i class="nh-vz"></i><i class="nh-o nh-o1"></i><i class="nh-o nh-o2"></i></div><i class="nh-bd"></i><b class="nh-z">z</b></div>'
             + '<div class="nh-c"><div class="nh-tx"></div>'
             + (tieneBarra ? '<div class="nh-hp"><span class="nh-lb">RETO</span><div class="nh-tr">' + '<s></s>'.repeat(20) + '</div><span class="nh-pc">0%</span></div>' : '')
             + '<div class="nh-ft"><span>' + (opt.pie || '') + '</span><span class="nh-fl">' + (opt.falta || '') + '</span><span class="nh-ar" aria-hidden="true"></span></div></div></div>';
@@ -674,12 +680,24 @@ const NikaAssistant = (() => {
                 if (i >= plano.length) { clearInterval(hablaTy); fin(); }
             }, 26);
         }
-        function cerrar() { clearInterval(hablaTy); g.classList.add('sale'); setTimeout(() => g.remove(), 300); }
+        let resta = 0, t0 = 0, cerrado = false;
+        const timerB = g.querySelector('.nh-t b');
+        function cerrar() { if (cerrado) return; cerrado = true; clearInterval(hablaTy); clearTimeout(hablaT); document.removeEventListener('keydown', tecla); g.classList.add('sale'); setTimeout(() => g.remove(), 320); }
+        function tecla(e) { if (e.key === 'Escape') cerrar(); }
+        document.addEventListener('keydown', tecla);
+        function armar() {
+            clearTimeout(hablaT);
+            resta = (opt.ms || 7000) + (partes[pag].length * 25); t0 = Date.now();
+            if (timerB) { timerB.style.setProperty('--dur', (resta / 1000) + 's'); timerB.style.animation = 'none'; void timerB.offsetWidth; timerB.style.animation = ''; }
+            hablaT = setTimeout(() => { if (pag < partes.length - 1) { pag++; mostrar(); armar(); } else cerrar(); }, resta);
+        }
+        g.addEventListener('mouseenter', () => { if (cerrado) return; clearTimeout(hablaT); resta -= Date.now() - t0; g.classList.add('pausa'); });
+        g.addEventListener('mouseleave', () => { if (cerrado) return; g.classList.remove('pausa'); t0 = Date.now(); hablaT = setTimeout(() => { if (pag < partes.length - 1) { pag++; mostrar(); armar(); } else cerrar(); }, Math.max(1200, resta)); });
+        g.querySelector('.nh-x').addEventListener('click', (e) => { e.stopPropagation(); cerrar(); });
         g.addEventListener('click', () => {
-            if (pag < partes.length - 1) { pag++; mostrar(); clearTimeout(hablaT); armar(); return; }
+            if (pag < partes.length - 1) { pag++; mostrar(); armar(); return; }
             cerrar(); if (opt.href) location.href = opt.href;
         });
-        function armar() { hablaT = setTimeout(() => { if (pag < partes.length - 1) armar(); else cerrar(); }, (opt.ms || 7000) + (partes[pag].length * 25)); }
         mostrar(); armar();
         const cls = opt.anim || 'feliz';
         ['celebra', 'alienta', 'feliz', 'habla'].forEach((c) => btnEl.classList.remove(c));
