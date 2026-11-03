@@ -54,7 +54,7 @@ drop policy if exists "retos_select" on public.retos;
 drop policy if exists "retos_insert" on public.retos;
 drop policy if exists "retos_update" on public.retos;
 drop policy if exists "retos_delete" on public.retos;
-create policy "retos_select" on public.retos for select using (public.es_miembro_reto(id));
+create policy "retos_select" on public.retos for select using (creador_id = auth.uid() or public.es_miembro_reto(id));
 create policy "retos_insert" on public.retos for insert with check (auth.uid() = creador_id);
 create policy "retos_update" on public.retos for update using (auth.uid() = creador_id) with check (auth.uid() = creador_id);
 create policy "retos_delete" on public.retos for delete using (auth.uid() = creador_id);

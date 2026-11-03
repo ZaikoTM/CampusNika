@@ -99,9 +99,13 @@
         const me = ses.data && ses.data.session && ses.data.session.user && ses.data.session.user.id; if (!me) throw new Error('Iniciá sesión.');
         const desde = new Date(), hasta = new Date(desde.getTime() + S.dias * 86400000);
         const fila = { titulo: S.titulo, tipo: S.tipo, meta, modulo: S.modulo || null, modo: S.modo, desde: desde.toISOString(), hasta: hasta.toISOString() };
-        let r = await c.from('retos').insert(fila).select().single();
-        if (r.error && /modo/i.test(r.error.message || '')) { delete fila.modo; r = await c.from('retos').insert(fila).select().single(); }
+        // id generado acá: el insert no pide RETURNING (la política de lectura exige ser miembro, y todavía no hay filas en retos_miembros)
+        const id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (ch) => { const v = Math.random() * 16 | 0; return (ch === 'x' ? v : (v & 3 | 8)).toString(16); });
+        fila.id = id; fila.creador_id = me;
+        let r = await c.from('retos').insert(fila);
+        if (r.error && /modo/i.test(r.error.message || '')) { delete fila.modo; r = await c.from('retos').insert(fila); }
         if (r.error) throw r.error;
+        r.data = Object.assign({ creado_en: new Date().toISOString() }, fila);
         const filas = [{ reto_id: r.data.id, user_id: me, estado: 'aceptado' }].concat([...S.invitados].map((u) => ({ reto_id: r.data.id, user_id: u, estado: 'invitado' })));
         const m = await c.from('retos_miembros').insert(filas); if (m.error) throw m.error;
         btn.classList.remove('cargando'); btn.classList.add('listo'); btn.querySelector('.rf-go-t').textContent = '✅ ¡Reto creado!';

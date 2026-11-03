@@ -301,6 +301,29 @@ const NikaAssistant = (() => {
             @keyframes nkaFeliz { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25,.55); } }
             @media (prefers-reduced-motion: reduce) { #nika-assistant-btn, #nika-assistant-btn * { animation: none !important; } }
 
+            /* Nika habla: globo sobre el robot + reacciones (retos / Pomodoros) */
+            #nika-assistant-btn.celebra .nka-todo { animation: nkaCelebra 1s cubic-bezier(.3,1.4,.5,1) 2; }
+            #nika-assistant-btn.celebra .nka-brazo-s, #nika-assistant-btn.celebra .nka-brazo-q { animation: nkaSaluda .35s ease-in-out infinite; }
+            #nika-assistant-btn.alienta .nka-todo { animation: nkaAlienta .6s ease-in-out 3; }
+            #nika-assistant-btn.habla .nka-boca { animation: nkaHabla .22s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 30%; }
+            @keyframes nkaCelebra { 0%{transform:translateY(0) rotate(0)} 35%{transform:translateY(-26px) rotate(-8deg)} 70%{transform:translateY(-10px) rotate(8deg)} 100%{transform:translateY(0) rotate(0)} }
+            @keyframes nkaAlienta { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px) rotate(-3deg)} 75%{transform:translateX(5px) rotate(3deg)} }
+            @keyframes nkaHabla { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.7)} }
+            #nika-habla { position: fixed; right: 22px; bottom: 112px; z-index: 2147483000; width: min(290px, calc(100vw - 32px)); padding: 12px 14px 12px; border-radius: 18px 18px 4px 18px; background: #fff; color: #0f172a; box-shadow: 0 14px 40px rgba(2,20,50,.35); border: 1px solid #bae6fd; font: 600 .84rem/1.35 inherit; transform-origin: 90% 100%; animation: nkaGloboIn .45s cubic-bezier(.34,1.56,.64,1) both; cursor: pointer; }
+            #nika-habla.sale { animation: nkaGloboOut .3s ease-in both; }
+            #nika-habla b { font-weight: 800; color: #0284c7; }
+            #nika-habla .nh-bar { margin-top: 8px; height: 9px; border-radius: 99px; background: #e0f2fe; overflow: hidden; position: relative; }
+            #nika-habla .nh-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg,#38bdf8,#22c55e); transition: width 1.4s cubic-bezier(.22,1,.36,1); position: relative; overflow: hidden; }
+            #nika-habla .nh-bar i::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg,transparent 30%,rgba(255,255,255,.65) 50%,transparent 70%); animation: nkaBrillo 1.6s linear infinite; }
+            #nika-habla .nh-pie { display: flex; justify-content: space-between; margin-top: 4px; font-size: .72rem; font-weight: 700; color: #475569; }
+            #nika-habla.ok { border-color: #86efac; } #nika-habla.ok .nh-bar i { background: linear-gradient(90deg,#22c55e,#facc15); }
+            .nika-confeti { position: fixed; z-index: 2147483001; width: 8px; height: 12px; border-radius: 2px; pointer-events: none; animation: nkaConfeti 1.4s ease-out forwards; }
+            @keyframes nkaGloboIn { from { opacity: 0; transform: scale(.4) translateY(20px); } to { opacity: 1; transform: none; } }
+            @keyframes nkaGloboOut { to { opacity: 0; transform: scale(.7) translateY(14px); } }
+            @keyframes nkaBrillo { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+            @keyframes nkaConfeti { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+            @media (prefers-reduced-motion: reduce) { #nika-habla, #nika-habla * , .nika-confeti { animation: none !important; transition: none !important; } .nika-confeti { display: none; } }
+
             /* Badge rojo de mensaje sin leer, superpuesto sobre el ícono del robot */
             #nika-assistant-badge {
                 position: absolute; top: -3px; right: -3px;
@@ -574,5 +597,39 @@ const NikaAssistant = (() => {
         appendMessage(texto, 'bot');
     }
 
-    return { consultarIAProfunda, callNotebookLM, callGeminiFlash, notificar };
+    // hablar(): globo sobre el robot con animación. opt: { html, pct (barra), pie, anim: 'celebra'|'alienta'|'feliz', ms, confeti }
+    let hablaT = null;
+    function hablar(opt) {
+        if (!btnEl || !opt) return;
+        const prev = document.getElementById('nika-habla'); if (prev) prev.remove();
+        clearTimeout(hablaT);
+        const g = document.createElement('div'); g.id = 'nika-habla'; g.setAttribute('role', 'status');
+        if (opt.pct >= 100) g.classList.add('ok');
+        g.innerHTML = '<div>' + opt.html + '</div>' + (typeof opt.pct === 'number' ? '<div class="nh-bar"><i></i></div><div class="nh-pie"><span>' + (opt.pie || '') + '</span><span>' + Math.round(opt.pct) + '%</span></div>' : '');
+        g.addEventListener('click', () => { cerrar(); if (opt.href) location.href = opt.href; });
+        document.body.appendChild(g);
+        const barra = g.querySelector('.nh-bar i');
+        if (barra) setTimeout(() => { barra.style.width = Math.min(100, opt.pct) + '%'; }, 350);
+        const cls = opt.anim || 'feliz';
+        ['celebra', 'alienta', 'feliz', 'habla'].forEach((c) => btnEl.classList.remove(c));
+        void btnEl.offsetWidth; btnEl.classList.add(cls, 'habla');
+        setTimeout(() => btnEl.classList.remove('habla'), 1800);
+        setTimeout(() => btnEl.classList.remove(cls), 2400);
+        if (opt.confeti) confeti();
+        function cerrar() { g.classList.add('sale'); setTimeout(() => g.remove(), 300); }
+        hablaT = setTimeout(cerrar, opt.ms || 7000);
+    }
+    function confeti() {
+        if (!btnEl) return;
+        const r = btnEl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 3, col = ['#38bdf8', '#22c55e', '#facc15', '#fb7185', '#a78bfa'];
+        for (let i = 0; i < 26; i++) {
+            const e = document.createElement('i'); e.className = 'nika-confeti';
+            e.style.left = cx + 'px'; e.style.top = cy + 'px'; e.style.background = col[i % col.length];
+            e.style.setProperty('--dx', (Math.random() * 360 - 180) + 'px'); e.style.setProperty('--dy', (-60 - Math.random() * 220) + 'px'); e.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+            e.style.animationDelay = (Math.random() * .15) + 's';
+            document.body.appendChild(e); setTimeout(() => e.remove(), 1700);
+        }
+    }
+
+    return { consultarIAProfunda, callNotebookLM, callGeminiFlash, notificar, hablar };
 })();

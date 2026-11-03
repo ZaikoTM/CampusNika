@@ -71,6 +71,9 @@
     .sala-reto{margin-top:8px}.sala-reto .n{display:block;font-weight:800;font-size:.86rem;margin-bottom:6px}
     .sala-reto .b{height:10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
     .sala-reto .b i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#fbbf24,#fb7185);transition:width 1s cubic-bezier(.22,1,.36,1)}
+    .sala-reto .b i{position:relative;overflow:hidden}.sala-reto .b i::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);animation:salaBrillo 1.8s linear infinite}
+    .sala-reto .b{position:relative}.sala-reto.sube .b{animation:salaPop .5s ease}
+    @keyframes salaBrillo{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
     .sala-reto small{display:block;margin-top:4px;opacity:.85;font-weight:700}
     .sala-retos-v{margin:6px 0 0;font-size:.8rem;opacity:.85}
     .sala-retos-b{margin-top:10px;width:100%}
@@ -271,7 +274,7 @@
 
     const r0 = retosAct && retosAct[0];
     const retosBlk = `<div class="sala-retos"><div class="sala-retos-h"><b>🎯 Reto de estudio</b><a href="retos.html" target="_blank" rel="noopener">Ver retos →</a></div>`
-      + (r0 ? `<div class="sala-reto"><span class="n">${esc(r0.titulo)}</span><div class="b"><i style="width:${r0.pct}%"></i></div><small>${r0.pct}% · ${esc(r0.txt)}</small></div>`
+      + (r0 ? `<div class="sala-reto${r0.pct >= 100 ? ' sube' : ''}"><span class="n">🎯 ${esc(r0.titulo)}</span><div class="b"><i style="width:${r0.pct}%"></i></div><small>${r0.pct}% · ${esc(r0.txt)}</small></div>`
         : `<p class="sala-retos-v">Pónganse una meta entre todos: tiempo, sesiones o simulacros. Suman juntos.</p>`)
       + `<button class="sala-btn sec sala-retos-b" data-reto-nuevo="${esc(joined.join(','))}">＋ Crear reto con la sala</button></div>`;
 
