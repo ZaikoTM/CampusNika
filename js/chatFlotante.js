@@ -457,7 +457,7 @@
       const CM = window.ChatManager;
       CM.iniciarPresenciaGlobal().catch(() => {});
       if (!SOLO_PRESENCIA) { await cargarScript('chatAdjuntos.js?v=2', () => !!window.NikaChatAdj); }
-      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=5', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
+      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=6', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
       if (!SOLO_PRESENCIA) {
         montarUI();
         CM.alCambiarLista(() => refrescarNoLeidos());

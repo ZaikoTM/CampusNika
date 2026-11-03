@@ -261,11 +261,11 @@
 
   // ---------------------------------------------------------------- interfaz
   const CSS = `
-  .cs-wrap{--cs-tx:#0f172a;--cs-mu:#64748b;--cs-bd:rgba(100,116,139,.28);--cs-otro:#f1f5f9;--cs-chip:#e0f2fe;--cs-ac1:#0ea5e9;--cs-ac2:#6366f1;--cs-in:#f8fafc;--cs-glow:rgba(14,165,233,.25);
+  .cs-wrap{--cs-tx:#0f172a;--cs-mu:#64748b;--cs-bd:rgba(100,116,139,.28);--cs-otro:#f1f5f9;--cs-chip:#e0f2fe;--cs-ac1:#0ea5e9;--cs-ac2:#6366f1;--cs-in:#f8fafc;--cs-glow:rgba(14,165,233,.25);--cs-pop:#ffffff;
     position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:0;height:100%;color:var(--cs-tx);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
-  body.dark-mode .cs-wrap{--cs-tx:#e2e8f0;--cs-mu:#94a3b8;--cs-bd:rgba(148,163,184,.25);--cs-otro:rgba(148,163,184,.18);--cs-chip:rgba(56,189,248,.16);--cs-in:rgba(148,163,184,.12);--cs-glow:rgba(56,189,248,.3)}
-  body.tema-premium .cs-wrap{--cs-ac1:#a855f7;--cs-ac2:#6366f1;--cs-chip:rgba(168,85,247,.2);--cs-glow:rgba(168,85,247,.35)}
-  .cs-wrap.cs-sala{--cs-tx:#fff1f2;--cs-mu:#fda4af;--cs-bd:rgba(251,113,133,.3);--cs-otro:rgba(255,255,255,.12);--cs-chip:rgba(255,255,255,.12);--cs-ac1:#f43f5e;--cs-ac2:#fb7185;--cs-in:rgba(255,255,255,.1);--cs-glow:rgba(244,63,94,.35)}
+  body.dark-mode .cs-wrap{--cs-tx:#e2e8f0;--cs-mu:#94a3b8;--cs-bd:rgba(148,163,184,.25);--cs-otro:rgba(148,163,184,.18);--cs-chip:rgba(56,189,248,.16);--cs-in:rgba(148,163,184,.12);--cs-glow:rgba(56,189,248,.3);--cs-pop:#13233f}
+  body.tema-premium .cs-wrap{--cs-ac1:#a855f7;--cs-ac2:#6366f1;--cs-chip:rgba(168,85,247,.2);--cs-glow:rgba(168,85,247,.35);--cs-pop:#1c1040}
+  .cs-wrap.cs-sala{--cs-tx:#fff1f2;--cs-mu:#fda4af;--cs-bd:rgba(251,113,133,.3);--cs-otro:rgba(255,255,255,.12);--cs-chip:rgba(255,255,255,.12);--cs-ac1:#f43f5e;--cs-ac2:#fb7185;--cs-in:rgba(255,255,255,.1);--cs-glow:rgba(244,63,94,.35);--cs-pop:#5b0a24}
   .cs-top{display:flex;align-items:center;gap:9px;padding:8px 10px;border-bottom:1px solid var(--cs-bd);background:linear-gradient(120deg,var(--cs-chip),transparent)}
   .cs-stack{display:flex;flex:none;padding-left:2px}.cs-stack .cs-av{margin-left:-7px;border:2px solid var(--cs-in);width:28px;height:28px;font-size:.6rem;box-shadow:0 2px 6px rgba(0,0,0,.2);overflow:visible;flex:none}.cs-stack .cs-av img{border-radius:50%}.cs-stack .cs-av:first-child{margin-left:0}
   .cs-stack .cs-av.off{filter:grayscale(1);opacity:.55}.cs-stack .cs-av::after{content:'';position:absolute;right:-3px;bottom:-3px;width:9px;height:9px;border-radius:50%;background:#22c55e;border:2px solid var(--cs-in)}.cs-stack .cs-av.off::after{background:#94a3b8}
@@ -303,16 +303,16 @@
   .cs-nuevos{position:absolute;left:50%;bottom:118px;transform:translateX(-50%);border:0;border-radius:999px;padding:6px 14px;background:linear-gradient(90deg,var(--cs-ac1),var(--cs-ac2));color:#fff;font:800 .72rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;box-shadow:0 8px 18px -6px var(--cs-glow);z-index:4;animation:csPop .3s both}.cs-nuevos[hidden]{display:none}
   .cs-resp{display:flex;align-items:center;gap:8px;margin:4px 10px 0;padding:6px 10px;border-left:3px solid var(--cs-ac1);border-radius:10px;background:var(--cs-chip);animation:csIn .2s both}.cs-resp[hidden]{display:none}
   .cs-resp div{flex:1;min-width:0}.cs-resp b{display:block;font-size:.68rem;font-weight:800;color:var(--cs-ac1)}.cs-resp span{display:block;font-size:.74rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cs-resp button{border:0;background:transparent;color:inherit;cursor:pointer;font-size:.9rem;border-radius:50%;width:24px;height:24px}.cs-resp button:hover{background:rgba(0,0,0,.12)}
-  .cs-rx{display:flex;flex-wrap:wrap;gap:3px;padding:4px 8px 0;justify-content:center}
-  .cs-rx button{border:1px solid var(--cs-bd);background:var(--cs-in);border-radius:999px;font-size:.98rem;padding:1px 6px;cursor:pointer;color:inherit;transition:transform .15s cubic-bezier(.34,1.56,.64,1),background .15s,box-shadow .15s}
+  .cs-rx{position:absolute;left:10px;right:10px;bottom:62px;z-index:6;display:flex;flex-wrap:wrap;gap:5px;padding:9px;justify-content:center;border-radius:18px;background:var(--cs-pop);border:1px solid var(--cs-bd);box-shadow:0 16px 34px -10px rgba(0,0,0,.5);animation:csPop .22s cubic-bezier(.34,1.56,.64,1) both}.cs-rx[hidden]{display:none}
+  .cs-rx button{border:1px solid var(--cs-bd);background:var(--cs-in);border-radius:999px;font-size:1.3rem;line-height:1.2;padding:3px 9px;cursor:pointer;color:inherit;transition:transform .15s cubic-bezier(.34,1.56,.64,1),background .15s,box-shadow .15s}
   .cs-rx button:hover{background:var(--cs-chip);transform:translateY(-3px) scale(1.15);box-shadow:0 6px 14px -6px var(--cs-glow)}.cs-rx button:active{transform:scale(.88)}
   .cs-emo{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:6px 10px;border-top:1px solid var(--cs-bd);max-height:132px;overflow:auto;animation:csIn .2s both}.cs-emo[hidden]{display:none}
   .cs-emo button{border:0;background:transparent;font-size:1.3rem;padding:3px 0;border-radius:8px;cursor:pointer}.cs-emo button:hover{background:var(--cs-chip)}
   .cs-in{display:flex;gap:5px;padding:8px 10px 10px;align-items:center}
   .cs-in input[type=text]{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--cs-bd);background:var(--cs-in);color:inherit;font:600 .86rem 'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
   .cs-in input[type=text]:focus{border-color:var(--cs-ac1);box-shadow:0 0 0 3px var(--cs-glow)}.cs-in input::placeholder{color:var(--cs-mu)}
-  .cs-in button{width:36px;height:36px;border:0;border-radius:50%;flex:none;cursor:pointer;font-size:1rem;transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
-  .cs-in .cs-emo-b,.cs-in .cs-adj-b{background:transparent;color:inherit;font-size:1.2rem}.cs-in .cs-emo-b:hover,.cs-in .cs-adj-b:hover{background:var(--cs-chip);transform:scale(1.1)}
+  .cs-in button{width:34px;height:34px;border:0;border-radius:50%;flex:none;cursor:pointer;font-size:1rem;transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
+  .cs-in .cs-emo-b,.cs-in .cs-adj-b,.cs-in .cs-rx-b{background:transparent;color:inherit;font-size:1.15rem;width:32px;height:32px}.cs-in .cs-emo-b:hover,.cs-in .cs-adj-b:hover,.cs-in .cs-rx-b:hover,.cs-in .cs-rx-b.on{background:var(--cs-chip);transform:scale(1.1)}
   .cs-in .cs-go{background:linear-gradient(135deg,var(--cs-ac1),var(--cs-ac2));color:#fff;box-shadow:0 6px 14px -6px var(--cs-glow)}.cs-in .cs-go:hover{transform:scale(1.1) rotate(-8deg)}.cs-in .cs-go:active{transform:scale(.9)}
   .cs-compacto .cs-msgs{max-height:190px;min-height:120px}
   .cs-vuelo{position:absolute;bottom:70px;font-size:2rem;pointer-events:none;animation:csVuelo 1.6s ease-out forwards;z-index:5;text-align:center;line-height:1}.cs-vuelo small{display:block;font:800 .62rem 'Plus Jakarta Sans',sans-serif;margin-top:2px;padding:1px 7px;border-radius:99px;background:rgba(0,0,0,.55);color:#fff}
@@ -426,16 +426,22 @@
       + '<button type="button" class="cs-nuevos" hidden>↓ Mensajes nuevos</button>'
       + '<div class="cs-typing"><i><b></b><b></b><b></b></i><span></span></div>'
       + '<div class="cs-resp" hidden></div>'
-      + '<div class="cs-rx" aria-label="Reacciones rápidas">' + REACCIONES.map((r) => '<button type="button" data-e="' + r[0] + '" aria-label="' + esc(r[1]) + '" title="' + esc(r[0] + ' ' + r[1]) + '">' + r[0] + '</button>').join('') + '</div>'
+      + '<div class="cs-rx" hidden aria-label="Reacciones rápidas">' + REACCIONES.map((r) => '<button type="button" data-e="' + r[0] + '" aria-label="' + esc(r[1]) + '" title="' + esc(r[0] + ' ' + r[1]) + '">' + r[0] + '</button>').join('') + '</div>'
       + '<div class="cs-emo" hidden>' + EMOJIS.map((e) => '<button type="button" data-em="' + e + '">' + e + '</button>').join('') + '</div>'
-      + '<form class="cs-in" autocomplete="off"><button type="button" class="cs-adj-b" aria-label="Adjuntar o compartir" title="Adjuntar archivo, foto, tema, progreso o enlace">📎</button><button type="button" class="cs-emo-b" aria-label="Emojis" title="Emojis">😊</button><input type="text" maxlength="' + MAX_ESCRITO + '" placeholder="Escribile a la sala…" aria-label="Mensaje para la sala"><button type="submit" class="cs-go" aria-label="Enviar">➤</button></form></div>';
+      + '<form class="cs-in" autocomplete="off"><button type="button" class="cs-adj-b" aria-label="Adjuntar o compartir" title="Adjuntar archivo, foto, tema, progreso o enlace">📎</button><button type="button" class="cs-emo-b" aria-label="Emojis" title="Emojis">😊</button><button type="button" class="cs-rx-b" aria-label="Reacciones con sonido" title="Reacciones con sonido (aplausos, campanita…)">✨</button><input type="text" maxlength="' + MAX_ESCRITO + '" placeholder="Escribile a la sala…" aria-label="Mensaje para la sala"><button type="submit" class="cs-go" aria-label="Enviar">➤</button></form></div>';
     const v = { host, opt, _resp: null, _err: '', _sub: '' }; vistas.add(v);
     const wrap = host.querySelector('.cs-wrap'), form = host.querySelector('.cs-in'), input = form.querySelector('input[type=text]'), emo = host.querySelector('.cs-emo'), msgsBox = host.querySelector('.cs-msgs');
     pintarVista(v);
     const estadoFn = (txt, error) => { v._err = error ? txt : ''; v._sub = error ? '' : txt; pintarVista(v); if (error) setTimeout(() => { v._err = ''; pintarVista(v); }, 6000); };
     const mandarArchivo = async (file) => { const r = v._resp; v._resp = null; pintarResp(v); await enviarArchivo(file, r, estadoFn); };
-    host.querySelector('.cs-rx').addEventListener('click', (e) => { const b = e.target.closest('button[data-e]'); if (b) reaccionar(b.dataset.e); });
-    host.querySelector('.cs-emo-b').addEventListener('click', () => { emo.hidden = !emo.hidden; });
+    const rxBox = host.querySelector('.cs-rx'), rxBtn = host.querySelector('.cs-rx-b'); let rxT = null;
+    const rxCerrar = () => { clearTimeout(rxT); rxBox.hidden = true; rxBtn.classList.remove('on'); };
+    const rxArmar = () => { clearTimeout(rxT); rxT = setTimeout(rxCerrar, 4000); };      // se esconden solas a los 4 s
+    rxBtn.addEventListener('click', (e) => { e.stopPropagation(); if (rxBox.hidden) { rxBox.hidden = false; rxBtn.classList.add('on'); emo.hidden = true; rxArmar(); } else rxCerrar(); });
+    rxBox.addEventListener('mouseenter', () => clearTimeout(rxT)); rxBox.addEventListener('mouseleave', rxArmar);
+    rxBox.addEventListener('click', (e) => { const b = e.target.closest('button[data-e]'); if (b) { reaccionar(b.dataset.e); rxArmar(); setTimeout(rxCerrar, 500); } });
+    host.addEventListener('click', (e) => { if (!rxBox.hidden && !e.target.closest('.cs-rx') && !e.target.closest('.cs-rx-b')) rxCerrar(); });
+    host.querySelector('.cs-emo-b').addEventListener('click', () => { emo.hidden = !emo.hidden; if (!emo.hidden) rxCerrar(); });
     emo.addEventListener('click', (e) => { const b = e.target.closest('button[data-em]'); if (b) { input.value += b.dataset.em; input.focus(); } });
     host.querySelector('.cs-foco-sw').addEventListener('change', (e) => { ls.set('nika_modo_foco', e.target.checked ? '1' : '0'); sonidoSuave('switch'); pintarTodo(); try { window.dispatchEvent(new CustomEvent('nika:modo-foco', { detail: { activo: e.target.checked } })); } catch (_) {} });
     host.querySelector('.cs-snd').addEventListener('click', () => { ls.set('nika_sala_sonido', sonidoOn() ? '0' : '1'); sonidoSuave('switch'); pintarTodo(); });
@@ -451,7 +457,7 @@
     let tp = null;
     msgsBox.addEventListener('touchstart', (e) => { const m = e.target.closest('.cs-m[data-id]'); if (!m) return; const t = e.touches[0]; clearTimeout(tp); tp = setTimeout(() => abrirMenu(v, m.dataset.id, t.clientX, t.clientY), 480); }, { passive: true });
     ['touchend', 'touchcancel', 'touchmove'].forEach((ev) => msgsBox.addEventListener(ev, () => clearTimeout(tp), { passive: true }));
-    input.addEventListener('input', avisarEscribiendo);
+    input.addEventListener('input', () => { avisarEscribiendo(); if (!rxBox.hidden) rxCerrar(); });
     form.addEventListener('submit', async (e) => { e.preventDefault(); const t = input.value; if (!t.trim()) return; const r = v._resp; input.value = ''; emo.hidden = true; v._resp = null; pintarResp(v); const ok = await enviar(t, r); if (!ok) { input.value = t; v._resp = r; pintarResp(v); } });
     // adjuntar / compartir
     const A = adj();
