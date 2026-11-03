@@ -8645,7 +8645,15 @@
    "fisiopatologia": [
     "La aterosclerosis es la principal causa de enfermedad arterial periférica en mayores de 40 años; otras causas son la trombosis, la embolia, la vasculitis, la displasia fibromuscular, la compresión y los traumatismos. El riesgo aumenta con el tabaquismo, la diabetes, la hipercolesterolemia, la hipertensión y la insuficiencia renal (Harrison, cap. 281).",
     "Las lesiones segmentarias de estenosis u oclusión afectan vasos de calibre grande y mediano: placas con depósito de calcio, adelgazamiento de la capa media, destrucción de fibras musculares y elásticas, fragmentación de la lámina elástica interna y trombos de plaquetas y fibrina. Los sitios más afectados son la aorta abdominal y las ilíacas (30 % de los sintomáticos) y las arterias femorales y poplíteas (80 a 90 %) (Harrison, cap. 281)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 281",
+    "puntos": [
+     "Harrison precisa el ejercicio supervisado: sesiones de 30 a 45 minutos, al menos tres veces por semana durante 12 semanas, con un efecto sobre la distancia de marcha a menudo similar o mayor que el de la revascularización; los programas en casa y en la comunidad también funcionan.",
+     "Los vasodilatadores como grupo (bloqueantes α, antagonistas del calcio) no demostraron beneficio en la claudicación; el cilostazol aumenta la distancia de claudicación 40 a 60 % y la pentoxifilina tiene eficacia modesta y no consistente. No hay tratamiento médico definido para la isquemia crítica: las prostaglandinas, los factores de crecimiento angiógeno y las células progenitoras no mostraron beneficio."
+    ]
+   }
   },
   {
    "id": "cx-isquemia-arterial-aguda",
@@ -8768,7 +8776,15 @@
    ],
    "farmacos": [
     "fx-heparina"
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 281",
+    "puntos": [
+     "Coincide en el cuadro: dolor intenso, parestesias, adormecimiento y frialdad en la primera hora, pérdida de los pulsos distales a la oclusión, palidez o cianosis y, con isquemia grave y persistente, parálisis. Las causas son la embolia (corazón, aorta y grandes arterias; en las piernas se aloja más en la femoral), la trombosis in situ sobre placas, aneurismas o injertos, la disección y el traumatismo; los émbolos se alojan en las bifurcaciones.",
+     "Entre las fuentes cardíacas de embolia Harrison enumera fibrilación auricular, infarto de miocardio, aneurismas ventriculares, miocardiopatía, endocarditis, válvulas protésicas y mixoma, y menciona la embolia paradójica por foramen oval permeable; la policitemia y los estados de hipercoagulabilidad también se asocian con trombosis arterial aguda."
+    ]
+   }
   },
   {
    "id": "cx-aneurisma-aorta-abdominal",
@@ -11294,7 +11310,15 @@
    "fisiopatologia": [
     "El 80 a 90 % de los hepatocarcinomas se inicia sobre un hígado cirrótico, por lo que cualquier factor de lesión hepática crónica es de riesgo: sobre todo los virus de la hepatitis B y C y el alcohol, y de forma creciente la esteatohepatitis no alcohólica. Menos frecuentes: hemocromatosis, cirrosis biliar primaria, porfiria y enfermedad de Wilson (Giménez, cap. 51).",
     "En la última década bajó la prevalencia de hepatitis C y aumentó la etiología por hígado graso no alcohólico (Giménez, cap. 51)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 82",
+    "puntos": [
+     "Coincide con la ficha en que la clasificación de Barcelona (BCLC, cinco etapas) asigna el tratamiento: las etapas 0 y A, asintomáticas y tempranas, reciben tratamientos radicales (resección, trasplante o ablación local); la B, multinodular asintomática, quimioembolización transarterial; la C, sintomática o invasiva, tratamiento sistémico; y la D, terminal, las mejores medidas de apoyo. Los pacientes con hepatopatía terminal Child-Pugh C deben considerarse para trasplante.",
+     "Harrison agrega que atezolizumab más bevacizumab es el tratamiento de primera línea aprobado para el carcinoma avanzado, con sorafenib y lenvatinib como primera línea cuando hay contraindicación para la combinación; regorafenib, cabozantinib y ramucirumab quedan como segunda línea. Si el paciente no es elegible para el tratamiento de su etapa, \"migra\" al siguiente tratamiento eficaz de una etapa más avanzada."
+    ]
+   }
   },
   {
    "id": "cx-cancer-vesicula",
