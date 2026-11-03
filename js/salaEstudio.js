@@ -9,10 +9,11 @@
   const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', biblioteca: 'Estudio libre' };
   const AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fca5a5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
-  let retoAbierto = false, retoPre = [], retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
+  let salaChatAbierto = false, retoAbierto = false, retoPre = [], retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   // Avisos de la sala: los dice Nika (globo con su marco); si el usuario los apagó en Notificaciones, vuelve el toast común
+  if (!window.NikaChatSala && !document.querySelector('script[src*="chatSala.js"]')) { const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=1'; document.head.appendChild(sc); }
   const toast = (m, t) => {
     try { if (window.NikaAssistant && NikaAssistant.hablar && NikaAssistant.hablar({ html: String(m).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])), anim: t === 'success' ? 'celebra' : 'feliz', cara: t === 'success' ? 'fel' : '', ms: 4200 })) return; } catch (_) {}
     if (typeof window.showToast === 'function') window.showToast(m, t);
@@ -70,6 +71,10 @@
     .sala-picker{position:relative;margin:10px 0 2px;padding:12px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(251,113,133,.3);animation:salaPop .25s ease}
     .sala-picker h4{margin:0 0 8px;font-size:.82rem;font-weight:800}
     .sala-prox{margin:10px 0 0;font-size:.8rem;color:#fecdd3;text-align:center}.sala-prox b{color:#fff}
+    .sala-chat{margin:12px 0 4px;border-radius:16px;border:1px solid rgba(251,113,133,.3);background:rgba(255,255,255,.05);overflow:hidden}
+    .sala-chat-t{width:100%;display:flex;align-items:center;gap:8px;padding:10px 14px;border:0;background:transparent;color:inherit;font:800 .84rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;text-align:left}
+    .sala-chat-t span{margin-left:auto;opacity:.7}.sala-chat-n{background:#f43f5e;color:#fff;border-radius:999px;padding:0 7px;font-size:.7rem;animation:salaPop .3s ease}
+    #sala-chat-host{border-top:1px solid rgba(251,113,133,.25)}
     .sala-retos{position:relative;margin:12px 0 4px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(251,191,36,.16),rgba(244,63,94,.14));border:1px solid rgba(251,191,36,.35)}
     .sala-retos-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.84rem}
     .sala-retos-h a{color:#fde68a;font-weight:800;font-size:.76rem;text-decoration:none}
@@ -296,6 +301,8 @@
       return;
     }
 
+    const chatN = (window.NikaChatSala && window.NikaChatSala.estado().noLeidos) || 0;
+    const chatBlk = window.NikaChatSala ? `<div class="sala-chat"><button type="button" class="sala-chat-t" data-chat-toggle="1" aria-expanded="${salaChatAbierto}">💬 Chat de la sala${chatN && !salaChatAbierto ? ` <b class="sala-chat-n">${chatN}</b>` : ''}<span>${salaChatAbierto ? '▴' : '▾'}</span></button>${salaChatAbierto ? '<div id="sala-chat-host"></div>' : ''}</div>` : '';
     const html = `
       <div class="sala-card" role="dialog" aria-label="Sala de estudio">
         ${bgTomates()}
@@ -310,12 +317,15 @@
         <div class="sala-seats">${asientos}</div>
         ${retosBlk}
         ${picker}
+        ${chatBlk}
         ${pie}
       </div>`;
     if (html === ultimoHtml) return;          // nada cambió: no se toca el DOM (evita el parpadeo)
     ultimoHtml = html;
     overlay.classList.toggle('sala-quieta', !!suave);   // al redibujar no se repiten las animaciones de entrada
     overlay.innerHTML = html;
+    const ch = document.getElementById('sala-chat-host');
+    if (ch && window.NikaChatSala) window.NikaChatSala.montar(ch, { compacto: true, visible: () => !!overlay && salaChatAbierto });
   }
 
   function amigosHtml(joined, invitados) {
@@ -370,6 +380,7 @@
     const q = (sel) => t.closest(sel);
     let el;
     if ((el = q('[data-reto-nuevo]'))) { retoPre = (el.dataset.retoNuevo || '').split(',').filter(Boolean); retoAbierto = true; ultimoHtml = ''; return render(); }
+    if (q('[data-chat-toggle]')) { salaChatAbierto = !salaChatAbierto; ultimoHtml = ''; return render(); }
     if (q('[data-reto-cerrar]')) { retoAbierto = false; ultimoHtml = ''; return render(); }
     if ((el = q('[data-invitar]'))) return invitar(el.dataset.invitar);
     if ((el = q('[data-expulsar]'))) { if (E().kickGuest(el.dataset.expulsar)) toast(`@${el.dataset.expulsar} salió de la sala.`); return render(); }

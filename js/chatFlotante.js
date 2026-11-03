@@ -105,13 +105,16 @@
   .cf-emo-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;max-height:142px;overflow-y:auto;padding:6px 8px 8px}.cf-emo-grid button{border:0;background:transparent;font-size:1.45rem;line-height:1.2;padding:3px 0;border-radius:8px;cursor:pointer;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}.cf-emo-grid button:hover{background:rgba(2,132,199,.14)}
   .cf-in .cf-emo-btn{background:transparent;color:inherit;font-size:1.3rem;width:38px;flex-shrink:0}.cf-in .cf-emo-btn:hover,.cf-in .cf-emo-btn.on{background:rgba(2,132,199,.15)}
   .cf-b{-webkit-touch-callout:none}
+  .cf-sala-item{background:linear-gradient(135deg,rgba(244,63,94,.14),rgba(251,191,36,.12))!important;border:1px solid rgba(244,63,94,.3)!important;margin-bottom:8px}
+  .cf-sala-item .cf-av{display:grid;place-items:center;font-size:1.35rem;background:rgba(244,63,94,.18);border-radius:50%}
+  .cf-sala-host{flex:1;min-height:0;display:flex;flex-direction:column}.cf-sala-host>.cs-wrap{flex:1}
   #chat-fab-btn,#dm-inbox-modal,#private-chat-modal{display:none!important}
   .cf-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border,#e2e8f0)}.cf-in input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .88rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-in input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}.cf-in button{width:42px;height:42px;border:0;border-radius:50%;background:#0284c7;color:#fff;font-size:1.05rem;cursor:pointer}
   @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom,0px))}.cf-panel{right:8px;bottom:8px;width:calc(100vw - 16px);height:min(75vh,520px)}.cf-panel.min{right:70px;bottom:12px;width:calc(100vw - 84px)}}
   @media (prefers-reduced-motion:reduce){.cf-fab.hay,.cf-fab.rebota,.cf-panel.on,.cf-b{animation:none!important}}`;
 
-  let fab, panel;
+  let fab, panel, enSala = false;
   function montarUI() {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     fab = document.createElement('button'); fab.type = 'button'; fab.className = 'cf-fab'; fab.setAttribute('aria-label', 'Abrir chat'); fab.innerHTML = '💬<b></b>';
@@ -120,7 +123,7 @@
     document.body.append(fab, panel);
     vistaLista();
   }
-  const abrir = () => { abierto = true; minimizado = false; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; marcarLeidoActual(); } };
+  const abrir = () => { abierto = true; minimizado = false; panel.classList.add('on'); aplicarMin(); if (!actual && !enSala) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; marcarLeidoActual(); } };
   // Un mensaje cuenta como LEÍDO solo si el panel está desplegado y a la vista. Minimizado o cerrado, queda sin leer:
   // suena, se pone el botón en rojo y el contador sube, igual que si estuvieras en cualquier otra pantalla.
   function sincronizarLectura() { try { if (window.ChatManager) window.ChatManager.lecturaAutomatica = !!(abierto && !minimizado); } catch (_) {} }
@@ -143,7 +146,7 @@
 
   // ------------------------------------------------------------------ bandeja
   async function vistaLista() {
-    const CM = window.ChatManager;
+    const CM = window.ChatManager; enSala = false;
     if (actual) { actual = null; try { await CM.cerrarConversacion(); } catch (_) {} }
     panel.innerHTML = `<div class="cf-h"><h4>💬 Mensajes<small id="cf-sub"></small></h4>${cabeceraBtns()}</div>
       <div class="cf-buscar"><input type="search" id="cf-q" placeholder="Buscar amigo…" aria-label="Buscar amigo" autocomplete="off" value="${esc(busqueda)}"></div>
@@ -153,6 +156,20 @@
     try { amigos = await window.NikaFriends.listFriends(); } catch (_) { amigos = []; }
     try { noLeidos = await CM.contarNoLeidos(); } catch (_) {}
     pintarLista();
+  }
+  // Chat de la sala de estudio (solo aparece cuando estás en una sala del Pomodoro compartido)
+  function filaSala() {
+    const S = window.NikaChatSala && window.NikaChatSala.estado(); if (!S || !S.activo) return '';
+    const n = S.presentes.length + 1;
+    return `<button type="button" class="cf-item cf-sala-item"><span class="cf-av">🍅</span><span class="cf-nom"><b>Sala de estudio</b><small class="on">${n} ${n === 1 ? 'persona' : 'personas'} · chat de la sala</small></span>${S.noLeidos ? `<span class="cf-n">${S.noLeidos}</span>` : ''}</button>`;
+  }
+  async function vistaSala() {
+    const CM = window.ChatManager; enSala = true;
+    if (actual) { actual = null; try { await CM.cerrarConversacion(); } catch (_) {} }
+    panel.innerHTML = `<div class="cf-h"><button type="button" class="cf-back" aria-label="Volver">←</button><span class="cf-av" style="font-size:1.5rem;width:34px;text-align:center">🍅</span><h4>Sala de estudio<small>Chat de la sala</small></h4>${cabeceraBtns()}</div><div class="cf-sala-host"></div>`;
+    $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
+    window.NikaChatSala.montar($('.cf-sala-host', panel), { visible: () => abierto && !minimizado && enSala });
+    refrescarNoLeidos();
   }
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   function filaAmigo(f, on) {
@@ -184,8 +201,9 @@
       const grupo = (clave, titulo, arr) => arr.length ? `<button type="button" class="cf-grp${plegados[clave] ? ' cerrado' : ''}" data-g="${clave}"><span>${titulo} <em>${arr.length}</em></span><i>▾</i></button>${plegados[clave] ? '' : lista(arr, clave)}` : '';
       html = grupo('msg', '💬 Con mensajes', conMsg) + grupo('on', '🟢 En línea', enLinea) + grupo('off', '⚪ Desconectados', resto);
     }
-    box.innerHTML = html;
-    box.querySelectorAll('.cf-item').forEach((b) => b.addEventListener('click', () => conversacion(b.dataset.u)));
+    box.innerHTML = filaSala() + html;
+    const bs = box.querySelector('.cf-sala-item'); if (bs) bs.addEventListener('click', vistaSala);
+    box.querySelectorAll('.cf-item:not(.cf-sala-item)').forEach((b) => b.addEventListener('click', () => conversacion(b.dataset.u)));
     box.querySelectorAll('.cf-grp').forEach((b) => b.addEventListener('click', () => { plegados[b.dataset.g] = !plegados[b.dataset.g]; guardar(LS_GRUPOS, plegados); pintarLista(); }));
     box.querySelectorAll('.cf-mas').forEach((b) => b.addEventListener('click', () => { limites[b.dataset.mas] += PASO; pintarLista(); }));
   }
@@ -395,14 +413,14 @@
   let previo = 0;
   async function refrescarNoLeidos() {
     try { noLeidos = await window.ChatManager.contarNoLeidos(); } catch (_) { return; }
-    const total = Object.values(noLeidos).reduce((a, b) => a + b, 0);
+    const total = Object.values(noLeidos).reduce((a, b) => a + b, 0) + ((window.NikaChatSala && window.NikaChatSala.estado().noLeidos) || 0);
     if (fab) {
       fab.classList.toggle('hay', total > 0); fab.querySelector('b').textContent = total > 99 ? '99+' : String(total || '');
       fab.setAttribute('aria-label', total > 0 ? `Abrir chat: ${total} mensaje${total === 1 ? '' : 's'} sin leer` : 'Abrir chat');
       if (total > previo) { fab.classList.remove('rebota'); void fab.offsetWidth; fab.classList.add('rebota'); }
     }
     previo = total;
-    if (abierto && !actual) pintarLista();
+    if (abierto && !actual && !enSala) pintarLista();
   }
 
   // ------------------------------------------------------------------ arranque
@@ -420,6 +438,7 @@
       if (!okCM || !window.ChatManager) return false;
       const CM = window.ChatManager;
       CM.iniciarPresenciaGlobal().catch(() => {});
+      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=1', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
       if (!SOLO_PRESENCIA) {
         montarUI();
         CM.alCambiarLista(() => refrescarNoLeidos());
