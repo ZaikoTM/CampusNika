@@ -168,7 +168,7 @@
     if (actual) { actual = null; try { await CM.cerrarConversacion(); } catch (_) {} }
     panel.innerHTML = `<div class="cf-h"><button type="button" class="cf-back" aria-label="Volver">←</button><span class="cf-av" style="font-size:1.5rem;width:34px;text-align:center">🍅</span><h4>Sala de estudio<small>Chat de la sala</small></h4>${cabeceraBtns()}</div><div class="cf-sala-host"></div>`;
     $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
-    window.NikaChatSala.montar($('.cf-sala-host', panel), { visible: () => abierto && !minimizado && enSala });
+    window.NikaChatSala.montar($('.cf-sala-host', panel), { sinTitulo: true, visible: () => abierto && !minimizado && enSala });
     refrescarNoLeidos();
   }
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -235,7 +235,8 @@
   // ---- responder, eliminar y emojis ----
   let respondiendo = null;   // { id, de, texto } del mensaje que se está contestando
   const RX_MARCAS = /\[\[(?:desafio:[0-9a-f-]{36}|estudiar:[^\]]*|nota)\]\]/gi;
-  const textoDe = (m) => m.deleted_at ? '' : m.shared_question ? '📋 Pregunta compartida' : String(m.content || '').replace(RX_MARCAS, '').trim().slice(0, 140) || '…';
+  const textoDe = (m) => { const P = !m.deleted_at && window.NikaChatAdj && NikaChatAdj.parse(m.content); return P ? ('📎 ' + P.adj.name + (P.resto ? ' · ' + P.resto : '')).slice(0, 140) : textoBase(m); };
+  const textoBase = (m) => m.deleted_at ? '' : m.shared_question ? '📋 Pregunta compartida' : String(m.content || '').replace(RX_MARCAS, '').trim().slice(0, 140) || '…';
   const RX_SOLO_EMOJI = /^(?:\p{Extended_Pictographic}[\u{1F3FB}-\u{1F3FF}️]?(?:‍\p{Extended_Pictographic}[\u{1F3FB}-\u{1F3FF}️]?)*\s*){1,3}$/u;
   function cerrarMenu() { const x = document.querySelector('.cf-menu'); if (x) x.remove(); }
   document.addEventListener('click', cerrarMenu); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrarMenu(); }); window.addEventListener('resize', cerrarMenu);
@@ -329,6 +330,11 @@
     const marcaEst = !m.shared_question && /\[\[estudiar:([^\]]*)\]\]/.exec(m.content || '');
     const marcaNota = !m.shared_question && /\[\[nota\]\]/.exec(m.content || '');
     const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (marca ? String(m.content).replace(marca[0], '').trim() : marcaEst ? String(m.content).replace(marcaEst[0], '').trim() : marcaNota ? String(m.content).replace(marcaNota[0], '').trim() : (m.content || '')); el.appendChild(t);
+    {
+      const P = !m.shared_question && window.NikaChatAdj && NikaChatAdj.parse(m.content);
+      if (P) { const c = document.createElement('div'); c.innerHTML = NikaChatAdj.html(P.adj); el.insertBefore(c, t); t.textContent = P.resto; if (!P.resto) t.remove(); }
+      else if (/https?:\/\//.test(t.textContent)) t.innerHTML = esc(t.textContent).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;font-weight:800">$1</a>');
+    }
     if (marca) decorarDesafio(el, marca[1], mia);
     if ((marcaEst || marcaNota) && !mia) {
       const fila = document.createElement('div'); fila.style.cssText = 'display:flex;gap:6px;margin-top:8px;flex-wrap:wrap'; el.appendChild(fila);
@@ -348,7 +354,7 @@
       <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4><button type="button" class="cf-call" title="Iniciar chat de voz privado" aria-label="Iniciar chat de voz privado">📞</button>${cabeceraBtns()}</div>
       <div class="cf-msgs"><div class="cf-vacio">Cargando conversación…</div></div>
       <div class="cf-resp" id="cf-resp" hidden></div><div class="cf-emojis" id="cf-emo" hidden></div>
-      <form class="cf-in" autocomplete="off"><button type="button" class="cf-emo-btn" aria-label="Emojis" title="Emojis">😊</button><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
+      <form class="cf-in" autocomplete="off"><button type="button" class="cf-emo-btn cf-adj-btn" aria-label="Adjuntar" title="Adjuntar archivo, foto, tema, progreso o enlace">📎</button><button type="button" class="cf-emo-btn" aria-label="Emojis" title="Emojis">😊</button><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
     $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
     const llamar = $('.cf-call', panel);
     if (llamar) llamar.onclick = async (e) => {
@@ -401,6 +407,18 @@
     } catch (e) { const box = $('.cf-msgs', panel); if (box) box.innerHTML = '<div class="cf-vacio">No se pudo cargar el chat.</div>'; }
     pintarEstado(CM.estaEnLinea(user));
     const form = $('.cf-in', panel), input = $('input[type=text]', form); input.focus(); montarEmojis(form, input);
+    {
+      const A = window.NikaChatAdj, bAdj = $('.cf-adj-btn', form);
+      if (A && bAdj) {
+        const avisar = (t) => { if (typeof window.showToast === 'function') window.showToast(t); else alert(t); };
+        const mandarTexto = async (t) => { const resp = respondiendo; respondiendo = null; pintarRespuesta(); try { const row = await CM.enviarMensaje(user, t, resp); if (row) burbuja(row); } catch (err) { avisar(err && err.friendly ? err.message : 'No se pudo enviar.'); } };
+        const mandarArchivo = async (file) => {
+          avisar('Subiendo ' + file.name + '…'); const r = await A.subir(file); if (!r.ok) { avisar(r.error); return; }
+          await mandarTexto(A.marca(r));
+        };
+        A.menu(bAdj, { onFile: mandarArchivo, onTexto: mandarTexto }); A.soltar(panel, mandarArchivo, input);
+      } else if (bAdj) bAdj.style.display = 'none';
+    }
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); const txt = input.value.trim(); if (!txt) return; input.value = '';
       const resp = respondiendo; respondiendo = null; pintarRespuesta(); const caja = $('#cf-emo', panel); if (caja && !caja.hidden) { caja.hidden = true; $('.cf-emo-btn', form).classList.remove('on'); }
@@ -438,7 +456,8 @@
       if (!okCM || !window.ChatManager) return false;
       const CM = window.ChatManager;
       CM.iniciarPresenciaGlobal().catch(() => {});
-      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=3', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
+      if (!SOLO_PRESENCIA) { await cargarScript('chatAdjuntos.js?v=1', () => !!window.NikaChatAdj); }
+      if (!SOLO_PRESENCIA) { await cargarScript('chatSala.js?v=4', () => !!window.NikaChatSala); if (window.NikaChatSala) window.NikaChatSala.alCambiar(() => { refrescarNoLeidos(); if (abierto && !actual && !enSala) pintarLista(); }); }
       if (!SOLO_PRESENCIA) {
         montarUI();
         CM.alCambiarLista(() => refrescarNoLeidos());

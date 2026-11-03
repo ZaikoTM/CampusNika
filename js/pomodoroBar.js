@@ -530,7 +530,7 @@ const NikaPomoBar = (() => {
         const bChat = document.getElementById('nika-pomo-bar-chat');
         if (bChat) {
             bChat.style.display = sh ? '' : 'none';
-            if (sh && !window.NikaChatSala && !_chatCargando) { _chatCargando = true; const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=3'; sc.onload = _enlazarChat; document.head.appendChild(sc); }
+            if (sh && !window.NikaChatSala && !_chatCargando) { _chatCargando = true; const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=4'; sc.onload = _enlazarChat; document.head.appendChild(sc); }
             else if (sh) _enlazarChat();
         }
         document.getElementById('nika-pomo-bar-room').style.display = (sh && (enEspera || !esInvitado) && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta

@@ -1,4 +1,8 @@
-Sonidos del chat de la sala (Nika).
-aplauso.ogg  - "Applause ii.ogg", Wikimedia Commons, dominio publico.
-hurra.oga    - "Clapping hurray (cropped).oga", Wikimedia Commons, dominio publico.
-Los demas sonidos (pop, ding, fuego, etc.) se generan por codigo en js/chatSala.js.
+Sonidos del chat de la sala (Nika). Todos de Wikimedia Commons, libres de uso:
+aplauso.ogg    - "Applause ii.ogg" (dominio publico)
+aplauso2.ogg   - "Applause i.ogg" (dominio publico)
+hurra.oga      - "Clapping hurray (cropped).oga" (dominio publico)
+campana.ogg    - "Old school bell 4.ogg" (dominio publico) - para el "Tiempo"
+campanita.wav  - "Dingdingding.wav" (CC0) - para la campanita
+El resto de los sonidos (pop, ding, fuego, etc.) se generan por codigo en js/chatSala.js.
+La voz de "Tiempo" es la voz en espanol del propio dispositivo (speechSynthesis).
