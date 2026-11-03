@@ -471,7 +471,7 @@
     try { E().on('change', sincronizar); E().on('shared', sincronizar); } catch (_) {}
     setInterval(() => { sincronizar(); pintarTodo(); }, 4000);
   }
-  if (!window.NikaChatAdj && !document.querySelector('script[src*="chatAdjuntos.js"]')) { const sc = document.createElement('script'); sc.src = 'js/chatAdjuntos.js?v=1'; sc.onload = () => pintarTodo(); document.head.appendChild(sc); }
+  if (!window.NikaChatAdj && !document.querySelector('script[src*="chatAdjuntos.js"]')) { const sc = document.createElement('script'); sc.src = 'js/chatAdjuntos.js?v=2'; sc.onload = () => pintarTodo(); document.head.appendChild(sc); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 
   window.NikaChatSala = { montar, estado, enviar, reaccionar, leer, modoFoco: modoFocoOn, alCambiar: (f) => { oyentes.add(f); return () => oyentes.delete(f); } };

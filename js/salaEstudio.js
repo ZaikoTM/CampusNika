@@ -13,7 +13,7 @@
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   // Avisos de la sala: los dice Nika (globo con su marco); si el usuario los apagó en Notificaciones, vuelve el toast común
-  if (!window.NikaChatSala && !document.querySelector('script[src*="chatSala.js"]')) { const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=4'; document.head.appendChild(sc); }
+  if (!window.NikaChatSala && !document.querySelector('script[src*="chatSala.js"]')) { const sc = document.createElement('script'); sc.src = 'js/chatSala.js?v=5'; document.head.appendChild(sc); }
   const toast = (m, t) => {
     try { if (window.NikaAssistant && NikaAssistant.hablar && NikaAssistant.hablar({ html: String(m).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])), anim: t === 'success' ? 'celebra' : 'feliz', cara: t === 'success' ? 'fel' : '', ms: 4200 })) return; } catch (_) {}
     if (typeof window.showToast === 'function') window.showToast(m, t);

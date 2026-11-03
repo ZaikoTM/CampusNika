@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   if (window.NikaChatAdj) return;
-  const MAX = 15 * 1024 * 1024;
+  const MAX = 15 * 1024 * 1024, DIAS_VIDA = 30;   // los archivos se borran solos a los 30 días para no llenar el almacenamiento
   const OK = /^(image\/(jpeg|png|webp|gif)|application\/pdf|application\/zip|application\/msword|application\/vnd\.(openxmlformats-officedocument\.[a-z.]+|ms-excel|ms-powerpoint)|text\/plain|audio\/(mpeg|mp4|ogg|webm|wav)|video\/(mp4|webm))$/;
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const sb = () => window.NikaSupabase && window.NikaSupabase.client;
@@ -44,15 +44,31 @@
     } catch (_) { return null; }
   }
   function html(a) {
-    if (/^image\//.test(a.mime)) return '<a class="ca-img" href="' + esc(a.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + esc(a.url) + '" alt="' + esc(a.name) + '" loading="lazy"></a>';
+    if (/^image\//.test(a.mime)) return '<a class="ca-img" href="' + esc(a.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + esc(a.url) + '" alt="' + esc(a.name) + '" loading="lazy" onerror="this.parentNode.outerHTML=&quot;<span class=ca-venc>🕓 Imagen vencida (se borra a los 30 días)</span>&quot;"></a>';
     return '<a class="ca-file" href="' + esc(a.url) + '" target="_blank" rel="noopener noreferrer" download="' + esc(a.name) + '"><span class="ca-ico">' + icono(a.mime) + '</span><span class="ca-meta"><b>' + esc(a.name) + '</b><small>' + tam(a.size) + '</small></span><i>⬇</i></a>';
   }
+  // Limpieza: cada persona borra de su carpeta los adjuntos de chat con más de 30 días (una vez al día por dispositivo)
+  async function limpiarViejos() {
+    try {
+      const c = sb(); if (!c) return;
+      if (Date.now() - Number(localStorage.getItem('nika_chat_limpieza') || 0) < 20 * 3600 * 1000) return;
+      const s = await c.auth.getSession(), uid = s.data && s.data.session && s.data.session.user.id; if (!uid) return;
+      localStorage.setItem('nika_chat_limpieza', String(Date.now()));
+      for (const b of ['chat-files', 'forum-files']) {
+        const r = await c.storage.from(b).list(uid, { limit: 1000, sortBy: { column: 'created_at', order: 'asc' } });
+        const viejos = (r.data || []).filter((f) => /^chat_/.test(f.name) && f.created_at && Date.now() - new Date(f.created_at).getTime() > DIAS_VIDA * 86400000).map((f) => uid + '/' + f.name);
+        if (viejos.length) await c.storage.from(b).remove(viejos);
+      }
+    } catch (_) {}
+  }
+  setTimeout(() => { try { if (window.NikaSupabase && NikaSupabase.ready) NikaSupabase.ready.then(limpiarViejos).catch(() => {}); } catch (_) {} }, 12000);
   const textoVista = (a) => '📎 ' + a.name;
 
   const CSS = `
   .ca-img{display:block;margin:2px 0 4px;border-radius:12px;overflow:hidden;max-width:230px}.ca-img img{display:block;width:100%;max-height:200px;object-fit:cover;transition:transform .25s}.ca-img:hover img{transform:scale(1.04)}
   .ca-file{display:flex;align-items:center;gap:10px;padding:8px 10px;margin:2px 0 4px;border-radius:12px;background:rgba(0,0,0,.14);color:inherit!important;text-decoration:none!important;min-width:190px;max-width:260px;transition:background .2s,transform .2s}
   .ca-file:hover{background:rgba(0,0,0,.24);transform:translateY(-1px)}.ca-ico{font-size:1.6rem;line-height:1}.ca-meta{min-width:0;flex:1}.ca-meta b{display:block;font-size:.78rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ca-meta small{font-size:.66rem;opacity:.75;font-weight:700}.ca-file i{font-style:normal;opacity:.8}
+  .ca-venc{display:inline-block;padding:6px 10px;border-radius:10px;background:rgba(0,0,0,.14);font-size:.74rem;font-weight:700}
   .ca-menu{position:fixed;z-index:10020;min-width:210px;padding:6px;border-radius:14px;background:var(--card-bg,#fff);color:var(--text-main,#0f172a);border:1px solid var(--border,#e2e8f0);box-shadow:0 18px 40px -12px rgba(0,0,0,.5);font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:caIn .16s both}
   body.dark-mode .ca-menu{background:#0f1c34;color:#e2e8f0;border-color:rgba(148,163,184,.3)}
   .ca-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:transparent;color:inherit;font:700 .82rem 'Plus Jakarta Sans',sans-serif;text-align:left;cursor:pointer}.ca-menu button:hover{background:rgba(2,132,199,.14)}.ca-menu button span{font-size:1.1rem;width:22px;text-align:center}
@@ -84,6 +100,7 @@
         opt.onTexto && opt.onTexto('⏱️ Hoy llevo ' + h + ' de estudio 🍅');
       });
       it('🔗', 'Pegar un enlace', () => { const u = prompt('Pegá el enlace que querés compartir:'); if (u && /^https?:\/\//i.test(u.trim())) opt.onTexto && opt.onTexto('🔗 ' + u.trim()); else if (u) alert('El enlace tiene que empezar con http:// o https://'); });
+      const nota = document.createElement('small'); nota.style.cssText = 'display:block;padding:6px 12px 4px;font-size:.66rem;font-weight:600;opacity:.65'; nota.textContent = 'Los archivos se borran solos a los 30 días.'; m.appendChild(nota);
       document.body.appendChild(m); abierto = m;
       const r = btn.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
       m.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + 'px'; m.style.top = Math.max(8, r.top - h - 8) + 'px';
