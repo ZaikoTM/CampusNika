@@ -568,7 +568,15 @@
    "farmacos": [
     "fx-amoxicilina",
     "fx-anestesicos-locales"
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 14 (tabla 14-7)",
+    "puntos": [
+     "ATLS indica profilaxis antibiótica y lavado de la herida en las laceraciones profundas, con contaminación extensa o en fracturas abiertas; las laceraciones se desbridan, se reparan o se vendan, y siempre se determina el estado de inmunización antitetánica. Para mayores de 11 años: con vacuna desconocida o menos de 3 dosis, Tdap con vacunación de rescate (más inmunoglobulina antitetánica en heridas que no son limpias y pequeñas); con 3 o más dosis y menos de 5 años desde la última, sin indicación; con 3 o más dosis y 5 a 10 años, Tdap o Td solo si la herida no es limpia y pequeña; con más de 10 años, Tdap o Td para cualquier herida.",
+     "Antes y después de colocar una férula conviene evaluar el estado neurovascular de la extremidad lesionada, y para las quemaduras ATLS aclara que no se dan antibióticos sistémicos profilácticos para la herida."
+    ]
+   }
   },
   {
    "id": "cx-cicatrizacion",
@@ -1622,7 +1630,15 @@
     "El dolor abdominal es el síntoma cardinal: nace en una o más regiones del abdomen, es agudo por su cronología e intensidad, se acompaña de alteraciones del tránsito y puede deteriorar rápidamente el estado general (Cope, 1921: la semiología del dolor es el dato prioritario).",
     "En el cuadro inflamatorio el dolor es insidioso, a veces referido a distancia de la víscera inflamada, y luego se localiza o se generaliza (la úlcera perforada da un dolor en puñalada en el epigastrio que se difunde y causa contractura). En el oclusivo es por crisis (retortijón) con signo de reptación; en el hemorrágico puede ser súbito (rotura tubaria, estallido hepático o esplénico) y siempre compromete la hemodinamia.",
     "Los \"grandes dramas abdominales\" (pancreatitis aguda grave con necrosis infectada e infarto mesentérico) producen un dolor muy intenso, \"en barra\" en el hemiabdomen superior con vómitos frecuentes, y son \"grandes simuladoras\": el examen abdominal puede ser engañosamente pobre."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 20",
+    "puntos": [
+     "Farreras propone clasificar el cuadro en tres situaciones antes de buscar el diagnóstico preciso: abdomen agudo médico (sin cirugía), abdomen agudo quirúrgico y dolor abdominal que admite un período de observación y reevaluación a las pocas horas. Ante duda razonable y con la exploración laparoscópica disponible, prefiere la exploración quirúrgica a la observación; la dificultad es mayor en ancianos, lactantes, mujeres en edad fértil, embarazadas e inmunodeprimidos.",
+     "Las causas extraabdominales son menos del 10 % de los casos de urgencias, y por patogenia el abdomen agudo se clasifica en inflamatorio, por obstrucción mecánica, isquémico, traumático y por distensión de superficies viscerales (la ficha, basada en Giménez 2025, usa una división equivalente)."
+    ]
+   }
   },
   {
    "id": "cx-apendicitis-aguda",
@@ -2056,7 +2072,15 @@
    "fisiopatologia": [
     "En el abdomen agudo inflamatorio el dolor puede iniciarse de forma insidiosa y a veces lejos de la víscera inflamada (dolor referido), y luego localizarse y generalizarse. En la úlcera gastroduodenal perforada aparece como un dolor brusco, \"como una puñalada\", en el epigastrio o la región periumbilical, que migra a todo el abdomen y da contractura (abdomen \"en tabla\"), defensa muscular y signos de irritación peritoneal difusa (Giménez, cap. 84).",
     "Instalada la perforación visceral aparecen alteraciones del tránsito intestinal y un deterioro progresivo del estado general (Giménez, cap. 84)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 50",
+    "puntos": [
+     "Harrison distingue la peritonitis secundaria (perforación de víscera hueca o absceso) de la peritonitis bacteriana espontánea de la cirrosis: se sospecha secundaria con glucosa en el líquido ascítico menor de 50 mg/100 mL, LDH del líquido mayor que la del suero y varios patógenos en el cultivo, con aumento de polimorfonucleares; varios patógenos sin aumento de polimorfonucleares sugieren una perforación intestinal por la aguja de paracentesis.",
+     "La peritonitis bacteriana espontánea se debe sobre todo a bacilos gramnegativos (E. coli, Klebsiella), estreptococos y enterococos que atraviesan la pared intestinal edematosa; si se sospecha ascitis pancreática, la amilasa del líquido suele superar 1.000 mg/100 mL."
+    ]
+   }
   },
   {
    "id": "cx-obstruccion-intestinal",
@@ -2913,7 +2937,15 @@
    "fisiopatologia": [
     "El reflujo depende de la función del esfínter esofágico inferior y de la anatomía de la unión (hernia hiatal); no hay paralelismo entre la magnitud del reflujo, los síntomas y el daño esofágico. La mayoría de los pacientes no tiene alteraciones de la mucosa.",
     "Complicaciones: esofagitis, estenosis péptica (fibrosis con disfagia; el diagnóstico diferencial es el cáncer) y esófago de Barrett (epitelio cilíndrico con metaplasia intestinal; puede tener displasia de bajo o alto grado, precursora del adenocarcinoma)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), caps. 80 y 323",
+    "puntos": [
+     "Harrison señala que las modificaciones del estilo de vida tienen evidencia mínima (evitar alimentos que bajan la presión del esfínter inferior, los ácidos irritantes y conductas que reducen el reflujo); la recomendación más general es bajar de peso, y elevar la cabecera de la cama en la pirosis nocturna. El tratamiento farmacológico dominante son los inhibidores de la bomba de protones: no impiden el reflujo pero mejoran los síntomas y permiten curar la esofagitis, con utilidad paralela a su potencia antisecretora.",
+     "El esófago de Barrett progresa a cáncer a razón de cerca de 0,4 a 0,5 % por año; el adenocarcinoma esofágico y de la unión gastroesofágica pasó a ser más del 75 % de los cánceres de esta región en Estados Unidos y Europa occidental, y aparecen alteraciones genómicas (TP53, aneuploidía) ya en la displasia."
+    ]
+   }
   },
   {
    "id": "cx-hernia-hiatal",
@@ -3872,7 +3904,14 @@
    "fisiopatologia": [
     "Hay una secuencia de cambios desde la mucosa normal hasta el carcinoma invasor: mutaciones puntuales del protooncogén K-ras, hipometilación del ADN con activación de genes, y pérdida de alelos en genes supresores: APC (5q21), DCC (18q) y p53 (17p). El patrón proliferativo alterado que lleva de pólipo a carcinoma supone la activación de un oncogén y la pérdida de genes que suprimen la tumorogénesis (Harrison, cap. 81).",
     "No se sabe si las alteraciones ocurren siempre en un orden definido; se cree que las neoplasias se desarrollan solo en los pólipos con muchas o todas estas mutaciones. La probabilidad de que un pólipo adenomatoso degenere depende de su aspecto macroscópico y de sus características histológicas (Harrison, cap. 81)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 81",
+    "puntos": [
+     "Harrison indica que en el cáncer de recto el tratamiento combinado preoperatorio o posoperatorio (5-FU o capecitabina más radioterapia) reduce el riesgo de recurrencia y aumenta la posibilidad de curación en los tumores de estadios II y III, y que el preoperatorio se tolera mejor; coincide con la neoadyuvancia de la ficha. En los estadios II del colon el adyuvante se reserva para los de características de riesgo (perforados, T4, invasión linfovascular)."
+    ]
+   }
   },
   {
    "id": "cx-volvulo-sigmoides",
@@ -6668,7 +6707,15 @@
    "fisiopatologia": [
     "El antecedente de radiación (sobre todo en la infancia) y el familiar de primer grado aumentan el riesgo de carcinoma papilar; lo asocian también los síndromes de Cowden, Gardner y Werner, la poliposis adenomatosa familiar y el complejo de Carney tipo 1 (Giménez, cap. 23).",
     "Las mutaciones de la vía MAPK son centrales: BRAF, PTC/RET, RAS y TERT en el papilar, y RAS y PAX8/PPARγ en el folicular (Giménez, cap. 23)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 385",
+    "puntos": [
+     "Harrison coincide en que ante citología sospechosa o maligna corresponde la cirugía tras una ecografía de los ganglios cervicales, y en que se debe discutir con el paciente la lobectomía frente a la tiroidectomía total. Su sistema Bethesda (versión 2) asigna riesgo de malignidad de 50 a 75 % a la categoría V (sospechoso) y de 97 a 99 % a la VI (cáncer), con 25 a 40 % para la neoplasia folicular y 10 a 30 % para AUS/FLUS.",
+     "Ante citología indeterminada (riesgo de 25 a 30 %), Harrison agrega las pruebas moleculares (secuenciación de nueva generación y expresión génica), cuyo valor predictivo negativo supera el 95 % y permite una vigilancia no quirúrgica; recomienda explicar al paciente que el pronóstico suele ser favorable."
+    ]
+   }
   },
   {
    "id": "cx-patologia-benigna-tiroides",
@@ -9853,7 +9900,14 @@
    "fisiopatologia": [
     "La torsión del cordón produce isquemia venosa y luego arterial, con necrosis hemorrágica del testículo; la reperfusión tras la detorsión puede agravar el daño. Las células germinales son las más lábiles a la isquemia (Manual SCHU, cap. 9).",
     "El daño depende del tiempo de evolución y del grado de torsión del cordón (Manual SCHU, cap. 9)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 315",
+    "puntos": [
+     "Farreras incluye la torsión testicular entre las causas no infecciosas de inflamación testicular que hay que diferenciar de la orquiepididimitis (junto con el traumatismo, las hernias inguinales y las neoplasias). El tratamiento empírico de la orquiepididimitis de transmisión sexual es ceftriaxona 500 a 1.000 mg intramuscular en dosis única más doxiciclina 100 mg cada 12 horas durante 10 a 14 días; de segunda línea, ofloxacino 200 mg cada 12 horas por 14 días o levofloxacino 500 mg cada 24 horas por 10 días."
+    ]
+   }
   },
   {
    "id": "cx-trauma-urogenital",
@@ -12193,7 +12247,14 @@
    "fisiopatologia": [
     "El tabaquismo tiene un riesgo relativo de 1,5 a 3,5 (2,18 para el adenocarcinoma en fumadores). La enfermedad por reflujo gastroesofágico se asocia a los tumores de la región y el riesgo puede duplicarse si se suma el alcoholismo (Giménez, cap. 40).",
     "El reflujo crónico puede desencadenar metaplasia intestinal y esófago de Barrett. El perfil del paciente con Barrett y adenocarcinoma de la unión es varón (3 a 1), con síntomas de reflujo de más de 10 años, hernia hiatal de más de 4 cm y reflujo duodenogastroesofágico; la obesidad y la expresión de COX-2 se relacionan con la evolución de Barrett a adenocarcinoma (Giménez, cap. 40)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 80",
+    "puntos": [
+     "Harrison trata el adenocarcinoma de la unión gastroesofágica junto con el esofágico: los factores de riesgo incluyen la esofagitis crónica por reflujo y el esófago de Barrett (cuyo riesgo de progresión es de 0,4 a 0,5 % por año), y muchos pacientes nuevos son jóvenes y con buena condición física. Para el tratamiento sistémico se estudian HER2, PD-L1, hipermutación e inestabilidad microsatelital."
+    ]
+   }
   },
   {
    "id": "cx-consentimiento-bioetica",
@@ -12281,7 +12342,14 @@
     "tipo": "libro",
     "nota": "Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 11",
+    "puntos": [
+     "Harrison establece que los principios fundamentales de la ética médica exigen actuar en el mejor interés del paciente y respetar su autonomía, y que el paciente debe firmar un consentimiento informado para cualquier procedimiento diagnóstico y terapéutico. El médico debe mantener una discusión completa sobre las alternativas de atención, explicar de forma clara y comprensible los riesgos, beneficios y consecuencias probables de cada una, y es responsable de asegurar que el paciente comprenda."
+    ]
+   }
   },
   {
    "id": "cx-sepsis-respuesta-lesion",
@@ -12632,7 +12700,15 @@
     "Las lesiones por agentes romos (accidentes de tránsito y laborales) son contusas, extendidas, de bordes desflecados y con destrucción tisular; el desgarro de los mesos compromete la irrigación y provoca lesiones isquémicas que pueden manifestarse de forma mediata (Giménez, cap. 79).",
     "En las contusiones el daño ocurre por tres mecanismos: aplastamiento contra un plano rígido osteomuscular, desgarro o deslizamiento donde el colon y el meso están fijos (ángulos, colon ascendente y descendente) y aumento brusco de la presión endoluminal con formación de un asa cerrada (Giménez, cap. 79).",
     "Los agentes penetrantes causan el 96,8 % de las heridas colónicas en la vida civil; pueden ser extraluminales o intraluminales (cuerpos extraños ingeridos, que pasan sin problemas en más del 90 % de los casos, o introducidos por vía anal) (Giménez, cap. 79)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 5",
+    "puntos": [
+     "ATLS señala que las lesiones cerradas del intestino resultan de una desaceleración brusca con cizallamiento cerca de un punto fijo, sobre todo con el cinturón de seguridad mal colocado: una equimosis lineal transversal en la pared abdominal (signo del cinturón) o una fractura por distracción lumbar (Chance) se asocian con lesión intestinal. El diagnóstico de las vísceras huecas puede ser difícil porque no siempre sangran y la lesión superficial de partes blandas dificulta evaluar la peritonitis.",
+     "La lesión concomitante de víscera hueca aparece en menos del 5 % de los pacientes con lesión aislada de órgano sólido, y el shock, la inestabilidad hemodinámica o la hemorragia continua por lesión de hígado, bazo o riñón son indicación de laparotomía urgente."
+    ]
+   }
   },
   {
    "id": "cx-neumotorax-derrame-pleural",
@@ -14379,7 +14455,15 @@
    "fisiopatologia": [
     "La obstrucción del flujo de orina aumenta la presión hidrostática proximal al sitio de oclusión: esa presión causa el dolor, la distensión del sistema colector y el aumento de la presión intratubular que inicia la disfunción tubular. Si se transmite al espacio urinario de los glomérulos, la filtración disminuye o se detiene; la azoemia aparece cuando se afecta la función excretora (obstrucción de la salida vesical, obstrucción pélvica o ureteral bilateral) (Harrison 21, cap. 319).",
     "Si la obstrucción está por encima de la vejiga, produce dilatación unilateral del uréter (hidrouréter) y del sistema pielocaliceal (hidronefrosis); las lesiones en la vejiga o distales afectan ambos lados. La obstrucción crónica causa pérdida permanente de masa renal (atrofia) y de capacidad excretora, y aumenta la susceptibilidad a hipertensión, infección y formación de cálculos (Harrison 21, cap. 319)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 319",
+    "puntos": [
+     "Coincide en que la obstrucción por encima de la vejiga produce hidrouréter e hidronefrosis unilaterales mientras que las lesiones vesicales o distales afectan ambos lados, y en que el alivio temprano puede prevenir o revertir el daño renal; la obstrucción crónica causa atrofia renal y pérdida de capacidad excretora, con mayor susceptibilidad a hipertensión, infección y cálculos.",
+     "En la infancia la estenosis de la unión ureteropélvica y la inserción anómala del uréter en la vejiga son las causas más frecuentes; el reflujo vesicoureteral sin infección ni obstrucción se resuelve con la edad, y la reimplantación del uréter se indica si el reflujo es grave y es improbable la mejoría espontánea, si la función renal se deteriora o si recurren las infecciones a pesar de la profilaxis antimicrobiana crónica."
+    ]
+   }
   },
   {
    "id": "cx-fimosis-parafimosis",
@@ -14995,7 +15079,14 @@
    "fisiopatologia": [
     "Desde los 6 meses la mayor temperatura inguinal o abdominal produce cambios histológicos y degeneración de células germinales: de 1 % en testículos normales a 20 % a los 2 años, 40 % a los 6 y 45 % a los 10, con espermatogonias que no completan su maduración (Manual SCHU, cap. 35).",
     "Esto se asocia a infertilidad y a mayor riesgo de cáncer testicular, más aún si el descenso se hace después de la pubertad. El testículo puede bajar hasta pasada la minipubertad de los 2 a 4 meses (Manual SCHU, cap. 35)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 88",
+    "puntos": [
+     "Harrison confirma el riesgo oncológico que justifica la orquidopexia: los varones con criptorquidia tienen de cuatro a seis veces más riesgo de tumor de células germinales testicular; la orquidopexia antes de la pubertad disminuye pero no elimina ese riesgo, y el testículo contralateral descendido también puede desarrollar la enfermedad, por lo que se mantiene la vigilancia aun tras la corrección."
+    ]
+   }
   },
   {
    "id": "cx-hipospadias",
@@ -15738,7 +15829,14 @@
    "fisiopatologia": [
     "La neoplasia intraductal papilomucinosa (NIPM) sigue la secuencia displasia-carcinoma: células columnares displásicas forman papilas dentro de los conductos pancreáticos, con abundante moco y dilatación ductal (que puede ser pasiva por la hipersecreción de moco). Según la etapa hay displasia leve, moderada o grave y carcinoma invasor; el adenocarcinoma invasor se asocia a la glucoproteína MUC1 y los carcinomas de la NIPM a MUC2 (Giménez, cap. 63).",
     "La neoplasia quística serosa (antes cistoadenoma seroso) es el tumor quístico más frecuente del páncreas y es benigna, a diferencia de la NIPM y la neoplasia quística mucinosa. Está formada por células cúbicas ricas en glucógeno que revisten múltiples quistes de contenido seroso, con una cicatriz fibrosa central (Giménez, cap. 63)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 83",
+    "puntos": [
+     "Harrison agrega que la neoplasia mucinosa intraductal papilar (IPMN) localizada en un conducto principal, grande y nodular, tiene más probabilidad de comportamiento maligno, y que la neoplasia quística mucinosa puede ser un hallazgo incidental en imágenes y es menos probable que sea invasora (cerca del 20 %), a menos que sea grande y tenga nódulos."
+    ]
+   }
   },
   {
    "id": "cx-cancer-prostata-riesgo-tratamiento",
@@ -15863,7 +15961,15 @@
    "fisiopatologia": [
     "Los cánceres de la zona de transición suelen ser menos agresivos que los de la zona periférica (menor grado de Gleason, menor volumen extracapsular y menos metástasis, con mejor pronóstico tras la prostatectomía), pero su detección es más difícil por la localización anterior y porque simulan hiperplasia nodular (Manual SCHU, cap. 26).",
     "Los de la zona central son raros y poco estudiados, con un fenotipo basal-luminal mixto y mayor asociación con la raza negra. El sistema de Gleason califica la arquitectura glandular de la biopsia de 2 a 10; la ISUP lo reformuló en grupos de grado porque tendía a subestimar la agresividad (Manual SCHU, cap. 26)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 87",
+    "puntos": [
+     "Coincide con la ficha en que el cáncer localizado se trata con prostatectomía radical, radioterapia o vigilancia activa y en que la elección depende de los riesgos y preferencias: Harrison aclara que la literatura no demuestra la superioridad de ninguna forma de tratamiento local sobre otra, por la falta de estudios aleatorizados prospectivos y la variación de experiencia de los equipos.",
+     "Para el seguimiento, tras la prostatectomía radical el PSA puede volverse indetectable en seis semanas y, si permanece o reaparece detectable, indica enfermedad persistente; tras la radioterapia el PSA no se hace indetectable porque el tejido no maligno residual sigue produciéndolo, y con vigilancia activa el PSA seguirá subiendo en ausencia de tratamiento. La etapa clínica sola (por ejemplo cT1c) es inadecuada para predecir resultados: algunos T3 son curables con tratamiento local y algunos T1 recaen a nivel sistémico."
+    ]
+   }
   },
   {
    "id": "cx-cancer-via-urinaria-alta",
@@ -15982,7 +16088,14 @@
    "fisiopatologia": [
     "Gran parte de los factores son los del cáncer de vejiga. El tabaquismo está en cerca del 65 % de los casos y multiplica el riesgo de 2,5 a 7 veces, con efecto dosis-dependiente y peor pronóstico (Manual SCHU, cap. 24).",
     "Otros factores: síndrome de Lynch (mutaciones de reparación del ADN; sospechar si hay menos de 60 años o antecedentes del espectro) y, de particular relevancia en Chile, la exposición al arsénico, con 34 % de las muertes por este tumor en Antofagasta (Manual SCHU, cap. 24)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 86",
+    "puntos": [
+     "Harrison ubica los cánceres de pelvis renal y uréter entre los de las vías urinarias, menos frecuentes que el de vejiga: se estiman unos 20.000 casos nuevos y 5.000 muertes por año, con la incidencia exacta menos precisa porque a menudo se agrupan con los de riñón. En hasta cerca del 15 % de los pacientes con cáncer vesical o de las vías urinarias se identifican factores de riesgo genético de la línea germinal, lo que respalda la consejería genética que menciona la ficha ante sospecha de síndrome de Lynch."
+    ]
+   }
   },
   {
    "id": "cx-traumatismo-encefalocraneano",
