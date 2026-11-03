@@ -6,17 +6,38 @@
 (function () {
   'use strict';
   if (window.NikaChatAdj) return;
-  const MAX = 15 * 1024 * 1024, DIAS_VIDA = 30;   // los archivos se borran solos a los 30 días para no llenar el almacenamiento
+  const MB = 1048576, CUPO_COMUN = 10 * MB, CUPO_PLUS = 50 * MB, DIAS_VIDA = 30;   // cupo total de archivos vigentes por persona   // los archivos se borran solos a los 30 días para no llenar el almacenamiento
   const OK = /^(image\/(jpeg|png|webp|gif)|application\/pdf|application\/zip|application\/msword|application\/vnd\.(openxmlformats-officedocument\.[a-z.]+|ms-excel|ms-powerpoint)|text\/plain|audio\/(mpeg|mp4|ogg|webm|wav)|video\/(mp4|webm))$/;
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const sb = () => window.NikaSupabase && window.NikaSupabase.client;
   const tam = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
   const icono = (m) => (/^image\//.test(m) ? '🖼️' : /pdf/.test(m) ? '📕' : /zip/.test(m) ? '🗜️' : /word/.test(m) ? '📘' : /excel|sheet/.test(m) ? '📗' : /powerpoint|presentation/.test(m) ? '📙' : /^audio\//.test(m) ? '🎵' : /^video\//.test(m) ? '🎬' : '📄');
 
+  // ¿Tiene NikaMed+ (o es admin)? Se lee del perfil ya verificado de esta sesión
+  function esPlus() {
+    try {
+      if (window.NikaAcceso && NikaAcceso.esVip && NikaAcceso.esVip()) return true;
+      const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
+      return !!(u && String(u.role || '').toLowerCase() === 'admin');
+    } catch (_) { return false; }
+  }
+  const cupo = () => (esPlus() ? CUPO_PLUS : CUPO_COMUN);
+  // Cuánto ocupan hoy los adjuntos de chat vigentes de esta persona (se liberan solos a los 30 días)
+  async function usado() {
+    const c = sb(); if (!c) return 0;
+    let uid = null; try { const s = await c.auth.getSession(); uid = s.data && s.data.session && s.data.session.user.id; } catch (_) {}
+    if (!uid) return 0; let total = 0;
+    for (const b of ['chat-files', 'forum-files']) {
+      try { const r = await c.storage.from(b).list(uid, { limit: 1000 }); (r.data || []).forEach((f) => { if (/^chat_/.test(f.name)) total += Number(f.metadata && f.metadata.size) || 0; }); } catch (_) {}
+    }
+    return total;
+  }
   async function subir(file) {
     const c = sb(); if (!c) return { ok: false, error: 'No hay conexión con Supabase.' };
     if (!file) return { ok: false, error: 'No se eligió ningún archivo.' };
-    if (file.size > MAX) return { ok: false, error: 'El archivo supera los 15 MB.' };
+    const tope = cupo(), ya = await usado();
+    if (file.size > tope) return { ok: false, error: 'El archivo pesa ' + tam(file.size) + ' y tu cupo es de ' + tam(tope) + (esPlus() ? '.' : '. Con NikaMed+ el cupo es de 50 MB.') };
+    if (ya + file.size > tope) return { ok: false, error: 'Superarías tu cupo de archivos: usás ' + tam(ya) + ' de ' + tam(tope) + '. Se liberan solos a los 30 días' + (esPlus() ? '.' : ' (con NikaMed+ tenés 50 MB).') };
     const mime = file.type || 'application/octet-stream';
     if (!OK.test(mime)) return { ok: false, error: 'Ese tipo de archivo no se puede adjuntar. Probá con imágenes, PDF, Word, Excel, PowerPoint, texto, audio o ZIP.' };
     let uid = null; try { const s = await c.auth.getSession(); uid = s.data && s.data.session && s.data.session.user.id; } catch (_) {}
@@ -100,7 +121,8 @@
         opt.onTexto && opt.onTexto('⏱️ Hoy llevo ' + h + ' de estudio 🍅');
       });
       it('🔗', 'Pegar un enlace', () => { const u = prompt('Pegá el enlace que querés compartir:'); if (u && /^https?:\/\//i.test(u.trim())) opt.onTexto && opt.onTexto('🔗 ' + u.trim()); else if (u) alert('El enlace tiene que empezar con http:// o https://'); });
-      const nota = document.createElement('small'); nota.style.cssText = 'display:block;padding:6px 12px 4px;font-size:.66rem;font-weight:600;opacity:.65'; nota.textContent = 'Los archivos se borran solos a los 30 días.'; m.appendChild(nota);
+      const nota = document.createElement('small'); nota.style.cssText = 'display:block;padding:6px 12px 4px;font-size:.66rem;font-weight:600;opacity:.7;line-height:1.35'; nota.textContent = 'Los archivos se borran solos a los 30 días. Tu cupo: ' + tam(cupo()) + (esPlus() ? ' (NikaMed+)' : '') + '.'; m.appendChild(nota);
+      usado().then((u) => { if (nota.isConnected) nota.textContent = 'Usaste ' + tam(u) + ' de ' + tam(cupo()) + (esPlus() ? ' (NikaMed+)' : ' · con NikaMed+ tenés 50 MB') + '. Los archivos se borran solos a los 30 días.'; });
       document.body.appendChild(m); abierto = m;
       const r = btn.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
       m.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + 'px'; m.style.top = Math.max(8, r.top - h - 8) + 'px';
@@ -118,5 +140,5 @@
     if (input) input.addEventListener('paste', (e) => { const it = [...((e.clipboardData && e.clipboardData.items) || [])].find((x) => x.kind === 'file'); if (it) { const f = it.getAsFile(); if (f) { e.preventDefault(); onFile(f); } } });
   }
 
-  window.NikaChatAdj = { subir, marca, parse, html, menu, soltar, textoVista, estilos };
+  window.NikaChatAdj = { cupo, usado, esPlus, subir, marca, parse, html, menu, soltar, textoVista, estilos };
 })();
