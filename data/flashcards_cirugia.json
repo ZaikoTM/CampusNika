@@ -2729,7 +2729,15 @@
    ],
    "farmacos": [
     "fx-ibp-omeprazol"
-   ]
+   ],
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 323",
+    "puntos": [
+     "La ficha considera la dilatación neumática poco eficaz a largo plazo. Harrison informa una eficacia muy variable (32 a 98 %) y un ensayo europeo aleatorizado con respuesta equivalente, de cerca del 90 %, para la dilatación neumática y la miotomía laparoscópica de Heller a cinco años; las dos son las únicas medidas con resultados duraderos. La dilatación usa un globo de 3 a 4 cm y su principal complicación es la perforación (0,5 a 5 %).",
+     "La miotomía de Heller laparoscópica, por lo general con una fundoplicatura parcial, da resultados buenos a excelentes en 62 a 100 %. La toxina botulínica mejora la disfagia en cerca del 66 % durante al menos seis meses, y los nitratos, antagonistas del calcio y sildenafilo son poco eficaces y sirven para ganar tiempo."
+    ]
+   }
   },
   {
    "id": "cx-erge-barrett",
@@ -3303,7 +3311,15 @@
    "fisiopatologia": [
     "El alto riesgo (más de 20 casos por 100.000 habitantes; este de Asia y la costa oeste de Latinoamérica y Centroamérica, el 80 % de los casos nuevos) se asocia a la infección por H. pylori, el consumo de alcohol, los alimentos conservados en sal y el bajo consumo de frutas y verduras (Giménez, cap. 42).",
     "Es la quinta causa de incidencia de cáncer en el mundo y la tercera de muerte por cáncer, por su estadio avanzado al diagnóstico; es dos veces más frecuente en hombres. Argentina es un país de bajo riesgo (menos de 10 por 100.000) (Giménez, cap. 42)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 80",
+    "puntos": [
+     "Harrison agrega que las mutaciones germinales de CDH1 aumentan el riesgo del subtipo difuso (células en anillo de sello) y justifican valorar la gastrectomía profiláctica; también aumentan el riesgo el síndrome de Lynch, la poliposis adenomatosa familiar, la poliposis juvenil y el síndrome de Peutz-Jeghers. Para estadificar pide TC de tórax, abdomen y pelvis, FDG-PET/TC si hace falta, y biopsia de un sitio metastásico ante sospecha de enfermedad en estadio IV.",
+     "En el cáncer metastásico deben estudiarse de rutina HER2, PD-L1 e inestabilidad microsatelital o deficiencia de reparación del ADN; en el operable es controvertido, porque agregar trastuzumab a la quimioterapia neoadyuvante aún no demostró cambiar el resultado. El virus de Epstein-Barr (8 a 10 %) no modifica las opciones terapéuticas."
+    ]
+   }
   },
   {
    "id": "cx-tumores-gastricos-benignos-gist",
@@ -4693,7 +4709,15 @@
    "farmacos": [
     "fx-ketorolaco",
     "fx-ibuprofeno"
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 346",
+    "puntos": [
+     "Coincide con la ficha: la indicación de colecistectomía se apoya en tres factores (síntomas que interfieren con la vida normal, una complicación previa y enfermedades que aumentan el riesgo de complicaciones), y los cálculos mayores de 3 cm o la vesícula con anomalía congénita justifican la colecistectomía profiláctica; no se recomienda la colecistectomía sistemática en jóvenes asintomáticos.",
+     "Con más de 4.000 pacientes, la colecistectomía laparoscópica tiene complicaciones en cerca del 4 %, conversión a cirugía abierta en 5 %, mortalidad menor de 0,1 % y lesión de la vía biliar de 0,2 a 0,6 %. La disolución con ácido ursodesoxicólico (10 a 15 mg/kg/día) solo sirve para cálculos radiotransparentes menores de 5 a 10 mm en una vesícula funcional (cerca de 50 % de éxito, 10 % de los pacientes elegibles) y los cálculos recurren en 30 a 50 % a tres a cinco años."
+    ]
+   }
   },
   {
    "id": "cx-colecistitis-aguda",
@@ -4916,7 +4940,15 @@
    "fisiopatologia": [
     "La colangitis es la infección aguda de los conductos biliares por obstrucción parcial o total de la vía biliar principal, por cálculos, estenosis o compresión extrínseca (síndrome de Mirizzi, neoplasia). La principal causa es la litiasis de la vía biliar principal y son cada vez más frecuentes las causas neoplásicas; menos, la colangitis esclerosante primaria y la instrumentación posterior a la CPRE (Giménez, cap. 55).",
     "En quienes tienen catéteres o prótesis biliares, su obstrucción repite las colangitis; son más frecuentes con catéteres de menos de 8 French y con prótesis plásticas (Giménez, cap. 55)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 346",
+    "puntos": [
+     "Coincide en que la CPRE con esfinterotomía es el procedimiento de primera elección en la colangitis: es tan eficaz como la cirugía para tratarla. Harrison define la tríada de Charcot (cólico biliar, ictericia y fiebre séptica con escalofríos), con hemocultivos habitualmente positivos y bacterias en el 75 % de los cultivos de bilis.",
+     "En la colangitis supurativa (pus a presión en una vía totalmente obstruida) hay confusión, estupor, bacteriemia y shock séptico; con antibióticos solos la respuesta es escasa y la mortalidad se aproxima al 100 % si no se elimina con rapidez la obstrucción y se drena la bilis infectada."
+    ]
+   }
   },
   {
    "id": "cx-pancreatitis-aguda",
@@ -5664,7 +5696,15 @@
    "fisiopatologia": [
     "La presión normal de la vía biliar es de 7 a 14 cm H2O. La obstrucción al flujo de la bilis causa hipertensión retrógrada y un sistema cerrado, que lleva a la infección (Giménez, cap. 85).",
     "La colangitis aguda resulta de tres factores combinados: obstrucción, hipertensión biliar y proliferación bacteriana; la bacteriobilia sin obstrucción no produce infección. Con presiones de 18 a 30 cm H2O, las bacterias pasan rápido a la sangre y la linfa; la fiebre y los escalofríos son bacteriemia por reflujo colangiovenoso y colangiolinfático, que puede progresar a una respuesta inflamatoria sistémica con disfunción orgánica (Giménez, cap. 85)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 346",
+    "puntos": [
+     "Harrison indica sospechar un cálculo en el colédoco en todo paciente con colecistitis y bilirrubina por encima de 5 mg/100 mL; en la coledocolitiasis la bilirrubina rara vez supera 15 mg/100 mL, y valores de 20 mg/100 mL o más sugieren obstrucción neoplásica. La ictericia indolora es mucho más característica de la obstrucción por tumor de la cabeza del páncreas, los conductos biliares o la ampolla.",
+     "La fosfatasa alcalina está casi siempre alta y puede ser la única anomalía en las pruebas hepáticas habituales; las transaminasas pueden elevarse de 2 a 10 veces en la obstrucción aguda y, al resolverla, normalizan rápido, mientras que la bilirrubina tarda una a dos semanas. Las alteraciones bioquímicas de pancreatitis acompañan al 15 % de las colecistitis agudas y a más del 30 % de las coledocolitiasis."
+    ]
+   }
   },
   {
    "id": "cx-hernia-inguinal",
