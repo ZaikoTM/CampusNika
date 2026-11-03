@@ -566,7 +566,8 @@
     ]
    },
    "farmacos": [
-    "fx-amoxicilina"
+    "fx-amoxicilina",
+    "fx-anestesicos-locales"
    ]
   },
   {
@@ -9311,7 +9312,11 @@
     "puntos": [
      "El manual SCHU sigue la guía EAU 2024 y sitúa la enucleación endoscópica por delante de la adenomectomía abierta en las guías."
     ]
-   }
+   },
+   "farmacos": [
+    "fx-tamsulosina",
+    "fx-inhibidores-5-alfa-reductasa"
+   ]
   },
   {
    "id": "cx-retencion-aguda-orina",
@@ -9428,7 +9433,10 @@
      "En la hiperplasia prostática, los hombres con volumen prostático mayor de 30 mL tienen 3 a 4 veces más probabilidad de retención aguda de orina; esta, junto con la infección, la litiasis vesical, la hematuria y la insuficiencia renal posrenal, es una complicación de la obstrucción.",
      "En CombAT, la combinación de alfabloqueante e inhibidor de la 5-alfa reductasa redujo el riesgo relativo de retención aguda en 67,8 % y la necesidad de cirugía en 70,6 % frente a tamsulosina sola a cuatro años; en MTOPS, el finasteride solo o combinado disminuyó la retención y la cirugía."
     ]
-   }
+   },
+   "farmacos": [
+    "fx-tamsulosina"
+   ]
   },
   {
    "id": "cx-litiasis-urinaria-colico-renal",
@@ -9547,6 +9555,7 @@
     "Favorecen la litiasis el déficit de inhibidores de la cristalización (citrato y magnesio), el pH urinario (ácido para el ácido úrico, alcalino para la estruvita), la disminución del volumen urinario y la estasis (Manual SCHU, cap. 8)."
    ],
    "farmacos": [
+    "fx-tamsulosina",
     "fx-morfina",
     "fx-ketorolaco",
     "fx-ibuprofeno"
@@ -9872,6 +9881,9 @@
    "fisiopatologia": [
     "La testosterona, el principal andrógeno circulante, se convierte en la glándula en dihidrotestosterona por la 5α-reductasa; las células epiteliales y del estroma expresan receptores de andrógenos y dependen de ellos para crecer (Harrison, cap. 87).",
     "La porción periuretral crece en la pubertad y después de los 55 años por la proliferación de células no malignas de la zona de transición. La mayor parte de los cánceres se origina en la zona periférica, por lo que pueden palparse en el tacto rectal (Harrison, cap. 87)."
+   ],
+   "farmacos": [
+    "fx-inhibidores-5-alfa-reductasa"
    ]
   },
   {
@@ -9973,7 +9985,10 @@
       "txt": "Recuperación en la sala de recuperación anestésica durante las primeras 2 horas; ventilación mecánica o control hemodinámico complejo: cuidados intensivos"
      }
     ]
-   }
+   },
+   "farmacos": [
+    "fx-anestesicos-locales"
+   ]
   },
   {
    "id": "cx-infecciones-piel-forunculo-antrax",
@@ -12543,7 +12558,10 @@
     "tipo": "libro",
     "nota": "Algoritmo de la fig. 8-4. Contenido basado en Giménez 2.ª ed. (2025), el texto argentino más actualizado; donde existe una guía o consenso argentino se cita y prevalece."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "farmacos": [
+    "fx-anestesicos-locales"
+   ]
   },
   {
    "id": "cx-cancer-ano",

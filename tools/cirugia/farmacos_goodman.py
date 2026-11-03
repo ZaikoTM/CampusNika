@@ -86,15 +86,19 @@ FICHAS = [
 def main():
     p = os.path.join(ROOT, 'data/flashcards_farmacos.json')
     raw = open(p, 'rb').read(); j = json.loads(raw.decode('utf8')); por = {x['id']: i for i, x in enumerate(j['patologias'])}
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import farmacos_goodman2
+    todas = FICHAS + farmacos_goodman2.FICHAS2
     n = 0
-    for f in FICHAS:
+    for f in todas:
         if f['id'] in por: j['patologias'][por[f['id']]] = f
         else: j['patologias'].append(f); n += 1
     j['meta']['unidades']['fx6'] = UNIDAD
     l2 = raw.decode('utf8').splitlines()[1]; ind = len(l2) - len(l2.lstrip(' '))
     out = json.dumps(j, ensure_ascii=False, indent=ind)
     if b'\r\n' in raw: out = out.replace('\n', '\r\n')
-    open(p, 'wb').write(out.encode('utf8')); print('fichas de fármacos desde Goodman:', len(FICHAS), '| nuevas:', n)
+    open(p, 'wb').write(out.encode('utf8')); print('fichas de fármacos desde Goodman:', len(todas), '| nuevas:', n)
 
 if __name__ == '__main__':
     main()
