@@ -1457,6 +1457,13 @@
       ]
      }
     ]
+   },
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 14",
+    "puntos": [
+     "ATLS recomienda férulas bien acolchadas y evaluar el estado neurovascular de la extremidad antes y después de colocarlas; la reducción, la realineación y la inmovilización alivian el dolor, aunque la reducción en sí puede provocar dolor agudo intenso, por lo que hay que dar analgesia adecuada y vigilar la vía aérea, la respiración y la circulación."
+    ]
    }
   },
   {
@@ -7369,7 +7376,15 @@
    "fisiopatologia": [
     "La tibia es la localización más frecuente de fractura abierta, la que comunica el foco con el exterior a través de una herida situada en el mismo segmento corporal. En la ausencia de consolidación hipertrófica, típica de la diáfisis tibial, la causa es la excesiva movilidad del foco; en la atrófica (diáfisis del húmero) es la mala vascularización del foco (Manual CTO, 11.ª ed.).",
     "El síndrome de embolia grasa se asocia a fracturas cerradas de huesos largos de miembros inferiores y a fracturas inestables de pelvis en jóvenes; la fractura más asociada es la de la diáfisis femoral. El riesgo es mayor con varias fracturas diafisarias y aumenta si se difiere la fijación definitiva. Aparece tras un intervalo lúcido de horas o días, con insuficiencia respiratoria (SDRA), alteración del nivel de consciencia y petequias en tórax, axila, cuello y conjuntivas (Manual CTO, 11.ª ed.)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., caps. 1 y 10",
+    "puntos": [
+     "ATLS inmoviliza la diáfisis femoral con tracción en línea para enderezar el miembro y luego un dispositivo que mantenga la alineación (férulas de tracción), y aclara que no son adecuadas con fractura pélvica asociada, fracturas del cuello o peritrocantéreas ni con fractura ipsilateral de tibia y fémur. Férulas en una fractura de fémur o estabilización pélvica pueden formar parte de la revisión primaria para mitigar la pérdida de sangre que causa shock.",
+     "Los huesos largos y los compartimentos musculares son uno de los lugares de pérdida de sangre (\"uno en el suelo y cuatro más\"), y la embolia grasa y el síndrome de aplastamiento pueden desarrollarse tras lesiones graves, como describe la ficha."
+    ]
+   }
   },
   {
    "id": "cx-lesiones-rodilla",
@@ -10080,7 +10095,15 @@
    "fisiopatologia": [
     "La celulitis por Staphylococcus aureus (sensible o resistente a meticilina) suele relacionarse con una infección focal como forúnculos, ántrax, heridas quirúrgicas o abscesos, y es purulenta; la celulitis por Streptococcus pyogenes, en cambio, se disemina con rapidez como un proceso difuso, con linfangitis y fiebre, y no es purulenta (Harrison, cap. 129).",
     "Las infecciones estafilocócicas cutáneas recurrentes son más frecuentes en quienes tienen eosinofilia e IgE sérica alta (síndrome de Job) y en los portadores nasales de estafilococos; la celulitis estreptocócica recurrente de las piernas se asocia a estasis venosa crónica, safenectomía y linfedema crónico (Harrison, cap. 129)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 14",
+    "puntos": [
+     "Farreras ubica la foliculitis, el forúnculo y el ántrax entre las infecciones superficiales que afectan al folículo piloso, con S. aureus y S. pyogenes como los microorganismos más frecuentes; la etiología estafilocócica aumentó y es más común cuando hay puerta de entrada o secreción purulenta.",
+     "Agrega un dato que la ficha, basada en Michans (2002), no incluye: el absceso subcutáneo es la forma más frecuente de presentación de las infecciones por S. aureus resistente a meticilina adquirido en la comunidad y productor de leucocidina de Panton-Valentine, por lo que hoy se tiene en cuenta el SARM ante un absceso."
+    ]
+   }
   },
   {
    "id": "cx-infecciones-severas-partes-blandas",
@@ -12998,6 +13021,14 @@
     "La consolidación secundaria o indirecta es la habitual cuando no hay inmovilización absoluta (yeso, férulas, fijadores externos, clavos endomedulares): se forma un callo, primero fibrocartilaginoso (blando) y luego óseo (duro). Tiene tres fases superpuestas: inflamatoria, de reparación y de remodelación (Orrego y Morán).",
     "Fase inflamatoria (hasta 1 a 2 semanas): las plaquetas del hematoma liberan mediadores y factores de crecimiento (IL, TGF-β, PDGF) con infiltración de neutrófilos y células mesenquimales. En la reparación, que dura meses, el hematoma es invadido por vasos, fibroblastos y condroblastos que forman una matriz fibrosa y cartilaginosa; luego el callo se reabsorbe y se remodela. A mayor desplazamiento o movilidad del foco, mayor callo; depende sobre todo de la vascularización perióstica (Orrego y Morán)."
    ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 10",
+    "puntos": [
+     "ATLS clasifica las fracturas abiertas con Gustilo-Anderson (tipo I: herida limpia de menos de 1 cm; tipo III: muy contaminada con daño de partes blandas y lesión vascular) y pide evaluar el estado neurovascular de la extremidad antes y después de colocar una férula.",
+     "Los signos del síndrome compartimental que ATLS enumera son dolor mayor de lo esperado, dolor al estiramiento pasivo del músculo, edema tenso del compartimento, parestesias distales y pérdida de pulsos como hallazgo tardío: no hay que esperar a que desaparezca el pulso para actuar."
+    ]
+   },
    "farmacos": [
     "fx-ketorolaco",
     "fx-ibuprofeno"
@@ -13112,7 +13143,15 @@
     "tipo": "libro",
     "nota": "Manual de referencia para la traumatología; el Giménez 2025 no la incluye."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 10 (tabla 10-2)",
+    "puntos": [
+     "Para las fracturas abiertas ATLS prescribe antibióticos según la gravedad y la contaminación. Gustilo I o II sin contaminación con tierra o agua: cefazolina 2 g cada 8 horas; con contaminación con tierra, sumar metronidazol 500 mg cada 8 horas (o ceftriaxona 2 g cada 24 horas con metronidazol). Gustilo III: cefazolina 2 g cada 8 horas más gentamicina 5 mg/kg cada 24 horas, o ceftriaxona 2 g cada 24 horas.",
+     "Con contaminación con agua dulce se usa piperacilina-tazobactam 4,5 g cada 6 horas y con agua salada se suma doxiciclina 100 mg cada 12 horas; ante hipersensibilidad a betalactámicos, vancomicina (carga de 20 a 35 mg/kg y mantenimiento de 15 a 20 mg/kg cada 8 a 12 horas) o clindamicina 900 mg cada 8 horas. Además, antibióticos, lavado, desbridamiento y vacuna antitetánica según el estado de inmunización."
+    ]
+   }
   },
   {
    "id": "cx-fractura-pelvis-acetabulo",
@@ -13419,7 +13458,15 @@
    "fisiopatologia": [
     "La columna se describe como tres columnas: anterior (hemivértebra y hemidisco anteriores), media (hemivértebra y hemidisco posteriores) y posterior (arcos vertebrales y su soporte ligamentoso). La lesión de los elementos posteriores condiciona la inestabilidad, definida como la probabilidad de producir, en el momento de la lesión o en el futuro, dolor mecánico o alteraciones neurológicas (Manual CTO, 11.ª ed.).",
     "La médula ocupa el 50 % del canal a nivel del atlas y el 35 % a nivel cervical y dorsolumbar; el cono medular llega hasta L1 y por debajo está la cola de caballo. El shock medular es la ausencia de función medular debida no a lesiones morfológicas sino a disfunción (Manual CTO, 11.ª ed.)."
-   ]
+   ],
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "ATLS, 11.ª ed., cap. 7",
+    "puntos": [
+     "ATLS define el shock neurogénico como un shock distributivo con hipotensión y bradicardia (piel caliente y seca) por pérdida del tono simpático en lesiones medulares por encima de T6; puede desarrollarse a las horas o días de la lesión y durar de 1 a 3 semanas, y la hipotensión agrava la lesión primaria al disminuir la perfusión medular. Una lesión más alta y completa da un shock más grave.",
+     "El \"shock espinal\" es para ATLS un nombre inapropiado sin relación con la inestabilidad hemodinámica: es una pérdida transitoria del tono muscular y arreflexia distal a la lesión que puede persistir días hasta una semana (la ficha, basada en el Manual CTO, habla de 24 horas a 1 mes)."
+    ]
+   }
   },
   {
    "id": "cx-fracturas-pie-calcaneo-metatarsianos",
@@ -13519,7 +13566,14 @@
    "fisiopatologia": [
     "El calcáneo es la fractura más frecuente del retropié y se produce por mecanismos de alta energía, como las caídas de altura, a menudo en el contexto de un politraumatizado; el 90 % son hombres jóvenes. El 60 a 75 % es intraarticular y el 25 a 40 %, no articular (Orrego y Morán, cap. 15).",
     "Por la alta energía el edema y el compromiso de partes blandas suelen ser considerables, y es común la asociación con otras fracturas de las extremidades (26 %) y de la columna (10 %) (Orrego y Morán, cap. 15)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "ATLS, 11.ª ed., cap. 10",
+    "puntos": [
+     "La ficha menciona el síndrome compartimental como complicación del calcáneo: ATLS lo reconoce por dolor desproporcionado, dolor al estiramiento pasivo, edema tenso y parestesias, con la pérdida de pulsos como signo tardío, y advierte que cuando el pulso desaparece puede ser tarde para salvar el músculo."
+    ]
+   }
   },
   {
    "id": "cx-discapacidad-comunicacion",
@@ -16430,6 +16484,14 @@
     "Gastritis difusa de predominio antral (tipo B): compromete el antro por la infección por H. pylori y en general no se asocia con riesgo de cáncer. Gastritis atrófica multifocal: atrofia y metaplasia intestinal en parches del cuerpo y el antro, con H. pylori en el 85 %; la metaplasia intestinal es factor de riesgo de cáncer gástrico (Galindo, cap. 206).",
     "Gastritis atrófica corporal difusa (tipo A, autoinmune): destrucción autoinmune de las glándulas fúndicas, con aclorhidria o hipoclorhidria, hipergastrinemia y malabsorción de vitamina B12 por falta de factor intrínseco; puede haber metaplasia intestinal y la infección por H. pylori se considera factor de riesgo (Galindo, cap. 206)."
    ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), caps. 18 y 19",
+    "puntos": [
+     "Para confirmar la gastritis atrófica fúndica de forma no invasiva, Farreras indica el pepsinógeno I sérico menor de 20 ng/mL con hipergastrinemia; la relación pepsinógeno I/II baja señala atrofia del fundus. La aclorhidria propia de esa atrofia se traduce en un pH gástrico siempre superior a 6 y secreción ácida casi inexistente, incluso tras pentagastrina.",
+     "Farreras agrupa las formas comunes de gastritis crónica (asociada a H. pylori activa, atrófica multifocal y atrófica corporal difusa) y recuerda que la infección por H. pylori debe tratarse cuando está presente."
+    ]
+   },
    "farmacos": [
     "fx-fluconazol"
    ]
@@ -16548,7 +16610,15 @@
    "fisiopatologia": [
     "Dumping: el paso rápido de contenido hiperosmolar al yeyuno desplaza líquido desde el compartimento vascular (hipovolemia relativa y transitoria) y libera péptidos vasoactivos (serotonina, GIP, VIP, neurotensina). La hipoglucemia tardía se atribuye a la absorción brusca de hidratos de carbono con liberación de enteroglucagón e insulina (Galindo, cap. 217).",
     "Gastritis alcalina: la presencia sostenida de ácidos y sales biliares daña la barrera mucosa y permite la retrodifusión de hidrogeniones. Asa aferente: mala evacuación del asa de la anastomosis gastroyeyunal, con acúmulo biliopancreático, dilatación y proliferación bacteriana que causa diarrea y malabsorción. Estasis de la Y de Roux: la sección del yeyuno interrumpe el marcapasos duodenal (Galindo, cap. 217)."
-   ]
+   ],
+   "contraste": {
+    "estado": "difiere",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 18",
+    "puntos": [
+     "Farreras distingue el dumping precoz, mucho más frecuente, dentro de los primeros 30 minutos de la comida (plenitud epigástrica, rubor, palidez, palpitaciones, diaforesis y luego náuseas y diarrea), del tardío, a los 90 a 180 minutos, por hipoglucemia reactiva e hiperinsulinismo tras la rápida absorción de hidratos de carbono; la ficha menciona el tardío a las 2 a 4 horas.",
+     "La incidencia de dumping grave y persistente es del 7 % tras vagotomía con antrectomía y del 3 % tras vagotomía con drenaje, y no se describió tras la vagotomía supraselectiva. El tratamiento es conservador: dieta fraccionada en 5 o 6 tomas, líquidos lejos de las comidas y pobre en hidratos de carbono; la cirugía incluye reconvertir un Billroth II en Billroth I. El síndrome del asa aferente es la obstrucción parcial del asa en una gastroyeyunostomía con dolor posprandial y vómitos biliosos que calman el dolor."
+    ]
+   }
   },
   {
    "id": "cx-polipos-gastricos",
@@ -16655,7 +16725,14 @@
    "fisiopatologia": [
     "Los pólipos hiperplásicos (regenerativos) tienen glándulas hiperplásicas y elongadas con infiltrado linfocitario; no son verdaderos tumores y se considera que no se malignizan. Los de glándulas fúndicas, con aumento de células parietales y principales normales, se localizan en la región productora de ácido y pueden involucionar; el uso prolongado de IBP favorecería su producción (Galindo, cap. 220).",
     "Los adenomatosos (10 % de los pólipos) tienen riesgo de malignización de cerca del 10 %. Los síndromes de poliposis múltiples (adenomatosa familiar, Peutz-Jeghers, Cowden, Cronkhite-Canada) los asocian a otras lesiones (Galindo, cap. 220)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 18",
+    "puntos": [
+     "Farreras advierte que los pólipos hiperplásicos gástricos múltiples y los pólipos múltiples de las enfermedades genéticas (poliposis juvenil, Cronkhite-Canada, Peutz-Jeghers, Cowden o adenocarcinoma gástrico con poliposis proximal) pueden dar una imagen endoscópica parecida a la enfermedad de Ménétrier, y que el carcinoma gástrico difuso, el linfoma y la amiloidosis también imitan la gastropatía hipertrófica."
+    ]
+   }
   },
   {
    "id": "cx-bezoares-cuerpos-extranos-gastricos",
@@ -16744,7 +16821,14 @@
    "fisiopatologia": [
     "Los cuerpos extraños ingeridos, frecuentes en niños, pacientes psiquiátricos, débiles mentales, alcohólicos y seniles, pasan sin dificultad por el tubo digestivo en el 75 %; un 10 a 20 % debe extraerse por endoscopia y un 1 a 14 % requiere operación (Michans, cap. 41).",
     "Los bezoares son cuerpos extraños de materia orgánica: tricobezoares (pelos aglutinados, en mujeres jóvenes con hábitos nerviosos y cabello largo), fitobezoares (fibras vegetales insolubles moldeadas en una masa firme) y tricofitobezoares; las concreciones son formas raras por sustancias químicas solidificadas (Michans, cap. 41). Harrison 21 los incluye entre las causas intraluminales de obstrucción intestinal (cap. 330)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 330",
+    "puntos": [
+     "Harrison solo trata los bezoares como una causa de obstrucción intestinal por anomalías intraluminales, junto con las heces, los cuerpos extraños (como el bario espeso), los cálculos que llegan por fístula colecistoentérica y los enterolitos; no describe su diagnóstico ni su tratamiento, que siguen basados en Michans (2002)."
+    ]
+   }
   },
   {
    "id": "cx-colangitis-esclerosante-primaria",
@@ -16955,7 +17039,15 @@
    "fisiopatologia": [
     "Más del 90 % tiene una anomalía de la unión pancreatobiliar: el conducto pancreático desemboca en el colédoco más de 1 cm proximal a la ampolla. El conducto común largo deja pasar libremente secreciones pancreáticas a la vía biliar, lo que causa inflamación, mayor presión biliar y debilidad de la pared hasta formar el quiste (Schwartz, cap. 32).",
     "Michans propone que el reflujo pancreaticobiliar debilita de forma progresiva la pared del colédoco, y describe dos mecanismos de la fisiopatología: el reflujo libre de ambas secreciones y su estasis por mal vaciamiento del sistema ductal (Michans, cap. 38)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 346",
+    "puntos": [
+     "Coincide en que una ecografía con un quiste separado de la vesícula sugiere el diagnóstico, que se confirma al demostrar la entrada de los conductos biliares extrahepáticos en el quiste; el tratamiento es la extirpación del quiste con anastomosis bilioentérica.",
+     "Harrison subraya el alto riesgo posterior de colangiocarcinoma y describe aparte la ectasia biliar congénita (enfermedad de Caroli: colangitis recurrente, abscesos y cálculos en los conductos intrahepáticos dilatados)."
+    ]
+   }
   },
   {
    "id": "cx-atresia-biliar",
@@ -17047,7 +17139,15 @@
    "fisiopatologia": [
     "Proceso inflamatorio destructivo de causa desconocida que afecta los conductos biliares extrahepáticos del recién nacido, con ensanchamiento de los tractos portales por edema y fibrosis, arquitectura hepática conservada y estasis biliar en hepatocitos y canalículos (Michans, cap. 38).",
     "Hay tres teorías sobre el origen: alteración de la vascularización de los conductos extrahepáticos en la vida intrauterina, alteraciones del desarrollo de la unión coledocopancreática en ciertas trisomías (17, 18 y 21) y la teoría viral que relaciona la hepatitis viral con la atresia y el quiste coledociano (Michans, cap. 38)."
-   ]
+   ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), caps. 345 y 346",
+    "puntos": [
+     "Coincide en que la sospecha clínica, de laboratorio e imagenológica se confirma con exploración quirúrgica y colangiografía operatoria. Harrison indica que cerca del 10 % de los casos admite coledocoyeyunostomía en Y de Roux y que en el resto se hace la portoenterostomía de Kasai para restablecer parcialmente el flujo biliar.",
+     "Aun con una anastomosis exitosa, la mayoría desarrolla colangitis crónica, fibrosis hepática extensa e hipertensión portal, y la atresia biliar es la indicación más frecuente de trasplante hepático en la infancia."
+    ]
+   }
   },
   {
    "id": "cx-trauma-duodenopancreatico",
@@ -17271,6 +17371,13 @@
     "La causa más frecuente es la degenerativa: artrosis facetaria, uncoartrosis, disminución de la altura discal y hernia del núcleo pulposo generan un conflicto de espacio a nivel foraminal que comprime las raíces, sobre todo C5-C6 y C6-C7. La mayor incidencia de hernia degenerativa es entre los 50 y 60 años (Orrego y Morán, cap. 7).",
     "La hernia comienza con la rotura del anillo fibroso, que deja salir el contenido del disco; comprime la médula o la raíz y causa dolor agudo con fenómenos inflamatorios locales. Es blanda en jóvenes y dura y calcificada en mayores. Las hernias agudas no degenerativas tienen su pico entre los 20 y 40 años y su evolución natural es autolimitada en el 75 a 90 % (Orrego y Morán, cap. 7)."
    ],
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 17",
+    "puntos": [
+     "La distribución por raíces coincide con el cuadro de radiculopatía cervical de Harrison: C5 (bíceps, cara externa del deltoides), C6 (bíceps, dedos índice y pulgar), C7 (tríceps, dedo medio, dorso del antebrazo), C8 (flexores de los dedos, cuarto y quinto dedos) y T1 (axila y cara interna del brazo). Harrison agrega la respuesta motora que se explora en cada raíz, como la pronación del antebrazo en C6 y la extensión de la muñeca y los dedos en C7."
+    ]
+   },
    "farmacos": [
     "fx-morfina",
     "fx-ketorolaco",
@@ -17371,7 +17478,14 @@
     "tipo": "libro",
     "nota": "Michans 5.ª ed. (El Ateneo, 2002; el programa de la cátedra cita la reimpresión de 2021). El tema no está en Giménez 2.ª ed. (2025) ni se hallaron guías argentinas o chilenas más recientes en las carpetas provistas; se usa Michans, bibliografía esencial de la cátedra."
    },
-   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar.",
+   "contraste": {
+    "estado": "coincide",
+    "fuente": "Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 335",
+    "puntos": [
+     "La ficha, basada en Michans (2002), describe la técnica de punción subclavia y yugular interna. Harrison, para la nutrición parenteral, desaconseja los catéteres en la vena yugular o femoral por la dificultad de mantener un apósito seco y estéril sobre el sitio de inserción."
+    ]
+   }
   },
   {
    "id": "cx-accesos-vasculares-hemodialisis",
