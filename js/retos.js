@@ -76,7 +76,7 @@
     const gente = r.gente.slice().sort((a, b) => (a.estado === 'invitado') - (b.estado === 'invitado') || b.valor - a.valor).map((g) =>
       '<li class="' + (g.estado === 'invitado' ? 'pend' : '') + '"><span class="rt-av">' + avatar(g) + '</span>'
       + '<span class="rt-nm">' + esc(g.fullname || g.username) + (g.id === me ? ' <em>(vos)</em>' : '') + '</span>'
-      + (g.estado === 'invitado' ? '<span class="rt-pend">⏳ esperando respuesta</span>' : '<span class="rt-aporte"><i style="--w:' + Math.round(g.valor / maxV * 100) + '%"></i></span><b>' + fmtValor(r.tipo, g.valor) + '</b>')
+      + (g.estado === 'invitado' ? '<span class="rt-pend">⏳ esperando respuesta</span>' + (r.esMio && modo === 'act' ? '<button type="button" class="rt-reenv" data-rt="reenviar" data-id="' + r.id + '" data-n="' + esc(g.username) + '" title="Volver a avisarle">↻ Reenviar</button>' : '') : '<span class="rt-aporte"><i style="--w:' + Math.round(g.valor / maxV * 100) + '%"></i></span><b>' + fmtValor(r.tipo, g.valor) + '</b>')
       + (r.esMio && g.id !== me && modo === 'act' ? '<button type="button" class="rt-quitar" data-rt="quitar" data-id="' + r.id + '" data-u="' + esc(g.id) + '" title="Sacar del reto" aria-label="Sacar del reto">✕</button>' : '')
       + '</li>').join('');
     const pie = modo === 'inv'
@@ -150,12 +150,23 @@
     cargar();
   }
 
+  async function reenviar(b) {
+    const r = retos.find((x) => x.id === b.dataset.id), N = window.NikaNotif;
+    if (!r || !N || !N.enviar) { aviso('No se pudo enviar el aviso ahora. Probá recargar la página.', true); return; }
+    b.disabled = true; b.textContent = 'Enviando…';
+    let yo = ''; try { yo = (window.NikaSupabase && NikaSupabase.getNikaCurrentUsername && NikaSupabase.getNikaCurrentUsername()) || ''; } catch (_) {}
+    const res = await N.enviar(b.dataset.n, 'reto', (yo ? '@' + yo : 'Un compañero') + ' te invitó a un reto', r.titulo, { retoId: r.id, url: 'retos.html' });
+    if (res && res.ok) { b.textContent = '✓ Enviada'; aviso('Le reenviamos la invitación a @' + b.dataset.n + '.'); setTimeout(() => aviso(''), 3500); }
+    else { b.disabled = false; b.textContent = '↻ Reenviar'; aviso(res && res.reason === 'demasiadas' ? 'Esperá un minuto antes de reenviar.' : 'No se pudo enviar el aviso. Probá de nuevo.', true); }
+  }
+
   function eventos() {
     document.addEventListener('click', (e) => {
       const b = e.target.closest('[data-rt]'); if (!b) return;
       const a = b.dataset.rt;
       if (a === 'cerrar') $('rt-modal').hidden = true;
       else if (a === 'nuevo') abrirModal();
+      else if (a === 'reenviar') reenviar(b);
       else if (a === 'editar' || a === 'sumar') abrirModal([], retos.find((x) => x.id === b.dataset.id));
       else accion(a, b.dataset.id, b.dataset.u);
     });

@@ -94,6 +94,15 @@
     }
     function tick(el) { if (!el) return; el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }
 
+    // Cada invitado recibe una notificación con Aceptar / Rechazar (llega en vivo, queda en su campanita y vuelve a aparecer hasta que responda)
+    async function avisarInvitados(ids, reto) {
+      const N = window.NikaNotif; if (!N || !N.enviar) return;
+      let yo = ''; try { yo = (window.NikaSupabase && NikaSupabase.getNikaCurrentUsername && NikaSupabase.getNikaCurrentUsername()) || ''; } catch (_) {}
+      for (const id of ids) {
+        const a = amigos.find((x) => String(x.id) === String(id)); if (!a || !a.username) continue;
+        try { await N.enviar(a.username, 'reto', (yo ? '@' + yo : 'Un compañero') + ' te invitó a un reto', reto.titulo, { retoId: reto.id, url: 'retos.html' }); } catch (_) {}
+      }
+    }
     async function crear() {
       const err = (m) => { const e = host.querySelector('#rf-error'); e.textContent = m; e.hidden = false; };
       const t = host.querySelector('#rf-titulo'); S.titulo = t ? t.value.trim() : S.titulo;
@@ -119,10 +128,16 @@
           if (u.error && /modo/i.test(u.error.message || '')) { delete camb.modo; u = await c.from('retos').update(camb).eq('id', E.id).select('id'); }
           if (u.error) throw u.error;
           if (!u.data || !u.data.length) throw new Error('Solo quien creó el reto puede editarlo.');
-          for (const uid of [...S.invitados].filter((x) => !S.yaEstan.has(x))) {   // compañeros nuevos: invitación (si ya estaba, se ignora)
-            const m = await c.from('retos_miembros').insert({ reto_id: E.id, user_id: uid, estado: 'invitado' });
-            if (m.error && !/duplicate|23505/i.test(m.error.message || '')) throw m.error;
+          const nuevos = [...S.invitados].filter((x) => !S.yaEstan.has(x));
+          for (const uid of nuevos) {   // compañeros nuevos; si había rechazado, se borra su respuesta vieja y se lo invita de nuevo
+            let m = await c.from('retos_miembros').insert({ reto_id: E.id, user_id: uid, estado: 'invitado' });
+            if (m.error && /duplicate|23505/i.test(m.error.message || '')) {
+              await c.from('retos_miembros').delete().eq('reto_id', E.id).eq('user_id', uid);
+              m = await c.from('retos_miembros').insert({ reto_id: E.id, user_id: uid, estado: 'invitado' });
+            }
+            if (m.error) throw m.error;
           }
+          await avisarInvitados(nuevos, Object.assign({}, E, camb));
           btn.classList.remove('cargando'); btn.classList.add('listo'); btn.querySelector('.rf-go-t').textContent = '✅ ¡Guardado!';
           setTimeout(() => { if (opt.onCreado) opt.onCreado(Object.assign({}, E, camb)); }, 650);
           return;
@@ -137,6 +152,7 @@
         r.data = Object.assign({ creado_en: new Date().toISOString() }, fila);
         const filas = [{ reto_id: r.data.id, user_id: me, estado: 'aceptado' }].concat([...S.invitados].map((u) => ({ reto_id: r.data.id, user_id: u, estado: 'invitado' })));
         const m = await c.from('retos_miembros').insert(filas); if (m.error) throw m.error;
+        await avisarInvitados([...S.invitados], r.data);
         btn.classList.remove('cargando'); btn.classList.add('listo'); btn.querySelector('.rf-go-t').textContent = '✅ ¡Reto creado!';
         setTimeout(() => { if (opt.onCreado) opt.onCreado(r.data); }, 650);
       } catch (e) {

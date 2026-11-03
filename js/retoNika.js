@@ -85,6 +85,29 @@
     } catch (_) {} finally { busy = false; }
   }
 
+  // ---------------------------------------------------------------- invitaciones a retos pendientes (aunque la notificación nunca haya llegado)
+  async function revisarInvitaciones() {
+    try {
+      const N = window.NikaNotif, c = window.NikaSupabase && window.NikaSupabase.client; if (!N || !N.tarjeta || !c) return;
+      const ses = await c.auth.getSession(), me = ses.data && ses.data.session && ses.data.session.user.id; if (!me) return;
+      const m = await c.from('retos_miembros').select('reto_id').eq('user_id', me).eq('estado', 'invitado');
+      const ids = (m.data || []).map((x) => x.reto_id).filter((id) => { try { return !sessionStorage.getItem('nika_reto_inv_' + id); } catch (_) { return true; } });
+      if (!ids.length) return;
+      const q = await c.from('retos').select('id,titulo,creador_id,hasta').in('id', ids).gt('hasta', new Date().toISOString());
+      const lista = q.data || []; if (!lista.length) return;
+      const pr = await c.from('profiles_public').select('id,username').in('id', lista.map((r) => r.creador_id));
+      const nombre = {}; (pr.data || []).forEach((p) => { nombre[p.id] = p.username; });
+      for (const r of lista) {
+        try { sessionStorage.setItem('nika_reto_inv_' + r.id, '1'); } catch (_) {}
+        if (document.querySelector('.nn-card[data-reto="' + r.id + '"]')) continue;   // ya está la tarjeta de la notificación
+        const de = nombre[r.creador_id];
+        const n = { id: 'reto-' + r.id, tipo: 'reto', titulo: (de ? '@' + de : 'Un compañero') + ' te invitó a un reto', cuerpo: r.titulo, datos: { retoId: r.id, url: 'retos.html' } };
+        N.tarjeta(n, { dur: 60000, botones: [{ txt: 'Ahora no', clase: 'nn-no', fn: () => N.responderReto(n, false) }, { txt: '🎯 Me sumo', clase: 'nn-ok', fn: () => N.responderReto(n, true) }] });
+        try { N.sonar('desafio'); } catch (_) {}
+      }
+    } catch (_) {}
+  }
+
   // ---------------------------------------------------------------- racha en riesgo
   const rachas = () => (window.NikaRachas && NikaRachas.ultima) || null;
   const minHoy = () => { try { return (window.PomodoroEngine && PomodoroEngine.getTodayMinutes()) || 0; } catch (_) { return 0; } };
@@ -125,6 +148,8 @@
     avisar({ minutes: 0, completed: false });
   }
   setTimeout(inicio, 9000);
+  setTimeout(revisarInvitaciones, 5000);
+  setInterval(() => { if (!document.hidden && !enFoco()) revisarInvitaciones(); }, 4 * 60 * 1000);
   setInterval(() => { if (!enFoco()) avisarRacha(); }, 30 * 60 * 1000);
   window.addEventListener('nika:racha', () => { if (!enFoco()) avisarRacha(); });
   window.NikaRetoAviso = { avisar, avisarRacha, avisarResumen };

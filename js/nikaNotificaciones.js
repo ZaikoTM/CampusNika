@@ -182,7 +182,7 @@
   const MARCO_NIKA = new Set(['invitacion_pomodoro', 'desafio']);   // invitaciones a estudiar y a retos: con el marco de Nika
   function tarjeta(n, opc) {
     const t = tipoDe(n.tipo), T = TIPOS[t];
-    const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color);
+    const el = document.createElement('div'); el.className = 'nn-card'; el.style.setProperty('--c', T.color); if (n.datos && n.datos.retoId) el.dataset.reto = n.datos.retoId;
     const marco = MARCO_NIKA.has(t) && window.NikaAssistant && NikaAssistant.cara;
     if (marco) el.classList.add('nn-nika'); el.dataset.id = n.id || '';
     const dur = (opc && opc.dur) || 12000;
@@ -240,15 +240,29 @@
     if (n.datos && n.datos.url) { marcarLeida(n); location.href = n.datos.url; return; }
     marcarLeida(n);
   }
+  // Responde una invitación a un reto desde la tarjeta o desde la campanita (queda guardado en retos_miembros)
+  async function responderReto(n, acepta) {
+    const id = n && n.datos && n.datos.retoId; if (!id) return;
+    try {
+      const c = sb(), ses = await c.auth.getSession(), me = ses.data && ses.data.session && ses.data.session.user.id;
+      const r = await c.from('retos_miembros').update({ estado: acepta ? 'aceptado' : 'rechazado' }).eq('reto_id', id).eq('user_id', me).select('reto_id');
+      if (r.error || !r.data || !r.data.length) throw new Error('sin cambios');
+      if (n.id && !n.local && !String(n.id).startsWith('reto-')) marcarLeida(n);
+      try { sessionStorage.setItem('nika_reto_inv_' + id, '1'); } catch (_) {}
+      if (acepta) { if (typeof window.showToast === 'function') window.showToast('🎯 ¡Te sumaste al reto! Todo lo que estudies cuenta.', 'success'); setTimeout(() => { if (/retos\.html/.test(location.pathname)) location.reload(); }, 600); }
+    } catch (_) { if (typeof window.showToast === 'function') window.showToast('No se pudo responder la invitación. Probá desde Retos.', 'error'); }
+  }
   function mostrarNotificacion(n, desdeCarga) {
     const t = tipoDe(n.tipo);
     if (t === 'llamada_entrante') { tarjetaLlamada(n, desdeCarga); return; }
     const conBotones = t === 'llamada_perdida' ? [{ txt: '📞 Volver a llamar', clase: 'nn-ok', fn: () => { marcarLeida(n); devolverLlamada(n); } }]
       : t === 'invitacion_pomodoro' ? [{ txt: 'Ahora no', clase: 'nn-no', fn: () => { marcarLeida(n); rechazarInvitacion(n); } }, { txt: '🍅 Unirme', clase: 'nn-ok', fn: () => unirse(n) }]
+      : (t === 'desafio' && n.datos && n.datos.retoId) ? [{ txt: 'Ahora no', clase: 'nn-no', fn: () => responderReto(n, false) }, { txt: '🎯 Me sumo', clase: 'nn-ok', fn: () => responderReto(n, true) }]
       : t === 'nota_compartida' ? [{ txt: 'Ver nota', clase: 'nn-ok', fn: () => verNotaCompartida(n) }]
       : (t === 'solicitud_amistad' && n.datos && n.datos.friendshipId) ? [{ txt: 'Rechazar', clase: 'nn-no', fn: () => responderSolicitud(n.datos.friendshipId, false) }, { txt: '✅ Aceptar', clase: 'nn-ok', fn: () => responderSolicitud(n.datos.friendshipId, true) }]
       : (n.datos && n.datos.url) ? [{ txt: 'Abrir', clase: 'nn-ok', fn: () => accionPorDefecto(n) }] : null;
-    if (desdeCarga && !(t === 'invitacion_pomodoro' && !venc(n))) return;    const mostrar = () => { if (!noMolestar() && quiereAviso(t)) tarjeta(n, { botones: conBotones, dur: t === 'invitacion_pomodoro' ? 60000 : 12000, alCerrar: () => {} }); };
+    const retoPend = t === 'desafio' && n.datos && n.datos.retoId && !n.leida;   // la invitación a un reto vuelve a mostrarse hasta que se responda
+    if (desdeCarga && !(t === 'invitacion_pomodoro' && !venc(n)) && !retoPend) return;    const mostrar = () => { if (!noMolestar() && quiereAviso(t)) tarjeta(n, { botones: conBotones, dur: (t === 'invitacion_pomodoro' || retoPend) ? 60000 : (t === 'desafio' && n.datos && n.datos.retoId ? 45000 : 12000), alCerrar: () => {} }); };
     // En las páginas con Pomodoro propio la invitación ya llega por su canal y trae su tarjeta: se evita duplicarla
     if (t === 'invitacion_pomodoro' && window.PomodoroSyncManager && !desdeCarga) setTimeout(() => { if (!document.getElementById('nika-pomo-invite') && !n.leida) mostrar(); }, 900);
     else mostrar();
@@ -675,6 +689,6 @@
     if (n < 40) setTimeout(() => esperar(n + 1), 500);
   }
 
-  window.NikaNotif = { enviar, aviso, tarjeta, estilos, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, historial: () => hist.slice(), noLeidas: () => noLeidas, marcarTodas, accion: (n) => { accionPorDefecto(n); marcarLeida(n); }, _iniciar: iniciar };
+  window.NikaNotif = { enviar, aviso, tarjeta, estilos, marcarLeida, responderReto, sonar, cartelAmistad, abrirCentro, estaEnLinea, prefs: () => prefs, tipos: TIPOS, noMolestar, suscribirPush, unirse, historial: () => hist.slice(), noLeidas: () => noLeidas, marcarTodas, accion: (n) => { accionPorDefecto(n); marcarLeida(n); }, _iniciar: iniciar };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => esperar(0)); else esperar(0);
 })();
