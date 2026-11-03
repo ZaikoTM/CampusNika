@@ -20,7 +20,7 @@ APPEND = {
  'cx-tumores-oseos-metastasis': ('estudios', 'Biopsia (recomendaciones del Manual CTO): incisión longitudinal en una zona extirpable, acceso por el compartimento donde surgió el tumor y a través del músculo y no entre dos músculos, evitando contaminar vasos y nervios; coordinar con anatomía patológica, tomar la muestra de partes blandas y de la periferia (el centro puede estar necrosado), estudiar parte por congelación y enviar siempre cultivos.'),
 }
 CONTRASTE_EXTRA = {
- 'cx-gastritis': ('coincide', 'Farreras Rozman, Medicina Interna, 20.ª ed. (2024), caps. 18 y 19', [
+ 'cx-gastritis': ('coincide', 'Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 18', [
     'Para confirmar la gastritis atrófica fúndica de forma no invasiva, Farreras indica el pepsinógeno I sérico menor de 20 ng/mL con hipergastrinemia; la relación pepsinógeno I/II baja señala atrofia del fundus. La aclorhidria propia de esa atrofia se traduce en un pH gástrico siempre superior a 6 y secreción ácida casi inexistente, incluso tras pentagastrina.',
     'Farreras agrupa las formas comunes de gastritis crónica (asociada a H. pylori activa, atrófica multifocal y atrófica corporal difusa) y recuerda que la infección por H. pylori debe tratarse cuando está presente.']),
  'cx-sindromes-posgastrectomia': ('difiere', 'Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 18', [
@@ -32,7 +32,7 @@ CONTRASTE_EXTRA = {
  'cx-atresia-biliar': ('coincide', 'Harrison, Principios de Medicina Interna, 21.ª ed. (2023), caps. 345 y 346', [
     'Coincide en que la sospecha clínica, de laboratorio e imagenológica se confirma con exploración quirúrgica y colangiografía operatoria. Harrison indica que cerca del 10 % de los casos admite coledocoyeyunostomía en Y de Roux y que en el resto se hace la portoenterostomía de Kasai para restablecer parcialmente el flujo biliar.',
     'Aun con una anastomosis exitosa, la mayoría desarrolla colangitis crónica, fibrosis hepática extensa e hipertensión portal, y la atresia biliar es la indicación más frecuente de trasplante hepático en la infancia.']),
- 'cx-infecciones-piel-forunculo-antrax': ('coincide', 'Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 14', [
+ 'cx-infecciones-piel-forunculo-antrax': ('coincide', 'Farreras Rozman, Medicina Interna, 20.ª ed. (2024), cap. 251', [
     'Farreras ubica la foliculitis, el forúnculo y el ántrax entre las infecciones superficiales que afectan al folículo piloso, con S. aureus y S. pyogenes como los microorganismos más frecuentes; la etiología estafilocócica aumentó y es más común cuando hay puerta de entrada o secreción purulenta.',
     'Agrega un dato que la ficha, basada en Michans (2002), no incluye: el absceso subcutáneo es la forma más frecuente de presentación de las infecciones por S. aureus resistente a meticilina adquirido en la comunidad y productor de leucocidina de Panton-Valentine, por lo que hoy se tiene en cuenta el SARM ante un absceso.']),
  'cx-bezoares-cuerpos-extranos-gastricos': ('coincide', 'Harrison, Principios de Medicina Interna, 21.ª ed. (2023), cap. 330', [
