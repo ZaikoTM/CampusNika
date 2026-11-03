@@ -37,7 +37,7 @@
       const hecho = lista.find((x) => x.pct >= 100 && !localStorage.getItem('nika_reto_fin_' + x.r.id));
       if (hecho) {
         try { localStorage.setItem('nika_reto_fin_' + hecho.r.id, '1'); } catch (_) {}
-        NikaAssistant.hablar({ html: '🏆 <b>¡Reto cumplido!</b> “' + esc(hecho.r.titulo) + '” llegó a la meta entre todos. ¡Qué equipazo!', pct: 100, pie: fmt(hecho.r.tipo, hecho.total) + ' de ' + fmt(hecho.r.tipo, hecho.r.meta), anim: 'celebra', confeti: true, ms: 9000, href: 'retos.html' });
+        NikaAssistant.hablar({ partes: ['🏆 <b>¡Reto cumplido!</b> “' + esc(hecho.r.titulo) + '” llegó a la meta entre todos.', '¡Qué equipazo! Entre todos sumaron <b>' + fmt(hecho.r.tipo, hecho.total) + '</b>.'], pct: 100, pie: fmt(hecho.r.tipo, hecho.total) + ' de ' + fmt(hecho.r.tipo, hecho.r.meta), anim: 'celebra', confeti: true, ms: 9000, href: 'retos.html' });
         return;
       }
       const x = lista.filter((y) => y.pct < 100).sort((a, b) => b.pct - a.pct)[0]; if (!x) return;
@@ -46,7 +46,7 @@
       const cabeza = detalle && detalle.completed ? '🍅 <b>¡Pomodoro terminado!</b> ' : '👋 ';
       NikaAssistant.hablar({
         html: cabeza + (cerca ? '¡Casi! A “' + esc(x.r.titulo) + '” le faltan <b>' + fmt(x.r.tipo, falta) + '</b>.' : 'Al reto “' + esc(x.r.titulo) + '” le faltan <b>' + fmt(x.r.tipo, falta) + '</b> y quedan ' + dias + (dias === 1 ? ' día' : ' días') + '.'),
-        pct: x.pct, pie: 'Vos aportaste ' + fmt(x.r.tipo, x.mio), anim: cerca ? 'celebra' : 'alienta', ms: 8000, href: 'retos.html'
+        pct: x.pct, pie: 'Vos aportaste ' + fmt(x.r.tipo, x.mio), falta: 'Faltan ' + fmt(x.r.tipo, falta), anim: cerca ? 'celebra' : 'alienta', ms: 8000, href: 'retos.html'
       });
     } catch (_) {} finally { busy = false; }
   }

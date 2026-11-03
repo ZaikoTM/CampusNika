@@ -21,6 +21,7 @@
     desafio: { ico: '⚔️', nom: 'Desafíos y retos', color: '#ef4444' },
     solicitud_amistad: { ico: '🤝', nom: 'Solicitudes de amistad', color: '#22c55e' },
     sistema: { ico: '🔔', nom: 'Avisos del sitio', color: '#eab308' },
+    nika_asistente: { ico: '🤖', nom: 'Nika: avisos de retos y Pomodoro', color: '#38bdf8' },
   };
   const tipoDe = (t) => (t === 'reto' ? 'desafio' : (TIPOS[t] ? t : 'sistema'));
   const SIM_PAGINAS = /(nikasim|examen_oral|pfo_ecoe)\.html/i;   // simuladores: no molestar siempre
@@ -74,12 +75,16 @@
     desafio: [[392, 0, .12, 'square'], [392, .14, .12, 'square'], [523, .28, .14, 'square'], [659, .44, .3, 'square']],
     solicitud_amistad: [[698, 0, .13, 'sine'], [880, .12, .13, 'sine'], [1047, .24, .3, 'sine']],
     sistema: [[784, 0, .45, 'sine']],
+    nika_asistente: [[523, 0, .1, 'square'], [784, .1, .16, 'square']],
+    nika_bip: [[1040, 0, .035, 'square']],
+    nika_ok: [[523, 0, .1, 'square'], [659, .1, .1, 'square'], [784, .2, .1, 'square'], [1047, .3, .32, 'square']],
     ok: [[659, 0, .1, 'sine'], [988, .09, .26, 'sine']],
     error: [[246, 0, .16, 'sawtooth'], [185, .15, .28, 'sawtooth']],
   };
   function sonar(tipo, opc) {
     const t = MELODIAS[tipo] ? tipo : tipoDe(tipo);
-    if (!(opc && opc.forzar) && (!quiereSonido(t) || noMolestar())) return false;
+    const perm = /^nika_/.test(t) ? 'nika_asistente' : t;   // el bip y el jingle de Nika responden al interruptor de Nika
+    if (!(opc && opc.forzar) && (!quiereSonido(perm) || noMolestar())) return false;
     const c = audio(); if (!c) return false;
     const reproducir = () => { try { const v = 0.18 * Math.max(0.05, Math.min(1, prefs.volumen)); (MELODIAS[t] || MELODIAS.sistema).forEach(([f, t0, d, ty]) => tono(c, f, t0, d, v, ty)); } catch (_) {} };
     if (c.state === 'suspended') c.resume().then(() => { if (c.state === 'running') reproducir(); else pendiente = { tipo: t, t: Date.now() }; }).catch(() => { pendiente = { tipo: t, t: Date.now() }; }); else reproducir();

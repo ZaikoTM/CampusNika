@@ -270,6 +270,7 @@ const NikaAssistant = (() => {
         if (document.getElementById('nika-assistant-styles')) return;
         const style = document.createElement('style');
         style.id = 'nika-assistant-styles';
+        if (!document.getElementById('nika-pixel-font')) { const l = document.createElement('link'); l.id = 'nika-pixel-font'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500&display=swap'; document.head.appendChild(l); }
         style.textContent = `
             #nika-assistant-btn {
                 position: fixed; bottom: 8px; right: 14px; left: auto; z-index: 9998;
@@ -309,20 +310,47 @@ const NikaAssistant = (() => {
             @keyframes nkaCelebra { 0%{transform:translateY(0) rotate(0)} 35%{transform:translateY(-26px) rotate(-8deg)} 70%{transform:translateY(-10px) rotate(8deg)} 100%{transform:translateY(0) rotate(0)} }
             @keyframes nkaAlienta { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px) rotate(-3deg)} 75%{transform:translateX(5px) rotate(3deg)} }
             @keyframes nkaHabla { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.7)} }
-            #nika-habla { position: fixed; right: 22px; bottom: 112px; z-index: 2147483000; width: min(290px, calc(100vw - 32px)); padding: 12px 14px 12px; border-radius: 18px 18px 4px 18px; background: #fff; color: #0f172a; box-shadow: 0 14px 40px rgba(2,20,50,.35); border: 1px solid #bae6fd; font: 600 .84rem/1.35 inherit; transform-origin: 90% 100%; animation: nkaGloboIn .45s cubic-bezier(.34,1.56,.64,1) both; cursor: pointer; }
-            #nika-habla.sale { animation: nkaGloboOut .3s ease-in both; }
-            #nika-habla b { font-weight: 800; color: #0284c7; }
-            #nika-habla .nh-bar { margin-top: 8px; height: 9px; border-radius: 99px; background: #e0f2fe; overflow: hidden; position: relative; }
-            #nika-habla .nh-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg,#38bdf8,#22c55e); transition: width 1.4s cubic-bezier(.22,1,.36,1); position: relative; overflow: hidden; }
-            #nika-habla .nh-bar i::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg,transparent 30%,rgba(255,255,255,.65) 50%,transparent 70%); animation: nkaBrillo 1.6s linear infinite; }
-            #nika-habla .nh-pie { display: flex; justify-content: space-between; margin-top: 4px; font-size: .72rem; font-weight: 700; color: #475569; }
-            #nika-habla.ok { border-color: #86efac; } #nika-habla.ok .nh-bar i { background: linear-gradient(90deg,#22c55e,#facc15); }
             .nika-confeti { position: fixed; z-index: 2147483001; width: 8px; height: 12px; border-radius: 2px; pointer-events: none; animation: nkaConfeti 1.4s ease-out forwards; }
             @keyframes nkaGloboIn { from { opacity: 0; transform: scale(.4) translateY(20px); } to { opacity: 1; transform: none; } }
             @keyframes nkaGloboOut { to { opacity: 0; transform: scale(.7) translateY(14px); } }
             @keyframes nkaBrillo { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
             @keyframes nkaConfeti { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
-            @media (prefers-reduced-motion: reduce) { #nika-habla, #nika-habla * , .nika-confeti { animation: none !important; transition: none !important; } .nika-confeti { display: none; } }
+
+            /* Globo de Nika: se tiñe según el tema del campus (claro, oscuro, premium) */
+            #nika-habla { --bg:#ffffff; --bd:#7dd3fc; --sh:rgba(15,23,42,.22); --halo:rgba(56,189,248,.16); --tx:#0f172a; --fbg:#e0f2fe; --hd:#ffffff; --hdb:#94a3b8; --vz:#0c2140; --eye:#22d3ee; --chip:#0284c7; --chipt:#fff; --hl:#0369a1; --seg:#e0f2fe; --on:#22c55e; --onglow:rgba(34,197,94,.4); --mu:#64748b;
+                position: fixed; right: 22px; bottom: 112px; z-index: 2147483000; width: min(400px, calc(100vw - 32px)); border-radius: 16px; background: var(--bg); border: 1.5px solid var(--bd); box-shadow: 0 12px 34px var(--sh), 0 0 0 4px var(--halo); color: var(--tx); cursor: pointer; transform-origin: 90% 100%; animation: nkaGloboIn .45s cubic-bezier(.34,1.56,.64,1) both; }
+            body.dark-mode #nika-habla { --bg:rgba(15,28,52,.94); --bd:rgba(56,189,248,.55); --sh:rgba(0,0,0,.55); --halo:rgba(56,189,248,.1); --tx:#e2e8f0; --fbg:#0b1a33; --hd:#eef2f7; --vz:#0c2140; --eye:#35e0f7; --chip:#38bdf8; --chipt:#06223a; --hl:#7dd3fc; --seg:rgba(148,163,184,.22); --on:#34d399; --onglow:rgba(52,211,153,.5); --mu:#94a3b8; }
+            body.tema-premium #nika-habla { --bg:rgba(24,12,56,.94); --bd:rgba(192,132,252,.6); --sh:rgba(76,29,149,.65); --halo:rgba(168,85,247,.16); --tx:#f8fafc; --fbg:#1a0e3d; --hd:#f1ecff; --hdb:#a78bfa; --vz:#1e1245; --eye:#c4b5fd; --chip:#a855f7; --chipt:#fff; --hl:#d8b4fe; --seg:rgba(168,85,247,.22); --on:#c084fc; --onglow:rgba(192,132,252,.6); --mu:#a5b4d0; }
+            #nika-habla.sale { animation: nkaGloboOut .3s ease-in both; }
+            #nika-habla .nh-in { display: flex; gap: 14px; padding: 16px 16px 12px 14px; align-items: flex-start; }
+            #nika-habla .nh-nm { position: absolute; left: 14px; top: -11px; background: var(--chip); color: var(--chipt); font: 500 12px 'Pixelify Sans', monospace; letter-spacing: .5px; padding: 2px 10px; border-radius: 7px; }
+            #nika-habla .nh-fc { flex: none; width: 60px; height: 60px; border-radius: 14px; background: var(--fbg); border: 1.5px solid var(--bd); position: relative; overflow: hidden; }
+            #nika-habla .nh-hd { position: absolute; left: 7px; top: 9px; width: 44px; height: 32px; border-radius: 13px; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); }
+            #nika-habla .nh-vz { position: absolute; left: 4px; top: 4px; width: 32px; height: 19px; border-radius: 9px; background: var(--vz); }
+            #nika-habla .nh-o { position: absolute; top: 9px; width: 7px; height: 8px; border-radius: 3px 3px 1px 1px; background: var(--eye); box-shadow: 0 0 6px var(--eye); transform-origin: 50% 100%; animation: nkaParpadeo 4s infinite; }
+            #nika-habla .nh-o1 { left: 9px; } #nika-habla .nh-o2 { left: 21px; }
+            #nika-habla .nh-bd { position: absolute; left: 15px; top: 43px; width: 28px; height: 14px; border-radius: 8px 8px 0 0; background: var(--hd); border: 1.5px solid var(--hdb, #94a3b8); border-bottom: 0; }
+            #nika-habla .fel .nh-o { height: 4px; top: 12px; animation: none; border-radius: 6px 6px 0 0; }
+            #nika-habla .can .nh-o { height: 3px; top: 13px; animation: none; }
+            #nika-habla .dor .nh-o { height: 2px; top: 14px; animation: none; box-shadow: none; }
+            #nika-habla .nh-z { display: none; position: absolute; right: 4px; top: 2px; font: 500 11px 'Pixelify Sans', monospace; color: var(--eye); }
+            #nika-habla .dor .nh-z { display: block; animation: nkaZ 2s infinite; }
+            #nika-habla .nh-c { flex: 1; min-width: 0; }
+            #nika-habla .nh-tx { font-size: 14.5px; font-weight: 500; line-height: 1.5; min-height: 44px; }
+            #nika-habla .nh-tx b { font-weight: 800; color: var(--hl); }
+            #nika-habla .nh-hp { margin-top: 10px; display: flex; align-items: center; gap: 9px; }
+            #nika-habla .nh-lb { font: 500 12px 'Pixelify Sans', monospace; background: var(--chip); color: var(--chipt); border-radius: 6px; padding: 1px 7px; }
+            #nika-habla .nh-tr { flex: 1; display: flex; gap: 3px; height: 12px; }
+            #nika-habla .nh-tr s { flex: 1; border-radius: 3px; background: var(--seg); text-decoration: none; transition: background .15s, box-shadow .15s; }
+            #nika-habla .nh-tr s.on { background: var(--on); box-shadow: 0 0 8px var(--onglow); }
+            #nika-habla .nh-pc { font: 500 14px 'Pixelify Sans', monospace; min-width: 38px; text-align: right; }
+            #nika-habla .nh-ft { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: .72rem; font-weight: 600; color: var(--mu); }
+            #nika-habla .nh-ft .nh-fl { margin-left: auto; }
+            #nika-habla .nh-ar { color: var(--hl); font-size: .7rem; animation: nkaFlecha .9s ease-in-out infinite; }
+            #nika-habla.ok { border-color: #facc15; }
+            @keyframes nkaZ { 0% { opacity: 0; transform: translateY(6px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-4px); } }
+            @keyframes nkaFlecha { 50% { transform: translateY(3px); } }
+            @media (prefers-reduced-motion: reduce) { #nika-habla, #nika-habla *, .nika-confeti { animation: none !important; transition: none !important; } .nika-confeti { display: none; } }
 
             /* Badge rojo de mensaje sin leer, superpuesto sobre el ícono del robot */
             #nika-assistant-badge {
@@ -597,27 +625,68 @@ const NikaAssistant = (() => {
         appendMessage(texto, 'bot');
     }
 
-    // hablar(): globo sobre el robot con animación. opt: { html, pct (barra), pie, anim: 'celebra'|'alienta'|'feliz', ms, confeti }
-    let hablaT = null;
+    // hablar(): globo de Nika. opt: { html | partes:[html...], pct, pie, falta, anim, cara:'fel'|'can'|'dor', ms, confeti, href }
+    let hablaT = null, hablaTy = null;
+    const reducido = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) { return false; } };
+    const sonido = (t) => { try { if (window.NikaNotif && NikaNotif.sonar) NikaNotif.sonar(t); } catch (_) {} };
+    function caraAuto() {
+        try {
+            const h = new Date().getHours(); if (h >= 23 || h < 6) return 'dor';
+            const m = JSON.parse(localStorage.getItem('nika_meta_today') || 'null');
+            if (m && m.m >= 240) return 'can';
+        } catch (_) {}
+        return '';
+    }
     function hablar(opt) {
         if (!btnEl || !opt) return;
+        try { const pr = window.NikaNotif && NikaNotif.prefs && NikaNotif.prefs(); if (pr && pr.aviso && pr.aviso.nika_asistente === false) return; } catch (_) {}
         const prev = document.getElementById('nika-habla'); if (prev) prev.remove();
-        clearTimeout(hablaT);
+        clearTimeout(hablaT); clearInterval(hablaTy);
+        const partes = opt.partes && opt.partes.length ? opt.partes : [opt.html];
+        let pag = 0;
+        const cara = opt.cara !== undefined ? opt.cara : (opt.anim === 'celebra' ? 'fel' : caraAuto());
         const g = document.createElement('div'); g.id = 'nika-habla'; g.setAttribute('role', 'status');
         if (opt.pct >= 100) g.classList.add('ok');
-        g.innerHTML = '<div>' + opt.html + '</div>' + (typeof opt.pct === 'number' ? '<div class="nh-bar"><i></i></div><div class="nh-pie"><span>' + (opt.pie || '') + '</span><span>' + Math.round(opt.pct) + '%</span></div>' : '');
-        g.addEventListener('click', () => { cerrar(); if (opt.href) location.href = opt.href; });
+        const tieneBarra = typeof opt.pct === 'number';
+        g.innerHTML = '<div class="nh-nm">NIKA</div><div class="nh-in"><div class="nh-fc ' + cara + '"><div class="nh-hd"><i class="nh-vz"></i><i class="nh-o nh-o1"></i><i class="nh-o nh-o2"></i></div><i class="nh-bd"></i><b class="nh-z">z</b></div>'
+            + '<div class="nh-c"><div class="nh-tx"></div>'
+            + (tieneBarra ? '<div class="nh-hp"><span class="nh-lb">RETO</span><div class="nh-tr">' + '<s></s>'.repeat(20) + '</div><span class="nh-pc">0%</span></div>' : '')
+            + '<div class="nh-ft"><span>' + (opt.pie || '') + '</span><span class="nh-fl">' + (opt.falta || '') + '</span><span class="nh-ar" aria-hidden="true"></span></div></div></div>';
         document.body.appendChild(g);
-        const barra = g.querySelector('.nh-bar i');
-        if (barra) setTimeout(() => { barra.style.width = Math.min(100, opt.pct) + '%'; }, 350);
+        const tx = g.querySelector('.nh-tx'), ar = g.querySelector('.nh-ar'), segs = g.querySelectorAll('.nh-tr s'), pc = g.querySelector('.nh-pc');
+        function llenar() {
+            if (!tieneBarra) return;
+            const n = Math.round(Math.min(100, opt.pct) / 5);
+            if (reducido()) { segs.forEach((s, i) => { if (i < n) s.classList.add('on'); }); pc.textContent = Math.round(opt.pct) + '%'; return; }
+            let k = 0; const f = setInterval(() => { if (k >= n) { clearInterval(f); pc.textContent = Math.round(opt.pct) + '%'; return; } segs[k].classList.add('on'); k++; pc.textContent = Math.round(k * 5) + '%'; }, 55);
+        }
+        function mostrar() {
+            clearInterval(hablaTy);
+            const html = partes[pag], plano = html.replace(/<[^>]+>/g, ''), ultima = pag === partes.length - 1;
+            ar.textContent = ultima ? '' : '▼';
+            const fin = () => { tx.innerHTML = html; if (ultima) { llenar(); if (opt.confeti) sonido('nika_ok'); } };
+            if (reducido()) { fin(); return; }
+            let i = 0;
+            hablaTy = setInterval(() => {
+                i++; let n = 0, out = '', tag = false;
+                for (const ch of html) { if (ch === '<') tag = true; out += ch; if (ch === '>') { tag = false; continue; } if (!tag) { n++; if (n >= i) break; } }
+                tx.innerHTML = out; if (i % 3 === 0) sonido('nika_bip');
+                if (i >= plano.length) { clearInterval(hablaTy); fin(); }
+            }, 26);
+        }
+        function cerrar() { clearInterval(hablaTy); g.classList.add('sale'); setTimeout(() => g.remove(), 300); }
+        g.addEventListener('click', () => {
+            if (pag < partes.length - 1) { pag++; mostrar(); clearTimeout(hablaT); armar(); return; }
+            cerrar(); if (opt.href) location.href = opt.href;
+        });
+        function armar() { hablaT = setTimeout(() => { if (pag < partes.length - 1) armar(); else cerrar(); }, (opt.ms || 7000) + (partes[pag].length * 25)); }
+        mostrar(); armar();
         const cls = opt.anim || 'feliz';
         ['celebra', 'alienta', 'feliz', 'habla'].forEach((c) => btnEl.classList.remove(c));
         void btnEl.offsetWidth; btnEl.classList.add(cls, 'habla');
         setTimeout(() => btnEl.classList.remove('habla'), 1800);
         setTimeout(() => btnEl.classList.remove(cls), 2400);
         if (opt.confeti) confeti();
-        function cerrar() { g.classList.add('sale'); setTimeout(() => g.remove(), 300); }
-        hablaT = setTimeout(cerrar, opt.ms || 7000);
     }
     function confeti() {
         if (!btnEl) return;
