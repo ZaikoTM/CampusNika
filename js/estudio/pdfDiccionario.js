@@ -140,6 +140,11 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
 .nkd-sec .it+.it{margin-top:9px;padding-top:9px;border-top:1px solid var(--secb)}
 .nkd-mas{margin-top:6px;border:0;background:transparent;color:var(--hl);font:inherit;font-size:.74rem;font-weight:800;cursor:pointer;padding:2px 0;transition:transform .15s}.nkd-mas:hover{transform:translateX(2px);text-decoration:underline}
 .nkd-sec p.largo{white-space:pre-line;max-height:260px;overflow:auto}
+.nkd-in{cursor:grab;touch-action:none}.nkd.mov .nkd-in{cursor:grabbing}.nkd.mov{transition:none}
+.nkd-rz{position:absolute;right:2px;bottom:2px;width:18px;height:18px;cursor:nwse-resize;z-index:4;opacity:.55;touch-action:none;transition:opacity .2s}.nkd-rz:hover{opacity:1}
+.nkd-rz::after{content:'';position:absolute;right:4px;bottom:4px;width:9px;height:9px;border-right:2px solid var(--mu);border-bottom:2px solid var(--mu);border-radius:0 0 3px 0}
+.nkd.min .nkd-rz{display:none}
+.nkd-ped{display:flex;gap:6px;margin-top:4px}.nkd-ped input{flex:1;min-width:0;border:1.5px solid var(--bd);background:var(--fbg);color:var(--tx);border-radius:10px;padding:8px 10px;font:inherit;font-size:.85rem}.nkd-ped button{border:0;background:var(--chip);color:var(--chipt);border-radius:10px;padding:0 12px;font:inherit;font-weight:800;cursor:pointer}
 .nkd-nota{margin:0;font-size:.66rem;line-height:1.4;color:var(--mu);font-weight:600}
 .nkd-pie{display:flex;gap:6px;padding:8px 12px 12px;flex-wrap:wrap}
 .nkd-pie>a,.nkd-pie>button{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1.5px solid var(--bd);background:transparent;color:var(--tx);border-radius:10px;padding:7px 10px;font:inherit;font-weight:800;font-size:.74rem;cursor:pointer;text-decoration:none;transition:background .18s,transform .15s,box-shadow .18s}
@@ -169,20 +174,70 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
         <button type="button" class="nkd-b" data-a="min" title="Minimizar" aria-label="Minimizar"><span class="ic">⌄</span></button>
         <button type="button" class="nkd-b" data-a="x" title="Cerrar (Esc)" aria-label="Cerrar">✕</button>
       </div>
+      <div class="nkd-rz" title="Cambiar el tamaño" aria-hidden="true"></div>
       <div class="nkd-in"><div class="nkd-fc hab"><div class="nkd-hd"><i class="nkd-vz"></i><i class="nkd-o nkd-o1"></i><i class="nkd-o nkd-o2"></i></div><i class="nkd-bd"></i></div>
         <div class="nkd-c"><div class="nkd-pal"><small>DICCIONARIO</small><b title="${esc(q)}">${esc(q)}</b></div>
           <div class="nkd-col"><div><div class="nkd-tx" aria-live="polite"></div></div></div></div></div>
       <div class="nkd-col"><div>
         <div class="nkd-hp"><span class="nkd-lb">BUSCANDO</span><div class="nkd-tr">${'<s></s>'.repeat(20)}</div><span class="nkd-pc">0%</span></div>
         <div class="nkd-cuerpo"></div>
-        <div class="nkd-pie"><button type="button" data-a="glo">📚 Glosario</button><button type="button" class="wk" data-a="wik" hidden>🌐 Wikipedia</button><button type="button" data-a="copiar">📋 Copiar</button></div>
+        <div class="nkd-pie"><button type="button" data-a="glo">📚 Glosario</button><button type="button" class="wk" data-a="wik" hidden>🌐 Wikipedia</button><button type="button" data-a="copiar">📋 Copiar todo</button>${o.alNota ? '<button type="button" data-a="nota" class="p">📒 A nota</button>' : ''}</div>
       </div></div>`;
     o.root.appendChild(el);
     const $ = (s) => el.querySelector(s), tx = $('.nkd-tx'), cara = $('.nkd-fc'), cuerpo = $('.nkd-cuerpo'), hp = $('.nkd-hp'), segs = el.querySelectorAll('.nkd-tr s'), pc = $('.nkd-pc'), lb = $('.nkd-lb');
     const c = { el, q, ty: null, pg: null };
+    // todo lo que Nika muestra, como texto para copiar o guardar en una nota
+    const todo = () => {
+      const p = [q];
+      if (c.gl && c.gl[0]) p.push('Glosario de NikaMed · ' + c.gl[0].g.t + ' (' + c.gl[0].g.s + '): ' + resumen(c.gl[0].g.b, 900));
+      if (c.wc) p.push('Wikipedia: ' + (c.wl || c.wc));
+      if (p.length === 1) p.push('(sin definicion encontrada)');
+      return p.join('\n\n');
+    };
+    // mover (arrastrando el encabezado) y cambiar el tamaño (manija de la esquina); se recuerda para la proxima vez
+    const guardarPos = () => { try { localStorage.setItem('nika_dicc_pos', JSON.stringify({ l: parseFloat(el.style.left), t: parseFloat(el.style.top), w: el.offsetWidth, h: parseFloat(el.style.maxHeight) || 0 })); } catch (_) {} };
+    const libre = () => {
+      if (!el.dataset.libre) {
+        const rr = o.root.getBoundingClientRect(), r = el.getBoundingClientRect();
+        el.style.right = 'auto'; el.style.left = (r.left - rr.left) + 'px'; el.style.top = (r.top - rr.top) + 'px'; el.dataset.libre = '1';
+      }
+    };
+    const arrastrar = (ev, alMover) => {
+      ev.preventDefault(); libre();
+      const x0 = ev.clientX, y0 = ev.clientY, l0 = parseFloat(el.style.left), t0 = parseFloat(el.style.top), w0 = el.offsetWidth, h0 = el.offsetHeight, rr = o.root.getBoundingClientRect();
+      const mv = (e) => alMover(e.clientX - x0, e.clientY - y0, { l0, t0, w0, h0, rr });
+      const fin = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin); el.classList.remove('mov'); guardarPos(); };
+      el.classList.add('mov'); window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+    };
+    el.querySelector('.nkd-in').addEventListener('pointerdown', (e) => {
+      if (window.innerWidth <= 640 || e.button || e.target.closest('button,a,input')) return;
+      arrastrar(e, (dx, dy, k) => {
+        el.style.left = Math.max(4, Math.min(k.rr.width - 60, k.l0 + dx)) + 'px';
+        el.style.top = Math.max(4, Math.min(k.rr.height - 40, k.t0 + dy)) + 'px';
+      });
+    });
+    el.querySelector('.nkd-rz').addEventListener('pointerdown', (e) => {
+      if (window.innerWidth <= 640 || e.button) return;
+      arrastrar(e, (dx, dy, k) => {
+        el.style.width = Math.max(260, Math.min(k.rr.width - 16, k.w0 + dx)) + 'px';
+        el.style.maxHeight = Math.max(150, Math.min(k.rr.height - 16, k.h0 + dy)) + 'px';
+        const cu = el.querySelector('.nkd-cuerpo'); if (cu) cu.style.maxHeight = Math.max(60, Math.min(k.rr.height - 260, k.h0 + dy - 210)) + 'px';
+      });
+    });
+    try {
+      const g = window.innerWidth > 640 && JSON.parse(localStorage.getItem('nika_dicc_pos') || 'null');
+      if (g && isFinite(g.l) && isFinite(g.t)) {
+        const rr = o.root.getBoundingClientRect();
+        el.dataset.libre = '1'; el.style.right = 'auto';
+        if (g.w) el.style.width = Math.min(g.w, rr.width - 16) + 'px';
+        if (g.h) { el.style.maxHeight = Math.min(g.h, rr.height - 16) + 'px'; const cu = el.querySelector('.nkd-cuerpo'); if (cu) cu.style.maxHeight = Math.max(60, g.h - 210) + 'px'; }
+        el.style.left = Math.max(4, Math.min(rr.width - 120, g.l)) + 'px'; el.style.top = Math.max(4, Math.min(rr.height - 60, g.t)) + 'px';
+      }
+    } catch (_) {}
     // se acomoda cerca de lo seleccionado y se vuelve a acomodar cuando el contenido cambia de alto (así nunca se sale de la pantalla)
     const ubicar = () => {
       if (window.innerWidth <= 640) return;
+      if (el.dataset.libre) return;
       // siempre arriba a la derecha del area de lectura (debajo del buscador si esta abierto), para no tapar lo que se esta leyendo
       const rr = o.root.getBoundingClientRect(), sc = o.root.querySelector('.nkpdf-scroll') || o.root, sr = sc.getBoundingClientRect();
       let top = sr.top - rr.top + 14; const bus = o.root.querySelector('.nkx-busca.on');
@@ -199,7 +254,11 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
       if (a === 'x') cerrar();
       else if (a === 'buscar') { cerrar(); if (o.alBuscar) o.alBuscar(q); }
       else if (a === 'min') { const m = el.classList.toggle('min'); b.title = m ? 'Expandir' : 'Minimizar'; setTimeout(ubicar, 340); }
-      else if (a === 'copiar') { try { navigator.clipboard.writeText(q); b.textContent = '✓ Copiado'; } catch (_) {} }
+      else if (a === 'copiar') { try { navigator.clipboard.writeText(todo()); b.textContent = '✓ Copiado'; setTimeout(() => { b.textContent = '📋 Copiar todo'; }, 1800); } catch (_) {} }
+      else if (a === 'nota') {
+        b.disabled = true; b.textContent = 'Guardando…';
+        Promise.resolve(o.alNota(q, todo())).then(() => { b.textContent = '✓ En tus notas'; }, () => { b.disabled = false; b.textContent = '📒 A nota'; });
+      }
       else if (a === 'glo' || a === 'wik') {
         const s = el.querySelector(a === 'glo' ? '.nkd-sec.g' : '.nkd-sec.w');
         if (!s) { tx.innerHTML = 'No hay entrada del Glosario para <b>' + esc(q) + '</b>. Probá seleccionando solo el término.'; return; }
@@ -276,5 +335,25 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
     return true;
   }
 
-  window.NikaDicc = { abrir, cerrar: () => cerrar(true), limpiar, buscarGlosario };
+  // sin palabra elegida (boton de la barra): globo con una casilla para escribirla
+  function pedir(o) {
+    css(); cerrar(true);
+    const el = document.createElement('div'); el.className = 'nkd'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Diccionario de Nika');
+    el.innerHTML = `<div class="nkd-nm">NIKA</div><div class="nkd-bt"><button type="button" class="nkd-b" data-a="x" title="Cerrar (Esc)" aria-label="Cerrar">✕</button></div>
+      <div class="nkd-in" style="cursor:default"><div class="nkd-fc"><div class="nkd-hd"><i class="nkd-vz"></i><i class="nkd-o nkd-o1"></i><i class="nkd-o nkd-o2"></i></div><i class="nkd-bd"></i></div>
+        <div class="nkd-c"><div class="nkd-pal"><small>DICCIONARIO</small><b>¿Qué palabra buscamos?</b></div>
+          <form class="nkd-ped"><input type="text" maxlength="80" placeholder="Escribí un término…" aria-label="Palabra a definir" autocomplete="off"><button type="submit">Definir</button></form></div></div>`;
+    o.root.appendChild(el);
+    const sc = o.root.querySelector('.nkpdf-scroll') || o.root, rr = o.root.getBoundingClientRect(), sr = sc.getBoundingClientRect();
+    el.style.left = 'auto'; el.style.right = Math.max(8, rr.right - sr.right + 22) + 'px'; el.style.top = (sr.top - rr.top + 14) + 'px';
+    const inp = el.querySelector('input'); setTimeout(() => inp.focus(), 60);
+    el.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = limpiar(inp.value); if (v) abrir(Object.assign({}, o, { texto: v })); });
+    el.querySelector('[data-a=x]').addEventListener('click', () => cerrar());
+    const c = { el, ty: null, pg: null };
+    c.tecla = (e) => { if (e.key === 'Escape') { e.stopPropagation(); cerrar(); } };
+    document.addEventListener('keydown', c.tecla, true); actual = c;
+    return true;
+  }
+
+  window.NikaDicc = { abrir, pedir, cerrar: () => cerrar(true), limpiar, buscarGlosario };
 })();

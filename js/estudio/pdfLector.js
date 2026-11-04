@@ -1313,11 +1313,23 @@
   }
   function definirTexto(texto, rect) {
     if (!S || !window.NikaDicc) return;
-    window.NikaDicc.abrir({ texto, rect, root: S.root, alBuscar: (q) => buscarEnPdf(q) });
+    window.NikaDicc.abrir({ texto, rect, root: S.root, alBuscar: (q) => buscarEnPdf(q), alNota: notaDeDiccionario });
+  }
+  // desde el boton de la barra: usa la seleccion si hay, si no pide la palabra
+  function abrirDiccionario() {
+    if (!S || !window.NikaDicc) return;
+    const sel = window.getSelection && window.getSelection(), t = sel && !sel.isCollapsed ? String(sel).replace(/\s+/g, ' ').trim() : '';
+    if (t && t.length <= 90) { definirTexto(t, null); return; }
+    window.NikaDicc.pedir({ root: S.root, alBuscar: (q) => buscarEnPdf(q), alNota: notaDeDiccionario });
+  }
+  async function notaDeDiccionario(titulo, texto) {
+    if (!window.NikaPdfNotas || !window.NikaPdfNotas.rapida) { aviso('Las notas no están disponibles en este momento'); throw new Error('sin notas'); }
+    await window.NikaPdfNotas.rapida(S, titulo, texto);
+    aviso('Guardado en tus notas ✓ (pág. ' + (S.actual || 1) + ')');
   }
   function definirSeleccion() {
     const sel = window.getSelection && window.getSelection(), t = sel ? String(sel).trim() : '';
-    if (!t || sel.isCollapsed) { aviso('Seleccioná una palabra y apretá D para ver su definición'); return; }
+    if (!t || sel.isCollapsed) { abrirDiccionario(); return; }
     if (t.length > 90 || /\n/.test(t)) { aviso('Seleccioná solo la palabra o una frase corta para definirla'); return; }
     definirTexto(t, sel.getRangeAt(0).getBoundingClientRect());
   }
@@ -1865,5 +1877,5 @@
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
+  window.NikaPdf = { diccionario: abrirDiccionario, abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
 })();

@@ -429,6 +429,7 @@
       <button data-xacc="paginas" title="Índice y miniaturas de las páginas">🗂<span class="nkpdf-txt">Páginas</span></button>
       <button data-xacc="modo" title="Modo de lectura: común, noche o Kindle" aria-haspopup="true">🌓<span class="nkpdf-txt">Lectura</span></button>
       <button data-xacc="offline" title="Leer sin conexión" aria-haspopup="true">💾<span class="nkpdf-txt">Sin conexión</span></button>
+      <button data-xacc="dicc" title="Diccionario: definir la palabra seleccionada o escribir una (D)">📖<span class="nkpdf-txt">Diccionario</span></button>
       <button data-xacc="exportar" title="Exportar el PDF con tus marcas y notas">📤<span class="nkpdf-txt">Exportar</span></button>`;
     const sep = $('.nkpdf-sep', root); if (sep) sep.parentNode.insertBefore(g, sep); else $('.nkpdf-bar', root).appendChild(g);
 
@@ -453,6 +454,7 @@
       else if (a === 'paginas') estadoLado(mi, mi.xt.lado === 'on' ? 'oculto' : 'on');
       else if (a === 'modo') { if ($('.nkx-pop', root)) cerrarPop(mi); else popModos(mi, b); }
       else if (a === 'offline') { if ($('.nkx-pop', root)) cerrarPop(mi); else popOffline(mi, b); }
+      else if (a === 'dicc') { if (lector().diccionario) lector().diccionario(); }
       else if (a === 'exportar') exportar(mi);
     });
     asa.addEventListener('click', () => estadoLado(mi, 'on'));

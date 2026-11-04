@@ -302,5 +302,12 @@
     });
   }
 
-  window.NikaPdfNotas = { abrir, editar, asegurarAbierto, notasDelArchivo, insertar, actualizar, borrar, leer, empaquetar, COLORES, ETIQ_BASE, modulo, upActual, refrescar: (S) => { const p = panelDe(S); if (p) refrescarListas(S, p); } };
+  // nota rapida desde otro modulo (por ejemplo el diccionario): pagina actual, color amarillo
+  async function rapida(S, titulo, texto) {
+    const n = await insertar({ recurso: 'pdf:' + S.fileId, recurso_titulo: S.title || null, modulo: modulo(), up_id: upActual(), tipo: 'material', posicion: Math.max(1, S.actual || 1),
+      texto: empaquetar({ t: titulo || '', h: '', p: texto, d: '', e: '' }), color: 'amarillo', etiquetas: ['diccionario'], creado_en: new Date().toISOString() });
+    try { if (window.NikaPdfAnot) window.NikaPdfAnot.recargar(S); const p = panelDe(S); if (p) await refrescarListas(S, p); } catch (_) {}
+    return n;
+  }
+  window.NikaPdfNotas = { rapida, abrir, editar, asegurarAbierto, notasDelArchivo, insertar, actualizar, borrar, leer, empaquetar, COLORES, ETIQ_BASE, modulo, upActual, refrescar: (S) => { const p = panelDe(S); if (p) refrescarListas(S, p); } };
 })();
