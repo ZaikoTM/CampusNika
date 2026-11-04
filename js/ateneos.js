@@ -629,13 +629,19 @@ const NikaAteneos = (() => {
   // ------------------------------------------------------------------ ajustes de audio (ruido / teclado / volumen)
   function abrirAjustesAudio() {
     let p = document.getElementById('at-audio-panel');
-    if (p) { p.remove(); return; }
+    if (p) { if (p._cerrar) p._cerrar(); else p.remove(); return; }
     const c = VoiceManager.audio;
     p = document.createElement('div'); p.id = 'at-audio-panel';
     p.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99996;width:min(420px,calc(100vw - 20px));max-height:86vh;overflow:auto;background:#0f172a;color:#f1f5f9;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.8);font-family:inherit';
     const fila = (id, tit, desc, val) => `<label style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer"><input type="checkbox" data-k="${id}" ${val ? 'checked' : ''} style="width:20px;height:20px;margin-top:2px;accent-color:#22c55e"><span><b style="font-size:.9rem">${tit}</b><br><small style="opacity:.7">${desc}</small></span></label>`;
     p.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:1.05rem">🎧 Audio y ruido</b><button type="button" id="at-aud-x" style="border:0;border-radius:50%;width:32px;height:32px;cursor:pointer;background:rgba(255,255,255,.12);color:#fff">✕</button></div>
       <p style="margin:0 0 6px;font-size:.78rem;opacity:.75">Los cambios se aplican al instante y se recuerdan en este dispositivo.</p>
+      <div id="at-aud-disp" style="padding:4px 0 10px;border-bottom:1px solid rgba(255,255,255,.08)"><b style="font-size:.9rem">🎙️ Dispositivos</b>
+        <small style="display:block;opacity:.7;margin:2px 0 6px">Elegí qué micrófono, altavoces o cámara usar si no te anda el audio.</small>
+        ${['mic|🎤 Micrófono', 'sal|🔊 Altavoces / auriculares', 'cam|📷 Cámara'].map((x) => { const [k, t] = x.split('|'); return `<label style="display:block;font-size:.78rem;margin-top:8px;opacity:.85">${t}<select data-d="${k}" style="width:100%;margin-top:3px;padding:9px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#1e293b;color:#f1f5f9;font:inherit;font-size:.85rem"><option>Buscando…</option></select></label>`; }).join('')}
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button type="button" id="at-aud-probar" style="border:2px solid rgba(255,255,255,.2);background:transparent;color:inherit;border-radius:10px;padding:7px 12px;font-weight:700;cursor:pointer;transition:transform .15s">🔔 Probar salida</button>
+          <div id="at-aud-nivel" title="Nivel de tu micrófono" style="flex:1;min-width:90px;height:10px;align-self:center;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden"><i style="display:block;height:100%;width:0;background:#22c55e;transition:width .08s"></i></div></div>
+        <div id="at-aud-dmsg" style="font-size:.74rem;margin-top:6px;opacity:.75;min-height:1em"></div></div>
       ${fila('ruido', 'Supresión de ruido', 'El navegador reduce ruido de fondo (ventilador, tráfico).', c.ruido)}
       ${fila('eco', 'Cancelación de eco', 'Evita que te escuches con los parlantes.', c.eco)}
       ${fila('agc', 'Control automático de volumen', 'Iguala el nivel de tu voz.', c.agc)}
@@ -645,7 +651,57 @@ const NikaAteneos = (() => {
         <input type="range" id="at-aud-vol" min="0" max="150" step="5" value="${c.volumen}" style="width:100%;margin-top:8px;accent-color:#22c55e"></div>
       <p style="margin:0;font-size:.72rem;opacity:.6">Consejo: si tu teclado suena muy fuerte, probá «Fuerte» y bajá el volumen al 70–80 %. La supresión del navegador se aplica mejor al reconectarte a la sala.</p>`;
     document.body.appendChild(p);
-    p.querySelector('#at-aud-x').onclick = () => p.remove();
+    let medidor = null, mstream = null, mctx = null;
+    const cerrarPanel = () => { clearInterval(medidor); try { navigator.mediaDevices.removeEventListener('devicechange', llenar); } catch (_) {} try { mstream && mstream.getTracks().forEach((t) => t.stop()); } catch (_) {} try { mctx && mctx.close(); } catch (_) {} p.remove(); };
+    const dmsg = (t, mal) => { const m = p.querySelector('#at-aud-dmsg'); if (m) { m.textContent = t; m.style.color = mal ? '#fca5a5' : '#86efac'; } };
+    async function llenar() {
+      if (!p.isConnected) return;
+      const r = await VoiceManager.listarDispositivos();
+      const sel = { mic: r.mic, sal: r.sal, cam: r.cam };
+      p.querySelectorAll('select[data-d]').forEach((s) => {
+        const k = s.dataset.d, lista = sel[k];
+        if (k === 'sal' && !r.puedeSalida) { s.innerHTML = '<option>Se usa la salida del sistema</option>'; s.disabled = true; return; }
+        if (!lista.length) { s.innerHTML = '<option>No se encontró ninguno</option>'; s.disabled = true; return; }
+        s.disabled = false;
+        s.innerHTML = '<option value="">Predeterminado del sistema</option>' + lista.filter((d) => d.id !== 'default' && d.id !== 'communications').map((d) => `<option value="${esc(d.id)}">${esc(d.nombre)}</option>`).join('');
+        const el = r.elegido[k]; s.value = lista.some((d) => d.id === el) ? el : '';
+      });
+      if (!r.etiquetas) dmsg('Para ver los nombres, permití el micrófono en el navegador.', true);
+    }
+    // el permiso del micrófono hace que el navegador muestre los nombres de los dispositivos
+    (async () => { try { const t = await navigator.mediaDevices.getUserMedia({ audio: true }); t.getTracks().forEach((x) => x.stop()); } catch (_) {} llenar(); })();
+    try { navigator.mediaDevices.addEventListener('devicechange', llenar); } catch (_) {}
+    p.querySelectorAll('select[data-d]').forEach((s) => s.addEventListener('change', async () => {
+      const k = s.dataset.d;
+      const r = await (k === 'mic' ? VoiceManager.elegirMic(s.value) : k === 'sal' ? VoiceManager.elegirSalida(s.value) : VoiceManager.elegirCamara(s.value));
+      dmsg(r.ok ? 'Listo, cambiado ✓' : r.motivo, !r.ok);
+      if (k === 'mic') nivel();
+    }));
+    p.querySelector('#at-aud-probar').onclick = async () => {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext, ctx = new AC(), o = ctx.createOscillator(), g = ctx.createGain(), d = ctx.createMediaStreamDestination();
+        o.frequency.value = 660; g.gain.value = 0.15; o.connect(g); g.connect(d);
+        const a = new Audio(); a.srcObject = d.stream;
+        const sal = (VoiceManager.dispositivos && VoiceManager.dispositivos.sal) || '';
+        if (sal && a.setSinkId) await a.setSinkId(sal).catch(() => {});
+        o.start(); await a.play(); setTimeout(() => { o.stop(); a.pause(); ctx.close(); }, 700);
+        dmsg('¿Escuchaste el sonido? Si no, elegí otra salida.');
+      } catch (e) { dmsg('No se pudo reproducir la prueba.', true); }
+    };
+    async function nivel() {
+      clearInterval(medidor); try { mstream && mstream.getTracks().forEach((t) => t.stop()); } catch (_) {} try { mctx && mctx.close(); } catch (_) {}
+      try {
+        const id = (VoiceManager.dispositivos || {}).mic;
+        mstream = await navigator.mediaDevices.getUserMedia({ audio: id ? { deviceId: { ideal: id } } : true });
+        const AC = window.AudioContext || window.webkitAudioContext; mctx = new AC();
+        const an = mctx.createAnalyser(); an.fftSize = 512; mctx.createMediaStreamSource(mstream).connect(an);
+        const buf = new Uint8Array(an.fftSize), barra = p.querySelector('#at-aud-nivel i');
+        medidor = setInterval(() => { an.getByteTimeDomainData(buf); let m = 0; for (let i = 0; i < buf.length; i++) m = Math.max(m, Math.abs(buf[i] - 128)); if (barra) barra.style.width = Math.min(100, m * 1.6) + '%'; }, 80);
+      } catch (_) {}
+    }
+    nivel();
+    p._cerrar = cerrarPanel;
+    p.querySelector('#at-aud-x').onclick = cerrarPanel;
     p.querySelectorAll('input[data-k]').forEach((i) => i.addEventListener('change', () => VoiceManager.ajustarAudio({ [i.dataset.k]: i.checked })));
     p.querySelector('#at-aud-filtro').addEventListener('click', (e) => {
       const b = e.target.closest('[data-f]'); if (!b) return; VoiceManager.ajustarAudio({ filtro: b.dataset.f });

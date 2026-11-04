@@ -39,6 +39,12 @@ const VoiceManager = (() => {
   const K_AUDIO = 'nika_at_audio';
   const cfgAudio = Object.assign({ ruido: true, eco: true, agc: true, filtro: 'medio', volumen: 100 }, (() => { try { return JSON.parse(localStorage.getItem(K_AUDIO) || '{}') || {}; } catch (_) { return {}; } })());
   const UMBRAL = { off: 0, suave: 0.008, medio: 0.02, fuerte: 0.045 };
+  // ---- dispositivos elegidos (micrófono, salida y cámara); '' = el predeterminado del sistema ----
+  const K_DISP = 'nika_at_disp';
+  const disp = Object.assign({ mic: '', sal: '', cam: '' }, (() => { try { return JSON.parse(localStorage.getItem(K_DISP) || '{}') || {}; } catch (_) { return {}; } })());
+  const guardarDisp = () => { try { localStorage.setItem(K_DISP, JSON.stringify(disp)); } catch (_) {} };
+  const dev = (id) => (id ? { deviceId: { ideal: id } } : {});
+  const restriccionesMic = () => Object.assign({ echoCancellation: !!cfgAudio.eco, noiseSuppression: !!cfgAudio.ruido, autoGainControl: !!cfgAudio.agc }, dev(disp.mic));
   let micCrudo = null, procCtx = null, procNodos = null, procTimer = null;
   function construirCadena(stream) {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -184,6 +190,7 @@ const VoiceManager = (() => {
         const a = document.createElement('audio');
         a.autoplay = true; a.playsInline = true; a.setAttribute('playsinline', ''); a.style.display = 'none';
         document.body.appendChild(a); p.audioEl = a;
+        if (disp.sal && a.setSinkId) a.setSinkId(disp.sal).catch(() => {});
       }
       const pistas = p.stream.getAudioTracks();
       p.audioEl.srcObject = new MediaStream(pistas);
@@ -282,7 +289,7 @@ const VoiceManager = (() => {
 
     // Micrófono (si se niega el permiso se entra como oyente)
     try {
-      const st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: !!cfgAudio.eco, noiseSuppression: !!cfgAudio.ruido, autoGainControl: !!cfgAudio.agc }, video: false });
+      const st = await navigator.mediaDevices.getUserMedia({ audio: restriccionesMic(), video: false });
       micCrudo = st.getAudioTracks()[0];
       micTrack = construirCadena(st);
       micTrack.enabled = !(silenciosa || opts.micInicial === false);
@@ -398,6 +405,59 @@ const VoiceManager = (() => {
     emit('onLocalVideo', videoActual ? new MediaStream([videoActual]) : null);
   }
 
+  // ------------------------------------------------------------------ elegir dispositivos
+  const puedeSalida = () => !!(window.HTMLMediaElement && HTMLMediaElement.prototype.setSinkId);
+  async function listarDispositivos() {
+    const r = { mic: [], sal: [], cam: [], etiquetas: true, puedeSalida: puedeSalida() };
+    try {
+      const l = await navigator.mediaDevices.enumerateDevices();
+      const nom = (d, i, t) => d.label || (t + ' ' + (i + 1));
+      l.filter((d) => d.kind === 'audioinput').forEach((d, i) => r.mic.push({ id: d.deviceId, nombre: nom(d, i, 'Micrófono') }));
+      l.filter((d) => d.kind === 'audiooutput').forEach((d, i) => r.sal.push({ id: d.deviceId, nombre: nom(d, i, 'Salida') }));
+      l.filter((d) => d.kind === 'videoinput').forEach((d, i) => r.cam.push({ id: d.deviceId, nombre: nom(d, i, 'Cámara') }));
+      r.etiquetas = !l.some((d) => !d.label);
+    } catch (_) {}
+    r.elegido = Object.assign({}, disp);
+    return r;
+  }
+  async function elegirMic(id) {
+    disp.mic = id || ''; guardarDisp();
+    if (!yo || !channel) return { ok: true };
+    try {
+      const st = await navigator.mediaDevices.getUserMedia({ audio: restriccionesMic(), video: false });
+      const habilitado = micTrack ? micTrack.enabled : !yo.meta.muted;
+      const viejos = [micTrack, micCrudo];
+      clearInterval(procTimer); procTimer = null; try { if (procCtx) procCtx.close(); } catch (_) {} procCtx = null; procNodos = null;
+      micCrudo = st.getAudioTracks()[0];
+      micTrack = construirCadena(st);
+      micTrack.enabled = habilitado;
+      peers.forEach((p) => { const sd = p.pc.getSenders().find((x) => x.track && x.track.kind === 'audio') || p.pc.getSenders().find((x) => !x.track && x.dtmf); if (sd) sd.replaceTrack(micTrack).catch(() => {}); });
+      viejos.forEach((t) => { try { t && t.stop(); } catch (_) {} });
+      monitores.delete('yo'); monitorizar('yo', new MediaStream([micTrack]));
+      if (yo.meta.sinMic) { yo.meta.sinMic = false; await actualizarMeta({ sinMic: false, muted: !habilitado }); }
+      return { ok: true };
+    } catch (err) { return { ok: false, motivo: 'No se pudo usar ese micrófono: ' + (err.message || err) }; }
+  }
+  async function elegirSalida(id) {
+    if (!puedeSalida()) return { ok: false, motivo: 'Tu navegador no permite elegir la salida de audio (en Safari y Firefox se usa la del sistema).' };
+    disp.sal = id || ''; guardarDisp();
+    let fallo = null;
+    await Promise.all([...peers.values()].map(async (p) => { if (p.audioEl) { try { await p.audioEl.setSinkId(disp.sal); } catch (e) { fallo = e; } } }));
+    return fallo ? { ok: false, motivo: 'No se pudo usar esa salida: ' + (fallo.message || fallo) } : { ok: true };
+  }
+  async function elegirCamara(id) {
+    disp.cam = id || ''; guardarDisp();
+    if (!camTrack) return { ok: true };
+    try {
+      const st = await navigator.mediaDevices.getUserMedia({ video: { ...dev(disp.cam), width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 24 } } });
+      const vieja = camTrack; camTrack = st.getVideoTracks()[0];
+      camTrack.onended = () => { if (camTrack) alternarCamara(); };
+      vieja.onended = null; try { vieja.stop(); } catch (_) {}
+      if (videoActual === vieja) poner(camTrack);
+      return { ok: true };
+    } catch (err) { return { ok: false, motivo: 'No se pudo usar esa cámara: ' + (err.message || err) }; }
+  }
+
   async function alternarCamara() {
     if (camTrack) {
       camTrack.stop(); camTrack = null;
@@ -406,7 +466,7 @@ const VoiceManager = (() => {
       return { ok: true, activa: false };
     }
     try {
-      const st = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 24 } } });
+      const st = await navigator.mediaDevices.getUserMedia({ video: { ...dev(disp.cam), width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 24 } } });
       camTrack = st.getVideoTracks()[0];
       camTrack.onended = () => { if (camTrack) alternarCamara(); };
       if (!screenTrack) poner(camTrack);
@@ -453,7 +513,7 @@ const VoiceManager = (() => {
   window.addEventListener('pagehide', () => { if (channel) { try { enviar('leave', '*', null); } catch (_) {} } });
 
   return {
-    soportado, unirse, salir, alternarMic, ajustarAudio, get audio() { return Object.assign({}, cfgAudio); }, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
+    soportado, unirse, salir, alternarMic, ajustarAudio, listarDispositivos, elegirMic, elegirSalida, elegirCamara, get audio() { return Object.assign({}, cfgAudio); }, get dispositivos() { return Object.assign({}, disp); }, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
     reanudarAudio, alBloqueoAudio(fn) { cbAudio = fn; },
     get sala() { return roomId; }, get yo() { return yo; }, get silenciosa() { return silenciosa; },
     get micActivo() { return !!(micTrack && micTrack.enabled); },
