@@ -280,6 +280,7 @@
 .nkpdf-var{padding:6px 3px!important;margin-left:-5px;font-size:.6rem;opacity:.7;border-radius:0 9px 9px 0!important}.nkpdf-var:hover{opacity:1}
 .nkpdf.m-mano .nkpdf-scroll{cursor:grab;touch-action:none}.nkpdf.m-mano .nkpdf-scroll.arr{cursor:grabbing}.nkpdf.m-mano .nk-tx,.nkpdf.m-forma .nk-tx,.nkpdf.m-sello .nk-tx{user-select:none;-webkit-user-select:none}
 .nkpdf.m-forma .nkpdf-scroll{cursor:crosshair;touch-action:none}.nkpdf.m-sello .nkpdf-scroll{cursor:copy}.nkpdf.m-forma .nkpdf-tam,.nkpdf.m-sello .nkpdf-tam{display:flex}
+.nk-hl .nk-hl-t{position:absolute;inset:0;mix-blend-mode:multiply;opacity:.62;pointer-events:none}.nk-hl .nk-hl-t i{mix-blend-mode:normal;opacity:1}
 .nk-hl svg.nk-sh{mix-blend-mode:normal;opacity:.92}.nk-live-f{opacity:.92;mix-blend-mode:normal}.nk-hl i.nk-ln{mix-blend-mode:normal;opacity:.9;border-radius:2px}
 /* barra compacta (dos filas con textos) y mínima (solo íconos) */
 .nkpdf-b-compacta .nkpdf-bar{gap:4px 6px;padding:4px 8px;font-size:.76rem}
@@ -480,6 +481,9 @@
     capa.innerHTML = '';
     const W = pg.el.offsetWidth || parseFloat(pg.el.style.width) || 1, H = pg.el.offsetHeight || parseFloat(pg.el.style.height) || 1;
     const trazos = [], formas = [];
+    // los rectángulos del texto subrayado van juntos en un solo grupo con transparencia: así, donde se pisan entre sí, el color no se vuelve más intenso
+    let grupoT = null;
+    const gT = () => { if (!grupoT) { grupoT = document.createElement('div'); grupoT.className = 'nk-hl-t'; capa.appendChild(grupoT); } return grupoT; };
     S.marcas.filter((m) => m.pagina === pg.num).forEach((m) => {
       (m.rects || []).forEach((r) => {
         if (r.t === 'p') { trazos.push([m, r]); return; }
@@ -488,8 +492,10 @@
         if (r.e === 'u' || r.e === 't') {   // subrayado (línea abajo) o tachado (línea al medio)
           i.className = 'nk-ln'; const yy = r.e === 'u' ? r.y + r.h : r.y + r.h / 2;
           i.style.cssText = `left:${r.x * 100}%;top:calc(${yy * 100}% - 1.5px);width:${r.w * 100}%;height:3px;background:${colorDe(m.color)}`;
-        } else i.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%;background:${colorDe(m.color)}`;
-        capa.appendChild(i);
+          capa.appendChild(i); return;
+        }
+        i.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%;background:${colorDe(m.color)}`;
+        gT().appendChild(i);
       });
     });
     if (formas.length) {
