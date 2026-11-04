@@ -420,6 +420,8 @@
     mi.xt = { modo: 'comun', txt: [], hechas: 0, chars: 0, completo: false, corriendo: false, qn: '', hits: [], porPag: {}, cur: -1, lado: 'oculto', tab: 'mini', saltar: false };
     try { const t = localStorage.getItem(LS_TAB); if (t === 'indice' || t === 'mini') mi.xt.tab = t; } catch (_) {}
     const root = mi.root;
+    // el texto de todo el PDF se lee en segundo plano apenas abre: la busqueda y "todas las veces" ya quedan listas
+    setTimeout(() => { try { if (estado() === mi) indexar(mi); } catch (_) {} }, 1200);
 
     // botones en la barra
     const g = document.createElement('div'); g.className = 'nkpdf-grupo nkx-grupo'; g.setAttribute('role', 'toolbar'); g.setAttribute('aria-label', 'Ver y exportar');

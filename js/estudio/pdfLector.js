@@ -1734,6 +1734,34 @@
     num.addEventListener('keydown', (e) => { if (e.key === 'Enter') { fijarTam(num.value); num.blur(); } e.stopPropagation(); });
     num.addEventListener('wheel', (e) => { if (document.activeElement === num) { e.preventDefault(); fijarTam(mi.tam + (e.deltaY < 0 ? 1 : -1)); } }, { passive: false });
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
+    // clic derecho sobre el texto: menu propio con Definir, Buscar y Copiar (palabra bajo el cursor o seleccion)
+    mi.scroll.addEventListener('contextmenu', (e) => {
+      if (S !== mi || !window.NikaDicc || ['bor', 'pincel', 'forma', 'mano', 'sello'].includes(S.modo) || e.target.closest('.nk-an > *')) return;
+      const sel = window.getSelection(); if (!sel) return;
+      let texto = '';
+      if (!sel.isCollapsed && mi.scroll.contains(sel.anchorNode)) texto = String(sel).replace(/\s+/g, ' ').trim();
+      else {
+        let r = null;
+        if (document.caretRangeFromPoint) r = document.caretRangeFromPoint(e.clientX, e.clientY);
+        else if (document.caretPositionFromPoint) { const c = document.caretPositionFromPoint(e.clientX, e.clientY); if (c) { r = document.createRange(); r.setStart(c.offsetNode, c.offset); } }
+        if (r && mi.scroll.contains(r.startContainer) && sel.modify) {
+          sel.removeAllRanges(); sel.addRange(r); sel.collapse(r.startContainer, r.startOffset);
+          sel.modify('move', 'backward', 'word'); sel.modify('extend', 'forward', 'word');
+          texto = String(sel).replace(/\s+/g, ' ').trim();
+        }
+      }
+      if (!texto || texto.length > 90 || /\n/.test(texto)) return;
+      e.preventDefault();
+      const rect = sel.rangeCount ? sel.getRangeAt(0).getBoundingClientRect() : null;
+      popover(e.clientX, e.clientY + 6,
+        '<button class="x" data-x="def">📖 Definir</button><button class="x" data-x="bus">🔍 Buscar en el PDF</button><button class="x" data-x="copiar">📋 Copiar</button>',
+        (t) => {
+          cerrarPop();
+          if (t.dataset.x === 'def') definirTexto(texto, rect);
+          else if (t.dataset.x === 'bus') buscarEnPdf(texto);
+          else if (t.dataset.x === 'copiar') { try { navigator.clipboard.writeText(texto); } catch (_) {} }
+        });
+    });
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));
     mi.scroll.addEventListener('click', clickEnMarca);
     let zT = 0; mi.scroll.addEventListener('wheel', (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const t = Date.now(); if (t - zT < 130) return; zT = t; zoom(e.deltaY < 0 ? 1 : -1); }, { passive: false });   // Ctrl + rueda (o pellizco en el trackpad) = zoom

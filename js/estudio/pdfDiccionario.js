@@ -9,7 +9,7 @@
   if (window.NikaDicc) return;
 
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const stem = (w) => (w.length > 4 ? w.replace(/(es|s)$/, '') : w);   // plurales simples: hemorragias → hemorragia
   const sinMov = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   let actual = null;   // globo abierto
@@ -53,20 +53,41 @@
   // ---------- Wikipedia (es) ----------
   async function wiki(q) {
     const clave = 'nikaDicc:' + norm(q);
-    try { const c = sessionStorage.getItem(clave); if (c) return JSON.parse(c); } catch (_) {}
+    try { const c = sessionStorage.getItem(clave); if (c && c !== 'null') return JSON.parse(c); } catch (_) {}
     const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 7000), base = 'https://es.wikipedia.org';
     try {
       const sum = async (titulo) => { const r = await fetch(base + '/api/rest_v1/page/summary/' + encodeURIComponent(String(titulo).replace(/ /g, '_')) + '?redirect=true', { signal: ctl.signal }); return r.ok ? r.json() : null; };
+      const ok = (d) => d && d.extract && d.type !== 'disambiguation';
+      const buscar = async (t, texto) => {
+        let r = await fetch(base + '/w/api.php?action=opensearch&search=' + encodeURIComponent(t) + '&limit=3&namespace=0&format=json&origin=*', { signal: ctl.signal });
+        let j = await r.json(), tt = j && j[1] && j[1][0];
+        if (!tt && texto) {   // busqueda en el texto de los articulos (encuentra frases dentro de otros temas)
+          r = await fetch(base + '/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(t) + '&srlimit=1&srnamespace=0&format=json&origin=*', { signal: ctl.signal });
+          j = await r.json(); tt = j && j.query && j.query.search && j.query.search[0] && j.query.search[0].title;
+        }
+        return tt ? sum(tt) : null;
+      };
       let d = await sum(q);
-      if (!d || d.type === 'disambiguation' || !d.extract) {
-        const r = await fetch(base + '/w/api.php?action=opensearch&search=' + encodeURIComponent(q) + '&limit=3&namespace=0&format=json&origin=*', { signal: ctl.signal });
-        const j = await r.json(), t = j && j[1] && j[1][0];
-        if (t) d = await sum(t);
+      if (!ok(d)) d = await buscar(q, false);
+      if (!ok(d)) {   // frase sin articulo propio: se prueba con las palabras importantes, de la mas larga a la mas corta
+        const ps = q.split(/\s+/).filter((w) => w.length >= 5).sort((a, b) => b.length - a.length).slice(0, 3);
+        for (const w of ps) { d = await sum(w); if (!ok(d)) d = await buscar(w, false); if (ok(d)) break; }
       }
+      if (!ok(d)) d = await buscar(q, true);
       let out = null;
-      if (d && d.extract) out = { titulo: d.title, texto: d.extract, url: d.content_urls && d.content_urls.desktop && d.content_urls.desktop.page };
-      try { sessionStorage.setItem(clave, JSON.stringify(out)); } catch (_) {}
+      if (ok(d)) out = { titulo: d.title, texto: d.extract, url: d.content_urls && d.content_urls.desktop && d.content_urls.desktop.page };
+      if (out) { try { sessionStorage.setItem(clave, JSON.stringify(out)); } catch (_) {} }
       return out;
+    } finally { clearTimeout(tm); }
+  }
+
+  // texto largo del articulo para leerlo dentro del lector (Wikipedia no se puede incrustar: no deja abrirse en un marco)
+  async function wikiLargo(titulo) {
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 8000);
+    try {
+      const r = await fetch('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&exchars=4000&redirects=1&format=json&origin=*&titles=' + encodeURIComponent(titulo), { signal: ctl.signal });
+      const j = await r.json(), pg = j && j.query && j.query.pages, p = pg && pg[Object.keys(pg)[0]];
+      return (p && p.extract) || '';
     } finally { clearTimeout(tm); }
   }
 
@@ -117,6 +138,8 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
 .nkd-sec b{display:block;font-size:.88rem;font-weight:800}.nkd-sec small{display:block;margin:1px 0 4px;color:var(--mu);font-size:.72rem;font-weight:700}
 .nkd-sec p{margin:0;font-size:.8rem;line-height:1.5;font-weight:500}.nkd-sec a{display:inline-block;margin-top:6px;font-size:.74rem;font-weight:800;color:var(--hl);text-decoration:none;transition:transform .15s}.nkd-sec a:hover{text-decoration:underline;transform:translateX(2px)}
 .nkd-sec .it+.it{margin-top:9px;padding-top:9px;border-top:1px solid var(--secb)}
+.nkd-mas{margin-top:6px;border:0;background:transparent;color:var(--hl);font:inherit;font-size:.74rem;font-weight:800;cursor:pointer;padding:2px 0;transition:transform .15s}.nkd-mas:hover{transform:translateX(2px);text-decoration:underline}
+.nkd-sec p.largo{white-space:pre-line;max-height:260px;overflow:auto}
 .nkd-nota{margin:0;font-size:.66rem;line-height:1.4;color:var(--mu);font-weight:600}
 .nkd-pie{display:flex;gap:6px;padding:8px 12px 12px;flex-wrap:wrap}
 .nkd-pie>a,.nkd-pie>button{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1.5px solid var(--bd);background:transparent;color:var(--tx);border-radius:10px;padding:7px 10px;font:inherit;font-weight:800;font-size:.74rem;cursor:pointer;text-decoration:none;transition:background .18s,transform .15s,box-shadow .18s}
@@ -152,7 +175,7 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
       <div class="nkd-col"><div>
         <div class="nkd-hp"><span class="nkd-lb">BUSCANDO</span><div class="nkd-tr">${'<s></s>'.repeat(20)}</div><span class="nkd-pc">0%</span></div>
         <div class="nkd-cuerpo"></div>
-        <div class="nkd-pie"><a href="glosario.html?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">📚 Glosario</a><a class="wk" href="https://es.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}" target="_blank" rel="noopener" hidden>🌐 Wikipedia ↗</a><button type="button" data-a="copiar">📋 Copiar</button></div>
+        <div class="nkd-pie"><button type="button" data-a="glo">📚 Glosario</button><button type="button" class="wk" data-a="wik" hidden>🌐 Wikipedia</button><button type="button" data-a="copiar">📋 Copiar</button></div>
       </div></div>`;
     o.root.appendChild(el);
     const $ = (s) => el.querySelector(s), tx = $('.nkd-tx'), cara = $('.nkd-fc'), cuerpo = $('.nkd-cuerpo'), hp = $('.nkd-hp'), segs = el.querySelectorAll('.nkd-tr s'), pc = $('.nkd-pc'), lb = $('.nkd-lb');
@@ -160,10 +183,11 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
     // se acomoda cerca de lo seleccionado y se vuelve a acomodar cuando el contenido cambia de alto (así nunca se sale de la pantalla)
     const ubicar = () => {
       if (window.innerWidth <= 640) return;
-      const rr = o.root.getBoundingClientRect(), r = o.rect || { left: rr.left + 40, right: rr.left + 40, top: rr.top + 60, bottom: rr.top + 60 };
-      const h = el.offsetHeight, abajo = r.bottom - rr.top + 10, arriba = r.top - rr.top - h - 10;
-      el.style.left = Math.max(8, Math.min(rr.width - el.offsetWidth - 8, r.left - rr.left)) + 'px';
-      el.style.top = Math.max(14, abajo + h > rr.height - 8 ? (arriba > 14 ? arriba : rr.height - h - 8) : abajo) + 'px';
+      // siempre arriba a la derecha del area de lectura (debajo del buscador si esta abierto), para no tapar lo que se esta leyendo
+      const rr = o.root.getBoundingClientRect(), sc = o.root.querySelector('.nkpdf-scroll') || o.root, sr = sc.getBoundingClientRect();
+      let top = sr.top - rr.top + 14; const bus = o.root.querySelector('.nkx-busca.on');
+      if (bus) top = Math.max(top, bus.getBoundingClientRect().bottom - rr.top + 10);
+      el.style.left = 'auto'; el.style.right = Math.max(8, rr.right - sr.right + 22) + 'px'; el.style.top = top + 'px';
     };
     ubicar();
     c.fuera = (e) => { if (!el.contains(e.target) && !el.classList.contains('min')) cerrar(); };
@@ -176,6 +200,27 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
       else if (a === 'buscar') { cerrar(); if (o.alBuscar) o.alBuscar(q); }
       else if (a === 'min') { const m = el.classList.toggle('min'); b.title = m ? 'Expandir' : 'Minimizar'; setTimeout(ubicar, 340); }
       else if (a === 'copiar') { try { navigator.clipboard.writeText(q); b.textContent = '✓ Copiado'; } catch (_) {} }
+      else if (a === 'glo' || a === 'wik') {
+        const s = el.querySelector(a === 'glo' ? '.nkd-sec.g' : '.nkd-sec.w');
+        if (!s) { tx.innerHTML = 'No hay entrada del Glosario para <b>' + esc(q) + '</b>. Probá seleccionando solo el término.'; return; }
+        s.scrollIntoView({ block: 'nearest', behavior: sinMov() ? 'auto' : 'smooth' });
+        const m = s.querySelector('.nkd-mas'); if (m && m.dataset.abierto !== '1') m.click();
+      }
+      else if (a === 'mas-g') {
+        const i = +b.dataset.i, p = b.parentNode.querySelector('p'), g = c.gl[i].g, ab = b.dataset.abierto === '1';
+        if (ab) p.textContent = resumen(g.b, 260); else p.innerHTML = g.b;
+        b.dataset.abierto = ab ? '0' : '1'; b.textContent = ab ? 'Ver completo ▾' : 'Ver menos ▴'; p.classList.toggle('largo', !ab); ubicar();
+      }
+      else if (a === 'mas-w') {
+        const p = b.parentNode.querySelector('p'), ab = b.dataset.abierto === '1';
+        if (ab) { p.textContent = c.wc; p.classList.remove('largo'); b.dataset.abierto = '0'; b.textContent = 'Seguir leyendo ▾'; ubicar(); return; }
+        b.textContent = 'Cargando…';
+        (c.wl ? Promise.resolve(c.wl) : wikiLargo(b.dataset.t).then((t) => (c.wl = t))).then((t) => {
+          if (actual !== c) return;
+          if (t) { p.textContent = t; p.classList.add('largo'); }
+          b.dataset.abierto = '1'; b.textContent = 'Ver menos ▴'; ubicar();
+        }, () => { b.textContent = 'No se pudo cargar'; });
+      }
     });
 
     // barra de segmentos: avanza sola mientras Nika busca y se completa cuando termina
@@ -207,7 +252,8 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
       if (m.length) {
         cara.classList.add('fel');
         escribir('Esto dice el Glosario de NikaMed sobre <b>' + esc(m[0].g.t) + '</b> (' + esc(m[0].g.s) + '): ' + esc(resumen(m[0].g.b, 230)));
-        cuerpo.insertBefore(sec('g', '▸ EN EL GLOSARIO', m.map(({ g }) => `<div class="it"><b>${esc(g.t)}</b><small>${esc(g.s)}</small><p>${esc(resumen(g.b, 260))}</p><a href="glosario.html?q=${encodeURIComponent(g.t)}" target="_blank" rel="noopener">Ver completo en el Glosario →</a></div>`).join('')), sk);
+        cuerpo.insertBefore(sec('g', '▸ EN EL GLOSARIO', m.map(({ g }) => `<div class="it"><b>${esc(g.t)}</b><small>${esc(g.s)}</small><p>${esc(resumen(g.b, 260))}</p><button type="button" class="nkd-mas" data-a="mas-g" data-i="${m.findIndex((x) => x.g === g)}">Ver completo ▾</button></div>`).join('')), sk);
+        c.gl = m;
         ubicar();
       }
       return wP.then((r) => {
@@ -215,10 +261,11 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
         sk.remove(); terminar();
         const w = r.w;
         if (w) {
-          const wk = $('.wk'); if (wk && w.url) { wk.href = w.url; } if (wk) wk.hidden = false;
+          const wk = $('.wk'); if (wk) wk.hidden = false;
           cara.classList.add('fel');
           if (!m.length) escribir('Encontré esto en Wikipedia sobre <b>' + esc(w.titulo) + '</b>: ' + esc(resumen(w.texto, 300)));
-          cuerpo.appendChild(sec('w', '▸ WIKIPEDIA', `<b>${esc(w.titulo)}</b><p>${esc(resumen(w.texto, 520))}</p>${w.url ? `<a href="${esc(w.url)}" target="_blank" rel="noopener">Seguir leyendo en Wikipedia ↗</a>` : ''}`));
+          cuerpo.appendChild(sec('w', '▸ WIKIPEDIA', `<b>${esc(w.titulo)}</b><p>${esc(resumen(w.texto, 520))}</p><button type="button" class="nkd-mas" data-a="mas-w" data-t="${esc(w.titulo)}">Seguir leyendo ▾</button>`));
+          c.wc = resumen(w.texto, 520);
         } else if (!m.length) {
           escribir(r.error ? 'No pude consultar Wikipedia ahora (¿sin conexión?). Igual podés buscar <b>' + esc(q) + '</b> en el PDF.' : 'No encontré <b>' + esc(q) + '</b> en el Glosario ni en Wikipedia. Probá seleccionando solo el término, sin artículos ni signos.');
         }
