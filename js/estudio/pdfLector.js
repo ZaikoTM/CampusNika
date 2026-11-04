@@ -186,7 +186,7 @@
 .nk-tx ::selection{background:rgba(59,130,246,.35)}
 .nk-pg .nk-leida{position:absolute;top:8px;right:8px;background:#16a34a;color:#fff;font-size:.7rem;font-weight:800;border-radius:999px;padding:2px 9px;opacity:.9;pointer-events:none;animation:nkpdfPop .4s ease}
 .nk-pg .nk-num{position:absolute;bottom:6px;right:10px;font-size:.66rem;color:#94a3b8;pointer-events:none}
-.nkpdf-pop{position:fixed;z-index:2147483600;display:flex;gap:6px;align-items:center;padding:6px 8px;border-radius:12px;background:#0f172a;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:nkpdfIn .15s ease both}
+.nkpdf-pop{position:fixed;z-index:2147483600;display:flex;flex-wrap:wrap;box-sizing:border-box;max-width:calc(100vw - 16px);gap:6px;align-items:center;padding:6px 8px;border-radius:12px;background:#0f172a;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:nkpdfIn .15s ease both}
 @keyframes nkpdfIn{from{opacity:0;transform:translateY(4px) scale(.96)}to{opacity:1;transform:none}}
 .nkpdf-pop .c{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.7);cursor:pointer;transition:transform .15s}
 .nkpdf-pop .c:hover{transform:scale(1.2)}
@@ -719,7 +719,7 @@
 
   // ---------- explicaciones al pasar el mouse por los botones ----------
   const TIPS = {
-    m_sel: { t: 'Seleccionar', k: 'V', d: 'Elegí texto del PDF para subrayarlo con el color activo. También podés tocar un subrayado para cambiarle el color, copiarlo o borrarlo.' },
+    m_sel: { t: 'Seleccionar', k: 'V', d: 'Elegí texto del PDF para subrayarlo con el color activo, definir la palabra (📖) o buscarla en todo el PDF (🔍). También podés tocar un subrayado para cambiarle el color, copiarlo o borrarlo.' },
     m_sub: { t: 'Subrayar', k: 'H', d: 'Subraya el texto que selecciones, al instante. Solo prolijo en PDFs con texto. 💡 El Pincel funciona mejor y sirve en cualquier PDF.' },
     m_pincel: { t: 'Pincel', k: 'P', rec: 1, d: 'Marcá a mano alzada, con cualquier PDF (también escaneados). Es más preciso y más vistoso que Subrayar, por eso lo recomendamos. Ajustá el grosor con el deslizador.', n: 'Mantené Mayús o activá «Línea recta» para trazar rectas.' },
     m_mano: { t: 'Mano', k: 'G', d: 'Arrastrá la página para moverte, como en Adobe. Volvés a Seleccionar con la tecla V.' },
@@ -1253,6 +1253,8 @@
     p.addEventListener('mousedown', (e) => e.preventDefault());
     p.addEventListener('click', (e) => { const t = e.target.closest('[data-c],[data-x]'); if (t) alClick(t); });
     (document.fullscreenElement || document.body).appendChild(p);
+    // con los botones nuevos (Definir, Buscar) es más ancho: se vuelve a acomodar para que nunca se pase del borde
+    p.style.left = Math.max(8, Math.min(window.innerWidth - p.offsetWidth - 8, parseFloat(p.style.left))) + 'px';
   }
 
   function recolectar() {
@@ -1290,9 +1292,34 @@
     const d = recolectar(); if (!d) return;
     if (S.modo === 'sub') { aplicarSubrayado(d, colorGuardar(S.color), S.subE); return; }
     const fin = d.rango.getBoundingClientRect();
+    // si lo seleccionado es una palabra o una frase corta: además de elegir un color se puede definirla o buscarla en el PDF
+    const corto = !!(window.NikaDicc && d.texto && d.texto.length <= 90 && !/\n/.test(d.texto.trim()));
     popover(fin.left + fin.width / 2, fin.bottom + 8,
-      favoritos().map((c) => `<span class="c" data-c="${c}" title="Subrayar con este color" style="background:${c}"></span>`).join('') + '<button class="x" data-x="cancelar">✕</button>',
-      (t) => { if (t.dataset.x) { cerrarPop(); return; } S.color = t.dataset.c; marcarColor(); aplicarSubrayado(d, colorGuardar(t.dataset.c)); });
+      favoritos().map((c) => `<span class="c" data-c="${c}" title="Subrayar con este color" style="background:${c}"></span>`).join('')
+        + (corto ? '<button class="x" data-x="def" title="Definición de la palabra seleccionada (D)">📖 Definir</button><button class="x" data-x="bus" title="Buscar esta palabra en todo el PDF">🔍 Buscar</button>' : '')
+        + '<button class="x" data-x="cancelar">✕</button>',
+      (t) => {
+        if (t.dataset.x === 'def') { cerrarPop(); definirTexto(d.texto, fin); return; }
+        if (t.dataset.x === 'bus') { cerrarPop(); buscarEnPdf(d.texto); return; }
+        if (t.dataset.x) { cerrarPop(); return; }
+        S.color = t.dataset.c; marcarColor(); aplicarSubrayado(d, colorGuardar(t.dataset.c));
+      });
+  }
+  // ---------- diccionario y búsqueda de lo seleccionado ----------
+  function buscarEnPdf(texto) {
+    const q = window.NikaDicc ? window.NikaDicc.limpiar(texto) : String(texto || '').trim();
+    if (!q) return;
+    if (window.NikaPdfX && window.NikaPdfX.buscar) window.NikaPdfX.buscar(S, q); else aviso('La búsqueda no está disponible en este momento');
+  }
+  function definirTexto(texto, rect) {
+    if (!S || !window.NikaDicc) return;
+    window.NikaDicc.abrir({ texto, rect, root: S.root, alBuscar: (q) => buscarEnPdf(q) });
+  }
+  function definirSeleccion() {
+    const sel = window.getSelection && window.getSelection(), t = sel ? String(sel).trim() : '';
+    if (!t || sel.isCollapsed) { aviso('Seleccioná una palabra y apretá D para ver su definición'); return; }
+    if (t.length > 90 || /\n/.test(t)) { aviso('Seleccioná solo la palabra o una frase corta para definirla'); return; }
+    definirTexto(t, sel.getRangeAt(0).getBoundingClientRect());
   }
 
   // ---------- deshacer / rehacer ----------
@@ -1327,7 +1354,7 @@
     if (!S) return; let a = $('.nkpdf-aviso', S.root); if (!a) { a = document.createElement('div'); a.className = 'nkpdf-aviso'; S.root.appendChild(a); }
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
-  const ATAJOS = [['V', 'Seleccionar'], ['G', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
+  const ATAJOS = [['V', 'Seleccionar'], ['D', 'Definir la palabra seleccionada (diccionario)'], ['G', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
@@ -1761,6 +1788,7 @@
       if (k === 'v') usarGrupo('sel'); else if (k === 'g') modo('mano'); else if (k === 'h') usarGrupo('sub'); else if (k === 'p' || k === 'a') usarGrupo('pincel'); else if (k === 'e') usarGrupo('bor'); else if (k === 't') usarGrupo('texto'); else if (k === 'm') modo('pin'); else if (k === 'b') { mi.barraOculta = !mi.barraOculta; mi.barraAuto = false; ajustarOculta(mi); }
       else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
       else if (k === 'f') pantalla();
+      else if (k === 'd') definirSeleccion();
       else if (['1', '2', '3', '4', '5', '6'].includes(k)) { mi.color = favoritos()[+k - 1]; marcarColor(); if (!['sub', 'pincel', 'forma', 'sello'].includes(mi.modo)) usarGrupo('sub'); }
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1); else if (k === '0') ajustarAncho();
     };
@@ -1799,6 +1827,7 @@
     if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
+    if (window.NikaDicc) window.NikaDicc.cerrar();
     if (S.tlKey) document.removeEventListener('keydown', S.tlKey);
     const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = '';
     const s = S; s.cerrando = true; persistir(s);

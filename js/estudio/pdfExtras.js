@@ -270,6 +270,14 @@
     inp.focus(); inp.select();
     if (!mi.xt.completo) indexar(mi);
   }
+  // buscar una palabra puntual (la usa el diccionario y el botón 🔍 de la selección)
+  function buscarTexto(mi, q) {
+    const b = $('.nkx-busca', mi.root); if (!b || !q) return;
+    if (window.innerWidth <= 640 && mi.xt.lado === 'on') estadoLado(mi, 'oculto');
+    b.classList.add('on'); const inp = $('input', b); inp.value = q;
+    if (!mi.xt.completo) indexar(mi);
+    consultar(mi, q); saltar(mi, 1); inp.focus();
+  }
   function cerrarBusqueda(mi) {
     const b = $('.nkx-busca', mi.root); if (b) b.classList.remove('on');
     consultar(mi, ''); const inp = b && $('input', b); if (inp) inp.value = '';
@@ -484,5 +492,5 @@
     mi.xt.txt = []; mi.xt = null;
   }
 
-  window.NikaPdfX = { montar, alRenderizar, cerrar, MODOS };
+  window.NikaPdfX = { montar, alRenderizar, cerrar, MODOS, buscar: buscarTexto };
 })();
