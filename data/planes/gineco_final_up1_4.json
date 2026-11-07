@@ -788,7 +788,7 @@
     "Inestabilidad hemodinámica o abombamiento de Douglas (grito del Douglas, signo de Proust) = laparotomía de urgencia.",
     "Zona discriminatoria: β-hCG 1500-2000 mUI/mL por Eco TV.",
     "Tríada del ectópico: amenorrea + dolor + metrorragia escasa amarronada.",
-    "Ácido tranexámico 1 g EV en SUA agudo severo. Metotrexato vs. cirugía en ectópico Criterio Metotrexato Cirugía Estabilidad hemodinámica Estable Inestable o shock (laparotomía) β-hCG < 5000 mUI/mL > 5000 mUI/mL Masa anexial < 4 cm ≥ 4 cm Actividad cardíaca embrionaria Ausente Presente Hemoperitoneo Ausente o no significativo Significativo"
+    "SUA agudo: ácido tranexámico 10 mg/kg EV por dosis (ajustar a la función renal), repetible cada 6-8 h; SUA crónico: 1 g VO cada 6-8 h por 4-7 días (consenso FASGO 2022)."
    ],
    "agenda": [],
    "checklist": [
@@ -991,6 +991,15 @@
      "hecho": false,
      "manual": false,
      "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Prevención de la preeclampsia: aspirina en dosis bajas",
+     "prio": "alta",
+     "detalle": "Tamizaje combinado a las 11-13,6 semanas (factores maternos, presión arterial media y Doppler de arterias uterinas, con PlGF si se dispone; alto riesgo si ≥ 1:100 para preeclampsia pretérmino). En el alto riesgo, aspirina 150 mg por la noche desde la semana 12 hasta la 36 (consenso FASGO 2025; el estudio ASPRE redujo la preeclampsia pretérmino un 62 %). La guía ministerial de 2010 indicaba 75-100 mg/día. Suspender a las 36 semanas o antes de la finalización.",
+     "trampa": "Iniciar la aspirina después de las 16 semanas esperando el mismo efecto, o continuarla hasta el parto.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
     }
    ],
    "datos_duros": [
@@ -1000,7 +1009,8 @@
     "DG primer trimestre: 2 ayunas ≥ 100 mg/dL. DG semanas 24-28: PTOG 75 g ≥ 140 mg/dL a las 2 hs.",
     "Metas: ayunas 70-90; 1 h < 140; 2 h < 120. Insulina NPH 0,1-0,2 UI/kg/día. Clasificación de los THE Entidad Definición clave HTA crónica Previa al embarazo o antes de la semana 20 HTA gestacional Después de la semana 20, sin proteinuria ni daño orgánico; normaliza antes de 12 semanas posparto Preeclampsia HTA después de la semana 20 con proteinuria o disfunción de órgano diana Eclampsia Convulsiones tónico-clónicas en preeclampsia HELLP Hemólisis, enzimas hepáticas elevadas y plaquetas bajas HTA crónica + preeclampsia Preeclampsia sobreimpuesta a HTA previa",
     "HTA grave: PAS ≥ 160 y/o PAD ≥ 110; tratar con labetalol EV o nifedipina VO. Meta de control en la gestante con HTA crónica: < 140/90.",
-    "Metas de DG: ayunas 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022); 1 h < 140 y 2 h < 120."
+    "Metas de DG: ayunas 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022); 1 h < 140 y 2 h < 120.",
+    "Prevención de preeclampsia en alto riesgo: aspirina 150 mg por la noche, de la semana 12 a la 36 (FASGO 2025)."
    ],
    "agenda": [],
    "checklist": [
@@ -1110,7 +1120,7 @@
     {
      "texto": "Hemorragia posparto (regla de las 4 T)",
      "prio": "alta",
-     "detalle": "HPP: sangrado > 500 mL (parto vaginal) o > 1000 mL (cesárea) o con compromiso hemodinámico; causa más frecuente: atonía (70 %); regla de las 4 T. El manejo activo del tercer período reduce la HPP en un 60 %. Tratamiento escalonado: pedir ayuda, vías de grueso calibre (14-16 G), oxígeno y sonda vesical; masaje uterino y compresión bimanual; oxitocina 20-40 UI por litro; metilergometrina 0,2 mg IM (contraindicada en hipertensas) o misoprostol 600 µg; revisión de la cavidad y del canal; ácido tranexámico 1 g EV; si no cede: balón, sutura de B-Lynch, ligaduras vasculares, embolización y, como último recurso, histerectomía.",
+     "detalle": "HPP: sangrado > 500 mL (parto vaginal) o > 1000 mL (cesárea) o con compromiso hemodinámico; causa más frecuente: atonía (70 %); regla de las 4 T. El manejo activo del tercer período reduce la HPP en un 60 %. Tratamiento escalonado: pedir ayuda, vías de grueso calibre (14-16 G), oxígeno y sonda vesical; masaje uterino y compresión bimanual; oxitocina 20-40 UI por litro; metilergometrina 0,2 mg IM (contraindicada en hipertensas) o misoprostol 600 µg; revisión de la cavidad y del canal; ácido tranexámico 1 g EV lento (10-20 min) dentro de las primeras 3 horas del sangrado, que se repite a los 30 minutos si persiste (consensos FASGO 2019 y SOGIBA 2018); si no cede: balón, sutura de B-Lynch, ligaduras vasculares, embolización y, como último recurso, histerectomía.",
      "trampa": "Usar metilergometrina en una paciente con preeclampsia o hipertensión.",
      "hecho": false,
      "manual": false,
@@ -1168,7 +1178,7 @@
     "E-MOTIVE: masaje, oxitocina 20 UI EV, ácido tranexámico 1 g EV. Ergometrina contraindicada en HTA y preeclampsia.",
     "DIP I: compresión cefálica, benigno. DIP II: insuficiencia placentaria, patológico. DIP III: cordón.",
     "Endometritis: causa más frecuente de fiebre puerperal; clindamicina 900 mg c/8 h EV + gentamicina. Desaceleraciones de la FCF Tipo Relación con la contracción Causa Significado DIP I / precoz Coincide Compresión cefálica Benigno DIP II / tardío Con decalaje Insuficiencia placentaria e hipoxia Patológico DIP III / variable Variable Compresión del cordón Según gravedad",
-    "HPP: atonía 70 %; oxitocina 20-40 UI/L, metilergometrina 0,2 mg IM (no en HTA) o misoprostol 600 µg, ácido tranexámico 1 g EV; B-Lynch, ligaduras o histerectomía si no cede."
+    "HPP: atonía 70 %; oxitocina 20-40 UI/L, metilergometrina 0,2 mg IM (no en HTA) o misoprostol 600 µg, ácido tranexámico 1 g EV lento dentro de las 3 h (repetir a los 30 min si persiste); B-Lynch, ligaduras o histerectomía si no cede."
    ],
    "agenda": [],
    "checklist": [
@@ -1652,7 +1662,7 @@
     {
      "texto": "Puntos a verificar con la cátedra",
      "prio": "media",
-     "detalle": "1) VPH positivo con citología negativa: repetir a los 12 meses (Guía 2022 y anexo de la cátedra); algunas hojas de ruta antiguas citan 18 meses. 2) Sulfato de magnesio: 4 g de ataque y 1 g/h por 24 h (consenso FASGO); otros textos usan 1-2 g/h. 3) EPI hospitalaria: gentamicina 3-5 mg/kg cada 24 h (anexo 2024). 4) Sífilis en la embarazada: 2 dosis si < 1 año y 3 dosis si > 1 año (guía MSAL, no SADI). 5) Metas de glucemia en ayunas en DG: 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022). 6) Rotterdam: ≥ 20 folículos (algunos textos antiguos, ≥ 12). 7) Espesor endometrial: 4 mm (Gori y Testa) o 5 mm (consenso FASGO 2019); con THM, 8 mm en el consenso y 12 mm en el apunte. 8) Cáncer de cuello: el apunte usa IB1 ≤ 4 cm e IB2 > 4 cm (FIGO 2009); FIGO 2018 usa IB1 < 2 cm, IB2 2-4 cm e IB3 ≥ 4 cm. 9) Zoledronato: el apunte dice 30-60 mg cada 3 meses y la dosis habitual es 5 mg una vez por año. 10) Mamografía: anual desde los 40 años (FASGO/SAM) o cada 2 años entre los 50 y 69 (Ministerio de Salud). 11) IVE hasta la semana 14 inclusive (14+6). 12) Endometriosis: la cátedra toma la laparoscopía como gold standard; las guías recientes aceptan el diagnóstico por imágenes. 13) Aspirina en dosis bajas para prevenir la preeclampsia: dosis y semana de inicio. 14) Ácido tranexámico en la HPP y en el SUA: dosis.",
+     "detalle": "1) VPH positivo con citología negativa: repetir a los 12 meses (Guía 2022 y anexo de la cátedra); algunas hojas de ruta antiguas citan 18 meses. 2) Sulfato de magnesio: 4 g de ataque y 1 g/h por 24 h (consenso FASGO); otros textos usan 1-2 g/h. 3) EPI hospitalaria: gentamicina 3-5 mg/kg cada 24 h (anexo 2024). 4) Sífilis en la embarazada: 2 dosis si < 1 año y 3 dosis si > 1 año (guía MSAL, no SADI). 5) Metas de glucemia en ayunas en DG: 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022). 6) Rotterdam: ≥ 20 folículos (algunos textos antiguos, ≥ 12). 7) Espesor endometrial: 4 mm (Gori y Testa) o 5 mm (consenso FASGO 2019); con THM, 8 mm en el consenso y 12 mm en el apunte. 8) Cáncer de cuello: el apunte usa IB1 ≤ 4 cm e IB2 > 4 cm (FIGO 2009); FIGO 2018 usa IB1 < 2 cm, IB2 2-4 cm e IB3 ≥ 4 cm. 9) Zoledronato: el apunte dice 30-60 mg cada 3 meses y la dosis habitual es 5 mg una vez por año. 10) Mamografía: anual desde los 40 años (FASGO/SAM) o cada 2 años entre los 50 y 69 (Ministerio de Salud). 11) IVE hasta la semana 14 inclusive (14+6). 12) Endometriosis: la cátedra toma la laparoscopía como gold standard; las guías recientes aceptan el diagnóstico por imágenes. 13) Aspirina para prevenir la preeclampsia: 150 mg por la noche de la semana 12 a la 36 en el alto riesgo (consenso FASGO 2025); la guía ministerial de 2010 indicaba 75-100 mg. 14) Ácido tranexámico: en la HPP 1 g EV lento dentro de las 3 h y repetir a los 30 minutos si persiste; en el SUA agudo 10 mg/kg EV y en el crónico 1 g VO cada 6-8 h.",
      "trampa": "",
      "hecho": false,
      "manual": false,

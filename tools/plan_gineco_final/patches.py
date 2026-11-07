@@ -133,8 +133,15 @@ SETS[(12, "Anemia, colestasis")] = dict(
     prio="media",
     detalle="Anemia (Hb < 11 g/dL): casi siempre ferropénica; hierro oral y control. Colestasis intrahepática: prurito palmoplantar nocturno y ácidos biliares elevados; ácido ursodesoxicólico y finalización a las 37 semanas. Enfermedad hemolítica perinatal: aloinmunización Rh (Coombs indirecta positiva) con Doppler de la arteria cerebral media; profilaxis con anti-D.")
 DDS[12] = [("Sulfato de Mg", "Sulfato de Mg (consenso FASGO): 4 g EV de ataque y 1 g/h por 24 h. Antídoto: gluconato de calcio 1 g EV.")]
+DDS[9] = [("Ácido tranexámico", "SUA agudo: ácido tranexámico 10 mg/kg EV por dosis (ajustar a la función renal), repetible cada 6-8 h; SUA crónico: 1 g VO cada 6-8 h por 4-7 días (consenso FASGO 2022).")]
+ADDS[12] = [
+  T("Prevención de la preeclampsia: aspirina en dosis bajas", "alta",
+    "Tamizaje combinado a las 11-13,6 semanas (factores maternos, presión arterial media y Doppler de arterias uterinas, con PlGF si se dispone; alto riesgo si ≥ 1:100 para preeclampsia pretérmino). En el alto riesgo, aspirina 150 mg por la noche desde la semana 12 hasta la 36 (consenso FASGO 2025; el estudio ASPRE redujo la preeclampsia pretérmino un 62 %). La guía ministerial de 2010 indicaba 75-100 mg/día. Suspender a las 36 semanas o antes de la finalización.",
+    "Iniciar la aspirina después de las 16 semanas esperando el mismo efecto, o continuarla hasta el parto."),
+]
 DDADD[12] = ["HTA grave: PAS ≥ 160 y/o PAD ≥ 110; tratar con labetalol EV o nifedipina VO. Meta de control en la gestante con HTA crónica: < 140/90.",
-             "Metas de DG: ayunas 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022); 1 h < 140 y 2 h < 120."]
+             "Metas de DG: ayunas 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022); 1 h < 140 y 2 h < 120.",
+             "Prevención de preeclampsia en alto riesgo: aspirina 150 mg por la noche, de la semana 12 a la 36 (FASGO 2025)."]
 
 # ------------------------------------------------------------ D14 · UP 3 · S4 RPM, infecciones
 SETS[(13, "Manejo de la RPM pretérmino")] = dict(
@@ -155,6 +162,6 @@ ADDS[14] = [
     ""),
 ]
 SETS[(14, "Hemorragia posparto")] = dict(
-    detalle="HPP: sangrado > 500 mL (parto vaginal) o > 1000 mL (cesárea) o con compromiso hemodinámico; causa más frecuente: atonía (70 %); regla de las 4 T. El manejo activo del tercer período reduce la HPP en un 60 %. Tratamiento escalonado: pedir ayuda, vías de grueso calibre (14-16 G), oxígeno y sonda vesical; masaje uterino y compresión bimanual; oxitocina 20-40 UI por litro; metilergometrina 0,2 mg IM (contraindicada en hipertensas) o misoprostol 600 µg; revisión de la cavidad y del canal; ácido tranexámico 1 g EV; si no cede: balón, sutura de B-Lynch, ligaduras vasculares, embolización y, como último recurso, histerectomía.",
+    detalle="HPP: sangrado > 500 mL (parto vaginal) o > 1000 mL (cesárea) o con compromiso hemodinámico; causa más frecuente: atonía (70 %); regla de las 4 T. El manejo activo del tercer período reduce la HPP en un 60 %. Tratamiento escalonado: pedir ayuda, vías de grueso calibre (14-16 G), oxígeno y sonda vesical; masaje uterino y compresión bimanual; oxitocina 20-40 UI por litro; metilergometrina 0,2 mg IM (contraindicada en hipertensas) o misoprostol 600 µg; revisión de la cavidad y del canal; ácido tranexámico 1 g EV lento (10-20 min) dentro de las primeras 3 horas del sangrado, que se repite a los 30 minutos si persiste (consensos FASGO 2019 y SOGIBA 2018); si no cede: balón, sutura de B-Lynch, ligaduras vasculares, embolización y, como último recurso, histerectomía.",
     trampa="Usar metilergometrina en una paciente con preeclampsia o hipertensión.")
-DDADD[14] = ["HPP: atonía 70 %; oxitocina 20-40 UI/L, metilergometrina 0,2 mg IM (no en HTA) o misoprostol 600 µg, ácido tranexámico 1 g EV; B-Lynch, ligaduras o histerectomía si no cede."]
+DDADD[14] = ["HPP: atonía 70 %; oxitocina 20-40 UI/L, metilergometrina 0,2 mg IM (no en HTA) o misoprostol 600 µg, ácido tranexámico 1 g EV lento dentro de las 3 h (repetir a los 30 min si persiste); B-Lynch, ligaduras o histerectomía si no cede."]
