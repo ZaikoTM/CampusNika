@@ -23,7 +23,7 @@ DIAS_A = [
     "Clases I a IV según la pérdida de volemia: I < 15 %, II 15-30 %, III 30-40 %, IV > 40 %. La taquicardia y la hipotensión aparecen en las clases III-IV (la hipotensión es un signo tardío). Reposición con cristaloides tibios (Ringer lactato) en bolo inicial acotado, transfusión precoz y control de la fuente. Monitoreo: signos vitales, diuresis (≥ 0,5 mL/kg/h) y lactato.",
     "Seguir cargando cristaloides en exceso en una hemorragia masiva en lugar de transfundir y controlar el sangrado."),
   T("Hemorragia masiva: transfusión, ácido tranexámico y control de daños", "alta",
-    "Transfusión balanceada 1:1:1 (glóbulos rojos, plasma y plaquetas). Ácido tranexámico 1 g EV dentro de las primeras 3 h del trauma (después aumenta la mortalidad) y luego 1 g en 8 h. Hipotensión permisiva (bolos de 250 mL y meta de pulso radial y sensorio; PAS 80-100 mmHg) hasta controlar la hemorragia; está contraindicada en el TEC. Tríada letal: acidosis, coagulopatía e hipotermia. Cirugía de control de daños: laparotomía abreviada, packing y cierre temporal.",
+    "Transfusión balanceada 1:1:1 (glóbulos rojos, plasma y plaquetas). Ácido tranexámico 1 g EV en 10 minutos dentro de las primeras 3 h del trauma (CRASH-2; después aumenta la mortalidad) y luego 1 g en infusión de 8 h (algunos protocolos recientes admiten un bolo único). Hipotensión permisiva (bolos de 250 mL y meta de pulso radial y sensorio; PAS 80-100 mmHg) hasta controlar la hemorragia; está contraindicada en el TEC. Tríada letal: acidosis, coagulopatía e hipotermia. Cirugía de control de daños: laparotomía abreviada, packing y cierre temporal.",
     "Aplicar hipotensión permisiva en un paciente con traumatismo de cráneo."),
   T("Otros tipos de shock en el trauma", "media",
     "Neurogénico (lesión medular alta): hipotensión con bradicardia y piel caliente. Obstructivo: neumotórax a tensión y taponamiento. Cardiogénico: contusión miocárdica. Séptico: en el diferencial tardío. Todo shock en trauma es hemorrágico hasta demostrar lo contrario.",
@@ -35,7 +35,7 @@ DIAS_A = [
  "datos_duros": [
   "ABCDE: vía aérea con control cervical, ventilación, circulación con control de hemorragia, déficit neurológico (Glasgow), exposición.",
   "Neumotórax a tensión: clínico; aguja gruesa en el 5.º EIC (entre línea axilar anterior y media) y tubo pleural; nunca radiografía previa.",
-  "Shock hemorrágico: clases I < 15 %, II 15-30 %, III 30-40 %, IV > 40 %. Transfusión 1:1:1; ácido tranexámico dentro de las 3 h.",
+  "Shock hemorrágico: clases I < 15 %, II 15-30 %, III 30-40 %, IV > 40 %. Transfusión 1:1:1; ácido tranexámico 1 g en 10 min dentro de las 3 h y 1 g en 8 h.",
   "Hemotórax: toracotomía con ≥ 1500 mL iniciales o > 200-250 mL/h por 3-4 h. Control de daños: acidosis + coagulopatía + hipotermia.",
  ],
  "checklist": [

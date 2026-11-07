@@ -165,3 +165,10 @@ SETS[(14, "Hemorragia posparto")] = dict(
     detalle="HPP: sangrado > 500 mL (parto vaginal) o > 1000 mL (cesárea) o con compromiso hemodinámico; causa más frecuente: atonía (70 %); regla de las 4 T. El manejo activo del tercer período reduce la HPP en un 60 %. Tratamiento escalonado: pedir ayuda, vías de grueso calibre (14-16 G), oxígeno y sonda vesical; masaje uterino y compresión bimanual; oxitocina 20-40 UI por litro; metilergometrina 0,2 mg IM (contraindicada en hipertensas) o misoprostol 600 µg; revisión de la cavidad y del canal; ácido tranexámico 1 g EV lento (10-20 min) dentro de las primeras 3 horas del sangrado, que se repite a los 30 minutos si persiste (consensos FASGO 2019 y SOGIBA 2018); si no cede: balón, sutura de B-Lynch, ligaduras vasculares, embolización y, como último recurso, histerectomía.",
     trampa="Usar metilergometrina en una paciente con preeclampsia o hipertensión.")
 DDADD[14] = ["HPP: atonía 70 %; oxitocina 20-40 UI/L, metilergometrina 0,2 mg IM (no en HTA) o misoprostol 600 µg, ácido tranexámico 1 g EV lento dentro de las 3 h (repetir a los 30 min si persiste); B-Lynch, ligaduras o histerectomía si no cede."]
+
+
+# ------------------------------------------------------------ actualizaciones (2023-2025)
+SETS[(5, "Proteínas oncogénicas del VPH")] = dict(
+    detalle="E6 degrada p53; E7 inhibe pRb. La vacuna contra el VPH (nonavalente) está en el Calendario Nacional a los 11 años, para niñas y varones, en dosis única desde 2024 (antes eran 2 dosis).")
+SETS[(7, "Criterios de Rotterdam")] = dict(
+    detalle="Diagnóstico con 2 de 3 criterios: oligo o anovulación, hiperandrogenismo clínico o bioquímico y ovarios poliquísticos por ecografía (≥ 20 folículos de 2-9 mm en un ovario o volumen > 10 mL). La guía internacional 2023 mantiene Rotterdam y acepta la AMH como alternativa al recuento ecográfico en adultas (no en adolescentes), sin usar ambas a la vez.")
