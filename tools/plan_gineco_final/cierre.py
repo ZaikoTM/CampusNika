@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+from up4 import T
+
+CIERRE = {"titulo": "Integración final: examen escrito y examen oral", "horas": 8.0, "unidad": "Integración",
+ "caso": "Elba, 70 años, G4P4, consulta por pérdida de orina al toser y saltar, dispareunia y un sangrado genital de 5 días hace 2 meses. IMC 31, TA 150/100, mamografía BIRADS 3, densitometría nunca realizada. Cuello sano con escasa secreción sanguinolenta por el OCE. Armá el caso para el oral: diagnósticos, estudios en orden y conducta para cada problema.",
+ "temas": [
+  T("Simulacro escrito cronometrado", "alta",
+    "Resolver un examen anterior completo (finales y parciales de tu carpeta y el simulador del campus) en el tiempo estimado: identificar datos duros, estadios y puntos de corte, y justificar por escrito por qué cada opción falsa es falsa. Anotar cada error con su corrección en una línea.",
+    "Dejar sin justificar las opciones falsas: ahí se aprende más."),
+  T("Simulacro oral con tribunal: caso integrador y regla de los 6 pasos", "alta",
+    "Una vez aprobado el escrito se rinde el oral. Exponer de 5 a 8 minutos, sin leer, con vocabulario médico formal: anatomía y fisiología, etiopatogenia, cuadro clínico, algoritmo diagnóstico, diagnósticos diferenciales y tratamiento con complicaciones. Pool: preeclampsia y eclampsia, hemorragia posparto, RPM pretérmino, placenta previa y DPPNI, embarazo ectópico, amenorrea, tamizaje y lesiones del cuello, anticoncepción, EPI, climaterio y THM, cáncer de endometrio, de cuello y de mama, incontinencia y prolapso. Caso integrador: Elba (UP 4).",
+    ""),
+  T("Tabla maestra de datos duros (UP 1 a 4)", "alta",
+    "Recitar sin mirar la tabla maestra de datos duros de todas las unidades (ver abajo): cifras, estadios, esquemas y puntos de corte.",
+    ""),
+  T("Fórmulas, escalas y algoritmos", "media",
+    "Naegele, Wahl, Bishop, BIRADS, FIGO (endometrio 2009 y cuello 2018), STRAW +10, POP-Q, Rotterdam, PALM-COEIN, clasificación de los trastornos hipertensivos y criterios de DG.",
+    ""),
+  T("Puntos a verificar con la cátedra", "media",
+    "1) VPH positivo con citología negativa: repetir a los 12 meses (Guía 2022 y anexo de la cátedra); algunas hojas de ruta antiguas citan 18 meses. 2) Sulfato de magnesio: 4 g de ataque y 1 g/h por 24 h (consenso FASGO); otros textos usan 1-2 g/h. 3) EPI hospitalaria: gentamicina 3-5 mg/kg cada 24 h (anexo 2024). 4) Sífilis en la embarazada: 2 dosis si < 1 año y 3 dosis si > 1 año (guía MSAL, no SADI). 5) Metas de glucemia en ayunas en DG: 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022). 6) Rotterdam: ≥ 20 folículos (algunos textos antiguos, ≥ 12). 7) Espesor endometrial: 4 mm (Gori y Testa) o 5 mm (consenso FASGO 2019); con THM, 8 mm en el consenso y 12 mm en el apunte. 8) Cáncer de cuello: el apunte usa IB1 ≤ 4 cm e IB2 > 4 cm (FIGO 2009); FIGO 2018 usa IB1 < 2 cm, IB2 2-4 cm e IB3 ≥ 4 cm. 9) Zoledronato: el apunte dice 30-60 mg cada 3 meses y la dosis habitual es 5 mg una vez por año. 10) Mamografía: anual desde los 40 años (FASGO/SAM) o cada 2 años entre los 50 y 69 (Ministerio de Salud). 11) IVE hasta la semana 14 inclusive (14+6). 12) Endometriosis: la cátedra toma la laparoscopía como gold standard; las guías recientes aceptan el diagnóstico por imágenes. 13) Aspirina en dosis bajas para prevenir la preeclampsia: dosis y semana de inicio. 14) Ácido tranexámico en la HPP y en el SUA: dosis.",
+    ""),
+  T("Cerrar temprano", "sec",
+    "Dejar listo lo del examen del 24 de noviembre: documento, lapicera, horario y lugar; dormir bien. El día previo es liviano.",
+    ""),
+ ],
+ "datos_duros": [
+  "UP 1: ciclo 24-38 días; pico de estradiol ≥ 200 pg/mL por 36 h → pico de LH → ovulación; cuerpo lúteo de 14 días; BIRADS 3: control a 6 meses; 4-5: biopsia.",
+  "UP 2: pubertad precoz < 8 años; LH > 5 UI/L = central; Rokitansky 46,XX; Morris 46,XY; Turner 45,X con FSH alta.",
+  "UP 3 (ginecología): Cat. 4 ACO: fumadora ≥ 35 años, migraña con aura, TVP/TEP, HTA grave, lactancia < 6 semanas; Amsel 3 de 4; EPI: ceftriaxona + doxiciclina + metronidazol 14 días; tamizaje: citología < 30 años, VPH ≥ 30, VPH (+) con citología (−): repetir a los 12 meses; Rotterdam 2 de 3; metotrexato: β-hCG < 5000, masa < 4 cm, sin LCF, estable.",
+  "UP 3 (obstetricia): Naegele; ajuste ecográfico > 5 días; dTpa desde la semana 20; anti-D a las 28 semanas y ≤ 72 h; placenta previa: sin tacto; Mg 4 g + 1 g/h; DG: 2 ayunas ≥ 100 o PTOG 2 h ≥ 140; EGB 35-37 semanas; betametasona 12 mg × 2 entre 24 y 34,6; MATPP: oxitocina 10 UI al hombro anterior; HPP: atonía 70 %.",
+  "UP 4 (climaterio): menopausia > 12 meses; STRAW +10; T-score ≤ −2,5; THM < 60 años o < 10 años; con útero, siempre con progestágeno; contraindicada en cáncer de mama.",
+  "UP 4 (endometrio): sangrado posmenopáusico = ecografía + biopsia; endometrio ≤ 4-5 mm; hiperplasia atípica ≈ 27 %; histeroscopía con biopsia; FIGO 2009; Bokhman I y II.",
+  "UP 4 (cuello): sinusorragia; FIGO 2018 (IB1 < 2, IB2 2-4, IB3 ≥ 4 cm); IA1: conización o Piver I; IB1-IIA1: Piver III; IB2 en adelante: quimiorradiación; más allá de IIA no se opera.",
+  "UP 4 (piso pélvico): IOE: Kegel, pesario, sling o Burch; IOU: terapia conductual y anticolinérgicos; residuo ≥ 150 mL; DeLancey I-III; POP-Q I-IV; colpocleisis en la anciana sin vida sexual.",
+  "UP 4 (mama): 31 % de los cánceres; ganglios axilares: factor pronóstico principal; subtipos luminal A/B, HER2 y triple negativo; tamoxifeno 20 mg × 5 años; ganglio centinela negativo: sin linfadenectomía.",
+ ],
+ "checklist": [
+  "Resolví el simulacro escrito y justifiqué por escrito cada opción falsa.",
+  "Expuse el caso de Elba y 3 temas sorteados con los 6 pasos, en voz alta.",
+  "Recité sin mirar la tabla maestra de datos duros.",
+  "Revisé los puntos a verificar con el material de la cátedra.",
+  "Dejé listo lo del 24 de noviembre y cerré el estudio temprano.",
+ ]}
