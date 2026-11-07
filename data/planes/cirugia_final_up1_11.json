@@ -3,9 +3,9 @@
  "materia": "cirugia",
  "tipo": "final",
  "titulo": "Final integrador · Cirugía (UP 1 a 11)",
- "subtitulo": "Guía sugerida · Examen final (las 11 unidades)",
- "descripcion": "Los dos parciales en un solo recorrido: unidades 1 a 11 con prioridades, clasificaciones y algoritmos de emergencia, y un simulacro final integrado (escrito + oral).",
- "nota": "Es una guía de estudio orientativa. Verificá siempre cifras, clasificaciones y conductas con el material y la bibliografía vigentes de tu cátedra.",
+ "subtitulo": "Plan modelo · Examen final (las 11 unidades problema)",
+ "descripcion": "Las 11 unidades problema en un solo recorrido, ordenadas por prioridad de examen (trauma y abdomen agudo primero, generalidades al final): temas con trampas de choice, datos duros, casos de la cátedra, resumen de fórmulas y escalas, y un simulacro final integrado (choice + oral con la regla de los 6 pasos).",
+ "nota": "Es una guía de estudio orientativa. Las cifras y conductas se contrastaron con Giménez, Michans, el manual de Cirugía en Medicina General y los consensos de tu carpeta; las que difieren entre fuentes quedan marcadas en «Puntos a verificar con la cátedra». Verificá siempre con el material vigente de tu cátedra.",
  "unidades": [
   "UP 1",
   "UP 2",
@@ -25,2707 +25,1675 @@
  },
  "dias": [
   {
-   "titulo": "Generalidades Quirúrgicas, Bioseguridad y Anestesiología",
+   "titulo": "Politraumatizado (ATLS) I: vía aérea, tórax y shock hemorrágico",
    "horas": 8.0,
-   "unidad": "UP 1",
-   "caso": "",
+   "unidad": "UP 9",
+   "caso": "Martín, 27 años, choca en moto y la moto se incendia. Llega desorientado, con dificultad respiratoria, heridas múltiples, quemaduras en ambos brazos y tórax y sangrado activo en la ceja derecha. Armá la evaluación primaria letra por letra, decidí qué se hace primero y qué estudio NO se pide antes de actuar.",
    "temas": [
     {
-     "texto": "Anestesiología (ASA)",
+     "texto": "Evaluación primaria ABCDE y secuencia de prioridades",
      "prio": "alta",
-     "detalle": "Definición de grados ASA. Pregunta fija: ASA 2 (enfermedad sistémica moderada) y ASA 4 (enfermedad severa que es constante amenaza de vida)13.",
-     "trampa": "",
+     "detalle": "A: vía aérea con control cervical. B: ventilación y oxigenación. C: circulación y control de la hemorragia. D: déficit neurológico (Glasgow y pupilas). E: exposición con prevención de la hipotermia. Se trata primero lo que mata primero y se reevalúa de forma continua. Ante cualquier deterioro se vuelve a la A.",
+     "trampa": "Pedir estudios, colocar una vía central o examinar la espalda antes de asegurar la vía aérea. En trauma: 2 vías periféricas cortas y gruesas (14-16 G).",
+     "hecho": false,
      "manual": false,
-     "unidad": "UP 1"
+     "unidad": "UP 9"
     },
     {
-     "texto": "Clasificación de Heridas Quirúrgicas",
+     "texto": "Vía aérea: obstrucción, vía aérea definitiva y vía aérea quirúrgica",
      "prio": "alta",
-     "detalle": "Limpia vs. Limpia-Contaminada vs. Contaminada vs. Sucia. Pregunta fija: Mastectomía radical es cirugía LIMPIA.",
-     "trampa": "",
+     "detalle": "Signos de obstrucción: estridor, ronquera, voz anormal, tiraje. Vía aérea definitiva (tubo en tráquea con balón inflado) si Glasgow ≤ 8, apnea, insuficiencia respiratoria grave, riesgo de obstrucción (trauma facial complejo, hematoma cervical) o lesión por inhalación. Si no se puede intubar ni ventilar: vía aérea quirúrgica (cricotiroidotomía por la membrana cricotiroidea; punción con catéter 12-14 G como puente). Intubar con la cabeza en línea, sin hiperextender.",
+     "trampa": "Intubar con hiperextensión cervical, o demorar la vía aérea quirúrgica cuando no se puede intubar ni ventilar.",
+     "hecho": false,
      "manual": false,
-     "unidad": "UP 1"
+     "unidad": "UP 9"
     },
     {
-     "texto": "Hemostasia, instrumental y posiciones quirúrgicas.",
+     "texto": "Trauma torácico con riesgo inminente de vida",
+     "prio": "alta",
+     "detalle": "Neumotórax a tensión: diagnóstico clínico (dificultad respiratoria, murmullo ausente, yugulares ingurgitadas, hipotensión; el desvío traqueal es tardío). Descompresión inmediata con aguja gruesa en el 5.º espacio intercostal, entre la línea axilar anterior y la media (ATLS 11; versiones previas: 2.º EIC, línea medioclavicular) y luego tubo pleural. Neumotórax abierto: apósito fijado en tres lados y tubo pleural aparte. Hemotórax masivo: tubo pleural y reposición. Taponamiento cardíaco: tríada de Beck (hipotensión, ingurgitación yugular, ruidos cardíacos apagados). Tórax inestable: la contusión pulmonar subyacente es la causa principal de la hipoxemia.",
+     "trampa": "Pedir una radiografía de tórax antes de descomprimir un neumotórax a tensión.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Shock hemorrágico: clases y reanimación inicial",
+     "prio": "alta",
+     "detalle": "Clases I a IV según la pérdida de volemia: I < 15 %, II 15-30 %, III 30-40 %, IV > 40 %. La taquicardia y la hipotensión aparecen en las clases III-IV (la hipotensión es un signo tardío). Reposición con cristaloides tibios (Ringer lactato) en bolo inicial acotado, transfusión precoz y control de la fuente. Monitoreo: signos vitales, diuresis (≥ 0,5 mL/kg/h) y lactato.",
+     "trampa": "Seguir cargando cristaloides en exceso en una hemorragia masiva en lugar de transfundir y controlar el sangrado.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Hemorragia masiva: transfusión, ácido tranexámico y control de daños",
+     "prio": "alta",
+     "detalle": "Transfusión balanceada 1:1:1 (glóbulos rojos, plasma y plaquetas). Ácido tranexámico 1 g EV dentro de las primeras 3 h del trauma (después aumenta la mortalidad) y luego 1 g en 8 h. Hipotensión permisiva (bolos de 250 mL y meta de pulso radial y sensorio; PAS 80-100 mmHg) hasta controlar la hemorragia; está contraindicada en el TEC. Tríada letal: acidosis, coagulopatía e hipotermia. Cirugía de control de daños: laparotomía abreviada, packing y cierre temporal.",
+     "trampa": "Aplicar hipotensión permisiva en un paciente con traumatismo de cráneo.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Otros tipos de shock en el trauma",
      "prio": "media",
-     "detalle": "",
-     "trampa": "",
+     "detalle": "Neurogénico (lesión medular alta): hipotensión con bradicardia y piel caliente. Obstructivo: neumotórax a tensión y taponamiento. Cardiogénico: contusión miocárdica. Séptico: en el diferencial tardío. Todo shock en trauma es hemorrágico hasta demostrar lo contrario.",
+     "trampa": "Atribuir el shock a una lesión medular antes de descartar sangrado.",
+     "hecho": false,
      "manual": false,
-     "unidad": "UP 1"
+     "unidad": "UP 9"
     },
     {
-     "texto": "Conceptos de asepsia y antisepsia.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Técnicas de asepsia/antisepsia, bioseguridad en quirófano, instrumental quirúrgico, posiciones quirúrgicas y hemostasia."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Anestesiología (Michans): anestésicos locales, bloqueos plexuales y generales, vías de administración y farmacología básica."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Resolución de 20 Choices de Bioseguridad/Anestesia con redacción de justificativos."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Resolución de 20 Choices de Bioseguridad/Anestesia con redacción de justificativos."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Heridas, Cicatrización, Infección, Nutrición y Pre/Postoperatorio",
-   "horas": 8.0,
-   "unidad": "UP 1",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Manejo de Heridas y Cierre",
-     "prio": "alta",
-     "detalle": "Conducta en heridas sucias o sucias de >5–6 horas → Cierre por segunda intención.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Profilaxis Antitetánica",
-     "prio": "alta",
-     "detalle": "Única contraindicación absoluta para la vacuna/toxoide → historia de reacción neurológica severa previa.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Infección de Sitio Quirúrgico",
-     "prio": "alta",
-     "detalle": "Microorganismo #1 en toracotomía/cirugía limpia → Staphylococcus aureus.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Mordeduras",
-     "prio": "alta",
-     "detalle": "Mordedura con mayor riesgo de infección (→ Gato) y conducta (→ profilaxis antibiótica SIEMPRE)13.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Complicaciones postoperatorias agudas",
-     "prio": "sec",
-     "detalle": "Complicaciones postoperatorias agudas (absceso subfrénico post-esplenectomía, hematoma sofocante cervical post-tiroidectomía)13.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Fases de cicatrización y nutrición entero/parenteral.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Biología de la herida, fases de cicatrización (primera, segunda, tercera intención), cicatrización patológica (queloide vs. hipertrófica) y técnicas de sutura/nudos."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Infección en cirugía (SIT, profilaxis ATB), soporte nutricional perioperatorio (enteral vs. parenteral), preoperatorio y postoperatorio."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Practicar justificación de falsas en preguntas de suturas y cicatrización."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Practicar justificación de falsas en preguntas de suturas y cicatrización."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Traumatología de Miembro Superior e Inmovilizaciones",
-   "horas": 8.0,
-   "unidad": "UP 1",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Colles",
-     "prio": "alta",
-     "detalle": "caída en extensión, deformidad en \"dorso de tenedor\", desplazamiento DORSAL del fragmento distal.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Escafoides",
-     "prio": "alta",
-     "detalle": "caída en dorsiflexión, dolor en tabaquera anatómica, Rx frente con desvío CUBITAL. Complicación #1: Pseudoartrosis / necrosis avascular.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Bennett vs. Rolando",
-     "prio": "alta",
-     "detalle": "Bennett (intraarticular, 2 fragmentos) vs. Rolando (conminuta en T/Y, 3+ fragmentos) en articulación trapecio-metacarpiana.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Fractura del Boxeador",
-     "prio": "alta",
-     "detalle": "cuello del 5.º metacarpiano.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Nervio Radial",
-     "prio": "alta",
-     "detalle": "fractura diafisaria de húmero (canal de torsión / lesión de Holstein-Lewis) → mano péndula.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Nervio Mediano",
-     "prio": "alta",
-     "detalle": "corte en antebrazo/codo → mano del predicador.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Nervio Circunflejo/Axilar",
-     "prio": "alta",
-     "detalle": "luxación glenohumeral anterior.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Luxación de Semilunar",
-     "prio": "alta",
-     "detalle": "hueso del carpo que MÁS SE LUXA y causa de Síndrome del Túnel Carpiano Agudo.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Fracturas expuestas",
+     "texto": "Tubo pleural y toracotomía",
      "prio": "media",
-     "detalle": "Fracturas expuestas (Gustilo-Anderson y Período de Friedreich: 6 horas de contaminación a infección)13.",
+     "detalle": "Tubo de avenamiento en el 5.º EIC, por delante de la línea axilar media. Toracotomía por hemotórax: drenaje inicial ≥ 1500 mL (≥ 1000 mL en penetrante) o sangrado persistente > 200-250 mL/h durante 3-4 h (Giménez: 250 mL/h por 3 h); hoy pesa más el estado hemodinámico que la cifra puntual.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
-     "unidad": "UP 1"
-    },
-    {
-     "texto": "Prono doloroso (reducción por supinación forzada en extensión y flexión)13.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 1"
+     "unidad": "UP 9"
     }
    ],
    "datos_duros": [
-    "Cirugía Limpia: Mastectomía radical, tiroidectomía, hernia electiva.",
-    "Cirugía Contaminada / Sucia: Heridas traumáticas de > 6 horas de evolución o peritonitis fecaloidea.",
-    "ASA II: Paciente con enfermedad sistémica leve/moderada controlada (ej. HTA bien controlada, DBT compensada)2.",
-    "ASA IV: Enfermedad sistémica grave que constituye una amenaza constante para la vida.",
-    "Fiebre en el día 1 postoperatorio: La causa principal es la atelectasia pulmonar.",
-    "Fractura de Colles: Caída sobre la palma en extensión. Presenta deformidad en \"dorso de tenedor\" por desplazamiento DORSAL y CUBITAL del fragmento distal.",
-    "Fractura de Escafoides: Caída en dorsiflexión. Presenta dolor electivo en la tabaquera anatómica. Para evidenciarla sin desplazamiento se solicita Rx de muñeca frente con desvío CUBITAL. Su complicación principal es la pseudoartrosis por irrigación retrógrada precaria.",
-    "Bennett: Intraarticular a 2 fragmentos (desplazada por el abductor largo del pulgar).",
-    "Rolando: Intraarticular conminuta con trazo en \"T\" o \"Y\" (3 o más fragmentos) en la articulación trapeciometacarpiana.",
-    "Fractura del Boxeador: Fractura del cuello del 5.º metacarpiano.",
-    "Nervio Radial: Vulnerable en la fractura diafisaria de húmero (canal de torsión / lesión de Holstein-Lewis). Ocasiona mano caída o péndula.",
-    "Nervio Mediano: Lesión en antebrazo/codo. Ocasiona la \"mano del predicador\" y anestesia en el territorio palmar radial (primeros 3 dedos y borde radial del 4.º).",
-    "Nervio Circunflejo / Axilar: Vulnerable en la luxación glenohumeral anterior.",
-    "Semilunar: Hueso del carpo que MÁS SE LUXA. Su desplazamiento palmar es causa de Síndrome del Túnel Carpiano Agudo.",
-    "Prono Doloroso (Codo de Niñera): Subluxación de la cabeza radial. Reducción: supinación forzada del antebrazo en extensión con posterior flexión."
+    "ABCDE: vía aérea con control cervical, ventilación, circulación con control de hemorragia, déficit neurológico (Glasgow), exposición.",
+    "Neumotórax a tensión: clínico; aguja gruesa en el 5.º EIC (entre línea axilar anterior y media) y tubo pleural; nunca radiografía previa.",
+    "Shock hemorrágico: clases I < 15 %, II 15-30 %, III 30-40 %, IV > 40 %. Transfusión 1:1:1; ácido tranexámico dentro de las 3 h.",
+    "Hemotórax: toracotomía con ≥ 1500 mL iniciales o > 200-250 mL/h por 3-4 h. Control de daños: acidosis + coagulopatía + hipotermia."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Generalidades de traumatología (Silberman), consolidación ósea, fracturas expuestas (Gustilo-Anderson), principios de osteosíntesis y tipos de inmovilizaciones."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Traumatismos de miembro superior: fractura de clavícula, luxación glenohumeral, fractura de húmero/codo, fracturas de radio/cúbito (Colles, Smith) y traumatismos de mano/muñeca (escafoides, Bennett, Rolando, síndromes de mano)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Examen de autoevaluación Choice de Traumatología de Miembro Superior."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Examen de autoevaluación Choice de Traumatología de Miembro Superior."
+     "texto": "Dibujé de memoria el ABCDE con la intervención de cada letra.",
+     "hecho": false
     },
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
+     "texto": "Clasifiqué el shock de la clase I a la IV con el volumen perdido y la conducta.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Expliqué por qué el neumotórax a tensión no espera la radiografía.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 9 (vía aérea, tórax y shock) y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Fisiopatología del Dolor y Clasificación del Abdomen Agudo",
+   "titulo": "Politraumatizado (ATLS) II: neurológico, abdomen, columna y evaluación secundaria",
+   "horas": 8.0,
+   "unidad": "UP 9",
+   "caso": "El mismo paciente (Martín) ya tiene la vía aérea asegurada y 2 vías. Está hipotenso, con FAST abdominal positivo y Glasgow 9 con anisocoria. Decidí: ¿laparotomía o tomografía? ¿Cómo se maneja la presión arterial teniendo un posible TEC? ¿Qué hacés con la columna cervical?",
+   "temas": [
+    {
+     "texto": "Evaluación neurológica y traumatismo de cráneo (TEC)",
+     "prio": "alta",
+     "detalle": "Glasgow: ocular 4, verbal 5, motor 6 (rango 3-15). TEC leve 13-15, moderado 9-12, grave ≤ 8 (vía aérea definitiva). Pupilas y signos de hipertensión endocraneana (reflejo de Cushing: hipertensión, bradicardia y respiración irregular). Prevenir el daño secundario: evitar hipoxia e hipotensión. TC de cráneo sin contraste en cuanto el paciente esté estable. La hipotensión permisiva está contraindicada.",
+     "trampa": "Mandar a TC a un paciente inestable, o tolerar una presión baja en un TEC.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Trauma abdominal: ECO-FAST, TC y laparotomía",
+     "prio": "alta",
+     "detalle": "FAST: 4 ventanas (pericárdica o subxifoidea, hepatorrenal de Morison, esplenorrenal y pelviana de Douglas). Inestable + FAST positivo: laparotomía de urgencia. Estable: TC con contraste. El FAST no evalúa bien el retroperitoneo ni las vísceras huecas. Trauma penetrante: inestabilidad, peritonitis o evisceración van a quirófano; en la herida de arma blanca estable se puede observar. Trauma cerrado de bazo e hígado: no operatorio en el estable según el grado.",
+     "trampa": "Mandar a TC a un paciente hemodinámicamente inestable.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Trauma de columna y restricción del movimiento espinal",
+     "prio": "alta",
+     "detalle": "Consenso intersocietario argentino CISReMET 2021 (Academia Nacional de Medicina; participan AAC, AAOT, ATLS y el Ministerio de Salud): la restricción del movimiento espinal (RME) ya no es para todos los traumatizados. Escena segura y ABC primero: si hay un trastorno del ABC (paciente crítico) se estabiliza evitando mover el cuello y puede no usarse el collar. Trauma penetrante: no se aplica RME. Trauma contuso en paciente consciente: se aplica RME si hay al menos uno de estos: Glasgow ≤ 14, incapacidad para comunicarse, sospecha de intoxicación, dolor espontáneo en la línea media posterior del cuello (≥ 4/10), dolor a la palpación de las apófisis espinosas cervicales, signos o síntomas neurológicos focales (el priapismo es un signo de lesión medular) o dolor con la rotación activa de 45°. Con alguno de esos criterios: collar cervical y traslado en camilla de ambulancia, cuchara o colchón de vacío (la tabla larga solo para la extricación, no para el transporte). Contuso sin ninguno: no hace falta RME. Paciente consciente dentro de un vehículo: collar y, si no está atrapado, se lo invita a salir y acostarse en la camilla.",
+     "trampa": "Inmovilizar a todos con collar rígido y tabla larga de forma automática, aplicar RME en un trauma penetrante, o suspenderla en un contuso con Glasgow ≤ 14.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Evaluación secundaria y reevaluación",
+     "prio": "media",
+     "detalle": "Cabeza a pies con historia AMPLIA (alergias, medicación, patologías previas, última comida, eventos). Examen de dorso, perineo, tacto rectal y genital cuando corresponda. Solo se pasa a la secundaria con el paciente estabilizado. Criterios de derivación a centro de trauma, trabajo en equipo y aspectos ético-legales de la urgencia.",
+     "trampa": "Empezar la evaluación secundaria con un paciente que todavía no está estabilizado.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Triage, cinemática y distribución de la mortalidad",
+     "prio": "media",
+     "detalle": "Mortalidad trimodal del trauma: inmediata (segundos a minutos: apnea, lesión neurológica grave, rotura de corazón y grandes vasos), temprana (minutos a horas: hematomas, hemotórax, hemoperitoneo: «hora de oro») y tardía (sepsis y falla multiorgánica). Triage en desastres: se prioriza a quien tiene más chances de sobrevivir con los recursos disponibles. La cinemática orienta las lesiones probables.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Taller práctico: vía aérea, y lista de cotejo",
+     "prio": "sec",
+     "detalle": "Repasá la lista de cotejo de vía aérea y la secuencia de maniobras del taller de UP 9.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [
+    "Glasgow: ocular 4, verbal 5, motor 6. GCS ≤ 8: vía aérea definitiva.",
+    "FAST: pericárdica, Morison, esplenorrenal, Douglas. Inestable + FAST positivo = laparotomía; estable = TC.",
+    "TEC: evitar hipotensión e hipoxia; la hipotensión permisiva está contraindicada.",
+    "RME (CISReMET 2021): no se aplica en trauma penetrante; en contuso consciente solo con Glasgow ≤ 14, no comunica, intoxicación, dolor o déficit cervical o dolor a la rotación de 45°. Sin criterios: sin RME."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Recité las 4 ventanas del FAST y cuándo se pasa a laparotomía.",
+     "hecho": false
+    },
+    {
+     "texto": "Armé el algoritmo del paciente inestable: FAST, laparotomía o TC.",
+     "hecho": false
+    },
+    {
+     "texto": "Expliqué por qué la hipotensión permisiva no se usa en el TEC.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 9 (trauma) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Quemados, muerte encefálica, procuración y comunicación en situaciones críticas",
+   "horas": 8.0,
+   "unidad": "UP 9",
+   "caso": "Martín tiene quemaduras en ambos brazos y el tórax, y su pronóstico neurológico es crítico. Calculá la reposición con su peso y la superficie quemada. Su madre llega: ¿cómo comunicás la gravedad y cuándo y cómo se plantea la posibilidad de la donación?",
+   "temas": [
+    {
+     "texto": "Quemaduras: profundidad, extensión y sospecha de inhalación",
+     "prio": "alta",
+     "detalle": "Extensión: regla de los nueves de Wallace (adultos), Lund-Browder (niños) o palma del paciente ≈ 1 % de SCQ. Profundidad: superficial (tipo A), espesor parcial superficial (AB-A) y profundo (AB-B) y espesor total (tipo B). Sospecha de inhalación (hollín, voz ronca, quemadura facial, ambiente cerrado): intubación precoz. En el % de SCQ para fluidos no se cuentan las de primer grado.",
+     "trampa": "Sumar al % de SCQ las quemaduras de primer grado.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Reanimación hídrica: fórmula de Parkland",
+     "prio": "alta",
+     "detalle": "Ringer lactato: fórmula clásica de Parkland 4 mL × kg × % SCQ en las primeras 24 h desde la hora cero (ATLS 11 propone iniciar con 2 mL × kg × % SCQ en adultos y ajustar por diuresis). La mitad en las primeras 8 h y la otra mitad en las siguientes 16 h. Meta de diuresis: 0,5 mL/kg/h (aprox. 30-50 mL/h en el adulto). La fórmula suele sobreestimar el volumen.",
+     "trampa": "Contar las 8 h desde el ingreso en lugar de desde la quemadura.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Criterios de derivación, escarotomía y quemaduras especiales",
+     "prio": "alta",
+     "detalle": "Derivar a centro de quemados según extensión, profundidad, zonas especiales (cara, manos, genitales, articulaciones), inhalación, edades extremas y comorbilidad. Escarotomía en las quemaduras circunferenciales de espesor total con compromiso circulatorio o ventilatorio. Eléctrica: ECG, rabdomiólisis y mioglobinuria. Química: lavado abundante. Analgesia EV, cobertura y profilaxis antitetánica.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Muerte encefálica: diagnóstico clínico",
+     "prio": "alta",
+     "detalle": "Prerrequisitos: causa conocida e irreversible, descartar hipotermia, sedantes y alteraciones metabólicas, y estabilidad hemodinámica. Examen: coma arreactivo, ausencia de reflejos de tronco (pupilares, corneano, oculocefálico y oculovestibular, tusígeno y nauseoso) y apnea (test con PaCO2 ≥ 60 mmHg). Temperatura central ≥ 32 °C (≥ 35 °C en menores de 2 años; se recomienda ≥ 35 °C siempre) y sin trastornos metabólicos graves. Período de observación (Protocolo Nacional, Res. 716/2019, art. 37 de la Ley 27.447): neonatos de ≥ 37 semanas a 2 meses, 24 h; de 2 meses a 2 años, 12 h; de 2 a 6 años, 6 h; desde los 6 años (adultos), al menos 1 h. Al finalizar se repite el examen clínico, sin repetir los estudios instrumentales (el Doppler transcraneano se repite a los 30 min).",
+     "trampa": "Declarar muerte encefálica sin excluir causas reversibles, o confundirla con estado vegetativo.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Procuración, trasplante y marco legal (Ley 27.447)",
+     "prio": "alta",
+     "detalle": "Proceso: detección del potencial donante, mantenimiento, evaluación, entrevista familiar, ablación y coordinación con INCUCAI. Ley 27.447 (Ley Justina): toda persona capaz mayor de 18 años es donante salvo manifestación expresa en contra. La donación se propone separada de la comunicación de la muerte. Donante cadavérico y vivo; seguimiento del trasplantado (rechazo, infecciones, inmunosupresión).",
+     "trampa": "Plantear la donación junto con la comunicación de la muerte.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Comunicación de malas noticias: SPIKES y Buckman",
+     "prio": "alta",
+     "detalle": "SPIKES: entorno, percepción, invitación, conocimiento, emociones (empatía) y estrategia/resumen. Buckman (6 pasos): preparar el entorno, saber qué sabe, cuánto quiere saber, compartir la información, responder a las emociones y planificar. Duelo, familia y rol del equipo.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Impacto emocional en el equipo y bioética",
+     "prio": "sec",
+     "detalle": "Duelo, defensas frente a la muerte y desgaste del equipo en el proceso de donación. Autonomía, consentimiento informado y equidad en la distribución.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [
+    "Parkland clásica: 4 mL × kg × % SCQ de Ringer lactato (ATLS 11: 2 mL); 50 % en 8 h desde la quemadura y 50 % en 16 h; diuresis 0,5 mL/kg/h.",
+    "Solo espesor parcial y total entran en el % SCQ. Inhalación: intubar de forma precoz.",
+    "Muerte encefálica (Res. 716/2019): coma arreactivo + sin reflejos de tronco + apnea (PaCO2 ≥ 60 mmHg y ≥ 20 mmHg sobre la basal), tras excluir causas reversibles. Observación: 24 h, 12 h, 6 h y ≥ 6 años: 1 h.",
+    "Ley 27.447 (Ley Justina): todos son donantes salvo manifestación expresa en contra."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Calculé Parkland en un caso (peso, % SCQ, mitad en 8 h) sin mirar.",
+     "hecho": false
+    },
+    {
+     "texto": "Enuncié los prerrequisitos y los signos clínicos de muerte encefálica.",
+     "hecho": false
+    },
+    {
+     "texto": "Recité SPIKES con una frase de ejemplo por paso.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de quemados y muerte encefálica y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Abdomen agudo I: fisiología del dolor, apendicitis y fosa ilíaca derecha",
    "horas": 8.0,
    "unidad": "UP 2",
-   "caso": "",
+   "caso": "Melisa, 24 años, con dolor periumbilical que migró a la fosa ilíaca derecha a las 10 h, con náuseas y un vómito, molestias urinarias, FUM hace 7 semanas y sin anticonceptivos. Es una paciente que vive sola y no quiere internarse. ¿Qué pedís primero? ¿Cuáles son tus diagnósticos diferenciales? ¿Cómo se maneja su ansiedad?",
    "temas": [
     {
-     "texto": "Clasificación de Christmann",
+     "texto": "Concepto, clasificación y semiología del abdomen agudo",
      "prio": "alta",
-     "detalle": "Inflamatorio, Perforativo, Obstructivo, Vascular/Isquémico, Hemorrágico.",
-     "trampa": "",
+     "detalle": "Urgencia médico-quirúrgica. Clasificación: inflamatorio, perforativo, peritonítico, obstructivo, vascular y hemorrágico. Semiología con la regla ALICIA (aparición, localización, intensidad, carácter, irradiación, atenuantes). Signos de irritación peritoneal: defensa, contractura, Blumberg. Analgesiar no está contraindicado y no enmascara el diagnóstico.",
+     "trampa": "Creer que la analgesia enmascara el diagnóstico.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Signos de Irritación Peritoneal",
+     "texto": "Fisiología del dolor abdominal",
      "prio": "alta",
-     "detalle": "Blumberg (McBurney), Rovsing (compresión en FII), Psoas (retrocecal), Obturador (pélvico), Dunphy (tos)13.",
-     "trampa": "",
+     "detalle": "Visceral (fibras C: difuso, mal localizado, en la línea media, con náuseas), somático (fibras A-delta: localizado, constante, peritoneal) y referido. La localización la da el dolor somático. Interpretar localización, irradiación, ritmo y desencadenantes.",
+     "trampa": "Confundir el dolor visceral inicial (periumbilical) con el sitio de la lesión.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Abdomen Agudo Perforativo",
+     "texto": "Apendicitis aguda",
      "prio": "alta",
-     "detalle": "Signo de Popper (neumoperitoneo subdiafragmático en Rx de tórax/abdomen de pie). Trampa de examen: Signo de Chilaiditi (interposición colónica asintomática con haustras → NO se opera)3.",
-     "trampa": "Trampa de examen: Signo de Chilaiditi (interposición colónica asintomática con haustras → NO se opera)3.",
+     "detalle": "Cronología de Murphy: epigastralgia o dolor periumbilical que migra a la fosa ilíaca derecha, con anorexia, náuseas, vómitos y fiebre baja. Signos: McBurney, Blumberg, Rovsing, psoas y obturador. Score de Alvarado (MANTRELS: migración, anorexia, náuseas, defensa en FID ×2, rebote, temperatura, leucocitosis ×2, desviación a la izquierda; 10 puntos, ≥ 7 probable). Eco en niños y mujeres jóvenes; TC en adultos, ancianos o cuadros atípicos. Tratamiento: apendicectomía. Complicaciones: perforación, absceso, plastrón (antibióticos y apendicectomía diferida) y peritonitis. Apéndice retrocecal: puede debutar con dolor inguinal o escrotal.",
+     "trampa": "Esperar la migración del dolor para operar un cuadro clásico, o descartar apendicitis por no tener leucocitosis.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Fisiopatología del dolor visceral (fibras C) vs. somático (fibras A-delta)3.",
+     "texto": "Diagnóstico diferencial de la fosa ilíaca derecha",
+     "prio": "alta",
+     "detalle": "Mujer joven: embarazo ectópico roto, torsión anexial, rotura de quiste, EPI (clasificación de Monif I-IV), cólico renal e ITU. Hombre joven: ileítis (Crohn, Yersinia), adenitis mesentérica, divertículo de Meckel (regla de los 2) y patología testicular referida. Adulto mayor: diverticulitis cecal, cáncer de ciego e isquemia. Embarazo ectópico roto: hemorrágico y con shock.",
+     "trampa": "En una mujer en edad fértil con FID y amenorrea, indicar imágenes con radiación sin descartar embarazo (β-hCG primero).",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Tumores del apéndice y pseudomixoma",
      "prio": "media",
-     "detalle": "",
+     "detalle": "Tumor neuroendocrino (carcinoide) es el más frecuente: < 2 cm, apendicectomía; > 2 cm, compromiso de la base o de ganglios: hemicolectomía derecha. Mucocele y pseudomixoma peritoneal por tumor mucinoso.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Porcentajes de abdomen agudo médico vs. quirúrgico (8-10% AAQ)3.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
+     "texto": "Imágenes en el abdomen agudo",
+     "prio": "media",
+     "detalle": "Radiografía de abdomen de pie (niveles, neumoperitoneo), ecografía (primera línea en niños, mujeres jóvenes y vía biliar), TC con contraste (adulto, duda diagnóstica y complicaciones). Elegir según el contexto y justificarlo. Signos radiológicos indirectos de apendicitis (apendicolito, asa centinela).",
+     "trampa": "Mandar a TC a un adulto joven con cuadro típico sin que lo justifique, o a una mujer fértil sin β-hCG.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     }
    ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Fisiopatología del dolor abdominal (visceral vs. somático), semiología y los 8 signos de irritación peritoneal (Blumberg, Guéneau de Mussy, Rovsing, Psoas, Obturador, etc.)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Clasificación de Christmann (inflamatorio, perforativo, obstructivo, vascular/isquémico, hemorrágico). Métodos complementarios por imágenes (Rx de tórax/abdomen, Ecografía, TC)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Justificación escrita de 15 Choices sobre signos peritoneales y clasificación del dolor."
-    }
+   "datos_duros": [
+    "Apendicitis: migración del dolor a FID + anorexia + náuseas/vómitos + fiebre baja. Alvarado ≥ 7: probable.",
+    "Mujer en edad fértil con dolor en FID: β-hCG antes que las imágenes.",
+    "Plastrón: antibióticos y apendicectomía diferida. Absceso: drenaje.",
+    "Carcinoide apendicular > 2 cm o con compromiso de la base: hemicolectomía derecha."
    ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Justificación escrita de 15 Choices sobre signos peritoneales y clasificación del dolor."
+     "texto": "Escribí la cronología de Murphy y los signos apendiculares.",
+     "hecho": false
     },
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
+     "texto": "Armé el cuadro de diagnósticos diferenciales de FID por sexo y edad.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Expliqué la conducta ante un plastrón apendicular.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de apendicitis y fosa ilíaca derecha y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Apendicitis Aguda y Diagnósticos Diferenciales en FID",
+   "titulo": "Abdomen agudo II: perforativo, obstructivo, peritonítico, vascular y estrés preoperatorio",
    "horas": 8.0,
    "unidad": "UP 2",
-   "caso": "",
+   "caso": "Paciente con dolor abdominal que debe operarse y está muy ansioso: tiene miedo de quedarse sola, quiere evitar la internación. Sumá un cuadro de abdomen en tabla con aire bajo el diafragma. ¿Cuál es la conducta quirúrgica y cómo evaluás y abordás su estado emocional?",
    "temas": [
     {
-     "texto": "Apendicitis Aguda",
+     "texto": "Abdomen agudo perforativo: úlcera péptica perforada",
      "prio": "alta",
-     "detalle": "Cronología de Murphy, síntoma precoz patognomónico (→ ANOREXIA), Fases (Catarral, Flegmonosa, Gangrenosa, Perforada)13.",
-     "trampa": "",
+     "detalle": "Dolor súbito «en puñalada», contractura generalizada (abdomen en tabla) y neumoperitoneo en la radiografía de tórax o de abdomen de pie (signo de Popper: aire libre subdiafragmático). Tratamiento quirúrgico: cierre simple con parche epiplóico (Graham), lavado y erradicación de H. pylori. En la apendicitis no suele haber neumoperitoneo.",
+     "trampa": "Pedir endoscopia o seriada con contraste baritado ante la sospecha de perforación.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Escala de Alvarado (MANTRELS)",
+     "texto": "Obstrucción intestinal mecánica y vólvulo",
      "prio": "alta",
-     "detalle": "10 puntos. Datos clave: Leucocitosis (+2) y Dolor/Tenderness en FID (+2) valen doble. Puntaje ≥7→ Cirugía urgente.",
-     "trampa": "",
+     "detalle": "Causa más frecuente en el adulto: bridas y adherencias postquirúrgicas; luego hernias y tumores. Dolor cólico, vómitos, distensión y ausencia de gases y deposiciones. Radiografía: niveles hidroaéreos y asas dilatadas; TC. Manejo: SNG, reposición, observación en brida sin sufrimiento; cirugía urgente ante estrangulación, isquemia o peritonitis. Íleo biliar (tríada de Rigler: neumobilia, obstrucción y cálculo ectópico). Íleo paralítico: diagnóstico diferencial.",
+     "trampa": "Tratar una obstrucción mecánica con procinéticos o laxantes, o confundirla con íleo paralítico.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Divertículo de Meckel",
+     "texto": "Peritonitis, abdomen abierto y síndrome compartimental",
      "prio": "alta",
-     "detalle": "Persistencia del conducto onfalomesentérico/vitelino. Regla de los 2 (2% población, 2 pies de válvula ileocecal, 2 pulgadas, 2 tipos mucosa: gástrica/pancreática).",
+     "detalle": "Peritonitis primaria, secundaria (por perforación) y terciaria. Control del foco, antibióticos, reposición y lavado. Laparostomía o abdomen abierto (bolsa de Bogotá, presión negativa VAC) en peritonitis grave y síndrome compartimental abdominal (presión intraabdominal > 20 mmHg con falla orgánica). Cirugía de control de daños.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Embarazo Ectópico Roto",
-     "prio": "alta",
-     "detalle": "Tríada + inestabilidad + líquido en Douglas → Resucitación + CIRUGÍA URGENTE. Pedir siempre β-hCG en mujer en edad fértil.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 2"
-    },
-    {
-     "texto": "Clasificación de Monif para EPI (Grados I a IV).",
+     "texto": "Abdomen agudo vascular y hemorrágico",
      "prio": "media",
-     "detalle": "",
-     "trampa": "",
+     "detalle": "Isquemia mesentérica: dolor desproporcionado al examen, fibrilación auricular o aterosclerosis; angio-TC; embólica (arteria mesentérica superior), trombótica o no oclusiva. Hemorrágico: rotura de aneurisma, embarazo ectópico roto, rotura esplénica o hepática.",
+     "trampa": "Esperar signos peritoneales para sospechar isquemia mesentérica.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Signos radiológicos indirectos de apendicitis",
-     "prio": "sec",
-     "detalle": "Signos radiológicos indirectos de apendicitis (coprolito, asa centinela, borramiento del psoas).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 2"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Apendicitis aguda: etiopatogenia, fases evolutivas (catarral, flegmonosa, gangrenosa, perforada), cronología de Murphy, Escala de Alvarado y táctica quirúrgica."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Diagnósticos diferenciales en Fosa Ilíaca Derecha: Divertículo de Meckel (regla de los 2), Enfermedad Pélvica Inflamatoria (Monif) y Embarazo Ectópico."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Resolución de preguntas históricas de examen sobre Apendicitis y Alvarado."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Resolución de preguntas históricas de examen sobre Apendicitis y Alvarado."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Estrés Preoperatorio, Consentimiento y Repaso U1-U2",
-   "horas": 6.0,
-   "unidad": "UP 2",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Adaptación Psicológica Normal",
+     "texto": "Estrés quirúrgico y adaptación preoperatoria",
      "prio": "alta",
-     "detalle": "Visión realista de la experiencia quirúrgica y nivel esperable de ansiedad.",
-     "trampa": "",
+     "detalle": "Síndrome general de adaptación de Selye (alarma, resistencia y agotamiento). Adaptación preoperatoria normal (visión realista y ansiedad esperable) vs. anormal (negación, ansiedad extrema, depresión). Indicadores de alto riesgo, evaluación psicológica, criterios para indicar psicofármacos, relación entre el estado emocional y la recuperación.",
+     "trampa": "Indicar psicofármacos de rutina a toda ansiedad preoperatoria, o minimizar el miedo sin informar.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     },
     {
-     "texto": "Ansiedad Preoperatoria",
+     "texto": "Consentimiento informado y comunicación empática",
      "prio": "alta",
-     "detalle": "Aspectos cualitativos (→ tinte hostil o depresivo) y síntomas de alarma.",
+     "detalle": "Implicancias emocionales y éticas del consentimiento. Contención emocional, información clara y educación al paciente sobre signos de alarma. Caso: paciente sola que quiere evitar la internación.",
      "trampa": "",
-     "manual": false,
-     "unidad": "UP 2"
-    },
-    {
-     "texto": "Protocolo Buckman de comunicación de noticias.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 2"
-    },
-    {
-     "texto": "Consentimiento informado.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 2"
     }
    ],
    "datos_duros": [
-    "Blumberg: Dolor a la descompresión súbita en el punto de McBurney.",
-    "Rovsing: Dolor en FID provocado por la compresión en la Fosa Ilíaca Izquierda (traslado de gas colónico).",
-    "Psoas: Dolor al extender la cadera (apéndice retrocecal).",
-    "Obturador: Dolor a la rotación interna del muslo flexionado (apéndice pélvico).",
-    "Signo de Popper: Neumoperitoneo subdiafragmático en Rx de tórax/abdomen de pie (aire libre por perforación de víscera hueca).",
-    "Trampa de Choice: Signo de Chilaiditi (interposición colónica asintomática entre hígado y diafragma con haustras visibles). NO se opera.",
-    "Cronología de Murphy: Dolor visceral epigástrico/periumbilical -> anorexia/náuseas -> migración como dolor somático a la FID4.",
-    "Anorexia: Síntoma acompañante precoz más constante.",
-    "Escala de Alvarado (MANTRELS): Total de 10 puntos. Leucocitosis (> 10.000) y Dolor/Tenderness en FID otorgan 2 puntos cada uno. Un puntaje ≥7 indica conducta quirúrgica urgente.",
-    "Divertículo de Meckel: Persistencia del conducto onfalomesentérico/vitelino.",
-    "Regla de los 2: 2% de la población, a 2 pies (~60 cm) de la válvula ileocecal, 2 pulgadas (~5 cm) de longitud, 2 tipos de mucosa heterotópica (gástrica y pancreática). Causa HDB masiva indolora en niños y Meckelitis en adultos."
+    "Neumoperitoneo en la radiografía: perforación de víscera hueca hasta demostrar lo contrario (signo de Popper).",
+    "Oclusión del adulto: bridas primero. Estrangulado o isquémico: quirófano.",
+    "Laparostomía: bolsa de Bogotá o presión negativa (VAC).",
+    "Selye: alarma, resistencia y agotamiento."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Aspectos psicológicos del paciente quirúrgico: estrés preoperatorio, adaptación, consentimiento informado y comunicación de noticias (Buckman)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "",
-     "tarea": "Integración U1 y U2: Confección de cuadros comparativos de abdomen agudo."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
+     "texto": "Clasifiqué el abdomen agudo y di un ejemplo de cada tipo.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Describí la conducta ante una oclusión por brida sin signos de sufrimiento.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferencié la adaptación preoperatoria normal de la anormal con 3 indicadores.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 2 y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Disfagia y Patología Benigna de Esófago",
-   "horas": 8.0,
-   "unidad": "UP 3",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Hernias Hiatales",
-     "prio": "alta",
-     "detalle": "Tipo I (Deslizamiento: laxitud de membrana frenoesofágica, causa ERGE) vs. Tipo II (Paraesofágica: UGE normal, fundus herniado, alto riesgo de estrangulación → CIRUGÍA SIEMPRE)13.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Esófago de Barrett",
-     "prio": "alta",
-     "detalle": "Metaplasia intestinal con células caliciformes. Manejo: Sin displasia → IBP + VEDA c/3-5 años. Displasia de alto grado / Ca in situ → Resección Mucosectómica / Esofagectomía.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Divertículo de Zenker",
-     "prio": "alta",
-     "detalle": "Pseudodivertículo por pulsión en el Triángulo de Killian por disfunción del Cricofaríngeo. Miotomía del Cricofaríngeo SIEMPRE. Trampa: VEDA contraindicada de entrada por riesgo de perforación.",
-     "trampa": "Trampa: VEDA contraindicada de entrada por riesgo de perforación.",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Esofagitis según Los Ángeles (Grados A a D)3.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Úlceras de Cameron (causa de anemia en hernias gigantes)3.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Fisiología de la deglución, diagnóstico diferencial de disfagia orgánica vs. funcional, estudios funcionales (manometría de alta resolución, pH-metría)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "ERGE, esofagitis (Los Ángeles), Esófago de Barrett (metaplasia/displasia), Hernias Hiatales (Tipos I a IV) y Divertículos esofágicos (Zenker, epifrénico)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Choices de Zenker, Barrett y clasificaciones endoscópicas."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choices de Zenker, Barrett y clasificaciones endoscópicas."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Trastornos Motores del Esófago y Cáncer Esofágico",
-   "horas": 8.0,
-   "unidad": "UP 3",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Acalasia",
-     "prio": "alta",
-     "detalle": "Aperistalsis + fallo de relajación del EEI. Gold Standard → Manometría de Alta Resolución. Rx baritada → \"Pico de pájaro\" / \"Cola de ratón\".",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Resano-Malenchini",
-     "prio": "alta",
-     "detalle": "Grado I-III → Miotomía de Heller + funduplicatura parcial (Dor/Toupet). Grado IV (Dolico-esófago) → Esofagectomía.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Clasificación de Siewert (Tumores UGE)",
-     "prio": "alta",
-     "detalle": "Siewert I y II → tratamiento de cáncer de esófago. Siewert III (-2 a -5 cm bajo UGE) → tratamiento de cáncer gástrico (Gastrectomía total + Y de Roux)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Espasmo Esofágico Difuso (imagen en \"sacacorchos\") y Esófago en Cascanueces.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Histología epidermoide (alcohol/tabaco) vs. adenocarcinoma (Barrett)3.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Trastornos motores primarios: Acalasia (Clasificación de Chicago y Resano-Malenchini, Miotomía de Heller), Espasmo Esofágico Difuso y Esófago en Cascanueces."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Neoplasias de esófago (epidermoide vs. adenocarcinoma) y tumores de la Unión Gastroesofágica (Clasificación de Siewert I, II y III)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Justificación de distractores sobre Acalasia y Siewert."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificación de distractores sobre Acalasia y Siewert."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Patología Gástrica Benigna y Hemorragia Digestiva Alta (HDA)",
-   "horas": 8.0,
-   "unidad": "UP 3",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Ia (chorro), Ib (napa), IIa (vaso visible), IIb (coágulo adherido) → Tratamiento…",
-     "prio": "alta",
-     "detalle": "Ia (chorro), Ib (napa), IIa (vaso visible), IIb (coágulo adherido) → Tratamiento endoscópico activo + IBP EV3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "IIc (hematina) y III (fondo limpio) → Tratamiento médico con IBP3.",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Causa #1 HDA",
-     "prio": "alta",
-     "detalle": "Úlcera péptica (duodenal posterior → arteria gastroduodenal)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Linfoma MALT gástrico de bajo grado → 1.ª línea",
-     "prio": "media",
-     "detalle": "Erradicación antibiótica de H. pylori.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Dispepsia, pólipos gástricos y bezoares.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Enfermedad ulcerosa péptica, dispepsia, pólipos gástricos, bezoares. Anatomía quirúrgica del estómago y duodeno."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Hemorragia Digestiva Alta (HDA): etiología, clínica, diagnóstico y Clasificación de Forrest con su conducta endoscópica y quirúrgica."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Examen Choice intensivo de HDA y Clasificación de Forrest."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Examen Choice intensivo de HDA y Clasificación de Forrest."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Cáncer Gástrico y Estómago Operado",
-   "horas": 6.0,
-   "unidad": "UP 3",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Síndrome de Dumping precoz (osmótico postprandial) vs. tardío (hipoglucemia reactiva).",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Gastritis por reflujo alcalino (reflujo biliar post-Billroth).",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Clasificación de Laurén (intestinal vs. difuso/células en anillo de sello) y Borrmann.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    },
-    {
-     "texto": "Complicaciones de gastrectomías.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 3"
-    }
-   ],
-   "datos_duros": [
-    "Tipo I (Deslizamiento): La más frecuente. La unión gastroesofágica (UGE) asciende al tórax. Causa ERGE.",
-    "Tipo II (Paraesofágica pura): La UGE permanece intrabdominal; asciende el fundus gástrico. Alto riesgo de estrangulación y vólvulo → Indicación quirúrgica.",
-    "Tipo III (Mixta): Desplazamiento combinado de UGE y fundus.",
-    "Manejo: Sin displasia -> IBP + control endoscópico. Displasia de alto grado / Ca in situ -> Resección Mucosectómica Endoscópica o Esofaguectomía.",
-    "Divertículo de Zenker: Pseudodivertículo por pulsión en el Triángulo de Killian (entre el constrictor inferior y el cricofaríngeo). Tratamiento: miotomía del músculo cricofaríngeo ± diverticulopexia/diverticulectomía. Trampa: La endoscopía inicial está contraindicada de rutina por riesgo de perforación del saco.",
-    "Aperistalsis esofágica + falta de relajación del EEI. Diagnóstico de certeza: Manometría de Alta Resolución.",
-    "Resano-Malenchini: Grados I a III -> Esofagocardiomiotomía de Heller + funduplicatura parcial (Dor/Toupet). Grado IV (dolico-esófago) -> Esofaguectomía.",
-    "Linfoma MALT gástrico de bajo grado: Tratamiento de 1.ª línea -> Erradicación antibiótica de Helicobacter pylori.",
-    "Clasificación de Siewert (Adenocarcinoma UGE): Siewert I (esófago distal), Siewert II (cardias verdadero), Siewert III (subcardial -2 a -5 cm) -> El Siewert III se trata como cáncer gástrico mediante Gastrectomía Total + Y de Roux."
-   ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Adenocarcinoma gástrico (clasificación de Borrmann y Laurén), Linfoma MALT. Patología del estómago operado (Síndrome de Dumping precoz/tardío, síndrome de asa aferente/eferente, gastritis por reflujo alcalino)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "",
-     "tarea": "Repaso de perlas quirúrgicas de la Unidad 3."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Hemorragia Digestiva Baja y Alteraciones del Tránsito",
-   "horas": 8.0,
-   "unidad": "UP 4",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Hinchey I",
-     "prio": "alta",
-     "detalle": "Hinchey I (absceso pericólico) y II (absceso pélvico) → ATB EV (+ drenaje percutáneo si ≥4cm).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Hinchey III",
-     "prio": "alta",
-     "detalle": "Hinchey III (peritonitis purulenta) y IV (peritonitis fecaloidea) → Cirugía de Urgencia (Operación de Hartmann)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Causa #1 HDB en adulto mayor → Diverticulosis y angiodisplasia.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Vólvulo de sigmoides (imagen en \"grano de café\")3.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Hemorragia Digestiva Baja (HDB): etiología, algoritmo de manejo, angiodisplasia, diverticulosis. Alteraciones del tránsito (constipación, megacolon)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Anatomía quirúrgica del colon. Enfermedad diverticular del colon y Diverticulitis Aguda (Clasificación de Hinchey I a IV)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Choices sobre Hinchey y HDB."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choices sobre Hinchey y HDB."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Patología Inflamatoria, Isquémica y Tumores Benignos de Colon",
-   "horas": 8.0,
-   "unidad": "UP 4",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "CU: Afinidad por el recto, afectación mucosa/submucosa continua, pseudopólipos, megacolon…",
-     "prio": "alta",
-     "detalle": "CU: Afinidad por el recto, afectación mucosa/submucosa continua, pseudopólipos, megacolon tóxico, ANCA+3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Crohn: Afectación transmural, salteada",
-     "prio": "alta",
-     "detalle": "Crohn: Afectación transmural, salteada (\"en empedrado\"), de boca a ano (íleon terminal), fístulas, granulomas no caseificantes, ASCA+3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Isquemia colónica (ángulo esplénico y unión rectosigmoidea: puntos de Griffith y Sudeck)3.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Poliposis Adenomatosa Familiar",
-     "prio": "sec",
-     "detalle": "Poliposis Adenomatosa Familiar (PAF: riesgo 100% de adenocarcinoma → colectomía profiláctica).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Enfermedad Inflamatoria Intestinal (Colitis Ulcerosa vs. Enfermedad de Crohn: cuadro comparativo exhaustivo)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Isquemia colónica (aguda vs. crónica), vólvulos de colon (sigmoides y ciego), pólipos colónicos y poliposis adenomatosa familiar."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Práctica de justificación sobre diferencias entre Colitis Ulcerosa y Crohn."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Práctica de justificación sobre diferencias entre Colitis Ulcerosa y Crohn."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Cáncer Colorrectal y Patología Orificial / Ano-Rectal",
-   "horas": 8.0,
-   "unidad": "UP 4",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Cáncer Colorrectal (CCR)",
-     "prio": "alta",
-     "detalle": "Diagnóstico Gold Standard → Colonoscopía con biopsia. Sitio #1 de metástasis → Hígado.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Cáncer de Ano",
-     "prio": "alta",
-     "detalle": "Carcinoma epidermoide. Tratamiento de elección → Radio-Quimioterapia combinada (Esquema de Nigro). ¡NO es quirúrgico de entrada!3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Fisura Anal",
-     "prio": "alta",
-     "detalle": "Dolor lacerante post-defecatorio, hipertonía del EAI. Ubicación #1 → línea media posterior. Tratamiento quirúrgico → Esfinterotomía Lateral Interna (ELI)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Regla de Goodsall-Salmon para fístulas perianales y clasificación de Hemorroides",
-     "prio": "media",
-     "detalle": "Regla de Goodsall-Salmon para fístulas perianales y clasificación de Hemorroides (Grados I a IV)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Prolapso rectal.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Cáncer colorrectal (CCR): epidemiología, pesquisa, estadificación TNM, táctica quirúrgica por localización y esquemas de adyuvancia/neoadyuvancia."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Patología ano-rectal benigna y maligna: hemorroides, fisura anal, abscesos y fístulas perianales (Goodsall), prolapso rectal y Cáncer de Ano (Esquema de Nigro)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Choices sobre Cáncer de Recto vs. Cáncer de Colon vs. Nigro en Cáncer de Ano."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choices sobre Cáncer de Recto vs. Cáncer de Colon vs. Nigro en Cáncer de Ano."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Ostomías Digestivas y Repaso U4",
-   "horas": 6.0,
-   "unidad": "UP 4",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Ostomías",
-     "prio": "alta",
-     "detalle": "Colostomía terminal (Hartmann) vs. en asa. Complicaciones precoces (necrosis, retracción) y tardías (hernia paraestomal, prolapso)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    },
-    {
-     "texto": "Cuidados del estoma y soporte nutricional en ileostomía.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 4"
-    }
-   ],
-   "datos_duros": [
-    "Hinchey I (absceso pericólico/flemón) e II (absceso pélvico/distante): Antibióticos EV ± drenaje percutáneo si el absceso es ≥4cm.",
-    "Hinchey III (peritonitis purulenta) e IV (peritonitis fecaloidea): Cirugía de Urgencia (Operación de Hartmann: colectomía sigmoidea + colostomía terminal + muñón rectal)5.",
-    "CU: Afectación mucosa/submucosa, continua, comienza en el recto, pseudopólipos, riesgo de megacolon tóxico, p-ANCA positivo.",
-    "Crohn: Afectación transmural, salteada (\"en empedrado\"), de boca a ano (predominio en íleon terminal), fístulas, granulomas no caseificantes, ASCA positivo.",
-    "Diagnóstico: Colonoscopía completa con biopsia. Sitio #1 de metástasis -> Hígado.",
-    "Triada: dolor lacerante post-defecatorio, hipertonía del esfínter anal interno (EAI) y sangrado rutilante. Ubicación más frecuente: Línea media posterior. Tratamiento quirúrgico -> Esfinterotomía Lateral Interna (ELI)."
-   ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Manejo clínico, quirúrgico y psicosocial de ostomías digestivas (colostomías e ileostomías: tipos, indicaciones y complicaciones)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "",
-     "tarea": "Integración completa de la Unidad 4."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Hígado: Anatomía, Traumatismos, Abscesos y Quistes",
+   "titulo": "Vía biliar: anatomía, litiasis, colecistitis, coledocolitiasis, colangitis e ictericia",
    "horas": 8.0,
    "unidad": "UP 5",
-   "caso": "",
+   "caso": "Anabel, 38 años, con dolor epigástrico y en el hipocondrio derecho de 12 h, irradiado a la espalda, con vómitos, fiebre, ictericia y coluria. ¿Qué síndrome es? ¿Qué estudios pedís y en qué orden? ¿Qué hacés si empeora con hipotensión y confusión?",
    "temas": [
     {
-     "texto": "Piógeno",
+     "texto": "Anatomía quirúrgica de la vía biliar",
      "prio": "alta",
-     "detalle": "Causa #1 actual → Biliar (colangitis). Germen #1 → E. coli. TC → realce en anillo. Tratamiento → ATB EV + Drenaje percutáneo guiado.",
+     "detalle": "Triángulo de Calot (cístico, hepático común y borde hepático), arteria cística (rama de la hepática derecha, en > 90 % de los casos), segmentación hepática de Couinaud. Visión crítica de seguridad en la colecistectomía para evitar la lesión de la vía biliar.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     },
     {
-     "texto": "Amebiano (E. histolytica)",
+     "texto": "Litiasis vesicular y colecistitis aguda (Tokio 2018)",
      "prio": "alta",
-     "detalle": "Varones jóvenes, líquido \"color chocolate / pasta de anchoas\". Tratamiento → Metronidazol VO/EV (NO DRENAR de entrada), salvo lóbulo izq, >8cm o falla a 48–72h3.",
-     "trampa": "",
+     "detalle": "Cólico biliar vs. colecistitis (dolor > 6 h, fiebre, Murphy, leucocitosis). Ecografía como estudio inicial de elección: litiasis, pared engrosada (> 4 mm), líquido perivesicular y Murphy ecográfico. Guías de Tokio 2018 (TG18): grado I leve, II moderada, III grave (con disfunción orgánica). Colecistectomía laparoscópica precoz (de ser posible antes de las 72 h o antes de la semana) en I-II; en el grado III o paciente de alto riesgo: soporte y drenaje percutáneo, con colecistectomía diferida. La litiasis asintomática no se opera de rutina (excepciones: vesícula en porcelana, hemólisis, cálculos muy grandes).",
+     "trampa": "Operar toda litiasis asintomática, o indicar CPRE como tratamiento de la colecistitis.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     },
     {
-     "texto": "Hidatidosis Hepática (Gharbi / OMS)",
+     "texto": "Síndrome coledociano y colangitis aguda (Tokio)",
      "prio": "alta",
-     "detalle": "Gharbi II (nenúfar/camalote), Gharbi III (panal de abejas / vesículas hijas). Gharbi V (calcificado muerto → OBSERVACIÓN / NO OPERAR). Tratamiento: Albendazol + Mabit / PAIR.",
-     "trampa": "",
+     "detalle": "Coledocolitiasis: ictericia, coluria, acolia. Colangitis: tríada de Charcot (fiebre, ictericia, dolor en el hipocondrio derecho) y péntada de Reynolds (+ hipotensión y confusión). Antibióticos y drenaje biliar (CPRE con papilotomía) urgente según la gravedad. Estudios: ecografía, colangio-RM o ecoendoscopia si la sospecha es intermedia. Colecistectomizado con litiasis residual: CPRE.",
+     "trampa": "Demorar el drenaje en una colangitis grave, o usar la CPRE como método solo diagnóstico.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     },
     {
-     "texto": "Quiste Simple",
+     "texto": "Ictericia y colestasis",
      "prio": "alta",
-     "detalle": "Operar solo si sintomático o >8cm (Fenestración de Lin). Cistoadenoma mucinoso: Resección R0 (PROHIBIDO destechar)3.",
-     "trampa": "",
+     "detalle": "Obstructiva vs. hepatocelular: bilirrubina directa, coluria, acolia y prurito. Ecografía y dilatación de la vía biliar. Signo de Courvoisier-Terrier: vesícula palpable e indolora con ictericia sugiere neoplasia periampular, no litiasis.",
+     "trampa": "Pensar en litiasis ante una ictericia con vesícula palpable e indolora.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     },
     {
-     "texto": "Anatomía segmentaria de Couinaud.",
+     "texto": "Complicaciones de la litiasis y lesión de la vía biliar",
      "prio": "media",
-     "detalle": "",
+     "detalle": "Piocolecisto, perforación vesicular, fístula colecistoentérica e íleo biliar, síndrome de Mirizzi (tipo 1: compresión extrínseca; tipo 2: fístula colecistocoledociana), pancreatitis biliar. Cáncer de vesícula (hallazgo incidental). Colangiografía operatoria.",
      "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Anatomía quirúrgica hepática (Couinaud), traumatismo hepático. Abscesos hepáticos (piógeno vs. amebiano)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Quiste hidatídico hepático (clasificación de Gharbi/OMS, Albendazol, Mabit, PAIR) y quistes no parasitarios (simples, cistoadenoma)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Choices sobre Gharbi, Absceso Piógeno vs. Amebiano."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choices sobre Gharbi, Absceso Piógeno vs. Amebiano."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Tumores Hepáticos e Hipertensión Portal",
-   "horas": 8.0,
-   "unidad": "UP 5",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Hemangioma",
-     "prio": "alta",
-     "detalle": "más frecuente, captación centrípeta en TC, PROHIBIDO BIOPSIAR.",
-     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     },
     {
-     "texto": "Adenoma Hepatocelular",
-     "prio": "alta",
-     "detalle": "ACO/anabólicos, riesgo de sangrado y malignización → CIRUGÍA SIEMPRE.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Hiperplasia Nodular Focal",
-     "prio": "alta",
-     "detalle": "cicatriz central en rueda de carro → observación.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Carcinoma Hepatocelular (CHC)",
-     "prio": "alta",
-     "detalle": "80-90% sobre cirrosis. Screening → Eco + AFP c/ 6 meses. Diagnóstico NO invasivo → Cirrosis + AFP + TC/RM trifásica con hipercaptación arterial y \"Washout\" venoso (NO biopsia de rutina). Criterios de Milán (1 nódulo ≤5cm ó 3 ≤3cm) → Trasplante Hepático / Resección.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Metástasis hepáticas de CCR (#1 en el hígado)3.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Manejo de varices esofágicas sangrantes en HTP3.",
+     "texto": "Colangitis esclerosante, tumores de vía biliar y prótesis",
      "prio": "sec",
-     "detalle": "",
+     "detalle": "Colangitis esclerosante primaria (asociada a colitis ulcerosa), colangiocarcinoma, quiste del colédoco y atresia biliar (cirugía de Kasai precoz). Procedimientos percutáneos y prótesis endobiliares.",
      "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Tumores benignos (hemangioma, adenoma, HNF) y malignos (Hepatocarcinoma - CHC, criterios de Milán, BCLC; y Metástasis hepáticas de CCR)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Síndrome de Hipertensión Portal: fisiopatología, varices esofágicas, gastropatía hipertensiva, manejo del sangrado agudo y derivaciones portosistémicas (TIPS)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Justificación de opciones falsas en Hepatocarcinoma y Tumores Benignos."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificación de opciones falsas en Hepatocarcinoma y Tumores Benignos."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Vías Biliares: Litiasis, Colecistitis, Coledocolitiasis y Colangitis",
-   "horas": 8.0,
-   "unidad": "UP 5",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Anatomía",
-     "prio": "alta",
-     "detalle": "Triángulo de Calot vs. Triángulo Hepatocístico (de Buddé). Visión Crítica de Seguridad de Strasberg.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Colecistitis Aguda (Tokio 2018 - TG18)",
-     "prio": "alta",
-     "detalle": "Murphy +, pared >4mm. Grado I y II → Colecistectomía laparoscópica precoz (<72hs). Grado III (falla orgánica) → Colecistostomía Percutánea de urgencia.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Colangitis Aguda",
-     "prio": "alta",
-     "detalle": "Tríada de Charcot y Péntada de Reynolds (Charcot + Hipotensión + Sensorio). Tratamiento urgente → Reanimación + ATB EV + DESCOMPRESIÓN URGENTE MEDIANTE CPRE CON PAPILOTOMÍA (no colecistectomía urgente).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Indicaciones de CPRE en coledocolitiasis.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Cancer de vesícula incidental",
-     "prio": "sec",
-     "detalle": "Cancer de vesícula incidental (T1a = colecistectomía simple suficiente; T1b/T2 = reoperación con resecado en cuña + linfadenectomía)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Litiasis vesicular, colecistitis aguda (Guías de Tokio 2018 - TG18: criterios y severidad)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Coledocolitiasis, síndrome coledociano, colangitis aguda (Tríada de Charcot, Péntada de Reynolds, CPRE) y neoplasias biliares (Cáncer de vesícula y Tumor de Klatskin - Bismuth-Corlette)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "",
-     "tarea": "Resolution de Choices sobre Tokio 2018 y Colangitis."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Resolution de Choices sobre Tokio 2018 y Colangitis."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Patología Pancreática: Pancreatitis y Tumores",
-   "horas": 6.0,
-   "unidad": "UP 5",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Pancreatitis Aguda",
-     "prio": "alta",
-     "detalle": "Etiología #1 → Litiásica. Diagnóstico: 2 de 3 criterios. Criterios de Atlanta 2012 (Falla orgánica persistente >48hs = Severa; Score de Marshall ≥2). TC Balthazar a las 72–96 hs3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Cáncer de Cabeza de Páncreas",
-     "prio": "alta",
-     "detalle": "Ictericia obstructiva indolora + Signo de Courvoisier-Terrier (vesícula palpable indolora). Resecable → Duodenopancreatectomía Cefálica (Whipple)3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Ampuloma",
-     "prio": "alta",
-     "detalle": "Ictericia intermitente + Hemorragia Digestiva Alta (HDA / melena / anemia) por necrosis tumoral. Ecoendoscopía (USE) = Gold Standard de estadificación T3.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Manejo de necrosis pancreática infectada (Step-up approach)3.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Tumores neuroendocrinos pancreáticos.",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "🏆 RECOMENDACIÓN PARA EJECUTAR ESTE PLAN CON ÉXITO",
-     "prio": "sec",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Ajustar el tiempo diario según prioridades",
-     "prio": "sec",
-     "detalle": "Dedica el 70% del tiempo de estudio de cada día a los temas de Prioridad 1 (Rojo), el 20% a la Prioridad 2 (Amarillo) y el 10% restante a la Prioridad 3 (Verde).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 5"
-    },
-    {
-     "texto": "Entrenamiento de Justificación de Falsas",
-     "prio": "sec",
-     "detalle": "Al realizar los simulacros de los Días 19 a 23, utiliza siempre el esquema de 3 pasos (Identificar error → Aportar dato correcto → Fisiopatología/Conducta) para fijar el razonamiento requerido en la evaluación escrita.",
-     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 5"
     }
    ],
    "datos_duros": [
-    "Piógeno: Causa N° 1 actual -> Enfermedad biliar / Colangitis (50%). Germen N° 1 -> Escherichia coli. TC con realce en anillo. Tratamiento: ATB EV + Drenaje Percutáneo.",
-    "Amebiano (Entamoeba histolytica): Varones jóvenes con viaje a zona endémica. Contenido: líquido espeso \"color chocolate / en pasta de anchoas\". Tratamiento de elección: Metronidazol VO/EV (NO DRENAR de entrada). Indicación de drenaje: lóbulo izquierdo, >8cm o falla al Metronidazol a las 48–72 hs.",
-    "Gharbi II: Desprendimiento de la germinativa (Signo del nenúfar / camalote).",
-    "Gharbi III: Multiloculado con vesículas hijas (\"panal de abejas\").",
-    "Gharbi V: Calcificación completa. Quiste MUERTO → OBSERVACIÓN (NO requiere cirugía ni fármacos).",
-    "Tratamiento activo: Albendazol (10–15 mg/kg/día) + Evacuación/Mabit o PAIR (contraindicado si comunica con vía biliar).",
-    "Hemangioma: Lesión sólida benigna N° 1. Realce centrípeto en TC. PROHIBIDO BIOPSIAR (riesgo de hemoperitoneo).",
-    "Adenoma Hepatocelular: Fuerte relación con uso de ACO/esteroides. Riesgo de sangrado y malignización a CHC → CIRUGÍA SIEMPRE.",
-    "Carcinoma Hepatocelular (CHC): 80–90% sobre hígado cirrótico. Screening: Ecografía + Alfa-Fetoproteína (AFP) cada 6 meses. Diagnóstico no invasivo: Cirrosis + AFP elevada + TC/RM trifásica con captación arterial y lavado (\"washout\") venoso (no requiere biopsia de rutina). Criterios de Milán (1 nódulo ≤5cm ó hasta 3 nódulos ≤3cm) -> Trasplante Hepático.",
-    "Criterios: Signo de Murphy +, fiebre/leucocitosis, pared vesicular >3--4mm en ecografía.",
-    "Tratamiento: Tokio I y II -> Colecistectomía Laparoscópica precoz (<72hs). Tokio III (con disfunción orgánica) -> Colecistostomía Percutánea de urgencia para descompresión.",
-    "Tríada de Charcot: Fiebre con escalofríos + Ictericia + Dolor en HCD6.",
-    "Péntada de Reynolds: Charcot + Hipotensión / Shock séptico + Alteración del sensorio.",
-    "Tratamiento de URGENCIA: Reanimación + ATB EV + DESCOMPRESIÓN BILIAR URGENTE POR CPRE CON PAPILOTOMÍA. La colecistectomía no se hace de urgencia en la colangitis.",
-    "Causa N° 1: Litiásica (40–50%).",
-    "Diagnóstico: 2 de 3 criterios (Clínica [dolor en cinturón], Laboratorio [Amilasa/Lipasa >3 veces VN], Imágenes [TC a las 72–96 hs - Score de Balthazar]).",
-    "Criterios de Atlanta 2012: Severa si presenta Falla Orgánica Persistente (>48hs).",
-    "Signo de Courvoisier-Terrier: Vesícula biliar palpable indolora + Ictericia obstructiva progresiva.",
-    "Ampuloma (Tumor de la Ampolla de Vater): Ictericia intermitente + Hemorragia Digestiva Alta (HDA / melena) por necrosis tumoral intraluminal.",
-    "💡 Recomendación táctica: Al repasar los temas de esta lista, prioriza memorizar las clasificaciones anatomo-clínicas (Hinchey, Forrest, Tokio 2018, Gharbi, Atlanta, Alvarado) y las conductas de primera línea, ya que son las preguntas de mayor peso en el examen escrito y la justificación de opciones falsas."
+    "Ecografía: estudio inicial de elección en la litiasis y la colecistitis (≈ 95 % de sensibilidad en litiasis).",
+    "Charcot: fiebre + ictericia + dolor en el hipocondrio derecho. Reynolds: Charcot + hipotensión + confusión.",
+    "Colecistitis leve o moderada: colecistectomía laparoscópica precoz (< 72 h o < 1 semana). Colangitis grave: drenaje por CPRE.",
+    "Vesícula palpable, indolora y con ictericia (Courvoisier): pensar en cáncer de cabeza de páncreas."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "4 h",
-     "tarea": "Pancreatitis Aguda: etiopatogenia, Criterios de Atlanta 2012, scores pronósticos (BISAP, Ranson, Balthazar por TC) y manejo del área estéril vs. infectada."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "",
-     "tarea": "Pancreatitis crónica. Tumores quísticos y Tumores Periampulares (Adenocarcinoma de cabeza de páncreas, ampuloma, DPC/Whipple)."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa (premisa errónea, dato correcto, consecuencia)"
+     "texto": "Recité Charcot y Reynolds y la conducta ante cada uno.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Armé el algoritmo de ictericia obstructiva con el estudio de elección en cada paso.",
+     "hecho": false
+    },
+    {
+     "texto": "Justifiqué por escrito por qué la ecografía es el primer estudio.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 5 (vía biliar) y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Hernias Inguinales y Crurales",
-   "horas": 9.0,
+   "titulo": "Páncreas, hígado, hidatidosis, abscesos, tumores e hipertensión portal",
+   "horas": 8.0,
+   "unidad": "UP 5",
+   "caso": "Hernán, 50 años, de zona rural, con quiste hepático conocido y sin tratamiento, dolor en el hipocondrio derecho de una semana, fiebre, pérdida de peso, masa palpable y melena; bebedor crónico. ¿Qué complicación sospechás? ¿Qué diagnóstico diferencial tiene la melena? ¿Por qué no se punciona sin protección?",
+   "temas": [
+    {
+     "texto": "Pancreatitis aguda",
+     "prio": "alta",
+     "detalle": "Causas: litiasis biliar y alcohol. Diagnóstico: 2 de 3 (dolor típico, lipasa/amilasa > 3 veces el límite normal, imágenes); la lipasa es la prueba de laboratorio más útil. Atlanta 2012: leve, moderadamente grave y grave (falla orgánica persistente > 48 h). Ranson y BISAP como pronóstico; no sirven como diagnóstico. Hidratación dirigida por metas, analgesia y alimentación oral temprana (24-48 h; sonda enteral si no la tolera al 3.º-4.º día; nutrición parenteral solo si falla la enteral); sin antibióticos profilácticos (consenso argentino de actualización). La TC en las primeras 72 h tiene pocas indicaciones (no es para el diagnóstico, salvo duda: primero ecografía); TC con contraste a partir de las 72 h si hay deterioro. Complicaciones: colecciones, seudoquiste, necrosis (infectada ante gas o fiebre). Necrosis infectada: tratamiento escalonado (step-up: antibióticos, drenaje percutáneo o endoscópico y luego necrosectomía mínimamente invasiva) y no cirugía abierta de entrada (Giménez: PANTER y POINTER). Colecistectomía en la misma internación en la forma biliar leve.",
+     "trampa": "Antibióticos profilácticos de rutina, ayuno prolongado, operar la necrosis de forma precoz, o usar Ranson como criterio diagnóstico.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Tumores de páncreas y periampulares",
+     "prio": "alta",
+     "detalle": "Cabeza de páncreas: ictericia silente, coluria, acolia, pérdida de peso y Courvoisier; TC; CA 19-9 solo para seguimiento, no para pesquisa. Cirugía de Whipple (duodenopancreatectomía cefálica) si es resecable. Ampuloma (mejor pronóstico), tumores quísticos y neuroendocrinos.",
+     "trampa": "Usar el CA 19-9 como método de pesquisa.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Quiste hidatídico hepático",
+     "prio": "alta",
+     "detalle": "Echinococcus granulosus; procedencia rural. Ecografía: clasificación de Gharbi (tipo II con membrana flotante o camalote) y OMS. Serología (ELISA, hemaglutinación). Tratamiento: cirugía y/o PAIR, con albendazol. Complicaciones: sobreinfección, rotura a la vía biliar (ictericia o colangitis), rotura peritoneal o pleural (anafilaxia y siembra).",
+     "trampa": "Puncionar un quiste sin protección con antihelmíntico y sin considerar el riesgo de anafilaxia y siembra.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Abscesos hepáticos y quistes",
+     "prio": "alta",
+     "detalle": "Piógeno (colangitis, apendicitis; antibióticos y drenaje) y amebiano (E. histolytica; metronidazol; viaje o zona endémica). Quiste simple.",
+     "trampa": "Operar de entrada un absceso amebiano sin tratamiento médico.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Tumores hepáticos benignos y malignos",
+     "prio": "alta",
+     "detalle": "Hemangioma (el benigno más frecuente), adenoma (anticonceptivos; riesgo de hemorragia y malignización) e hiperplasia nodular focal (cicatriz central). Hepatocarcinoma: cirrosis, alfa-fetoproteína, patrón típico en TC o RM. Metástasis: las de cáncer colorrectal son las más frecuentes y de mejor pronóstico por su resecabilidad.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Hipertensión portal y hemorragia variceal",
+     "prio": "media",
+     "detalle": "Várices esofágicas: reanimación juiciosa, terlipresina u octreotide, antibiótico profiláctico y ligadura endoscópica; balón o TIPS en el fracaso. Alcohol crónico + melena: pensar en várices o gastropatía.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Trauma hepático, hemobilia y rotura espontánea",
+     "prio": "sec",
+     "detalle": "Trauma hepático: grado y estabilidad (no operatorio vs. laparotomía). Hemobilia: tríada de dolor, ictericia y hemorragia digestiva. Rotura espontánea.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 5"
+    }
+   ],
+   "datos_duros": [
+    "Pancreatitis: lipasa para el diagnóstico; Atlanta y Ranson para la gravedad. TC con contraste a las 72 h; sin antibióticos profilácticos.",
+    "Necrosis infectada: abordaje escalonado (step-up), no cirugía abierta de entrada.",
+    "Cabeza de páncreas: ictericia silente y Courvoisier. Hepatocarcinoma: AFP. Metástasis colónicas: resecables y de mejor pronóstico.",
+    "Hidatidosis: Gharbi; albendazol; sin punción sin protección (anafilaxia y siembra)."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Escribí los criterios diagnósticos de pancreatitis y la clasificación de Atlanta.",
+     "hecho": false
+    },
+    {
+     "texto": "Armé el cuadro: lipasa, Ranson, TC a las 72 h, antibióticos y nutrición.",
+     "hecho": false
+    },
+    {
+     "texto": "Expliqué por qué en la hidatidosis no se punciona sin protección.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de pancreatitis, hígado e hidatidosis y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Colon: diverticulitis, cáncer colorrectal, hemorragia digestiva baja y pólipos",
+   "horas": 8.0,
+   "unidad": "UP 4",
+   "caso": "Cristhian, 66 años, con dolor en la fosa ilíaca izquierda de 3 semanas, diarrea alternada con constipación, sangre roja con las heces, pérdida de 5 kg y una madre fallecida por cáncer de intestino grueso. ¿Qué diagnósticos planteás? ¿Qué estudio pedís y cuál NO pedirías si fuera una diverticulitis aguda?",
+   "temas": [
+    {
+     "texto": "Dolor en fosa ilíaca izquierda y trastornos del tránsito",
+     "prio": "alta",
+     "detalle": "Diferencial: diverticulitis, cáncer colorrectal, EII, isquemia colónica, colitis infecciosa, fecaloma y patología ginecológica o urológica. Un adulto mayor con alternancia diarrea-constipación, rectorragia, pérdida de peso y antecedente familiar: neoplasia hasta demostrar lo contrario.",
+     "trampa": "Atribuir la rectorragia a hemorroides sin estudiar el colon en una persona mayor.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Enfermedad diverticular y diverticulitis",
+     "prio": "alta",
+     "detalle": "Dolor en FII con fiebre; TC con contraste. Hinchey: I absceso pericólico, II absceso pélvico, III peritonitis purulenta, IV peritonitis fecal. No complicada: antibióticos (algunas guías actuales permiten manejo sin antibióticos en pacientes seleccionados); absceso: drenaje percutáneo. Hinchey III: lavado laparoscópico o resección con anastomosis primaria (± ostomía de protección) en pacientes estables. Hinchey IV (y paciente inestable): operación de Hartmann (sigmoidectomía, colostomía terminal y cierre del muñón rectal). Complicaciones: fístula colovesical (neumaturia y fecaluria), estenosis, hemorragia y perforación. Colonoscopia de control a las 6-8 semanas.",
+     "trampa": "Colonoscopia o enema opaco en la diverticulitis aguda, o anastomosis primaria en la peritonitis fecal.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Cáncer colorrectal: riesgo, pesquisa y tratamiento",
+     "prio": "alta",
+     "detalle": "Localización más frecuente: rectosigma. Secuencia adenoma-carcinoma. Pesquisa con colonoscopia y sangre oculta en materia fecal. Pólipos, poliposis adenomatosa familiar (APC; colectomía profiláctica) y síndrome de Lynch (cáncer hereditario sin poliposis; criterios de Amsterdam y Bethesda). Estadificación TNM con TC de tórax, abdomen y pelvis. CEA: seguimiento postoperatorio y detección de recurrencia. Cirugía oncológica con linfadenectomía; colon derecho: hemicolectomía derecha. Cáncer de ano.",
+     "trampa": "Usar el CEA como método de pesquisa o diagnóstico.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Hemorragia digestiva baja",
+     "prio": "media",
+     "detalle": "Estabilizar, evaluar la gravedad y colonoscopia como estudio inicial. Causas: divertículos y angiodisplasia (primeras en el adulto mayor), hemorroides, neoplasia y colitis isquémica. Hemorragia masiva con SNG sin sangre: angiografía o embolización; descartar origen alto.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Isquemia colónica y trastornos vasculares",
+     "prio": "media",
+     "detalle": "Ángulo esplénico y unión rectosigmoidea (puntos críticos de la irrigación). Adulto mayor con dolor y rectorragia leve; colonoscopia con mucosa cianótica. Gangrena: cirugía.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Traumatismos de colon",
+     "prio": "sec",
+     "detalle": "Reparación primaria o colostomía según el caso, el grado y la estabilidad del paciente.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    }
+   ],
+   "datos_duros": [
+    "Diverticulitis: TC con contraste; Hinchey I-IV. Hinchey IV: Hartmann. Hinchey III: lavado laparoscópico o resección con anastomosis según el paciente.",
+    "CCR: rectosigma es la localización más frecuente; CEA solo para seguimiento; colonoscopia de control a 6-8 semanas tras una diverticulitis.",
+    "Neumaturia o fecaluria: fístula colovesical.",
+    "Rectorragia en un adulto mayor con pérdida de peso: colonoscopia."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Recité Hinchey I a IV con la conducta de cada estadio.",
+     "hecho": false
+    },
+    {
+     "texto": "Dibujé la operación de Hartmann y expliqué por qué se evita la anastomosis primaria en la peritonitis fecal.",
+     "hecho": false
+    },
+    {
+     "texto": "Enuncié los grupos de riesgo para CCR hereditario y su pesquisa.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 4 (colon) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Recto y ano, EII, megacolon, vólvulos y ostomías",
+   "horas": 8.0,
+   "unidad": "UP 4",
+   "caso": "Paciente con rectorragia: ¿cómo la abordás desde el tacto rectal? Sumá un adulto mayor con distensión abdominal marcada y signo del grano de café. ¿Cuándo elegís una ostomía y qué cuidados y apoyo necesita el paciente?",
+   "temas": [
+    {
+     "texto": "Colitis ulcerosa, enfermedad de Crohn y megacolon tóxico",
+     "prio": "alta",
+     "detalle": "CU: continua desde el recto, mucosa y submucosa, diarrea sanguinolenta. Crohn: transmural, salteada, fístulas y enfermedad perianal. Megacolon tóxico (dilatación colónica > 6 cm con toxicidad sistémica): tratamiento intensivo y cirugía si no mejora: colectomía subtotal, ileostomía terminal de Brooke y fístula mucosa. Cirugía de urgencia: peritonitis, hemorragia masiva y megacolon tóxico.",
+     "trampa": "Colonoscopia o enema baritado en un megacolon tóxico, o anastomosis primaria en el paciente séptico.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Cáncer de recto y tacto rectal",
+     "prio": "alta",
+     "detalle": "Tacto rectal en todo examen. Rectosigmoidoscopia o colonoscopia con biopsia, RMN pélvica (T, N y mesorrecto) y ecoendoscopia. Neoadyuvancia en estadios avanzados y escisión total del mesorrecto. Amputación abdominoperineal de Miles cuando el tumor bajo infiltra el aparato esfinteriano; si no, resección anterior baja con preservación esfinteriana.",
+     "trampa": "Indicar Miles solo por la distancia al margen anal sin evaluar la invasión esfinteriana.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Patología anorrectal",
+     "prio": "alta",
+     "detalle": "Hemorroides (grados I-IV; trombosis hemorroidal externa), fisura anal (línea media posterior, dolor al defecar; tratamiento médico y esfinterotomía lateral interna en la crónica), absceso perianal (drenaje), fístula (clasificación de Parks; regla de Goodsall-Salmon), quiste pilonidal y fístula sacrococcígea. Fournier: necrosis fulminante del periné; desbridamiento urgente y antibióticos de amplio espectro.",
+     "trampa": "Tratar un absceso perianal solo con antibióticos, o indicar cirugía electiva en un Fournier.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Vólvulos, megacolon y fecaloma",
+     "prio": "media",
+     "detalle": "Vólvulo sigmoideo en el anciano con constipación: signo del grano de café; descompresión endoscópica y sigmoidectomía electiva; cirugía urgente ante isquemia. Vólvulo cecal: cirugía. Fecaloma: desimpactación.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Ostomías: tipos, complicaciones y acompañamiento",
+     "prio": "media",
+     "detalle": "Colostomía vs. ileostomía; terminal vs. en asa; temporal vs. definitiva. Lista de cotejo de cuidados de ostomías. Complicaciones: necrosis, retracción, prolapso, estenosis, dermatitis y hernia paraestomal. Impacto físico, emocional y social; acompañamiento desde el primer nivel de atención.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Prolapso rectal, cuerpos extraños, papilitis y criptitis",
+     "prio": "sec",
+     "detalle": "Concepto, cuadro clínico y tratamiento básico.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 4"
+    }
+   ],
+   "datos_duros": [
+    "Megacolon tóxico: colectomía subtotal + ileostomía de Brooke + fístula mucosa.",
+    "Fournier: desbridamiento urgente + antibióticos de amplio espectro.",
+    "Vólvulo sigmoideo: grano de café; descompresión endoscópica y luego cirugía electiva.",
+    "Tacto rectal: obligatorio en la rectorragia y en el cáncer de recto. Miles solo si hay invasión esfinteriana."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Completé el cuadro CU vs. Crohn sin mirar.",
+     "hecho": false
+    },
+    {
+     "texto": "Enumeré los tipos de ostomía y las complicaciones de cada una.",
+     "hecho": false
+    },
+    {
+     "texto": "Expliqué cuándo corresponde una amputación de Miles y cuándo se preserva el esfínter.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 4 (recto-ano y ostomías) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Pared abdominal: hernias, eventración, evisceración, escroto agudo y dolor inguinal",
+   "horas": 8.0,
    "unidad": "UP 6",
-   "caso": "",
+   "caso": "Mauricio, 24 años, futbolista amateur, con 10 días de dolor inguinal izquierdo que empeora al correr y, en las últimas 48 h, una sensación de masa y molestias testiculares. Pensá el diagnóstico diferencial completo (muscular, nervioso, herniario, escrotal y referido), cómo lo examinás (con Valsalva) y qué descartás de urgencia.",
    "temas": [
     {
-     "texto": "Anatomía del trayecto inguinal, orificio miopectíneo de Fruchaud, ligamentos y vasos…",
-     "prio": "media",
-     "detalle": "Anatomía del trayecto inguinal, orificio miopectíneo de Fruchaud, ligamentos y vasos epigástricos.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    },
-    {
-     "texto": "Etiopatogenia e histología de la fascia transversalis.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    },
-    {
-     "texto": "Diferenciación clínica e intraoperatoria",
-     "prio": "media",
-     "detalle": "Hernia directa (triángulo de Hesselbach, debilidad de pared posterior) vs.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    },
-    {
-     "texto": "Indirecta (por fuera de vasos epigástricos, conducto peritoneovaginal permeable).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    },
-    {
-     "texto": "Hernia crural",
-     "prio": "media",
-     "detalle": "Hernia crural (por debajo del ligamento inguinal, mayor tasa de atascamiento/estrangulación).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    },
-    {
-     "texto": "Tratamiento",
+     "texto": "Anatomía del canal inguinal y clasificación de las hernias",
      "prio": "alta",
-     "detalle": "Técnica de Lichtenstein (malla de polipropileno libre de tensión) e indicaciones laparoscópicas (TAPP/TEP).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Anatomía del trayecto inguinal, orificio miopectíneo de Fruchaud, ligamentos y vasos epigástricos. Etiopatogenia e histología de la fascia transversalis."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Diferenciación clínica e intraoperatoria: Hernia directa (triángulo de Hesselbach, debilidad de pared posterior) vs. Indirecta (por fuera de vasos epigástricos, conducto peritoneovaginal permeable). Hernia crural (por debajo del ligamento inguinal, mayor tasa de atascamiento/estrangulación). Tratamiento: Técnica de Lichtenstein (malla de polipropileno libre de tensión) e indicaciones laparoscópicas (TAPP/TEP)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de hernias, trampas sobre \"hernia atascada vs. estrangulada\" (sufrimiento vascular) y redacción de justificaciones."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de hernias, trampas sobre \"hernia atascada vs. estrangulada\" (sufrimiento vascular) y redacción de justificaciones."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Hernias Infrecuentes, Eventraciones y Evisceración",
-   "horas": 9.0,
-   "unidad": "UP 6",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Hernia epigástrica, umbilical, de Spiegel",
-     "prio": "media",
-     "detalle": "Hernia epigástrica, umbilical, de Spiegel (línea semilunar), obturatriz (signo de Howship-Romberg) y lumbares (triángulo de Petit y cuadrilátero de Grynfeltt).",
-     "trampa": "",
+     "detalle": "Orificio miopectíneo de Fruchaud, ligamento inguinal y fascia transversalis. Los vasos epigástricos inferiores diferencian la hernia directa (medial, por el triángulo de Hesselbach, debilidad de la pared posterior) de la indirecta (lateral, por el orificio inguinal profundo y el conducto peritoneovaginal). La indirecta es la más frecuente, también en mujeres. Crural: por debajo del ligamento inguinal, medial a la vena femoral.",
+     "trampa": "Invertir la relación con los vasos epigástricos, o definir la hernia por si desciende al escroto.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     },
     {
-     "texto": "Eventraciones",
+     "texto": "Hernias complicadas y técnica quirúrgica",
      "prio": "alta",
-     "detalle": "Eventraciones (clasificación por tamaño y localización, factores de riesgo, técnica de cierre con malla) y Evisceración (grados I a III).",
-     "trampa": "",
+     "detalle": "Reductible, atascada o incarcerada y estrangulada. La hernia crural tiene el mayor riesgo de estrangulación. La taxis está contraindicada si hay signos de estrangulación. Hernioplastia de Lichtenstein: malla de polipropileno sin tensión. Técnicas con tejido: Bassini, Shouldice y McVay. Abordaje laparoscópico: TEP y TAPP. Variantes: Richter (pared antimesentérica), Littré (divertículo de Meckel), Amyand (apéndice) y Garengeot (apéndice en hernia crural).",
+     "trampa": "Hacer taxis en una hernia con signos de estrangulación, o reparar con tensión sin malla una hernia voluminosa.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     },
     {
-     "texto": "Manejo del abdomen abierto e indicaciones del cierre temporal (VAC / Laparostomía).",
-     "prio": "media",
-     "detalle": "",
+     "texto": "Hernias infrecuentes y de la línea media",
+     "prio": "alta",
+     "detalle": "Epigástrica y umbilical (línea alba), Spiegel (línea semilunar, bajo la línea arcuada de Douglas), lumbar (triángulos de Grynfeltt y Petit) y obturatriz (mujer mayor delgada; signo de Howship-Romberg).",
      "trampa": "",
-     "manual": false,
-     "unidad": "UP 6"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Hernia epigástrica, umbilical, de Spiegel (línea semilunar), obturatriz (signo de Howship-Romberg) y lumbares (triángulo de Petit y cuadrilátero de Grynfeltt)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Eventraciones (clasificación por tamaño y localización, factores de riesgo, técnica de cierre con malla) y Evisceración (grados I a III). Manejo del abdomen abierto e indicaciones del cierre temporal (VAC / Laparostomía)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Integración de pared abdominal y práctica de justificaciones falsas."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Integración de pared abdominal y práctica de justificaciones falsas."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Escroto Agudo, Varicocele e Hidrocele",
-   "horas": 9.0,
-   "unidad": "UP 6",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Anatomía e irrigación del cordón espermático.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     },
     {
-     "texto": "Torsión testicular",
-     "prio": "media",
-     "detalle": "Torsión testicular (fisiopatología de la isquemia <6 h, reflejo cremastérico abolido, signo de Prehn negativo) vs.",
-     "trampa": "",
+     "texto": "Eventración, evisceración y abdomen abierto",
+     "prio": "alta",
+     "detalle": "Eventración: defecto de la pared con piel íntegra; factores: obesidad, infección y tabaquismo; incluye la de los orificios de los trocares. Neumoperitoneo progresivo de Goñi Moreno en las gigantes. Evisceración: dehiscencia total con salida de vísceras: cubrir con compresas húmedas estériles y llevar a quirófano. Cierre temporal del abdomen (VAC, bolsa de Bogotá).",
+     "trampa": "Intentar reintroducir las vísceras en la cama, o diferir la cirugía en una evisceración.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     },
     {
-     "texto": "Orquiepididimitis (Prehn positivo, cremastérico conservado, etiología por edad).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
+     "texto": "Escroto agudo y torsión testicular",
+     "prio": "alta",
+     "detalle": "Torsión: dolor súbito, testículo ascendido y horizontal, ausencia de reflejo cremastérico, Prehn negativo. Es un diagnóstico clínico: ante la duda, exploración quirúrgica inmediata sin esperar el Eco-Doppler. Viabilidad > 90 % si se opera antes de las 6 h, 20-50 % entre las 6 y 12 h, < 10 % pasadas las 12 h. La detorsión manual es solo un puente: igual se explora y se fija el testículo afectado y el contralateral (orquidopexia bilateral). DD: torsión del apéndice testicular (punto azul), epididimitis (Prehn positivo, cremastérico presente), orquitis viral, hidrocele, varicocele y trauma.",
+     "trampa": "Esperar el resultado del Eco-Doppler en un paciente con alta sospecha de torsión, o dar por resuelta la torsión tras la detorsión manual.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     },
     {
-     "texto": "Hidrocele",
+     "texto": "Dolor inguinal en el deportista y diagnóstico diferencial",
      "prio": "media",
-     "detalle": "Hidrocele (túnica vaginal, transiluminación positiva), Varicocele (plexo pampiniforme, 90° de desembocadura de vena testicular izquierda en vena renal izquierda, indicación de varicocelectomía por infertilidad o atrofia).",
+     "detalle": "Pubalgia del deportista y lesión de aductores; hernia deportiva u oculta; atrapamiento de los nervios ilioinguinal o genitofemoral; radiculopatía L1-L2; litiasis ureteral y apendicitis retrocecal como causas referidas. Masa nueva en la zona inguinal: examinar siempre con Valsalva.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 6"
     }
    ],
    "datos_duros": [
-    "Diferencia anatómica entre Hernia Directa e Indirecta: La hernia indirecta ingresa por el orificio inguinal profundo, por fuera de los vasos epigástricos (persistencia del conducto peritoneovaginal)2; la hernia directa protruye por debilidad de la fascia transversalis en el triángulo de Hesselbach, por dentro de los vasos epigástricos.",
-    "Hernia Crural: Es la hernia más frecuente en mujeres y la variedad con mayor riesgo de atascamiento y estrangulación debido a la estrechez e rigidez del anillo crural.Atascada vs. Estrangulada: La hernia atascada es irreductible e obstruida pero sin compromiso vascular; la estrangulada presenta compromiso vascular e isquemia de la pared intestinal.",
-    "Hernia de Spiegel: Protruye por la línea semilunar, por fuera del borde lateral del recto anterior e por debajo de la línea arcada de Douglas.Torsión Testicular vs. Orquiepididimitis:Torsión testicular: Dolor súbito, testículo ascendido/horizontalizado, reflejo cremastérico abolido e signo de Prehn negativo. Urgencia quirúrgica absoluta (<6 horas)6.",
-    "Orquiepididimitis: Dolor gradual, fiebre, disuria, reflejo cremastérico conservado e signo de Prehn positivo (el dolor cede al elevar el escroto)6.",
-    "Varicocele: Dilatación del plexo pampiniforme, 90% en el lado izquierdo por desembocadura en ángulo recto en la vena renal izquierda. Principal causa corregible de infertilidad masculina."
+    "Directa: medial a los vasos epigástricos. Indirecta: lateral y la más frecuente (también en mujeres). Crural: mayor riesgo de estrangulación.",
+    "Lichtenstein: malla de polipropileno sin tensión. Goñi Moreno: neumoperitoneo en eventración gigante.",
+    "Evisceración: emergencia quirúrgica. Torsión testicular: cirugía inmediata sin esperar el Eco-Doppler; orquidopexia bilateral.",
+    "Prehn: negativo en la torsión, positivo en la epididimitis. Punto azul: apéndice testicular."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Anatomía e irrigación del cordón espermático. Torsión testicular (fisiopatología de la isquemia <6 h, reflejo cremastérico abolido, signo de Prehn negativo) vs. Orquiepididimitis (Prehn positivo, cremastérico conservado, etiología por edad)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Hidrocele (túnica vaginal, transiluminación positiva), Varicocele (plexo pampiniforme, 90° de desembocadura de vena testicular izquierda en vena renal izquierda, indicación de varicocelectomía por infertilidad o atrofia)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de escroto agudo y simulacro de argumentación oral."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Choice de escroto agudo y simulacro de argumentación oral."
+     "texto": "Dibujé el canal inguinal y ubiqué la hernia directa, la indirecta y la crural.",
+     "hecho": false
     },
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
+     "texto": "Expliqué por qué Lichtenstein y cuándo no se hace taxis.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Armé el cuadro de diagnósticos diferenciales de escroto agudo con 4 criterios.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 6 (hernias y escroto) y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Masas Cervicales y Niveles Ganglionares",
-   "horas": 9.0,
-   "unidad": "UP 7",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Anatomía quirúrgica del cuello",
-     "prio": "media",
-     "detalle": "triángulos anterior/posterior y Niveles Ganglionares I a VI.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Diagnóstico diferencial de masas cervicales según topografía y edad.",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Criterio etario",
-     "prio": "alta",
-     "detalle": "Criterio etario (Regla del adulto >40 años: masa lateral dura = Cáncer del TADS hasta demostrar lo contrario).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Quiste del conducto tirogloso",
-     "prio": "media",
-     "detalle": "Quiste del conducto tirogloso (línea media, asciende al protruir la lengua, Operación de Sistrunk) vs.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Quiste branquial (borde anterior del ECM).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Paraganglioma carotídeo (contraindicada la PAAF por riesgo vascular).",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Anatomía quirúrgica del cuello: triángulos anterior/posterior y Niveles Ganglionares I a VI."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Diagnóstico diferencial de masas cervicales según topografía y edad. Criterio etario (Regla del adulto >40 años: masa lateral dura = Cáncer del TADS hasta demostrar lo contrario). Quiste del conducto tirogloso (línea media, asciende al protruir la lengua, Operación de Sistrunk) vs. Quiste branquial (borde anterior del ECM). Paraganglioma carotídeo (contraindicada la PAAF por riesgo vascular)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice e identificación de trampas en punción de cuello."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice e identificación de trampas en punción de cuello."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Patología Tiroidea y Complicaciones Postoperatorias",
-   "horas": 9.0,
-   "unidad": "UP 7",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Algoritmo estricto del Nódulo Tiroideo",
-     "prio": "alta",
-     "detalle": "TSH → Ecografía con TI-RADS → PAAF guiada con clasificación de BETHESDA (I a VI) e indicaciones de tiroidectomía.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Cáncer de Tiroides",
-     "prio": "media",
-     "detalle": "Papilar (80%, linfático, excelente pronóstico), Folicular (hematógeno, requiere biopsia por congelación para invasión capsular), Medular (células C, calcitonina, MEN 2), Anaplásico.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Complicaciones postoperatorias",
-     "prio": "media",
-     "detalle": "Hematoma sofocante (actuación inmediata: abrir la herida en la cama), Hipocalcemia (Chvostek y Trousseau), lesión del nervio laríngeo recurrente (disfonía/asfixia).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Algoritmo estricto del Nódulo Tiroideo: TSH → Ecografía con TI-RADS → PAAF guiada con clasificación de BETHESDA (I a VI) e indicaciones de tiroidectomía."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Cáncer de Tiroides: Papilar (80%, linfático, excelente pronóstico), Folicular (hematógeno, requiere biopsia por congelación para invasión capsular), Medular (células C, calcitonina, MEN 2), Anaplásico. Complicaciones postoperatorias: Hematoma sofocante (actuación inmediata: abrir la herida en la cama), Hipocalcemia (Chvostek y Trousseau), lesión del nervio laríngeo recurrente (disfonía/asfixia)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de tiroidectomía y redacción de falsas."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de tiroidectomía y redacción de falsas."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Glándulas Salivales, Traqueostomía y Burnout (Integración FDS)",
-   "horas": 6,
-   "unidad": "UP 7",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Adenoma pleomorfo (parotidectomía superficial con preservación del VII par).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Malignidad",
-     "prio": "media",
-     "detalle": "Masa + Dolor + Parálisis Facial.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Traqueostomía (indicaciones, técnica entre 2° y 3° anillo traqueal, complicaciones).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Estrés laboral e Síndrome de Burnout",
-     "prio": "media",
-     "detalle": "Estrés laboral e Síndrome de Burnout (tríada: Agotamiento emocional [núcleo cardinal], Despersonalización/Cinismo, Baja realización personal).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    },
-    {
-     "texto": "Repaso integrador Unidades 6 y 7.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 7"
-    }
-   ],
-   "datos_duros": [
-    "Hematoma Sofocante Post-tiroidectomía: Paciente con estridor, disnea e aumento de volumen cervical. Conducta INMEDIATA: Apertura inmediata de la herida en la cama del paciente para evacuar el hematoma.",
-    "Regla del Cuello en Adultos (>40 años): Toda masa cervical lateral dura en un paciente mayor de 40 años es un Carcinoma Epidermoide / Metástasis del Tracto Aerodigestivo Superior (TADS) hasta demostrar lo contrario.",
-    "Quistes Congénitos de Cuello:Quiste del conducto tirogloso: Masa en la línea media que asciende al deglutir e protruir la lengua. Tratamiento: Operación de Sistrunk (resección del quiste, trayecto e cuerpo del hioides)8.",
-    "Quiste branquial: Masa lateral en el borde anterior del músculo esternocleidomastoideo.",
-    "Patología Tiroidea (Algoritmo e Histología):Algoritmo del Nódulo Tiroideo: TSH → Ecografía (TI-RADS) → PAAF (Bethesda I a VI).",
-    "Carcinoma Papilar (80%): diseminación linfática, excelente pronóstico. Carcinoma Folicular: diseminación hematógena.",
-    "Complicación metabólica: Hipocalcemia por hipoparatiroidismo (signos de Chvostek e Trousseau)7.",
-    "Glándulas Salivales: Adenoma pleomorfo (benigno más frecuente de parótida, tratamiento: parotidectomía superficial con preservación del VII par)1. Tríada de Malignidad Parotídea: Masa + Dolor + Parálisis Facial.",
-    "Síndrome de Burnout: Tríada sintomática cuyo síntoma cardinal e ingrediente nuclear es el Agotamiento Emocional (junto con la despersonalización e la baja realización personal)8."
-   ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Parótida vs. Submaxilar. Adenoma pleomorfo (parotidectomía superficial con preservación del VII par). Malignidad: Masa + Dolor + Parálisis Facial. Traqueostomía (indicaciones, técnica entre 2° y 3° anillo traqueal, complicaciones)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Estrés laboral e Síndrome de Burnout (tríada: Agotamiento emocional [núcleo cardinal], Despersonalización/Cinismo, Baja realización personal). Repaso integrador Unidades 6 y 7."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Traumatismo de Pelvis y Fractura de Cadera (Integración FDS)",
-   "horas": 6,
-   "unidad": "UP 8",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Fractura de pelvis",
-     "prio": "media",
-     "detalle": "Fractura de pelvis (estabilidad Tile/Young-Burgess, hemorragia retroperitoneal masiva, colocación de cincha pélvica a la altura de los trocánteres mayores).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Fracturas de cadera",
-     "prio": "media",
-     "detalle": "Mediales/Intracapsulares (Garden I-IV, riesgo de necrosis avascular por arterias retinaculares) vs.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Laterales/Extracapsulares (Tronzo I-V, osteosíntesis DHS/clavo endomedular).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Criterio quirúrgico",
-     "prio": "alta",
-     "detalle": "Prótesis en ancianos con Garden III-IV.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Fractura de pelvis (estabilidad Tile/Young-Burgess, hemorragia retroperitoneal masiva, colocación de cincha pélvica a la altura de los trocánteres mayores)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Fracturas de cadera: Mediales/Intracapsulares (Garden I-IV, riesgo de necrosis avascular por arterias retinaculares) vs. Laterales/Extracapsulares (Tronzo I-V, osteosíntesis DHS/clavo endomedular). Criterio quirúrgico: Prótesis en ancianos con Garden III-IV."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Fracturas Expuestas, Diáfisis y Columna",
-   "horas": 9.0,
-   "unidad": "UP 8",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Fractura y luxación de columna",
-     "prio": "media",
-     "detalle": "Fractura y luxación de columna (evaluación neurológica ASIA, inestabilidad de Denis: columna anterior, media y posterior).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Fracturas expuestas",
-     "prio": "alta",
-     "detalle": "Fracturas expuestas (Clasificación de Gustilo-Anderson I a III, debridamiento quirúrgico <6 h, antibióticoterapia e inmovilización).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Fracturas de diáfisis femoral y lesiones osteotendinosas de rodilla.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Fractura y luxación de columna (evaluación neurológica ASIA, inestabilidad de Denis: columna anterior, media y posterior)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Fracturas expuestas (Clasificación de Gustilo-Anderson I a III, debridamiento quirúrgico <6 h, antibióticoterapia e inmovilización). Fracturas de diáfisis femoral y lesiones osteotendinosas de rodilla."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de trauma traumatológico y justificaciones."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de trauma traumatológico y justificaciones."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Tumores Óseos, Partes Blandas y Discapacidad",
-   "horas": 9.0,
-   "unidad": "UP 8",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Tumores óseos primarios (Osteosarcoma, Ewing, Condrosarcoma) vs.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Metástasis óseas (mama, próstata, pulmón, riñón, tiroides; líticas vs. blásticas).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Tumores de partes blandas",
-     "prio": "alta",
-     "detalle": "Tumores de partes blandas (criterios de malignidad: >5 cm, profundo a la fascia, doloroso).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    },
-    {
-     "texto": "Abordaje biopsicosocial de la discapacidad, impacto emocional e comunicación del…",
-     "prio": "alta",
-     "detalle": "Abordaje biopsicosocial de la discapacidad, impacto emocional e comunicación del diagnóstico.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 8"
-    }
-   ],
-   "datos_duros": [
-    "Fracturas de Cadera (Mediales vs. Laterales):Mediales / Intracapsulares (Garden I-IV): Lesionan las arterias retinaculares produciendo necrosis avascular de la cabeza femoral e pseudoartrosis. En ancianos con Garden III-IV la indicación es Reemplazo Protésico (Artroplastía).",
-    "Laterales / Extracapsulares (Tronzo I-V): Conservan la vascularización de la cabeza. Tratamiento: Osteosíntesis (DHS o clavo endomedular).",
-    "Actitud típica: impotencia funcional, acortamiento del miembro e rotación externa marcada.",
-    "Traumatismo de Pelvis Inestable: Complicación más grave: Hemorragia retroperitoneal masiva. Manejo de urgencia: colocación de cincha pélvica a la altura de los trocánteres mayores.",
-    "Fracturas Expuestas: Clasificación de Gustilo-Anderson (I a III). Pilar terapéutico: debridamiento quirúrgico precoz (<6 horas), antibióticoterapia parenteral e inmovilización."
-   ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Tumores óseos primarios (Osteosarcoma, Ewing, Condrosarcoma) vs. Metástasis óseas (mama, próstata, pulmón, riñón, tiroides; líticas vs. blásticas)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Tumores de partes blandas (criterios de malignidad: >5 cm, profundo a la fascia, doloroso). Abordaje biopsicosocial de la discapacidad, impacto emocional e comunicación del diagnóstico."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Practica de examen oral Unidad 8."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Practica de examen oral Unidad 8."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Protocolo ATLS (ABCDE del Politraumatizado)",
-   "horas": 9.0,
-   "unidad": "UP 9",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Fisiopatología del politrauma.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "A (Vía aérea y control cervical), B (Respiración: neumotórax a tensión, tórax inestable)…",
-     "prio": "media",
-     "detalle": "A (Vía aérea y control cervical), B (Respiración: neumotórax a tensión, tórax inestable), C (Circulación: evaluación del shock, reposición con cristaloides/sangre, hipotensión permisiva).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "D (Déficit neurológico: Glasgow), E (Exposición y prevención de hipotermia).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Triage y gestión de desastres.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Fisiopatología del politrauma. A (Vía aérea y control cervical), B (Respiración: neumotórax a tensión, tórax inestable), C (Circulación: evaluación del shock, reposición con cristaloides/sangre, hipotensión permisiva)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "D (Déficit neurológico: Glasgow), E (Exposición y prevención de hipotermia). Triage y gestión de desastres."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de ATLS y justificación de respuestas erróneas."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de ATLS y justificación de respuestas erróneas."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Paciente Quemado",
-   "horas": 9.0,
-   "unidad": "UP 9",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Fisiopatología del choque por quemadura e respuesta sistémica.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Profundidad (Tipo A, AB-A, AB-B, B) y Extensión (Regla de los 9 de Wallace).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Fórmula de Parkland",
-     "prio": "media",
-     "detalle": "Fórmula de Parkland (4 ml × kg × % SCQ; 50% en las primeras 8 h, 50% en las siguientes 16 h).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Criterios de centro de quemados, escarotomía e debridamiento.",
-     "prio": "alta",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Fisiopatología del choque por quemadura e respuesta sistémica. Profundidad (Tipo A, AB-A, AB-B, B) y Extensión (Regla de los 9 de Wallace)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Fórmula de Parkland (4 ml × kg × % SCQ; 50% en las primeras 8 h, 50% en las siguientes 16 h). Criterios de centro de quemados, escarotomía e debridamiento."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Ejercicios de cálculo de Parkland y choice de quemados."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Ejercicios de cálculo de Parkland y choice de quemados."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Muerte Encefálica, Trasplante e Historias Críticas",
-   "horas": 9.0,
-   "unidad": "UP 9",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Criterios clínicos de Muerte Encefálica",
-     "prio": "alta",
-     "detalle": "Criterios clínicos de Muerte Encefálica (coma arreactivo, ausencia de reflejos de tronco, prueba de apnea positiva) + Métodos instrumentales.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Procuración e trasplante de órganos",
-     "prio": "media",
-     "detalle": "Procuración e trasplante de órganos (INCUCAI, Ley de Donante Presunto, mantenimiento del donante).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    },
-    {
-     "texto": "Comunicación de malas noticias (Protocolo SPIKES/EPICEE).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 9"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Criterios clínicos de Muerte Encefálica (coma arreactivo, ausencia de reflejos de tronco, prueba de apnea positiva) + Métodos instrumentales."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Procuración e trasplante de órganos (INCUCAI, Ley de Donante Presunto, mantenimiento del donante). Comunicación de malas noticias (Protocolo SPIKES/EPICEE)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de trasplante e bioética."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de trasplante e bioética."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Isquemia Arterial Aguda y Crónica (Integración FDS)",
-   "horas": 6,
+   "titulo": "Enfermedad vascular periférica: isquemia arterial, aneurismas, patología venosa y accesos",
+   "horas": 7.5,
    "unidad": "UP 10",
-   "caso": "",
+   "caso": "Gabriel, 66 años, ex fumador, hipertenso y diabético, con claudicación previa, que consulta por dolor intenso y súbito en la pierna izquierda de 6 h con frialdad, palidez y dificultad para mover el pie. ¿Cuál es el diagnóstico? ¿Embolia o trombosis? ¿Qué se hace antes de los estudios y qué complicación esperás al revascularizar?",
    "temas": [
     {
-     "texto": "Isquemia Aguda",
-     "prio": "media",
-     "detalle": "Las 6 \"P\", embolia vs. trombosis, embolectomía con catéter de Fogarty.",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 10"
-    },
-    {
-     "texto": "Isquemia Crónica",
+     "texto": "Isquemia arterial aguda",
      "prio": "alta",
-     "detalle": "Clasificación de Fontaine (I a IV) y Rutherford, Índice Tobillo-Brazo (ITB <0.9), revascularización (bypass vs. endovascular).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 10"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Isquemia Aguda: Las 6 \"P\", embolia vs. trombosis, embolectomía con catéter de Fogarty."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Isquemia Crónica: Clasificación de Fontaine (I a IV) y Rutherford, Índice Tobillo-Brazo (ITB <0.9), revascularización (bypass vs. endovascular)."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Aneurismas y Patología Venosa (Integración FDS)",
-   "horas": 6,
-   "unidad": "UP 10",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Aneurisma de Aorta Abdominal (AAA)",
-     "prio": "media",
-     "detalle": "≥5.5cm o crecimiento >0.5cm en 6 meses = Indicación quirúrgica (EVAR vs. Abierto).",
-     "trampa": "",
+     "detalle": "Las 6 P: dolor, palidez, frialdad, parestesias, parálisis y ausencia de pulsos. Embólica (fibrilación auricular; bifurcación femoral; sin claudicación previa) vs. trombótica (aterosclerosis previa y claudicación). Heparina inmediata y revascularización urgente: embolectomía con catéter de Fogarty. Viabilidad (Rutherford): viable, amenazada, irreversible. Estudio: angio-TC o arteriografía sin demorar si hay déficit motor. Reperfusión: síndrome compartimental (fasciotomía), mioglobinuria e hiperpotasemia.",
+     "trampa": "Demorar la revascularización por estudios en una isquemia con déficit motor, o usar vasodilatadores.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 10"
     },
     {
-     "texto": "Tríada del AAA roto (dolor, hipotensión, masa pulsátil).",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 10"
-    },
-    {
-     "texto": "Trombosis Venosa Profunda",
+     "texto": "Isquemia arterial crónica y arteriopatías especiales",
      "prio": "alta",
-     "detalle": "Trombosis Venosa Profunda (Wells, Eco-Doppler, anticoagulación), TEP, Insuficiencia Venosa Crónica (Clasificación CEAP 0 a 6).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 10"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Aneurisma de Aorta Abdominal (AAA): ≥5.5cm o crecimiento >0.5cm en 6 meses = Indicación quirúrgica (EVAR vs. Abierto). Tríada del AAA roto (dolor, hipotensión, masa pulsátil)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Trombosis Venosa Profunda (Wells, Eco-Doppler, anticoagulación), TEP, Insuficiencia Venosa Crónica (Clasificación CEAP 0 a 6)."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Accesos Venosos Centrales y Arteriopatías Especiales",
-   "horas": 9.0,
-   "unidad": "UP 10",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Vías venosas centrales",
-     "prio": "media",
-     "detalle": "Vías venosas centrales (subclavia, yugular interna, técnica de Seldinger, complicaciones: neumotórax, punción arterial).",
-     "trampa": "",
+     "detalle": "Claudicación intermitente; Fontaine: I asintomático, IIa claudicación no limitante (> 150 m), IIb limitante (< 150 m), III dolor en reposo, IV úlcera o gangrena (la clasificación de Rutherford usa categorías 0 a 6). Índice tobillo-brazo < 0,9. Síndrome de Leriche (oclusión aortoilíaca: claudicación glútea, impotencia y pulsos femorales ausentes): bypass aortobifemoral. Control de factores de riesgo, ejercicio, antiagregantes y estatinas. Buerger (fumador joven; tromboangeítis) y Raynaud.",
+     "trampa": "Confundir Fontaine III (dolor en reposo) con claudicación, o indicar cirugía de entrada en la claudicación leve.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 10"
     },
     {
-     "texto": "Enfermedad de Buerger",
+     "texto": "Aneurismas de aorta abdominal, poplíteo y disección aórtica",
+     "prio": "alta",
+     "detalle": "AAA: cirugía electiva con diámetro ≥ 5,5 cm en varones (en mujeres suele usarse 5,0 cm), sintomático, o crecimiento rápido (> 1 cm/año según Giménez; otros textos: > 0,5 cm en 6 meses). Pesquisa con ecografía en varones fumadores mayores de 65 años. AAA roto: dolor abdominal o lumbar, masa pulsátil e hipotensión; llevar a quirófano con hipotensión permisiva. Cirugía abierta o endovascular (EVAR). Aneurisma poplíteo: tromboembolismo distal; frecuentemente bilateral. Disección aórtica: dolor desgarrante; Stanford A (aorta ascendente: cirugía) y B (descendente: tratamiento médico).",
+     "trampa": "Pedir estudios prolongados ante un AAA roto inestable.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 10"
+    },
+    {
+     "texto": "Enfermedad venosa: varices, TVP y TEP",
      "prio": "media",
-     "detalle": "Enfermedad de Buerger (Tromboangeítis obliterante en jóvenes fumadores) y Síndrome de Raynaud (palidez, cianosis, rubor).",
+     "detalle": "Varices y complicaciones (úlcera, varicorragia, varicoflebitis y dermatitis). TVP: score de Wells, dímero D y Eco-Doppler venoso; anticoagulación. TEP: disnea y dolor pleurítico; angio-TC. Trombosis de esfuerzo (Paget-Schroetter). Flegmasia cerulea dolens como urgencia.",
+     "trampa": "Confiar en el signo de Homans como criterio diagnóstico único.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 10"
+    },
+    {
+     "texto": "Accesos venosos, vía central y flebotomía",
+     "prio": "media",
+     "detalle": "Indicaciones de vía central y PVC; vías posibles: yugular interna, subclavia y femoral (técnica de Seldinger); control radiográfico posterior (punta en la cava superior y descartar neumotórax). Flebotomía con catéter intraluminal: concepto, finalidad y técnica.",
      "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 10"
+    },
+    {
+     "texto": "Traumatismos arteriales y nociones de cirugía endovascular",
+     "prio": "sec",
+     "detalle": "Signos duros (hemorragia pulsátil, hematoma en expansión, ausencia de pulso, soplo) que van a quirófano. Materiales protésicos y conceptos de cirugía endovascular.",
+     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 10"
     }
    ],
    "datos_duros": [
-    "Isquemia Arterial Aguda: Las 6 \"P\" (Pain, Pallor, Pulselessness, Paresthesia, Paralysis, Poikilothermia). Tratamiento en embolia = Embolectomía con catéter de Fogarty.",
-    "Isquemia Arterial Crónica: Clasificación de Fontaine (I a IV)10. Diagnóstico confirmatorio: Índice Tobillo-Brazo (ITB <0.9).",
-    "Aneurisma de Aorta Abdominal (AAA): Indicación quirúrgica (EVAR o cirugía abierta): diámetro ≥5.5cm o crecimiento >0.5cm en 6 meses. Tríada de AAA Roto: dolor abdominal/lumbar, masa pulsátil e hipotensión arterial.",
-    "Trombosis Venosa Profunda (TVP): Diagnóstico por Eco-Doppler. Clinicamente el miembro se presenta caliente e edematizado (a diferencia de la isquemia arterial aguda que está pálida e fría)11."
+    "Isquemia aguda: 6 P; heparina + embolectomía de Fogarty. Reperfusión: síndrome compartimental.",
+    "Fontaine: I asintomático, IIa/IIb claudicación, III dolor en reposo, IV úlcera o gangrena. ITB < 0,9.",
+    "AAA: ≥ 5,5 cm (varón); 5,0 cm (mujer, en algunas guías); roto: dolor + masa pulsátil + hipotensión.",
+    "Leriche: claudicación glútea + impotencia + pulsos femorales ausentes. TVP: Eco-Doppler venoso + anticoagulación."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Vías venosas centrales (subclavia, yugular interna, técnica de Seldinger, complicaciones: neumotórax, punción arterial)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Enfermedad de Buerger (Tromboangeítis obliterante en jóvenes fumadores) y Síndrome de Raynaud (palidez, cianosis, rubor)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de patología vascular y redacción de falsas."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Choice de patología vascular y redacción de falsas."
+     "texto": "Recité las 6 P y diferencié embolia de trombosis aguda.",
+     "hecho": false
     },
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
+     "texto": "Escribí Fontaine I a IV con el síntoma de cada uno.",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Enuncié los criterios de cirugía electiva del AAA y la tríada del AAA roto.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 10 y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "HPB, Cáncer de Próstata y STUI",
-   "horas": 9.0,
+   "titulo": "Urología I: retención aguda, HPB, cáncer de próstata, litiasis y masa escrotal",
+   "horas": 8.0,
    "unidad": "UP 11",
-   "caso": "",
+   "caso": "Walter, 74 años, con dolor suprapúbico intenso y retención completa de orina de más de 12 h, síntomas obstructivos previos, pérdida de peso y una masa escrotal derecha indolora. ¿Qué hacés primero? ¿Qué cambia si hay uretrorragia? ¿Qué relación pensás entre la masa escrotal y el cuadro? ¿Qué estudiás después?",
    "temas": [
     {
-     "texto": "Hiperplasia Prostática Benigna",
-     "prio": "media",
-     "detalle": "Hiperplasia Prostática Benigna (Zona de transición, IPSS, tamsulosina, finasteride, RTUP vs. Adenomectomía si >80cc).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 11"
-    },
-    {
-     "texto": "Cáncer de Próstata",
-     "prio": "media",
-     "detalle": "Cáncer de Próstata (Zona periférica, PSA + Tacto, Biopsia, Gleason / Grupos ISUP 1-5, Terapia de Deprivación Androgénica).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 11"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Hiperplasia Prostática Benigna (Zona de transición, IPSS, tamsulosina, finasteride, RTUP vs. Adenomectomía si >80cc)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Cáncer de Próstata (Zona periférica, PSA + Tacto, Biopsia, Gleason / Grupos ISUP 1-5, Terapia de Deprivación Androgénica)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de próstata y trampas de examen."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de próstata y trampas de examen."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Litiasis, Trauma GU y Oncología Urológica",
-   "horas": 9.0,
-   "unidad": "UP 11",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Litiasis Urinaria",
-     "prio": "media",
-     "detalle": "Litiasis Urinaria (Uro-TC sin contraste, LECO vs. URS vs. Nefrolitotomía. Pielonefritis Obstructiva = Drenaje urgente con Doble J o Nefrostomía).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 11"
-    },
-    {
-     "texto": "Traumatismo Renal, Vesical",
+     "texto": "Obstrucción urinaria baja y retención aguda de orina",
      "prio": "alta",
-     "detalle": "Traumatismo Renal, Vesical (intraperitoneal = cirugía) y Uretral (uretrorragia contraindica sonda Foley → Talla vesical).",
-     "trampa": "",
+     "detalle": "Dolor suprapúbico, imposibilidad de orinar y globo vesical (matidez en la convexidad superior). Causas intraluminales, parietales y extraluminales: HPB, estenosis uretral, litiasis, cáncer, fármacos. Tratamiento: sondaje vesical transuretral con Foley. Si hay uretrorragia o hematoma perineal: sin sonda; uretrografía y cistostomía o talla suprapúbica. Vaciamiento y vigilancia de la diuresis posobstructiva y de la hematuria ex vacuo. Obstrucción alta: causas, diagnóstico y complicaciones.",
+     "trampa": "Pasar sonda Foley ante uretrorragia o hematoma perineal tras un trauma pelviano.",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 11"
     },
     {
-     "texto": "Cáncer de Vejiga",
-     "prio": "media",
-     "detalle": "Cáncer de Vejiga (RTU-V vs. Cistectomía T2), Cáncer de Testículo (Orquiectomía RADICAL INGUINAL, marcadores AFP/beta-hCG/LDH).",
-     "trampa": "",
-     "manual": false,
-     "unidad": "UP 11"
-    }
-   ],
-   "datos_duros": [],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Litiasis Urinaria (Uro-TC sin contraste, LECO vs. URS vs. Nefrolitotomía. Pielonefritis Obstructiva = Drenaje urgente con Doble J o Nefrostomía). Traumatismo Renal, Vesical (intraperitoneal = cirugía) y Uretral (uretrorragia contraindica sonda Foley → Talla vesical)."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Cáncer de Vejiga (RTU-V vs. Cistectomía T2), Cáncer de Testículo (Orquiectomía RADICAL INGUINAL, marcadores AFP/beta-hCG/LDH)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice de urología e justificaciones."
-    }
-   ],
-   "checklist": [
-    {
-     "texto": "Choice de urología e justificaciones."
-    },
-    {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
-    },
-    {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
-    }
-   ]
-  },
-  {
-   "titulo": "Patología Genital Benigna e Accesos de Hemodiálisis",
-   "horas": 9.0,
-   "unidad": "UP 11",
-   "caso": "",
-   "temas": [
-    {
-     "texto": "Fimosis, parafimosis, priapismo isquémico (aspiración + fenilefrina) vs. no isquémico.",
-     "prio": "media",
-     "detalle": "",
-     "trampa": "",
+     "texto": "Hiperplasia benigna de próstata",
+     "prio": "alta",
+     "detalle": "Se origina en la zona de transición. Síntomas obstructivos e irritativos (IPSS); tacto, PSA, ecografía. Tratamiento médico: alfa-bloqueantes e inhibidores de la 5-alfa-reductasa. Quirúrgico según el tamaño: RTUP en próstatas de hasta ≈ 70-80 cm³ y adenomectomía abierta (Freyer o Millin) o enucleación con láser (HoLEP) en las mayores. Indicaciones: retención recurrente, litiasis vesical, infecciones recurrentes, insuficiencia renal obstructiva y hematuria.",
+     "trampa": "Indicar masaje o tacto prostático vigoroso en una prostatitis aguda (riesgo de urosepsis).",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 11"
     },
     {
-     "texto": "Fístula Arteriovenosa",
+     "texto": "Cáncer de próstata",
+     "prio": "alta",
+     "detalle": "Adenocarcinoma de la zona periférica, palpable al tacto rectal. PSA (valor de corte clásico 4 ng/mL), RMN y biopsia; Gleason; TNM. Tratamiento por estadios: vigilancia activa, prostatectomía radical, radioterapia y bloqueo androgénico. Metástasis óseas osteoblásticas. Seguimiento con PSA seriado.",
+     "trampa": "Sostener que un PSA < 4 descarta cáncer, o que un PSA elevado es sinónimo de cáncer (también sube en HPB, prostatitis y tras sondaje).",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Litiasis urinaria y cólico renal",
      "prio": "media",
-     "detalle": "Fístula Arteriovenosa (FAV) autóloga para hemodiálisis (radio-cefálica de Cimino-Brescia, regla de los 6, frémito/soplo, trombosis).",
+     "detalle": "Dolor lumbar irradiado a flanco y genitales, hematuria. TC sin contraste como estudio de elección; AINE como primera línea. Expulsión espontánea en cálculos pequeños (terapia médica expulsiva con alfa-bloqueantes); litotricia o ureteroscopía en los mayores. Obstrucción con infección: urgencia, derivar la vía urinaria (catéter doble J o nefrostomía).",
+     "trampa": "Litotricia o espera expectante ante una obstrucción infectada.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Masa escrotal indolora e infecciones urogenitales",
+     "prio": "media",
+     "detalle": "Masa escrotal indolora en un adulto: ecografía escrotal y marcadores (AFP, β-hCG, LDH); sospecha de tumor testicular. Prostatitis, epididimitis, ITU y enfermedades de transmisión sexual. Prevención y nociones terapéuticas.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "UP 11"
     }
    ],
    "datos_duros": [
-    "Pielonefritis Obstructiva Aguda por Litiasis: Paciente febril con cólico e obstrucción. CONDUCTA INMEDIATA: Drenaje de la vía urinaria (Catéter Doble J o Nefrostomía Percutánea). Está prohibido realizar LECO en la fase aguda infectada.",
-    "Traumatismo de Uretra: Signo cardinal: URETRORRAGIA. ESTÁ CONTRAINDICADO la colocación de Sonda Foley (riesgo de trancción uretral e infección)12. Conducta: Cistostomía Suprapúbica / Talla vesical por punción.",
-    "Hiperplasia Prostática Benigna (HPB): Se origina en la Zona de Transición. Criterio de técnica quirúrgica: Próstata <80cc→ Resección Transuretral (RTUP); Próstata >80cc→ Adenomectomía Abierta.",
-    "Cáncer de Próstata: Se origina en la Zona Periférica. Diagnóstico: PSA + Tacto Rectal + Biopsia (Puntaje de Gleason / ISUP 1-5).",
-    "Cáncer de Testículo: Masa testicular indolora + elevación de marcadores (AFP, beta-hCG, LDH). Tratamiento inicial: Orquiectomía RADICAL POR VÍA INGUINAL (el abordaje escrotal está prohibido por riesgo de diseminación).",
-    "Parafimosis: Anillo prepucial estrecho retraído por detrás del glande que actúa como torniquete. Urgencia urológica tratada con reducción manual o dorsotomía.",
-    "Fístula Arteriovenosa (FAV) para Hemodiálisis: De elección: Radio-Cefálica (Cimino-Brescia) en el brazo no dominante. Comprobación clínica de funcionamiento: palpación de frémito (thrill) e auscultación de soplo continuo."
+    "HPB: zona de transición. Cáncer de próstata: zona periférica; PSA; metástasis osteoblásticas.",
+    "RTUP: próstatas de hasta ≈ 70-80 cm³; mayores: adenomectomía abierta o HoLEP.",
+    "Retención aguda: Foley; con uretrorragia: sin sonda y cistostomía.",
+    "Cólico renal: TC sin contraste + AINE; obstrucción infectada: derivar la vía."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Fimosis, parafimosis, priapismo isquémico (aspiración + fenilefrina) vs. no isquémico."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Fístula Arteriovenosa (FAV) autóloga para hemodiálisis (radio-cefálica de Cimino-Brescia, regla de los 6, frémito/soplo, trombosis)."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Choice integrador Unidad 11."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Choice integrador Unidad 11."
+     "texto": "Escribí la conducta ante una retención aguda, con y sin uretrorragia.",
+     "hecho": false
     },
     {
-     "texto": "Justificar por escrito por qué cada opción falsa es falsa"
+     "texto": "Comparé HPB y cáncer de próstata (zona, tacto, PSA, tratamiento).",
+     "hecho": false
     },
     {
-     "texto": "Exponer el tema del día en voz alta, sin leer"
+     "texto": "Enuncié el tratamiento quirúrgico de la HPB según el tamaño prostático.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 11 (obstrucción y próstata) y anoté los que fallé.",
+     "hecho": false
     }
    ]
   },
   {
-   "titulo": "Simulacro final integrado y matriz de clasificaciones (Unidades 1 a 11)",
-   "horas": 8,
+   "titulo": "Urología II: tumores, trauma urogenital, hemodiálisis y patología genital",
+   "horas": 7.5,
+   "unidad": "UP 11",
+   "caso": "Un varón joven con masa testicular indolora y un adulto mayor fumador con hematuria macroscópica indolora. ¿Qué estudios y qué tratamiento inicial en cada uno? Sumá un trauma pélvico con uretrorragia: ¿qué estudio va antes de sondar?",
+   "temas": [
+    {
+     "texto": "Cáncer de testículo, pene y uretra",
+     "prio": "alta",
+     "detalle": "Testículo: masa indolora; ecografía escrotal y marcadores (AFP, β-hCG, LDH). Tratamiento inicial obligatorio: orquiectomía radical por vía inguinal. Diseminación linfática a ganglios retroperitoneales o paraaórticos. Seminoma vs. no seminoma. Pene y uretra: tipos histológicos y estadificación.",
+     "trampa": "Biopsiar o abordar el testículo por vía escrotal.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Cáncer renal, de vejiga y de la vía excretora",
+     "prio": "alta",
+     "detalle": "Renal: el carcinoma de células renales es ≈ 90 % de los tumores del riñón y las células claras son ≈ 70-80 % de ellos; hallazgo incidental frecuente; asociado a von Hippel-Lindau y tabaco; trombo en la vena renal; TC; nefrectomía radical o parcial; metástasis más frecuente: pulmón. Vejiga: carcinoma urotelial (≈ 90 %), hematuria macroscópica indolora, tabaquismo; cistoscopia, citología y RTU; cistectomía radical con derivación en tumores músculo-invasivos. Tumores de la vía excretora alta.",
+     "trampa": "Descartar el tumor porque la hematuria cede espontáneamente.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Trauma urogenital",
+     "prio": "alta",
+     "detalle": "Renal: TC con contraste; no operatorio en la mayoría. Vejiga: intraperitoneal (quirúrgica) o extraperitoneal; cistografía retrógrada. Uretra: uretrorragia, hematoma perineal y próstata alta; uretrografía retrógrada antes de sondar. Genitales: trauma testicular y de pene; torsión como diagnóstico diferencial. Fractura de pelvis y su relación con la uretra y la vejiga.",
+     "trampa": "Pasar una sonda antes de la uretrografía retrógrada.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Accesos vasculares para hemodiálisis",
+     "prio": "media",
+     "detalle": "Catéter transitorio o tunelizado, fístula arteriovenosa nativa (la de elección) e injerto protésico. Cuidados: no tomar la presión ni puncionar el brazo de la fístula; evaluar el thrill. Trasplante renal.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    },
+    {
+     "texto": "Patología genital benigna y urología pediátrica",
+     "prio": "media",
+     "detalle": "Fimosis y parafimosis (urgencia: reducción), priapismo isquémico (urgencia: aspiración e inyección de fenilefrina), hidrocele y varicocele (consecuencias sobre la fertilidad), criptorquidia, anomalías congénitas. Discapacidad física y rehabilitación.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 11"
+    }
+   ],
+   "datos_duros": [
+    "Testículo: orquiectomía radical por vía inguinal; ganglios paraaórticos; marcadores AFP, β-hCG y LDH.",
+    "Riñón: células claras (≈ 70-80 % de los tumores renales); metástasis a pulmón. Vejiga: urotelial; hematuria indolora.",
+    "Uretra: uretrografía retrógrada antes de sondar. Vejiga intraperitoneal: cirugía. Riñón: no operatorio en la mayoría.",
+    "Fístula nativa: acceso de elección para hemodiálisis. Priapismo isquémico: urgencia."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Enuncié la vía de diseminación y el tratamiento inicial del cáncer de testículo.",
+     "hecho": false
+    },
+    {
+     "texto": "Armé un cuadro de tumores urológicos: tipo histológico, clínica y metástasis.",
+     "hecho": false
+    },
+    {
+     "texto": "Recité la conducta ante trauma de uretra, vejiga y riñón.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví 10 choices mezclados de UP 10 y UP 11 y justifiqué las falsas.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Tumoración cervical: tiroides, masas laterales, salivales, traqueostomía y burnout",
+   "horas": 8.0,
+   "unidad": "UP 7",
+   "caso": "Eduardo, 57 años, médico, con un bulto esternal superior de 3 meses, disfonía progresiva, atragantamiento con líquidos y pérdida de 4 kg. Minimiza los síntomas y vive solo. ¿Qué estudios pedís y en qué orden? ¿Qué complicaciones de la cirugía tenés que explicarle? ¿Qué señales de estrés laboral reconocés?",
+   "temas": [
+    {
+     "texto": "Nódulo tiroideo: algoritmo, TI-RADS y Bethesda",
+     "prio": "alta",
+     "detalle": "TSH primero: si está suprimida, centellograma (caliente: no se punza). Ecografía con TI-RADS (hipoecogenicidad, microcalcificaciones, bordes irregulares, más alto que ancho y extensión extratiroidea). PAAF según el patrón ecográfico y el tamaño. Bethesda (6 categorías): I no diagnóstica, II benigna, III atipia de significado indeterminado, IV neoplasia folicular, V sospechosa y VI maligna. El carcinoma folicular no se distingue del adenoma por PAAF (requiere histología). Disfonía y disfagia con bocio: compromiso del recurrente o compresión.",
+     "trampa": "Indicar PAAF a un nódulo con TSH suprimida antes del centellograma, o esperar que la PAAF distinga un adenoma de un carcinoma folicular.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Cáncer de tiroides",
+     "prio": "alta",
+     "detalle": "Papilar: el más frecuente (diseminación linfática). Folicular: invasión vascular y capsular (vía hematógena). Medular: células C, calcitonina y CEA, asociado a MEN 2 y RET (calcitonina en el seguimiento). Anaplásico: muy agresivo. Tratamiento: lobectomía o tiroidectomía total según el riesgo (consenso Delphi argentino: hemitiroidectomía en el carcinoma diferenciado de bajo riesgo, único, < 2 cm y sin compromiso ganglionar); tiroglobulina y radioyodo en el seguimiento del diferenciado (consenso argentino del carcinoma diferenciado).",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Complicaciones de la tiroidectomía",
+     "prio": "alta",
+     "detalle": "Hematoma sofocante: emergencia precoz; apertura inmediata de la herida y reintubación. Lesión del nervio laríngeo recurrente: disfonía unilateral; asfixia por parálisis bilateral. Rama externa del laríngeo superior: fonastenia. Hipoparatiroidismo e hipocalcemia: parestesias peribucales, Chvostek, Trousseau; calcio EV.",
+     "trampa": "Intentar el manejo conservador de un hematoma cervical con compromiso de la vía aérea.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Masas laterales y congénitas del cuello",
+     "prio": "alta",
+     "detalle": "Adulto con masa cervical lateral: metástasis ganglionar hasta demostrar lo contrario (examinar cabeza y cuello, ecografía y PAAF). Congénitas: quiste tirogloso (línea media, se mueve con la deglución), quiste branquial (borde anterior del esternocleidomastoideo) e higroma quístico. Paraganglioma carotídeo (signo de Fontaine: móvil lateralmente y fijo en el eje vertical): no puncionar. Infecciosas y linfomas. Niveles ganglionares y su importancia en las resecciones oncológicas.",
+     "trampa": "Hacer biopsia excisional en la primera consulta, antes de evaluar cabeza y cuello, o puncionar un paraganglioma carotídeo.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Glándulas salivales",
+     "prio": "media",
+     "detalle": "Parótida: adenoma pleomorfo (benigno más frecuente; parotidectomía superficial con preservación del facial); la parálisis facial indica malignidad. Submaxilar y sublingual. Diagnóstico diferencial con masas cervicales.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Traqueostomía y vía aérea quirúrgica",
+     "prio": "media",
+     "detalle": "Indicaciones, quirúrgica vs. percutánea (entre el 2.º y 3.er anillo traqueal), cuidados y complicaciones; rol en la vía aérea difícil. Laringotomía intercricotiroidea como urgencia.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Estrés laboral y burnout en el equipo de salud",
+     "prio": "alta",
+     "detalle": "Burnout: proceso crónico con agotamiento emocional, despersonalización y baja realización personal. Estresores externos e internos, factores protectores, prevención y desgaste psíquico del equipo. Caso: médico que minimiza síntomas y se aísla.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 7"
+    }
+   ],
+   "datos_duros": [
+    "Nódulo tiroideo: TSH → (suprimida: centellograma) → ecografía/TI-RADS → PAAF/Bethesda → cirugía según riesgo. Papilar: el más frecuente.",
+    "Medular: calcitonina y MEN 2. Folicular: histología, no PAAF.",
+    "Hematoma sofocante: abrir la herida de inmediato. Hipocalcemia: Chvostek y Trousseau. Recurrente: disfonía.",
+    "Adenoma pleomorfo: benigno más frecuente de parótida. Burnout: agotamiento + despersonalización + baja realización."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Armé el algoritmo del nódulo tiroideo (TSH, ecografía, PAAF, cirugía).",
+     "hecho": false
+    },
+    {
+     "texto": "Enuncié las 3 complicaciones de la tiroidectomía y su conducta.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferencié quiste tirogloso, branquial y metástasis ganglionar.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 7 y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Trauma de pelvis y miembros inferiores: fracturas expuestas, cadera, columna, tumores y discapacidad",
+   "horas": 8.0,
+   "unidad": "UP 8",
+   "caso": "Alicia, 64 años, con osteopenia sin tratamiento y trastorno de ansiedad, cae de costado y no puede incorporarse: dolor pélvico profundo y pierna derecha que no responde. ¿Cuál es el diagnóstico probable? ¿Cómo se clasifica y se trata? ¿Cómo le comunicás una posible pérdida de autonomía?",
+   "temas": [
+    {
+     "texto": "Fracturas expuestas y politraumatismo ortopédico",
+     "prio": "alta",
+     "detalle": "Clasificación de Gustilo-Anderson: I (herida < 1 cm, limpia), II (1-10 cm sin daño extenso), IIIA (cobertura ósea adecuada pese al daño), IIIB (pérdida de partes blandas que requiere colgajo) y IIIC (lesión vascular que requiere reparación). Urgencia: antibióticos EV lo antes posible, profilaxis antitetánica, lavado y desbridamiento quirúrgico, estabilización (fijador externo en el grado III) y cobertura. Esquema del texto de la cátedra (Orrego, Ortopedia y Traumatología Básica): cefazolina 2 g EV al ingreso y luego 1 g cada 6-8 h durante 2-3 días; en el grado III se agrega gentamicina 3-5 mg/kg/día por 3 días y penicilina si se sospecha anaerobios (tierra, granja). Guías actuales: grados I-II, cefazolina hasta 24 h; grado III, hasta 72 h o 24 h después de la cobertura, y algunos protocolos reemplazan el aminoglucósido por ceftriaxona. Complicaciones: infección, seudoartrosis y síndrome compartimental (dolor desproporcionado y al estiramiento pasivo: fasciotomía).",
+     "trampa": "Cerrar primariamente una fractura expuesta contaminada, o dar antibióticos por vía oral.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Trauma de pelvis",
+     "prio": "alta",
+     "detalle": "Mecanismos: compresión anteroposterior (libro abierto con diástasis pubiana), compresión lateral y cizallamiento vertical. Hemorragia del plexo venoso presacro: shock. Cincha pelviana a nivel de los trocánteres mayores, fijador externo, packing o embolización. No repetir maniobras de compresión pelviana. Lesiones de uretra y vejiga asociadas.",
+     "trampa": "Pasar sonda vesical con uretrorragia en un trauma pelviano.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Fractura de cadera en el anciano",
+     "prio": "alta",
+     "detalle": "Miembro acortado y en rotación externa. Intracapsular o del cuello (Garden I-IV): riesgo de necrosis avascular y seudoartrosis por lesión de las arterias retinaculares; extracapsular o pertrocantérea (Tronzo): osteosíntesis (DHS o clavo endomedular). Cirugía precoz, artroplastia en las desplazadas, tromboprofilaxis y rehabilitación. Osteopenia y osteoporosis: tratamiento y prevención de caídas.",
+     "trampa": "Manejo conservador prolongado en el anciano por riesgo quirúrgico, con inmovilidad y complicaciones.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Diáfisis femoral, rodilla y lesiones osteotendinosas",
+     "prio": "media",
+     "detalle": "Fractura de diáfisis femoral (hemorragia y embolia grasa), lesiones ligamentarias y meniscales de rodilla, luxaciones. Materiales de reducción y osteosíntesis: yesos, férulas, tracciones, placas, clavos y fijadores.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Columna y radiculopatías",
+     "prio": "media",
+     "detalle": "Fracturas y luxaciones de columna (clasificación de Denis; estabilidad), radiculopatías cervicales y lumbosacras: evaluación clínica, diagnóstico diferencial y tratamiento.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Tumores óseos, metástasis y partes blandas",
+     "prio": "media",
+     "detalle": "Osteosarcoma (sol naciente, triángulo de Codman), Ewing (capas de cebolla), condrosarcoma, mieloma (imágenes «en sacabocados»). Metástasis óseas: mama, próstata (osteoblásticas), pulmón, riñón y tiroides. Tumores de partes blandas: sarcomas; biopsia planificada antes de la cirugía.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Discapacidad y comunicación del diagnóstico",
+     "prio": "alta",
+     "detalle": "Discapacidad, incapacidad, invalidez y minusvalía. Impacto emocional, duelo y familia; rol del equipo de salud; rehabilitación como proceso integral. Cómo, quién, cuándo y con qué contenido comunicar un diagnóstico de discapacidad.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 8"
+    }
+   ],
+   "datos_duros": [
+    "Gustilo I a IIIC: cefazolina 2 g al ingreso (1 g cada 6-8 h por 2-3 días); grado III + gentamicina; desbridamiento, fijación externa y cobertura. No cerrar primariamente.",
+    "Pelvis en libro abierto: cincha en los trocánteres mayores; no repetir las compresiones.",
+    "Cadera: acortada y en rotación externa. Garden (intracapsular): necrosis avascular; pertrocantérea: osteosíntesis.",
+    "Tumores: sol naciente (osteosarcoma), capas de cebolla (Ewing), sacabocados (mieloma)."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Clasifiqué Gustilo I, II, IIIA, IIIB y IIIC con la conducta de cada una.",
+     "hecho": false
+    },
+    {
+     "texto": "Describí la fractura de pelvis en libro abierto y la cincha pelviana.",
+     "hecho": false
+    },
+    {
+     "texto": "Expliqué por qué las fracturas mediales de cadera tienen mala evolución.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 8 (traumatología) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Disfagia, hemorragia digestiva alta y patología esofagogástrica",
+   "horas": 8.0,
+   "unidad": "UP 3",
+   "caso": "Alberto, 58 años, fumador y bebedor, con disfagia progresiva a sólidos y luego a líquidos, regurgitación, saciedad precoz, pérdida de 8 kg y melena. ¿Qué estudio va primero? ¿Qué tipo de disfagia es y qué diagnósticos planteás? ¿Qué hacés con la melena?",
+   "temas": [
+    {
+     "texto": "Disfagia: diagnóstico diferencial",
+     "prio": "alta",
+     "detalle": "Orofaríngea vs. esofágica; mecánica (progresiva: sólidos y luego líquidos; cáncer, estenosis) vs. motora (sólidos y líquidos desde el inicio: acalasia, espasmo). Signos de alarma: pérdida de peso, melena, saciedad precoz y edad > 55 años. Estudio inicial: endoscopia con biopsia; luego tránsito baritado y manometría esofágica.",
+     "trampa": "Indicar manometría o tránsito antes de la endoscopia en una disfagia con signos de alarma.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Hemorragia digestiva alta",
+     "prio": "alta",
+     "detalle": "Hematemesis y melena. Estabilización hemodinámica, IBP y endoscopia dentro de las 24 h. Forrest: Ia (chorro) y Ib (napa) sangrado activo, IIa vaso visible, IIb coágulo adherido, IIc hematina y III base limpia. Tratamiento endoscópico (adrenalina más un método térmico o clips) para los Forrest de alto riesgo (Ia a IIb); IIc y III: IBP. Várices: terlipresina o octreotide y ligadura. Cirugía si fracasa la endoscopia. Causa más frecuente: úlcera péptica.",
+     "trampa": "Realizar endoscopia sin estabilizar, o aplicar tratamiento endoscópico a una base limpia (Forrest III).",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Cáncer de esófago y de la unión esofagogástrica",
+     "prio": "alta",
+     "detalle": "Epidermoide (tercio medio, tabaco y alcohol) y adenocarcinoma (tercio distal; Barrett y reflujo). Unión esofagogástrica: clasificación de Siewert. Estudio: endoscopia con biopsia, TC, ecoendoscopia y laparoscopia. Tratamiento: esofagectomía con quimiorradioterapia según el estadio; paliación endoscópica.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Cáncer gástrico y tumores del estómago",
+     "prio": "alta",
+     "detalle": "Antro y curvatura menor; H. pylori; clasificación de Laurén (intestinal y difuso); cáncer gástrico temprano (mucosa o submucosa); cáncer del muñón gástrico. Linfoma MALT de bajo grado (erradicación de H. pylori). GIST: células fusiformes, CD117 positivo. Resección endoscópica en el temprano; gastrectomía con linfadenectomía y quimioterapia perioperatoria.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Patología benigna del esófago",
+     "prio": "media",
+     "detalle": "ERGE y esofagitis (clasificación de Los Ángeles A-D), esófago de Barrett (metaplasia intestinal), hernia hiatal por deslizamiento y paraesofágica (cirugía por riesgo de vólvulo o atascamiento; úlceras de Cameron). Acalasia: esófago en pico de pájaro, manometría y clasificación de Resano-Malenchini; miotomía de Heller más funduplicatura. Espasmo difuso y esófago en cascanueces. Divertículo de Zenker: pulsión, triángulo de Killian. Lesiones por cáusticos.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Patología gástrica benigna y estómago operado",
+     "prio": "media",
+     "detalle": "Úlcera péptica (H. pylori, AINE), gastritis, dispepsia funcional, pólipos, tumores benignos y bezoares. Estómago operado: dumping precoz (vasomotor y osmótico) y tardío (hipoglucemia reactiva), diarrea posvagotomía, síndrome del asa aferente (vómito bilioso que alivia el dolor), gastritis alcalina, vólvulo gástrico y fístula gastroyeyunocólica.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3"
+    }
+   ],
+   "datos_duros": [
+    "Disfagia progresiva con pérdida de peso: endoscopia con biopsia.",
+    "Forrest Ia-IIb: tratamiento endoscópico; IIc y III: IBP sin tratamiento endoscópico.",
+    "Acalasia: manometría; Heller + funduplicatura. Zenker: divertículo por pulsión, triángulo de Killian.",
+    "Epidermoide: tercio medio, tabaco y alcohol. Adenocarcinoma: tercio distal, Barrett y reflujo."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Armé el cuadro de disfagia mecánica vs. motora con ejemplos y estudio.",
+     "hecho": false
+    },
+    {
+     "texto": "Recité Forrest y la conducta de cada categoría.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferencié el adenocarcinoma del epidermoide de esófago por localización y factor de riesgo.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 3 y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Generalidades quirúrgicas I: asepsia, instrumental, heridas, infección y cicatrización",
+   "horas": 8.0,
+   "unidad": "UP 1",
+   "caso": "Gabriel, 34 años, con una herida cortante de 8 cm en el antebrazo derecho, dificultad para mover los dedos 3.º y 4.º y parestesias palmares, tras una caída sobre ambas muñecas. Vive solo y está ansioso y sin cobertura. ¿Qué evaluás antes de anestesiar? ¿Qué estudios pedís? ¿Cómo cerrás la herida y qué educación le das al alta?",
+   "temas": [
+    {
+     "texto": "Asepsia, antisepsia y bioseguridad",
+     "prio": "alta",
+     "detalle": "Asepsia: conjunto de medidas para evitar la contaminación microbiana. Antisepsia: eliminación o reducción de microorganismos en tejidos vivos. Lavado quirúrgico, equipo quirúrgico, campo estéril y normas de bioseguridad (precauciones universales). Riesgo de transmisión de enfermedades virales en la práctica quirúrgica.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Instrumental, técnica quirúrgica y suturas",
+     "prio": "alta",
+     "detalle": "Instrumental según su función: diéresis, hemostasia, prehensión, separación y síntesis. Material de sutura: absorbible y no absorbible, monofilamento y multifilamento. Tiempos quirúrgicos y hemostasia. Biopsias (incisional, excisional, por punción e intraoperatoria). Microcirugía, videocirugía, cirugía mini-invasiva y ambulatoria. Taller de suturas.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Heridas, mordeduras y profilaxis antitetánica",
+     "prio": "alta",
+     "detalle": "Antes de anestesiar: documentar la sensibilidad, la motilidad y el estado tendinoso y vascular. Dificultad para movilizar los dedos 3.º y 4.º con parestesias palmares: sospechar lesión de nervios y de tendones flexores; exploración y reparación en quirófano. Rx de muñeca por la caída (radio distal y escafoides). Lavado abundante, antisepsia, desbridamiento, anestesia local y sutura. Mordeduras: lavado exhaustivo, desbridamiento, sin cierre primario si están infectadas, antibióticos (la de gato y la de mano tienen indicación de profilaxis) y antitetánica. Ansiedad, aislamiento y presión laboral: educación, signos de alarma y seguimiento.",
+     "trampa": "Cerrar la herida sin explorar la zona, o anestesiar antes de documentar la sensibilidad y la motilidad.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Infección del sitio quirúrgico y profilaxis antibiótica",
+     "prio": "alta",
+     "detalle": "Clasificación de las cirugías: limpia (p. ej. mastectomía radical, hernioplastia), limpia-contaminada, contaminada y sucia. Profilaxis: cefazolina 2 g EV (3 g si el paciente pesa ≥ 120 kg) en monodosis, dentro de los 30-60 minutos previos a la incisión (la guía argentina de profilaxis promueve ≤ 30 min) o en la inducción anestésica; se repite si la cirugía dura más de 4 h; no se prolonga más de 24 h y no se continúa en las cirugías limpias. Prevención de la ISQ (consenso interinstitucional argentino 2024): no eliminar el vello salvo que moleste y, si hace falta, con clipper fuera del quirófano; antisepsia de la piel con solución alcohólica (clorhexidina o iodopovidona); normotermia y control de la glucemia en todos los pacientes (110-150 mg/dL hasta 24-48 h); suspender la profilaxis en el postoperatorio. Infecciones: absceso (drenaje), forúnculo, ántrax, hidrosadenitis, flemón, gangrena gaseosa (desbridamiento y antibióticos) y sepsis. Signos de infección de herida: calor, enrojecimiento progresivo y supuración.",
+     "trampa": "Prolongar el antibiótico profiláctico por días en una cirugía limpia.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Cicatrización y nutrición",
+     "prio": "media",
+     "detalle": "Hemostasia, inflamación, proliferación y remodelación; primera, segunda y tercera intención; herida incisa y contusa; cicatrización viciosa (hipertrófica y queloide). Factores que la afectan: tabaquismo, diabetes, desnutrición y comorbilidades. Nutrición enteral preferida a la parenteral cuando el intestino funciona.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [
+    "Asepsia: evitar la contaminación. Antisepsia: reducir microorganismos en tejidos vivos.",
+    "Cirugía limpia, limpia-contaminada, contaminada y sucia. Mastectomía radical: limpia.",
+    "Cefazolina 2 g EV (3 g si ≥ 120 kg) dentro de los 30-60 min previos a la incisión; monodosis, nunca más de 24 h.",
+    "Cicatrización: hemostasia, inflamación, proliferación y remodelación. Evaluar nervio y tendón antes de anestesiar."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Clasifiqué las cirugías por contaminación y la profilaxis de cada una.",
+     "hecho": false
+    },
+    {
+     "texto": "Enuncié el manejo inicial de una herida contaminada y de una mordedura.",
+     "hecho": false
+    },
+    {
+     "texto": "Ordené las fases de la cicatrización.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 1 (generalidades) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Generalidades quirúrgicas II: preoperatorio, anestesia, postoperatorio y traumatología del miembro superior",
+   "horas": 8.0,
+   "unidad": "UP 1",
+   "caso": "Una caída sobre la mano extendida con dolor en la tabaquera anatómica y radiografía inicial normal. Sumá un paciente ASA III que va a cirugía programada. ¿Cómo manejás cada caso y qué le explicás al paciente antes de firmar el consentimiento?",
+   "temas": [
+    {
+     "texto": "Preoperatorio, riesgo quirúrgico y ASA",
+     "prio": "alta",
+     "detalle": "Indicación quirúrgica: extrema urgencia, urgencia relativa, urgencia diferida y programada. Clasificación ASA: I sano, II enfermedad sistémica leve o moderada, III severa con limitación, IV amenaza constante para la vida, V moribundo, VI muerte encefálica (donante). El ASA mide el estado del paciente y no el riesgo de un procedimiento específico. Evaluación cardiovascular, respiratoria, renal y hepática; estado nutricional; consentimiento informado; check list de cirugía segura y preoperatorio inmediato.",
+     "trampa": "Confundir ASA II con ASA III o IV, o creer que el ASA mide el riesgo de la cirugía.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Anestesia",
+     "prio": "alta",
+     "detalle": "Local (lidocaína, bupivacaína; toxicidad y dosis máximas), regional, loco-troncular, raquídea y peridural (indicaciones, contraindicaciones, accidentes y secuelas como la cefalea pospunción) y general. Períodos de Guedel: analgesia, delirio o excitación, anestesia quirúrgica y parálisis bulbar. Premedicación. Intubación traqueal: ventajas y complicaciones.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Postoperatorio y complicaciones",
+     "prio": "media",
+     "detalle": "Períodos: inmediato, mediato (hasta el alta) y tardío. Parámetros de vigilancia: pulso, presión, respiración, temperatura, diuresis, mucosas, herida, sondas y drenajes. Complicaciones frecuentes: atelectasia, ITU, ISQ, TVP/TEP, íleo, hemorragia y dehiscencia. Alta, convalecencia y rehabilitación; postoperatorio ambulatorio.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Fracturas, luxaciones e inmovilizaciones",
+     "prio": "alta",
+     "detalle": "Concepto y clasificación (cerradas y expuestas), biología ósea y consolidación, métodos diagnósticos (Rx, TC, RMN, centellograma). Inmovilizaciones: yesos, férulas y tracciones; indicaciones y secuelas. Complicaciones: síndrome compartimental, seudoartrosis, necrosis avascular y enfermedad tromboembólica. Taller de inmovilizaciones.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Traumatología del miembro superior",
+     "prio": "alta",
+     "detalle": "Clavícula: caída sobre el hombro o impacto directo. Luxación de hombro: la anterior es la más frecuente (nervio axilar). Húmero diafisario: nervio radial (mano péndula). Supracondílea en niños: síndrome compartimental y Volkmann. Colles: radio distal extraarticular con desplazamiento dorsal (dorso de tenedor). Escafoides: el hueso del carpo que más se fractura (necrosis avascular; la radiografía inicial puede ser normal: inmovilizar y repetir). Luxación del semilunar y compresión del mediano. Bennett (intraarticular, base del 1.er metacarpiano) vs. Rolando. Fractura del boxeador (cuello del 5.º metacarpiano). Prono doloroso en niños.",
+     "trampa": "Dar por descartada una fractura de escafoides con una radiografía inicial normal.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [
+    "ASA: I sano, II leve, III severa, IV amenaza vital, V moribundo, VI donante con muerte encefálica.",
+    "Guedel: analgesia, excitación, anestesia quirúrgica, parálisis bulbar.",
+    "Colles: dorsal; húmero diafisario: nervio radial; supracondílea: Volkmann; hombro: luxación anterior.",
+    "Escafoides: necrosis avascular; inmovilizar ante dolor en la tabaquera aunque la Rx sea normal. Boxeador: 5.º metacarpiano."
+   ],
+   "agenda": [],
+   "checklist": [
+    {
+     "texto": "Recité ASA I a VI con un ejemplo clínico para cada categoría.",
+     "hecho": false
+    },
+    {
+     "texto": "Ordené los períodos del cuadro de Guedel.",
+     "hecho": false
+    },
+    {
+     "texto": "Describí Colles, Bennett y la fractura del boxeador.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví los choices de UP 1 (traumatología) y anoté los que fallé.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Integración y simulacro final",
+   "horas": 6.0,
    "unidad": "Integración",
-   "caso": "Simulacro mixto y repaso de algoritmos críticos.",
+   "caso": "Simulacro cronometrado de choices integrados de las 11 unidades problema y simulacro oral: tres temas sorteados al azar con el esquema de 6 pasos. Corregí con la justificación escrita de cada opción falsa.",
    "temas": [
     {
-     "texto": "Simulacro real integrado (60 a 80 preguntas con tiempo controlado)",
+     "texto": "Simulacro de choices cronometrado",
      "prio": "alta",
-     "detalle": "Después de rendirlo, redactá la justificación de todas las opciones falsas de las preguntas falladas.",
-     "trampa": "",
+     "detalle": "Resolver un examen anterior completo (Choice Integrador, exámenes y parciales de años previos de tu carpeta) en el tiempo estimado y corregir con justificación escrita de cada opción falsa. Cada error se anota con la corrección en una línea.",
+     "trampa": "Dejar sin justificar las opciones falsas: ahí se aprende más.",
+     "hecho": false,
      "manual": false,
      "unidad": "Integración"
     },
     {
-     "texto": "Matriz de clasificaciones indispensables",
+     "texto": "Simulacro oral: regla de los 6 pasos",
      "prio": "alta",
-     "detalle": "Repasá de memoria: Gustilo-Anderson (Trauma); Alvarado (Apendicitis); Monif (EPI); Los Ángeles (Esofagitis); Siewert (Tumores UGE); Forrest (HDA); Hinchey (Diverticulitis); Gharbi / OMS (Hidatidosis); BCLC y Milán (Hepatocarcinoma); Tokio 2018 (Colecistitis/Colangitis); Bismuth-Corlette (Klatskin).",
+     "detalle": "Una vez aprobado el choice se pasa al examen oral. Exponer 3 temas sorteados de 5 a 8 minutos, sin leer, con vocabulario médico formal: anatomía quirúrgica aplicada, etiopatogenia, cuadro clínico, algoritmo diagnóstico, diagnósticos diferenciales y tratamiento con complicaciones. Pool: politraumatizado, apendicitis, colecistitis y colangitis, pancreatitis, diverticulitis y cáncer colorrectal, hernia inguinal, isquemia arterial aguda, nódulo tiroideo, retención aguda de orina, hemorragia digestiva alta y fractura de cadera.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "Integración"
     },
     {
-     "texto": "Simulacro mixto 1: 50 preguntas choice integradas con justificación",
+     "texto": "Fórmulas y escalas",
      "prio": "alta",
-     "detalle": "Cronometrado, escribiendo la justificación completa de cada opción falsa.",
+     "detalle": "Parkland, Glasgow, ASA, Hinchey, Forrest, Fontaine, Gustilo, Garden, Atlanta, Ranson, Wallace, Alvarado, Charcot y Reynolds, Tokio, Bethesda y TI-RADS, Hesselbach, Gharbi, Goñi Moreno, Murphy.",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "Integración"
     },
     {
-     "texto": "Algoritmos de emergencia que nunca fallan",
-     "prio": "alta",
-     "detalle": "Hematoma sofocante post-tiroidectomía: apertura inmediata en la cama. Urosepsis obstructiva: drenaje urgente (no hacer LECO en agudo). Uretrorragia en trauma pélvico: prohibido sondar, cistostomía suprapúbica. Priapismo isquémico: aspiración + fenilefrina. Shock hemorrágico por trauma de pelvis: cincha pélvica a la altura de los trocánteres mayores.",
+     "texto": "Tabla maestra de datos duros",
+     "prio": "media",
+     "detalle": "Recitar sin mirar la tabla maestra de datos duros de todas las unidades (ver abajo).",
      "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "Integración"
     },
     {
-     "texto": "Matriz de datos clave: fórmulas, escalas y gold standards",
-     "prio": "alta",
-     "detalle": "Parkland, Glasgow, IPSS, Wells, Fontaine/Rutherford, CEAP, Garden, Tronzo, Gustilo-Anderson, AAST renal, ISUP/Gleason, Bethesda/TI-RADS, TNM. Uro-TC sin contraste (litiasis), cistoscopía (cáncer de vejiga), ecografía + marcadores + orquiectomía inguinal (testículo), PAAF (nódulo tiroideo), eco-Doppler (isquemia, TVP, torsión).",
+     "texto": "Puntos a verificar con la cátedra",
+     "prio": "media",
+     "detalle": "1) Necrosis pancreática infectada: Giménez (PANTER y POINTER) indica abordaje escalonado; Michans (2002) propone necrosectomía. 2) Diverticulitis no complicada: algunas guías permiten omitir antibióticos en casos seleccionados. 3) Hinchey III: lavado laparoscópico o resección con anastomosis (± ostomía) en el estable; Hartmann en IV o inestable. 4) Miles: solo por invasión esfinteriana. 5) Neumotórax: 5.º EIC en ATLS 11 y UP 9; Giménez 4.º-5.º; versiones antiguas, 2.º EIC. 6) Cefazolina: 2 g (3 g ≥ 120 kg); Michans 1 g. 7) Muerte encefálica: verificado con el Protocolo Nacional (Res. 716/2019): 24 h, 12 h, 6 h y desde los 6 años 1 h (la Res. 275/2010 pedía 6 h en adultos y ya no rige). 8) AAA: 5,5 cm en varones y 5,0 cm en mujeres; crecimiento rápido: > 1 cm/año o > 0,5 cm en 6 meses. 9) Parkland: 4 mL (clásica) o 2 mL (ATLS 11). 10) Hemotórax: ≥ 1500 mL o > 200-250 mL/h por 3-4 h. 11) Ácido tranexámico: 1 g en las primeras 3 h y luego 1 g en 8 h (el manual de Chile indica 1 g cada 8 h por 24 h). 12) Gustilo: no hay una guía argentina de consenso para citar; el texto de la cátedra da 2-3 días y las guías actuales 24 h (I-II) y hasta 72 h (III): confirmar cuál toma la cátedra. 13) Restricción del movimiento espinal: verificado con el texto de CISReMET 2021. 14) RTUP: límite de volumen (≈ 70-80 cm³). 15) Células claras del riñón: ≈ 70-80 % de los carcinomas renales.",
      "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Cerrar temprano",
+     "prio": "sec",
+     "detalle": "Dejar listo lo del examen: documento, lapicera, horario y lugar; dormir bien. El día previo es liviano.",
+     "trampa": "",
+     "hecho": false,
      "manual": false,
      "unidad": "Integración"
     }
    ],
    "datos_duros": [
-    "Cuando el examen te pida responder un Choice y justificar las opciones falsas, debes seguir este patrón de tres pasos:",
-    "Identificar la premisa errónea: Señala la palabra, número, criterio o indicación que invalida la opción.",
-    "Aportar el dato correcto: Reemplaza el dato falso por la cifra, clasificación o concepto anatomo-quirúrgico real.",
-    "Explicar la consecuencia fisiopatológica o clínica: Justifica brevemente por qué esa opción incorrecta cambiaría el diagnóstico o conducta.",
-    "> Ejemplo de Respuesta Perfecta en Examen:",
-    "Pregunta: En relación con la Colangitis Aguda, señale la opción correcta:",
-    "A) El tratamiento de elección inicial es la colecistectomía de urgencia.",
-    "Clasificaciones a saber de memoria: Gustilo-Anderson (Trauma); Alvarado (Apendicitis); Monif (EPI); Los Ángeles (Esofagitis); Siewert (Tumores UGE); Forrest (HDA); Hinchey (Diverticulitis); Gharbi / OMS (Hidatidosis); BCLC y Milán (Hepatocarcinoma); Tokio 2018 (Colecistitis/Colangitis); Bismuth-Corlette (Klatskin)",
-    "Justificación de falsas en dos pasos: 1) negación técnica directa del error fisiopatológico, anatómico o terapéutico; 2) corrección con el concepto exacto.",
-    "Ejemplo: en la torsión testicular el signo de Prehn es NEGATIVO y el reflejo cremastérico está abolido; el tratamiento es la exploración quirúrgica de urgencia (antes de las 6 horas); la mejoría con antibióticos y el Prehn positivo corresponden a la orquiepididimitis."
+    "UP 9: ABCDE; neumotórax a tensión: aguja en el 5.º EIC y tubo pleural; shock I-IV; FAST (4 ventanas); Glasgow ≤ 8 = vía aérea definitiva; Parkland 50 % en 8 h; muerte encefálica = coma arreactivo + sin reflejos de tronco + apnea; Ley 27.447; SPIKES.",
+    "UP 2: Murphy y Alvarado; plastrón: antibióticos y apendicectomía diferida; FID en mujer fértil: β-hCG; úlcera perforada: parche epiplóico; oclusión: bridas; Selye.",
+    "UP 5: ecografía primero; Charcot y Reynolds; TG18; pancreatitis: lipasa, Atlanta, TC a las 72 h, step-up en necrosis infectada; hidatidosis: Gharbi y albendazol; Courvoisier.",
+    "UP 4: TC en diverticulitis; Hinchey I-IV; Hartmann en IV; CCR: rectosigma, CEA solo seguimiento; megacolon tóxico: Brooke; Fournier: desbridamiento; Miles solo con invasión esfinteriana.",
+    "UP 6: directa medial / indirecta lateral; Lichtenstein; evisceración: emergencia; torsión: sin esperar el Doppler y orquidopexia bilateral.",
+    "UP 10: 6 P, heparina y Fogarty; Fontaine; AAA ≥ 5,5 cm (varón); Leriche; TVP: Eco-Doppler y anticoagulación.",
+    "UP 11: HPB zona de transición, cáncer zona periférica; retención: Foley, con uretrorragia cistostomía; cólico renal: TC sin contraste; testículo: orquiectomía inguinal; fístula nativa.",
+    "UP 7: TSH → ecografía → PAAF; papilar el más frecuente; medular: calcitonina; hematoma sofocante: abrir; Chvostek y Trousseau; adenoma pleomorfo; burnout.",
+    "UP 8: Gustilo; pelvis en libro abierto (cincha en trocánteres); cadera: Garden y necrosis avascular; sol naciente, capas de cebolla, sacabocados.",
+    "UP 3: disfagia con alarma: endoscopia con biopsia; Forrest; acalasia: Heller; Zenker: Killian; dumping; asa aferente: vómito bilioso; GIST: CD117.",
+    "UP 1: cirugía limpia, limpia-contaminada, contaminada y sucia; cefazolina 2 g monodosis; ASA I-VI; Guedel; Colles, radial, Volkmann, escafoides."
    ],
-   "agenda": [
-    {
-     "bloque": "Mañana",
-     "horas": "3 h",
-     "tarea": "Simulacro mixto cronometrado."
-    },
-    {
-     "bloque": "Tarde",
-     "horas": "3 h",
-     "tarea": "Corrección y justificación de las falsas; algoritmos de emergencia."
-    },
-    {
-     "bloque": "Noche",
-     "horas": "2 h",
-     "tarea": "Repaso de la matriz y exposición oral."
-    }
-   ],
+   "agenda": [],
    "checklist": [
     {
-     "texto": "Resolví el simulacro y justifiqué cada falsa."
+     "texto": "Resolví el simulacro de choices y justifiqué por escrito cada opción falsa.",
+     "hecho": false
     },
     {
-     "texto": "Recité los algoritmos de emergencia y la matriz de clasificaciones."
+     "texto": "Expuse 3 temas sorteados con el esquema de 6 pasos.",
+     "hecho": false
     },
     {
-     "texto": "Cerré el estudio temprano para llegar descansado."
+     "texto": "Recité sin mirar la tabla maestra de datos duros.",
+     "hecho": false
+    },
+    {
+     "texto": "Revisé los puntos a verificar con el material de la cátedra.",
+     "hecho": false
+    },
+    {
+     "texto": "Dejé listo lo del examen y cerré el estudio temprano.",
+     "hecho": false
     }
    ]
   }
