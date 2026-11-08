@@ -225,3 +225,15 @@ body.dark-mode .pe-pomo-chip, body.tema-premium .pe-pomo-chip { color: #fca5a5; 
 .pe-pomo-check { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(239, 68, 68, .4); background: rgba(239, 68, 68, .06); cursor: pointer; }
 .pe-pomo-check input { position: absolute; opacity: 0; pointer-events: none; }
 .pe-pomo-check small { display: block; font-size: .76rem; opacity: .85; margin-top: 2px; font-weight: 600; }
+
+/* ---- carga entre planes, fichas por día y notas «verificar con la cátedra» */
+.pe-carga { display: flex; align-items: center; gap: 10px 16px; flex-wrap: wrap; margin: 14px 0; padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(16, 185, 129, .5); background: rgba(16, 185, 129, .1); font-size: .86rem; }
+.pe-carga.mal { border-color: rgba(245, 158, 11, .65); background: rgba(245, 158, 11, .13); }
+.pe-carga b { font-weight: 900; }
+.pe-carga p { margin: 0; flex: 1 1 280px; color: var(--pe-txt); }
+.pe-carga .pe-mini-f input { width: 64px; }
+.pe-carga-chip { color: #b45309; font-weight: 800; }
+.pe-item-t small.verificar { color: #0369a1; border-left: 3px solid #38bdf8; padding-left: 8px; margin-top: 4px; }
+.pe-vfi { cursor: help; font-size: .9em; }
+body.dark-mode .pe-carga-chip, body.tema-premium .pe-carga-chip { color: #fcd34d; }
+body.dark-mode .pe-item-t small.verificar, body.tema-premium .pe-item-t small.verificar { color: #7dd3fc; }

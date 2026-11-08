@@ -375,7 +375,8 @@
      "trampa": "Omitir la cobertura de anaerobios, o retirar el DIU de entrada.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 1"
+     "unidad": "UP 3 - Sección 1",
+     "verificar": "Gentamicina 3-5 mg/kg cada 24 h (anexo 2024 de la cátedra); otros textos usan esquema fraccionado."
     },
     {
      "texto": "Tricomoniasis y sífilis (guía MSAL)",
@@ -384,7 +385,8 @@
      "trampa": "",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 1"
+     "unidad": "UP 3 - Sección 1",
+     "verificar": "Sífilis en el embarazo: guía del Ministerio (2 o 3 dosis de penicilina benzatínica); no el esquema de SADI."
     },
     {
      "texto": "Candidiasis, herpes, chancroide y linfogranuloma venéreo",
@@ -482,7 +484,8 @@
      "trampa": "Repetir el test de VPH a los 18 meses o indicar test de VPH en menores de 30 años.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 1"
+     "unidad": "UP 3 - Sección 1",
+     "verificar": "VPH positivo con citología negativa: repetir a los 12 meses (Guía 2022 y anexo de la cátedra); hojas de ruta antiguas citan 18 meses."
     },
     {
      "texto": "Colposcopía, zona de transformación y seguimiento posterior al tratamiento",
@@ -612,7 +615,8 @@
      "trampa": "Exigir los tres criterios, o no descartar otras causas de hiperandrogenismo.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 2"
+     "unidad": "UP 3 - Sección 2",
+     "verificar": "≥ 20 folículos por ovario (algunos textos antiguos, ≥ 12); la guía internacional 2023 acepta la AMH en adultas."
     },
     {
      "texto": "Algoritmo sistemático de amenorrea secundaria",
@@ -682,7 +686,8 @@
      "trampa": "Exigir autorización judicial para ILE por causal violación o riesgo para la salud.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 2"
+     "unidad": "UP 3 - Sección 2",
+     "verificar": "IVE hasta la semana 14 inclusive (14+6)."
     },
     {
      "texto": "Tríada de endometriosis",
@@ -691,7 +696,8 @@
      "trampa": "Considerar a la ecografía abdominal como gold standard.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 2"
+     "unidad": "UP 3 - Sección 2",
+     "verificar": "La cátedra toma la laparoscopía como gold standard; las guías recientes aceptan el diagnóstico por imágenes."
     },
     {
      "texto": "Adenomiosis e infertilidad femenina",
@@ -963,7 +969,8 @@
      "trampa": "Indicar enalapril o losartán en la gestante, o dosificar la magnesemia de rutina.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 4"
+     "unidad": "UP 3 - Sección 4",
+     "verificar": "Sulfato de magnesio: 4 g de ataque y 1 g/h por 24 h (consenso FASGO 2025); otros textos usan 1-2 g/h."
     },
     {
      "texto": "Criterios de diabetes gestacional (ALAD / FASGO)",
@@ -972,7 +979,8 @@
      "trampa": "Exigir PTOG en el primer trimestre cuando ya hay 2 ayunas ≥ 100 mg/dL.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 4"
+     "unidad": "UP 3 - Sección 4",
+     "verificar": "Metas en ayunas: 70-90 mg/dL (ALAD) o 70-95 (SOGIBA 2022)."
     },
     {
      "texto": "Anemia, colestasis intrahepática y enfermedad hemolítica perinatal",
@@ -999,7 +1007,8 @@
      "trampa": "Iniciar la aspirina después de las 16 semanas esperando el mismo efecto, o continuarla hasta el parto.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 4"
+     "unidad": "UP 3 - Sección 4",
+     "verificar": "Aspirina 150 mg por la noche de la semana 12 a la 36 (FASGO 2025); la guía ministerial de 2010 indicaba 75-100 mg."
     }
    ],
    "datos_duros": [
@@ -1124,7 +1133,8 @@
      "trampa": "Usar metilergometrina en una paciente con preeclampsia o hipertensión.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 3 - Sección 5"
+     "unidad": "UP 3 - Sección 5",
+     "verificar": "Ácido tranexámico 1 g EV lento dentro de las 3 h y repetir a los 30 minutos si persiste (FASGO 2019 y SOGIBA 2018)."
     },
     {
      "texto": "Monitoreo fetal intraparto",
@@ -1231,7 +1241,8 @@
      "trampa": "Esperar a que haya una fractura para pedir la densitometría en una mujer de 70 años que nunca se la hizo.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "Zoledronato: el apunte dice 30-60 mg cada 3 meses; la dosis habitual es 5 mg una vez por año."
     },
     {
      "texto": "Terapia hormonal de la menopausia (THM): indicaciones, ventana y contraindicaciones",
@@ -1300,7 +1311,8 @@
      "trampa": "Tranquilizar a una posmenopáusica con sangrado porque la ecografía muestra un endometrio «normal» sin biopsia, o atribuirlo a la atrofia sin diagnóstico histológico.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "Endometrio normal: 4 mm (Gori y Testa) o 5 mm (consenso FASGO 2019); con THM, 8 mm en el consenso y 12 mm en el apunte."
     },
     {
      "texto": "Hiperplasia endometrial y neoplasia intraepitelial",
@@ -1336,7 +1348,8 @@
      "trampa": "",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "La FIGO 2023 agrega la clasificación molecular; el consenso FASGO y la cátedra usan FIGO 2009."
     },
     {
      "texto": "Tratamiento quirúrgico y adyuvancia por grupos de riesgo",
@@ -1405,7 +1418,8 @@
      "trampa": "Pedir TC o RMN para «reemplazar» la estadificación clínica de la FIGO, o confundir IIB (parametrios) con IIA.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "El apunte usa IB1 ≤ 4 cm e IB2 > 4 cm (FIGO 2009); la FIGO 2018 usa IB1 < 2 cm, IB2 2-4 cm e IB3 ≥ 4 cm."
     },
     {
      "texto": "Tratamiento por estadio y seguimiento",
@@ -1552,7 +1566,8 @@
      "trampa": "Indicar biopsia en un BIRADS 3 o seguimiento en un BIRADS 4.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "Mamografía: anual desde los 40 años (FASGO/SAM) o cada 2 años entre los 50 y 69 (Ministerio de Salud)."
     },
     {
      "texto": "Anatomía patológica y factores pronósticos",

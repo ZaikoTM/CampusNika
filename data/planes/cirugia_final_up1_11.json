@@ -55,7 +55,8 @@
      "trampa": "Pedir una radiografía de tórax antes de descomprimir un neumotórax a tensión.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 9"
+     "unidad": "UP 9",
+     "verificar": "Descompresión con aguja: 5.º EIC entre la línea axilar anterior y la media (ATLS 11 y tu UP 9); Giménez dice 4.º-5.º y los textos antiguos 2.º EIC en la línea medioclavicular."
     },
     {
      "texto": "Shock hemorrágico: clases y reanimación inicial",
@@ -73,7 +74,8 @@
      "trampa": "Aplicar hipotensión permisiva en un paciente con traumatismo de cráneo.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 9"
+     "unidad": "UP 9",
+     "verificar": "Ácido tranexámico: 1 g en 10 min dentro de las 3 h y 1 g en 8 h (CRASH-2); el manual de Chile indica 1 g cada 8 h por 24 h y las guías militares recientes usan un bolo único de 2 g."
     },
     {
      "texto": "Otros tipos de shock en el trauma",
@@ -91,7 +93,8 @@
      "trampa": "",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 9"
+     "unidad": "UP 9",
+     "verificar": "Umbral de toracotomía: ≥ 1500 mL iniciales o > 200-250 mL/h por 3-4 h; el ATLS 11 pesa más el estado hemodinámico que la cifra."
     }
    ],
    "datos_duros": [
@@ -229,7 +232,8 @@
      "trampa": "Contar las 8 h desde el ingreso en lugar de desde la quemadura.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 9"
+     "unidad": "UP 9",
+     "verificar": "Parkland clásica 4 mL × kg × % SCQ; ATLS 11 propone empezar con 2 mL y ajustar por diuresis."
     },
     {
      "texto": "Criterios de derivación, escarotomía y quemaduras especiales",
@@ -247,7 +251,8 @@
      "trampa": "Declarar muerte encefálica sin excluir causas reversibles, o confundirla con estado vegetativo.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 9"
+     "unidad": "UP 9",
+     "verificar": "Períodos de observación verificados con el Protocolo Nacional (Res. 716/2019): 24 h, 12 h, 6 h y desde los 6 años, 1 h; la Res. 275/2010 pedía 6 h en adultos y ya no rige."
     },
     {
      "texto": "Procuración, trasplante y marco legal (Ley 27.447)",
@@ -577,7 +582,8 @@
      "trampa": "Antibióticos profilácticos de rutina, ayuno prolongado, operar la necrosis de forma precoz, o usar Ranson como criterio diagnóstico.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 5"
+     "unidad": "UP 5",
+     "verificar": "Necrosis infectada: Giménez (PANTER y POINTER) indica abordaje escalonado; Michans (2002) propone necrosectomía."
     },
     {
      "texto": "Tumores de páncreas y periampulares",
@@ -682,7 +688,8 @@
      "trampa": "Colonoscopia o enema opaco en la diverticulitis aguda, o anastomosis primaria en la peritonitis fecal.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "Hinchey III: lavado laparoscópico o resección con anastomosis en el estable, Hartmann en IV (Giménez). Diverticulitis no complicada: algunas guías permiten omitir antibióticos."
     },
     {
      "texto": "Cáncer colorrectal: riesgo, pesquisa y tratamiento",
@@ -769,7 +776,8 @@
      "trampa": "Indicar Miles solo por la distancia al margen anal sin evaluar la invasión esfinteriana.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 4"
+     "unidad": "UP 4",
+     "verificar": "Miles solo si hay invasión del aparato esfinteriano, no por la distancia al margen anal."
     },
     {
      "texto": "Patología anorrectal",
@@ -952,7 +960,8 @@
      "trampa": "Pedir estudios prolongados ante un AAA roto inestable.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 10"
+     "unidad": "UP 10",
+     "verificar": "Umbral: 5,5 cm en varones y 5,0 cm en mujeres; crecimiento rápido: > 1 cm/año (Giménez) o > 0,5 cm en 6 meses."
     },
     {
      "texto": "Enfermedad venosa: varices, TVP y TEP",
@@ -1030,7 +1039,8 @@
      "trampa": "Indicar masaje o tacto prostático vigoroso en una prostatitis aguda (riesgo de urosepsis).",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 11"
+     "unidad": "UP 11",
+     "verificar": "RTUP hasta ≈ 70-80 cm³; mayores: adenomectomía abierta o HoLEP."
     },
     {
      "texto": "Cáncer de próstata",
@@ -1108,7 +1118,8 @@
      "trampa": "Descartar el tumor porque la hematuria cede espontáneamente.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 11"
+     "unidad": "UP 11",
+     "verificar": "Células claras: ≈ 70-80 % de los carcinomas renales (el carcinoma de células renales es ≈ 90 % de los tumores del riñón)."
     },
     {
      "texto": "Trauma urogenital",
@@ -1273,7 +1284,8 @@
      "trampa": "Cerrar primariamente una fractura expuesta contaminada, o dar antibióticos por vía oral.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 8"
+     "unidad": "UP 8",
+     "verificar": "Antibióticos: la cátedra (Orrego) da cefazolina 2 g y luego 1 g cada 6-8 h por 2-3 días, con gentamicina en el grado III; las guías actuales, 24 h (I-II) y hasta 72 h (III). No hay guía argentina de consenso."
     },
     {
      "texto": "Trauma de pelvis",
@@ -1483,7 +1495,8 @@
      "trampa": "Prolongar el antibiótico profiláctico por días en una cirugía limpia.",
      "hecho": false,
      "manual": false,
-     "unidad": "UP 1"
+     "unidad": "UP 1",
+     "verificar": "Cefazolina 2 g (3 g si ≥ 120 kg) dentro de los 30-60 min previos a la incisión; Michans (2002) indica 1 g."
     },
     {
      "texto": "Cicatrización y nutrición",

@@ -3,6 +3,7 @@
 # Uso: python tools/plan_cirugia_final/build.py
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from verificar import VERIFICAR
 from dias_a import DIAS_A
 from dias_b import DIAS_B, CIERRE
 
@@ -24,6 +25,14 @@ plan = {
     "practica": {"modulo": "cirugia", "mode": "final"},
     "dias": [dia(d) for d in DIAS_A + DIAS_B] + [dia(CIERRE, True)],
 }
+
+usados = set()
+for _d in plan["dias"]:
+    for _t in _d["temas"]:
+        for _k, _v in VERIFICAR.items():
+            if _t["texto"].startswith(_k):
+                _t["verificar"] = _v; usados.add(_k)
+assert usados == set(VERIFICAR), set(VERIFICAR) - usados
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data", "planes", "cirugia_final_up1_11.json")
 with open(out, "w", encoding="utf-8") as f:
     json.dump(plan, f, ensure_ascii=False, indent=1)

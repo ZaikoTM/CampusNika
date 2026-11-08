@@ -4,6 +4,7 @@
 import json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+from verificar import VERIFICAR
 from up4 import DIAS_UP4
 from patches import HORAS, SETS, ADDS, DDS, DDADD, CHK
 from cierre import CIERRE
@@ -54,6 +55,14 @@ plan = {
     "practica": {"modulo": "ginecologia", "mode": "final"},
     "dias": todos,
 }
+
+usados = set()
+for _d in plan["dias"]:
+    for _t in _d["temas"]:
+        for _k, _v in VERIFICAR.items():
+            if _t["texto"].startswith(_k):
+                _t["verificar"] = _v; usados.add(_k)
+assert usados == set(VERIFICAR), set(VERIFICAR) - usados
 out = os.path.join(PLANES, "gineco_final_up1_4.json")
 json.dump(plan, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("dias:", len(todos), "temas:", sum(len(d["temas"]) for d in todos), "horas contenido:", sum(d["horas"] for d in todos[:-1]))
