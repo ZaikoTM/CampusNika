@@ -44,7 +44,7 @@
 
   // ---------- progreso y ritmo ----------
   function itemsDia(d) { return (d.temas || []).concat(d.checklist || []); }
-  function progresoDia(d) { const it = itemsDia(d); if (!it.length) return 0; return it.filter((x) => x.hecho).length / it.length; }
+  function progresoDia(d) { if (d.descanso) return 1; const it = itemsDia(d); if (!it.length) return 0; return it.filter((x) => x.hecho).length / it.length; }
   function estadoDia(d) { const p = progresoDia(d); return p >= 1 ? 'listo' : p > 0 ? 'curso' : 'nuevo'; }
 
   // ---- carga entre planes: suma las horas de TODOS tus planes activos y avisa cuando un día pasa tu tope
@@ -553,7 +553,9 @@
         <h3>${esc(p.titulo)}</h3>
         <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${p.dias.length} días · ${fmtH(horasPlan(p))}${p.pomodoro ? ' · <span class="pe-pomo-chip">🍅 Pomodoro activo</span>' : ''}</p>
         <div class="pe-plan-foot">${anillo(prog, 60)}${contador(c)}</div>
+        <p class="pe-falta">📖 ${r.nivel === 'fin' ? 'Examen rendido' : r.falta < 0.05 ? 'Plan completo' : `Faltan ~${fmtH(r.falta)} de lectura` + (r.diasFalta > 0 ? ` · unas ${fmtH(Math.round(r.falta / Math.max(1, p.dias.filter((d) => d.fecha >= hoy && !d.descanso).length) * 2) / 2)} por día` : '')}</p>
         ${p.evento_id && eventoPorId(p.evento_id) ? '<span class="pe-vinc">📅 En tu calendario</span>' : '<span class="pe-vinc no">🔗 Sin vincular a un examen</span>'}
+        <div class="pe-plan-acc"><button type="button" class="pe-mini" data-act="card-editar" data-id="${p.id}">✏️ Editar</button><button type="button" class="pe-mini pe-mini--del" data-act="card-borrar" data-id="${p.id}">🗑️ Eliminar</button></div>
       </article>`;
     };
     const sinPlan = S.examenes.filter((e) => !planDeEvento(e.id));
@@ -1116,7 +1118,8 @@
         <label class="pe-mini-f">Horas <input type="number" data-act="horas" data-d="${d.id}" value="${d.horas || 0}" min="0" max="16" step="0.5"></label>
         <a class="pe-btn pe-btn--sm" href="${urlSala(p.materia, (d.temas[0] && d.temas[0].unidad) || (p.unidades || [])[0])}">📚 Ir a la sala de estudio</a>
         ${botonesPractica(p, d)}
-        <button type="button" class="pe-btn pe-btn--sm pe-btn--ok" data-act="completar" data-d="${d.id}">✔ Marcar el día completo</button>
+        ${d.descanso ? `<button type="button" class="pe-btn pe-btn--sm" data-act="activar-dia" data-d="${d.id}">📚 Volver a día de estudio</button>` : `<button type="button" class="pe-btn pe-btn--sm pe-btn--ok" data-act="completar" data-d="${d.id}">✔ Marcar el día completo</button><button type="button" class="pe-btn pe-btn--sm" data-act="descanso-dia" data-d="${d.id}" title="Libera el día y pasa los temas sin hacer al siguiente">😴 Pasar a descanso</button>`}
+        <button type="button" class="pe-btn pe-btn--sm pe-btn--peligro" data-act="quitar-dia" data-d="${d.id}">🗑️ Quitar el día</button>
       </div>
     </div>`;
   }
@@ -1382,6 +1385,42 @@
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nikaplan-' + (p.titulo || 'plan').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40) + '.json';
     document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
+  function eliminarPlan(p) {
+    if (!confirm('¿Eliminar «' + p.titulo + '»? Se pierde tu progreso y no se puede deshacer. El examen del calendario no se borra.')) return false;
+    S.planes = S.planes.filter((x) => x.id !== p.id); guardarLocal(); borrarNube(p.id);
+    if (p.evento_propio) borrarEventoPorId(p.evento_id);
+    toast('Plan eliminado'); return true;
+  }
+  // pasa los temas sin hacer de un día al siguiente día de estudio (con sus horas); null si no hay a dónde
+  function pasarPendientes(p, d) {
+    const pend = (d.temas || []).filter((t) => !t.hecho);
+    if (!pend.length) return 0;
+    const sig = p.dias.filter((x) => x.fecha > d.fecha && !x.descanso).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
+    if (!sig) return null;
+    const share = (d.horas || 0) * pend.length / d.temas.length;
+    pend.forEach((t) => { t.movidoDe = t.movidoDe || d.fecha; sig.temas.push(t); });
+    sig.horas = Math.round(((sig.horas || 0) + share) * 2) / 2;
+    d.temas = d.temas.filter((t) => t.hecho);
+    return pend.length;
+  }
+  function modalNuevoDia() {
+    const p = S.plan; if (!p) return;
+    const ult = p.dias.length ? p.dias[p.dias.length - 1].fecha : hoyISO();
+    let f = sumaDias(ult, 1); if (f >= p.fecha_examen) f = sumaDias(p.fecha_examen, -1);
+    const { m, cerrar } = modal(`<h3>＋ Agregar un día</h3>
+      <div class="pe-field"><label for="nd-f">Fecha</label><input type="date" id="nd-f" value="${f}" max="${sumaDias(p.fecha_examen, -1)}"></div>
+      <div class="pe-field"><label for="nd-t">Tipo de día</label><select id="nd-t"><option value="repaso">📚 Día de estudio / repaso (3 h)</option><option value="descanso">😴 Día de descanso</option></select></div>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="ok">Agregar</button><button type="button" class="pe-btn" data-cerrar>Cancelar</button></div>`);
+    m.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-m="ok"]')) return;
+      const fe = m.querySelector('#nd-f').value, tipo = m.querySelector('#nd-t').value;
+      if (!fe || fe >= p.fecha_examen) return toast('Elegí una fecha anterior al examen');
+      const d = tipo === 'descanso'
+        ? { id: uid(), fecha: fe, titulo: '😴 Día de descanso', horas: 0, descanso: true, unidad: '', caso: '', temas: [], checklist: [], datos_duros: [], agenda: [], notas: '' }
+        : { id: uid(), fecha: fe, titulo: 'Día extra de repaso', horas: 3, unidad: '', caso: '', temas: [], checklist: [{ id: uid(), texto: 'Repasar lo que fallé', hecho: false }], datos_duros: [], agenda: [], notas: '' };
+      p.dias.push(d); p.dias.sort((x, y) => x.fecha.localeCompare(y.fecha)); guardar(p); S.diaId = d.id; cerrar(); render(); toast(tipo === 'descanso' ? 'Día de descanso agregado' : 'Día agregado');
+    });
+  }
   function modalAjustes() {
     const p = S.plan; if (!p) return;
     const { m, cerrar } = modal(`<h3>⚙️ Ajustes del plan</h3>
@@ -1400,12 +1439,7 @@
         guardar(p); moverEvento(p); cerrar(); render(); toast('Plan actualizado');
       } else if (b.dataset.m === 'vincular') { cerrar(); modalVincular(p); }
       else if (b.dataset.m === 'exportar') exportarPlan();
-      else if (b.dataset.m === 'borrar') {
-        if (!confirm('¿Eliminar este plan? El examen del calendario no se borra.')) return;
-        S.planes = S.planes.filter((x) => x.id !== p.id); guardarLocal(); borrarNube(p.id);
-        if (p.evento_propio) borrarEventoPorId(p.evento_id);
-        cerrar(); volverHub(); toast('Plan eliminado');
-      }
+      else if (b.dataset.m === 'borrar') { if (eliminarPlan(p)) { cerrar(); volverHub(); } }
     });
   }
 
@@ -1473,12 +1507,22 @@
         itemsDia(d).forEach((x) => { x.hecho = !todo; x.hecho_ts = ts; });
         guardar(p); S.diaId = d.id; render(); if (!todo) celebrar(root.querySelector('#dia-' + d.id)); return;
       }
-      case 'nuevo-dia': {
-        const ult = p.dias.length ? p.dias[p.dias.length - 1].fecha : hoyISO();
-        let f = sumaDias(ult, 1); if (f >= p.fecha_examen) f = sumaDias(p.fecha_examen, -1);
-        const d = { id: uid(), fecha: f, titulo: 'Día extra de repaso', horas: 3, unidad: '', caso: '', temas: [], checklist: [{ id: uid(), texto: 'Repasar lo que fallé', hecho: false }], datos_duros: [], agenda: [], notas: '' };
-        p.dias.push(d); p.dias.sort((x, y) => x.fecha.localeCompare(y.fecha)); guardar(p); S.diaId = d.id; return render();
+      case 'nuevo-dia': return modalNuevoDia();
+      case 'card-editar': { const q = S.planes.find((x) => x.id === el.dataset.id); if (!q) return; abrirPlan(q.id); return modalAjustes(); }
+      case 'card-borrar': { const q = S.planes.find((x) => x.id === el.dataset.id); if (q && eliminarPlan(q)) render(); return; }
+      case 'descanso-dia': case 'quitar-dia': {
+        const d = buscarDia(el.dataset.d); if (!d) return;
+        const quitar = a === 'quitar-dia';
+        const pend = (d.temas || []).filter((t) => !t.hecho).length;
+        const nota = pend ? ' Los ' + pend + ' temas sin hacer pasan al siguiente día de estudio.' : '';
+        if (!confirm(quitar ? '¿Quitar este día del plan?' + nota : '¿Convertir este día en descanso?' + nota)) return;
+        const n = pasarPendientes(p, d);
+        if (n === null) return toast('No hay un día posterior para pasar los temas: agregá un día antes');
+        if (quitar) { p.dias = p.dias.filter((x) => x.id !== d.id); S.diaId = null; }
+        else { d.descanso = true; d.horas = 0; d.titulo = '😴 Día de descanso'; d.checklist = []; S.diaId = d.id; }
+        guardar(p); render(); toast(quitar ? 'Día quitado' : 'Día de descanso' + (n ? ' · ' + n + (n === 1 ? ' tema pasado' : ' temas pasados') + ' al siguiente día' : '')); return;
       }
+      case 'activar-dia': { const d = buscarDia(el.dataset.d); if (!d) return; d.descanso = false; d.horas = 3; d.titulo = 'Día extra de repaso'; d.checklist = [{ id: uid(), texto: 'Repasar lo que fallé', hecho: false }]; guardar(p); S.diaId = d.id; return render(); }
     }
   }
   function sincInputsRitmo() { const w = S.wiz, l = root.querySelector('#pe-hlv'), f = root.querySelector('#pe-hfs'); if (l) l.value = w.horasLV; if (f) f.value = w.horasFS; }

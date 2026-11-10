@@ -237,3 +237,8 @@ body.dark-mode .pe-pomo-chip, body.tema-premium .pe-pomo-chip { color: #fca5a5; 
 .pe-vfi { cursor: help; font-size: .9em; }
 body.dark-mode .pe-carga-chip, body.tema-premium .pe-carga-chip { color: #fcd34d; }
 body.dark-mode .pe-item-t small.verificar, body.tema-premium .pe-item-t small.verificar { color: #7dd3fc; }
+
+/* tarjeta del hub: horas de lectura que faltan y acciones */
+.pe-falta{margin:8px 0 0;font-size:.78rem;color:var(--pe-muted,#64748b)}
+.pe-plan-acc{display:flex;gap:8px;margin-top:10px}
+.pe-mini--del{color:#b91c1c}
