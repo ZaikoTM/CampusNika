@@ -1403,6 +1403,20 @@
     d.temas = d.temas.filter((t) => t.hecho);
     return pend.length;
   }
+  // descanso / quitar / activar un día; devuelve true si cambió algo
+  function accionDia(p, d, tipo) {
+    if (tipo === 'activar') { d.descanso = false; d.horas = 3; d.titulo = 'Día extra de repaso'; d.checklist = [{ id: uid(), texto: 'Repasar lo que fallé', hecho: false }]; guardar(p); S.diaId = d.id; render(); return true; }
+    const quitar = tipo === 'quitar';
+    const pend = (d.temas || []).filter((t) => !t.hecho).length;
+    const nota = pend ? ' Los ' + pend + ' temas sin hacer pasan al siguiente día de estudio.' : '';
+    if (!confirm(quitar ? '¿Quitar este día del plan?' + nota : '¿Convertir este día en descanso?' + nota)) return false;
+    const n = pasarPendientes(p, d);
+    if (n === null) { toast('No hay un día posterior para pasar los temas: agregá un día antes'); return false; }
+    if (quitar) { p.dias = p.dias.filter((x) => x.id !== d.id); S.diaId = null; }
+    else { d.descanso = true; d.horas = 0; d.titulo = '😴 Día de descanso'; d.checklist = []; S.diaId = d.id; }
+    guardar(p); render(); toast(quitar ? 'Día quitado' : 'Día de descanso' + (n ? ' · ' + n + (n === 1 ? ' tema pasado' : ' temas pasados') + ' al siguiente día' : ''));
+    return true;
+  }
   function modalNuevoDia() {
     const p = S.plan; if (!p) return;
     const ult = p.dias.length ? p.dias[p.dias.length - 1].fecha : hoyISO();
@@ -1423,15 +1437,31 @@
   }
   function modalAjustes() {
     const p = S.plan; if (!p) return;
+    const hoy = hoyISO();
+    const filasDias = () => p.dias.filter((d) => d.fecha >= hoy).map((d) => `<li class="pe-aj-dia ${d.descanso ? 'desc' : ''}">
+        <span class="pe-aj-f"><b>${fmtCorta(d.fecha)}</b> ${d.descanso ? '😴 Descanso' : esc((d.titulo || 'Día de estudio').slice(0, 38)) + ' · ' + fmtH(d.horas || 0)}</span>
+        ${d.descanso ? `<button type="button" class="pe-mini" data-dia="${d.id}" data-q="activar">📚 Estudiar</button>` : `<button type="button" class="pe-mini" data-dia="${d.id}" data-q="descanso">😴 Descanso</button>`}
+        <button type="button" class="pe-mini pe-mini--del" data-dia="${d.id}" data-q="quitar" aria-label="Quitar este día">🗑️</button></li>`).join('') || '<li class="pe-vacio-li">No quedan días por delante.</li>';
     const { m, cerrar } = modal(`<h3>⚙️ Ajustes del plan</h3>
       <div class="pe-field"><label for="aj-t">Nombre</label><input id="aj-t" value="${esc(p.titulo)}" maxlength="80"></div>
       <div class="pe-field"><label for="aj-f">Fecha del examen</label><input type="date" id="aj-f" value="${p.fecha_examen}"></div>
+      <h4 class="pe-aj-h">📆 Días del plan</h4>
+      <p class="pe-sub">Marcá un día como descanso o quitalo: los temas sin hacer pasan al siguiente día de estudio.</p>
+      <ul class="pe-aj-dias" id="aj-dias">${filasDias()}</ul>
+      <button type="button" class="pe-btn pe-btn--sm" data-m="nuevo-dia">＋ Agregar un día (estudio o descanso)</button>
       <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="guardar">Guardar</button>
         <button type="button" class="pe-btn" data-m="vincular">🔗 Vincular examen</button>
         ${S.admin ? '<button type="button" class="pe-btn" data-m="exportar">📤 Exportar</button>' : ''}
         <button type="button" class="pe-btn pe-btn--peligro" data-m="borrar">🗑️ Eliminar plan</button></div>`);
     m.addEventListener('click', async (e) => {
+      const dq = e.target.closest('[data-dia]');
+      if (dq) {
+        const d = p.dias.find((x) => x.id === dq.dataset.dia);
+        if (d && accionDia(p, d, dq.dataset.q)) m.querySelector('#aj-dias').innerHTML = filasDias();
+        return;
+      }
       const b = e.target.closest('[data-m]'); if (!b) return;
+      if (b.dataset.m === 'nuevo-dia') { cerrar(); modalNuevoDia(); return; }
       if (b.dataset.m === 'guardar') {
         const t = m.querySelector('#aj-t').value.trim(), f = m.querySelector('#aj-f').value;
         if (t) p.titulo = t;
@@ -1510,19 +1540,7 @@
       case 'nuevo-dia': return modalNuevoDia();
       case 'card-editar': { const q = S.planes.find((x) => x.id === el.dataset.id); if (!q) return; abrirPlan(q.id); return modalAjustes(); }
       case 'card-borrar': { const q = S.planes.find((x) => x.id === el.dataset.id); if (q && eliminarPlan(q)) render(); return; }
-      case 'descanso-dia': case 'quitar-dia': {
-        const d = buscarDia(el.dataset.d); if (!d) return;
-        const quitar = a === 'quitar-dia';
-        const pend = (d.temas || []).filter((t) => !t.hecho).length;
-        const nota = pend ? ' Los ' + pend + ' temas sin hacer pasan al siguiente día de estudio.' : '';
-        if (!confirm(quitar ? '¿Quitar este día del plan?' + nota : '¿Convertir este día en descanso?' + nota)) return;
-        const n = pasarPendientes(p, d);
-        if (n === null) return toast('No hay un día posterior para pasar los temas: agregá un día antes');
-        if (quitar) { p.dias = p.dias.filter((x) => x.id !== d.id); S.diaId = null; }
-        else { d.descanso = true; d.horas = 0; d.titulo = '😴 Día de descanso'; d.checklist = []; S.diaId = d.id; }
-        guardar(p); render(); toast(quitar ? 'Día quitado' : 'Día de descanso' + (n ? ' · ' + n + (n === 1 ? ' tema pasado' : ' temas pasados') + ' al siguiente día' : '')); return;
-      }
-      case 'activar-dia': { const d = buscarDia(el.dataset.d); if (!d) return; d.descanso = false; d.horas = 3; d.titulo = 'Día extra de repaso'; d.checklist = [{ id: uid(), texto: 'Repasar lo que fallé', hecho: false }]; guardar(p); S.diaId = d.id; return render(); }
+      case 'descanso-dia': case 'quitar-dia': case 'activar-dia': { const d = buscarDia(el.dataset.d); if (d) accionDia(p, d, a === 'quitar-dia' ? 'quitar' : a === 'activar-dia' ? 'activar' : 'descanso'); return; }
     }
   }
   function sincInputsRitmo() { const w = S.wiz, l = root.querySelector('#pe-hlv'), f = root.querySelector('#pe-hfs'); if (l) l.value = w.horasLV; if (f) f.value = w.horasFS; }

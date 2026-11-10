@@ -242,3 +242,10 @@ body.dark-mode .pe-item-t small.verificar, body.tema-premium .pe-item-t small.ve
 .pe-falta{margin:8px 0 0;font-size:.78rem;color:var(--pe-muted,#64748b)}
 .pe-plan-acc{display:flex;gap:8px;margin-top:10px}
 .pe-mini--del{color:#b91c1c}
+
+/* ajustes: lista de dias */
+.pe-aj-h{margin:14px 0 2px;font-size:.95rem}
+.pe-aj-dias{list-style:none;margin:8px 0 10px;padding:0;max-height:240px;overflow:auto;display:grid;gap:6px}
+.pe-aj-dia{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid rgba(100,116,139,.25);border-radius:10px;font-size:.8rem}
+.pe-aj-dia.desc{background:rgba(16,185,129,.08)}
+.pe-aj-f{flex:1;min-width:0}
