@@ -1356,6 +1356,7 @@ async function nikaBandaTiempo(lista, seg, cont, sin) {
 
 // Capítulos de libros ("📖 Cap. 8 Menopausia · Ginecología de Gori 3.ª ed."): si un libro tiene varios en la lista, se agrupan en una tarjeta desplegable con mosaico.
 const NK_LIB_MIN = 4;   // con menos capítulos de un mismo libro se dejan sueltos
+const NK_LIB_PROPIO = 'Guías NikaMed';   // guías de desarrollo de Nika: siempre en mosaico y con la N de Nika como icono
 function nkLibDe(r) {
     const m = /^📖\s+(.+?)\s+·\s+([^·]+)$/.exec(String(r.title || ''));
     return m ? { cap: m[1], libro: m[2].trim() } : null;
@@ -1369,7 +1370,7 @@ function renderMaterialesAgrupados(materiales, uid) {
     const sueltos = [], libros = [];   // los PDFs sueltos van arriba y los libros (mosaicos) al final
     materiales.forEach(r => {
         const l = nkLibDe(r);
-        if (!l || grupos[l.libro].length < NK_LIB_MIN) { sueltos.push(renderResourceItem(r)); return; }
+        if (!l || (grupos[l.libro].length < NK_LIB_MIN && l.libro !== NK_LIB_PROPIO)) { sueltos.push(renderResourceItem(r)); return; }
         if (hechos.has(l.libro)) return;
         hechos.add(l.libro);
         const lista = grupos[l.libro], k = uid + '|' + l.libro;
@@ -1378,7 +1379,7 @@ function renderMaterialesAgrupados(materiales, uid) {
         const barra = `<div class="nk-lib-barra">${lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : ''}<div class="nk-chips" role="group" aria-label="Filtrar capítulos"><button type="button" class="nk-chip on" data-f="todos">Todos</button><button type="button" class="nk-chip" data-f="no">Sin leer</button><button type="button" class="nk-chip" data-f="curso">En curso</button><button type="button" class="nk-chip" data-f="ok">Leídos</button></div></div>`;
         const nom = l.libro.replace(/</g, '&lt;');
         libros.push(`<details class="nk-lib" style="--h:${hue(l.libro)}" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
-            <summary><span class="nk-lib-ico">📖</span><span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} capítulos<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+            <summary>${l.libro === NK_LIB_PROPIO ? '<span class="nk-lib-ico nk-lib-ico-n"><img src="assets/n-nika-hd-256.webp" srcset="assets/n-nika-hd-512.webp 2x" width="50" height="50" alt="NikaMed" decoding="async"></span>' : '<span class="nk-lib-ico">📖</span>'}<span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} ${lista.length === 1 ? 'capítulo' : 'capítulos'}<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
             <div class="nk-lib-cuerpo">${barra}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide 🔍</div></div></div>
         </details>`);
     });
