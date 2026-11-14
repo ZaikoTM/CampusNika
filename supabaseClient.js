@@ -68,18 +68,115 @@ function _esperarSDKSupabase(maxEsperaMs = 5000, intervaloMs = 50) {
 // práctica ya está listo para cuando el usuario interactúa con la app,
 // siempre que el resto del código espere window.NikaSupabase.ready
 // (ver auth-guard.js) antes de operar.
-// Si el servidor responde que la sesión venció (JWT expired) y no se pudo renovar, se avisa UNA vez con un cartel claro
-// para que la persona sepa qué hacer y no piense que el sitio está roto.
-let _avisoSesionMostrado = false;
-function _fetchConAviso(url, opts) {
-    return fetch(url, opts).then((r) => {
-        try {
-            if (r.status === 401 && !_avisoSesionMostrado && /\/rest\/v1\/|\/functions\/v1\//.test(String(url))) {
-                r.clone().text().then((t) => { if (/JWT expired|PGRST303/i.test(t)) _mostrarAvisoSesion(); }).catch(() => {});
+// Capa común de red del cliente de Supabase:
+//  1) Si el servidor dice "JWT expired" se renueva la sesión una vez y se repite la consulta (así no se rompe nada aunque el
+//     reloj del dispositivo esté desfasado, que es lo que hace que el navegador crea que el token todavía sirve).
+//  2) Si no se puede renovar, se avisa UNA vez con un cartel claro.
+//  3) Se vigila la conexión con el servidor y se muestra un indicador chico cuando se cae y cuando vuelve.
+let _avisoSesionMostrado = false, _renovando = null;
+const _RUTAS_API = /\/rest\/v1\/|\/functions\/v1\/|\/auth\/v1\//;
+async function _fetchConAviso(url, opts) {
+    const u = String(url);
+    const esApi = _RUTAS_API.test(u);
+    let r;
+    try {
+        r = await fetch(url, opts);
+    } catch (err) {
+        if (esApi && !(err && err.name === 'AbortError')) _estadoRed(false);
+        throw err;
+    }
+    if (!esApi) return r;
+    _estadoRed(![502, 503, 504, 522, 523, 524].includes(r.status));
+    try {
+        if (r.status === 401 && /\/rest\/v1\/|\/functions\/v1\//.test(u) && !(opts && opts.__reintento)) {
+            const txt = await r.clone().text().catch(() => '');
+            if (/JWT expired|PGRST303/i.test(txt)) {
+                const token = await _renovarSesion();
+                if (token) {
+                    const h = new Headers((opts && opts.headers) || {});
+                    h.set('Authorization', 'Bearer ' + token);
+                    return fetch(url, Object.assign({}, opts, { headers: h, __reintento: true }));
+                }
+                _mostrarAvisoSesion();
             }
-        } catch (_) {}
-        return r;
-    });
+        }
+    } catch (_) {}
+    return r;
+}
+function _renovarSesion() {
+    if (_renovando) return _renovando;
+    _renovando = (async () => {
+        try {
+            if (!nikaSupabase) return null;
+            const { data, error } = await nikaSupabase.auth.refreshSession();
+            return (!error && data && data.session && data.session.access_token) || null;
+        } catch (_) { return null; }
+    })();
+    setTimeout(() => { _renovando = null; }, 4000);
+    return _renovando;
+}
+
+// Indicador de conexión: aparece solo cuando hay un problema real y se va solo cuando se recupera.
+let _fallasRed = 0, _pildoraRed = null, _ocultarRed = null;
+function _pildora(texto, tipo) {
+    if (typeof document === 'undefined' || !document.body) return;
+    if (!_pildoraRed) {
+        _pildoraRed = document.createElement('div');
+        _pildoraRed.id = 'nk-estado-red';
+        _pildoraRed.setAttribute('role', 'status'); _pildoraRed.setAttribute('aria-live', 'polite');
+        _pildoraRed.style.cssText = 'position:fixed;left:14px;bottom:14px;z-index:2147482000;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 28px);padding:8px 14px;border-radius:999px;background:#0f172a;color:#e2e8f0;border:1px solid #334155;box-shadow:0 8px 24px rgba(0,0,0,.35);font:600 12.5px/1.2 system-ui,sans-serif;pointer-events:none';
+        document.body.appendChild(_pildoraRed);
+    }
+    const color = tipo === 'ok' ? '#22c55e' : tipo === 'offline' ? '#f59e0b' : '#ef4444';
+    _pildoraRed.innerHTML = '<span style="width:9px;height:9px;border-radius:50%;background:' + color + ';flex:none"></span><span></span>';
+    _pildoraRed.lastChild.textContent = texto;
+    _pildoraRed.style.display = 'flex';
+    clearTimeout(_ocultarRed);
+    if (tipo === 'ok') _ocultarRed = setTimeout(() => { if (_pildoraRed) _pildoraRed.style.display = 'none'; }, 2500);
+}
+function _estadoRed(ok) {
+    if (ok) {
+        const habiaProblema = _fallasRed >= 2 || (_pildoraRed && _pildoraRed.style.display !== 'none' && !_ocultarRed);
+        _fallasRed = 0;
+        if (habiaProblema) _pildora('Conexión restablecida ✓', 'ok');
+        return;
+    }
+    _fallasRed++;
+    if (_fallasRed < 2) return;
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) _pildora('Sin internet · se reconecta solo', 'offline');
+    else _pildora('Sin conexión con el servidor · reintentando…', 'error');
+}
+if (typeof window !== 'undefined') {
+    window.addEventListener('offline', () => { _fallasRed = 2; _estadoRed(false); });
+    window.addEventListener('online', () => { _fallasRed = 2; _pildora('Conexión restablecida ✓', 'ok'); _fallasRed = 0; });
+}
+
+// Reloj del dispositivo: si está desfasado, el navegador cree que los tokens duran más de lo real y las consultas fallan.
+function _revisarRelojDispositivo(session) {
+    try {
+        if (!session || !session.expires_at || !session.expires_in) return;
+        const emitido = session.expires_at - session.expires_in;       // segundos, hora del servidor
+        const desfase = Math.round(Date.now() / 1000 - emitido);        // + = el dispositivo está adelantado
+        if (Math.abs(desfase) < 150) return;
+        if (sessionStorage.getItem('nk_reloj_avisado')) return;
+        sessionStorage.setItem('nk_reloj_avisado', '1');
+        const min = Math.round(Math.abs(desfase) / 60);
+        _avisoSimple('La hora de tu dispositivo está ' + (desfase > 0 ? 'adelantada' : 'atrasada') + ' unos ' + min + ' min. Activá la hora automática del sistema; si no, pueden fallar el ingreso y las estadísticas.');
+    } catch (_) {}
+}
+function _avisoSimple(texto) {
+    const mostrar = () => {
+        const d = document.createElement('div');
+        d.setAttribute('role', 'alert');
+        d.style.cssText = 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:2147483000;max-width:min(520px,calc(100vw - 24px));background:#0f172a;color:#e2e8f0;border:1px solid #f59e0b;border-radius:14px;padding:12px 14px;box-shadow:0 14px 40px rgba(0,0,0,.45);font:500 13.5px/1.45 system-ui,sans-serif;display:flex;gap:10px;align-items:flex-start';
+        const t = document.createElement('span'); t.textContent = '⏰ ' + texto; t.style.flex = '1';
+        const x = document.createElement('button'); x.textContent = '✕'; x.setAttribute('aria-label', 'Cerrar aviso');
+        x.style.cssText = 'background:transparent;color:#94a3b8;border:0;font-size:16px;cursor:pointer';
+        x.onclick = () => d.remove();
+        d.append(t, x); document.body.appendChild(d);
+        setTimeout(() => d.remove(), 20000);
+    };
+    if (document.body) mostrar(); else document.addEventListener('DOMContentLoaded', mostrar);
 }
 function _mostrarAvisoSesion() {
     if (_avisoSesionMostrado) return;
@@ -119,6 +216,7 @@ const NikaSupabaseReady = _esperarSDKSupabase()
                 heartbeatIntervalMs: 20000,
             },
         });
+        nikaSupabase.auth.onAuthStateChange((evento, ses) => { if (evento === 'SIGNED_IN' || evento === 'TOKEN_REFRESHED') _revisarRelojDispositivo(ses); });
         return nikaSupabase;
     })
     .catch((err) => {

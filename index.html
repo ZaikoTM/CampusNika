@@ -2262,6 +2262,23 @@
                 
                 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.9rem;">Iniciar Sesión</button>
 
+                <div style="text-align:center;margin-top:10px;">
+                    <a href="javascript:void(0)" id="login-ayuda-link" aria-expanded="false" aria-controls="login-ayuda"
+                       onclick="var p=document.getElementById('login-ayuda');var a=p.hidden;p.hidden=!a;this.setAttribute('aria-expanded',a);"
+                       style="font-size:0.78rem;color:var(--text-dim,#94a3b8);text-decoration:underline;font-weight:600;cursor:pointer;">¿Problemas para ingresar?</a>
+                </div>
+                <div id="login-ayuda" hidden style="margin-top:8px;padding:12px 14px;border-radius:12px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);font-size:0.78rem;line-height:1.5;color:var(--text-dim,#cbd5e1);text-align:left;">
+                    <b style="color:#fff">Si no te deja entrar, probá en este orden:</b>
+                    <ol style="margin:6px 0 0 18px;padding:0;">
+                        <li>Esperá unos segundos: hay una verificación de seguridad que corre sola.</li>
+                        <li>Recargá la página con <b>Ctrl + F5</b> (en celular, cerrá y abrí el navegador).</li>
+                        <li>Si usás Brave u otro bloqueador, desactivá los escudos para <b>nikamed.com.ar</b>.</li>
+                        <li>Revisá que la hora de tu dispositivo esté en <b>automático</b>.</li>
+                        <li>Entrá con tu correo o con el botón de <b>Google</b>.</li>
+                        <li>Si olvidaste la clave, usá «¿Olvidaste tu contraseña?».</li>
+                    </ol>
+                </div>
+
                 <!-- Separador -->
                 <div style="display: flex; align-items: center; margin: 14px 0; gap: 10px;">
                     <div style="flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15);"></div>

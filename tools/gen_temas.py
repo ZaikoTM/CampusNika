@@ -411,6 +411,23 @@ def main():
              "isAccessibleForFree": True, "educationalLevel": "Estudiantes de Medicina", "about": p['titulo'],
              "citation": f"{f.get('sociedad','')} {f.get('anio','')}: {f.get('guia','')}".strip()},
         ] + ([{"@type": "FAQPage", "mainEntity": faq}] if faq else [])}
+        # Imagen de la tarjeta como ImageObject (Google Imágenes: autoría, créditos y licencia visibles)
+        big = os.path.join(ROOT, 'assets/temas', p['id'] + '.webp')
+        if figura and os.path.exists(big):
+            from PIL import Image as _I2
+            bw, bh = _I2.open(big).size
+            iurl = f"{SITE}/assets/temas/{p['id']}.webp"
+            ld['@graph'].append({"@type": "ImageObject", "@id": iurl, "contentUrl": iurl, "url": iurl, "width": bw, "height": bh,
+                "encodingFormat": "image/webp", "inLanguage": "es-AR",
+                "name": f"Flashcard de {p['titulo']} | NikaMed",
+                "caption": f"Flashcard de {p['titulo']} del Simulador FlashCard de NikaMed, con diagnóstico, estudios, banderas rojas y tratamiento.",
+                "description": desc_meta, "representativeOfPage": True,
+                "creator": {"@type": "Organization", "name": "NikaMed", "url": SITE + "/"},
+                "creditText": "NikaMed | Campus Nika", "copyrightNotice": "© NikaMed",
+                "license": SITE + "/terminos.html", "acquireLicensePage": SITE + "/terminos.html",
+                "isPartOf": {"@id": url}})
+            ld['@graph'][1]["image"] = [iurl, img]
+            ld['@graph'][1]["primaryImageOfPage"] = {"@id": iurl}
         body = head(titulo, desc_meta, url, img, ld) + nav + f"""
     <header class="legal-hero art-hero g-hero">
         <span class="g-orb a"></span><span class="g-orb b"></span>
@@ -441,10 +458,10 @@ def main():
 
     {foot}
 <script src="/js/guias.js?v=2" defer></script>
-<script src="/js/navmovil.js?v=1" defer></script>
+<script src="/js/navmovil.js?v=1" defer></script><script src="/js/nikaAnalytics.js" defer></script>
 </body></html>
 """
-        open(os.path.join(ROOT, 'temas', p['id'] + '.html'), 'w', encoding='utf8').write(body)
+        open(os.path.join(ROOT, 'temas', p['id'] + '.html'), 'w', encoding='utf8', newline='\n').write(re.sub(r'\r+\n', '\n', body))
         card = f"{SITE}/assets/temas/{p['id']}.webp" if os.path.exists(small) else ''
         urls.append((url, img, p['titulo'], desc_meta, card))
 
@@ -485,7 +502,7 @@ def main():
     </main>
     {foot}
 <script src="/js/guias.js?v=2" defer></script>
-<script src="/js/navmovil.js?v=1" defer></script>
+<script src="/js/navmovil.js?v=1" defer></script><script src="/js/nikaAnalytics.js" defer></script>
 <script>
 (function(){{var q=document.getElementById('tm-q');if(!q)return;q.addEventListener('input',function(){{var s=q.value.trim().toLowerCase();
 document.querySelectorAll('#tm-lista a[data-t]').forEach(function(a){{a.style.display=(!s||a.dataset.t.indexOf(s)>-1)?'':'none';}});
@@ -493,7 +510,7 @@ document.querySelectorAll('#tm-lista .tm-unidad').forEach(function(u){{var g=u.n
 </script>
 </body></html>
 """
-    open(os.path.join(ROOT, 'temas-clinicos.html'), 'w', encoding='utf8').write(body)
+    open(os.path.join(ROOT, 'temas-clinicos.html'), 'w', encoding='utf8', newline='\n').write(re.sub(r'\r+\n', '\n', body))
 
     # ---- sitemap
     sp = os.path.join(ROOT, 'sitemap.xml')
@@ -505,7 +522,7 @@ document.querySelectorAll('#tm-lista .tm-unidad').forEach(function(u){{var g=u.n
                 '    <image:image>\n      <image:loc>%s</image:loc>\n      <image:title>%s</image:title>\n      <image:caption>%s</image:caption>\n    </image:image>\n%s  </url>\n') % (url, FECHA, img, e(t), e(d),
                 ('    <image:image>\n      <image:loc>%s</image:loc>\n      <image:title>Flashcard de %s | NikaMed</image:title>\n      <image:caption>Tarjeta clínica de %s con diagnóstico, estudios, banderas rojas y tratamiento.</image:caption>\n    </image:image>\n' % (card, e(t), e(t))) if card else '')
     sm = sm.replace('</urlset>', add + '</urlset>')
-    open(sp, 'w', encoding='utf8').write(sm)
+    open(sp, 'w', encoding='utf8', newline='\n').write(re.sub(r'\r+\n', '\n', sm))
     print(len(urls), 'temas + índice')
 
 if __name__ == '__main__':
