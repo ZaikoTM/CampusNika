@@ -68,11 +68,47 @@ function _esperarSDKSupabase(maxEsperaMs = 5000, intervaloMs = 50) {
 // práctica ya está listo para cuando el usuario interactúa con la app,
 // siempre que el resto del código espere window.NikaSupabase.ready
 // (ver auth-guard.js) antes de operar.
+// Si el servidor responde que la sesión venció (JWT expired) y no se pudo renovar, se avisa UNA vez con un cartel claro
+// para que la persona sepa qué hacer y no piense que el sitio está roto.
+let _avisoSesionMostrado = false;
+function _fetchConAviso(url, opts) {
+    return fetch(url, opts).then((r) => {
+        try {
+            if (r.status === 401 && !_avisoSesionMostrado && /\/rest\/v1\/|\/functions\/v1\//.test(String(url))) {
+                r.clone().text().then((t) => { if (/JWT expired|PGRST303/i.test(t)) _mostrarAvisoSesion(); }).catch(() => {});
+            }
+        } catch (_) {}
+        return r;
+    });
+}
+function _mostrarAvisoSesion() {
+    if (_avisoSesionMostrado) return;
+    if (/(^|\/)index\.html$|\/$/.test(location.pathname)) return;   // en el login no hace falta
+    _avisoSesionMostrado = true;
+    const mostrar = () => {
+        const d = document.createElement('div');
+        d.setAttribute('role', 'alert');
+        d.style.cssText = 'position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:2147483000;max-width:min(560px,calc(100vw - 24px));background:#0f172a;color:#e2e8f0;border:1px solid #38bdf8;border-radius:16px;padding:14px 16px;box-shadow:0 18px 50px rgba(0,0,0,.45);font:500 14px/1.45 system-ui,sans-serif;display:flex;gap:12px;align-items:center;flex-wrap:wrap';
+        d.innerHTML = '<span style="flex:1 1 240px"><b style="color:#fff">Tu sesión venció 🔒</b><br>Por seguridad hay que volver a iniciar sesión para ver tus estadísticas, amigos y sesiones. Tus datos están a salvo.</span>';
+        const b = document.createElement('button');
+        b.textContent = 'Iniciar sesión de nuevo';
+        b.style.cssText = 'background:#0ea5e9;color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:700;cursor:pointer';
+        b.onclick = async () => { try { await cerrarSesion(); } catch (_) {} location.replace('index.html'); };
+        const x = document.createElement('button');
+        x.textContent = '✕'; x.setAttribute('aria-label', 'Cerrar aviso');
+        x.style.cssText = 'background:transparent;color:#94a3b8;border:0;font-size:16px;cursor:pointer';
+        x.onclick = () => d.remove();
+        d.append(b, x); document.body.appendChild(d);
+    };
+    if (document.body) mostrar(); else document.addEventListener('DOMContentLoaded', mostrar);
+}
+
 let nikaSupabase = null;
 
 const NikaSupabaseReady = _esperarSDKSupabase()
     .then((supabaseSDK) => {
         nikaSupabase = supabaseSDK.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            global: { fetch: _fetchConAviso },
             realtime: {
                 params: {
                     eventsPerSecond: 10, // límite razonable para un duelo 1vs1
@@ -191,26 +227,39 @@ function _cargarTurnstile() {
     return _turnstileCarga;
 }
 // Devuelve un token de un solo uso (o undefined si el captcha está apagado o no pudo cargar).
+// Primero intenta en modo invisible; si falla (bloqueadores, escudos del navegador, red lenta), repite con el
+// recuadro visible para que la persona pueda resolverlo a mano.
 async function _captchaToken() {
     if (!NIKA_TURNSTILE_SITEKEY) return undefined;
     try { await _cargarTurnstile(); } catch (_) { return undefined; }
+    const t = await _captchaIntento(false);
+    return t || _captchaIntento(true);
+}
+function _captchaIntento(visible) {
     return new Promise((resolve) => {
         const caja = document.createElement('div');
-        caja.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2147483600;padding:14px;border-radius:16px;background:#0f172a;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none';
+        caja.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2147483600;padding:14px;border-radius:16px;background:#0f172a;box-shadow:0 24px 60px rgba(0,0,0,.55);display:' + (visible ? 'block' : 'none');
+        if (visible) {
+            const m = document.createElement('div');
+            m.textContent = 'Un último paso: confirmá que sos una persona';
+            m.style.cssText = 'color:#e2e8f0;font:600 13px system-ui,sans-serif;text-align:center;margin-bottom:10px';
+            caja.appendChild(m);
+        }
         document.body.appendChild(caja);
+        const cont = document.createElement('div'); caja.appendChild(cont);
         let id = null, terminado = false;
         const fin = (t) => {
             if (terminado) return; terminado = true; clearTimeout(tope);
             try { window.turnstile.remove(id); } catch (_) {}
             caja.remove(); resolve(t || undefined);
         };
-        const tope = setTimeout(() => fin(undefined), 45000);
+        const tope = setTimeout(() => fin(undefined), visible ? 60000 : 20000);
         try {
-            id = window.turnstile.render(caja, {
-                sitekey: NIKA_TURNSTILE_SITEKEY, appearance: 'interaction-only', theme: 'dark',
+            id = window.turnstile.render(cont, {
+                sitekey: NIKA_TURNSTILE_SITEKEY, appearance: visible ? 'always' : 'interaction-only', theme: 'dark',
                 callback: fin, 'error-callback': () => fin(undefined),
                 'before-interactive-callback': () => { caja.style.display = 'block'; },
-                'after-interactive-callback': () => { caja.style.display = 'none'; },
+                'after-interactive-callback': () => { if (!visible) caja.style.display = 'none'; },
             });
         } catch (_) { fin(undefined); }
     });
@@ -401,6 +450,9 @@ async function iniciarSesion({ identifier, password }) {
         }
         if (estado === 401 && mensajeServidor) {
             return _errorLogin("invalid_credentials", mensajeServidor, { status: estado });
+        }
+        if (estado === 400 && /persona|captcha|verificar/i.test(mensajeServidor)) {
+            return _errorLogin("validation", "No pudimos completar la verificación de seguridad. No es un problema de tu cuenta ni del sitio. Probá una de estas opciones:\n\n1) Recargá con Ctrl + F5 e intentá de nuevo.\n2) Si usás Brave u otro bloqueador, desactivá los escudos para nikamed.com.ar.\n3) Ingresá con tu correo o con el botón de Google.", { status: estado });
         }
         if (estado === 400) {
             return _errorLogin("validation", mensajeServidor || "Completá usuario y contraseña.", { status: estado });
