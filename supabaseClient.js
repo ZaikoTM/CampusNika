@@ -232,10 +232,23 @@ function _cargarTurnstile() {
 async function _captchaToken() {
     if (!NIKA_TURNSTILE_SITEKEY) return undefined;
     try { await _cargarTurnstile(); } catch (_) { return undefined; }
-    const t = await _captchaIntento(false);
+    // Si en la pantalla de ingreso ya se resolvió por adelantado (mientras la persona escribía), se usa ese token: el login es instantáneo.
+    if (_capPrevio) { try { await _capPrevio; } catch (_) {} }
+    if (_capToken && Date.now() - _capToken.t < 240000) { const t = _capToken.v; _capToken = null; return t; }
+    _capToken = null;
+    const t = await _captchaIntento(false, 9000);
     return t || _captchaIntento(true);
 }
-function _captchaIntento(visible) {
+let _capToken = null, _capPrevio = null;
+function _captchaPrecalentar() {
+    if (!NIKA_TURNSTILE_SITEKEY || _capPrevio || _capToken) return;
+    _capPrevio = _cargarTurnstile().then(() => _captchaIntento(false, 20000)).then((v) => { if (v) _capToken = { v, t: Date.now() }; }).catch(() => {}).then(() => { _capPrevio = null; });
+}
+if (typeof document !== 'undefined' && /(^|\/)index\.html$|\/$/.test(location.pathname)) {
+    const _pre = () => setTimeout(_captchaPrecalentar, 600);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', _pre); else _pre();
+}
+function _captchaIntento(visible, tope_ms) {
     return new Promise((resolve) => {
         const caja = document.createElement('div');
         caja.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2147483600;padding:14px;border-radius:16px;background:#0f172a;box-shadow:0 24px 60px rgba(0,0,0,.55);display:' + (visible ? 'block' : 'none');
@@ -253,7 +266,7 @@ function _captchaIntento(visible) {
             try { window.turnstile.remove(id); } catch (_) {}
             caja.remove(); resolve(t || undefined);
         };
-        const tope = setTimeout(() => fin(undefined), visible ? 60000 : 20000);
+        const tope = setTimeout(() => fin(undefined), visible ? 60000 : (tope_ms || 9000));
         try {
             id = window.turnstile.render(cont, {
                 sitekey: NIKA_TURNSTILE_SITEKEY, appearance: visible ? 'always' : 'interaction-only', theme: 'dark',
