@@ -448,7 +448,7 @@
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'llamadas', filter: 'callee_id=eq.' + uid }, ({ new: f }) => {
           if (f && f.estado !== 'llamando') cerrarTarjetaLlamada(f.id);
         })
-        .subscribe((estado) => { if (estado === 'CHANNEL_ERROR' || estado === 'TIMED_OUT' || estado === 'CLOSED') { try { c.removeChannel(canal); } catch (_) {} canal = null; setTimeout(suscribir, 6000); } });
+        .subscribe((estado) => { if ((estado === 'CHANNEL_ERROR' || estado === 'TIMED_OUT' || estado === 'CLOSED') && canal) { const _x = canal; canal = null; try { c.removeChannel(_x); } catch (_) {} setTimeout(suscribir, 6000); } });
     } catch (_) {}
   }
 

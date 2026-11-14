@@ -542,7 +542,7 @@ const NikaAteneos = (() => {
       canalLl = c.channel('llamadas_estado_' + uid);
       const cambio = ({ new: f }) => { if (f && llamadaActiva && f.id === llamadaActiva.id) alCambioEstado(f.estado); };
       ['caller_id', 'callee_id'].forEach((col) => canalLl.on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'llamadas', filter: col + '=eq.' + uid }, cambio));
-      canalLl.subscribe((s) => { if (s === 'CHANNEL_ERROR' || s === 'TIMED_OUT' || s === 'CLOSED') { try { c.removeChannel(canalLl); } catch (_) {} canalLl = null; setTimeout(iniciarLlamadas, 6000); } });
+      canalLl.subscribe((s) => { if ((s === 'CHANNEL_ERROR' || s === 'TIMED_OUT' || s === 'CLOSED') && canalLl) { const _x = canalLl; canalLl = null; try { c.removeChannel(_x); } catch (_) {} setTimeout(iniciarLlamadas, 6000); } });
     } catch (e) { canalLl = null; }
   }
 
