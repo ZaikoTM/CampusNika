@@ -216,7 +216,9 @@ const NikaSupabaseReady = _esperarSDKSupabase()
                 heartbeatIntervalMs: 20000,
             },
         });
-        nikaSupabase.auth.onAuthStateChange((evento, ses) => { if (evento === 'SIGNED_IN' || evento === 'TOKEN_REFRESHED') _revisarRelojDispositivo(ses); });
+        nikaSupabase.auth.onAuthStateChange((evento, ses) => { if (evento === 'TOKEN_REFRESHED') _revisarRelojDispositivo(ses); });
+        // Solo con TOKEN_REFRESHED: ahí el token se acaba de emitir. SIGNED_IN también salta al volver a una pestaña
+        // en segundo plano con un token viejo, y eso daba falsos avisos de "hora adelantada".
         return nikaSupabase;
     })
     .catch((err) => {
