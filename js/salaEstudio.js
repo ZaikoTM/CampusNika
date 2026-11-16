@@ -232,6 +232,20 @@
     return h;
   }
 
+  // Invitado: elige su propia unidad (o sigue la del Host). Se avisa al Host para que le acredite el tiempo ahí.
+  function opcionesUnidadesInvitado(mia, tema) {
+    const actual = mia ? `${mia.moduleId}|${mia.upId}` : '';
+    let h = `<option value="" ${actual ? '' : 'selected'}>Igual que el Host${tema ? ' · ' + esc(tema) : ''}</option>`;
+    h += `<option value="biblioteca|General" ${actual === 'biblioteca|General' ? 'selected' : ''}>Estudio libre</option>`;
+    Object.keys(unidades || {}).forEach((m) => {
+      h += `<optgroup label="${esc(NOMBRES_MODULO[m] || m)}">` + unidades[m].map((u) => {
+        const v = `${m}|${u.id}`;
+        return `<option value="${esc(v)}" ${v === actual ? 'selected' : ''}>UP${esc(u.number)} · ${esc(String(u.title || '').trim())}</option>`;
+      }).join('') + '</optgroup>';
+    });
+    return h;
+  }
+
   function render(suave) {
     if (!overlay) return;
     const { st, sh, host } = estadoRoom();
@@ -263,7 +277,9 @@
         <label class="sala-cfg-item">Descanso (min)<input type="number" id="sala-b" min="1" max="60" value="${b}"></label>
         <label class="sala-cfg-item">Unidad<select id="sala-up">${opcionesUnidades(st)}</select></label>
       </div>` : `
-      <div class="sala-chips"><span class="sala-chip">⏱️ ${w} min estudio</span><span class="sala-chip">☕ ${b} min descanso</span>${tema ? `<span class="sala-chip">📚 ${esc(tema)}</span>` : ''}</div>`;
+      <div class="sala-chips"><span class="sala-chip">⏱️ ${w} min estudio</span><span class="sala-chip">☕ ${b} min descanso</span>${tema ? `<span class="sala-chip">📚 Host: ${esc(tema)}</span>` : ''}</div>
+      <div class="sala-config"><label class="sala-cfg-item" style="flex:1 1 100%">Vos estudiás<select id="sala-mi-up">${opcionesUnidadesInvitado(E().getMyCtx && E().getMyCtx(), tema)}</select></label></div>
+      <p class="sala-prox" style="margin-top:6px">Podés estudiar otra unidad o materia que el Host: el tiempo se te suma a la que elijas.</p>`;
 
     const picker = host && pickerAbierto ? `
       <div class="sala-picker"><h4>Invitar a un amigo <small style="font-weight:600;color:#fda4af">· ${Math.max(0, MAX - joined.length - invitados.length)} lugares libres</small></h4>
@@ -395,6 +411,19 @@
   }
 
   function onChange(e) {
+    const miUp = document.getElementById('sala-mi-up');
+    if (miUp && e && e.target === miUp) {
+      const [moduleId, upId] = String(miUp.value).split('|');
+      let ctx = null;
+      if (moduleId && upId) {
+        const u = (unidades[moduleId] || []).find((x) => x.id === upId);
+        ctx = { moduleId, upId, upLabel: u ? String(u.title || '').trim() : 'Estudio libre' };
+      }
+      const r = E().setMyContext(ctx);
+      if (!r.ok && r.reason === 'studying') toast('Podés cambiar tu unidad en el descanso o entre bloques.');
+      ultimoHtml = ''; render();
+      return;
+    }
     const { st: est } = estadoRoom();
     if (!estadoRoom().host || (enCurso && est.mode !== 'break')) return;
     const w = document.getElementById('sala-w'), b = document.getElementById('sala-b'), up = document.getElementById('sala-up');

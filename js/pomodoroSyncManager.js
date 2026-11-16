@@ -422,7 +422,7 @@ const PomodoroSyncManager = (function () {
             const info = eng && eng.getSharedInfo && eng.getSharedInfo();
             if (!info || info.role !== "host" || info.sessionId !== s.sessionId) return;
             // Solo entra quien el Host invitó o cuyo pedido aceptó, y hasta MAX_GUESTS (4) personas.
-            const r = eng.registerGuestJoined(payload.username);
+            const r = eng.registerGuestJoined(payload.username, payload.ctx);
             if (!r.ok) {
                 _enviarSala(s, "rechazo", { toUsername: payload.username, motivo: r.reason === "sala_llena" ? "sala_llena" : "no_invitado" }, 0);
                 return;
@@ -430,6 +430,12 @@ const PomodoroSyncManager = (function () {
             const snap = eng.getSharedSnapshot("sync");
             if (snap) _enviarSala(s, "cmd", snap, 1);
             _anunciarInvitado(s, payload.username);
+        });
+
+        // Invitado -> Host: "ahora estudio esta unidad" (cada uno puede estudiar lo suyo)
+        ch.on("broadcast", { event: "ctx" }, ({ payload }) => {
+            if (s.role !== "host" || !payload || !payload.username || s.cerrada) return;
+            if (window.PomodoroEngine && window.PomodoroEngine.setGuestCtx) window.PomodoroEngine.setGuestCtx(payload.username, payload.ctx || null);
         });
 
         ch.on("broadcast", { event: "bye" }, ({ payload }) => {
@@ -550,7 +556,7 @@ const PomodoroSyncManager = (function () {
         const pedir = () => {
             if (s.cerrada || s.gotCmd || n >= 30) return _detenerHello(s);
             n++;
-            _enviarSala(s, "hello", { username: s.username }, 0).catch(() => {});
+            _enviarSala(s, "hello", { username: s.username, ctx: (window.PomodoroEngine && window.PomodoroEngine.getMyCtx && window.PomodoroEngine.getMyCtx()) || null }, 0).catch(() => {});
         };
         pedir();
         s.helloTimer = setInterval(pedir, 2000);
@@ -558,6 +564,13 @@ const PomodoroSyncManager = (function () {
     function _detenerHello(s) { if (s.helloTimer) { clearInterval(s.helloTimer); s.helloTimer = null; } }
 
     // Host -> Invitado. Devuelve una promesa (el motor no la espera).
+    // Invitado: le avisa al Host qué unidad eligió estudiar (null = la del Host).
+    async function enviarCtx(ctx) {
+        const s = sala;
+        if (!s || s.cerrada || s.role !== "guest") return;
+        await _enviarSala(s, "ctx", { username: s.username, ctx: ctx || null }, 1);
+    }
+
     function emitirComando(snap) {
         if (!sala || sala.role !== "host") return Promise.resolve("sin_sala");
         return _enviarSala(sala, "cmd", snap, 1);
@@ -633,6 +646,7 @@ const PomodoroSyncManager = (function () {
         abrirSala,
         salirDeSala,
         emitirComando,
+        enviarCtx,
         get activo() { return !!canal; },
         reconectar,
         // 'ok' si el canal está conectado, 'reconectando' si se cayó y se está recuperando solo, 'sin_conexion' si no hay nada

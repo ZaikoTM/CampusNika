@@ -611,6 +611,7 @@ const PomodoroEngine = (() => {
     if (!(p.minutes > 0)) return 0;
     // Igual que en solitario: un bloque sin Unidad asignada igual cuenta como tiempo de estudio (antes se perdía)
     p = { ...p, moduleId: p.moduleId || 'general', upId: p.upId || 'general' };
+    if (sh.role === 'guest' && sh.myCtx) p = { ...p, moduleId: sh.myCtx.moduleId, upId: sh.myCtx.upId };   // el invitado acredita en SU unidad
     let mins = p.minutes;
     let done = !!p.completed;
     if (sh.role === 'guest' && sh.lateMin > 0) { mins = Math.max(0, mins - sh.lateMin); done = false; }
@@ -625,7 +626,7 @@ const PomodoroEngine = (() => {
     // El Host también acredita al Invitado: si el invitado tenía la pestaña en otra página o sin conexión, el aviso
     // en vivo del fin de fase no le llegó y nunca registraría su parte. La clave es la misma que usa el Invitado
     // (sessionId:fase:guest) y la base la hace única, así que si él también lo registra no se duplica.
-    if (sh.role === 'host') (sh.guests || []).filter((g) => g.joined).forEach((g) => acreditarInvitado(g.username, p.moduleId, p.upId, mins, done, `${sh.sessionId}:${phaseSeq}:guest`));
+    if (sh.role === 'host') (sh.guests || []).filter((g) => g.joined).forEach((g) => acreditarInvitado(g.username, (g.ctx && g.ctx.moduleId) || p.moduleId, (g.ctx && g.ctx.upId) || p.upId, mins, done, `${sh.sessionId}:${phaseSeq}:guest`));
     return mins;
   }
 
@@ -1123,7 +1124,7 @@ const PomodoroEngine = (() => {
   }
 
   // Host: un invitado mandó 'hello'. Solo entra si el Host lo invitó / aceptó y hay lugar.
-  function registerGuestJoined(username) {
+  function registerGuestJoined(username, ctx) {
     const sh = state.shared;
     if (!sh || sh.role !== 'host' || !username) return { ok: false, reason: 'no_host' };
     normalizarShared(sh);
@@ -1132,10 +1133,58 @@ const PomodoroEngine = (() => {
     if (!g.joined && sh.guests.filter((x) => x.joined).length >= MAX_GUESTS) return { ok: false, reason: 'sala_llena' };
     const cambio = !g.joined || !g.online;
     g.joined = true; g.online = true; g.at = Date.now();
+    const c = ctxValido(ctx);
+    if (c) g.ctx = c;
     sincronizarPartner(sh);
-    if (cambio) saveState();
+    if (cambio || c) saveState();
     return { ok: true, nuevo: cambio };
   }
+
+  // Cada persona de la sala puede estudiar otra unidad / área que el Host. El invitado le avisa al Host qué eligió
+  // (así el Host le acredita el tiempo en SU unidad) y, si no eligió nada, sigue la del Host como siempre.
+  function ctxValido(c) {
+    if (!c || typeof c !== 'object') return null;
+    const m = String(c.moduleId || '').slice(0, 40), u = String(c.upId || '').slice(0, 40);
+    if (!m || !u) return null;
+    return { moduleId: m, upId: u, upLabel: String(c.upLabel || u).slice(0, 120) };
+  }
+
+  // Host: un invitado cambió la unidad que estudia.
+  function setGuestCtx(username, ctx) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host' || !username) return;
+    normalizarShared(sh);
+    const g = sh.guests.find((x) => x.username === username && x.joined);
+    if (!g) return;
+    const c = ctxValido(ctx);
+    if (JSON.stringify(g.ctx || null) === JSON.stringify(c)) return;
+    if (c) g.ctx = c; else delete g.ctx;
+    saveState();
+    emit('shared', { tipo: 'guest_ctx', username });
+  }
+
+  // Invitado: elige qué unidad estudia (null = la misma que el Host). No se puede en medio de un bloque de estudio,
+  // porque falsearía lo ya estudiado.
+  function setMyContext(ctx) {
+    if (!isGuest()) return { ok: false, reason: 'no_guest' };
+    if (state.mode === 'work' && state.status !== 'idle') return { ok: false, reason: 'studying' };
+    const c = ctxValido(ctx);
+    const sh = state.shared;
+    if (c) {
+      sh.myCtx = c;
+      state.moduleId = c.moduleId; state.upId = c.upId; state.upLabel = c.upLabel;
+    } else {
+      delete sh.myCtx;
+      const h = sh.hostCtx;
+      if (h) { state.moduleId = h.moduleId; state.upId = h.upId; state.upLabel = h.upLabel; }
+    }
+    saveState();
+    reportPresence();
+    const m = sm();
+    if (m && typeof m.enviarCtx === 'function') { const p = m.enviarCtx(c); if (p && p.catch) p.catch(() => {}); }
+    return { ok: true };
+  }
+  function getMyCtx() { return (state.shared && state.shared.myCtx) || null; }
 
   // Host: un invitado aparece / desaparece de la presencia de la sala.
   function setGuestOnline(username, online) {
@@ -1223,6 +1272,8 @@ const PomodoroEngine = (() => {
     if (snap.breakMin) state.shared.breakMin = snap.breakMin;
 
     const adoptCtx = () => {
+      if (snap.moduleId && snap.upId) state.shared.hostCtx = { moduleId: snap.moduleId, upId: snap.upId, upLabel: snap.upLabel || snap.upId };
+      if (state.shared.myCtx) { const c = state.shared.myCtx; state.moduleId = c.moduleId; state.upId = c.upId; state.upLabel = c.upLabel; return; }   // eligió su propia unidad: no adopta la del Host
       if (snap.moduleId) state.moduleId = snap.moduleId;
       if (snap.upId) state.upId = snap.upId;
       if (snap.upLabel !== undefined && snap.upLabel !== null) state.upLabel = snap.upLabel;
@@ -1347,7 +1398,7 @@ const PomodoroEngine = (() => {
     getTodayMinutes, getBreakStats, setNextConfig, MAX_WORK_MIN, MAX_BREAK_MIN, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
-    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, kickGuest, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestCtx, setMyContext, getMyCtx, setGuestOnline, releaseInvite, kickGuest, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,
     // Solo para pruebas (tests/)
     _test: { registerStudySession, flushPending, readPending },
   };
