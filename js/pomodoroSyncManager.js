@@ -470,11 +470,13 @@ const PomodoroSyncManager = (function () {
                     try { await ch.track({ username, role: s.role, online_at: new Date().toISOString() }); } catch (_) {}
                     clearTimeout(t);
                     s.intentos = 0;
+                    try { window._nikaSalaConn = true; const E = window.PomodoroEngine; if (E && E.notifyShared) E.notifyShared({ tipo: 'conn', ok: true }); } catch (_) {}
                     _cancelarGracia(s);   // si estaba corriendo la espera del Host, esta reconexión la reinicia
                     if (s.role === "guest") { s.gotCmd = false; _iniciarHello(s); }
                     if (primera) { primera = false; resolve(true); }
                 } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") {
                     clearTimeout(t);
+                    try { window._nikaSalaConn = false; const E = window.PomodoroEngine; if (E && E.notifyShared) E.notifyShared({ tipo: 'conn', ok: false }); } catch (_) {}
                     if (primera) { primera = false; resolve(false); }
                     _reconectarSala(s);
                 }

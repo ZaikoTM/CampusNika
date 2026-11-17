@@ -486,7 +486,7 @@ const PomodoroEngine = (() => {
     } catch (_) {}
   }
 
-  async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null) {
+  async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null, con = null) {
     if (!minutes) return;
     addTodayMinutes(minutes);
     // Un Pomodoro iniciado sin Unidad Problema asignada igual cuenta como tiempo de estudio
@@ -494,7 +494,7 @@ const PomodoroEngine = (() => {
     const up = upId || 'general';
     const completedAt = new Date().toISOString();
     // NikaPlan: el tiempo de foco descuenta horas del plan activo (js/planPomodoro.js)
-    try { window.dispatchEvent(new CustomEvent('nika:pomodoro-minutos', { detail: { moduleId: modulo, upId: up, minutes, completed } })); } catch (_) {}
+    try { window.dispatchEvent(new CustomEvent('nika:pomodoro-minutos', { detail: { moduleId: modulo, upId: up, minutes, completed, con: con || null } })); } catch (_) {}
     // 1) Se suma al instante en las tarjetas; 2) se guarda; 3) se avisa con el dato real
     let optId = null;
     try { if (window.NikaRendimiento && window.NikaRendimiento.registrarOptimista) optId = window.NikaRendimiento.registrarOptimista({ modulo, up_id: up, duration_minutes: minutes, completed, completed_at: completedAt }); } catch (_) {}
@@ -598,7 +598,7 @@ const PomodoroEngine = (() => {
       return window.NikaRendimiento.registrarSesionCompartida(p).catch((e) => console.error('[PomodoroEngine] Sesión compartida:', e));
     }
     if (!claimSharedKey(p.sharedKey)) return Promise.resolve();
-    return registerStudySession(p.moduleId, p.upId, p.minutes, p.completed, p.sharedKey);
+    return registerStudySession(p.moduleId, p.upId, p.minutes, p.completed, p.sharedKey, p.con);
   }
 
   // Guarda ESTA fase para el usuario local, con las reglas de la sesión compartida:
@@ -618,10 +618,18 @@ const PomodoroEngine = (() => {
     if (mins <= 0) return 0;
     if (!done && mins < MIN_PARTIAL_MIN) return 0;
     const phaseSeq = p.phaseSeq != null ? p.phaseSeq : sh.phaseSeq;
+    const conTxt = sh.role === 'host' ? (sh.guests || []).filter((g) => g.joined).map((g) => '@' + g.username).join(', ') : (sh.hostUsername ? '@' + sh.hostUsername : '');
+    try {   // resumen de la sala (se muestra al salir)
+      const r = sh.resumen = sh.resumen || { min: 0, bloques: 0, ups: {}, con: {}, desde: Date.now() };
+      r.min += mins; r.bloques++;
+      const kU = (p.moduleId || 'general') + '|' + (p.upId || 'general'); r.ups[kU] = (r.ups[kU] || 0) + mins;
+      conTxt.split(', ').filter(Boolean).forEach((n) => { r.con[n] = (r.con[n] || 0) + mins; });
+    } catch (_) {}
     registerSharedSession({
       sharedKey: `${sh.sessionId}:${phaseSeq}:${sh.role}`,
       moduleId: p.moduleId, upId: p.upId, minutes: mins, completed: done,
       role: sh.role, hostUsername: sh.hostUsername, partner: sh.partner,
+      con: conTxt,
     });
     // El Host también acredita al Invitado: si el invitado tenía la pestaña en otra página o sin conexión, el aviso
     // en vivo del fin de fase no le llegó y nunca registraría su parte. La clave es la misma que usa el Invitado
@@ -1109,7 +1117,7 @@ const PomodoroEngine = (() => {
     updateTitle();
     if (state.status !== 'running') stopTicking();
     reportPresence();
-    emit('shared', { tipo: 'left', reason: opts.reason || 'manual', role: sh.role, username: sh.partner });
+    emit('shared', { tipo: 'left', reason: opts.reason || 'manual', role: sh.role, username: sh.partner, resumen: sh.resumen || null });
   }
 
   // Invitado: avisa si el Host está conectado a la sala.

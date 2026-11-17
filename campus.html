@@ -135,8 +135,8 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=9"></script>
-    <script src="js/planPomodoro.js?v=1"></script>
+    <script src="js/pomodoroEngine.js?v=11"></script>
+    <script src="js/planPomodoro.js?v=3"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/campusTema.js?v=3"></script>
@@ -1374,17 +1374,18 @@ body.tema-premium{--nbp-bg:#190d3f;--nbp-item:#241556;--nbp-borde:rgba(168,85,24
     <script src="js/novedadesAviso.js"></script>
     <script src="js/perfilRedes.js?v=1"></script>
     <script src="js/retoCrear.js?v=4"></script>
-    <script src="js/salaEstudio.js?v=14"></script>
+    <script src="js/salaEstudio.js?v=15"></script>
+    <script>if (/[?&]sala=1/.test(location.search)) window.addEventListener("load", function () { var n = 0, t = setInterval(function () { if (window.abrirSalaEstudio) { clearInterval(t); try { window.abrirSalaEstudio(); } catch (_) {} } else if (++n > 40) clearInterval(t); }, 250); });</script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Sin conexión (offline-first): IndexedDB + cola de sincronización + descarga por lotes -->
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
     <script src="js/guardiaModal.js?v=15"></script>
-    <script src="js/rendimiento.js?v=5"></script>
+    <script src="js/rendimiento.js?v=6"></script>
     <!-- Chart.js se quitó: ninguna pantalla lo usa (ahorra ~200 KB bloqueantes al abrir el campus) -->
     <script src="js/chatManager.js?v=7"></script>
-    <script src="js/pomodoroSyncManager.js?v=8"></script>
+    <script src="js/pomodoroSyncManager.js?v=9"></script>
     <script src="js/onboardingTour.js?v=4"></script>
     <script src="js/pomodoroBar.js?v=16"></script>
     <script src="js/liga.js"></script>

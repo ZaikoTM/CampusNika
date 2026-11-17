@@ -58,27 +58,39 @@
     try {
       const sum = async (titulo) => { const r = await fetch(base + '/api/rest_v1/page/summary/' + encodeURIComponent(String(titulo).replace(/ /g, '_')) + '?redirect=true', { signal: ctl.signal }); return r.ok ? r.json() : null; };
       const ok = (d) => d && d.extract && d.type !== 'disambiguation';
-      const buscar = async (t, texto) => {
-        let r = await fetch(base + '/w/api.php?action=opensearch&search=' + encodeURIComponent(t) + '&limit=3&namespace=0&format=json&origin=*', { signal: ctl.signal });
-        let j = await r.json(), tt = j && j[1] && j[1][0];
-        if (!tt && texto) {   // busqueda en el texto de los articulos (encuentra frases dentro de otros temas)
-          r = await fetch(base + '/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(t) + '&srlimit=1&srnamespace=0&format=json&origin=*', { signal: ctl.signal });
-          j = await r.json(); tt = j && j.query && j.query.search && j.query.search[0] && j.query.search[0].title;
-        }
+      // Solo se acepta lo que de verdad es lo pedido: un articulo cuyo titulo contenga TODAS las palabras buscadas.
+      // Nunca se reemplaza por otra palabra de la frase ni por una busqueda en el texto de otros articulos.
+      const toks = norm(q).split(/[^a-z0-9ñ]+/).filter((t) => t.length >= 2).map(stem);
+      const coincide = (titulo) => { const tt = new Set(norm(titulo).split(/[^a-z0-9ñ]+/).filter(Boolean).map(stem)); return toks.length > 0 && toks.every((t) => tt.has(t)); };
+      const buscar = async (t) => {
+        const r = await fetch(base + '/w/api.php?action=opensearch&search=' + encodeURIComponent(t) + '&limit=5&namespace=0&format=json&origin=*', { signal: ctl.signal });
+        const j = await r.json(), tt = j && j[1] && j[1].find(coincide);
         return tt ? sum(tt) : null;
       };
-      let d = await sum(q);
-      if (!ok(d)) d = await buscar(q, false);
-      if (!ok(d)) {   // frase sin articulo propio: se prueba con las palabras importantes, de la mas larga a la mas corta
-        const ps = q.split(/\s+/).filter((w) => w.length >= 5).sort((a, b) => b.length - a.length).slice(0, 3);
-        for (const w of ps) { d = await sum(w); if (!ok(d)) d = await buscar(w, false); if (ok(d)) break; }
-      }
-      if (!ok(d)) d = await buscar(q, true);
+      let d = await sum(q);   // titulo exacto (Wikipedia resuelve sus propias redirecciones)
+      if (!ok(d)) d = await buscar(q);
       let out = null;
       if (ok(d)) out = { titulo: d.title, texto: d.extract, url: d.content_urls && d.content_urls.desktop && d.content_urls.desktop.page };
       if (out) { try { sessionStorage.setItem(clave, JSON.stringify(out)); } catch (_) {} }
       return out;
     } finally { clearTimeout(tm); }
+  }
+
+  // Respaldo cuando ni el Glosario ni Wikipedia responden: una IA abierta, gratuita y sin clave (Pollinations).
+  // Solo se envia el termino buscado (nada del usuario) y no usa la cuota de NikaMed.
+  async function iaRespaldo(q) {
+    const clave = 'nikaDiccIA:' + norm(q);
+    try { const c = sessionStorage.getItem(clave); if (c) return c; } catch (_) {}
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 14000);
+    try {
+      const pr = 'Sos un asistente para estudiantes de medicina de Argentina. Definí en español, en 2 o 3 oraciones claras, el término médico: "' + q + '". Si no conocés el término o no es médico, decí solamente: NO_SE. No uses formato, listas ni enlaces.';
+      const r = await fetch('https://text.pollinations.ai/' + encodeURIComponent(pr) + '?model=openai', { signal: ctl.signal });
+      if (!r.ok) return null;
+      const t = (await r.text()).replace(/\s+/g, ' ').trim();
+      if (!t || /NO_SE/.test(t) || t.length > 1200 || /pollinations|rate limit|error/i.test(t.slice(0, 120))) return null;
+      try { sessionStorage.setItem(clave, t); } catch (_) {}
+      return t;
+    } catch (_) { return null; } finally { clearTimeout(tm); }
   }
 
   // texto largo del articulo para leerlo dentro del lector (Wikipedia no se puede incrustar: no deja abrirse en un marco)
@@ -326,7 +338,18 @@ body.tema-premium .nkd{--bg:rgba(24,12,56,.96);--bd:rgba(192,132,252,.6);--sh:rg
           cuerpo.appendChild(sec('w', '▸ WIKIPEDIA', `<b>${esc(w.titulo)}</b><p>${esc(resumen(w.texto, 520))}</p><button type="button" class="nkd-mas" data-a="mas-w" data-t="${esc(w.titulo)}">Seguir leyendo ▾</button>`));
           c.wc = resumen(w.texto, 520);
         } else if (!m.length) {
-          escribir(r.error ? 'No pude consultar Wikipedia ahora (¿sin conexión?). Igual podés buscar <b>' + esc(q) + '</b> en el PDF.' : 'No encontré <b>' + esc(q) + '</b> en el Glosario ni en Wikipedia. Probá seleccionando solo el término, sin artículos ni signos.');
+          escribir('No lo encontré en Wikipedia; le pregunto a una IA de respaldo<span class="nkd-pt"></span>');
+          const skI = document.createElement('div'); skI.className = 'nkd-sk'; cuerpo.appendChild(skI); ubicar();
+          iaRespaldo(q).then((t) => {
+            if (actual !== c) return;
+            skI.remove();
+            if (t) {
+              cara.classList.add('fel'); escribir('Wikipedia no tenía <b>' + esc(q) + '</b>. Una IA de respaldo dice: ' + esc(resumen(t, 300)));
+              cuerpo.insertBefore(sec('i', '▸ RESPUESTA DE UNA IA (verificala)', '<p>' + esc(t) + '</p><p class="nkd-nota">Generada por una IA externa gratuita. Puede equivocarse: confirmala con tu bibliografía.</p>'), cuerpo.lastChild && cuerpo.lastChild.className === 'nkd-nota' ? cuerpo.lastChild : null);
+              c.wc = t; c.wl = 'IA de respaldo';
+            } else escribir(r.error ? 'No pude consultar Wikipedia ahora (¿sin conexión?). Igual podés buscar <b>' + esc(q) + '</b> en el PDF.' : 'No encontré <b>' + esc(q) + '</b> en el Glosario ni en Wikipedia. Probá seleccionando solo el término, sin artículos ni signos.');
+            ubicar();
+          });
         }
         const n = document.createElement('div'); n.innerHTML = nota; cuerpo.appendChild(n.firstChild);
         ubicar();

@@ -59,6 +59,13 @@ const PomodoroModule = (() => {
           grouped[key] = (grouped[key] || 0) + (row.duration_minutes || 0);
         });
         
+        // nika_time_* es solo CACHÉ de lo confirmado en la nube + lo que espera en la cola local
+        try {
+          (JSON.parse(localStorage.getItem('nika_pending_sessions') || '[]') || []).forEach(r => {
+            const key = `nika_time_${r.modulo}_${r.up_id}`;
+            grouped[key] = (grouped[key] || 0) + (r.duration_minutes || 0);
+          });
+        } catch (_) {}
         Object.keys(grouped).forEach(k => {
           localStorage.setItem(k, grouped[k].toString());
         });

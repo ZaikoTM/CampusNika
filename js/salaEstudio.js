@@ -334,6 +334,7 @@
         ${retosBlk}
         ${picker}
         ${chatBlk}
+        ${window._nikaSalaConn === false ? '<div role="status" style="margin:6px 0;padding:8px 10px;border-radius:10px;background:#fef3c7;color:#92400e;font-size:.8rem;font-weight:700">⚠ Se cortó la conexión con la sala. Reconectando solo… tu tiempo no se pierde.</div>' : ''}
         ${pie}
       </div>`;
     if (html === ultimoHtml) return;          // nada cambió: no se toca el DOM (evita el parpadeo)
@@ -405,7 +406,11 @@
     if (q('[data-libre]') && estadoRoom().host) { pickerAbierto = !pickerAbierto; return render(); }
     if (q('[data-iniciar]')) return iniciar();
     if (q('[data-min]')) return cerrar();
-    if (q('[data-cerrar-sala]')) { E().leaveShared({ notify: true }); return cerrar(); }
+    if (q('[data-cerrar-sala]')) {
+      const sh0 = estadoRoom().sh, n = sh0 && sh0.role === 'host' ? (sh0.guests || []).filter((g) => g.joined).length : 0;
+      if (n && !confirm('Vas a cerrar la sala y ' + n + (n === 1 ? ' persona sale' : ' personas salen') + ' con vos. El tiempo ya estudiado queda guardado. ¿Cerrar la sala?')) return;
+      E().leaveShared({ notify: true }); return cerrar();
+    }
     if (q('[data-salir]')) { E().leaveShared({ notify: true }); return cerrar(); }
     if (t === overlay) return cerrar();
   }
@@ -437,10 +442,29 @@
   }
 
   // El invitado entra a una sala: se le abre sola la sala de espera
+  // Resumen al salir de la sala: cuánto estudiaron, con quién y qué unidades
+  function mostrarResumen(R, rol) {
+    const hm = (m) => { m = Math.round(m); return m >= 60 ? Math.floor(m / 60) + ' h ' + (m % 60 ? (m % 60) + ' min' : '') : m + ' min'; };
+    const ups = Object.keys(R.ups || {}).map((k) => { const [m, u] = k.split('|'); return `${esc(NOMBRES_MODULO[m] || m)}${u && u !== 'general' ? ' · ' + esc(String(u).toUpperCase()) : ''} <b>${hm(R.ups[k])}</b>`; });
+    const con = Object.keys(R.con || {}).map((n) => esc(n));
+    const d = document.createElement('div'); d.className = 'sala-resumen';
+    d.setAttribute('style', 'position:fixed;inset:0;z-index:100001;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.55);padding:16px');
+    d.innerHTML = `<div role="dialog" aria-label="Resumen de la sala" style="max-width:380px;width:100%;background:#fff;color:#0f172a;border-radius:18px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.35);font-family:inherit">
+      <div style="font-size:1.6rem">🍅</div><h3 style="margin:4px 0 8px;font-size:1.1rem">Resumen de tu sala</h3>
+      <p style="margin:0 0 6px"><b>${hm(R.min)}</b> de estudio en ${R.bloques} ${R.bloques === 1 ? 'bloque' : 'bloques'}${con.length ? ' con ' + con.join(', ') : ' (solo)'}.</p>
+      ${ups.length ? '<p style="margin:0 0 6px;font-size:.88rem">' + ups.join('<br>') + '</p>' : ''}
+      <p style="margin:8px 0 12px;font-size:.78rem;color:#64748b">Ese tiempo ya está en tu Rendimiento y, si tenés «Contar mi Pomodoro» activado, en tu plan de estudio (podés verlo o moverlo desde el detalle de horas del plan).</p>
+      <button type="button" style="width:100%;border:0;border-radius:10px;padding:10px;font-weight:800;background:#7c3aed;color:#fff;cursor:pointer">Listo</button></div>`;
+    d.addEventListener('click', (ev) => { if (ev.target === d || ev.target.tagName === 'BUTTON') d.remove(); });
+    document.body.appendChild(d);
+  }
+
   function enganchar() {
     if (!E() || window._nikaSalaHook) { if (!E()) setTimeout(enganchar, 400); return; }
     window._nikaSalaHook = true;
     E().on('shared', (e) => {
+      if (e && e.tipo === 'left' && e.resumen && e.resumen.min > 0) mostrarResumen(e.resumen, e.role);
+      if (e && e.tipo === 'conn' && overlay) { try { render(); } catch (_) {} }
       if (e && e.tipo === 'joined' && !abierta && E().getState().status === 'idle') setTimeout(abrir, 400);
     });
     // si recargó la página estando en una sala de espera, vuelve a mostrarse

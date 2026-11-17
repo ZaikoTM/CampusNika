@@ -24,7 +24,7 @@
   const temporizadores = {};
   function cargarFusion() {
     if (window.NikaPlanFusion) return Promise.resolve();
-    return new Promise((ok) => { const s = document.createElement('script'); s.src = 'js/planFusion.js?v=1'; s.onload = ok; s.onerror = ok; document.head.appendChild(s); });
+    return new Promise((ok) => { const s = document.createElement('script'); s.src = 'js/planFusion.js?v=3'; s.onload = ok; s.onerror = ok; document.head.appendChild(s); });
   }
   function empujarNube(clave, idPlan) {
     clearTimeout(temporizadores[idPlan]);
@@ -56,21 +56,28 @@
     // solo cuentan los planes que el usuario eligió (p.pomodoro === true), vigentes y de esa materia
     const elegidos = planes.filter((p) => p && p.pomodoro === true && p.fecha_examen >= hoy && Array.isArray(p.dias) && p.dias.length && (!modulo || modulo === 'general' || p.materia === modulo))
       .sort((a, b) => String(a.fecha_examen).localeCompare(String(b.fecha_examen)));
-    if (!elegidos.length) return;
-    const titulos = []; let cambio = false;
+    const aviso = (t) => { try { if (typeof window.showToast === 'function') window.showToast(t); } catch (_) {} };
+    if (!elegidos.length) {
+      const con = planes.filter((p) => p && p.pomodoro === true && p.fecha_examen >= hoy);
+      if (con.length) aviso('🍅 Esos ' + minutos + ' min no sumaron a ningún plan: estudiaste ' + (modulo && modulo !== 'general' ? modulo : 'sin unidad de una materia') + ' y tus planes con Pomodoro son de ' + [...new Set(con.map((p) => p.materia))].join(' y ') + '. Elegí una unidad de esa materia.');
+      return;
+    }
+    const titulos = []; let cambio = false, donde = '';
     for (const p of elegidos.slice(0, 1)) {   // un solo plan por materia (el examen más cercano si hubiera datos viejos)
       let dia = p.dias.find((d) => d.fecha === hoy);
       if (!dia) dia = p.dias.filter((d) => d.fecha < hoy && progresoDia(d) < 1).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
       if (!dia) continue;
       dia.estudiado = Math.round(((dia.estudiado || 0) + minutos / 60) * 100) / 100;
+      (dia.sesiones = dia.sesiones || []).push({ t: new Date().toISOString(), min: minutos, mod: detalle.moduleId || '', up: detalle.upId || '', con: detalle.con || '', c: detalle.completed !== false });
       p.actualizado_en = new Date().toISOString();
       titulos.push(String(p.titulo).slice(0, 40)); cambio = true;
+      donde = ' · Día ' + (p.dias.indexOf(dia) + 1) + ' (' + dia.fecha.slice(8, 10) + '/' + dia.fecha.slice(5, 7) + ')';
       try { window.dispatchEvent(new CustomEvent('nika:plan-pomodoro', { detail: { plan: p.id, dia: dia.id, minutos, titulo: p.titulo } })); } catch (_) {}
     }
     if (!cambio) return;
     try { localStorage.setItem(k, JSON.stringify(planes)); } catch (_) { return; }
     elegidos.slice(0, 1).forEach((p) => empujarNube(k, p.id));
-    try { if (typeof window.showToast === 'function') window.showToast(`🍅 +${minutos} min en ${titulos.length === 1 ? 'tu plan «' + titulos[0] + '»' : titulos.length + ' planes'}`); } catch (_) {}
+    aviso(`🍅 +${minutos} min en tu plan «${titulos[0]}»${donde}`);
   }
   window.addEventListener('nika:pomodoro-minutos', (e) => { try { acreditar(e.detail); } catch (err) { console.warn('[PlanPomodoro]', err && err.message); } });
   window.NikaPlanPomodoro = { acreditar };

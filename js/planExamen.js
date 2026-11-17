@@ -120,6 +120,13 @@
     if (cumplido >= 0.85 && hdia <= prom * 1.25) { nivel = 'verde'; titulo = 'Venís a buen ritmo'; texto = 'Así vamos a llegar al examen. Sostené el plan.'; }
     else if (cumplido >= 0.55 && hdia <= prom * 1.8) { nivel = 'amarillo'; titulo = 'Te falta estudiar un poco más'; texto = 'Con un poco más por día vamos a llegar. Priorizá los temas de prioridad alta.'; }
     else { nivel = 'rojo'; titulo = 'Necesitamos estudiar YA'; texto = 'Estás atrasado/a respecto del plan. Reordená los días y empezá por lo más importante.'; }
+    // proyección: promedio real de los últimos 3 días ya vencidos contra lo que hace falta por día
+    const ult = p.dias.filter((d) => d.fecha < hoy).sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 3);
+    if (ult.length) {
+      const real = ult.reduce((a, d) => a + horasHechasDia(d), 0) / ult.length, llega = hechas + real * diasUtiles;
+      const f1 = (n) => (Math.round(n * 10) / 10).toString().replace('.', ',');
+      texto += ` Tu ritmo real de los últimos ${ult.length} días es ${f1(real)} h/día: a ese paso llegás al examen con ${f1(Math.min(llega, total))} h de ${f1(total)} h. Necesitás ${f1(hdia)} h por día desde hoy${real > 0 && hdia > real ? ' (' + f1(hdia - real) + ' h más que ahora)' : ''}.`;
+    }
     return { ...base, nivel, ico: nivel === 'verde' ? '🟢' : nivel === 'amarillo' ? '🟡' : '🔴', titulo, texto, pct: cumplido, hdia };
   }
 
@@ -942,7 +949,7 @@
   }
   function panelHerramientas(p) {
     const sala = p.materia === 'pfo' ? 'pfo_estudio.html' : `estudio.html?modulo=${encodeURIComponent(p.materia)}`;
-    const L = [['🍅', 'Pomodoro', sala, 'Estudiá por bloques de foco y medí el tiempo real por unidad'], ['🏆', 'Liga Pomodoro', 'liga.html', 'Tu estudio suma a la Liga y a tu racha'],
+    const L = [['🍅', 'Pomodoro', sala, 'Estudiá por bloques de foco y medí el tiempo real por unidad'], ['👥', 'Pomodoro compartido', 'campus.html?sala=1', 'Estudiá con amigos en una sala compartida; el tiempo también descuenta de este plan'], ['🏆', 'Liga Pomodoro', 'liga.html', 'Tu estudio suma a la Liga y a tu racha'],
                ['📹', 'Sala de Ateneos', 'ateneos.html', 'Estudiá acompañado en video'], ['📊', 'Cierre del día', 'campus.html', 'Compará lo planificado con lo cumplido'], ['💊', 'NikaFarma', 'nikafarma.html', 'Vademécum y scores']];
     const on = p.pomodoro === true;
     return `<div class="pe-pomo-info pe-rv ${on ? 'on' : ''}">
@@ -985,6 +992,60 @@
       <p>${ej}${n > 2 ? ' …' : ''}</p></div>
       <button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="pendientes">📆 Reorganizar</button></div>`;
   }
+  const NOM_MOD = { ginecologia: 'Ginecología', cirugia: 'Cirugía', siam: 'S.I.A.M.', biblioteca: 'Estudio libre', general: 'General' };
+  function modalDetalleHoras(p) {
+    if (!p) return;
+    const F = { mat: '', up: '', con: '' };
+    const hm = (m) => { m = Math.round(m); return m >= 60 ? Math.floor(m / 60) + ' h ' + (m % 60 ? (m % 60) + ' min' : '') : m + ' min'; };
+    const hh = (t) => { const h = new Date(t); return h.getHours().toString().padStart(2, '0') + ':' + h.getMinutes().toString().padStart(2, '0'); };
+    const dias = () => p.dias.slice().sort((a, b) => a.fecha.localeCompare(b.fecha));
+    const todas = () => { const o = []; dias().forEach((d) => (d.sesiones || []).forEach((s) => o.push({ d, s }))); return o; };
+    const opts = (arr, sel, vacio) => `<option value="">${vacio}</option>` + arr.map(([v, t]) => `<option value="${esc(v)}" ${v === sel ? 'selected' : ''}>${esc(t)}</option>`).join('');
+    const destinos = () => { const hoy = hoyISO(), o = []; S.planes.filter((q) => q.fecha_examen >= hoy).forEach((q) => q.dias.slice().sort((a, b) => a.fecha.localeCompare(b.fecha)).forEach((d, i) => o.push([q.id + '|' + d.id, `${String(q.titulo).slice(0, 28)} · Día ${i + 1} (${d.fecha.slice(8, 10)}/${d.fecha.slice(5, 7)})`]))); return o; };
+    const pasa = (s) => (!F.mat || s.mod === F.mat) && (!F.up || s.up === F.up) && (!F.con || (F.con === '_solo' ? !s.con : (s.con || '').split(', ').includes(F.con)));
+    const mover = (tS, val) => {
+      const ses = todas().find((x) => x.s.t === tS); if (!ses) return;
+      const sacar = () => { ses.d.sesiones = ses.d.sesiones.filter((x) => x !== ses.s); ses.d.estudiado = Math.max(0, Math.round(((ses.d.estudiado || 0) - ses.s.min / 60) * 100) / 100); ses.d.est_ts = new Date().toISOString(); if (!ses.d.estudiado) delete ses.d.estudiado; };
+      if (val === 'borrar') { if (!confirm('¿Quitar esta sesión? Se descuentan ' + hm(ses.s.min) + ' del plan.')) return; sacar(); guardar(p); return; }
+      const [pid, did] = val.split('|'), q = S.planes.find((x) => x.id === pid), dd = q && q.dias.find((x) => x.id === did); if (!dd || dd === ses.d) return;
+      sacar(); dd.sesiones = (dd.sesiones || []).concat([ses.s]).sort((a, b) => String(a.t).localeCompare(String(b.t)));
+      dd.estudiado = Math.round(((dd.estudiado || 0) + ses.s.min / 60) * 100) / 100; dd.est_ts = new Date().toISOString();
+      guardar(p); if (q !== p) guardar(q);
+    };
+    let box = null;
+    const dibujar = () => {
+      const all = todas(), mats = [...new Set(all.map((x) => x.s.mod).filter(Boolean))], ups = [...new Set(all.filter((x) => !F.mat || x.s.mod === F.mat).map((x) => x.s.up).filter(Boolean))],
+        cons = [...new Set(all.flatMap((x) => (x.s.con || '').split(', ').filter(Boolean)))];
+      let tot = 0, nSes = 0, filas = '';
+      const dst = destinos(), sinFiltro = !F.mat && !F.up && !F.con;
+      dias().forEach((d) => {
+        const ses = (d.sesiones || []).filter(pasa), min = ses.reduce((a, s) => a + s.min, 0), extra = sinFiltro ? Math.max(0, Math.round((d.estudiado || 0) * 60) - (d.sesiones || []).reduce((a, s) => a + s.min, 0)) : 0;
+        if (!ses.length && !extra) return;
+        tot += min + extra; nSes += ses.length;
+        filas += `<div class="pe-det-dia"><b>${esc(fmtLarga(d.fecha))}</b><span>${hm(min + extra)}</span></div>` +
+          ses.map((s) => `<div class="pe-det-ses"><span>🕒 ${hh(new Date(new Date(s.t).getTime() - s.min * 60000))}–${hh(s.t)}</span><span>${hm(s.min)}</span><span>${esc(NOM_MOD[s.mod] || s.mod || 'General')}${s.up && s.up !== 'general' ? ' · ' + esc(String(s.up).toUpperCase()) : ''}</span><span>${s.con ? '👥 con ' + esc(s.con) : '👤 solo'}</span>
+            <select class="pe-det-mv" data-t="${esc(s.t)}" aria-label="Mover o quitar la sesión"><option value="">↔ Mover…</option>${dst.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}<option value="borrar">🗑 Quitar de este plan</option></select></div>`).join('') +
+          (extra ? `<div class="pe-det-ses"><span>🍅 Sesiones anteriores sin detalle</span><span>${hm(extra)}</span></div>` : '');
+      });
+      const ds = dias().filter((d) => (d.horas || 0) > 0 || (d.estudiado || 0) > 0), mx = Math.max(1, ...ds.map((d) => Math.max(d.horas || 0, d.estudiado || 0))), hoyF = hoyISO();
+      const grafico = ds.length ? `<div class="pe-graf" role="img" aria-label="Horas de Pomodoro por día contra la meta del plan">${ds.map((d) => { const m = d.horas || 0, e = d.estudiado || 0, ok = m > 0 && e >= m;
+        return `<div class="pe-graf-c${d.fecha === hoyF ? ' hoy' : ''}" title="${esc(fmtLarga(d.fecha))}: ${fmtH(e)} de ${fmtH(m)}"><i class="meta" style="height:${Math.round(m / mx * 100)}%"></i><i class="real${ok ? ' ok' : ''}" style="height:${Math.round(e / mx * 100)}%"></i><small>${d.fecha.slice(8, 10)}</small></div>`; }).join('')}</div>
+        <p class="pe-graf-ley"><span><u class="meta"></u>Meta del día</span><span><u class="real"></u>Hecho con Pomodoro</span></p>` : '';
+      box.innerHTML = `<h3>🍅 Lo que estudiaste con Pomodoro</h3><p class="pe-sub">${esc(p.titulo)} · ${hm(tot)}${nSes ? ' · ' + nSes + ' sesiones' : ''}${sinFiltro ? ' en total' : ' (filtrado)'}</p>${grafico}
+        <div class="pe-det-fil"><select data-f="mat">${opts(mats.map((m) => [m, NOM_MOD[m] || m]), F.mat, 'Todas las materias')}</select><select data-f="up">${opts(ups.map((u) => [u, String(u).toUpperCase()]), F.up, 'Todas las unidades')}</select><select data-f="con">${opts([['_solo', 'Solo'], ...cons.map((c) => [c, 'Con ' + c])], F.con, 'Con quien sea')}</select></div>
+        <div class="pe-det">${filas || '<p class="pe-sub">No hay sesiones' + (sinFiltro ? '. Activá «Contar mi Pomodoro en este plan» y estudiá.' : ' con ese filtro.') + '</p>'}</div>
+        <div class="pe-modal-acc"><button type="button" class="pe-btn" data-cerrar>Cerrar</button></div>`;
+    };
+    const mm = modal('<div id="pe-det-box"></div>', 'ancho');
+    box = mm.m.querySelector('#pe-det-box');
+    box.addEventListener('change', (e) => {
+      const f = e.target.dataset.f, t = e.target.dataset.t;
+      if (f) { F[f] = e.target.value; if (f === 'mat') F.up = ''; dibujar(); }
+      else if (t && e.target.value) { mover(t, e.target.value); dibujar(); try { render(); } catch (_) {} }
+    });
+    dibujar();
+  }
+
   function modalPendientes() {
     const p = S.plan; if (!p) return;
     const pen = pendientes(p); if (!pen.length) return toast('No tenés temas pendientes 🎉');
@@ -1043,9 +1104,9 @@
           ${finTemasHtml(p)}
           <div class="pe-plan-kpis">
             <div class="pe-kpi"><b>${hechos}/${p.dias.length}</b><span>días completos</span></div>
-            <div class="pe-kpi"><b>${fmtH(horasHechas(p))}</b><span>de ${fmtH(horasPlan(p))}</span></div>
+            <div class="pe-kpi pe-kpi--clic" data-act="detalle-horas" role="button" tabindex="0" title="Ver qué estudiaste cada día"><b>${fmtH(horasHechas(p))}</b><span>de ${fmtH(horasPlan(p))} · ver detalle</span></div>
             <div class="pe-kpi"><b>${fmtH(r.falta)}</b><span>por hacer</span></div>
-            <div class="pe-kpi pe-kpi--pomo" title="Los bloques de foco del Pomodoro descuentan horas de este plan automáticamente"><b>🍅 ${fmtH(horasPomodoro(p))}</b><span>con Pomodoro</span></div>
+            <div class="pe-kpi pe-kpi--pomo pe-kpi--clic" data-act="detalle-horas" role="button" tabindex="0" title="Ver cada sesión de Pomodoro. Los bloques de foco del Pomodoro descuentan horas de este plan automáticamente"><b>🍅 ${fmtH(horasPomodoro(p))}</b><span>con Pomodoro</span></div>
           </div>
         </div>
         <div class="pe-plan-side">${contador(c, true)}${anillo(progresoPlan(p), 88)}</div>
@@ -1484,6 +1545,7 @@
       case 'guia': return modalGuia();
       case 'modelo': return modalModelo();
       case 'hub': return volverHub();
+      case 'detalle-horas': return modalDetalleHoras(p);
       case 'abrir': return abrirPlan(el.dataset.id);
       case 'importar': { const f = root.querySelector('#pe-file'); if (f) f.click(); return; }
       case 'plan-de-evento': { const ev = eventoPorId(el.dataset.e); if (!ev) return; nuevoWizard({ materia: MATERIAS[ev.modulo] ? ev.modulo : null, paso: MATERIAS[ev.modulo] ? 2 : 1, fecha_examen: ev.fecha, titulo: ev.titulo || '', evento_id: ev.id }); return; }

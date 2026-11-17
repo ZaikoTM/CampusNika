@@ -13,8 +13,16 @@
 
   function fusionarDia(base, otro) {
     if (!otro) return;
+    const ta0 = base.est_ts || '', tb0 = otro.est_ts || '';
+    if (tb0 > ta0) { base.estudiado = otro.estudiado; base.sesiones = otro.sesiones; base.est_ts = tb0; if (!base.estudiado) delete base.estudiado; return; }   // edición manual más nueva (mover/quitar sesión) manda
+    if (ta0 > tb0) return;
     base.estudiado = r2(Math.max(base.estudiado || 0, otro.estudiado || 0));
     if (!base.estudiado) delete base.estudiado;
+    // registro de sesiones de Pomodoro: unión sin repetir (clave = marca de tiempo)
+    if (Array.isArray(otro.sesiones) && otro.sesiones.length) {
+      const vistos = new Set((base.sesiones || []).map((s) => s.t));
+      base.sesiones = (base.sesiones || []).concat(otro.sesiones.filter((s) => !vistos.has(s.t))).sort((a, b) => String(a.t).localeCompare(String(b.t)));
+    }
     const mapa = {};
     items(otro).forEach((x) => { mapa[x.id] = x; });
     items(base).forEach((x) => {
