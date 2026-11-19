@@ -722,7 +722,7 @@
     m_sel: { t: 'Seleccionar', k: 'V', d: 'Elegí texto del PDF para subrayarlo con el color activo, definir la palabra (📖) o buscarla en todo el PDF (🔍). También podés tocar un subrayado para cambiarle el color, copiarlo o borrarlo.' },
     m_sub: { t: 'Subrayar', k: 'H', d: 'Subraya el texto que selecciones, al instante. Solo prolijo en PDFs con texto. 💡 El Pincel funciona mejor y sirve en cualquier PDF.' },
     m_pincel: { t: 'Pincel', k: 'P', rec: 1, d: 'Marcá a mano alzada, con cualquier PDF (también escaneados). Es más preciso y más vistoso que Subrayar, por eso lo recomendamos. Ajustá el grosor con el deslizador.', n: 'Mantené Mayús o activá «Línea recta» para trazar rectas.' },
-    m_mano: { t: 'Mano', k: 'G', d: 'Arrastrá la página para moverte, como en Adobe. Volvés a Seleccionar con la tecla V.' },
+    m_mano: { t: 'Mano', k: 'N', d: 'Arrastrá la página para moverte, como en Adobe. Volvés a Seleccionar con la tecla V.' },
     m_bor: { t: 'Goma', k: 'E', d: 'Pasala por encima de lo marcado y se quita cada marca que toques. Para borrar muchas juntas usá 🧹 Limpiar.' },
     m_texto: { t: 'Texto sobre el PDF', k: 'T', d: 'Tocá un lugar de la página y escribí una nota. Podés moverla, cambiarle la letra y el color.' },
     m_pin: { t: 'Marcador con nota', k: 'M', d: 'Pone un 📌 en un punto exacto y abre una nota atada a ese lugar. Se sincroniza con tus Notas de lectura.' },
@@ -1366,7 +1366,7 @@
     if (!S) return; let a = $('.nkpdf-aviso', S.root); if (!a) { a = document.createElement('div'); a.className = 'nkpdf-aviso'; S.root.appendChild(a); }
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
-  const ATAJOS = [['V', 'Seleccionar'], ['D', 'Definir la palabra seleccionada (diccionario)'], ['G', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
+  const ATAJOS = [['↑  ↓', 'Bajar o subir en el documento (con Mayús, más rápido)'], ['Re Pág  Av Pág  Espacio', 'Subir o bajar una pantalla'], ['Inicio  Fin', 'Ir al principio o al final'], ['V', 'Seleccionar'], ['D', 'Definir la palabra seleccionada (diccionario)'], ['G', 'Ir a una página (escribí el número y Enter)'], ['N', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
@@ -1811,7 +1811,7 @@
         case 'recta': mi.recta = !mi.recta; b.classList.toggle('on', mi.recta); if (mi.recta && mi.modo !== 'pincel') modo('pincel'); aviso(mi.recta ? 'Línea recta activada' : 'Línea recta desactivada'); break;
       }
     });
-    $('.nkpdf-pag', root).addEventListener('change', (e) => irA(+e.target.value, true));
+    $('.nkpdf-pag', root).addEventListener('change', (e) => { irA(+e.target.value, true); e.target.blur(); });
     mi.teclas = (e) => {
       if (S !== mi) return;
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
@@ -1824,8 +1824,12 @@
       if (e.altKey) return;
       if (k === 'delete' || k === 'backspace') { if (mi.sel && mi.marcas.includes(mi.sel)) { e.preventDefault(); cerrarPop(); eliminar(mi.sel); } else aviso('Tocá primero una marca para seleccionarla'); return; }
       if (k === 'escape') { cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove(); return; }
+      if (k === 'arrowdown' || k === 'arrowup') { e.preventDefault(); const f = e.shiftKey ? 3 : 1; mi.scroll.scrollBy({ top: (k === 'arrowdown' ? 1 : -1) * 70 * f, behavior: e.repeat ? 'auto' : 'smooth' }); return; }
+      if (k === 'pagedown' || k === 'pageup' || (k === ' ' && !e.target.closest('button,a,select'))) { e.preventDefault(); const dir = (k === 'pageup' || (k === ' ' && e.shiftKey)) ? -1 : 1; mi.scroll.scrollBy({ top: dir * mi.scroll.clientHeight * 0.9, behavior: 'smooth' }); return; }
+      if (k === 'home' || k === 'end') { e.preventDefault(); mi.scroll.scrollTo({ top: k === 'home' ? 0 : mi.scroll.scrollHeight, behavior: 'smooth' }); return; }
+      if (k === 'arrowright' || k === 'arrowleft') { if (mi.scroll.scrollWidth > mi.scroll.clientWidth + 4) { e.preventDefault(); mi.scroll.scrollBy({ left: (k === 'arrowright' ? 1 : -1) * 70, behavior: 'smooth' }); } return; }
       if (k === '?' || (k === '/' && e.shiftKey)) { atajos(); return; }
-      if (k === 'v') usarGrupo('sel'); else if (k === 'g') modo('mano'); else if (k === 'h') usarGrupo('sub'); else if (k === 'p' || k === 'a') usarGrupo('pincel'); else if (k === 'e') usarGrupo('bor'); else if (k === 't') usarGrupo('texto'); else if (k === 'm') modo('pin'); else if (k === 'b') { mi.barraOculta = !mi.barraOculta; mi.barraAuto = false; ajustarOculta(mi); }
+      if (k === 'v') usarGrupo('sel'); else if (k === 'g') { e.preventDefault(); const pi = $('.nkpdf-pag', root); if (pi) { if (mi.barraOculta) { mi.barraOculta = false; mi.barraAuto = false; ajustarOculta(mi); } pi.focus(); pi.select(); aviso('Escribí el número de página y Enter'); } } else if (k === 'n') modo('mano'); else if (k === 'h') usarGrupo('sub'); else if (k === 'p' || k === 'a') usarGrupo('pincel'); else if (k === 'e') usarGrupo('bor'); else if (k === 't') usarGrupo('texto'); else if (k === 'm') modo('pin'); else if (k === 'b') { mi.barraOculta = !mi.barraOculta; mi.barraAuto = false; ajustarOculta(mi); }
       else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
       else if (k === 'f') pantalla();
       else if (k === 'd') definirSeleccion();
