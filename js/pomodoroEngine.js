@@ -30,7 +30,7 @@ const PomodoroEngine = (() => {
   const STATE_KEY = 'nika_pomo_state';
   const DONE_KEY = 'nika_pomo_last_done';   // evita doble registro entre pestañas
   const GRACE_MS = 2 * 60 * 1000;           // pasado este margen el fin se registra en silencio (sin campana)
-  const RESCATE_MAX_MS = 12 * 60 * 60 * 1000; // un bloque que terminó hasta 12 h antes de volver igual se contabiliza
+  const RESCATE_MAX_MS = 7 * 24 * 60 * 60 * 1000; // un bloque que terminó hasta 12 h antes de volver igual se contabiliza
   const AUTO_NEXT_DELAY_MS = 2000;
   const MIN_PARTIAL_MIN = 5;                // un bloque de estudio interrumpido se guarda si llegó a >= 5 min
   const SHARED_SYNC_MS = 5000;              // latido del Host hacia el Invitado
@@ -448,6 +448,41 @@ const PomodoroEngine = (() => {
     } catch (e) { console.warn('[PomodoroEngine] flushPending:', e && e.message); }
     finally { flushing = false; }
   }
+  // Libro de respaldo: CADA sesión terminada queda anotada en el dispositivo hasta que se comprueba que está en la nube.
+  // Aunque la cola de subida se vacíe, se omita por un cambio de cuenta o falle, se compara con Supabase y lo que falte se vuelve a subir.
+  const LEDGER_KEY = 'nika_ledger_sesiones';
+  const leerLedger = () => { try { return JSON.parse(localStorage.getItem(LEDGER_KEY) || '[]') || []; } catch (_) { return []; } };
+  const guardarLedger = (l) => { try { localStorage.setItem(LEDGER_KEY, JSON.stringify(l.slice(-400))); } catch (_) {} };
+  function anotarLedger(row) {
+    const l = leerLedger();
+    if (!l.some((r) => r.completed_at === row.completed_at && r.modulo === row.modulo && r.up_id === row.up_id)) { l.push({ ...row, ok: false }); guardarLedger(l); }
+  }
+  let reconciliando = false;
+  async function reconciliarLedger() {
+    if (reconciliando || !navigator.onLine) return;
+    let l = leerLedger(); if (!l.some((r) => !r.ok)) return;
+    const client = getDbClient(); if (!client || !client.auth) return;
+    reconciliando = true;
+    try {
+      const { data } = await client.auth.getSession();
+      const uid = data && data.session && data.session.user && data.session.user.id; if (!uid) return;
+      let subidas = 0;
+      for (const r of l) {
+        if (r.ok || (r.user_id && r.user_id !== uid)) continue;
+        if (Date.now() - new Date(r.completed_at).getTime() < 90000) continue;   // dejá que la subida normal termine primero
+        const { ok: _o, ...row } = r;
+        const { error } = await insertRow(client, { ...row, user_id: uid });   // idempotente: si ya está en la nube no se duplica
+        if (!error) { r.ok = true; subidas++; }
+      }
+      const corte = Date.now() - 30 * 86400000;
+      guardarLedger(l.filter((r) => !r.ok || new Date(r.completed_at).getTime() > corte));
+      if (subidas) { avisarRendimiento({ origen: 'flush', minutes: 0 }); console.log('[PomodoroEngine] ♻️ Libro de respaldo: se subieron', subidas, 'sesiones que faltaban'); }
+    } catch (e) { console.warn('[PomodoroEngine] reconciliarLedger:', e && e.message); }
+    finally { reconciliando = false; }
+  }
+  window.addEventListener('online', () => setTimeout(reconciliarLedger, 4000));
+  setInterval(reconciliarLedger, 120000);
+  setTimeout(reconciliarLedger, 8000);
   window.addEventListener('online', () => flushPending());
   document.addEventListener('visibilitychange', () => { if (!document.hidden) flushPending(); });
   setInterval(flushPending, 60000);
@@ -486,13 +521,13 @@ const PomodoroEngine = (() => {
     } catch (_) {}
   }
 
-  async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null, con = null) {
+  async function registerStudySession(moduleId, upId, minutes, completed = true, sharedKey = null, con = null, finTs = null) {
     if (!minutes) return;
     addTodayMinutes(minutes);
     // Un Pomodoro iniciado sin Unidad Problema asignada igual cuenta como tiempo de estudio
     const modulo = moduleId || 'general';
     const up = upId || 'general';
-    const completedAt = new Date().toISOString();
+    const completedAt = finTs ? new Date(finTs).toISOString() : new Date().toISOString();   // un bloque rescatado conserva SU hora real de fin (cuenta para el día y la racha correctos)
     // NikaPlan: el tiempo de foco descuenta horas del plan activo (js/planPomodoro.js)
     try { window.dispatchEvent(new CustomEvent('nika:pomodoro-minutos', { detail: { moduleId: modulo, upId: up, minutes, completed, con: con || null } })); } catch (_) {}
     // 1) Se suma al instante en las tarjetas; 2) se guarda; 3) se avisa con el dato real
@@ -530,6 +565,7 @@ const PomodoroEngine = (() => {
       };
       // Sesión compartida: la misma clave que usa el Anfitrión al acreditarla (la base no permite dos filas con esa clave)
       if (sharedKey) row.shared_key = sharedKey;
+      anotarLedger(row);
 
       // Sin conexión: directo a la cola
       if (isOfflineNow()) { await queueStudySession(row); return; }
@@ -543,6 +579,7 @@ const PomodoroEngine = (() => {
         await queueStudySession(row);
       } else {
         console.log('[PomodoroEngine] ✅ Sesión confirmada en Supabase:', row.completed_at, row.duration_minutes + ' min');
+        try { const l = leerLedger(), x = l.find((r) => r.completed_at === row.completed_at && r.modulo === row.modulo && r.up_id === row.up_id); if (x) { x.ok = true; guardarLedger(l); } } catch (_) {}
       }
     } catch (err) {
       console.error('[PomodoroEngine] Excepción al guardar la sesión:', err);
@@ -1383,9 +1420,9 @@ const PomodoroEngine = (() => {
         const eraEstudio = state.mode === 'work' && state.durationMin > 0;
         if (eraEstudio && overdue <= RESCATE_MAX_MS && localStorage.getItem(DONE_KEY) !== String(state.targetEnd) && !state.shared) {
           localStorage.setItem(DONE_KEY, String(state.targetEnd));
-          const previo = { moduleId: state.moduleId, upId: state.upId, minutes: state.durationMin };
+          const previo = { moduleId: state.moduleId, upId: state.upId, minutes: state.durationMin, fin: state.targetEnd };
           setTimeout(() => {
-            registerStudySession(previo.moduleId, previo.upId, previo.minutes);
+            registerStudySession(previo.moduleId, previo.upId, previo.minutes, true, null, null, previo.fin);
             if (typeof showToast === 'function') showToast('✅ Se registró el Pomodoro que terminó mientras no estabas.', 'success');
           }, 800);
         }
