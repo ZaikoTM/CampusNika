@@ -97,6 +97,10 @@
     doble: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="14" rx="1"/><rect x="13" y="5" width="8" height="14" rx="1"/></svg>',
     teatro: '<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/></svg>',
     teatrox: '<svg viewBox="0 0 24 24"><rect x="6" y="7.5" width="12" height="9" rx="1.5"/></svg>',
+    atras: '<svg viewBox="0 0 24 24"><path d="M10 6L4 12l6 6M4 12h11a5 5 0 0 1 5 5v1"/></svg>',
+    adelante: '<svg viewBox="0 0 24 24"><path d="M14 6l6 6-6 6M20 12H9a5 5 0 0 0-5 5v1"/></svg>',
+    indice: '<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h7M9 13h7M9 17h4"/></svg>',
+    marcador: '<svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z"/></svg>',
   };
 
   let S = null;           // sesión de lectura actual
@@ -563,7 +567,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       const contenido = await page.getTextContent();
       if (S.tl) S.tl.chars[pg.num] = contenido.items.reduce((a, it) => a + (it.str ? it.str.length : 0), 0);
       await window.pdfjsLib.renderTextLayer({ textContentSource: contenido, container: tx, viewport: vp, textDivs: [] }).promise;
-      pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); if (window.NikaPdfX) window.NikaPdfX.alRenderizar(S, pg); marcarLeida(pg);
+      pg.hecho = true; pintarMarcas(pg); if (window.NikaPdfAnot) window.NikaPdfAnot.pintar(S, pg); if (window.NikaPdfX) window.NikaPdfX.alRenderizar(S, pg); if (window.NikaPdfNav) window.NikaPdfNav.alRenderizar(S, pg); marcarLeida(pg);
     } catch (e) { if (!(e && e.name === 'RenderingCancelledException')) console.warn('[NikaPdf] página', pg.num, e && e.message ? e.message : e); }
     pg.cargando = false;
   }
@@ -779,6 +783,10 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     a_ajustar: { t: 'Ajustar al ancho', k: '0', d: 'Adapta la página al ancho disponible de la pantalla.' },
     a_autoancho: { t: 'Ajuste automático al ancho', d: 'Mientras está activado, la página se adapta sola al ancho cada vez que cambiás el tamaño de la ventana o del panel. Si hacés zoom a mano, se desactiva.' },
     a_doble: { t: 'Doble página', d: 'Muestra dos páginas lado a lado, como un libro abierto. Funciona en cualquier pantalla (se ve mejor cuanto más ancha). En Preferencias elegís si la primera página va sola, como una tapa.' },
+    'a_nav-volver': { t: 'Volver', k: 'Alt+←', d: 'Vuelve a donde estabas antes del último salto (un vínculo del índice, una miniatura, un marcador, una búsqueda…), en la misma posición.' },
+    'a_nav-adelante': { t: 'Adelante', k: 'Alt+→', d: 'Rehace el salto que acabás de deshacer con Volver.' },
+    'a_nav-indice': { t: 'Ir al índice', d: 'Salta a la página del índice del libro. Después tocás un capítulo y, con Volver, regresás.' },
+    'a_nav-marcadores': { t: 'Marcadores', k: 'K', d: 'Dejá un marcador con nombre en la página que leés y volvé a él cuando quieras. K marca o quita el de esta página.' },
     a_teatro: { t: 'Modo teatro', d: 'Agranda el lector hasta ocupar toda la ventana, sin pasar a pantalla completa del navegador: ideal con pantalla dividida. Trae un mini Pomodoro y tus notas. Salís con Esc o con el mismo botón.' },
     a_leer: { t: 'Marcar página leída', d: 'Marca o desmarca esta página como leída. También se marca sola cuando te quedás unos segundos en ella. Alimenta tu progreso y el tiempo estimado.' },
     a_eta: { t: 'Tiempo restante', d: 'Cuánto te falta para terminar este PDF según tu ritmo real de lectura. Tocalo para ver el detalle y la hora estimada de fin.' },
@@ -1429,7 +1437,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
   }
   const ATAJOS = [['↑  ↓', 'Bajar o subir en el documento (con Mayús, más rápido)'], ['Re Pág  Av Pág  Espacio', 'Subir o bajar una pantalla'], ['Inicio  Fin', 'Ir al principio o al final'], ['V', 'Seleccionar'], ['D', 'Definir la palabra seleccionada (diccionario)'], ['G', 'Ir a una página (escribí el número y Enter)'], ['N', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
-    ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
+    ['K', 'Marcador 🔖 en la página (o quitarlo)'], ['Alt + ←  /  Alt + →', 'Volver / Adelante tras un salto (vínculo, índice, marcador)'], ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
     ['Esc', 'Cerrar menú / deseleccionar / salir del modo teatro'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
     if (!S) return; const ya = $('.nkpdf-atajos', S.root); if (ya) { ya.remove(); return; }
@@ -1534,19 +1542,21 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (c._ph.parentNode) { c._ph.parentNode.insertBefore(c, c._ph); c._ph.remove(); }
     c._ph = null;
   }
-  function teatro(on) {
+  function teatro(on, silencioso) {
     const c = contenedor(); if (!c || !S) return;
     if (on === undefined) on = !enTeatro();
     if (on === enTeatro()) return;
     if (on && enPantalla()) pantalla();
-    if (on) moverATeatro(c); else devolverDeTeatro(c);
+    if (on) { moverATeatro(c); if (window.NikaPdfNav) window.NikaPdfNav.sesionInicio(S); } else devolverDeTeatro(c);
     c.classList.toggle('nkpdf-teatro', on);
     document.documentElement.classList.toggle('nkpdf-sin-scroll', on);
     const b = $('[data-accion="teatro"]', S.root);
     if (b) { b.innerHTML = (on ? ICO.teatrox : ICO.teatro) + `<span class="nkpdf-txt">${on ? 'Salir del teatro' : 'Teatro'}</span>`; b.classList.toggle('on', on); b.title = on ? 'Salir del modo teatro (Esc)' : 'Modo teatro: el lector ocupa toda la ventana'; }
     actualizarMini();
     setTimeout(() => { if (S) ajustarAncho(); }, 220);
-    aviso(on ? 'Modo teatro · salís con Esc o con el botón' : 'Modo teatro desactivado');
+    if (on) aviso('Modo teatro · salís con Esc o con el botón');
+    else if (!silencioso && window.NikaPdfNav) setTimeout(() => { if (S) window.NikaPdfNav.sesionFin(S); }, 350);
+    else aviso('Modo teatro desactivado');
   }
   // Pomodoro dentro de la barra de arriba del lector: aparece solo cuando está ampliado (teatro o pantalla completa), donde no se ve el del campus
   const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>', PAUSA = '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
@@ -1598,7 +1608,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
   }
   function pantalla() {
     const c = contenedor(); if (!c) return;
-    if (enTeatro()) teatro(false);   // teatro y pantalla completa no van juntos
+    if (enTeatro()) teatro(false, true);   // teatro y pantalla completa no van juntos
     if (document.fullscreenElement === c) { document.exitFullscreen().catch(() => {}); return; }
     if (c.classList.contains('nkpdf-fsfix')) { quitarFicticia(c); actualizarFs(true); return; }
     if (c.requestFullscreen) c.requestFullscreen().catch(() => ficticia(c)); else ficticia(c);
@@ -1746,7 +1756,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
       mi.escala = Math.max(0.6, Math.min(6, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
-      ui.fin(); await cargarModulo('js/estudio/pdfExtras.js?v=1', () => window.NikaPdfX); armar(mi);
+      ui.fin(); await cargarModulo('js/estudio/pdfExtras.js?v=1', () => window.NikaPdfX); await cargarModulo('js/estudio/pdfNavega.js?v=1', () => window.NikaPdfNav); armar(mi);
       if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
     };
     try {
@@ -1839,6 +1849,12 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         </div>
         <div class="nkpdf-grupo"><span class="nkpdf-pagtxt">pág. <input class="nkpdf-pag" type="number" min="1" max="${mi.n}" value="1" aria-label="Ir a la página"> / ${mi.n}</span>
           <button class="nkpdf-leer" data-accion="leer" title="Marcar esta página como leída">${ICO.ok}<span class="nkpdf-txt">Marcar leída</span></button></div>
+        <div class="nkpdf-grupo nkpdf-nav" aria-label="Navegación">
+          <button data-accion="nav-volver" title="Volver (Alt+←)" disabled>${ICO.atras}</button>
+          <button data-accion="nav-adelante" title="Adelante (Alt+→)" disabled>${ICO.adelante}</button>
+          <button data-accion="nav-indice" title="Ir al índice del libro">${ICO.indice}<span class="nkpdf-txt">Índice</span></button>
+          <button data-accion="nav-marcadores" title="Marcadores (K)">${ICO.marcador}<span class="nkpdf-txt">Marcadores</span></button>
+        </div>
         <div class="nkpdf-prog" title="Tu avance de lectura"><i><b></b></i><span></span></div>
         <div class="nkpdf-grupo" style="position:relative"><button class="nkpdf-eta calc" data-accion="eta" title="Tiempo estimado para terminar este PDF" aria-expanded="false"><span class="nk-eta-ic">⏱</span><span class="nk-eta-num">calculando…</span><span class="nk-eta-ful">restantes</span></button></div>
         <div class="nkpdf-grupo"><button data-accion="notas" class="nkpdf-notas" title="Tomar notas mientras leés (se guardan en Mis notas)">📒<span class="nkpdf-txt">Notas</span></button></div>
@@ -1933,6 +1949,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         case 'autoancho': { const u = uiPrefs(); u.autoAncho = !u.autoAncho; guardarUi(u); aplicarUi(mi); aviso(u.autoAncho ? 'Ajuste automático al ancho: la página se adapta sola al tamaño de la ventana' : 'Ajuste automático desactivado'); break; }
         case 'doble': { const u = uiPrefs(); u.doble = !u.doble; guardarUi(u); aplicarUi(mi); aviso(u.doble ? 'Doble página: dos páginas lado a lado' : 'Una página por vez'); break; }
         case 'teatro': teatro(); break;
+        case 'nav-volver': case 'nav-adelante': case 'nav-indice': case 'nav-marcadores': if (window.NikaPdfNav) window.NikaPdfNav.accion(mi, b.dataset.accion, b); break;
         case 'leer': { const par = parDe(mi.actual), todas = par.every((n) => mi.leidas.has(n)); par.forEach((n) => { if (todas) mi.leidas.delete(n); else mi.leidas.add(n); marcarLeida(mi.pags[n - 1]); }); actualizarBarra(); guardarProgreso(); break; }
         case 'eta': panelEta(b); break;
         case 'paleta': paleta(b); break;
@@ -1956,7 +1973,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         case 'recta': mi.recta = !mi.recta; b.classList.toggle('on', mi.recta); if (mi.recta && mi.modo !== 'pincel') modo('pincel'); aviso(mi.recta ? 'Línea recta activada' : 'Línea recta desactivada'); break;
       }
     });
-    $('.nkpdf-pag', root).addEventListener('change', (e) => { irA(+e.target.value, true); e.target.blur(); });
+    $('.nkpdf-pag', root).addEventListener('change', (e) => { if (window.NikaPdfNav) window.NikaPdfNav.alSaltar(mi, +e.target.value); irA(+e.target.value, true); e.target.blur(); });
     mi.teclas = (e) => {
       if (S !== mi) return;
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
@@ -1966,6 +1983,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         if (k === 'z' && !e.shiftKey) { e.preventDefault(); deshacer(); } else if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); rehacer(); }
         return;
       }
+      if (e.altKey && (k === 'arrowleft' || k === 'arrowright') && window.NikaPdfNav) { e.preventDefault(); if (k === 'arrowleft') window.NikaPdfNav.volver(mi); else window.NikaPdfNav.adelante(mi); return; }
       if (e.altKey) return;
       if (k === 'delete' || k === 'backspace') { if (mi.sel && mi.marcas.includes(mi.sel)) { e.preventDefault(); cerrarPop(); eliminar(mi.sel); } else aviso('Tocá primero una marca para seleccionarla'); return; }
       if (k === 'escape') {
@@ -1981,6 +1999,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       if (k === '?' || (k === '/' && e.shiftKey)) { atajos(); return; }
       if (k === 'v') usarGrupo('sel'); else if (k === 'g') { e.preventDefault(); const pi = $('.nkpdf-pag', root); if (pi) { if (mi.barraOculta) { mi.barraOculta = false; mi.barraAuto = false; ajustarOculta(mi); } pi.focus(); pi.select(); aviso('Escribí el número de página y Enter'); } } else if (k === 'n') modo('mano'); else if (k === 'h') usarGrupo('sub'); else if (k === 'p' || k === 'a') usarGrupo('pincel'); else if (k === 'e') usarGrupo('bor'); else if (k === 't') usarGrupo('texto'); else if (k === 'm') modo('pin'); else if (k === 'b') { mi.barraOculta = !mi.barraOculta; mi.barraAuto = false; ajustarOculta(mi); }
       else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
+      else if (k === 'k' && window.NikaPdfNav) window.NikaPdfNav.alternarMarcador(mi);
       else if (k === 'f') pantalla();
       else if (k === 'd') definirSeleccion();
       else if (['1', '2', '3', '4', '5', '6'].includes(k)) { mi.color = favoritos()[+k - 1]; marcarColor(); if (!['sub', 'pincel', 'forma', 'sello'].includes(mi.modo)) usarGrupo('sub'); }
@@ -2008,6 +2027,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
 
     marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi); iniciarFit(mi);
     if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
+    if (window.NikaPdfNav) { try { window.NikaPdfNav.montar(mi); } catch (e) { console.warn('[NikaPdf] navegación', e); } }
     if (window.NikaPdfX) { try { window.NikaPdfX.montar(mi); } catch (e) { console.warn('[NikaPdf] extras', e); } }
     if (mi.convertido === 'nuevo') toast('Convertido para el lector ✅ Ya podés subrayar, dibujar y escribir. La próxima vez abre al instante.');
     const ult = mi.prog && mi.prog.ultima_pagina;
@@ -2025,7 +2045,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
     if (c) { c.classList.remove('nkpdf-teatro'); document.documentElement.classList.remove('nkpdf-sin-scroll'); devolverDeTeatro(c); }
-    quitarMini();
+    quitarMini(); if (window.NikaPdfNav) window.NikaPdfNav.cerrar(S);
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); if (S.fitRO) S.fitRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
     if (window.NikaDicc) window.NikaDicc.cerrar();
@@ -2038,5 +2058,5 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { diccionario: abrirDiccionario, abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) irA(n, suave); } };
+  window.NikaPdf = { diccionario: abrirDiccionario, abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) { if (window.NikaPdfNav) window.NikaPdfNav.alSaltar(S, n); irA(n, suave); } } };
 })();

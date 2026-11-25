@@ -57,7 +57,8 @@
   const pack = (n) => JSON.stringify(Object.assign({ nk: 1, t: n.titulo || '', h: n.contenido_html || '', p: n.texto || '', d: n.eliminada_en || '', e: n.titulo_estilo || '' }, n._x ? { x: n._x } : {}));
   const necesitaPack = (n) => !!(n.titulo || n.contenido_html || n.eliminada_en || n.titulo_estilo || n._x);
   const DIAS_PAPELERA = 7;
-  const vivas = () => todas.filter((n) => !n.eliminada_en);
+  const esMarcadorPdf = (n) => !n.anotacion && Array.isArray(n.etiquetas) && n.etiquetas.indexOf('marcador') >= 0;   // 🔖 marcadores del lector: no son notas
+  const vivas = () => todas.filter((n) => !n.eliminada_en && !esMarcadorPdf(n));
   const enPapelera = () => todas.filter((n) => n.eliminada_en);
   const diasRestantes = (n) => Math.max(0, Math.ceil(DIAS_PAPELERA - (Date.now() - new Date(n.eliminada_en)) / 86400000));
 

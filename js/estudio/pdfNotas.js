@@ -17,6 +17,7 @@
   const modulo = () => (window.EstudioState && window.EstudioState.modulo) || null;
   const upActual = () => (window.EstudioState && window.EstudioState.currentUpId) || null;
   const esLocal = (n) => n.local || String(n.id).charAt(0) === 'l';
+  const esMarcador = (n) => !n.anotacion && Array.isArray(n.etiquetas) && n.etiquetas.indexOf('marcador') >= 0;   // 🔖 los maneja pdfNavega.js
   const esPdf = (n) => String(n && n.recurso || '').indexOf('pdf:') === 0;
   // sin señal las ediciones y borrados de notas ya guardadas esperan en el dispositivo (js/estudio/pdfSync.js los sube al volver internet)
   const K_OPS = 'nika_pdf_notas_ops';
@@ -125,7 +126,7 @@
         const { data } = await q; if (data) out = out.concat(data);
       } catch (_) {}
     }
-    return out.filter((n) => !leer(n).d && !n.anotacion);
+    return out.filter((n) => !leer(n).d && !n.anotacion && !esMarcador(n));
   }
   async function insertar(fila) {
     const c = cli();
@@ -211,7 +212,7 @@
 
   async function refrescarListas(S, p) {
     const lista = p.querySelector('.nkn-lista'), sel = p.querySelector('.nkn-previas'), filtro = p.querySelector('.nkn-filtro');
-    const mias = (await notasDelArchivo(S.fileId)).filter((n) => !leer(n).d);
+    const mias = (await notasDelArchivo(S.fileId)).filter((n) => !leer(n).d && !esMarcador(n));
     S.anots = mias.filter((n) => n.anotacion);
     const todasEtiq = Array.from(new Set(mias.flatMap((n) => n.etiquetas || [])));
     if (p._filtro && !todasEtiq.includes(p._filtro)) p._filtro = null;
