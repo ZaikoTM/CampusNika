@@ -124,6 +124,12 @@
     t.tp[actual] = (t.tp[actual] || 0) + 1; t.pendDia++;
     return true;
   }
+  // doble página (o varias a la vista): el segundo se reparte entre las páginas que se están viendo, así todas quedan medidas
+  function tickVarias(t, paginas) {
+    if (document.hidden || Date.now() - t.ult > REPOSO) return false;
+    const n = paginas.length || 1; (paginas.length ? paginas : [0]).forEach((p) => { if (p) t.tp[p] = (t.tp[p] || 0) + 1 / n; });
+    t.pendDia++; return true;
+  }
   function segsDe(t) {
     const m = Object.assign({}, t.prev);
     Object.entries(t.tp).forEach(([p, s]) => { if (valido(s)) m[p] = Math.round(s); });
@@ -266,5 +272,5 @@ body.dark-mode .nk-tl-aro::after{background:#0f172a}
   }
 
   const ritmoGlobal = () => { const g = Object.values(G).filter(valido); return { seg: mediana(g), n: g.length }; };
-  window.NikaTiempo = { ritmoGlobal, css, hidratar, datosLista, estimar, estimarArchivo, estimarSesion, nuevo, cargar, tocar, tick, guardar, segsDe, fmt, fmtFin, fuenteTxt, pintar, meta, setMeta, racha, hoySegs, proximoExamen, valido, MIN_VALIDO };
+  window.NikaTiempo = { ritmoGlobal, css, hidratar, datosLista, estimar, estimarArchivo, estimarSesion, nuevo, cargar, tocar, tick, tickVarias, guardar, segsDe, fmt, fmtFin, fuenteTxt, pintar, meta, setMeta, racha, hoySegs, proximoExamen, valido, MIN_VALIDO };
 })();

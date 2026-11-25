@@ -39,6 +39,7 @@
 .nkv-it .t{flex:1;min-width:0;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nkv-it .t input{width:100%;box-sizing:border-box;border-radius:6px;border:1px solid #a855f7;background:#16223a;color:#fff;padding:3px 6px;font:700 .8rem inherit;font-family:inherit;outline:0}
 .nkv-it button{border:0;background:none;color:#94a3b8;cursor:pointer;font-size:.85rem;padding:2px 4px;border-radius:6px}.nkv-it button:hover{color:#fff;background:rgba(255,255,255,.12)}.nkv-it button.del:hover{color:#f87171}
+.nkv-pie{padding:2px 12px 12px;display:flex;flex-direction:column;gap:4px}.nkv-pie button{border:1px dashed rgba(165,180,252,.55);background:transparent;color:#c7d2fe;border-radius:10px;padding:7px 10px;font:700 .74rem inherit;font-family:inherit;cursor:pointer}.nkv-pie button:hover{background:rgba(168,85,247,.25)}.nkv-pie small{color:#94a3b8;font-size:.68rem}
 .nkv-vacio{padding:6px 14px 14px;font-size:.78rem;color:#a5b4fc;line-height:1.4}
 .nkv-res{position:absolute;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(2,6,23,.62);backdrop-filter:blur(3px);font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:nkvPop .25s ease}
 .nkv-res .c{width:min(440px,100%);border-radius:22px;padding:22px 22px 18px;color:#e2e8f0;background:linear-gradient(150deg,#0b1535,#1e1b4b 55%,#312e81);border:1px solid rgba(168,85,247,.6);box-shadow:0 30px 70px rgba(0,0,0,.6)}
@@ -119,15 +120,148 @@
     })().catch(() => { pg.lk = []; return []; });
     return pg.lkP;
   }
-  function alRenderizar(mi, pg) { if (mi.pdf && !pg.lkP) cargarLinks(mi, pg); pintarMarcador(mi, pg); }
+  // ------------------------------------------------------------------ lectura inteligente del índice
+  // Las páginas de índice listan «Título ........ 38». Ese número es el de la página IMPRESA, que casi nunca coincide con la del PDF y
+  // los vínculos del archivo suelen estar mal armados. Entonces se lee el texto de la línea tocada (capa de texto o, si es un escaneo, OCR),
+  // se separa título y número y se busca la página real: por la numeración impresa del pie de página y, sobre todo, verificando que el
+  // título aparezca en esa página. Lo que se aprende (diferencia entre numeración impresa y PDF) se recuerda para los próximos toques.
+  const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const toks = (t) => norm(t).split(' ').filter((w) => w.length >= 3 && !/^\d+$/.test(w));
+  const BADGES = /\b(cr[ií]tico|medio|complementario|obligatorio|opcional|bajo|alto)\b/gi;
 
+  function agrupar(items, vp) {
+    const xs = items.map((it) => {
+      const p = vp.convertToViewportPoint(it.transform[4], it.transform[5]);
+      return { x: p[0], y: p[1], h: Math.abs(it.height) || Math.hypot(it.transform[2], it.transform[3]) || 10, w: Math.abs(it.width) || 0, s: it.str };
+    }).sort((a, b) => a.y - b.y || a.x - b.x);
+    const L = [];
+    for (const it of xs) {
+      const l = L.find((q) => Math.abs(q.y - it.y) <= Math.max(2, Math.min(q.h, it.h) * 0.5));
+      if (l) { l.it.push(it); l.h = Math.max(l.h, it.h); } else L.push({ y: it.y, h: it.h, it: [it] });
+    }
+    return L.map((l) => {
+      l.it.sort((a, b) => a.x - b.x);
+      return { txt: l.it.map((i) => i.s).join(' ').replace(/\s+/g, ' ').trim(), x0: Math.min(...l.it.map((i) => i.x)) / vp.width, x1: Math.max(...l.it.map((i) => i.x + i.w)) / vp.width, y0: (l.y - l.h) / vp.height, y1: (l.y + 0.3 * l.h) / vp.height, h: l.h / vp.height };
+    });
+  }
+  // «Título ....... 38»  →  { titulo, num }
+  function parseEntrada(txt) {
+    const t = String(txt || '').replace(/[.·…_․‧]{2,}/g, ' ').replace(/\s+/g, ' ').trim();
+    const m = /^(.*?)[\s.·…\-–—]*\b(\d{1,4})\s*$/.exec(t); if (!m) return null;
+    const titulo = m[1].replace(BADGES, ' ').replace(/\s+/g, ' ').trim(), num = +m[2];
+    if (titulo.length < 3 || !/[a-záéíóúñ]{3,}/i.test(titulo) || num < 1 || num > 3000) return null;
+    return { titulo, num };
+  }
+  function resumirPagina(lineas) {
+    const hs = lineas.map((l) => l.h).sort((a, b) => a - b), med = hs.length ? hs[hs.length >> 1] : 0;
+    const tk = new Set(), grandes = new Set();
+    lineas.forEach((l) => { const t = toks(l.txt); t.forEach((w) => tk.add(w)); if (med && l.h >= med * 1.25) t.forEach((w) => grandes.add(w)); });
+    const ent = lineas.map((l) => parseEntrada(l.txt)).filter(Boolean);
+    let asc = 0; for (let i = 1; i < ent.length; i++) if (ent[i].num >= ent[i - 1].num) asc++;
+    return { lineas, toks: tk, grandes, indice: ent.length >= 6 && asc / Math.max(1, ent.length - 1) >= 0.7 };
+  }
+
+  // OCR (solo para páginas escaneadas, sin capa de texto): tesseract.js se baja la primera vez que hace falta
+  let tessP = null;
+  function cargarTesseract() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    if (tessP) return tessP;
+    tessP = new Promise((ok, mal) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = () => ok(window.Tesseract); s.onerror = () => { tessP = null; mal(new Error('ocr')); }; document.head.appendChild(s); });
+    return tessP;
+  }
+  async function ocrLineas(mi, page, vp) {
+    const T = await cargarTesseract();
+    const v2 = page.getViewport({ scale: 2 }), cv = document.createElement('canvas'); cv.width = Math.floor(v2.width); cv.height = Math.floor(v2.height);
+    await page.render({ canvasContext: cv.getContext('2d'), viewport: v2 }).promise;
+    const r = await T.recognize(cv, 'spa');
+    const lines = (r && r.data && r.data.lines) || [];
+    return lines.map((l) => ({ txt: String(l.text || '').replace(/\s+/g, ' ').trim(), x0: l.bbox.x0 / v2.width, x1: l.bbox.x1 / v2.width, y0: l.bbox.y0 / v2.height, y1: l.bbox.y1 / v2.height, h: (l.bbox.y1 - l.bbox.y0) / v2.height })).filter((l) => l.txt);
+  }
+  // texto estructurado de una página (con caché); ocr:true permite leer escaneos con OCR
+  function datosPagina(mi, n, ocr) {
+    const c = mi._dp || (mi._dp = {});
+    if (c[n] && (c[n].lineas.length || !ocr || c[n].ocrHecho)) return Promise.resolve(c[n]);
+    return (c[n + 'p'] = (async () => {
+      const page = await mi.pdf.getPage(n), vp = page.getViewport({ scale: 1 });
+      let items = []; try { items = (await page.getTextContent()).items.filter((i) => i.str && i.str.trim()); } catch (_) {}
+      let lineas = items.reduce((t, i) => t + i.str.length, 0) >= 15 ? agrupar(items, vp) : [], ocrHecho = false;   // menos de 15 letras: es un escaneo (sin capa de texto)
+      if (!lineas.length && ocr) { ocrHecho = true; try { lineas = await ocrLineas(mi, page, vp); } catch (_) {} }
+      const d = Object.assign(resumirPagina(lineas), { ocrHecho, n }); c[n] = d; return d;
+    })());
+  }
+  function puntajeTitulo(titulo, dp) {
+    const tk = [...new Set(toks(titulo))]; if (!tk.length || !dp.toks.size) return 0;
+    const hit = tk.filter((t) => dp.toks.has(t)).length / tk.length, hg = tk.filter((t) => dp.grandes.has(t)).length / tk.length;
+    return hit * 0.75 + hg * 0.25;
+  }
+  // numeración impresa de las páginas (el «38» del pie): número impreso → página del PDF
+  async function mapaImpreso(mi) {
+    if (mi.mapaImp) return mi.mapaImp;
+    const mapa = {}; let con = 0;
+    for (let n = 1; n <= mi.n; n++) {
+      const dp = await datosPagina(mi, n, false);
+      const l = dp.lineas.filter((x) => (x.y0 > 0.86 || x.y1 < 0.1) && /^\s*(?:p[aá]g(?:ina)?\.?\s*)?(\d{1,4})\s*$/i.test(x.txt));
+      if (l.length) { const v = +/(\d{1,4})/.exec(l[0].txt)[1]; if (!(v in mapa)) mapa[v] = n; con++; }
+    }
+    mi.mapaImp = con >= Math.max(4, mi.n * 0.35) ? mapa : {};   // si pocas páginas tienen número, no es confiable
+    return mi.mapaImp;
+  }
+  const lsOff = (id) => 'nika_pdf_offnum_' + id;
+  function offsetGuardado(mi) { if (mi.offNum != null) return mi.offNum; try { const v = localStorage.getItem(lsOff(mi.fileId)); if (v != null && v !== '') mi.offNum = +v; } catch (_) {} return mi.offNum != null ? mi.offNum : null; }
+  function aprenderOffset(mi, off) { mi.offNum = off; try { localStorage.setItem(lsOff(mi.fileId), String(off)); } catch (_) {} }
+
+  // dado «título + número impreso», busca la página real y la línea del encabezado
+  async function destinoInteligente(mi, origen, ent, destVinculo, escaneado) {
+    const N = ent.num, titulo = ent.titulo, off = offsetGuardado(mi);
+    const cands = []; const ya = new Set();
+    const add = (p) => { if (p >= 1 && p <= mi.n && p !== origen && !ya.has(p)) { ya.add(p); cands.push(p); } };
+    let mapa = {}; if (!escaneado) { try { mapa = await mapaImpreso(mi); } catch (_) {} }
+    if (mapa[N]) add(mapa[N]);
+    if (destVinculo) add(destVinculo);
+    const centro = N + (off != null ? off : 0), radio = escaneado ? 5 : mi.n;
+    for (let k = 0; k <= radio; k++) { add(centro + k); add(centro - k); }
+    let mejor = null, mejorS = 0;
+    for (const c of cands) {
+      const dp = await datosPagina(mi, c, !!escaneado);
+      if (dp.indice) continue;                      // otra página de índice: no es el destino
+      const s = puntajeTitulo(titulo, dp);
+      if (s > mejorS + 0.001) { mejorS = s; mejor = c; }
+      if (s >= 0.95 || (s >= 0.75 && (c === mapa[N] || (off != null && c === centro)))) break;
+    }
+    if (!mejor || mejorS < 0.6) {                    // el título no aparece: se confía en la numeración impresa o en el vínculo
+      const p = mapa[N] || (off != null ? centro : 0) || destVinculo || 0;
+      return p && p >= 1 && p <= mi.n ? { p, y: 0, s: 0, aprox: true } : null;
+    }
+    if (mejorS >= 0.75) aprenderOffset(mi, mejor - N);
+    const dp = await datosPagina(mi, mejor, !!escaneado); let yL = 0, mS = 0;
+    dp.lineas.forEach((l) => { const t = toks(l.txt); if (!t.length) return; const tk = new Set(toks(titulo)), s = t.filter((w) => tk.has(w)).length / tk.size; if (s > mS) { mS = s; yL = l.y0; } });
+    return { p: mejor, y: mS >= 0.5 ? Math.max(0, yL - 0.02) : 0, s: mejorS };
+  }
+
+  // ------------------------------------------------------------------ vínculos y entradas de índice bajo el cursor
+  function alRenderizar(mi, pg) {
+    if (mi.pdf && !pg.lkP) cargarLinks(mi, pg);
+    if (mi.pdf && !pg.dpP) pg.dpP = datosPagina(mi, pg.num, false).then((d) => { pg.dp = d; return d; }).catch(() => null);
+    pintarMarcador(mi, pg);
+  }
+  function posEnPagina(mi, e) {
+    const el = e.target.closest && e.target.closest('.nk-pg'); if (!el || e.target.closest('.nk-an > *')) return null;
+    const pg = mi.pags[+el.dataset.p - 1]; if (!pg) return null;
+    const b = el.getBoundingClientRect(); return { pg, el, fx: (e.clientX - b.left) / b.width, fy: (e.clientY - b.top) / b.height };
+  }
+  // entrada de índice (línea con «título … número») bajo el cursor; solo en páginas que parecen un índice (o con Ctrl+clic en cualquiera)
+  function entradaEn(mi, e, forzar) {
+    const q = posEnPagina(mi, e); if (!q || !q.pg.dp) return null;
+    const dp = q.pg.dp; if (!dp.indice && !forzar) return null;
+    const l = dp.lineas.find((x) => q.fy >= x.y0 - x.h * 0.15 && q.fy <= x.y1 + x.h * 0.15);
+    const ent = l && parseEntrada(l.txt); if (!ent) return null;
+    return Object.assign({ pg: q.pg, el: q.el, linea: l }, ent);
+  }
   function enLink(mi, e) {
     if (mi.modo !== 'sel') return null;
-    const el = e.target.closest && e.target.closest('.nk-pg'); if (!el || e.target.closest('.nk-an > *')) return null;
-    const pg = mi.pags[+el.dataset.p - 1]; if (!pg || !pg.lk || !pg.lk.length) return null;
-    const b = el.getBoundingClientRect(), fx = (e.clientX - b.left) / b.width, fy = (e.clientY - b.top) / b.height;
-    const l = pg.lk.find((k) => fx >= k.x && fx <= k.x + k.w && fy >= k.y && fy <= k.y + k.h);
-    return l ? { pg, l, el } : null;
+    const q = posEnPagina(mi, e); if (!q || !q.pg.lk || !q.pg.lk.length) return null;
+    const l = q.pg.lk.find((k) => q.fx >= k.x && q.fx <= k.x + k.w && q.fy >= k.y && q.fy <= k.y + k.h);
+    return l ? { pg: q.pg, l, el: q.el } : null;
   }
   async function destinoDe(mi, pg, l) {
     if (l.p) return l;
@@ -136,21 +270,45 @@
     return l;
   }
   function ocultarHl(mi) { if (mi.lkHl) mi.lkHl.style.display = 'none'; mi.root.classList.remove('nk-sobre-link'); mi.scroll.removeAttribute('title'); }
+  function marcarHl(mi, el, x, y, w, h) {
+    if (!mi.lkHl) { mi.lkHl = document.createElement('i'); mi.lkHl.className = 'nk-lk-hl'; }
+    if (mi.lkHl.parentNode !== el) el.appendChild(mi.lkHl);
+    Object.assign(mi.lkHl.style, { display: 'block', left: x * 100 + '%', top: y * 100 + '%', width: w * 100 + '%', height: h * 100 + '%' });
+    mi.root.classList.add('nk-sobre-link');
+  }
   function mover(mi, e) {
     if (mi._lkRaf) return; mi._lkRaf = requestAnimationFrame(() => {
-      mi._lkRaf = 0; const h = enLink(mi, e);
+      mi._lkRaf = 0; if (mi.modo !== 'sel') { ocultarHl(mi); return; }
+      const ent = entradaEn(mi, e, e.ctrlKey || e.metaKey);
+      if (ent) { marcarHl(mi, ent.el, Math.max(0, ent.linea.x0 - 0.01), ent.linea.y0, Math.min(1, ent.linea.x1 - ent.linea.x0 + 0.02), ent.linea.y1 - ent.linea.y0); mi.scroll.title = 'Ir a «' + ent.titulo + '» (el índice dice pág. ' + ent.num + ')'; return; }
+      const h = enLink(mi, e);
       if (!h) { ocultarHl(mi); return; }
-      if (!mi.lkHl) { mi.lkHl = document.createElement('i'); mi.lkHl.className = 'nk-lk-hl'; }
-      if (mi.lkHl.parentNode !== h.el) h.el.appendChild(mi.lkHl);
-      Object.assign(mi.lkHl.style, { display: 'block', left: h.l.x * 100 + '%', top: h.l.y * 100 + '%', width: h.l.w * 100 + '%', height: h.l.h * 100 + '%' });
-      mi.root.classList.add('nk-sobre-link');
+      marcarHl(mi, h.el, h.l.x, h.l.y, h.l.w, h.l.h);
       mi.scroll.title = h.l.url ? 'Abrir el enlace: ' + h.l.url : (h.l.p ? 'Ir a la página ' + h.l.p : 'Ir al enlace');
       if (!h.l.p && !h.l.url) destinoDe(mi, h.pg, h.l).then((l) => { if (l.p && mi.lkHl && mi.lkHl.style.display === 'block') mi.scroll.title = 'Ir a la página ' + l.p; });
     });
   }
   async function clickLink(mi, e) {
-    if (e.button) return;
+    if (e.button || mi.modo !== 'sel') return;
     const s = getSelection(); if (s && !s.isCollapsed && mi.scroll.contains(s.anchorNode)) return;   // se estaba seleccionando texto
+    const forzar = e.ctrlKey || e.metaKey, q = posEnPagina(mi, e); if (!q) return;
+    let ent = null;
+    if (!q.pg.dp && q.pg.dpP) await q.pg.dpP;   // casi nunca: el texto de la página ya está listo
+    if (q.pg.dp && !q.pg.dp.lineas.length && forzar) {   // página escaneada: Ctrl+clic lee la página con OCR
+      e.preventDefault(); e.stopPropagation(); aviso('Leyendo la página con OCR… (la primera vez baja el motor, puede tardar)');
+      try { q.pg.dp = await datosPagina(mi, q.pg.num, true); } catch (_) { aviso('No se pudo usar el OCR (¿sin conexión?)'); return; }
+    }
+    ent = entradaEn(mi, e, forzar);
+    if (ent) {
+      e.preventDefault(); e.stopPropagation(); aviso('Buscando «' + ent.titulo.slice(0, 40) + '»…');
+      const lk = enLink(mi, e); let dv = null; if (lk) { const l = await destinoDe(mi, lk.pg, lk.l); if (l.p) dv = l.p; }
+      const escaneado = !!(q.pg.dp && q.pg.dp.ocrHecho);
+      const r = await destinoInteligente(mi, q.pg.num, ent, dv, escaneado);
+      if (L() && L().estado() !== mi) return;
+      if (r) { saltar(mi, r.p, r.y); aviso((r.aprox ? 'Fui a la pág. ' + r.p + ' (no pude confirmar el título allí)' : '📖 «' + ent.titulo.slice(0, 36) + '» · pág. ' + r.p + ' del PDF') + ' · Alt+← para volver'); }
+      else aviso('No pude ubicar esa sección en el PDF');
+      return;
+    }
     const h = enLink(mi, e); if (!h) return;
     e.preventDefault(); e.stopPropagation();
     const l = await destinoDe(mi, h.pg, h.l);
@@ -161,30 +319,41 @@
 
   // ------------------------------------------------------------------ índice
   const RE_IND = /^\s*(índice|indice|contenido|contenidos|tabla de contenidos?|sumario|table of contents|contents)\b/i;
+  const lsIdx = (id) => 'nika_pdf_indice_' + id;
+  // puntaje de «esto parece un índice»: título al principio, muchos vínculos internos, muchos números de página
+  async function puntuar(mi, n) {
+    let txt = '', links = 0;
+    try {
+      const page = await mi.pdf.getPage(n); txt = (await page.getTextContent()).items.map((i) => i.str).join(' ');
+      links = (await page.getAnnotations({ intent: 'display' })).filter((a) => a.subtype === 'Link' && (a.dest || a.action)).length;
+    } catch (_) {}
+    const titulo = RE_IND.test(txt.slice(0, 300).trim()) || /\b(índice|indice|tabla de contenidos?)\b/i.test(txt.slice(0, 160));
+    const nums = (txt.match(/\b\d{1,4}\b/g) || []).length;
+    let s = 0; if (titulo) s += 3; if (links >= 8) s += Math.min(4, Math.floor(links / 8)); if (nums >= 10) s += 2;
+    return s;
+  }
   async function paginaIndice(mi) {
     if (mi.pagInd !== undefined) return mi.pagInd;
-    let p = null;
-    try {   // 1) el índice interno del PDF suele tener una entrada «Índice» o «Contenido»
+    try { const g = +localStorage.getItem(lsIdx(mi.fileId)); if (g >= 1 && g <= mi.n) { mi.pagInd = g; return g; } } catch (_) {}   // la que fijó el usuario
+    const cand = new Set(); for (let n = 1; n <= Math.min(mi.n, 60); n++) cand.add(n);
+    try {   // entradas del índice interno que se llamen «Índice» o «Contenido»: solo se suman a los candidatos, se verifican igual
       const out = await mi.pdf.getOutline();
-      const busca = (its) => { for (const it of its || []) { if (RE_IND.test(it.title || '')) return it; const r = busca(it.items); if (r) return r; } return null; };
-      const it = out && busca(out); if (it) { const r = await resolverDest(mi, it.dest); if (r) p = r.p; }
+      const busca = async (its) => { for (const it of its || []) { if (RE_IND.test(it.title || '')) { const r = await resolverDest(mi, it.dest); if (r) cand.add(r.p); } await busca(it.items); } };
+      await busca(out || []);
     } catch (_) {}
-    if (!p) {   // 2) se lee el texto de las primeras páginas buscando un título «Índice» con varios números de página
-      const tope = Math.min(mi.n, 40);
-      for (let n = 1; n <= tope && !p; n++) {
-        try {
-          const tc = await (await mi.pdf.getPage(n)).getTextContent(), txt = tc.items.map((i) => i.str).join(' ');
-          if (RE_IND.test(txt.slice(0, 500).trim()) && (txt.match(/\b\d{1,4}\b/g) || []).length >= 8) p = n;
-        } catch (_) {}
-      }
+    for (let n = Math.max(1, mi.n - 8); n <= mi.n; n++) cand.add(n);   // hay libros con el índice al final
+    let mejor = null, ptsM = 0;
+    for (const n of [...cand].sort((a, b) => a - b)) {
+      const s = await puntuar(mi, n); if (s > ptsM) { ptsM = s; mejor = n; }
+      if (ptsM >= 9) break;   // clarísimo: no hace falta seguir
     }
-    mi.pagInd = p; return p;
+    mi.pagInd = ptsM >= 5 ? mejor : null; return mi.pagInd;
   }
   async function irIndice(mi) {
     aviso('Buscando el índice…');
     const p = await paginaIndice(mi); if (L() && L().estado() !== mi) return;
-    if (p) { if (p === mi.actual) { aviso('Ya estás en el índice'); return; } saltar(mi, p, 0); aviso('Índice · pág. ' + p + ' · Alt+← para volver'); return; }
-    aviso('Este PDF no tiene una página de índice: te muestro el índice del panel');
+    if (p) { if (p === mi.actual) { aviso('Ya estás en el índice'); return; } saltar(mi, p, 0); aviso('Índice · pág. ' + p + ' · Alt+← para volver · si no es, fijá la correcta en 🔖 Marcadores'); return; }
+    aviso('No encontré una página de índice: te muestro el índice del panel (o fijá una en 🔖 Marcadores)');
     const b = $('[data-xacc="paginas"]', mi.root); if (b && !b.classList.contains('on')) b.click();
     setTimeout(() => { const t = $('.nkx-tabs button[data-t="indice"]', mi.root); if (t) t.click(); }, 260);
   }
@@ -252,7 +421,8 @@
       p.innerHTML = `<h5><span>🔖 Marcadores de este PDF</span><button type="button" data-x="cerrar" aria-label="Cerrar">✕</button></h5>
         <div class="nkv-nuevo"><input type="text" maxlength="70" placeholder="Nombre (opcional) para la pág. ${mi.actual}" aria-label="Nombre del marcador"><button type="button" data-x="nuevo">Marcar pág. ${mi.actual}</button></div>`
         + (l.length ? '<div class="nkv-lista">' + l.map((n, i) => `<div class="nkv-it${+n.posicion === mi.actual ? ' act' : ''}" data-i="${i}"><span class="p">${esc(n.posicion || '?')}</span><span class="t">${esc(tituloDe(n))}</span><button type="button" data-x="ren" title="Cambiar el nombre">✏️</button><button type="button" class="del" data-x="del" title="Quitar el marcador">🗑</button></div>`).join('') + '</div>'
-          : '<div class="nkv-vacio">Todavía no marcaste nada. Con <b>K</b> o con el botón dejás un marcador en la página que estás leyendo, con el nombre del capítulo.</div>');
+          : '<div class="nkv-vacio">Todavía no marcaste nada. Con <b>K</b> o con el botón dejás un marcador en la página que estás leyendo, con el nombre del capítulo.</div>')
+        + `<div class="nkv-pie"><button type="button" data-x="idx">📑 La pág. ${mi.actual} es el índice del libro</button>${mi.pagInd ? `<small>Índice actual: pág. ${mi.pagInd}</small>` : ''}</div>`;
       p._l = l;
     };
     pintar();
@@ -261,6 +431,7 @@
     p.addEventListener('click', async (e) => {
       const b = e.target.closest('[data-x]'), it = e.target.closest('.nkv-it'); const n = it && p._l[+it.dataset.i];
       if (b && b.dataset.x === 'cerrar') { cerrarPopM(mi); return; }
+      if (b && b.dataset.x === 'idx') { mi.pagInd = mi.actual; try { localStorage.setItem(lsIdx(mi.fileId), String(mi.actual)); } catch (_) {} aviso('📑 Listo: el botón Índice ahora te lleva a la pág. ' + mi.actual); pintar(); return; }
       if (b && b.dataset.x === 'nuevo') { const v = p.querySelector('.nkv-nuevo input').value.trim(); b.disabled = true; await agregarMarcador(mi, v); pintar(); return; }
       if (b && b.dataset.x === 'del' && n) { await quitarMarcador(mi, n); pintar(); return; }
       if (b && b.dataset.x === 'ren' && n) {

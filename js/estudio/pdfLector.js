@@ -1756,7 +1756,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
       mi.escala = Math.max(0.6, Math.min(6, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };
-      ui.fin(); await cargarModulo('js/estudio/pdfExtras.js?v=1', () => window.NikaPdfX); await cargarModulo('js/estudio/pdfNavega.js?v=1', () => window.NikaPdfNav); armar(mi);
+      ui.fin(); await cargarModulo('js/estudio/pdfExtras.js?v=1', () => window.NikaPdfX); await cargarModulo('js/estudio/pdfNavega.js?v=4', () => window.NikaPdfNav); armar(mi);
       if (window.NikaPdfOffline) window.NikaPdfOffline.estado(fileId).then((e) => { if (e) window.NikaPdfOffline.asegurarLibs(); });
     };
     try {
@@ -2013,7 +2013,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       if (S !== mi || document.hidden) return;
       mi.segs++;
       if (mi.tl && window.NikaTiempo) {
-        window.NikaTiempo.tick(mi.tl, mi.actual);
+        { const vt = paginasVisibles(mi); if (window.NikaTiempo.tickVarias) window.NikaTiempo.tickVarias(mi.tl, vt.length ? vt : [mi.actual]); else window.NikaTiempo.tick(mi.tl, mi.actual); }
         mi.tlN = (mi.tlN || 0) + 1;
         if (mi.tlN % 30 === 0) { actualizarEta(); window.NikaTiempo.guardar(mi.tl, mi.actual); }
       }
