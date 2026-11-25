@@ -1746,6 +1746,8 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       if (S !== mi) return;
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
       mi.n = mi.pdf.numPages;
+      // PDF escaneado con OCR guardado por el admin: el documento responde con ese texto (selección, búsqueda, subrayado…)
+      try { await cargarModulo('js/estudio/pdfOcr.js?v=2', () => window.NikaPdfOcr); if (window.NikaPdfOcr) await Promise.race([window.NikaPdfOcr.aplicar(mi), new Promise((r) => setTimeout(r, 3500))]); } catch (_) {}
       await cargarMarcas(fileId);
       await cargarPrefs(mi);
       if (S !== mi) return;
@@ -2027,6 +2029,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
 
     marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi); iniciarFit(mi);
     if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
+    if (window.NikaPdfOcr) { try { window.NikaPdfOcr.montarUI(mi); } catch (e) { console.warn('[NikaPdf] ocr', e); } }
     if (window.NikaPdfNav) { try { window.NikaPdfNav.montar(mi); } catch (e) { console.warn('[NikaPdf] navegación', e); } }
     if (window.NikaPdfX) { try { window.NikaPdfX.montar(mi); } catch (e) { console.warn('[NikaPdf] extras', e); } }
     if (mi.convertido === 'nuevo') toast('Convertido para el lector ✅ Ya podés subrayar, dibujar y escribir. La próxima vez abre al instante.');
@@ -2045,7 +2048,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
     if (c) { c.classList.remove('nkpdf-teatro'); document.documentElement.classList.remove('nkpdf-sin-scroll'); devolverDeTeatro(c); }
-    quitarMini(); if (window.NikaPdfNav) window.NikaPdfNav.cerrar(S);
+    quitarMini(); if (window.NikaPdfNav) window.NikaPdfNav.cerrar(S); if (window.NikaPdfOcr) window.NikaPdfOcr.cerrar(S);
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); if (S.fitRO) S.fitRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
     if (window.NikaDicc) window.NikaDicc.cerrar();
@@ -2058,5 +2061,5 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { diccionario: abrirDiccionario, abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) { if (window.NikaPdfNav) window.NikaPdfNav.alSaltar(S, n); irA(n, suave); } } };
+  window.NikaPdf = { diccionario: abrirDiccionario, abrir, cerrar, pantalla, estado: () => S, aviso, sincronizarPrefs: guardarPrefs, util: { dForma, dTrazo, colorDe }, modo: (m) => { if (S) modo(m); }, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, reconstruir: () => { if (S) reconstruir(); }, pagina: () => (S && S.actual) || null, listo: () => !!(S && S.pags && S.pags.length && S.pags[0].el && S.pags[0].el.offsetHeight > 0), irA: (n, suave) => { if (S) { if (window.NikaPdfNav) window.NikaPdfNav.alSaltar(S, n); irA(n, suave); } } };
 })();
