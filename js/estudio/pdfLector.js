@@ -1508,11 +1508,22 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
 
   // ---------- modo teatro (el lector ocupa toda la ventana, sin pantalla completa del navegador) ----------
   function enTeatro() { const c = contenedor(); return !!(c && c.classList.contains('nkpdf-teatro')); }
+  // el visor se pasa al <body> mientras dura el teatro: así ningún contenedor de la página (con transform, animación o scroll propio) lo descoloca
+  function moverATeatro(c) {
+    if (c._ph) return;
+    c._ph = document.createComment('nkpdf-teatro'); c.parentNode.insertBefore(c._ph, c); document.body.appendChild(c);
+  }
+  function devolverDeTeatro(c) {
+    if (!c || !c._ph) return;
+    if (c._ph.parentNode) { c._ph.parentNode.insertBefore(c, c._ph); c._ph.remove(); }
+    c._ph = null;
+  }
   function teatro(on) {
     const c = contenedor(); if (!c || !S) return;
     if (on === undefined) on = !enTeatro();
     if (on === enTeatro()) return;
     if (on && enPantalla()) pantalla();
+    if (on) moverATeatro(c); else devolverDeTeatro(c);
     c.classList.toggle('nkpdf-teatro', on);
     document.documentElement.classList.toggle('nkpdf-sin-scroll', on);
     const b = $('[data-accion="teatro"]', S.root);
@@ -1992,7 +2003,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     if (c && c.classList.contains('nkpdf-fsfix')) quitarFicticia(c);
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
-    if (enTeatro()) { c.classList.remove('nkpdf-teatro'); document.documentElement.classList.remove('nkpdf-sin-scroll'); }
+    if (c) { c.classList.remove('nkpdf-teatro'); document.documentElement.classList.remove('nkpdf-sin-scroll'); devolverDeTeatro(c); }
     quitarMini();
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); if (S.fitRO) S.fitRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
