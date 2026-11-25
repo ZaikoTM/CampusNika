@@ -85,6 +85,10 @@
   // ---- Drive: pedidos con ritmo prudente. La clave de la API tiene una cuota; si la auditoría la agota, el lector de los usuarios cae al visor de Drive.
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const CUOTA = /ratelimit|quota|dailylimit/i;
+  const PAUSA_ENTRE = 2200, LOTE = 40, DESCANSO_S = 120;      // ritmo suave: Drive bloquea las descargas si se le piden cientos de archivos seguidos
+  async function descansar(seg, texto) { for (let i = seg; i > 0 && !parar; i--) { msg(texto + ' (' + i + ' s)'); await sleep(1000); } }
+  // ¿Drive deja descargar? (1 byte). Si no, es un bloqueo temporal: se explica en vez de fallar con un mensaje genérico
+  async function driveDeja(id) { try { const r = await fetch('https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '?alt=media&key=' + API_KEY, { headers: { Range: 'bytes=0-0' } }); return r.ok || r.status === 206; } catch (_) { return false; } }
   async function motivo(r) { try { const j = await r.clone().json(); const e = j && j.error; return { razon: (e && ((e.errors && e.errors[0] && e.errors[0].reason) || e.status)) || '', texto: (e && e.message) || '' }; } catch (_) { return { razon: '', texto: '' }; } }
   // metadatos livianos (una sola consulta chica, sin descargar nada): tipo de archivo y tamaño
   async function driveMeta(id) {
@@ -127,6 +131,8 @@
   }
   // abre el documento: primero por rangos con pdf.js (lo mismo que hizo la auditoría con estos archivos); si falla, descarga por tramos
   async function abrirDoc(id, prog) {
+    const m = await driveMeta(id);
+    if (m.ok && m.mime === 'application/pdf' && !(await driveDeja(id))) throw new Error('Drive está limitando las descargas desde este dispositivo (suele pasar tras muchos pedidos seguidos, por ejemplo una auditoría larga). Esperá unas horas y volvé a probar.');
     try { return await window.pdfjsLib.getDocument({ url: urlDrive(id), rangeChunkSize: 1048576 }).promise; }
     catch (e1) { const buf = await descargarPdf(id, prog); return window.pdfjsLib.getDocument({ data: buf }).promise; }
   }
@@ -147,7 +153,7 @@
     auditando = true; parar = false; const b = $('[data-a="aud"]', raiz); if (b) b.textContent = '⏹ Detener auditoría';
     let motivoFin = '';
     try {
-      await prepararLibs(); const lista = await listaBiblioteca(), hecho = await audCargar(); let revisados = 0, escaneos = 0, omitidos = 0, yaVistos = 0;
+      await prepararLibs(); const lista = await listaBiblioteca(), hecho = await audCargar(); let revisados = 0, escaneos = 0, omitidos = 0, yaVistos = 0, fallosSeguidos = 0, enLote = 0;
       for (const it of lista) {
         if (parar) break;
         if (filas[it.id] && filas[it.id].estado === 'listo') continue;
@@ -166,8 +172,10 @@
             await cli().from('pdf_ocr_estado').upsert({ file_id: it.id, titulo: it.titulo, total_paginas: total, estado: (filas[it.id] && filas[it.id].estado) || 'pendiente', paginas_ok: (filas[it.id] && filas[it.id].ok) || 0, con_texto: false, updated_at: new Date().toISOString() }, { onConflict: 'file_id' });
             await audMarcar(hecho, it, 'escaneo', total);
           } else { await audMarcar(hecho, it, 'texto', total); }
-        } catch (_) { omitidos++; /* no se pudo leer por rangos: se reintenta en otra auditoría */ }
-        await sleep(900);                                              // ritmo prudente para no gastar la cuota que usan los lectores de los usuarios
+          fallosSeguidos = 0;
+        } catch (_) { omitidos++; fallosSeguidos++; /* no se pudo leer por rangos: se reintenta en otra auditoría */ if (fallosSeguidos >= 4) { motivoFin = 'Drive está bloqueando las descargas desde este dispositivo (4 archivos seguidos fallaron). Lo auditado queda guardado: probá de nuevo en unas horas.'; break; } }
+        if (++enLote >= LOTE) { enLote = 0; await descansar(DESCANSO_S, 'Descanso para no saturar Drive'); }
+        await sleep(PAUSA_ENTRE);                                              // ritmo prudente para no gastar la cuota que usan los lectores de los usuarios
       }
       msg(motivoFin || (parar ? 'Auditoría detenida (lo revisado queda guardado).' : 'Auditoría terminada: ' + escaneos + ' PDF escaneado' + (escaneos === 1 ? '' : 's') + ' nuevo' + (escaneos === 1 ? '' : 's') + ' · ' + yaVistos + ' ya estaban auditados (no se repiten) · ' + omitidos + ' omitidos (no son PDF o no se pudieron leer)' + (audTabla ? '.' : '. ⚠ Falta crear la tabla pdf_ocr_auditoria: por ahora se recuerda solo en este navegador.')));
     } catch (e) { msg('No se pudo auditar: ' + (e && e.message)); }
