@@ -111,6 +111,19 @@
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const cliente = () => window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || null;
 
+  // pedido a Drive que, si la cuota de la clave está momentáneamente agotada (429 o 403 por límite), espera y reintenta antes de rendirse al visor de Drive
+  async function fetchDrive(u) {
+    let r;
+    for (let i = 0; i < 3; i++) {
+      r = await fetch(u);
+      if (r.ok || (r.status !== 429 && r.status !== 403 && r.status !== 503)) return r;
+      let cuota = r.status !== 403;
+      if (!cuota) { try { cuota = /ratelimit|quota/i.test(JSON.stringify((await r.clone().json()).error || {})); } catch (_) {} }
+      if (!cuota) return r;                      // 403 por otra razón (por ejemplo un Doc de Google): se prueba la exportación enseguida
+      await new Promise((ok) => setTimeout(ok, 2500 * (i + 1)));
+    }
+    return r;
+  }
   function cargarLib() {
     if (window.pdfjsLib) { window.pdfjsLib.GlobalWorkerOptions.workerSrc = window.__nikaPdfWorker || (PDFJS + 'pdf.worker.min.js'); return Promise.resolve(); }
     if (libPromesa) return libPromesa;
@@ -1779,8 +1792,8 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       }
       // PDF subido a Drive: descarga directa. Presentaciones y documentos de Google (nativos): se exportan a PDF.
       const base = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`;
-      let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
-      if (!resp.ok) resp = await fetch(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
+      let resp = await fetchDrive(`${base}?alt=media&key=${API_KEY}`);
+      if (!resp.ok) resp = await fetchDrive(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
       if (!resp.ok) throw new Error('drive ' + resp.status);
       const total = Number(resp.headers.get('content-length') || 0);
       if (total > 2e9) { try { resp.body && resp.body.cancel(); } catch (_) {} throw new Error('archivo demasiado grande para el lector'); }   // por encima de 2 GB el navegador no lo aguanta en memoria: se ve con el visor de Drive
