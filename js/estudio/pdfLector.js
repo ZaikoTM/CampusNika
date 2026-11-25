@@ -574,6 +574,22 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     pg.el.querySelector('.nk-tx').innerHTML = ''; pg.hecho = false; pg.cargando = false;
   }
 
+  // páginas que se ven bien en pantalla (cerca de la actual, para no recorrerlas todas)
+  function paginasVisibles(mi) {
+    const r = mi.scroll.getBoundingClientRect(), out = [];
+    for (let n = Math.max(1, mi.actual - 3); n <= Math.min(mi.n, mi.actual + 3); n++) {
+      const b = mi.pags[n - 1].el.getBoundingClientRect(); if (b.bottom < r.top || b.top > r.bottom || !b.height) continue;
+      const v = Math.min(b.bottom, r.bottom) - Math.max(b.top, r.top);
+      if (v / b.height >= 0.5 || v / r.height >= 0.6) out.push(n);
+    }
+    return out;
+  }
+  // en doble página, «Marcar leída» vale para las dos páginas que se ven juntas
+  function parDe(n) {
+    if (!S.doble) return [n];
+    const tapa = uiPrefs().tapa !== false, ini = tapa ? (n === 1 ? 1 : (n % 2 === 0 ? n : n - 1)) : (n % 2 === 1 ? n : n - 1);
+    return (tapa && n === 1) ? [1] : [ini, ini + 1].filter((x) => x >= 1 && x <= S.n);
+  }
   function marcarLeida(pg) {
     const b = pg.el.querySelector('.nk-leida');
     if (S.leidas.has(pg.num) && !b) { const d = document.createElement('div'); d.className = 'nk-leida'; d.textContent = '✓ Leída'; pg.el.appendChild(d); }
@@ -1917,7 +1933,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         case 'autoancho': { const u = uiPrefs(); u.autoAncho = !u.autoAncho; guardarUi(u); aplicarUi(mi); aviso(u.autoAncho ? 'Ajuste automático al ancho: la página se adapta sola al tamaño de la ventana' : 'Ajuste automático desactivado'); break; }
         case 'doble': { const u = uiPrefs(); u.doble = !u.doble; guardarUi(u); aplicarUi(mi); aviso(u.doble ? 'Doble página: dos páginas lado a lado' : 'Una página por vez'); break; }
         case 'teatro': teatro(); break;
-        case 'leer': if (mi.leidas.has(mi.actual)) mi.leidas.delete(mi.actual); else mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); break;
+        case 'leer': { const par = parDe(mi.actual), todas = par.every((n) => mi.leidas.has(n)); par.forEach((n) => { if (todas) mi.leidas.delete(n); else mi.leidas.add(n); marcarLeida(mi.pags[n - 1]); }); actualizarBarra(); guardarProgreso(); break; }
         case 'eta': panelEta(b); break;
         case 'paleta': paleta(b); break;
         case 'variantes': abrirVariantes(b.dataset.g, b); break;
@@ -1982,7 +1998,12 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         mi.tlN = (mi.tlN || 0) + 1;
         if (mi.tlN % 30 === 0) { actualizarEta(); window.NikaTiempo.guardar(mi.tl, mi.actual); }
       }
-      if (mi.segs === 4 && !mi.leidas.has(mi.actual)) { mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); }
+      // una página cuenta como leída si estuvo ~4 s bien a la vista (la mitad o más de ella, o casi toda la pantalla): en doble página cuentan las dos
+      const vis = paginasVisibles(mi); if (!vis.length) vis.push(mi.actual);
+      const dw = {}; let cambio = false;
+      vis.forEach((n) => { dw[n] = ((mi.dwell && mi.dwell[n]) || 0) + 1; if (dw[n] >= 4 && !mi.leidas.has(n)) { mi.leidas.add(n); marcarLeida(mi.pags[n - 1]); cambio = true; } });
+      mi.dwell = dw;
+      if (cambio) { actualizarBarra(); guardarProgreso(); }
     }, 1000);
 
     marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi); iniciarFit(mi);
