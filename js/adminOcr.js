@@ -20,7 +20,7 @@
   }
   async function prepararLibs() {
     await cargarScript(PDFJS + 'pdf.min.js', () => !!window.pdfjsLib); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js';
-    await cargarScript('js/estudio/pdfOcr.js?v=2', () => !!window.NikaPdfOcr);
+    await cargarScript('js/estudio/pdfOcr.js?v=3', () => !!window.NikaPdfOcr);
   }
   const urlDrive = (id) => 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '?alt=media&key=' + API_KEY;
   // lo auditado se guarda en Supabase (pdf_ocr_auditoria): vale para cualquier navegador o dispositivo y no se repite. Espejo local por si la tabla no existe todavía.
@@ -67,6 +67,7 @@
     el.innerHTML = `<div class="t">${esc(f.titulo || f.id)}<small>${esc(f.materia || '')}${f.total ? ' · ' + f.total + ' págs.' : ''}${f.conf ? ' · confianza ' + Math.round(f.conf) + ' %' + (f.conf < 85 ? ' ⚠ revisar' : '') : ''}${f.nota ? ' · ' + esc(f.nota) : ''}</small>${f.error ? '<small style="color:#b91c1c;opacity:1">⚠ ' + esc(f.error) + '</small>' : ''}</div><span class="aocr-est ${est}">${({ pendiente: 'Pendiente', procesando: 'Procesando…', pausado: 'Pausado', listo: 'Listo ✓', error: 'Error' })[est] || est}</span>`
       + (f.total ? `<span class="aocr-bar"><i style="width:${pct}%"></i></span><span style="font-size:.72rem;font-weight:800">${f.ok || 0}/${f.total}</span>` : '')
       + (est !== 'listo' && est !== 'procesando' ? '<button type="button" class="as-btn" data-a="go">▶ Procesar</button>' : '')
+      + (est === 'listo' && f.conf != null && f.conf < 85 ? '<button type="button" class="as-btn" data-a="mejor" title="Reintenta solo las páginas con baja confianza con varias versiones de la imagen; guarda cada una solo si queda mejor">✨ Mejorar OCR</button>' : '')
       + (est === 'procesando' ? '<button type="button" class="as-btn" data-a="pausa">⏸ Pausar</button>' : '');
     filas[f.id] = Object.assign(filas[f.id] || {}, f);
   }
@@ -199,6 +200,22 @@
     const fin = corriendo && corriendo.estado; corriendo = null; await cargarEstados();
     const sig = cola.shift(); if (sig && fin !== 'pausado') procesarUno(sig);
   }
+  // ---- mejorar un OCR de baja calidad (solo las páginas flojas)
+  async function mejorarUno(id) {
+    const f = filas[id]; if (!f) return; if (corriendo) { msg('Ya hay un PDF procesándose: esperá a que termine.'); return; }
+    if (auditando) { parar = true; msg('Detuve la auditoría para no saturar la cuota de Drive.'); }
+    let doc = null;
+    try {
+      await prepararLibs(); fila(Object.assign({}, f, { estado: 'procesando', nota: 'Abriendo el PDF…', error: '' }));
+      doc = await abrirDoc(id);
+      corriendo = window.NikaPdfOcr.mejorar({ pdf: doc, fileId: id, titulo: f.titulo, onProgreso: (p) => fila(Object.assign({}, filas[id], { estado: p.estado === 'listo' ? 'listo' : 'procesando', ok: p.hechas, total: p.total || filas[id].total, nota: p.fin ? '' : 'Mejorando la pág. ' + (p.pagina || '…') + (p.nota ? ' · ' + p.nota : ''), conf: p.confMedia != null ? p.confMedia : filas[id].conf })) });
+      corriendo.id = id;
+      const r = await corriendo.promesa.catch((e) => { console.error('[OCR]', e); fila(Object.assign({}, filas[id], { estado: 'error', nota: '', error: (e && e.message) || String(e) })); msg('Error al mejorar: ' + ((e && e.message) || e)); return null; });
+      if (r) msg(r.mejoradas ? 'Mejoré ' + r.mejoradas + ' de ' + r.total + ' páginas.' : 'No encontré una lectura mejor para las páginas flojas (suelen ser dibujos o fotos).');
+    } catch (e) { console.error('[OCR]', e); fila(Object.assign({}, filas[id] || f, { estado: 'error', nota: '', error: (e && e.message) || String(e) })); msg('Error: ' + ((e && e.message) || e)); }
+    try { if (doc) doc.destroy(); } catch (_) {}
+    corriendo = null; await cargarEstados();
+  }
   async function procesarLink(txt) {
     const id = idDe(txt) || (/^[A-Za-z0-9_-]{15,}$/.test(txt.trim()) ? txt.trim() : null); if (!id) { msg('Pegá un link de Drive válido (https://drive.google.com/file/d/…).'); return; }
     fila({ id, titulo: 'PDF ' + id.slice(0, 8) + '…', estado: 'pendiente' }); procesarUno(id);
@@ -220,6 +237,7 @@
       else if (a === 'todos') { Object.values(filas).filter((x) => x.estado !== 'listo').forEach((x) => procesarUno(x.id)); }
       else if (a === 'link') procesarLink($('input', raiz).value);
       else if (a === 'go' && f) procesarUno(f.dataset.id);
+      else if (a === 'mejor' && f) mejorarUno(f.dataset.id);
       else if (a === 'pausa' && corriendo) { corriendo.pausar(); b.textContent = '▶ Seguir'; b.dataset.a = 'seguir'; }
       else if (a === 'seguir' && corriendo) { corriendo.reanudar(); b.textContent = '⏸ Pausar'; b.dataset.a = 'pausa'; }
     });

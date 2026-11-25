@@ -108,7 +108,7 @@
   function lineasDe(data, W, H) {
     const out = [];
     (data.lines || []).forEach((l) => {
-      const w = (l.words || []).filter((x) => x.text && x.text.trim() && x.confidence >= 25).map((x) => [x.text.trim(), r4(x.bbox.x0 / W), r4(x.bbox.x1 / W)]);
+      const w = (l.words || []).filter((x) => x.text && x.text.trim() && x.confidence >= 40).map((x) => [x.text.trim(), r4(x.bbox.x0 / W), r4(x.bbox.x1 / W)]);
       if (w.length) out.push({ y: [r4(l.bbox.y0 / H), r4(l.bbox.y1 / H)], w });
     });
     return out;
@@ -133,7 +133,8 @@
   // lectura de máximo detalle: imagen grande y limpia; si la confianza es baja se prueba otra versión y se queda la mejor
   async function crearWorker() {
     const T = await cargarTesseract();
-    const w = await T.createWorker('spa+eng', 1, { langPath: LANG_PATH, cachePath: 'nikaocr_best_v1' });   // cachePath propio: no se mezcla con el modelo rápido de otras pruebas
+    const opciones = { langPath: LANG_PATH, cachePath: 'nikaocr_best_v1' };   // cachePath propio: no se mezcla con el modelo rápido de otras pruebas
+    let w; try { w = await T.createWorker('spa+eng', 1, opciones, { debug_file: '/dev/null' }); } catch (_) { w = await T.createWorker('spa+eng', 1, opciones); }   // debug_file: silencia los avisos «Line cannot be recognized» de Tesseract (son normales en páginas con dibujos y bordes)
     try { await w.setParameters({ preserve_interword_spaces: '1', user_defined_dpi: '300' }); } catch (_) {}
     return w;
   }
@@ -197,6 +198,73 @@
     return ctl;
   }
 
+  /* Mejorar un OCR que quedó con baja calidad. opts: { pdf, fileId, titulo, umbral (85), forzar, onProgreso(info) }
+     Solo toca las páginas con confianza menor al umbral. De cada una prueba varias versiones de la imagen (más resolución, limpiada, en blanco y negro) y otros modos de lectura
+     (columna, bloque, texto suelto) y guarda la mejor SOLO si supera a la que ya estaba: nunca empeora lo que hay. */
+  // calidad = cantidad de texto bien leído (letras × confianza de cada palabra). Evita elegir una versión que «lee poco pero seguro» y pierde párrafos.
+  const calidad = (data) => { let q = 0; (data.words || []).forEach((x) => { if (x.text && x.confidence >= 40) q += x.text.trim().length * (x.confidence / 100); }); return q; };
+  const calidadGuardada = (lineas, conf) => { let n = 0; (lineas || []).forEach((l) => (l.w || []).forEach((w) => { n += String(w[0]).length; })); return n * ((conf == null ? 60 : conf) / 100); };
+  const VARIANTES = [
+    { ancho: 3300, bin: false, psm: 3 }, { ancho: 3300, bin: true, psm: 3 }, { ancho: 2500, bin: false, psm: 6 },
+    { ancho: 2500, bin: false, psm: 4 }, { ancho: 2500, bin: true, psm: 6 }, { ancho: 2500, bin: false, psm: 11 }, { ancho: 1800, bin: false, psm: 3 }
+  ];
+  const CONF_META = 92;                           // si una versión llega a esto, no hace falta seguir probando
+  function mejorar(opts) {
+    const { pdf, fileId, titulo } = opts, umbral = opts.umbral || 85, c = cli(), total = pdf.numPages;
+    const ctl = { estado: 'iniciando', pausa: false, cancel: false, hechas: 0, total: 0, mejoradas: 0, pausar() { ctl.pausa = true; }, reanudar() { ctl.pausa = false; }, cancelar() { ctl.cancel = true; ctl.pausa = false; } };
+    const avisar = (extra) => { try { if (opts.onProgreso) opts.onProgreso(Object.assign({ estado: ctl.estado, hechas: ctl.hechas, total: ctl.total, mejoradas: ctl.mejoradas }, extra || {})); } catch (_) {} };
+    ctl.promesa = (async () => {
+      if (!(await esAdmin())) throw new Error('Solo un administrador puede mejorar el OCR');
+      // páginas a mejorar: peor primero. Si la tabla todavía no tiene «intentos», se ignora (se prueba siempre).
+      let filas = null;
+      { let r = await c.from('pdf_ocr_paginas').select('pagina,conf,intentos').eq('file_id', fileId).order('pagina').range(0, 4999); if (r.error) r = await c.from('pdf_ocr_paginas').select('pagina,conf').eq('file_id', fileId).order('pagina').range(0, 4999); filas = r.data || []; }
+      const mal = filas.filter((f) => (f.conf == null || f.conf < umbral) && (opts.forzar || !(f.intentos >= 2))).sort((a, b) => (a.conf || 0) - (b.conf || 0));
+      ctl.total = mal.length; avisar();
+      if (!mal.length) { ctl.estado = 'listo'; avisar({ fin: true }); return { mejoradas: 0, total: 0, sinCambios: true }; }
+      const ref = { w: await crearWorker() }; let sinIntentos = false;
+      const render = async (page, ancho, bin) => {
+        const v1 = page.getViewport({ scale: 1 }), vp = page.getViewport({ scale: Math.min(6, ancho / v1.width) });
+        const cv = document.createElement('canvas'); cv.width = Math.floor(vp.width); cv.height = Math.floor(vp.height);
+        await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+        const lista = preparar(cv, bin); cv.width = 1; cv.height = 1; return lista;
+      };
+      try {
+        for (const f of mal) {
+          if (ctl.cancel) break;
+          while (ctl.pausa && !ctl.cancel) { ctl.estado = 'pausado'; avisar(); await sleep(400); }
+          if (ctl.cancel) break; ctl.estado = 'procesando';
+          const page = await pdf.getPage(f.pagina); let mejor = null, mejorC = f.conf || 0, sinMejora = 0;
+          let qMejor = 0; try { const ant = await c.from('pdf_ocr_paginas').select('lineas').eq('file_id', fileId).eq('pagina', f.pagina).maybeSingle(); qMejor = calidadGuardada(ant && ant.data && ant.data.lineas, f.conf); } catch (_) {}
+          for (const v of VARIANTES) {
+            if (ctl.cancel) break; avisar({ pagina: f.pagina, nota: 'Probando ' + v.ancho + ' px' + (v.bin ? ' en B/N' : '') + ' · modo ' + v.psm });
+            try { await ref.w.setParameters({ tessedit_pageseg_mode: String(v.psm) }); } catch (_) {}
+            const img = await render(page, v.ancho, v.bin); let data = null;
+            try { data = (await conTope(ref.w.recognize(img), TIEMPO_MAX)).data; } catch (e) { if (e && e.message === 'tiempo') { try { await ref.w.terminate(); } catch (_) {} ref.w = await crearWorker(); } }
+            const q = data ? calidad(data) : 0;
+            if (data && q > qMejor * 1.03 + 0.5) { qMejor = q; mejorC = data.confidence || 0; mejor = { data, ancho: img.width, alto: img.height }; sinMejora = 0; } else sinMejora++;
+            img.width = 1; img.height = 1;
+            if ((mejor && mejorC >= CONF_META) || sinMejora >= 3) break;        // llegó a buena calidad o ya no mejora
+          }
+          try { page.cleanup(); } catch (_) {}
+          const fila = { file_id: fileId, pagina: f.pagina, conf: f.conf, intentos: (f.intentos || 0) + 1 };
+          if (mejor) { fila.lineas = lineasDe(mejor.data, mejor.ancho, mejor.alto); fila.conf = Math.round(mejorC * 10) / 10; ctl.mejoradas++; }
+          if (mejor || !sinIntentos) {                                           // sin mejora solo se anota el intento
+            if (mejor) { let r = await c.from('pdf_ocr_paginas').upsert(fila, { onConflict: 'file_id,pagina' }); if (r && r.error && /intentos/i.test(r.error.message || '')) { sinIntentos = true; delete fila.intentos; r = await c.from('pdf_ocr_paginas').upsert(fila, { onConflict: 'file_id,pagina' }); } if (r && r.error) throw new Error(r.error.message || 'No se pudo guardar'); }
+            else if (!sinIntentos) { const r = await c.from('pdf_ocr_paginas').update({ intentos: fila.intentos }).eq('file_id', fileId).eq('pagina', f.pagina); if (r && r.error) sinIntentos = true; }
+          }
+          ctl.hechas++; avisar({ pagina: f.pagina, nueva: mejor ? Math.round(mejorC) : null });
+        }
+      } catch (e) { try { await ref.w.terminate(); } catch (_) {} ctl.estado = 'error'; avisar({ fin: true }); throw e; }
+      try { await ref.w.terminate(); } catch (_) {}
+      // nueva confianza media de todo el PDF
+      let suma = 0, n = 0; try { const r = await c.from('pdf_ocr_paginas').select('conf').eq('file_id', fileId).range(0, 4999); (r.data || []).forEach((x) => { if (x.conf != null) { suma += x.conf; n++; } }); } catch (_) {}
+      try { await c.from('pdf_ocr_estado').upsert({ file_id: fileId, titulo: titulo || null, total_paginas: total, paginas_ok: filas.length, estado: ctl.cancel ? 'pausado' : 'listo', con_texto: false, motor: MOTOR, conf_media: n ? Math.round((suma / n) * 10) / 10 : undefined, updated_at: new Date().toISOString() }, { onConflict: 'file_id' }); } catch (_) {}
+      ctl.estado = ctl.cancel ? 'pausado' : 'listo'; avisar({ fin: true, confMedia: n ? Math.round((suma / n) * 10) / 10 : null });
+      return { mejoradas: ctl.mejoradas, total: ctl.total, confMedia: n ? suma / n : null };
+    })();
+    return ctl;
+  }
+
   // ---------------------------------------------------------------- interfaz en el lector
   function css() {
     if ($('#nkocr-css')) return;
@@ -216,9 +284,32 @@
     g.innerHTML = `<button type="button" data-oc="info" title="Este PDF es un escaneo y no traía texto: NikaMed lo reconoció automáticamente (OCR). Por eso podés seleccionar, subrayar y buscar. El archivo original no se modificó.">🔤<span class="nkpdf-txt">Texto OCR${o.parcial ? ' (parcial)' : ''}</span></button>`;
     g.onclick = () => aviso('🔤 Texto reconocido automáticamente (OCR) · el archivo original no se tocó' + (o.parcial ? ' · todavía faltan páginas' : ''));
   }
+  function pintarMejorar(mi, g, conf) {
+    g.hidden = false; g.className = 'nkpdf-grupo nkpdf-ocr act';
+    g.innerHTML = `<button type="button" data-oc="mejorar" title="El OCR de este PDF quedó con ${Math.round(conf)} % de confianza. Reintenta solo las páginas flojas con varias versiones de la imagen y guarda cada una solo si queda mejor.">✨<span class="nkpdf-txt">Mejorar OCR (${Math.round(conf)} %)</span></button>`;
+    g.onclick = (e) => { if (e.target.closest('[data-oc="mejorar"]')) iniciarMejora(mi, g); };
+  }
+  function iniciarMejora(mi, g) {
+    if (mi._ocrCtl && mi._ocrCtl.estado === 'procesando') return;
+    g.className = 'nkpdf-grupo nkpdf-ocr run';
+    g.innerHTML = `<span style="padding:0 6px">✨ <span class="oc-t">Mejorando…</span></span><span class="oc-bar"><i></i></span><button type="button" class="oc-x" data-oc="pausa" title="Pausar">⏸</button><button type="button" class="oc-x" data-oc="stop" title="Detener (queda guardado lo mejorado)">⏹</button>`;
+    aviso('Mejorando solo las páginas flojas, en segundo plano. Podés seguir leyendo.');
+    const t = $('.oc-t', g), bar = $('.oc-bar i', g);
+    mi._ocrCtl = mejorar({ pdf: mi.pdf, fileId: mi.fileId, titulo: mi.title, onProgreso: (p) => { if (!document.body.contains(g) || !p.total) return; t.textContent = p.hechas + '/' + p.total; bar.style.width = Math.round((p.hechas / p.total) * 100) + '%'; } });
+    g.onclick = (e) => { const b = e.target.closest('[data-oc]'); if (!b) return; const c = mi._ocrCtl; if (!c) return; if (b.dataset.oc === 'pausa') { if (c.pausa) { c.reanudar(); b.textContent = '⏸'; } else { c.pausar(); b.textContent = '▶'; } } else if (b.dataset.oc === 'stop') c.cancelar(); };
+    mi._ocrCtl.promesa.then(async (r) => {
+      if (L() && L().estado() !== mi) return;
+      aviso(r && r.mejoradas ? '✅ Mejoré ' + r.mejoradas + ' de ' + r.total + ' páginas' + (r.confMedia ? ' · confianza media ' + Math.round(r.confMedia) + ' %' : '') : 'No encontré una lectura mejor para esas páginas (puede ser que tengan dibujos o fotos).');
+      await aplicar(mi); if (mi.ocr.activo && L() && L().reconstruir) L().reconstruir(); await montarUI(mi);
+    }).catch((e) => { aviso('Mejora: ' + ((e && e.message) || 'no se pudo completar')); montarUI(mi); });
+  }
   async function montarUI(mi) {
     css(); const g = grupo(mi); if (!g || !mi.ocr) return;
-    if (mi.ocr.activo && !mi.ocr.parcial) { pintarPasivo(mi, g); return; }
+    const confMedia = mi.ocr.estado && mi.ocr.estado.conf_media;
+    if (mi.ocr.activo && !mi.ocr.parcial) {
+      if (await esAdmin() && confMedia != null && confMedia < 85) { pintarMejorar(mi, g, confMedia); return; }   // calidad baja: el admin puede reintentar
+      pintarPasivo(mi, g); return;
+    }
     if (!(await esAdmin())) { if (mi.ocr.activo) pintarPasivo(mi, g); return; }   // los usuarios solo ven el estado; el botón es del admin
     if (!(await pareceEscaneo(mi.pdf))) { if (mi.ocr.activo) pintarPasivo(mi, g); return; }
     const est = mi.ocr.estado, hechas = est ? est.paginas_ok : 0;
@@ -241,5 +332,5 @@
   }
   function cerrar(mi) { if (mi && mi._ocrCtl && mi._ocrCtl.estado !== 'listo') { try { mi._ocrCtl.cancelar(); } catch (_) {} } }
 
-  window.NikaPdfOcr = { esAdmin, estado, aplicar, montarUI, cerrar, procesar, parchear, pareceEscaneo, paginasDB, MOTOR, MIN_CHARS };
+  window.NikaPdfOcr = { esAdmin, estado, aplicar, montarUI, cerrar, procesar, mejorar, parchear, pareceEscaneo, paginasDB, MOTOR, MIN_CHARS };
 })();

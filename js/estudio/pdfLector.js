@@ -1757,7 +1757,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       mi.pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
       mi.n = mi.pdf.numPages;
       // PDF escaneado con OCR guardado por el admin: el documento responde con ese texto (selección, búsqueda, subrayado…)
-      try { await cargarModulo('js/estudio/pdfOcr.js?v=2', () => window.NikaPdfOcr); if (window.NikaPdfOcr) await Promise.race([window.NikaPdfOcr.aplicar(mi), new Promise((r) => setTimeout(r, 3500))]); } catch (_) {}
+      try { await cargarModulo('js/estudio/pdfOcr.js?v=3', () => window.NikaPdfOcr); if (window.NikaPdfOcr) await Promise.race([window.NikaPdfOcr.aplicar(mi), new Promise((r) => setTimeout(r, 3500))]); } catch (_) {}
       await cargarMarcas(fileId);
       await cargarPrefs(mi);
       if (S !== mi) return;

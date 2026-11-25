@@ -68,3 +68,8 @@ alter table public.pdf_ocr_auditoria enable row level security;
 drop policy if exists "pdf_ocr_auditoria_admin" on public.pdf_ocr_auditoria;
 create policy "pdf_ocr_auditoria_admin" on public.pdf_ocr_auditoria for all to authenticated using (public.is_admin()) with check (public.is_admin());
 grant select, insert, update, delete on public.pdf_ocr_auditoria to authenticated;   -- la política deja pasar solo al admin
+
+-- ------------------------------------------------------------
+-- Mejorar el OCR: cuántas veces se reintentó cada página (para no repetir una y otra vez las que no mejoran)
+-- ------------------------------------------------------------
+alter table public.pdf_ocr_paginas add column if not exists intentos int not null default 0;
