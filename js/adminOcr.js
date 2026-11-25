@@ -23,8 +23,29 @@
     await cargarScript('js/estudio/pdfOcr.js?v=2', () => !!window.NikaPdfOcr);
   }
   const urlDrive = (id) => 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '?alt=media&key=' + API_KEY;
-  const aud = () => { try { return JSON.parse(localStorage.getItem(LS_AUD) || '{}'); } catch (_) { return {}; } };
-  const audGuardar = (a) => { try { localStorage.setItem(LS_AUD, JSON.stringify(a)); } catch (_) {} };
+  // lo auditado se guarda en Supabase (pdf_ocr_auditoria): vale para cualquier navegador o dispositivo y no se repite. Espejo local por si la tabla no existe todavía.
+  const audLocal = () => { try { return JSON.parse(localStorage.getItem(LS_AUD) || '{}'); } catch (_) { return {}; } };
+  const audLocalGuardar = (a) => { try { localStorage.setItem(LS_AUD, JSON.stringify(a)); } catch (_) {} };
+  let audTabla = true;
+  async function audCargar() {
+    const hecho = {}; const loc = audLocal(); Object.keys(loc).forEach((k) => { hecho[k] = loc[k]; });
+    try {
+      for (let a = 0; ; a += 1000) {
+        const { data, error } = await cli().from('pdf_ocr_auditoria').select('file_id,resultado').order('file_id').range(a, a + 999);
+        if (error) { audTabla = false; break; } (data || []).forEach((r) => { hecho[r.file_id] = r.resultado; }); if (!data || data.length < 1000) break;
+      }
+    } catch (_) { audTabla = false; }
+    return hecho;
+  }
+  async function audMarcar(hecho, it, resultado, total, motivo) {
+    hecho[it.id] = resultado; const loc = audLocal(); loc[it.id] = resultado; audLocalGuardar(loc);
+    if (audTabla) { try { const r = await cli().from('pdf_ocr_auditoria').upsert({ file_id: it.id, titulo: it.titulo || null, resultado, total_paginas: total || null, motivo: motivo || null, revisado_en: new Date().toISOString() }, { onConflict: 'file_id' }); if (r && r.error) audTabla = false; } catch (_) { audTabla = false; } }
+  }
+  async function audOlvidarOmitidos() {
+    const loc = audLocal(); Object.keys(loc).forEach((k) => { if (loc[k] === 'omitido') delete loc[k]; }); audLocalGuardar(loc);
+    try { await cli().from('pdf_ocr_auditoria').delete().eq('resultado', 'omitido'); } catch (_) {}
+    msg('Listo: en la próxima auditoría se vuelven a revisar los archivos que se habían omitido.');
+  }
 
   function css() {
     if ($('#aocr-css')) return;
@@ -79,20 +100,35 @@
     }
     return { ok: false, cuota: 'seguida' };
   }
-  // descarga completa con progreso (igual que el lector: sin cabeceras raras, con respaldo de exportación para Google Docs/Slides)
+  // descarga completa en tramos con «Range» (lo que Drive acepta desde el navegador: el pedido sin Range suele salir bloqueado por CORS)
   async function descargarPdf(id, prog) {
-    const base = 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id);
-    let r = await fetch(base + '?alt=media&supportsAllDrives=true&key=' + API_KEY);
-    if (!r.ok) r = await fetch(base + '/export?mimeType=application%2Fpdf&key=' + API_KEY);
-    if (!r.ok) { const m = await motivo(r); throw new Error('Drive respondió ' + r.status + (m.razon ? ' (' + m.razon + ')' : '') + ' al bajar el archivo' + (CUOTA.test(m.razon) ? ': se agotó la cuota, probá más tarde' : '')); }
-    const total = +r.headers.get('content-length') || 0; let buf;
-    if (r.body && r.body.getReader && total) {
-      buf = new Uint8Array(total); let n = 0; const rd = r.body.getReader();
-      for (;;) { const { done, value } = await rd.read(); if (done) break; if (n + value.length > buf.length) { const g = new Uint8Array(n + value.length); g.set(buf.subarray(0, n)); buf = g; } buf.set(value, n); n += value.length; if (prog) prog(n, total); }
-      buf = buf.subarray(0, n);
-    } else buf = new Uint8Array(await r.arrayBuffer());
+    const base = 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id), m = await driveMeta(id);
+    if (!m.ok) throw new Error('Drive no dejó leer el archivo' + (m.status ? ' (' + m.status + ')' : '') + (m.cuota ? ': se agotó la cuota, probá más tarde' : ''));
+    if (m.mime !== 'application/pdf') {   // Google Docs / Slides: se exportan a PDF
+      const r = await fetch(base + '/export?mimeType=application%2Fpdf&key=' + API_KEY); if (!r.ok) throw new Error('No se pudo exportar a PDF (' + r.status + ')');
+      return new Uint8Array(await r.arrayBuffer());
+    }
+    const total = m.size, TRAMO = 4 * 1024 * 1024, buf = new Uint8Array(total); let n = 0;
+    while (n < total) {
+      const fin = Math.min(total - 1, n + TRAMO - 1); let r = null;
+      for (let i = 0; i < 4; i++) {
+        try { r = await fetch(base + '?alt=media&key=' + API_KEY, { headers: { Range: 'bytes=' + n + '-' + fin } }); } catch (e) { r = null; }
+        if (r && (r.ok || r.status === 206)) break;
+        if (r && (r.status === 429 || r.status === 403)) { const mo = await motivo(r); if (!CUOTA.test(mo.razon)) throw new Error('Drive respondió ' + r.status + (mo.razon ? ' (' + mo.razon + ')' : '')); }
+        r = null; await sleep(2000 * (i + 1));
+      }
+      if (!r) throw new Error('No se pudo bajar el archivo (se cortó la conexión con Drive)');
+      const parte = new Uint8Array(await r.arrayBuffer());
+      if (r.status === 200 && parte.length >= total) { buf.set(parte.subarray(0, total), 0); n = total; if (prog) prog(n, total); break; }   // el servidor ignoró el Range y mandó todo
+      buf.set(parte, n); n += parte.length; if (prog) prog(n, total);
+    }
     if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('Ese archivo no es un PDF');
     return buf;
+  }
+  // abre el documento: primero por rangos con pdf.js (lo mismo que hizo la auditoría con estos archivos); si falla, descarga por tramos
+  async function abrirDoc(id, prog) {
+    try { return await window.pdfjsLib.getDocument({ url: urlDrive(id), rangeChunkSize: 1048576 }).promise; }
+    catch (e1) { const buf = await descargarPdf(id, prog); return window.pdfjsLib.getDocument({ data: buf }).promise; }
   }
 
   // ---- auditoría: primero se mira el tipo de archivo (consulta chica) y solo los PDF reales se abren por rangos (bajan unas páginas)
@@ -111,28 +147,29 @@
     auditando = true; parar = false; const b = $('[data-a="aud"]', raiz); if (b) b.textContent = '⏹ Detener auditoría';
     let motivoFin = '';
     try {
-      await prepararLibs(); const lista = await listaBiblioteca(), hecho = aud(); let revisados = 0, escaneos = 0, omitidos = 0;
+      await prepararLibs(); const lista = await listaBiblioteca(), hecho = await audCargar(); let revisados = 0, escaneos = 0, omitidos = 0, yaVistos = 0;
       for (const it of lista) {
         if (parar) break;
         if (filas[it.id] && filas[it.id].estado === 'listo') continue;
-        if (hecho[it.id]) continue;                                    // ya auditado antes (con texto u omitido): no se vuelve a pedir
+        if (hecho[it.id]) { yaVistos++; continue; }                    // ya auditado antes (con texto, escaneo u omitido): no se vuelve a pedir
         msg('Auditando… ' + (++revisados) + ' de ' + lista.length + ' · ' + (it.titulo || '').slice(0, 50));
         const m = await driveMeta(it.id);
         if (m.cuota === 'dia') { motivoFin = 'Se alcanzó la cuota diaria de Drive: lo auditado queda guardado, retomá mañana.'; break; }
         if (m.cuota) { motivoFin = m.cuota === 'parar' ? '' : 'Drive sigue limitando los pedidos: lo auditado queda guardado, probá en unos minutos.'; break; }
-        if (!m.ok) { if (!m.red) { hecho[it.id] = 'omitido'; audGuardar(hecho); } omitidos++; await sleep(500); continue; }
-        if (m.mime !== 'application/pdf') { hecho[it.id] = 'omitido'; audGuardar(hecho); omitidos++; await sleep(300); continue; }   // Docs/Slides de Google: se exportan con texto
+        if (!m.ok) { if (!m.red) await audMarcar(hecho, it, 'omitido', 0, 'Drive respondió ' + (m.status || '?')); omitidos++; await sleep(500); continue; }
+        if (m.mime !== 'application/pdf') { await audMarcar(hecho, it, 'omitido', 0, m.mime); omitidos++; await sleep(300); continue; }   // Docs/Slides de Google: se exportan con texto
         try {
           const doc = await window.pdfjsLib.getDocument({ url: urlDrive(it.id), rangeChunkSize: 262144, disableAutoFetch: true }).promise;
           const esc2 = await window.NikaPdfOcr.pareceEscaneo(doc), total = doc.numPages; try { doc.destroy(); } catch (_) {}
           if (esc2) {
             escaneos++; fila(Object.assign({}, it, { total, estado: (filas[it.id] && filas[it.id].estado) || 'pendiente', ok: (filas[it.id] && filas[it.id].ok) || 0 }));
             await cli().from('pdf_ocr_estado').upsert({ file_id: it.id, titulo: it.titulo, total_paginas: total, estado: (filas[it.id] && filas[it.id].estado) || 'pendiente', paginas_ok: (filas[it.id] && filas[it.id].ok) || 0, con_texto: false, updated_at: new Date().toISOString() }, { onConflict: 'file_id' });
-          } else { hecho[it.id] = 'texto'; audGuardar(hecho); }
+            await audMarcar(hecho, it, 'escaneo', total);
+          } else { await audMarcar(hecho, it, 'texto', total); }
         } catch (_) { omitidos++; /* no se pudo leer por rangos: se reintenta en otra auditoría */ }
         await sleep(900);                                              // ritmo prudente para no gastar la cuota que usan los lectores de los usuarios
       }
-      msg(motivoFin || (parar ? 'Auditoría detenida (lo revisado queda guardado).' : 'Auditoría terminada: ' + escaneos + ' PDF escaneado' + (escaneos === 1 ? '' : 's') + ' sin texto de ' + lista.length + ' archivos (' + omitidos + ' omitidos: no son PDF o no se pudieron leer).'));
+      msg(motivoFin || (parar ? 'Auditoría detenida (lo revisado queda guardado).' : 'Auditoría terminada: ' + escaneos + ' PDF escaneado' + (escaneos === 1 ? '' : 's') + ' nuevo' + (escaneos === 1 ? '' : 's') + ' · ' + yaVistos + ' ya estaban auditados (no se repiten) · ' + omitidos + ' omitidos (no son PDF o no se pudieron leer)' + (audTabla ? '.' : '. ⚠ Falta crear la tabla pdf_ocr_auditoria: por ahora se recuerda solo en este navegador.')));
     } catch (e) { msg('No se pudo auditar: ' + (e && e.message)); }
     auditando = false; if (b) b.textContent = '🔎 Auditar la biblioteca'; setTimeout(resumen, 6000);
   }
@@ -143,9 +180,8 @@
     if (auditando) { parar = true; msg('Detuve la auditoría para no saturar la cuota de Drive; la podés retomar después.'); }
     let doc = null;
     try {
-      await prepararLibs(); fila(Object.assign({}, f, { estado: 'procesando', nota: 'Descargando el PDF…', error: '' }));
-      const buf = await descargarPdf(id, (n, t) => fila(Object.assign({}, filas[id], { estado: 'procesando', nota: 'Descargando ' + Math.round((n / t) * 100) + ' %' })));
-      doc = await window.pdfjsLib.getDocument({ data: buf }).promise;
+      await prepararLibs(); fila(Object.assign({}, f, { estado: 'procesando', nota: 'Abriendo el PDF…', error: '' }));
+      doc = await abrirDoc(id, (n, t) => fila(Object.assign({}, filas[id], { estado: 'procesando', nota: 'Descargando ' + Math.round((n / t) * 100) + ' %' })));
       fila(Object.assign({}, filas[id], { estado: 'procesando', nota: 'Cargando el motor de OCR (la primera vez baja ~25 MB)…', total: doc.numPages }));
       corriendo = window.NikaPdfOcr.procesar({ pdf: doc, fileId: id, titulo: f.titulo, onProgreso: (p) => fila(Object.assign({}, filas[id], { estado: p.estado, ok: p.hechas, total: p.total, nota: p.estado === 'procesando' ? 'Leyendo la pág. ' + (p.pagina || p.hechas + 1) : '' })) });
       corriendo.id = id;
@@ -165,13 +201,14 @@
     raiz.innerHTML = '<p class="aocr-msg">Cargando…</p>';
     try { await prepararLibs(); } catch (e) { raiz.innerHTML = '<p class="aocr-msg">No se pudo cargar el motor de OCR: ' + esc(e.message) + '</p>'; return; }
     if (!(await window.NikaPdfOcr.esAdmin())) { raiz.innerHTML = '<p class="aocr-msg">Solo disponible para administradores. Si lo sos y ves esto, falta ejecutar 14_pdf_ocr.sql en Supabase.</p>'; return; }
-    raiz.innerHTML = `<div class="aocr-top"><button type="button" class="as-btn" data-a="aud">🔎 Auditar la biblioteca</button><button type="button" class="as-btn" data-a="todos">▶ Procesar todos los pendientes</button></div>
+    raiz.innerHTML = `<div class="aocr-top"><button type="button" class="as-btn" data-a="aud">🔎 Auditar la biblioteca</button><button type="button" class="as-btn" data-a="todos">▶ Procesar todos los pendientes</button><button type="button" class="as-btn" data-a="omit" title="Vuelve a revisar en la próxima auditoría los archivos que se habían omitido (por ejemplo por un error de Drive)">↻ Reintentar omitidos</button></div>
       <div class="aocr-top"><input type="text" placeholder="…o pegá el link de un PDF de Drive para hacerle OCR" aria-label="Link de Drive"><button type="button" class="as-btn" data-a="link">Procesar este</button></div>
       <p class="aocr-msg"></p><div class="aocr-lista"></div>
       <p class="aocr-msg" style="font-weight:600;opacity:.65">El OCR corre en segundo plano en este dispositivo: dejá esta pestaña abierta. Se guarda cada pocas páginas y se puede pausar y retomar. El archivo de Drive no se modifica y los usuarios reciben el texto solos.</p>`;
     raiz.addEventListener('click', (e) => {
       const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a, f = b.closest('.aocr-fila');
       if (a === 'aud') auditar();
+      else if (a === 'omit') audOlvidarOmitidos();
       else if (a === 'todos') { Object.values(filas).filter((x) => x.estado !== 'listo').forEach((x) => procesarUno(x.id)); }
       else if (a === 'link') procesarLink($('input', raiz).value);
       else if (a === 'go' && f) procesarUno(f.dataset.id);

@@ -51,3 +51,20 @@ create policy "pdf_ocr_paginas_admin" on public.pdf_ocr_paginas for all to authe
 
 grant select on public.pdf_ocr_estado, public.pdf_ocr_paginas to authenticated;
 grant insert, update, delete on public.pdf_ocr_estado, public.pdf_ocr_paginas to authenticated;   -- las políticas de arriba dejan pasar solo al admin
+
+-- ------------------------------------------------------------
+-- Auditoría de la biblioteca (panel admin): qué PDF ya se revisó y con qué resultado, para no repetirlo nunca.
+--   resultado: 'texto' (ya trae texto), 'escaneo' (sin texto: va a OCR) u 'omitido' (no es PDF o Drive no lo dejó leer).
+-- ------------------------------------------------------------
+create table if not exists public.pdf_ocr_auditoria (
+    file_id       text primary key,
+    titulo        text,
+    resultado     text not null check (resultado in ('texto','escaneo','omitido')),
+    total_paginas int,
+    motivo        text,
+    revisado_en   timestamptz not null default now()
+);
+alter table public.pdf_ocr_auditoria enable row level security;
+drop policy if exists "pdf_ocr_auditoria_admin" on public.pdf_ocr_auditoria;
+create policy "pdf_ocr_auditoria_admin" on public.pdf_ocr_auditoria for all to authenticated using (public.is_admin()) with check (public.is_admin());
+grant select, insert, update, delete on public.pdf_ocr_auditoria to authenticated;   -- la política deja pasar solo al admin
