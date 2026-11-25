@@ -93,6 +93,10 @@
     area: '<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" stroke-dasharray="3 2"/><path d="M8 14h8"/></svg>',
     drive: '<svg viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/></svg>',
     ajustar: '<svg viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></svg>',
+    autoancho: '<svg viewBox="0 0 24 24"><path d="M3 5v14M21 5v14M8 12h8M10.5 9l-3 3 3 3M13.5 9l3 3-3 3"/></svg>',
+    doble: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="14" rx="1"/><rect x="13" y="5" width="8" height="14" rx="1"/></svg>',
+    teatro: '<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/></svg>',
+    teatrox: '<svg viewBox="0 0 24 24"><rect x="6" y="7.5" width="12" height="9" rx="1.5"/></svg>',
   };
 
   let S = null;           // sesión de lectura actual
@@ -232,6 +236,22 @@
 .nkpdf-item button{background:none;border:0;color:#94a3b8;cursor:pointer;font-size:.9rem}
 .nkpdf-item button:hover{color:#f87171}
 #nika-inline-viewer-container:fullscreen{width:100vw!important;height:100vh!important;margin:0!important;border-radius:0!important;background:#fff}
+#nika-inline-viewer-container.nkpdf-teatro{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;margin:0!important;border:0!important;border-radius:0!important;z-index:2147482000!important;display:flex!important;flex-direction:column;background:#0f172a}
+#nika-inline-viewer-container.nkpdf-teatro #nika-inline-frame-wrapper{flex:1 1 auto;height:auto!important;min-height:0!important;max-height:none!important}
+html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
+.nkpdf-scroll.doble{display:grid;grid-template-columns:repeat(2,max-content);justify-content:safe center;column-gap:14px;align-content:start;align-items:start}
+.nkpdf-scroll.doble .nk-pg{margin:0 0 14px}
+.nkpdf-scroll.doble.tapa .nk-pg[data-p="1"]{grid-column:2}
+.nkpdf-pomo{gap:7px!important;padding:3px 4px 3px 11px!important}
+.nkpdf-pomo .mp-d{width:9px;height:9px;border-radius:50%;background:#a855f7;box-shadow:0 0 8px #a855f7;flex:none}
+.nkpdf-pomo.descanso .mp-d{background:#34d399;box-shadow:0 0 8px #34d399}.nkpdf-pomo.pausa .mp-d{background:#94a3b8;box-shadow:none}
+.nkpdf-pomo .mp-t{font-variant-numeric:tabular-nums;font-size:.95rem;font-weight:800;color:#fff;letter-spacing:.02em}
+.nkpdf-pomo .mp-f{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#a5b4fc;white-space:nowrap}
+.nkpdf-pomo.descanso .mp-f{color:#6ee7b7}
+.nkpdf-pomo .mp-m{font-size:.64rem;font-weight:800;color:#fcd34d;white-space:nowrap;padding-left:7px;border-left:1px solid rgba(255,255,255,.18)}.nkpdf-pomo .mp-m.ok{color:#6ee7b7}.nkpdf-pomo .mp-m:empty{display:none}
+.nkpdf-bar .nkpdf-pomo .mp-pp{width:28px;height:28px;padding:0;justify-content:center;border-radius:50%;background:rgba(168,85,247,.4);color:#fff}
+.nkpdf-bar .nkpdf-pomo .mp-pp:hover{background:#a855f7}
+.nkpdf-b-compacta .mp-f,.nkpdf-b-minima .mp-f,.nkpdf-b-minima .mp-m{display:none}
 .nkpdf-favs{gap:5px}
 .nkpdf-mas{display:inline-grid!important;place-items:center;font-size:.9rem;font-weight:800;line-height:1;color:#e2e8f0;border:2px dashed rgba(255,255,255,.5)!important;background:transparent!important}
 .nkpdf-mas:hover{background:rgba(255,255,255,.18)!important;border-style:solid!important}
@@ -740,7 +760,10 @@
     a_recta: { t: 'Línea recta', d: 'El Pincel traza una recta perfecta desde donde empezás. Muy útil para subrayar renglones con prolijidad. También funciona manteniendo Mayús.' },
     a_zm: { t: 'Alejar', k: '−', d: 'Reduce el tamaño de la página para ver más contenido.' },
     a_zp: { t: 'Acercar', k: '+', d: 'Agranda la página hasta 800 %: ideal para pantallas 4K, letra chica o marcar con precisión. La imagen se vuelve a dibujar nítida en cada zoom. También con Ctrl + rueda.' },
-    a_ajustar: { t: 'Ajustar al ancho', d: 'Adapta la página al ancho disponible de la pantalla.' },
+    a_ajustar: { t: 'Ajustar al ancho', k: '0', d: 'Adapta la página al ancho disponible de la pantalla.' },
+    a_autoancho: { t: 'Ajuste automático al ancho', d: 'Mientras está activado, la página se adapta sola al ancho cada vez que cambiás el tamaño de la ventana o del panel. Si hacés zoom a mano, se desactiva.' },
+    a_doble: { t: 'Doble página', d: 'Muestra dos páginas lado a lado, como un libro abierto. Funciona en cualquier pantalla (se ve mejor cuanto más ancha). En Preferencias elegís si la primera página va sola, como una tapa.' },
+    a_teatro: { t: 'Modo teatro', d: 'Agranda el lector hasta ocupar toda la ventana, sin pasar a pantalla completa del navegador: ideal con pantalla dividida. Trae un mini Pomodoro y tus notas. Salís con Esc o con el mismo botón.' },
     a_leer: { t: 'Marcar página leída', d: 'Marca o desmarca esta página como leída. También se marca sola cuando te quedás unos segundos en ella. Alimenta tu progreso y el tiempo estimado.' },
     a_eta: { t: 'Tiempo restante', d: 'Cuánto te falta para terminar este PDF según tu ritmo real de lectura. Tocalo para ver el detalle y la hora estimada de fin.' },
     a_notas: { t: 'Notas de lectura', d: 'Abrí un cuaderno al costado para tomar notas mientras leés. Se guardan en Mis notas.' },
@@ -794,7 +817,7 @@
   }
 
   // ============ INTERFAZ: barra compacta o mínima, ocultar, preferencias y barra vertical flotante ============
-  const UI0 = { barra: 'auto', autoOcultar: false, vertical: false, lado: 'izq', pos: null };
+  const UI0 = { barra: 'auto', autoOcultar: false, vertical: false, lado: 'izq', pos: null, autoAncho: false, doble: false, tapa: true };
   function uiPrefs() { try { const u = JSON.parse(localStorage.getItem('nika_pdf_ui') || 'null'); return Object.assign({}, UI0, (u && typeof u === 'object') ? u : {}); } catch (_) { return Object.assign({}, UI0); } }
   function guardarUi(u) { try { localStorage.setItem('nika_pdf_ui', JSON.stringify(u)); } catch (_) {} guardarPrefs(); }
   // Auto: compacta si el lector es chico (notebook 1366×768, ventana angosta); en 1080p y más queda la barra normal
@@ -810,6 +833,14 @@
     c.toggle('nkpdf-con-rail', !!u.vertical);
     if (u.vertical) montarRail(mi); else quitarRail(mi);
     ajustarOculta(mi);
+    // doble página y ajuste automático al ancho
+    const d = !!u.doble, a = !!u.autoAncho;
+    mi.scroll.classList.toggle('doble', d); mi.scroll.classList.toggle('tapa', d && u.tapa !== false);
+    const bd = $('[data-accion="doble"]', mi.root); if (bd) { bd.classList.toggle('on', d); bd.setAttribute('aria-pressed', d); }
+    const ba = $('[data-accion="autoancho"]', mi.root); if (ba) { ba.classList.toggle('on', a); ba.setAttribute('aria-pressed', a); }
+    const cambioD = mi.doble !== undefined ? mi.doble !== d : d, cambioA = mi.autoAncho !== undefined ? (mi.autoAncho !== a && a) : false;
+    mi.doble = d; mi.autoAncho = a;
+    if ((cambioD || cambioA) && mi.pags.length) setTimeout(() => { if (S === mi) ajustarAncho(); }, 0);
   }
   function ajustarOculta(mi) {
     const oc = !!(mi.barraOculta || mi.barraAuto);
@@ -855,6 +886,9 @@
         <small class="pf-n">Auto usa la compacta cuando la pantalla o la ventana es chica. La mínima deja solo íconos.</small>
         <label class="pf-s"><span><b>Ocultar la barra al bajar</b><small>Se esconde mientras leés y vuelve al subir o al acercar el mouse al borde de arriba.</small></span><input type="checkbox" data-k="autoOcultar" ${u.autoOcultar ? 'checked' : ''}><i></i></label>
         <label class="pf-s"><span><b>Barra de herramientas vertical</b><small>Flotante, estilo Adobe: la movés a donde quieras y la barra de arriba queda solo con lo esencial.</small></span><input type="checkbox" data-k="vertical" ${u.vertical ? 'checked' : ''}><i></i></label>
+        <label class="pf-s"><span><b>Doble página</b><small>Dos páginas lado a lado, como un libro abierto. Sirve en cualquier pantalla; se aprovecha más en las anchas.</small></span><input type="checkbox" data-k="doble" ${u.doble ? 'checked' : ''}><i></i></label>
+        ${u.doble ? `<label class="pf-s"><span><b>La primera página va sola</b><small>Como la tapa de un libro: las demás se muestran de a dos (2-3, 4-5…).</small></span><input type="checkbox" data-k="tapa" ${u.tapa !== false ? 'checked' : ''}><i></i></label>` : ''}
+        <label class="pf-s"><span><b>Ajuste automático al ancho</b><small>La página se adapta sola cuando cambia el tamaño de la ventana o del panel. Si hacés zoom a mano, se apaga.</small></span><input type="checkbox" data-k="autoAncho" ${u.autoAncho ? 'checked' : ''}><i></i></label>
         ${u.vertical ? `<div class="pf-t">Lado de la barra vertical</div><div class="pf-seg"><button type="button" class="pf-o${u.lado !== 'der' ? ' on' : ''}" data-l="izq">Izquierda</button><button type="button" class="pf-o${u.lado === 'der' ? ' on' : ''}" data-l="der">Derecha</button></div>` : ''}
         <div class="pf-pie"><button type="button" class="pf-rest">Restablecer</button><button type="button" class="pf-ok">Listo</button></div>`;
     };
@@ -930,6 +964,7 @@
       { t: 'Borrar la marca seleccionada', ic: '🗑', accion: 'supr' }, { t: 'Limpiar marcas…', ic: '🧹', accion: 'limpiar' },
       { t: 'Solo lápiz (tablets)', ic: '✍️', accion: 'lapiz', on: !!S.soloLapiz }, { t: 'Línea recta con el pincel', ic: '📏', accion: 'recta', on: !!S.recta },
       { t: 'Mis subrayados', ic: '☰', accion: 'lista' }, { t: 'Atajos de teclado', ic: '⌨', accion: 'atajos' },
+      { t: 'Modo teatro', ic: '▭', accion: 'teatro', on: enTeatro() }, { t: 'Doble página', ic: '❐', accion: 'doble', on: !!uiPrefs().doble }, { t: 'Ajuste automático al ancho', ic: '⇔', accion: 'autoancho', on: !!uiPrefs().autoAncho },
       { t: 'Ocultar la barra de arriba', ic: '⌃', accion: 'ocultar' }, { t: 'Preferencias del lector', ic: '⚙', accion: 'prefs' },
     ], ancla, 'mas', null);
   }
@@ -1113,8 +1148,19 @@
   }
   function ajustarAncho() {
     if (!S) return;
-    const ancho = Math.max(280, S.scroll.clientWidth - 28);
-    S.escala = Math.max(0.5, Math.min(8, ancho / S.base.w)); reconstruir();
+    const disp = Math.max(200, S.scroll.clientWidth - 28);
+    const ancho = S.doble ? (disp - 14) / 2 : Math.max(280, disp);   // doble página: dos páginas y el espacio entre ambas
+    S.escala = Math.max(S.doble ? 0.25 : 0.5, Math.min(8, ancho / S.base.w)); reconstruir();
+  }
+  // ajuste automático: si cambia el ancho del lector (ventana, panel dividido, modo teatro), la página se readapta sola
+  function iniciarFit(mi) {
+    let tm = null, ult = mi.scroll.clientWidth;
+    mi.fitRO = new ResizeObserver(() => {
+      if (!mi.autoAncho) { ult = mi.scroll.clientWidth; return; }
+      clearTimeout(tm);
+      tm = setTimeout(() => { if (S !== mi || !mi.autoAncho) return; const w = mi.scroll.clientWidth; if (Math.abs(w - ult) > 3) { ult = w; ajustarAncho(); } }, 160);
+    });
+    mi.fitRO.observe(mi.scroll);
   }
 
 
@@ -1368,7 +1414,7 @@
   }
   const ATAJOS = [['↑  ↓', 'Bajar o subir en el documento (con Mayús, más rápido)'], ['Re Pág  Av Pág  Espacio', 'Subir o bajar una pantalla'], ['Inicio  Fin', 'Ir al principio o al final'], ['V', 'Seleccionar'], ['D', 'Definir la palabra seleccionada (diccionario)'], ['G', 'Ir a una página (escribí el número y Enter)'], ['N', 'Mano: mover la página'], ['B', 'Ocultar o mostrar la barra de arriba'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['T', 'Texto sobre el PDF'], ['M', 'Marcador 📌 con nota'], ['1 – 6', 'Tus colores favoritos'], ['[  ]', 'Tamaño del pincel y borrador'],
     ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + F', 'Buscar texto dentro del PDF'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
-    ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
+    ['Esc', 'Cerrar menú / deseleccionar / salir del modo teatro'], ['+  −', 'Acercar / alejar (hasta 800 %)'], ['Ctrl + rueda', 'Zoom con el mouse o el trackpad'], ['0', 'Ajustar al ancho de la pantalla'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
   function atajos() {
     if (!S) return; const ya = $('.nkpdf-atajos', S.root); if (ya) { ya.remove(); return; }
     const d = document.createElement('div'); d.className = 'nkpdf-atajos';
@@ -1456,10 +1502,76 @@
     const on = enPantalla();
     const b = $('[data-accion="fs"]', S.root); if (b) { b.innerHTML = (on ? ICO.fsx : ICO.fs) + `<span class="nkpdf-txt">${on ? 'Salir' : 'Pantalla completa'}</span>`; b.classList.toggle('on', on); }
     const fb = document.getElementById('nika-fs-btn'); if (fb) fb.innerText = on ? 'Restaurar Pantalla' : 'Pantalla Completa';
+    actualizarMini();
     if (reajustar) setTimeout(() => { if (S) ajustarAncho(); }, 250);
+  }
+
+  // ---------- modo teatro (el lector ocupa toda la ventana, sin pantalla completa del navegador) ----------
+  function enTeatro() { const c = contenedor(); return !!(c && c.classList.contains('nkpdf-teatro')); }
+  function teatro(on) {
+    const c = contenedor(); if (!c || !S) return;
+    if (on === undefined) on = !enTeatro();
+    if (on === enTeatro()) return;
+    if (on && enPantalla()) pantalla();
+    c.classList.toggle('nkpdf-teatro', on);
+    document.documentElement.classList.toggle('nkpdf-sin-scroll', on);
+    const b = $('[data-accion="teatro"]', S.root);
+    if (b) { b.innerHTML = (on ? ICO.teatrox : ICO.teatro) + `<span class="nkpdf-txt">${on ? 'Salir del teatro' : 'Teatro'}</span>`; b.classList.toggle('on', on); b.title = on ? 'Salir del modo teatro (Esc)' : 'Modo teatro: el lector ocupa toda la ventana'; }
+    actualizarMini();
+    setTimeout(() => { if (S) ajustarAncho(); }, 220);
+    aviso(on ? 'Modo teatro · salís con Esc o con el botón' : 'Modo teatro desactivado');
+  }
+  // Pomodoro dentro de la barra de arriba del lector: aparece solo cuando está ampliado (teatro o pantalla completa), donde no se ve el del campus
+  const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>', PAUSA = '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
+  function quitarMini() {
+    if (!S) return;
+    if (S._miniOff) { S._miniOff(); S._miniOff = null; }
+    const m = $('.nkpdf-pomo', S.root); if (m) m.remove();
+  }
+  function actualizarMini() {
+    if (!S) return;
+    const quiere = !!(window.PomodoroEngine && (enTeatro() || enPantalla()));
+    const hay = $('.nkpdf-pomo', S.root);
+    if (!quiere) { if (hay) quitarMini(); return; }
+    if (!hay) montarMini();
+  }
+  function montarMini() {
+    const E = window.PomodoroEngine, ref = $('[data-accion="notas"]', S.root), grupo = ref && ref.parentElement; if (!E || !grupo) return;
+    const g = document.createElement('div'); g.className = 'nkpdf-grupo nkpdf-pomo'; g.setAttribute('role', 'timer'); g.setAttribute('aria-label', 'Pomodoro');
+    g.innerHTML = '<span class="mp-d"></span><b class="mp-t">--:--</b><span class="mp-f"></span><span class="mp-m"></span><button type="button" class="mp-pp" aria-label="Iniciar o pausar el Pomodoro"></button>';
+    grupo.parentNode.insertBefore(g, grupo);
+    const pintar = () => {
+      let st; try { st = E.getState(); } catch (_) { return; }
+      const run = st.status === 'running', invitado = !!(st.shared && st.shared.role === 'guest');
+      g.classList.toggle('descanso', st.mode === 'break'); g.classList.toggle('pausa', st.status !== 'running');
+      $('.mp-t', g).textContent = E.formatTime ? E.formatTime(st.remainingSeconds || 0) : '--:--';
+      const fase = (st.mode === 'break' ? 'Descanso' : 'Estudio') + (st.status === 'paused' ? ' · pausa' : st.status === 'idle' ? ' · sin iniciar' : '');
+      $('.mp-f', g).textContent = fase;
+      const tema = st.mode === 'break' ? '' : (E.formatTema ? E.formatTema(st) : '');
+      // meta del día: lo ya acreditado + lo que va de este bloque de estudio
+      let meta = '', cumplida = false;
+      try {
+        const goal = (E.getPrefs && E.getPrefs().goalMin) || 0;
+        if (goal > 0) {
+          let hecho = E.getTodayMinutes ? E.getTodayMinutes() : 0;
+          if (st.mode === 'work' && st.status !== 'idle' && st.durationMin) hecho += Math.max(0, Math.floor((st.durationMin * 60 - (st.remainingSeconds || 0)) / 60));
+          const falta = Math.ceil(goal - hecho); cumplida = falta <= 0;
+          meta = cumplida ? '🎯 Meta cumplida' : 'Meta: faltan ' + (falta >= 60 ? Math.floor(falta / 60) + ' h' + (falta % 60 ? ' ' + (falta % 60) + ' min' : '') : falta + ' min');
+        }
+      } catch (_) {}
+      const mm = $('.mp-m', g); mm.textContent = meta; mm.classList.toggle('ok', cumplida);
+      g.title = 'Pomodoro · ' + fase + (tema ? ' · ' + tema : '') + (meta ? ' · ' + meta : '');
+      const pp = $('.mp-pp', g); pp.innerHTML = run ? PAUSA : PLAY; pp.style.display = invitado ? 'none' : ''; pp.title = run ? 'Pausar' : 'Iniciar';
+    };
+    $('.mp-pp', g).addEventListener('click', () => { try { const st = E.getState(); if (st.shared && st.shared.role === 'guest') return; if (st.status === 'running') E.pause(); else E.start(); } catch (_) {} pintar(); });
+    const off1 = E.on('tick', pintar), off2 = E.on('change', pintar);
+    window.addEventListener('nika:meta-actualizada', pintar);
+    S._miniOff = () => { try { off1(); off2(); } catch (_) {} window.removeEventListener('nika:meta-actualizada', pintar); };
+    pintar();
   }
   function pantalla() {
     const c = contenedor(); if (!c) return;
+    if (enTeatro()) teatro(false);   // teatro y pantalla completa no van juntos
     if (document.fullscreenElement === c) { document.exitFullscreen().catch(() => {}); return; }
     if (c.classList.contains('nkpdf-fsfix')) { quitarFicticia(c); actualizarFs(true); return; }
     if (c.requestFullscreen) c.requestFullscreen().catch(() => ficticia(c)); else ficticia(c);
@@ -1695,6 +1807,8 @@
         <div class="nkpdf-grupo">
           <button data-accion="zm" title="Alejar (−)">−</button><span class="nkpdf-zoom">100%</span><button data-accion="zp" title="Acercar (+)">＋</button>
           <button data-accion="ajustar" title="Ajustar al ancho">${ICO.ajustar}</button>
+          <button data-accion="autoancho" title="Ajuste automático al ancho" aria-pressed="false">${ICO.autoancho}</button>
+          <button data-accion="doble" title="Doble página" aria-pressed="false">${ICO.doble}</button>
         </div>
         <div class="nkpdf-grupo"><span class="nkpdf-pagtxt">pág. <input class="nkpdf-pag" type="number" min="1" max="${mi.n}" value="1" aria-label="Ir a la página"> / ${mi.n}</span>
           <button class="nkpdf-leer" data-accion="leer" title="Marcar esta página como leída">${ICO.ok}<span class="nkpdf-txt">Marcar leída</span></button></div>
@@ -1708,6 +1822,7 @@
           <button data-accion="atajos" title="Atajos de teclado (?)">⌨<span class="nkpdf-txt">Atajos</span></button>
           <button data-accion="prefs" title="Preferencias del lector" aria-haspopup="true">⚙<span class="nkpdf-txt">Preferencias</span></button>
           <button data-accion="ocultar" title="Ocultar la barra (B)">⌃<span class="nkpdf-txt">Ocultar barra</span></button>
+          <button data-accion="teatro" title="Modo teatro: el lector ocupa toda la ventana">${ICO.teatro}<span class="nkpdf-txt">Teatro</span></button>
           <button data-accion="fs" title="Pantalla completa (F)">${ICO.fs}<span class="nkpdf-txt">Pantalla completa</span></button>
         </div>
         <div class="nkpdf-hint"><span>${AYUDA.sel}</span></div>
@@ -1779,7 +1894,7 @@
     let zT = 0; mi.scroll.addEventListener('wheel', (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const t = Date.now(); if (t - zT < 130) return; zT = t; zoom(e.deltaY < 0 ? 1 : -1); }, { passive: false });   // Ctrl + rueda (o pellizco en el trackpad) = zoom
     mi.scroll.addEventListener('scroll', () => { cerrarPop(); const a = paginaActual(); if (a !== mi.actual) { mi.actual = a; mi.segs = 0; actualizarBarra(); guardarProgreso(); } }, { passive: true });
 
-    const zoom = (d) => { const i = ESCALAS.reduce((b, v, k) => (Math.abs(v - mi.escala) < Math.abs(ESCALAS[b] - mi.escala) ? k : b), 0); mi.escala = ESCALAS[Math.max(0, Math.min(ESCALAS.length - 1, i + d))]; reconstruir(); };
+    const zoom = (d) => { const i = ESCALAS.reduce((b, v, k) => (Math.abs(v - mi.escala) < Math.abs(ESCALAS[b] - mi.escala) ? k : b), 0); mi.escala = ESCALAS[Math.max(0, Math.min(ESCALAS.length - 1, i + d))]; if (mi.autoAncho) { const u = uiPrefs(); u.autoAncho = false; guardarUi(u); aplicarUi(mi); aviso('Ajuste automático desactivado: hiciste zoom a mano'); } reconstruir(); };
     root.addEventListener('click', (e) => {
       const b = e.target.closest('[data-modo],[data-color],[data-accion]'); if (!b || S !== mi) return;
       if (b.dataset.modo) { usarGrupo(b.dataset.modo, b); return; }
@@ -1788,6 +1903,9 @@
         case 'zm': zoom(-1); break;
         case 'zp': zoom(1); break;
         case 'ajustar': ajustarAncho(); break;
+        case 'autoancho': { const u = uiPrefs(); u.autoAncho = !u.autoAncho; guardarUi(u); aplicarUi(mi); aviso(u.autoAncho ? 'Ajuste automático al ancho: la página se adapta sola al tamaño de la ventana' : 'Ajuste automático desactivado'); break; }
+        case 'doble': { const u = uiPrefs(); u.doble = !u.doble; guardarUi(u); aplicarUi(mi); aviso(u.doble ? 'Doble página: dos páginas lado a lado' : 'Una página por vez'); break; }
+        case 'teatro': teatro(); break;
         case 'leer': if (mi.leidas.has(mi.actual)) mi.leidas.delete(mi.actual); else mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); break;
         case 'eta': panelEta(b); break;
         case 'paleta': paleta(b); break;
@@ -1823,7 +1941,12 @@
       }
       if (e.altKey) return;
       if (k === 'delete' || k === 'backspace') { if (mi.sel && mi.marcas.includes(mi.sel)) { e.preventDefault(); cerrarPop(); eliminar(mi.sel); } else aviso('Tocá primero una marca para seleccionarla'); return; }
-      if (k === 'escape') { cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove(); return; }
+      if (k === 'escape') {
+        const hubo = !!($('.nkpdf-pop') || $('.nkpdf-atajos', root) || $('.nkpdf-fly', root) || $('.nkpdf-pref', root) || $('.nkpdf-paleta', root) || mi.sel);
+        cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove();
+        if (!hubo && enTeatro()) teatro(false);
+        return;
+      }
       if (k === 'arrowdown' || k === 'arrowup') { e.preventDefault(); const f = e.shiftKey ? 3 : 1; mi.scroll.scrollBy({ top: (k === 'arrowdown' ? 1 : -1) * 70 * f, behavior: e.repeat ? 'auto' : 'smooth' }); return; }
       if (k === 'pagedown' || k === 'pageup' || (k === ' ' && !e.target.closest('button,a,select'))) { e.preventDefault(); const dir = (k === 'pageup' || (k === ' ' && e.shiftKey)) ? -1 : 1; mi.scroll.scrollBy({ top: dir * mi.scroll.clientHeight * 0.9, behavior: 'smooth' }); return; }
       if (k === 'home' || k === 'end') { e.preventDefault(); mi.scroll.scrollTo({ top: k === 'home' ? 0 : mi.scroll.scrollHeight, behavior: 'smooth' }); return; }
@@ -1851,7 +1974,7 @@
       if (mi.segs === 4 && !mi.leidas.has(mi.actual)) { mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); }
     }, 1000);
 
-    marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi);
+    marcarColor(); actualizarBarra(); actualizarFs(); actualizarEta(); iniciarUi(mi); iniciarFit(mi);
     if (window.NikaPdfAnot) window.NikaPdfAnot.cargar(mi);
     if (window.NikaPdfX) { try { window.NikaPdfX.montar(mi); } catch (e) { console.warn('[NikaPdf] extras', e); } }
     if (mi.convertido === 'nuevo') toast('Convertido para el lector ✅ Ya podés subrayar, dibujar y escribir. La próxima vez abre al instante.');
@@ -1869,7 +1992,9 @@
     if (c && c.classList.contains('nkpdf-fsfix')) quitarFicticia(c);
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     if (window.NikaPdfX) { try { window.NikaPdfX.cerrar(S); } catch (_) {} }
-    clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); cerrarFly();
+    if (enTeatro()) { c.classList.remove('nkpdf-teatro'); document.documentElement.classList.remove('nkpdf-sin-scroll'); }
+    quitarMini();
+    clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect(); if (S.uiRO) S.uiRO.disconnect(); if (S.fitRO) S.fitRO.disconnect(); cerrarFly();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
     if (window.NikaDicc) window.NikaDicc.cerrar();
     if (S.tlKey) document.removeEventListener('keydown', S.tlKey);

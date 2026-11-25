@@ -50,19 +50,19 @@
   /* ---------- empaquetado: título + formato dentro de "texto" ---------- */
   function unpack(n) {
     if (typeof n.texto === 'string' && n.texto.indexOf('{"nk":1') === 0) {
-      try { const o = JSON.parse(n.texto); n.titulo = n.titulo || o.t || ''; n.contenido_html = n.contenido_html || o.h || null; n.texto = o.p || ''; n.eliminada_en = o.d || null; n.titulo_estilo = (o.e && typeof o.e === 'object') ? o.e : null; } catch (_) {}
+      try { const o = JSON.parse(n.texto); n.titulo = n.titulo || o.t || ''; n.contenido_html = n.contenido_html || o.h || null; n.texto = o.p || ''; n.eliminada_en = o.d || null; n.titulo_estilo = (o.e && typeof o.e === 'object') ? o.e : null; n._x = (o.x && typeof o.x === 'object') ? o.x : null; } catch (_) {}
     }
     return n;
   }
-  const pack = (n) => JSON.stringify({ nk: 1, t: n.titulo || '', h: n.contenido_html || '', p: n.texto || '', d: n.eliminada_en || '', e: n.titulo_estilo || '' });
-  const necesitaPack = (n) => !!(n.titulo || n.contenido_html || n.eliminada_en || n.titulo_estilo);
+  const pack = (n) => JSON.stringify(Object.assign({ nk: 1, t: n.titulo || '', h: n.contenido_html || '', p: n.texto || '', d: n.eliminada_en || '', e: n.titulo_estilo || '' }, n._x ? { x: n._x } : {}));
+  const necesitaPack = (n) => !!(n.titulo || n.contenido_html || n.eliminada_en || n.titulo_estilo || n._x);
   const DIAS_PAPELERA = 7;
   const vivas = () => todas.filter((n) => !n.eliminada_en);
   const enPapelera = () => todas.filter((n) => n.eliminada_en);
   const diasRestantes = (n) => Math.max(0, Math.ceil(DIAS_PAPELERA - (Date.now() - new Date(n.eliminada_en)) / 86400000));
 
   /* ---------- texto enriquecido: limpieza ---------- */
-  const TAGS = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'S', 'STRIKE', 'DEL', 'SPAN', 'FONT', 'P', 'DIV', 'BR', 'UL', 'OL', 'LI', 'H1', 'H2', 'H3', 'MARK', 'SUB', 'SUP', 'BLOCKQUOTE']);
+  const TAGS = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'S', 'STRIKE', 'DEL', 'SPAN', 'FONT', 'P', 'DIV', 'BR', 'UL', 'OL', 'LI', 'H1', 'H2', 'H3', 'MARK', 'SUB', 'SUP', 'BLOCKQUOTE', 'IMG']);
   const PROPS = new Set(['color', 'background-color', 'background', 'font-family', 'font-size', 'font-weight', 'font-style', 'text-decoration', 'text-decoration-line', 'text-transform', 'text-align']);
   function limpiar(html) {
     const doc = new DOMParser().parseFromString('<div>' + String(html || '') + '</div>', 'text/html');
@@ -70,6 +70,7 @@
     (function rec(n) {
       [...n.childNodes].forEach((h) => {
         if (h.nodeType === 3) return;
+        if (h.nodeType === 1 && h.tagName === 'IMG') { const src = h.getAttribute('src') || ''; if (!/^data:image\/(png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/i.test(src)) { h.remove(); return; } const mw = /(?:^|;)\s*width:\s*([\d.]+)%/.exec(h.getAttribute('style') || ''), iw = mw ? Math.max(5, Math.min(100, parseFloat(mw[1]))) : 0; [...h.attributes].forEach((a) => h.removeAttribute(a.name)); h.setAttribute('src', src); h.setAttribute('style', 'max-width:100%;height:auto' + (iw ? ';width:' + iw + '%' : '')); return; }
         if (h.nodeType !== 1 || !TAGS.has(h.tagName)) { if (h.nodeType === 1 && /^(SCRIPT|STYLE|IFRAME|OBJECT)$/.test(h.tagName)) { h.remove(); return; } rec(h); while (h.firstChild) n.insertBefore(h.firstChild, h); h.remove(); return; }
         [...h.attributes].forEach((a) => {
           if (a.name === 'style') {

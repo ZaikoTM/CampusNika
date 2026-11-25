@@ -1649,7 +1649,7 @@ function cambiarModoVisor(modo) {
 function closeInlineViewer() {
     // salir de la pantalla completa (real o ficticia) antes de cerrar
     try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (_) {}
-    { const cf = document.getElementById('nika-inline-viewer-container'); if (cf) { cf.classList.remove('is-fs', 'nkpdf-fsfix', 'nk-sin-notas', 'nk-con-notas'); } }
+    { const cf = document.getElementById('nika-inline-viewer-container'); if (cf) { cf.classList.remove('is-fs', 'nkpdf-fsfix', 'nkpdf-teatro', 'nk-sin-notas', 'nk-con-notas'); document.documentElement.classList.remove('nkpdf-sin-scroll'); } }
     if (typeof _marcarBotonFs === 'function') _marcarBotonFs(false);
     EstudioState.activeResourceUrl = null;
     document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('active-resource'));

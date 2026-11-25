@@ -28,12 +28,15 @@
   }
   // texto empaquetado igual que Mis notas: {"nk":1,"t":título,"h":html,"p":texto plano,"d":eliminada,"e":estilo del título}
   function leer(n) {
-    let t = '', h = '', p = String(n.texto || ''), d = '', e = '';
-    if (p.indexOf('{"nk":1') === 0) { try { const o = JSON.parse(p); t = o.t || ''; h = o.h || ''; p = o.p || ''; d = o.d || ''; e = o.e || ''; } catch (_) {} }
-    return { t, h, p, d, e };
+    let t = '', h = '', p = String(n.texto || ''), d = '', e = '', x = null;
+    if (p.indexOf('{"nk":1') === 0) { try { const o = JSON.parse(p); t = o.t || ''; h = o.h || ''; p = o.p || ''; d = o.d || ''; e = o.e || ''; x = (o.x && typeof o.x === 'object') ? o.x : null; } catch (_) {} }
+    return { t, h, p, d, e, x };
   }
-  const empaquetar = (o) => JSON.stringify({ nk: 1, t: o.t || '', h: o.h || '', p: o.p || '', d: o.d || '', e: o.e || '' });
+  // x = ajustes extra de las cajas de texto sobre el PDF (tipografía, color, alineación y alto de la caja)
+  const empaquetar = (o) => JSON.stringify(Object.assign({ nk: 1, t: o.t || '', h: o.h || '', p: o.p || '', d: o.d || '', e: o.e || '' }, o.x && Object.keys(o.x).length ? { x: o.x } : {}));
   const aHtml = (txt) => esc(txt).replace(/\n/g, '<br>');
+  const htmlLimpio = (ed) => { const t = ed.innerText.trim(); if (!t && !ed.querySelector('img')) return ''; return window.NikaRich ? window.NikaRich.limpiar(ed.innerHTML) : ''; };
+  const htmlDe = (d) => (d.h && window.NikaRich ? window.NikaRich.limpiar(d.h) : aHtml(d.p));
   const avisarCambio = () => { try { window.dispatchEvent(new CustomEvent('nika:notas-cambiaron')); } catch (_) {} };
 
   function css() {
@@ -65,7 +68,13 @@
 .nkn-hoja .op{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;cursor:pointer;line-height:24px}
 .nkn-titulo,.nkn-texto{width:100%;box-sizing:border-box;border:0;background:transparent;color:#0f172a;font:inherit;outline:0;padding:0;resize:none}
 .nkn-titulo{font-weight:800;font-size:.92rem;line-height:24px;height:24px}
-.nkn-texto{font-size:.86rem;line-height:24px;min-height:96px;height:96px;background-attachment:local}
+.nkn-texto{font-size:.86rem;line-height:24px;min-height:150px;overflow-wrap:anywhere;white-space:pre-wrap;cursor:text;padding-bottom:6px}
+.nkn-texto:empty::before{content:attr(data-ph);color:rgba(15,23,42,.4)}
+.nkn-texto ul,.nkn-texto ol{margin:0;padding-left:22px}.nkn-texto h1,.nkn-texto h2,.nkn-texto h3{margin:0;font-size:1.1em}.nkn-texto blockquote{margin:0 0 0 8px;padding-left:8px;border-left:3px solid rgba(15,23,42,.3)}
+.nkn-hoja .nkr-bar{margin:2px 0 6px;padding:3px 0;border-bottom:1px solid rgba(15,23,42,.14);background:var(--c);position:sticky;top:-6px;z-index:2}
+.nkn-panel.ancha{width:min(620px,94%)}
+.nkn-panel h4 .nkn-an{background:rgba(255,255,255,.1);border-radius:8px;width:28px;height:26px;font-size:.8rem;color:#e2e8f0;margin-right:4px}.nkn-panel h4 .nkn-an:hover{background:#7c3aed}
+.nkn-texto img{max-width:100%;height:auto;border-radius:6px;display:block;margin:4px 0}.nkn-it p img{max-width:100%;max-height:110px;object-fit:cover;border-radius:6px;display:block}.nkn-it p{overflow-wrap:anywhere}.nkn-it p ul,.nkn-it p ol{margin:0;padding-left:18px}
 .nkn-titulo::placeholder,.nkn-texto::placeholder{color:rgba(15,23,42,.4)}
 .nkn-cols{display:flex;gap:7px;align-items:center;padding:2px 0 6px}
 .nkn-col{width:20px;height:20px;border-radius:50%;border:2px solid rgba(15,23,42,.25);cursor:pointer;padding:0;transition:transform .15s}
@@ -89,7 +98,7 @@
 .nkn-it:hover{transform:translateX(-3px)}
 .nkn-it b{font-size:.74rem;color:#475569;display:flex;justify-content:space-between;gap:8px;align-items:center}
 .nkn-it b .acc{display:flex;gap:2px;flex:none}
-.nkn-it p{margin:3px 0 0;font-size:.82rem;line-height:1.35;max-height:4.2em;overflow:hidden}
+.nkn-it p{margin:3px 0 0;font-size:.82rem;line-height:1.35;max-height:9em;overflow:hidden}
 .nkn-it .et{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.nkn-it .et i{font-style:normal;background:rgba(15,23,42,.12);border-radius:999px;padding:1px 8px;font-weight:800;font-size:.66rem;font-family:inherit;color:#334155}
 .nkn-vacio{font-size:.82rem;color:#94a3b8;padding:8px 2px}
 .nkn-it button{border:0;background:none;color:#475569;cursor:pointer;font-size:.85rem;padding:0 3px;transition:transform .15s}.nkn-it button:hover{transform:scale(1.25)}.nkn-it button.del{color:#b91c1c}
@@ -147,7 +156,7 @@
   // ---- interfaz
   function construir(S) {
     const p = document.createElement('aside'); p.className = 'nkn-panel'; p.setAttribute('aria-label', 'Mis notas de este PDF');
-    p.innerHTML = `<h4><span>📒 Mis notas de este PDF</span><span class="nkn-desp"><button type="button" data-n="arriba" aria-label="Subir" title="Subir">▲</button><button type="button" data-n="abajo" aria-label="Bajar" title="Bajar">▼</button></span><button type="button" data-n="cerrar" aria-label="Cerrar">✕</button></h4>
+    p.innerHTML = `<h4><span>📒 Mis notas de este PDF</span><span class="nkn-desp"><button type="button" class="nkn-an" data-n="ancho" aria-label="Ensanchar el panel" title="Ensanchar o angostar el panel">↔</button><button type="button" data-n="arriba" aria-label="Subir" title="Subir">▲</button><button type="button" data-n="abajo" aria-label="Bajar" title="Bajar">▼</button></span><button type="button" data-n="cerrar" aria-label="Cerrar">✕</button></h4>
       <div class="nkn-cuerpo">
         <div class="nkn-hoja">
           <div class="nkn-edit-cab" hidden><span class="nkn-edit-tit">✏️ Editando</span><button type="button" class="mini" data-n="cancelar-edicion">Cancelar</button></div>
@@ -155,7 +164,8 @@
           <div class="nkn-fila nkn-donde"><label class="op"><input type="radio" name="nkn-donde" value="nueva" checked> Nota nueva</label><label class="op"><input type="radio" name="nkn-donde" value="previa"> Sumar a una nota previa</label></div>
           <div class="nkn-previa" hidden><select class="nkn-previas" aria-label="Nota previa"></select></div>
           <input class="nkn-titulo" maxlength="80" placeholder="Título (opcional)">
-          <textarea class="nkn-texto" placeholder="Escribí tu nota acá…"></textarea>
+          ${window.NikaRich ? window.NikaRich.barraHtml({ unidad: 'px' }) : ''}
+          <div class="nkn-texto" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="true" aria-label="Texto de la nota" data-ph="Escribí tu nota acá…"></div>
           <div class="nkn-cols">${Object.keys(COLORES).map((k, i) => `<button type="button" class="nkn-col${i === 0 ? ' on' : ''}" data-color="${k}" title="${k}" style="background:${COLORES[k]}"></button>`).join('')}</div>
           <div class="nkn-etq" aria-label="Etiquetas"></div>
           <div class="nkn-msg" role="status"></div>
@@ -187,13 +197,13 @@
   // modo edición: carga una nota/anotación existente en la hoja
   function editar(S, n) {
     const p = asegurarAbierto(S); if (!p) return;
-    p._edit = n; const d = leer(n);
+    p._edit = n; if (p._aplicarFav) p._aplicarFav(); const d = leer(n);
     p.querySelector('.nkn-hoja').classList.add('edit');
     p.querySelector('.nkn-edit-cab').hidden = false;
     p.querySelector('.nkn-edit-tit').textContent = n.anotacion === 'pin' ? '📌 Editando el marcador' : n.anotacion === 'texto' ? '📝 Editando el texto del PDF' : '✏️ Editando la nota';
     p.querySelector('.nkn-donde').hidden = true; p.querySelector('.nkn-previa').hidden = true;
     p.querySelector('.nkn-pag').value = n.posicion || S.actual || 1;
-    p.querySelector('.nkn-titulo').value = d.t || ''; const tx = p.querySelector('.nkn-texto'); tx.value = d.p || '';
+    p.querySelector('.nkn-titulo').value = d.t || ''; const tx = p.querySelector('.nkn-texto'); tx.innerHTML = htmlDe(d);
     p._color = n.color || 'amarillo'; p._etiq = (n.etiquetas || []).slice(); p._pintarFormulario();
     p.querySelector('[data-n=guardar]').textContent = '💾 Guardar cambios';
     setTimeout(() => tx.focus(), 60);
@@ -211,7 +221,7 @@
     visibles.sort((a, b) => (a.posicion || 0) - (b.posicion || 0)).forEach((n) => {
       const d = leer(n), it = document.createElement('div'); it.className = 'nkn-it' + (n.anotacion === 'pin' ? ' pin' : n.anotacion === 'texto' ? ' txt' : ''); it.style.setProperty('--c', COLORES[n.color] || COLORES.amarillo);
       const ico = n.anotacion === 'pin' ? '📌' : n.anotacion === 'texto' ? '📝' : '📄';
-      it.innerHTML = '<b><span>' + ico + ' Pág. ' + esc(n.posicion || '?') + (d.t ? ' · ' + esc(d.t) : '') + '</span><span class="acc"><button type="button" data-a="editar" title="Editar">✏️</button><button type="button" data-a="compartir" title="Compartir con un amigo">📤</button><button type="button" class="del" data-a="borrar" aria-label="Borrar nota" title="Borrar">🗑</button></span></b><p>' + (esc(d.p) || '<i style="opacity:.6">(sin texto)</i>') + '</p>'
+      it.innerHTML = '<b><span>' + ico + ' Pág. ' + esc(n.posicion || '?') + (d.t ? ' · ' + esc(d.t) : '') + '</span><span class="acc"><button type="button" data-a="editar" title="Editar">✏️</button><button type="button" data-a="compartir" title="Compartir con un amigo">📤</button><button type="button" class="del" data-a="borrar" aria-label="Borrar nota" title="Borrar">🗑</button></span></b><p>' + ((d.h || d.p) ? htmlDe(d) : '<i style="opacity:.6">(sin texto)</i>') + '</p>'
         + ((n.etiquetas || []).length ? '<div class="et">' + n.etiquetas.map((e) => '<i>#' + esc(e) + '</i>').join('') + '</div>' : '');
       it.addEventListener('click', (e) => {
         const bt = e.target.closest('button'); const a = bt && bt.dataset.a;
@@ -235,14 +245,27 @@
     const $ = (s) => p.querySelector(s);
     const msg = (t, err) => { const m = $('.nkn-msg'); m.textContent = t; m.classList.toggle('err', !!err); if (t) setTimeout(() => { if (m.textContent === t) m.textContent = ''; }, 4000); };
     p._color = 'amarillo'; p._etiq = [];
+    if (window.NikaRich) window.NikaRich.enlazar($('.nkr-bar'), $('.nkn-texto'), { unidad: 'px' });
+    // estilo favorito (letra y color): las notas nuevas arrancan con él; al editar una nota existente no se toca
+    p._aplicarFav = () => { const e = $('.nkn-texto'), f = !p._edit && window.NikaRich && window.NikaRich.favorito(); e.style.fontFamily = f && f.f ? f.f : ''; e.style.color = f && f.c ? f.c : ''; };
+    p._aplicarFav(); p.addEventListener('focusin', () => p._aplicarFav());
+    // Ctrl+V con una imagen copiada: va a la nota aunque el cursor no esté dentro del texto
+    const pegarGlobal = (e) => {
+      if (!document.body.contains(p)) { document.removeEventListener('paste', pegarGlobal, true); return; }
+      if (!p.classList.contains('on')) return; const t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      const fs = [...((e.clipboardData && e.clipboardData.items) || [])].filter((i) => i.kind === 'file' && /^image\//.test(i.type)).map((i) => i.getAsFile()).filter(Boolean);
+      const ed = $('.nkn-texto'); if (!fs.length || !ed || !ed._rich) return; e.preventDefault(); ed.focus(); ed._rich.insertarImagenes(fs);
+    };
+    document.addEventListener('paste', pegarGlobal, true);
+    try { if (localStorage.getItem('nika_pdf_notas_ancha') === '1') p.classList.add('ancha'); } catch (_) {}
     p._pintarFormulario = () => {
       $('.nkn-hoja').style.setProperty('--c', COLORES[p._color]); p.querySelectorAll('.nkn-col').forEach((b) => b.classList.toggle('on', b.dataset.color === p._color));
       const base = Array.from(new Set(ETIQ_BASE.concat(p._etiq)));
       $('.nkn-etq').innerHTML = base.map((e) => '<button type="button" class="nkn-chip' + (p._etiq.includes(e) ? ' on' : '') + '" data-etq="' + esc(e) + '">#' + esc(e) + '</button>').join('') + '<input type="text" maxlength="24" placeholder="+ etiqueta" aria-label="Nueva etiqueta">';
     };
     const salirEdicion = () => {
-      p._edit = null; $('.nkn-hoja').classList.remove('edit'); $('.nkn-edit-cab').hidden = true; $('.nkn-donde').hidden = false;
-      $('.nkn-texto').value = ''; $('.nkn-titulo').value = ''; p._color = 'amarillo'; p._etiq = []; p._pintarFormulario(); $('[data-n=guardar]').textContent = '💾 Guardar nota';
+      p._edit = null; p._aplicarFav(); $('.nkn-hoja').classList.remove('edit'); $('.nkn-edit-cab').hidden = true; $('.nkn-donde').hidden = false;
+      $('.nkn-texto').innerHTML = ''; $('.nkn-titulo').value = ''; p._color = 'amarillo'; p._etiq = []; p._pintarFormulario(); $('[data-n=guardar]').textContent = '💾 Guardar nota';
       $('.nkn-pag').value = S.actual || 1;
     };
     p._pintarFormulario();
@@ -253,35 +276,37 @@
       if (b.dataset.color) { p._color = b.dataset.color; p._pintarFormulario(); return; }
       if (b.dataset.n === 'arriba' || b.dataset.n === 'abajo') { const c = p.querySelector('.nkn-cuerpo'); c.scrollBy({ top: (b.dataset.n === 'abajo' ? 1 : -1) * Math.max(140, c.clientHeight * 0.8), behavior: 'smooth' }); return; }
       if (b.dataset.n === 'cerrar') { abrir(S); return; }
+      if (b.dataset.n === 'ancho') { const on = p.classList.toggle('ancha'); try { localStorage.setItem('nika_pdf_notas_ancha', on ? '1' : '0'); } catch (_) {} return; }
       if (b.dataset.n === 'cancelar-edicion') { salirEdicion(); return; }
       if (b.dataset.n === 'actual') { $('.nkn-pag').value = S.actual || 1; return; }
       if (b.dataset.n === 'guardar') {
         const pag = Math.max(1, Math.min(S.n || 9999, parseInt($('.nkn-pag').value, 10) || S.actual || 1));
-        const titulo = $('.nkn-titulo').value.trim(), texto = $('.nkn-texto').value.trim();
+        const titulo = $('.nkn-titulo').value.trim(), edTx = $('.nkn-texto'), texto = edTx.innerText.replace(/\n{3,}/g, '\n\n').trim();
+        let html = htmlLimpio(edTx); if (html && !p._edit && window.NikaRich) html = window.NikaRich.conFavorito(html);
         const edit = p._edit;
-        if (!texto && !(edit && edit.anotacion === 'pin')) { msg('Escribí la nota antes de guardarla.', true); return; }
+        if (!texto && !html && !(edit && edit.anotacion === 'pin')) { msg('Escribí la nota antes de guardarla.', true); return; }
         const donde = (p.querySelector('input[name="nkn-donde"]:checked') || {}).value;
         b.disabled = true;
         try {
           if (edit) {
             const d = leer(edit);
-            const ok = await actualizar(edit, { posicion: pag, texto: empaquetar({ t: titulo, h: d.h && !d.p ? d.h : '', p: texto, d: '', e: d.e }), color: p._color, etiquetas: p._etiq.slice() });
+            const ok = await actualizar(edit, { posicion: pag, texto: empaquetar({ t: titulo, h: html, p: texto, d: '', e: d.e, x: d.x }), color: p._color, etiquetas: p._etiq.slice() });
             if (!ok) { msg('No se pudo guardar los cambios.', true); return; }
             msg('Cambios guardados ✓'); salirEdicion();
           } else if (donde === 'previa') {
             const id = $('.nkn-previas').value; const n = (p._previas || []).find((x) => String(x.id) === id);
             if (!n) { msg('Elegí la nota a la que querés sumar esto.', true); return; }
             const d = leer(n);
-            d.h = (d.h || aHtml(d.p)) + '<p><b>📄 Pág. ' + pag + (S.title ? ' · ' + esc(S.title) : '') + (titulo ? ' · ' + esc(titulo) : '') + '</b><br>' + aHtml(texto) + '</p>';
+            d.h = (d.h ? htmlDe(d) : aHtml(d.p)) + '<p><b>📄 Pág. ' + pag + (S.title ? ' · ' + esc(S.title) : '') + (titulo ? ' · ' + esc(titulo) : '') + '</b><br>' + (html || aHtml(texto)) + '</p>';
             d.p = (d.p ? d.p + '\n\n' : '') + 'Pág. ' + pag + (titulo ? ' · ' + titulo : '') + ': ' + texto;
             const ok = await actualizarTexto(n, empaquetar(d));
             if (!ok) { msg('No se pudo sumar a la nota previa.', true); return; }
             msg('Sumada a tu nota ✓');
           } else {
             await insertar({ recurso: 'pdf:' + S.fileId, recurso_titulo: S.title || null, modulo: modulo(), up_id: upActual(), tipo: 'material', posicion: pag,
-              texto: empaquetar({ t: titulo, h: '', p: texto, d: '', e: '' }), color: p._color, etiquetas: p._etiq.slice(), creado_en: new Date().toISOString() });
+              texto: empaquetar({ t: titulo, h: html, p: texto, d: '', e: '' }), color: p._color, etiquetas: p._etiq.slice(), creado_en: new Date().toISOString() });
             msg('Nota guardada ✓ · la encontrás también en “Mis notas”');
-            $('.nkn-texto').value = ''; $('.nkn-titulo').value = ''; p._etiq = []; p._pintarFormulario();
+            $('.nkn-texto').innerHTML = ''; $('.nkn-titulo').value = ''; p._etiq = []; p._pintarFormulario();
           }
           if (window.NikaPdfAnot) window.NikaPdfAnot.recargar(S);
           await refrescarListas(S, p);

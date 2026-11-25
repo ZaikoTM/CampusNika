@@ -19,18 +19,27 @@
     const st = document.createElement('style'); st.id = 'nkan-css';
     st.textContent = `
 .nk-an{position:absolute;inset:0;z-index:4;pointer-events:none}
-.nk-at{--c:#fde68a;position:absolute;min-width:60px;pointer-events:auto;border-radius:8px;background:color-mix(in srgb,var(--c) 92%,#fff);color:#1e293b;box-shadow:0 6px 16px -6px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:600;line-height:1.3;animation:nkanEntra .35s cubic-bezier(.2,.9,.3,1.3) both;touch-action:none}
+.nk-at{--c:#fde68a;position:absolute;min-width:60px;pointer-events:auto;border-radius:8px;background:color-mix(in srgb,var(--c) 92%,#fff);color:#1e293b;box-shadow:0 6px 16px -6px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;line-height:1.3;animation:nkanEntra .35s cubic-bezier(.2,.9,.3,1.3) both;touch-action:none}
 .nk-at.sel{box-shadow:0 0 0 2px #7c3aed,0 10px 22px -8px rgba(15,23,42,.6)}
 .nk-at.flash{animation:nkanFlash 1.4s ease}
+.nk-at.fijo{display:flex;flex-direction:column}.nk-at.fijo .nk-at-txt{flex:1;min-height:0;overflow:auto}
 .nk-at-txt{padding:5px 9px 6px 20px;min-height:1.3em;outline:0;white-space:pre-wrap;word-break:break-word;cursor:text;touch-action:auto}
+.nk-at-txt img{max-width:100%;height:auto;display:block;border-radius:4px}.nk-at-txt ul,.nk-at-txt ol{margin:0;padding-left:1.3em}.nk-at-txt h1,.nk-at-txt h2,.nk-at-txt h3{margin:0;font-size:1.15em}
+.nk-at-asat{position:absolute;left:17px;right:0;top:0;height:7px;cursor:grab;touch-action:none;border-radius:8px 8px 0 0}
+.nk-at:hover .nk-at-asat,.nk-at.sel .nk-at-asat{background:rgba(15,23,42,.1)}.nk-at-asat:active{cursor:grabbing}
+.nk-at-rd{position:absolute;right:-4px;top:12px;bottom:12px;width:9px;cursor:ew-resize;touch-action:none}
+.nk-at-rb{position:absolute;left:20px;right:12px;bottom:-4px;height:9px;cursor:ns-resize;touch-action:none}
 .nk-at-txt:empty::before{content:attr(data-ph);color:rgba(15,23,42,.45)}
 .nk-at-asa{position:absolute;left:0;top:0;bottom:0;width:17px;display:flex;align-items:center;justify-content:center;font-size:.8em;color:rgba(15,23,42,.45);cursor:grab;border-radius:8px 0 0 8px;touch-action:none;user-select:none;-webkit-user-select:none}
 .nk-at-asa:hover{background:rgba(15,23,42,.08);color:#0f172a}.nk-at-asa:active{cursor:grabbing}
-.nk-at-res{position:absolute;right:-5px;bottom:-5px;width:14px;height:14px;border-radius:50%;background:#7c3aed;border:2px solid #fff;cursor:ew-resize;opacity:0;transition:opacity .15s;touch-action:none}
+.nk-at-res{position:absolute;right:-6px;bottom:-6px;width:16px;height:16px;border-radius:50%;background:#7c3aed;border:2px solid #fff;cursor:nwse-resize;opacity:0;transition:opacity .15s;touch-action:none}
 .nk-at:hover .nk-at-res,.nk-at.sel .nk-at-res{opacity:1}
 .nk-at-etq{display:flex;flex-wrap:wrap;gap:3px;padding:0 8px 5px 20px}.nk-at-etq i{font-style:normal;font-weight:800;font-size:.6em;font-family:inherit;background:rgba(15,23,42,.12);border-radius:999px;padding:0 7px;color:#334155}
-.nk-at-bar{position:absolute;left:0;bottom:calc(100% + 8px);display:flex;gap:3px;align-items:center;padding:4px;border-radius:12px;background:#0f172a;box-shadow:0 12px 26px rgba(0,0,0,.45);white-space:nowrap;font-size:14px;animation:nkanEntra .2s ease both;z-index:2}
-.nk-at-bar.abajo{bottom:auto;top:calc(100% + 8px)}
+.nk-at-bar{position:absolute;left:0;bottom:calc(100% + 8px);display:flex;flex-direction:column;gap:4px;align-items:flex-start;width:max-content;max-width:min(440px,86vw);cursor:default;font-weight:600;line-height:1.2;text-align:left;color:#e2e8f0;padding:5px;border-radius:12px;background:#0f172a;box-shadow:0 12px 26px rgba(0,0,0,.45);white-space:nowrap;font-size:14px;animation:nkanEntra .2s ease both;z-index:2}
+.nk-at-bar.abajo{bottom:auto;top:calc(100% + 8px)}.nk-at-bar.der{left:auto;right:0}
+.nk-at-bar .r1{display:flex;gap:3px;align-items:center;flex-wrap:wrap}
+.nk-at-bar .nkr-bar button{background:transparent;color:#e2e8f0}
+.nk-at-bar .nkr-bar button:hover{background:#1e293b}.nk-at-bar .nkr-bar button.on{background:#7c3aed;color:#fff}.nk-at-bar .nkr-sep{background:#475569}
 .nk-at-bar button{border:0;background:transparent;color:#e2e8f0;border-radius:8px;min-width:30px;height:30px;padding:0 6px;cursor:pointer;font-weight:800;font-size:13px;font-family:inherit;transition:background .15s,transform .15s}
 .nk-at-bar button:hover{background:#1e293b;transform:translateY(-1px)}.nk-at-bar button:active{transform:scale(.92)}
 .nk-at-bar .c{width:18px;height:18px;min-width:18px;border-radius:50%;border:2px solid rgba(255,255,255,.35);padding:0}.nk-at-bar .c.on{border-color:#fff}
@@ -46,9 +55,10 @@
 .nk-pin .aro{position:absolute;left:50%;bottom:-3px;width:10px;height:6px;margin-left:-5px;border-radius:50%;background:var(--c,#ef4444);opacity:.0}
 .nk-pin.sel .aro,.nk-pin.flash .aro{opacity:.85;animation:nkPinOnda 1.2s ease-out infinite}
 .nk-pin.flash .ico{animation:nkPinSalto .9s ease 2}
-.nk-pin .tip{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%) scale(.9);opacity:0;pointer-events:none;background:#0f172a;color:#fff;border-radius:10px;padding:6px 10px;width:max-content;max-width:210px;font:600 12px/1.35 'Plus Jakarta Sans',system-ui,sans-serif;box-shadow:0 10px 22px rgba(0,0,0,.4);transition:opacity .18s,transform .18s;white-space:normal;text-align:left}
+.nk-pin .tip{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%) scale(.9);opacity:0;pointer-events:none;background:#fffdf2;color:#1e293b;border:2px solid var(--c,#f59e0b);border-radius:10px;padding:7px 11px;width:max-content;min-width:120px;max-width:320px;z-index:5;font:600 13px/1.4 'Plus Jakarta Sans',system-ui,sans-serif;box-shadow:0 10px 22px rgba(0,0,0,.4);transition:opacity .18s,transform .18s;white-space:normal;text-align:left}
 .nk-pin:hover .tip,.nk-pin:focus-visible .tip{opacity:1;transform:translateX(-50%) scale(1)}
-.nk-pin .tip i{display:block;font-style:normal;color:#c4b5fd;font-size:11px;margin-top:2px}
+.nk-pin .tip i.et{display:block;font-style:normal;color:#6d28d9;font-size:11px;margin-top:3px}.nk-pin .tip b.t{display:block;margin-bottom:2px}
+.nk-pin .tip .tb img{max-width:100%;max-height:170px;border-radius:6px;display:block}.nk-pin .tip .tb{display:block;max-height:260px;overflow:hidden;word-break:break-word;white-space:normal}.nk-pin .tip .tb ul,.nk-pin .tip .tb ol{margin:0;padding-left:18px}
 .nk-pin .pt{position:absolute;right:-2px;top:-2px;width:9px;height:9px;border-radius:50%;background:var(--c,#ef4444);border:2px solid #fff}
 @keyframes nkanEntra{from{opacity:0;transform:translateY(6px) scale(.96)}to{opacity:1;transform:none}}
 @keyframes nkanFlash{0%,100%{box-shadow:0 0 0 2px #7c3aed}30%,70%{box-shadow:0 0 0 8px rgba(124,58,237,.35)}}
@@ -98,29 +108,38 @@
     const b = el.querySelector('.nk-at-bar'); if (b) b.remove(); const p = el.querySelector('.nk-at-etqpop'); if (p) p.remove();
     seleccionada = null;
   }
-  document.addEventListener('pointerdown', (e) => { if (seleccionada && !seleccionada.el.contains(e.target)) deseleccionar(); }, true);
+  document.addEventListener('pointerdown', (e) => { if (seleccionada && !seleccionada.el.contains(e.target) && !(e.target.closest && e.target.closest('.nkr-pop, .nkr-ov'))) deseleccionar(); }, true);
 
   // ---- texto
   function elTexto(S, a, pg) {
     const api = N(), d = api.leer(a);
-    const el = document.createElement('div'); el.className = 'nk-at'; el.dataset.id = a.id;
-    el.style.cssText = `left:${num(a.pos_x, .1) * 100}%;top:${num(a.pos_y, .1) * 100}%;width:${num(a.ancho, .28) * 100}%;--c:${NCOL[aColorNota(a.color)]};font-size:calc(var(--u) * ${num(a.tam, 1)})`;
-    el.innerHTML = '<div class="nk-at-asa" title="Mover" aria-label="Mover">⠿</div><div class="nk-at-txt" contenteditable="true" spellcheck="false" data-ph="Escribí acá…" role="textbox" aria-label="Texto sobre el PDF"></div><i class="nk-at-res" title="Cambiar el ancho"></i><div class="nk-at-etq"></div>';
-    const tx = el.querySelector('.nk-at-txt'); tx.textContent = d.p;
+    const X = Object.assign({}, d.x || {});          // tipografía, color, alineación y alto de la caja
+    const el = document.createElement('div'); el.className = 'nk-at' + (X.al ? ' fijo' : ''); el.dataset.id = a.id;
+    el.style.cssText = `left:${num(a.pos_x, .1) * 100}%;top:${num(a.pos_y, .1) * 100}%;width:${num(a.ancho, .28) * 100}%;${X.al ? 'height:' + X.al * 100 + '%;' : ''}--c:${NCOL[aColorNota(a.color)]};font-size:calc(var(--u) * ${num(a.tam, 1)})`;
+    el.innerHTML = '<div class="nk-at-asa" title="Mover" aria-label="Mover">⠿</div><div class="nk-at-asat" title="Arrastrá para mover"></div><div class="nk-at-txt" contenteditable="true" spellcheck="false" data-ph="Escribí acá…" role="textbox" aria-label="Texto sobre el PDF"></div><i class="nk-at-res" title="Arrastrá para cambiar el tamaño de la caja"></i><i class="nk-at-rd" title="Cambiar el ancho"></i><i class="nk-at-rb" title="Cambiar el alto"></i><div class="nk-at-etq"></div>';
+    const tx = el.querySelector('.nk-at-txt'); tx.dataset.rich = '1';
+    const R = window.NikaRich;
+    tx.innerHTML = d.h && R ? R.limpiar(d.h) : (R ? R.aHtml(d.p) : esc(d.p));
+    if (X.f) tx.style.fontFamily = X.f;
+    if (X.c) tx.style.color = X.c;
+    if (X.ta) tx.style.textAlign = X.ta;
+    el._X = X;
     pintarEtq(el, a);
     el.addEventListener('pointerdown', (e) => { e.stopPropagation(); seleccionar(S, a, el, pg); });
     el.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') tx.blur(); });
     let t = null;
-    tx.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => api.actualizar(a, { texto: api.empaquetar({ t: d.t, p: tx.innerText.replace(/\n$/, ''), d: '', h: '' }) }).then(() => api.refrescar(S)), 600); });
+    const empaq = () => api.empaquetar({ t: d.t, p: tx.innerText.replace(/\n$/, ''), h: R ? R.limpiar(tx.innerHTML) : '', d: '', x: el._X });
+    el._guardarTexto = () => api.actualizar(a, { texto: empaq() }).then(() => api.refrescar(S));
+    tx.addEventListener('input', () => { clearTimeout(t); t = setTimeout(el._guardarTexto, 600); });
     tx.addEventListener('blur', () => {
       clearTimeout(t);
       setTimeout(async () => {
-        const txt = tx.innerText.replace(/\n$/, '');
-        if (!txt.trim()) { if (document.activeElement && el.contains(document.activeElement)) return; await api.borrar(a); S.anots = lista(S).filter((x) => x !== a); el.remove(); deseleccionar(); api.refrescar(S); return; }
-        await api.actualizar(a, { texto: api.empaquetar({ t: d.t, p: txt, d: '', h: '' }) }); api.refrescar(S);
+        if (!tx.innerText.trim() && !tx.querySelector('img')) { if (document.activeElement && el.contains(document.activeElement)) return; await api.borrar(a); S.anots = lista(S).filter((x) => x !== a); el.remove(); deseleccionar(); api.refrescar(S); return; }
+        await el._guardarTexto();
       }, 160);
     });
     mover(S, a, el, pg, el.querySelector('.nk-at-asa'));
+    mover(S, a, el, pg, el.querySelector('.nk-at-asat'));
     redimensionar(S, a, el, pg);
     return el;
   }
@@ -130,15 +149,27 @@
     if (seleccionada && seleccionada.el === el) return;
     deseleccionar(); el.classList.add('sel'); seleccionada = { S, a, el };
     const bar = document.createElement('div'); bar.className = 'nk-at-bar';
+    const R = window.NikaRich;
     const cols = Object.keys(NCOL).map((k) => `<button type="button" class="c${aColorNota(a.color) === k ? ' on' : ''}" data-c="${k}" title="${k}" style="background:${NCOL[k]}"></button>`).join('');
-    bar.innerHTML = `<button type="button" data-x="menos" title="Letra más chica">A−</button><button type="button" data-x="mas" title="Letra más grande">A+</button><span class="sep"></span>${cols}<span class="sep"></span><button type="button" data-x="etq" title="Etiquetas">🏷</button><button type="button" data-x="compartir" title="Compartir con un amigo">📤</button><button type="button" data-x="borrar" title="Borrar">🗑</button>`;
-    if (parseFloat(el.style.top) < 9) bar.classList.add('abajo');
-    bar.addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); });
+    bar.innerHTML = `<div class="r1"><button type="button" data-x="menos" title="Achicar todo el texto de la caja">A−</button><button type="button" data-x="mas" title="Agrandar todo el texto de la caja">A+</button><button type="button" data-x="auto" title="Ajustar el alto de la caja al texto">⇕</button><span class="sep"></span>${cols}<span class="sep"></span><button type="button" data-x="etq" title="Etiquetas">🏷</button><button type="button" data-x="compartir" title="Compartir con un amigo">📤</button><button type="button" data-x="borrar" title="Borrar">🗑</button></div>${R ? R.barraHtml({ unidad: 'em' }) : ''}`;
+    if (parseFloat(el.style.top) < 12) bar.classList.add('abajo');
+    if (parseFloat(el.style.left) > 45) bar.classList.add('der');
+    bar.addEventListener('pointerdown', (e) => { e.stopPropagation(); if (!e.target.closest('select, input')) e.preventDefault(); });
+    if (R) {
+      const tx = el.querySelector('.nk-at-txt'), X = el._X;
+      R.enlazar(bar.querySelector('.nkr-bar'), tx, { unidad: 'em', caja: {
+        fuente: (v) => { X.f = v; tx.style.fontFamily = v; },
+        color: (v) => { X.c = v; tx.style.color = v; },
+        alinear: (v) => { X.ta = v; tx.style.textAlign = v; },
+        tam: (v) => { a.tam = +v.toFixed(2); el.style.fontSize = `calc(var(--u) * ${a.tam})`; N().actualizar(a, { tam: a.tam }); }
+      }, alCambiar: (ed, escribiendo) => { if (!escribiendo) el._guardarTexto(); } });
+    }
     bar.addEventListener('click', async (e) => {
       const b = e.target.closest('button'); if (!b) return; const api = N();
       if (b.dataset.c) { await api.actualizar(a, { color: b.dataset.c }); el.style.setProperty('--c', NCOL[b.dataset.c]); bar.querySelectorAll('.c').forEach((x) => x.classList.toggle('on', x === b)); api.refrescar(S); return; }
       const x = b.dataset.x;
       if (x === 'mas' || x === 'menos') { const t = Math.max(.5, Math.min(3, +(num(a.tam, 1) + (x === 'mas' ? .15 : -.15)).toFixed(2))); await api.actualizar(a, { tam: t }); el.style.fontSize = `calc(var(--u) * ${t})`; }
+      else if (x === 'auto') { delete el._X.al; el.classList.remove('fijo'); el.style.height = ''; el._guardarTexto(); }
       else if (x === 'borrar') { if (confirm('¿Borrar este texto?')) { await api.borrar(a); S.anots = lista(S).filter((z) => z !== a); el.remove(); seleccionada = null; api.refrescar(S); } }
       else if (x === 'compartir') compartir(S, a);
       else if (x === 'etq') popEtiquetas(S, a, el, bar);
@@ -177,15 +208,18 @@
     });
   }
   function redimensionar(S, a, el, pg) {
-    const h = el.querySelector('.nk-at-res');
-    h.addEventListener('pointerdown', (e) => {
+    const enlaza = (h, dx, dy) => h.addEventListener('pointerdown', (e) => {
       if (e.button) return; e.preventDefault(); e.stopPropagation();
-      const b = pg.el.getBoundingClientRect(); const x0 = e.clientX, w0 = num(a.ancho, .28);
+      const b = pg.el.getBoundingClientRect(); const x0 = e.clientX, y0 = e.clientY, w0 = num(a.ancho, .28), h0 = el.getBoundingClientRect().height / b.height;
       h.setPointerCapture && h.setPointerCapture(e.pointerId);
-      const mv = (ev) => { a.ancho = Math.max(.08, Math.min(.95 - num(a.pos_x, .1), w0 + (ev.clientX - x0) / b.width)); el.style.width = a.ancho * 100 + '%'; };
-      const fin = async () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin); await N().actualizar(a, { ancho: +a.ancho.toFixed(4) }); };
+      const mv = (ev) => {
+        if (dx) { a.ancho = Math.max(.08, Math.min(.99 - num(a.pos_x, .1), w0 + (ev.clientX - x0) / b.width)); el.style.width = a.ancho * 100 + '%'; }
+        if (dy) { const al = Math.max(.035, Math.min(.99 - num(a.pos_y, .1), h0 + (ev.clientY - y0) / b.height)); el._X.al = +al.toFixed(4); el.classList.add('fijo'); el.style.height = al * 100 + '%'; }
+      };
+      const fin = async () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin); await N().actualizar(a, { ancho: +num(a.ancho, .28).toFixed(4) }); if (dy && el._guardarTexto) el._guardarTexto(); };
       window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
     });
+    enlaza(el.querySelector('.nk-at-res'), 1, 1); enlaza(el.querySelector('.nk-at-rd'), 1, 0); enlaza(el.querySelector('.nk-at-rb'), 0, 1);
   }
 
   // ---- marcador 📌
@@ -194,7 +228,8 @@
     const el = document.createElement('button'); el.type = 'button'; el.className = 'nk-pin'; el.dataset.id = a.id;
     el.style.cssText = `left:${num(a.pos_x, .5) * 100}%;top:${num(a.pos_y, .5) * 100}%;--c:${{ amarillo: '#f59e0b', rosa: '#ec4899', celeste: '#0ea5e9', verde: '#22c55e', naranja: '#f97316', lila: '#8b5cf6' }[aColorNota(a.color)]}`;
     const resumen = (d.t ? d.t + ' · ' : '') + (d.p || '').replace(/\s+/g, ' ').slice(0, 90);
-    el.innerHTML = `<span class="ico">📌</span><i class="aro"></i><span class="pt"></span><span class="tip">${esc(resumen || 'Marcador sin texto: tocá para escribir')}${(a.etiquetas || []).length ? '<i>' + a.etiquetas.map((e) => '#' + esc(e)).join(' ') + '</i>' : ''}</span>`;
+    const R = window.NikaRich, cuerpo = d.h && R ? R.limpiar(d.h) : (d.p ? (R ? R.aHtml(d.p) : esc(d.p)) : '');
+    el.innerHTML = `<span class="ico">📌</span><i class="aro"></i><span class="pt"></span><span class="tip">${d.t ? '<b class="t">' + esc(d.t) + '</b>' : ''}<span class="tb">${cuerpo || 'Marcador sin texto: tocá para escribir'}</span>${(a.etiquetas || []).length ? '<i class="et">' + a.etiquetas.map((e) => '#' + esc(e)).join(' ') + '</i>' : ''}</span>`;
     el.setAttribute('aria-label', 'Marcador: ' + (resumen || 'sin texto'));
     el.addEventListener('pointerdown', (e) => e.stopPropagation());
     el.addEventListener('click', (e) => { e.stopPropagation(); if (el._movio) return; abrirPin(S, a, el); });
@@ -215,7 +250,7 @@
     const x = Math.max(.01, Math.min(.95, (e.clientX - b.left) / b.width)), y = Math.max(.01, Math.min(.97, (e.clientY - b.top) / b.height));
     const color = aColorNota(S.color === 'azul' ? 'celeste' : S.color);
     const fila = { recurso: 'pdf:' + S.fileId, recurso_titulo: S.title || null, modulo: api.modulo(), up_id: api.upActual(), tipo: 'material', posicion: pg.num,
-      texto: api.empaquetar({ p: '' }), color, anotacion: tipo, pos_x: +x.toFixed(4), pos_y: +y.toFixed(4), ancho: tipo === 'texto' ? .28 : null, tam: 1, etiquetas: [], creado_en: new Date().toISOString() };
+      texto: api.empaquetar({ p: '', x: (tipo === 'texto' && window.NikaRich && window.NikaRich.favorito()) ? { f: window.NikaRich.favorito().f || undefined, c: window.NikaRich.favorito().c || undefined } : undefined }), color, anotacion: tipo, pos_x: +x.toFixed(4), pos_y: +y.toFixed(4), ancho: tipo === 'texto' ? .28 : null, tam: 1, etiquetas: [], creado_en: new Date().toISOString() };
     const nota = await api.insertar(fila);
     lista(S).push(nota); pintar(S, pg);
     if (window.NikaPdf && window.NikaPdf.modo) window.NikaPdf.modo('sel');
