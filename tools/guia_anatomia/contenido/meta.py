@@ -140,3 +140,26 @@ META[5] = dict(
         M('Tumores benignos y malignos del páncreas, quísticos y periampulares.', 'Adenocarcinoma, tumores periampulares, neuroendocrinos, NIPM, Whipple.', 'Asociá cada tumor con su síntoma guía.'),
         M('Estudios complementarios: laboratorio, ecografía, TC, RM, colangiografía e intervencionismo.', 'Eco de vesícula, TC bifásica, CPRM, CPRE, drenaje percutáneo.', 'Relacioná cada estudio con la pregunta que responde.'),
         None, None])
+
+META[6] = dict(
+    TOP=['Capas de la región inguinal, paredes y anillos del conducto inguinal, y contenido del cordón espermático.',
+         'Hernia directa frente a indirecta (vasos epigástricos inferiores) y hernia crural: límites del anillo y por qué se estrangula.',
+         'Componentes de la hernia (saco, cuello, contenido, cubiertas), tipos de complicaciones (incarceración, estrangulación, Richter, Littré, Amyand) y su semiología.',
+         'Bases de la reparación: Lichtenstein, abordaje laparoscópico (TEP/TAPP) y los triángulos de peligro.',
+         'Hernias infrecuentes (Spiegel, lumbar, obturatriz), eventración, evisceración y neumoperitoneo de Goñi Moreno.',
+         'Diagnóstico diferencial del dolor inguinal y de la patología escrotal: torsión testicular, varicocele, hidrocele, epididimitis.'],
+    RUTA=[('Día 1 · Anatomía', ['Pared abdominal y región inguinal', 'Nervios y vasos', 'Triángulos y vista laparoscópica']),
+          ('Día 2 · Hernias', ['Hernias y su semiología', 'Complicaciones', 'Hernias infrecuentes y eventración']),
+          ('Día 3 · Dolor inguinal y escroto', ['Diagnóstico diferencial', 'Patología escrotal', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía de la región inguinal', 'https://www.osmosis.org/video/Anatomy_of_the_inguinal_region', 'Conducto inguinal, anillos, paredes y contenido.'),
+            ('Osmosis · Correlaciones clínicas: región inguinal', 'https://www.osmosis.org/video/Anatomy_clinical_correlates:_Inguinal_region', 'Hernias directas, indirectas y femorales.'),
+            ('Kenhub · Conducto inguinal', 'https://kenhub.com/en/videos/structure-of-inguinal-canal', 'Estructura del conducto inguinal (la versión completa es premium).'),
+            ('Lecturio · Canal inguinal: anatomía y hernias (en español)', 'https://www.lecturio.com/es/concepts/canal-inguinal-anatomia-y-sus-hernias', 'Anatomía y tipos de hernia.'),
+            ('Lecturio · Región femoral y sus hernias (en español)', 'https://www.lecturio.com/es/concepts/la-region-femoral-y-sus-hernias', 'Triángulo y canal femorales.'),
+            ('Osmosis · Patología testicular y escrotal', 'https://www.osmosis.org/video/Testicular_and_scrotal_conditions:_Pathology_review', 'Torsión, epididimitis, hidrocele y varicocele.')],
+    MODULOS=[
+        M('Enfermedades quirúrgicas de las paredes abdominales: descripción anatómica.', 'Toda hernia, incisión y eventración; región inguinal y crural.', 'Dibujá el corte de la región inguinal capa por capa.'),
+        M('Hernias: definición, componentes, clasificaciones, semiología, complicaciones y bases quirúrgicas; hernias frecuentes e infrecuentes; eventraciones y evisceración.', 'Hernia inguinal, crural, umbilical, epigástrica, Spiegel, lumbar, obturatriz; eventración; Goñi Moreno.', 'Armá un cuadro: dónde sale, por qué orificio y qué estructura la limita.'),
+        M('Diagnóstico diferencial del dolor inguinal: musculotendinoso, neurogénico y referido.', 'Pubalgia, atrapamiento nervioso, radiculopatía L1-L2, litiasis ureteral, apendicitis retrocecal.', 'Seguí cada nervio de la región por su territorio de dolor.'),
+        M('Patología escrotal: torsión, hidrocele, varicocele, epididimitis y orquitis.', 'Escroto agudo, torsión testicular (urgencia), varicocele izquierdo.', 'Repasá las capas del escroto y el drenaje venoso de cada lado.'),
+        None, None])
