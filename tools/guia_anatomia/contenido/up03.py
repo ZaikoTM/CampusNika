@@ -3,7 +3,7 @@
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..', 'guia_cirugia'))
 from lib import Unidad
-from . import up03a, up03b
+from . import up03a, up03b, up03c
 
 RESUMEN = ['Disfagia: causas orgánicas y funcionales; deglución, faringe y esófago.',
            'Hemorragia digestiva alta: causas, diagnóstico y abordaje inicial.',
@@ -15,6 +15,6 @@ RESUMEN = ['Disfagia: causas orgánicas y funcionales; deglución, faringe y es�
 
 def crear():
     u = Unidad(3, '#16a34a', 'Disfagia y patología esofagogástrica', 'Deglución, esófago, unión esofagogástrica, estómago, duodeno, hemorragia digestiva alta y estómago operado', RESUMEN, {})
-    for f in (up03a.deglucion, up03a.esofago, up03a.union_hiato, up03a.motores, up03b.estomago, up03b.duodeno_hda, up03b.estomago_operado, up03b.cancer, up03b.estudios, up03b.preguntas, up03b.referencias):
+    for f in (up03a.deglucion, up03a.esofago, up03a.union_hiato, up03a.motores, up03b.estomago, up03b.duodeno_hda, up03b.estomago_operado, up03c.tumores_benignos, up03b.cancer, up03b.estudios, up03b.preguntas, up03b.referencias):
         f(u)
     return u

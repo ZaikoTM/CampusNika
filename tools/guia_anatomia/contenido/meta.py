@@ -34,6 +34,7 @@ META[1] = dict(
         M('Síndrome compartimental; planos y espacios del brazo y el antebrazo.', 'Fracturas de antebrazo, yeso apretado, fasciotomía.', 'Pensá en los compartimentos como cajas cerradas.'),
         M('Heridas de mano: tendones, nervios y vasos; infecciones.', 'Herida de mano, tenosinovitis, túnel carpiano, Dupuytren.', 'Examinar FDS y FDP por separado es una pregunta de oral clásica.'),
         M('Inmovilizaciones, yesos, tracciones y materiales de osteosíntesis.', 'Yesos y férulas, fijador externo, placas y clavos.', 'Para cada dispositivo preguntate qué estructura queda debajo.'),
+        M('Técnica quirúrgica básica (diéresis, síntesis, hemostasia, biopsias, videocirugía); infección en cirugía; nutrición enteral y parenteral.', 'Hemostasia, biopsia, trócares laparoscópicos, abscesos, gangrena gaseosa, sonda nasogástrica y vías centrales.', 'Pensá cada técnica como “qué plano, qué vaso, qué nervio”.'),
         M('Anestesia local, loco-regional y troncular.', 'Anestesia de la herida de mano; bloqueo digital y del plexo.', 'Ubicá las referencias en tu propia muñeca.'),
         M('Integración con las patologías de la unidad.', 'Todas las anteriores, razonadas como en el oral.', 'Leé en voz alta cada tabla como si te examinaran.'),
         None, None])
@@ -84,6 +85,7 @@ META[3] = dict(
         M('Patología gástrica benigna; cirugía gástrica.', 'Úlcera, gastritis, vagotomía y reconstrucciones.', 'Seguí las arcadas arteriales con el dedo sobre la lámina.'),
         M('Hemorragia digestiva alta; úlcera péptica.', 'Úlcera sangrante, várices, Mallory-Weiss, Dieulafoy.', 'Preguntate qué vaso pasa por detrás de cada úlcera.'),
         M('Patología del estómago operado: dumping, asa aferente, vólvulo, fístula.', 'Billroth I, II y Y de Roux y sus complicaciones.', 'Dibujá las tres reconstrucciones antes de leer los síndromes.'),
+        M('Patología gástrica benigna: pólipos gástricos y tumores benignos (leiomioma, lipoma, schwannoma, GIST).', 'Pólipos hiperplásicos y adenomatosos, GIST y tumores submucosos; ecoendoscopia.', 'Pensá siempre en la capa de la pared de la que nace cada tumor.'),
         M('Cáncer esofágico y gástrico: factores de riesgo, diagnóstico y tratamiento.', 'Estadificación T, N y M, esofagectomía y gastrectomía D2.', 'Memorizá la correspondencia entre capas de la pared y T.'),
         M('Estudios complementarios: endoscopia, manometría, seriada (TP).', 'Seriada EGD, manometría de alta resolución, ecoendoscopia.', 'Practicá leyendo la manometría como un mapa de colores.'),
         None, None])
