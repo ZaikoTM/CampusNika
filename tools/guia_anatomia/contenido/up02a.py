@@ -22,7 +22,7 @@ def pared(u):
           '**Oblicuo externo**: fibras hacia abajo y adentro (como “las manos en los bolsillos”); su aponeurosis forma el ligamento inguinal. **Oblicuo interno**: fibras en abanico, perpendiculares a las del externo. **Transverso del abdomen**: fibras horizontales.',
           '**Recto del abdomen** dentro de su **vaina**, con la línea alba en la línea media y la **línea semilunar (de Spiegel)** en el borde externo del recto.',
           '**Fascia transversalis**, grasa preperitoneal y **peritoneo parietal**.'])
-    u.box('clave', 'Vaina del recto y línea arcuata (de Douglas)', ['Por **encima** de la línea arcuata (unos 3-5 cm por debajo del ombligo) la aponeurosis del oblicuo interno se desdobla y las hojas rodean al recto por delante y por detrás.',
+    u.box('clave', 'Vaina del recto y línea arcuata (de Douglas)', ['Por **encima** de la línea arcuata (aproximadamente a mitad de camino entre el ombligo y el pubis) la aponeurosis del oblicuo interno se desdobla y las hojas rodean al recto por delante y por detrás.',
                                                                     'Por **debajo** de ella **todas las aponeurosis pasan por delante del recto**: atrás solo quedan la fascia transversalis y el peritoneo. Por eso los hematomas de la vaina por debajo de la línea arcuata se parecen a una masa en la FID.'])
     u.h3('Irrigación e inervación de la pared')
     u.ul(['**Arterias**: epigástrica **superior** (rama de la torácica interna) y epigástrica **inferior** (rama de la ilíaca externa) se anastomosan **dentro de la vaina del recto**; además las intercostales inferiores, lumbares y la circunfleja ilíaca profunda. La epigástrica inferior es la referencia para separar las **hernias inguinales directas** (medial) de las **indirectas** (lateral).',
@@ -47,7 +47,7 @@ def pared(u):
     u.h3('Hernias de la pared como causa de abdomen agudo')
     u.tabla(['Hernia', 'Anatomía del orificio', 'Por qué obstruye o se estrangula'], [
         ['**Inguinal indirecta**', 'Pasa por el **anillo inguinal profundo** (lateral a los vasos epigástricos inferiores) y recorre el conducto inguinal', 'Es la más frecuente en el hombre; el cuello puede ser estrecho'],
-        ['**Inguinal directa**', 'Protruye por el **triángulo de Hesselbach** (medial a los vasos epigástricos inferiores, por detrás del ligamento inguinal y lateral al recto)', 'Cuello ancho: se estrangula con menos frecuencia'],
+        ['**Inguinal directa**', 'Protruye por el **triángulo de Hesselbach** (limitado por los vasos epigástricos inferiores lateralmente, el borde lateral del recto medialmente y el ligamento inguinal por debajo)', 'Cuello ancho: se estrangula con menos frecuencia'],
         ['**Crural (femoral)**', 'Pasa por el **anillo crural**, por debajo del ligamento inguinal y **medial a la vena femoral**; límites: ligamento inguinal, ligamento pectíneo (de Cooper), vena femoral y ligamento lacunar (de Gimbernat)', 'Orificio rígido y estrecho: **alto riesgo de estrangulación**; típica de la mujer mayor'],
         ['**Umbilical y epigástrica**', 'Defecto de la línea alba', 'Estrangulación del epiplón o del intestino'],
         ['**Incisional (eventración)**', 'Defecto de una cicatriz previa', 'Obstrucción por adherencias'],
