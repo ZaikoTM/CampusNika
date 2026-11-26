@@ -163,3 +163,30 @@ META[6] = dict(
         M('Diagnóstico diferencial del dolor inguinal: musculotendinoso, neurogénico y referido.', 'Pubalgia, atrapamiento nervioso, radiculopatía L1-L2, litiasis ureteral, apendicitis retrocecal.', 'Seguí cada nervio de la región por su territorio de dolor.'),
         M('Patología escrotal: torsión, hidrocele, varicocele, epididimitis y orquitis.', 'Escroto agudo, torsión testicular (urgencia), varicocele izquierdo.', 'Repasá las capas del escroto y el drenaje venoso de cada lado.'),
         None, None])
+
+META[7] = dict(
+    TOP=['Triángulos, fascias y espacios del cuello; niveles ganglionares I a VII y qué estructuras se preservan en el vaciamiento.',
+         'Tiroides: relación del recurrente con la arteria tiroidea inferior y el ligamento de Berry; rama externa del laríngeo superior; irrigación de las paratiroides.',
+         'Nódulo tiroideo: TI-RADS, Bethesda y conducta; carcinoma papilar frente a folicular y medular.',
+         'Complicaciones de la tiroidectomía: hematoma, lesión del recurrente e hipoparatiroidismo.',
+         'Masa cervical: congénita, inflamatoria o neoplásica; quiste tirogloso frente a branquial.',
+         'Parótida y nervio facial; adenoma pleomorfo y síndrome de Frey; traqueostomía: sitio, planos y complicaciones.'],
+    RUTA=[('Día 1 · Cuello y tiroides', ['Cuello: triángulos, fascias y niveles', 'Tiroides y paratiroides: anatomía quirúrgica']),
+          ('Día 2 · Patología tiroidea y masas', ['Nódulo y cáncer de tiroides, cirugía y complicaciones', 'Masas cervicales y estudios']),
+          ('Día 3 · Salivales y vía aérea', ['Glándulas salivales', 'Traqueostomía', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía de la tiroides y las paratiroides', 'https://www.osmosis.org/video/Anatomy_of_the_thyroid_and_parathyroid_glands', 'Relaciones, vasos y paratiroides.'),
+            ('Kenhub · Tiroides y paratiroides', 'https://www.kenhub.com/en/videos/anatomy-thyroid-parathyroid-glands', 'Anatomía de las glándulas (la versión completa es premium).'),
+            ('Osmosis · Triángulo anterior del cuello', 'https://www.osmosis.org/video/Superficial_structures_of_the_neck:_Anterior_triangle', 'Músculos, carótida y yugular interna.'),
+            ('Osmosis · Triángulo posterior del cuello', 'https://www.osmosis.org/video/Superficial_structures_of_the_neck:_Posterior_triangle', 'Contenido y nervio accesorio.'),
+            ('Osmosis · Linfáticos del cuello', 'https://www.osmosis.org/video/Anatomy_of_the_lymphatics_of_the_neck', 'Grupos ganglionares y su drenaje.'),
+            ('Osmosis · Anatomía de las glándulas salivales', 'https://www.osmosis.org/video/Anatomy_of_the_salivary_glands', 'Parótida y nervio facial; submandibular y sublingual.'),
+            ('Kenhub · Glándula parótida', 'https://www.kenhub.com/en/videos/parotid-gland', 'Lóbulos, conducto y relaciones (la versión completa es premium).')],
+    MODULOS=[
+        M('Cuello: estructuras anatómicas relevantes, planos, regiones, referencias y exploración física; niveles ganglionares.', 'Examen del cuello, vaciamiento ganglionar, abscesos cervicales profundos.', 'Aprendé los niveles ganglionares con las fronteras (hioides, cricoides, clavícula).'),
+        M('Tiroides y paratiroides: anatomía quirúrgica (base de la cirugía tiroidea).', 'Tiroidectomía, paratiroidectomía, quiste tirogloso.', 'Dibujá el recurrente y su relación con la tiroidea inferior.'),
+        M('Bocio nodular, adenomas y carcinomas de tiroides, principios de cirugía y complicaciones; hiperparatiroidismo.', 'Nódulo tiroideo, cáncer de tiroides, hipoparatiroidismo, hematoma, disfonía.', 'Memorizá TI-RADS y Bethesda con la conducta de cada uno.'),
+        M('Tumores extratiroideos y laterales del cuello: congénitos, inflamatorios y neoplásicos.', 'Quiste tirogloso, quiste branquial, adenitis, linfoma, metástasis, paraganglioma.', 'Ubicá cada masa en el triángulo y nivel donde aparece.'),
+        M('Patología quirúrgica de las glándulas salivales.', 'Adenoma pleomorfo, Warthin, litiasis, parotidectomía y síndrome de Frey.', 'Repasá las ramas del facial con la mnemotecnia.'),
+        M('Traqueostomía: indicaciones, tipos, técnica, cuidados y complicaciones; vía aérea difícil.', 'Ventilación prolongada, obstrucción de vía aérea, cricotiroidotomía.', 'Dibujá los planos desde la piel hasta la tráquea.'),
+        M('Estudios complementarios del cuello (ecografía, PAAF, TC, RM, gammagrafía).', 'Nódulo tiroideo, masa cervical, panendoscopia.', 'Relacioná cada estudio con la pregunta que responde.'),
+        None, None])
