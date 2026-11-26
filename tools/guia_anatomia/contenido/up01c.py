@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """UP 1 · Anatomía quirúrgica. Parte C: nervios periféricos, regiones, muñeca y mano, autoevaluación."""
 from lib import svg, txt, caja, flecha, codo, flujo
+from .fotos import fotos
 
 
 def nervios(u):
@@ -13,11 +14,13 @@ def nervios(u):
         ['Sensitivo', 'Parche lateral del hombro', 'Cara lateral del antebrazo'],
         ['Lesión', 'Luxación anterior de hombro y fractura del cuello quirúrgico: **pérdida de abducción** y atrofia del deltoides.', 'Poco frecuente (herida, bloqueo): **flexión del codo débil** y anestesia lateral del antebrazo.'],
     ], fuente='Anatomía de referencia.')
+    fotos(u, 'axila_nervios')
     u.h3('Radial (C5-T1)')
     u.ul(['**Recorrido**: continúa al cordón posterior, pasa **detrás de la arteria braquial** y entra al **surco radial** del húmero con la **arteria braquial profunda**, entre las cabezas del tríceps. Perfora el tabique intermuscular lateral en el tercio distal del brazo y baja entre el **braquial y el braquiorradial**.',
           'En la fosa cubital se divide en una **rama superficial** (sensitiva) y una **profunda** (el **interóseo posterior**, motor), que **atraviesa el supinador** por la **arcada de Frohse**.',
           '**Motor**: tríceps y ancóneo; braquiorradial y extensores de la muñeca (rama principal); extensores de los dedos, abductor largo del pulgar y demás extensores del antebrazo (interóseo posterior).',
           '**Sensitivo (rama superficial)**: dorso de la mano del lado radial y dorso de los 3 dedos y medio radiales (hasta la IFP). Corre **junto a la arteria radial** y debajo del braquiorradial: se lesiona con una herida de la muñeca lateral.'])
+    fotos(u, 'radial')
     u.box('clin', 'Lesión del radial según el nivel', [['**Axila** (muletas): pérdida del tríceps, extensión de muñeca y dedos.',
                                                       '**Surco radial** (fractura de diáfisis humeral, compresión, “parálisis del sábado a la noche”): **mano caída**, el tríceps se conserva.',
                                                       '**Interóseo posterior** (arcada de Frohse): **dedos caídos** con extensión de muñeca conservada (por el extensor radial largo del carpo), sin pérdida de sensibilidad.']])
@@ -32,6 +35,7 @@ def nervios(u):
     u.box('clin', 'Lesión alta y baja del mediano', [['**Alta** (codo, antebrazo): **mano de bendición** al intentar cerrar el puño (no flexionan índice ni medio), no hay oposición y se pierde la pronación.',
                                                     '**Baja** (muñeca): atrofia tenar (“mano de simio”), no hay oposición del pulgar; la flexión de los dedos se conserva.',
                                                     '**Signo de OK anormal** (no se hace la pinza): lesión del interóseo anterior (flexión de la IFD del pulgar y del índice).']])
+    fotos(u, 'mediano_mano')
     u.h3('Cubital (C8-T1)')
     u.ul(['**Brazo**: medial a la braquial hasta la mitad; **perfora el tabique intermuscular medial** y desciende por el compartimento posterior hasta la **epitróclea**.',
           '**Codo**: pasa **detrás de la epitróclea** (canal epitroclear, “hueso de la risa”) y **entre las dos cabezas del flexor cubital del carpo** (túnel cubital). Es muy superficial: se comprime y se golpea.',
@@ -86,12 +90,14 @@ def regiones(u):
 
 def mano(u):
     u.h2('Muñeca y mano: túneles, tendones, vainas y espacios', intro='Es el apartado con más peso en el examen de herida de mano. Tenés que saber qué pasa por cada túnel y cómo se examina cada tendón.')
+    fotos(u, 'mano_diseccion')
     u.h3('Túnel carpiano y canal de Guyon')
     u.tabla(['', 'Túnel carpiano', 'Canal de Guyon'], [
         ['Límites', 'Piso: huesos del carpo. Techo: **retináculo flexor** (entre escafoides-trapecio y pisiforme-ganchoso).', 'Entre el **pisiforme** (medial) y el **gancho del ganchoso** (lateral); techo: ligamento palmar. Superficial al retináculo.'],
         ['Contenido', '**9 tendones** (4 FDS, 4 FDP y flexor largo del pulgar) y el **nervio mediano**. El flexor radial del carpo tiene su propio canal.', '**Nervio cubital** (se divide en superficial y profunda) y **arteria cubital**.'],
         ['Cuadro típico', 'Síndrome del túnel carpiano', 'Parestesias de meñique y anular; debilidad de los músculos intrínsecos'],
     ], fuente='Anatomía de referencia y Silberman y Varaona, Ortopedia y Traumatología, 3.ª ed., cap. 14.')
+    fotos(u, 'tunel', 'tunel_rv')
     u.h3('Compartimentos extensores del dorso de la muñeca')
     u.tabla(['Compartimento', 'Tendones', 'Cuadro clínico asociado'], [
         ['1.º', 'Abductor largo y extensor corto del pulgar', '**Tenosinovitis de De Quervain**'],
@@ -156,21 +162,11 @@ def choices(u):
            ['El nervio **axilar** rodea el cuello quirúrgico del húmero y se lesiona por tracción en la luxación anterior. Se explora con la **sensibilidad del parche lateral del hombro** y la contracción isométrica del deltoides.'], prioritaria=True)
     u.caso('Fractura de húmero', 'Mujer de 37 años, fractura de diáfisis humeral en el tercio distal, con muñeca caída.', '¿Cuál es el nervio lesionado y qué se conserva?', ['Radial; conserva la extensión del codo', 'Cubital; conserva la flexión del codo', 'Mediano; conserva la extensión de los dedos', 'Axilar; conserva la flexión de la muñeca'], 'A',
            ['La lesión es del **nervio radial** en el surco radial, distal a la rama que va al tríceps, por lo que el **tríceps funciona** y la mano cae por pérdida de los extensores de muñeca y dedos (fractura de Holstein-Lewis).'], prioritaria=True)
-    u.caso('Fractura supracondílea', 'Niño de 6 años con fractura supracondílea desplazada y dolor desproporcionado; ausencia de pulso radial.', '¿Cuál es la lesión vascular más probable?', ['Arteria braquial', 'Arteria subclavia', 'Arteria radial', 'Arteria axilar'], 'A',
-           ['La arteria **braquial** está inmediatamente por delante de la paleta humeral. La complicación temida es el **síndrome compartimental y la contractura isquémica de Volkmann**.'])
     u.caso('Herida de muñeca', 'Mujer de 30 años con herida cortante en la cara anterior de la muñeca por vidrio. No puede hacer el signo “OK” y tiene hipoestesia en el índice.', '¿Qué estructura está lesionada?', ['Nervio mediano', 'Nervio cubital', 'Nervio radial', 'Arteria cubital'], 'A',
            ['El **mediano** pasa entre el flexor radial del carpo y el palmar largo, superficial en la muñeca. La zona autónoma es el pulpejo del índice y el signo “OK” explora el interóseo anterior (flexión de la IFD de pulgar e índice).'], prioritaria=True)
-    u.caso('Herida de dedo', 'Hombre de 28 años con herida en la cara palmar del dedo medio, a nivel de la falange proximal. Mantiene la flexión de la IFD pero no de la IFP.', '¿Qué tendón está seccionado?', ['FDS', 'FDP', 'Extensor de los dedos', 'Lumbrical'], 'A',
-           ['El **FDS** se inserta en la falange media y flexiona la **IFP**. El FDP (inserto en la falange distal) está intacto porque aún flexiona la IFD. Es zona **II** de Verdan.'])
     u.caso('Dolor en tabaquera', 'Hombre de 22 años, caída sobre la mano extendida, dolor en la tabaquera anatómica con radiografía inicial normal.', '¿Qué complicación hay que prevenir?', ['Necrosis avascular del polo proximal del escafoides', 'Lesión del nervio cubital', 'Rotura del extensor largo del pulgar', 'Síndrome de De Quervain'], 'A',
            ['La **irrigación del escafoides es retrógrada**: entra por el polo distal y el fragmento proximal queda sin sangre. Se inmoviliza como fractura aunque la Rx inicial sea normal y se repite o se hace RM.'], prioritaria=True)
-    u.q('Venopunción', '¿Cuál es la vena de elección para la venopunción en la fosa cubital y por qué?', ['Mediana cubital: está por delante del lacertus fibrosus, que protege a la arteria braquial y al nervio mediano', 'Basílica: es la más superficial', 'Cefálica: es la más grande', 'Radial superficial: se palpa mejor'], 'A',
-        ['La **mediana cubital** se apoya sobre la **aponeurosis bicipital**, que separa la vena de la arteria braquial y del nervio mediano.'])
     u.q('Anestesia raquídea', 'La raquianestesia se realiza habitualmente en L3-L4 o L4-L5 porque:', ['La médula termina en L1-L2 y por debajo queda la cola de caballo', 'El saco dural termina en L3', 'La médula termina en L4', 'Es el único nivel con espacio epidural'], 'A',
         ['En el adulto el **cono medular** está en L1-L2. La **línea de Tuffier** (crestas ilíacas) pasa por L4 o L4-L5.'], prioritaria=True)
-    u.q('Intubación', '¿Cuál de las siguientes estructuras es inervada por el nervio laríngeo recurrente y NO por el laríngeo superior?', ['Músculos intrínsecos de la laringe, excepto el cricotiroideo', 'Cricotiroideo', 'Mucosa por encima de las cuerdas vocales', 'Epiglotis'], 'A',
-        ['El **cricotiroideo** lo inerva la rama externa del laríngeo superior; la mucosa por encima de las cuerdas, la rama interna.'])
     u.q('Plexo braquial', 'Un paciente cae de una moto sobre el hombro y queda con el brazo en aducción y rotación interna y el antebrazo pronado. ¿Qué raíces se lesionaron?', ['C5-C6', 'C8-T1', 'C7', 'T1-T2'], 'A',
         ['Es la **parálisis de Erb-Duchenne** (raíces C5-C6, tronco superior).'])
-    u.q('Mano', 'La posición segura para inmovilizar la mano es MCF en 70°-90° de flexión y IF en extensión porque:', ['Los ligamentos colaterales de la MCF se tensan en flexión y se evita la rigidez', 'Disminuye el edema pero no hay razón anatómica', 'Es la posición con menos dolor únicamente', 'Es la posición del paciente con túnel carpiano'], 'A',
-        ['Los **ligamentos colaterales de la MCF** se alargan en flexión; inmovilizar en extensión los acorta y produce rigidez.'])

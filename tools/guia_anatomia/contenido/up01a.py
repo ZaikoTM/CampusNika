@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """UP 1 · Anatomía quirúrgica. Parte A: piel y planos, vía aérea, columna y neuroeje (anatomía de la anestesia)."""
 from lib import svg, txt, caja, flecha, codo, flujo
+from .fotos import fotos
 
 
 def piel(u):
@@ -11,6 +12,7 @@ def piel(u):
         ['Dermis', 'Papilar (laxa, con asas capilares) y reticular (colágeno denso, orienta las líneas de tensión). Anexos: folículos, glándulas sebáceas y sudoríparas.', 'Plexos arteriales subpapilar y dérmico profundo. Receptores de tacto, presión, dolor y temperatura.', 'Es la capa que da resistencia a la sutura: el punto debe tomar dermis, no solo epidermis.'],
         ['Hipodermis (tejido celular subcutáneo)', 'Grasa y tabiques fibrosos, fascia superficial.', 'Vasos perforantes y venas superficiales. Nervios cutáneos.', 'Espacio muerto: si queda sin cerrar acumula sangre o suero y se infecta.'],
     ], fuente='Anatomía de referencia (histología y anatomía de la piel); aplicación quirúrgica según Giménez, Cirugía, 2.ª ed. (2025).')
+    fotos(u, 'epidermis')
     u.h3('Planos que se cruzan al abordar el miembro superior')
     u.p('De superficial a profundo: **piel → tejido celular subcutáneo (con venas y nervios cutáneos) → fascia profunda o aponeurosis → músculo → periostio/hueso**. En la mano la piel palmar es gruesa, sin vello, con estrato lúcido y fuertemente adherida a la aponeurosis palmar por tabiques fibrosos; la dorsal es fina y laxa. Por eso el edema se ve en el dorso aunque la inflamación esté en la palma.')
     u.box('clave', 'Regla de planos', ['Una herida que **no atraviesa la dermis** no necesita puntos profundos; una que llega a la fascia **obliga a explorar** (tendón, nervio, arteria) antes de cerrar.',
@@ -54,6 +56,7 @@ def via_aerea(u):
           '**Irrigación**: arteria laríngea superior (de la tiroidea superior, rama de la carótida externa) y laríngea inferior (de la tiroidea inferior, tronco tirocervical).'])
     u.box('alerta', 'El recurrente no tiene el mismo recorrido de los dos lados', ['**Derecho**: rodea la arteria subclavia. **Izquierdo**: rodea el arco aórtico (ligamento arterioso) y es más largo. Ambos ascienden en el **surco traqueoesofágico** hacia la laringe, pasando cerca de la arteria tiroidea inferior.',
                                                                                  'Es el nervio en riesgo en tiroidectomías, por eso aparece de nuevo en UP7. La lesión unilateral produce **disfonía**; la bilateral, **estridor y obstrucción**.'])
+    fotos(u, 'laringe', 'laringoscopia')
     u.h3('Las tres relaciones que importan para intubar')
     u.ul(['Tres ejes: **oral, faríngeo y laríngeo** no están alineados. La **posición de olfateo** (flexión del cuello y extensión de la cabeza sobre la columna cervical) los acerca.',
           'La laringoscopia **no ve** la glotis: se **levanta la base de la lengua y la epiglotis** con la fuerza hacia adelante y arriba (no haciendo palanca sobre los dientes).',

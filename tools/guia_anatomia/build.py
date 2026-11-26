@@ -8,6 +8,7 @@ GC = os.path.join(os.path.dirname(HERE), 'guia_cirugia')
 sys.path.insert(0, GC); sys.path.insert(0, HERE)
 import lib
 from lib import fmt
+lib.HERE = HERE   # las láminas se buscan en tools/guia_anatomia/img
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
 OUT = os.path.join(HERE, 'salida')
 COL = {1: ('#0ea5e9', '#0369a1', '#e6f6fd'), 2: ('#f59e0b', '#b45309', '#fff6dd'), 3: ('#16a34a', '#166534', '#e7f6ec'), 4: ('#7c3aed', '#5b21b6', '#f1ebff'),
