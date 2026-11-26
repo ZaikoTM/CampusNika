@@ -80,7 +80,6 @@ def fig_plexo():
 def plexo(u):
     u.h2('Plexo braquial: origen, trayecto, ramas y bloqueos', intro='Todo el miembro superior se mueve y siente por este plexo. Si lo ordenás por niveles, se arma solo.')
     u.fig(fig_plexo(), 'Plexo braquial: raíces, troncos, divisiones, cordones y ramos terminales. Las divisiones anteriores forman los cordones lateral y medial; las posteriores, el cordón posterior.', 'Esquema propio a partir de anatomía de referencia.')
-    fotos(u, 'plexo_esq', 'plexo_diseccion')
     u.box('tip', 'Nemotecnia', ['**R**eal **T**eachers **D**rink **C**old **B**eer: **R**aíces, **T**roncos, **D**ivisiones, **C**ordones, **R**amos (en inglés “Branches”).',
                                  'Los cordones se llaman por su relación con la **arteria axilar** (en la 2.ª porción, detrás del pectoral menor).'])
     u.h3('Dónde está en el cuerpo')
@@ -123,7 +122,6 @@ def plexo(u):
 def arterias(u):
     u.h2('Arterias del miembro superior: recorrido, ramas y circulación colateral', intro='Seguí el tronco arterial de proximal a distal y recordá dónde cambia de nombre y dónde se puede palpar.')
     u.fig(flujo(['Tronco braquiocefálico (derecha) o arco aórtico (izquierda)', 'Subclavia (hasta el borde lateral de la 1.ª costilla)', 'Axilar (hasta el borde inferior del redondo mayor)', 'Braquial (hasta la fosa cubital)', 'Radial y cubital (se separan bajo el lacertus fibrosus)', 'Arcos palmares superficial y profundo → digitales'], por_fila=3), 'Cambios de nombre de la arteria del miembro superior.', 'Esquema propio a partir de anatomía de referencia.')
-    fotos(u, 'arterias')
     u.h3('Subclavia y axilar')
     u.ul(['**Subclavia**: nace a la **derecha** del tronco braquiocefálico y a la **izquierda** directamente del arco aórtico. Ramas: vertebral, torácica interna, tronco tirocervical y costocervical. Cambia de nombre al cruzar el **borde lateral de la 1.ª costilla**.',
           '**Axilar**: se divide en **3 porciones** según el pectoral menor: 1.ª (arriba) con la **torácica superior**; 2.ª (detrás) con la **toracoacromial** y la **torácica lateral**; 3.ª (abajo) con la **subescapular** y las **circunflejas humeral anterior y posterior**.'])

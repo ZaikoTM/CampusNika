@@ -14,13 +14,11 @@ def nervios(u):
         ['Sensitivo', 'Parche lateral del hombro', 'Cara lateral del antebrazo'],
         ['Lesión', 'Luxación anterior de hombro y fractura del cuello quirúrgico: **pérdida de abducción** y atrofia del deltoides.', 'Poco frecuente (herida, bloqueo): **flexión del codo débil** y anestesia lateral del antebrazo.'],
     ], fuente='Anatomía de referencia.')
-    fotos(u, 'axila_nervios')
     u.h3('Radial (C5-T1)')
     u.ul(['**Recorrido**: continúa al cordón posterior, pasa **detrás de la arteria braquial** y entra al **surco radial** del húmero con la **arteria braquial profunda**, entre las cabezas del tríceps. Perfora el tabique intermuscular lateral en el tercio distal del brazo y baja entre el **braquial y el braquiorradial**.',
           'En la fosa cubital se divide en una **rama superficial** (sensitiva) y una **profunda** (el **interóseo posterior**, motor), que **atraviesa el supinador** por la **arcada de Frohse**.',
           '**Motor**: tríceps y ancóneo; braquiorradial y extensores de la muñeca (rama principal); extensores de los dedos, abductor largo del pulgar y demás extensores del antebrazo (interóseo posterior).',
           '**Sensitivo (rama superficial)**: dorso de la mano del lado radial y dorso de los 3 dedos y medio radiales (hasta la IFP). Corre **junto a la arteria radial** y debajo del braquiorradial: se lesiona con una herida de la muñeca lateral.'])
-    fotos(u, 'radial')
     u.box('clin', 'Lesión del radial según el nivel', [['**Axila** (muletas): pérdida del tríceps, extensión de muñeca y dedos.',
                                                       '**Surco radial** (fractura de diáfisis humeral, compresión, “parálisis del sábado a la noche”): **mano caída**, el tríceps se conserva.',
                                                       '**Interóseo posterior** (arcada de Frohse): **dedos caídos** con extensión de muñeca conservada (por el extensor radial largo del carpo), sin pérdida de sensibilidad.']])
@@ -35,7 +33,6 @@ def nervios(u):
     u.box('clin', 'Lesión alta y baja del mediano', [['**Alta** (codo, antebrazo): **mano de bendición** al intentar cerrar el puño (no flexionan índice ni medio), no hay oposición y se pierde la pronación.',
                                                     '**Baja** (muñeca): atrofia tenar (“mano de simio”), no hay oposición del pulgar; la flexión de los dedos se conserva.',
                                                     '**Signo de OK anormal** (no se hace la pinza): lesión del interóseo anterior (flexión de la IFD del pulgar y del índice).']])
-    fotos(u, 'mediano_mano')
     u.h3('Cubital (C8-T1)')
     u.ul(['**Brazo**: medial a la braquial hasta la mitad; **perfora el tabique intermuscular medial** y desciende por el compartimento posterior hasta la **epitróclea**.',
           '**Codo**: pasa **detrás de la epitróclea** (canal epitroclear, “hueso de la risa”) y **entre las dos cabezas del flexor cubital del carpo** (túnel cubital). Es muy superficial: se comprime y se golpea.',
@@ -90,14 +87,12 @@ def regiones(u):
 
 def mano(u):
     u.h2('Muñeca y mano: túneles, tendones, vainas y espacios', intro='Es el apartado con más peso en el examen de herida de mano. Tenés que saber qué pasa por cada túnel y cómo se examina cada tendón.')
-    fotos(u, 'mano_diseccion')
     u.h3('Túnel carpiano y canal de Guyon')
     u.tabla(['', 'Túnel carpiano', 'Canal de Guyon'], [
         ['Límites', 'Piso: huesos del carpo. Techo: **retináculo flexor** (entre escafoides-trapecio y pisiforme-ganchoso).', 'Entre el **pisiforme** (medial) y el **gancho del ganchoso** (lateral); techo: ligamento palmar. Superficial al retináculo.'],
         ['Contenido', '**9 tendones** (4 FDS, 4 FDP y flexor largo del pulgar) y el **nervio mediano**. El flexor radial del carpo tiene su propio canal.', '**Nervio cubital** (se divide en superficial y profunda) y **arteria cubital**.'],
         ['Cuadro típico', 'Síndrome del túnel carpiano', 'Parestesias de meñique y anular; debilidad de los músculos intrínsecos'],
     ], fuente='Anatomía de referencia y Silberman y Varaona, Ortopedia y Traumatología, 3.ª ed., cap. 14.')
-    fotos(u, 'tunel', 'tunel_rv')
     u.h3('Compartimentos extensores del dorso de la muñeca')
     u.tabla(['Compartimento', 'Tendones', 'Cuadro clínico asociado'], [
         ['1.º', 'Abductor largo y extensor corto del pulgar', '**Tenosinovitis de De Quervain**'],

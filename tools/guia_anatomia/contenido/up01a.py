@@ -56,7 +56,7 @@ def via_aerea(u):
           '**Irrigación**: arteria laríngea superior (de la tiroidea superior, rama de la carótida externa) y laríngea inferior (de la tiroidea inferior, tronco tirocervical).'])
     u.box('alerta', 'El recurrente no tiene el mismo recorrido de los dos lados', ['**Derecho**: rodea la arteria subclavia. **Izquierdo**: rodea el arco aórtico (ligamento arterioso) y es más largo. Ambos ascienden en el **surco traqueoesofágico** hacia la laringe, pasando cerca de la arteria tiroidea inferior.',
                                                                                  'Es el nervio en riesgo en tiroidectomías, por eso aparece de nuevo en UP7. La lesión unilateral produce **disfonía**; la bilateral, **estridor y obstrucción**.'])
-    fotos(u, 'laringe', 'laringoscopia')
+    fotos(u, 'laringoscopia')
     u.h3('Las tres relaciones que importan para intubar')
     u.ul(['Tres ejes: **oral, faríngeo y laríngeo** no están alineados. La **posición de olfateo** (flexión del cuello y extensión de la cabeza sobre la columna cervical) los acerca.',
           'La laringoscopia **no ve** la glotis: se **levanta la base de la lengua y la epiglotis** con la fuerza hacia adelante y arriba (no haciendo palanca sobre los dientes).',

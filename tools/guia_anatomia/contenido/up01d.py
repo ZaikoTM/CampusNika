@@ -146,20 +146,20 @@ def patologias_oral(u):
 
 
 def referencias(u):
-    u.h2('Referencias y créditos de las imágenes', intro='Qué libros respaldan cada parte y de dónde vienen las láminas.')
-    u.h3('Bibliografía de la unidad usada para la anatomía aplicada')
-    u.ul(['Ramos Vértiz, A. __Traumatología y Ortopedia__, 2.ª ed. (2012), cap. 1: «Anatomía aplicada y movilidad articular» (hombro, brazo, codo, antebrazo, muñeca y mano).',
-          'Silberman, F. y Varaona, O. __Ortopedia y Traumatología__, 3.ª ed., Editorial Médica Panamericana: caps. 11 (semiología del miembro superior), 14, 15, 16 (mano y nervios) y 52-57 (fracturas del miembro superior).',
+    u.h2('Referencias y créditos de las imágenes', intro='Qué libros respaldan cada parte y de dónde viene cada lámina.')
+    u.h3('Atlas de anatomía (láminas a color)')
+    u.ul(['Netter, F. H. __Netter. Atlas de Anatomía Humana__, 8.ª ed. Elsevier. Láminas citadas con su código (S-n) al pie de cada figura.',
+          'Gray. __Atlas de Anatomía__, 3.ª ed. (Drake, Vogl, Mitchell y col.). Elsevier. Láminas citadas con su página al pie de cada figura.'])
+    u.h3('Libros de la unidad (anatomía aplicada y radiografías)')
+    u.ul(['Ramos Vértiz, A. __Traumatología y Ortopedia__, 2.ª ed. (2012), cap. 1: «Anatomía aplicada y movilidad articular».',
+          'Silberman, F. y Varaona, O. __Ortopedia y Traumatología__, 3.ª ed., Editorial Médica Panamericana: caps. 11, 14, 15, 16 y 52-57.',
+          'Orrego, M. y Morán, M. __Ortopedia y Traumatología Básica__ (2014): radiografías y esquemas de fracturas.',
           'Giménez, M. __Cirugía: fundamentos para la práctica clínico-quirúrgica__, 2.ª ed. (2025), Editorial Médica Panamericana: anestesia, herida y cicatrización.',
           'Ferraina, P. y Oría, A. __Cirugía de Michans__, 5.ª ed.: anestesiología, herida y vías aéreas.',
-          'Qayumi, A. K. __Técnicas quirúrgicas básicas__ (2012), Manual Moderno: manejo de la herida.',
-          'ATLS, __Apoyo vital avanzado en trauma__, 11.ª ed. (2025): vía aérea.',
-          'Para la anatomía de referencia (nervios, vasos, músculos): textos clásicos de anatomía humana (Latarjet y Ruiz Liard, Moore, Netter, Gray).'])
-    u.box('alerta', 'Cómo usar esta guía', 'La anatomía descriptiva fue redactada de forma original a partir de estos textos y de la anatomía de referencia; **no está transcripta de un libro en particular**. Si una cifra o un detalle te genera duda, **contrastalo con tu atlas** (Netter, Latarjet) antes del examen.')
-    u.h3('Créditos de las imágenes')
-    u.ul(['**OpenStax College, Anatomy & Physiology** (Universidad Rice), licencia **CC BY 3.0**: capas de la epidermis, vista laringoscópica, arterias del miembro superior y túnel carpiano.',
-          '**Anatomist90** (Wikimedia Commons), licencia **CC BY-SA 3.0**: disecciones de la laringe, la axila, la región posterior del brazo y la mano.',
-          '**Selket / Marshall Strother** (Wikimedia Commons), **CC BY-SA 3.0**: esquema en color del plexo braquial.',
-          '**scientificanimations.com**, **CC BY-SA 4.0**: ramas del nervio mediano en la mano.',
-          '**Ramos Vértiz, Traumatología y Ortopedia, 2.ª ed.** (imagen en blanco y negro del libro de la cátedra): túnel carpiano y canal de Guyon.',
-          'Los esquemas del plexo braquial, el neuroeje y los flujos son **de elaboración propia** de NikaMed.'])
+          'Schwartz, __Principios de Cirugía__, 10.ª ed.: lesiones de la mano y patrones de fractura.',
+          'Qayumi, A. K. __Técnicas quirúrgicas básicas__ (2012), Manual Moderno.',
+          'ATLS, __Apoyo vital avanzado en trauma__, 11.ª ed. (2025): vía aérea.'])
+    u.box('alerta', 'Cómo usar esta guía', 'El texto descriptivo es de elaboración propia, a partir de estos atlas y libros y de la anatomía de referencia; **no está transcripto de un libro en particular**. Las láminas de los atlas muestran la **anatomía real y sus rótulos**: ante cualquier duda, **la lámina manda**. Contrastá siempre con tu atlas antes del examen.')
+    u.h3('Otras imágenes')
+    u.ul(['**OpenStax College, Anatomy & Physiology** (Universidad Rice), licencia **CC BY 3.0**: capas de la epidermis y vista laringoscópica (Wikimedia Commons).',
+          'Los esquemas del plexo braquial en cajas y los flujos son **de elaboración propia** de NikaMed.'])
