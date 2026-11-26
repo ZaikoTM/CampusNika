@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+"""Metadatos pedagógicos por unidad: cómo se conecta cada módulo con el programa y con las patologías, consejos de estudio y recursos.
+Cada unidad: MODULOS (en el orden de lectura; None = módulo sin fila en el mapa), TOP, RUTA, VIDEOS."""
+
+M = lambda prog, patol, tip: dict(prog=prog, patol=patol, tip=tip)
+
+META = {}
+
+META[1] = dict(
+    TOP=['Qué nervio se lesiona en cada fractura o luxación y qué clínica da (radial, mediano, cubital, axilar).',
+         'Zonas de los tendones flexores, cómo se examina cada tendón y por qué la zona II es “tierra de nadie”.',
+         'Estructuras que cruzan el túnel carpiano y el canal de Guyon.',
+         'Capas de la raquianestesia, nivel de punción y accidentes de la peridural.',
+         'Vía aérea: qué se ve en la laringoscopia, inervación de la laringe y vía aérea quirúrgica.',
+         'Síndrome compartimental: dónde, por qué y cómo se descubre.'],
+    RUTA=[('Día 1 · Herida y anestesia', ['Piel y planos', 'Vía aérea', 'Columna y neuroeje', 'Bloqueos']),
+          ('Día 2 · Esqueleto y vasos', ['Esqueleto y Rx', 'Músculos', 'Hombro y codo', 'Arterias, venas y linfáticos']),
+          ('Día 3 · Nervios y mano', ['Plexo braquial', 'Nervios y lesiones nerviosas', 'Regiones', 'Muñeca y mano', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía del plexo braquial', 'https://www.osmosis.org/video/Anatomy_of_the_brachial_plexus', 'Video para reforzar raíces, troncos, divisiones, cordones y ramas.'),
+            ('Osmosis · Anatomía de la laringe y la tráquea', 'https://www.osmosis.org/video/Anatomy_of_the_larynx_and_trachea', 'Cartílagos, músculos, inervación y relaciones: base de la intubación.'),
+            ("Acland's Video Atlas of Human Anatomy", 'https://tools.ovid.com/aclandsanatomy', 'Disecciones reales de cadáver sin embalsamar, en color (miembro superior). Es por suscripción: consultá si tu facultad tiene acceso.')],
+    MODULOS=[
+        M('Biología de la herida; técnica quirúrgica (diéresis y síntesis).', 'Herida cortante de mano, sutura, cicatrización y queloide.', 'Armá mentalmente las capas de arriba hacia abajo antes de pensar en la sutura.'),
+        M('Anestesia: intubación traqueal, ventajas y complicaciones.', 'Intubación para cualquier cirugía; vía aérea quirúrgica en emergencias.', 'Dibujá la laringe con la epiglotis y la glotis y repetí qué ve el que intuba.'),
+        M('Anestesia raquídea y peridural: técnica, indicaciones, accidentes y secuelas.', 'Cirugía de miembro inferior, abdomen bajo y parto; cefalea pospunción y hematoma epidural.', 'Memorizá las capas en orden: es una pregunta clásica.'),
+        M('Fracturas, luxaciones y luxofracturas; traumatismos del miembro superior.', 'Clavícula, hombro, supracondílea, diáfisis de húmero, Colles y escafoides.', 'Para cada fractura decí el hueso, el vecino en riesgo y la maniobra de examen.'),
+        M('Traumatismos del miembro superior: clínica y examen.', 'Qué nervio lesionado deja de mover qué músculo.', 'Estudiá los músculos agrupados por nervio, no por región.'),
+        M('Fracturas y luxaciones del hombro y el codo; inmovilizaciones.', 'Luxación anterior de hombro, fractura supracondílea, luxación de codo.', 'Usá el triángulo de Hueter para diferenciar luxación de supracondílea.'),
+        M('Traumatismos del miembro superior; anestesia regional.', 'Lesiones del plexo (Erb, Klumpke) y bloqueos del plexo.', 'Repetí: raíces, troncos, divisiones, cordones, ramos.'),
+        M('Lesiones vasculares en fracturas; herida cortante profunda.', 'Supracondílea, luxación de codo y de hombro; test de Allen.', 'Seguí la arteria de proximal a distal diciendo cada cambio de nombre.'),
+        M('Infección en cirugía; venopunción; vaciamiento axilar.', 'Linfangitis de mano, adenopatía axilar y punción venosa.', 'Asociá cada vena con su fascia y cada grupo de ganglios con su drenaje.'),
+        M('Heridas con compromiso nervioso; traumatismos de miembro superior.', 'Axilar, radial, mediano y cubital en la herida de mano y en las fracturas.', 'Practicá con el cuadro “Si ves esto, pensá en este nervio”.'),
+        M('Lesión nerviosa traumática; examen neurológico de la mano.', 'Mano caída, de bendición, en garra, escápula alada; túnel carpiano.', 'Este es el módulo que más se toma: dejalo para releer varias veces.'),
+        M('Síndrome compartimental; planos y espacios del brazo y el antebrazo.', 'Fracturas de antebrazo, yeso apretado, fasciotomía.', 'Pensá en los compartimentos como cajas cerradas.'),
+        M('Heridas de mano: tendones, nervios y vasos; infecciones.', 'Herida de mano, tenosinovitis, túnel carpiano, Dupuytren.', 'Examinar FDS y FDP por separado es una pregunta de oral clásica.'),
+        M('Inmovilizaciones, yesos, tracciones y materiales de osteosíntesis.', 'Yesos y férulas, fijador externo, placas y clavos.', 'Para cada dispositivo preguntate qué estructura queda debajo.'),
+        M('Anestesia local, loco-regional y troncular.', 'Anestesia de la herida de mano; bloqueo digital y del plexo.', 'Ubicá las referencias en tu propia muñeca.'),
+        M('Integración con las patologías de la unidad.', 'Todas las anteriores, razonadas como en el oral.', 'Leé en voz alta cada tabla como si te examinaran.'),
+        None, None])
+
+META[2] = dict(
+    TOP=['Por qué el dolor de la apendicitis empieza en el ombligo y migra a la fosa ilíaca derecha.',
+         'Posiciones del apéndice y cómo cambian los signos (psoas, obturador, tacto rectal).',
+         'Dónde se acumula el pus: Douglas, gotera parietocólica derecha, subfrénico.',
+         'Irrigación de la apendicular y de la mesentérica superior; embolia frente a trombosis.',
+         'Hernia crural y por qué se estrangula.',
+         'Diagnóstico diferencial de la fosa ilíaca derecha por sexo y edad; estudio por imágenes.'],
+    RUTA=[('Día 1 · Pared y peritoneo', ['Pared abdominal y hernias', 'Peritoneo', 'Inervación y dolor']),
+          ('Día 2 · Vasos e intestino', ['Irrigación mesentérica', 'Intestino delgado y grueso', 'Imágenes']),
+          ('Día 3 · Apéndice y FID', ['Apéndice cecal', 'Diagnóstico diferencial FID', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía del peritoneo y la cavidad peritoneal (en español)', 'https://www.osmosis.org/learn/es/Anatomy_of_the_peritoneum_and_peritoneal_cavity', 'Mesos, epiplones y espacios peritoneales.'),
+            ('Lecturio · Abdomen agudo (en español)', 'https://www.lecturio.com/es/concepts/abdomen-agudo', 'Concepto, causas y orientación diagnóstica.'),
+            ('Lecturio · Apendicectomía (en español)', 'https://www.lecturio.com/es/concepts/apendicectomia', 'Anatomía del apéndice y de la técnica.'),
+            ('Resumen de una clase de Cirugía General (anatomía abdominal y abdomen agudo)', 'https://videohighlight.com/v/T8eonstcK3s', 'Resumen de una sesión docente en video; verificá siempre con la bibliografía.')],
+    MODULOS=[
+        M('Semiología del abdomen; hernias como causa de obstrucción.', 'Abdomen agudo obstructivo, incisión de McBurney, hernia estrangulada.', 'Dibujá las capas y la vaina del recto con la línea arcuata.'),
+        M('Abdomen agudo peritonítico; absceso, plastrón.', 'Peritonitis, absceso pélvico, úlcera perforada que simula apendicitis.', 'Seguí con el dedo el camino de la gotera parietocólica derecha.'),
+        M('Fisiología del dolor abdominal: visceral, parietal y referido.', 'Migración del dolor apendicular; cólico renal; dolor de hombro.', 'Explicá la migración del dolor como si se la contaras a un compañero.'),
+        M('Abdomen agudo vascular; hemorragia.', 'Isquemia mesentérica, apendicitis gangrenosa, pileflebitis.', 'Memorizá qué arteria irriga qué segmento.'),
+        M('Abdomen agudo obstructivo; síndromes obstructivos.', 'Obstrucción por bridas, vólvulo, íleo biliar, Meckel.', 'Aprendé a distinguir delgado de colon por el calibre.'),
+        M('Apendicitis aguda: típica y atípica, complicaciones y tumores.', 'Apendicitis en niños, embarazadas y ancianos; plastrón; carcinoide.', 'Relacioná cada signo con el órgano que toca el apéndice.'),
+        M('Síndrome doloroso en fosa ilíaca derecha.', 'Crohn, Meckel, cólico renal, quiste, torsión, ectópico.', 'Recorré la FID de superficial a profundo y de derecha a izquierda.'),
+        M('Métodos complementarios por imágenes (trabajo práctico).', 'Neumoperitoneo, niveles hidroaéreos, eco y TC en la apendicitis.', 'Mirá siempre primero las radiografías sin leer el texto.'),
+        None, None])
+
+META[3] = dict(
+    TOP=['Por qué el esófago no tiene serosa y qué consecuencias tiene.',
+         'Qué mantiene cerrada la unión esofagogástrica y los tipos de hernia hiatal.',
+         'Divertículo de Zenker: dónde nace (triángulo de Killian) y por qué es falso.',
+         'Úlcera duodenal posterior (sangra) frente a anterior (perfora).',
+         'Irrigación del estómago, estaciones ganglionares y D2.',
+         'Síndromes del estómago operado explicados por lo que se perdió.'],
+    RUTA=[('Día 1 · Deglución y esófago', ['Deglución y faringe', 'Esófago', 'Unión esofagogástrica e hiato']),
+          ('Día 2 · Motilidad y estómago', ['Trastornos motores y divertículos', 'Estómago', 'Duodeno y HDA']),
+          ('Día 3 · Cirugía y cáncer', ['Estómago operado', 'Cáncer', 'Estudios', 'Preguntas de oral'])],
+    VIDEOS=[('Kenhub · Esófago in situ', 'https://www.kenhub.com/en/videos/the-esophagus-in-situ', 'Porciones, relaciones, irrigación e inervación (la versión completa es premium).'),
+            ('Kenhub · Estructura del esófago', 'https://www.kenhub.com/en/videos/structure-of-esophagus', 'Capas de la pared y tipos de músculo.'),
+            ('Osmosis · Anatomía de las vísceras abdominales: esófago y estómago', 'https://www.osmosis.org/learn/Anatomy_of_the_abdominal_viscera:_Esophagus_and_stomach', 'Irrigación, drenaje linfático y relaciones del estómago.')],
+    MODULOS=[
+        M('Disfagia: causas orgánicas y funcionales.', 'Disfagia orofaríngea frente a esofágica; Zenker.', 'Preguntate siempre: ¿falla el inicio de la deglución o el tránsito?'),
+        M('Patología benigna y maligna del esófago.', 'Perforación, mediastinitis, várices, cáncer de esófago.', 'Estudiá las relaciones por porciones con las láminas laterales.'),
+        M('Reflujo gastroesofágico, hernia hiatal y esófago de Barrett.', 'ERGE, hernia paraesofágica, vólvulo gástrico, Barrett.', 'Armá la lista de mecanismos antirreflujo y marcá cuál falla en cada cuadro.'),
+        M('Trastornos motores del esófago; divertículo de Zenker.', 'Acalasia, espasmo difuso, Chagas, Zenker y epifrénico.', 'Asociá cada trastorno con su imagen (pico de pájaro, sacacorchos).'),
+        M('Patología gástrica benigna; cirugía gástrica.', 'Úlcera, gastritis, vagotomía y reconstrucciones.', 'Seguí las arcadas arteriales con el dedo sobre la lámina.'),
+        M('Hemorragia digestiva alta; úlcera péptica.', 'Úlcera sangrante, várices, Mallory-Weiss, Dieulafoy.', 'Preguntate qué vaso pasa por detrás de cada úlcera.'),
+        M('Patología del estómago operado: dumping, asa aferente, vólvulo, fístula.', 'Billroth I, II y Y de Roux y sus complicaciones.', 'Dibujá las tres reconstrucciones antes de leer los síndromes.'),
+        M('Cáncer esofágico y gástrico: factores de riesgo, diagnóstico y tratamiento.', 'Estadificación T, N y M, esofagectomía y gastrectomía D2.', 'Memorizá la correspondencia entre capas de la pared y T.'),
+        M('Estudios complementarios: endoscopia, manometría, seriada (TP).', 'Seriada EGD, manometría de alta resolución, ecoendoscopia.', 'Practicá leyendo la manometría como un mapa de colores.'),
+        None, None])
+
+META[4] = dict(
+    TOP=['Colon retroperitoneal frente a intraperitoneal y por qué importa el uréter.',
+         'Irrigación del colon: puntos de Griffiths y Sudeck e isquemia colónica.',
+         'Hinchey de la diverticulitis y complicaciones (fístulas, estenosis, hemorragia).',
+         'Recto: fascias, mesorrecto, plexo hipogástrico y por qué se indica neoadyuvancia.',
+         'Línea pectínea: inervación, drenaje y hemorroides internas frente a externas.',
+         'Fístulas perianales (Parks y Goodsall) y ostomías: tipos, ubicación y complicaciones.'],
+    RUTA=[('Día 1 · Colon', ['Colon y fascias', 'Irrigación y linfáticos', 'Patología del colon']),
+          ('Día 2 · Recto y ano', ['Recto', 'Canal anal y patología anorrectal', 'Hemorragia digestiva baja']),
+          ('Día 3 · Ostomías y estudios', ['Ostomías', 'Métodos diagnósticos', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Órganos gastrointestinales de la pelvis y el periné (en español)', 'https://www.osmosis.org/learn/es/Anatomy_of_the_gastrointestinal_organs_of_the_pelvis_and_perineum', 'Recto, canal anal, esfínteres, irrigación y drenaje.'),
+            ('Kenhub · Recto y canal anal', 'https://kenhub.com/en/videos/anatomy-of-rectum-and-anal-canal', 'Zonas del canal anal y línea pectínea (la versión completa es premium).'),
+            ('Lecturio · Recto y canal anal', 'https://www.lecturio.com/concepts/rectum-and-anal-canal', 'Anatomía y transición del recto al canal anal.')],
+    MODULOS=[
+        M('Colon: anatomía, fisiología y semiología; traumatismos.', 'Hemicolectomías, movilización del colon, lesión ureteral.', 'Fijate en el plano entre la fascia del mesocolon y la de Gerota.'),
+        M('Trastornos vasculares del colon; cáncer colorrectal; cirugía.', 'Isquemia colónica, hemicolectomías y linfadenectomía.', 'Aprendé el pedículo que se liga en cada resección.'),
+        M('Enfermedad diverticular, inflamatoria, megacolon, vólvulos, pólipos y cáncer.', 'Diverticulitis, colitis ulcerosa, Crohn, vólvulo, cáncer derecho e izquierdo.', 'Armá un cuadro de dos columnas: colitis ulcerosa frente a Crohn.'),
+        M('Región ano-rectal: anatomía; cáncer de recto; prolapso rectal.', 'Cáncer de recto, resección anterior, Miles, prolapso, tacto rectal.', 'Dibujá el corte sagital de la pelvis con la reflexión peritoneal.'),
+        M('Anatomía de la región anorrectal: hemorroides, fisura, abscesos y fístulas, pilonidal.', 'Hemorroides, fisura, fístula, incontinencia, cáncer de ano.', 'Usá la línea pectínea como regla para casi todo.'),
+        M('Hemorragia digestiva baja (seminario).', 'Diverticulosis, angiodisplasia, hemorroides, cáncer.', 'Seguí el color de la sangre: la causa más probable cambia.'),
+        M('Ostomías: tipos, indicaciones, cuidados y complicaciones (TP).', 'Hartmann, protección de anastomosis, cuidados y educación al paciente.', 'Practicá cómo le explicarías la ostomía a un paciente.'),
+        M('Métodos diagnósticos del colon y del recto-ano; pesquisa.', 'Colonoscopia, RM de pelvis, ecografía endoanal, manometría.', 'Relacioná cada estudio con la pregunta clínica que responde.'),
+        None, None])
