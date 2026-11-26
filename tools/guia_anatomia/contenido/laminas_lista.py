@@ -32,3 +32,7 @@ GRAY += [239, 242, 243, 263, 265, 266, 270, 276, 277, 278, 280, 281]
 
 # ---- ampliaciones UP1 (accesos venosos y femoral)
 NETTER += ['S-328', 'S-329', 'S-270']
+
+# ---- UP5: higado, vias biliares y pancreas
+NETTER += ['S-430', 'S-431', 'S-432', 'S-433', 'S-434', 'S-456', 'S-457', 'S-541', 'S-544']
+GRAY += [174, 187, 189, 190, 191, 194]

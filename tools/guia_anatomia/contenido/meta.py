@@ -113,3 +113,30 @@ META[4] = dict(
         M('Ostomías: tipos, indicaciones, cuidados y complicaciones (TP).', 'Hartmann, protección de anastomosis, cuidados y educación al paciente.', 'Practicá cómo le explicarías la ostomía a un paciente.'),
         M('Métodos diagnósticos del colon y del recto-ano; pesquisa.', 'Colonoscopia, RM de pelvis, ecografía endoanal, manometría.', 'Relacioná cada estudio con la pregunta clínica que responde.'),
         None, None])
+
+META[5] = dict(
+    TOP=['Segmentación de Couinaud, planos y venas suprahepáticas: qué se reseca en cada hepatectomía.',
+         'Tríada portal en el ligamento hepatoduodenal y maniobra de Pringle.',
+         'Triángulo de Calot, visión crítica de seguridad y mecanismo de la lesión de la vía biliar.',
+         'Colecistitis aguda, síndrome de Mirizzi, íleo biliar y colangitis (Charcot y Reynolds).',
+         'Páncreas: relaciones de la cabeza y del cuello, irrigación y por qué ictericia con vesícula palpable indolora (Courvoisier).',
+         'Pancreatitis aguda (Atlanta 2012) y vías por las que se extiende la necrosis; paracentesis: sitio, técnica y estudios.'],
+    RUTA=[('Día 1 · Hígado y portal', ['Hígado y segmentación', 'Patología hepática', 'Hipertensión portal y paracentesis']),
+          ('Día 2 · Vías biliares', ['Vía biliar y vesícula', 'Litiasis, colecistitis, ictericia y colangitis', 'Estudios']),
+          ('Día 3 · Páncreas', ['Anatomía del páncreas', 'Pancreatitis', 'Tumores del páncreas', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía de las vísceras abdominales: hígado, vías biliares y vesícula', 'https://www.osmosis.org/video/Anatomy_of_the_abdominal_viscera:_Liver,_biliary_ducts_and_gallbladder', 'Lóbulos, relaciones, vía biliar e irrigación.'),
+            ('Osmosis · Anatomía de las vísceras abdominales: páncreas y bazo', 'https://www.osmosis.org/video/Anatomy_of_the_abdominal_viscera:_Pancreas_and_spleen', 'Partes, relaciones, conductos e irrigación del páncreas.'),
+            ('Universidad de Toronto · Anatomía hepatopancreatobiliar (serie TVASurg)', 'https://pie.med.utoronto.ca/TVASurg/project/cl_hpbanatomy1/', 'Segmentos hepáticos de Couinaud y anatomía quirúrgica.'),
+            ('Radiology Assistant · Anatomía segmentaria del hígado', 'https://radiologyassistant.nl/abdomen/liver/segmental-anatomy', 'Cómo se ven los segmentos en TC y RM.'),
+            ('Lecturio · Colecistectomía: abordajes y técnica (en español)', 'https://www.lecturio.com/es/concepts/colecistectomia-abordajes-y-tecnica/', 'Triángulo de Calot, arteria cística y técnica (acceso con registro).')],
+    MODULOS=[
+        M('Hígado: anatomía quirúrgica, segmentación, fisiología, semiología, traumatismos, ruptura espontánea y hemobilia.', 'Hepatectomías, trauma hepático, maniobra de Pringle, hemobilia.', 'Dibujá los 8 segmentos y las tres venas suprahepáticas antes de leer.'),
+        M('Abscesos piógenos y amebianos, quiste hidatídico y sus complicaciones, tumores y quistes benignos, tumores primarios y metástasis.', 'Absceso hepático, hidatidosis (endemia argentina), hemangioma, adenoma, hepatocarcinoma y metástasis colorrectales.', 'Asociá cada patología con la vía por la que llega al hígado.'),
+        M('Hipertensión portal (y paracentesis del trabajo práctico).', 'Várices esofagogástricas, ascitis, esplenomegalia, TIPS, paracentesis.', 'Memorizá los cuatro sitios de anastomosis portosistémica y la técnica de paracentesis.'),
+        M('Vías biliares: anatomía quirúrgica, fisiología, semiología, colangiografía operatoria, quiste del colédoco, atresia biliar y traumatismo.', 'Colecistectomía, lesión de la vía biliar, quiste del colédoco, atresia biliar.', 'Es el módulo más cirujano: dibujá el triángulo de Calot.'),
+        M('Litiasis biliar, colecistitis aguda, ictericia, colestasis, colangitis, tumores biliares y procedimientos percutáneos.', 'Cólico biliar, colecistitis, Mirizzi, íleo biliar, colangitis, Klatskin, prótesis.', 'Armá el cuadro de ictericia: prehepática, hepática y posthepática.'),
+        M('Páncreas: anatomía quirúrgica, fisiología, semiología y traumatismos.', 'Duodenopancreatectomía, trauma duodenopancreático, Courvoisier.', 'Seguí la cabeza del páncreas con el dedo: colédoco, porta, AMS, duodeno.'),
+        M('Pancreatitis aguda y crónica y sus complicaciones.', 'Pancreatitis biliar y alcohólica, necrosis, pseudoquiste, Atlanta 2012.', 'Aprendé la clasificación de Atlanta con las colecciones.'),
+        M('Tumores benignos y malignos del páncreas, quísticos y periampulares.', 'Adenocarcinoma, tumores periampulares, neuroendocrinos, NIPM, Whipple.', 'Asociá cada tumor con su síntoma guía.'),
+        M('Estudios complementarios: laboratorio, ecografía, TC, RM, colangiografía e intervencionismo.', 'Eco de vesícula, TC bifásica, CPRM, CPRE, drenaje percutáneo.', 'Relacioná cada estudio con la pregunta que responde.'),
+        None, None])
