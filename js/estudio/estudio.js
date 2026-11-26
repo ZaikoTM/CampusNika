@@ -1122,6 +1122,22 @@ async function toggleObjective(userId, moduleId, upId, index, completed) {
     }
 }
 
+// Para qué sirve cada libro de traumatología: cartelito suave en el libro completo y en el mosaico de sus capítulos (al pasar el mouse aparece el motivo).
+// «sug» = amarillo (lectura sugerida); el resto, celeste suave.
+const NK_LIB_USO = [
+    { re: /Orrego/i, sug: true, i: '⭐', t: 'Lectura sugerida', d: 'Lectura sugerida para traumatología: el más completo y claro para estudiar por regiones (hombro, codo, mano, cadera, rodilla, pie y columna). Está escrito para pregrado, con dibujos y preguntas de autoestudio.' },
+    { re: /Manual CTO/i, i: '🎯', t: 'Para reforzar', d: 'Para reforzar fracturas, osteosíntesis, tumores, nervios periféricos y síndrome compartimental. Es el más actual (2019) y está armado para repasar de cara al examen; trae poca semiología.' },
+    { re: /Guzm[aá]n/i, i: '⚡', t: 'Repaso rápido', d: 'Resumen de unas 70 páginas, ideal para repasar el día antes. No alcanza para estudiar un tema desde cero.' },
+    { re: /^Ramos V[eé]rtiz/i, i: '🔎', t: 'Libro de consulta', d: 'El más completo (más de 1000 páginas) y parte de la bibliografía esencial del programa. Conviene buscar el tema puntual en sus capítulos; no está pensado para leerlo de corrido.' },
+    { re: /Silberman/i, i: '📘', t: 'Bibliografía esencial', d: 'Libro de cátedra de traumatología: figura como bibliografía esencial del programa (Silberman y Varaona, Ortopedia y Traumatología).' },
+];
+function nkUsoDe(texto) { const t = String(texto || '').replace(/^📚\s*Libro completo\s*·\s*/, '').replace(/^📖\s*/, ''); return NK_LIB_USO.find((x) => x.re.test(t)) || null; }
+function nkUsoChip(u) {
+    if (!u) return '';
+    const col = u.sug ? 'color:#854d0e;background:#fef9c3;border:1px solid #fde68a' : 'color:#075985;background:#e0f2fe;border:1px solid #bae6fd';
+    return `<span class="nk-sug-badge" title="${String(u.d).replace(/"/g, '&quot;')}" style="display:inline-block;margin-left:8px;padding:2px 8px;font-size:0.68rem;font-weight:800;letter-spacing:.02em;${col};border-radius:999px;vertical-align:middle;cursor:help;white-space:nowrap">${u.i} ${u.t}</span>`;
+}
+
 // Badge verde "Obligatorio" para recursos con resource.obligatorio === true
 // (ver gineco_data.json: bibliografía obligatoria de cada sección de UP3).
 function badgeObligatorioHtml(resource) {
@@ -1132,8 +1148,11 @@ function badgeObligatorioHtml(resource) {
         if (m && Number(m[1]) >= 2022) return `<span title="Consenso de ${m[1]}: de los más actualizados" style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#075985; background:#e0f2fe; border-radius:999px; vertical-align:middle;">🆕 RECIENTE · ${m[1]}</span>`;
         return '';
     }
-    if (!resource.obligatorio) return '';
-    return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">✅ OBLIGATORIO</span>`;
+    // Lectura sugerida (resource.sugerido === true o un texto que explica por qué): cartelito amarillo suave, para que no resulte invasivo
+    const uso = (!resource.sugerido && /^📚\s*Libro completo/.test(tit)) ? nkUsoChip(nkUsoDe(tit)) : '';
+    const sug = uso || (resource.sugerido ? `<span class="nk-sug-badge" title="${String(resource.sugerido === true ? 'Lectura sugerida' : resource.sugerido).replace(/"/g, '&quot;')}" style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#854d0e; background:#fef9c3; border:1px solid #fde68a; border-radius:999px; vertical-align:middle; cursor:help;">⭐ Lectura sugerida</span>` : '');
+    if (!resource.obligatorio) return sug;
+    return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">✅ OBLIGATORIO</span>` + sug;
 }
 
 // ---- Flashcards del capítulo: abre la tarjeta (o un menú si hay varias) sin salir de la sala
@@ -1379,7 +1398,7 @@ function renderMaterialesAgrupados(materiales, uid) {
         const barra = `<div class="nk-lib-barra">${lista.length >= 8 ? `<input type="search" class="nk-lib-buscar" placeholder="Buscar un capítulo…" aria-label="Buscar un capítulo">` : ''}<div class="nk-chips" role="group" aria-label="Filtrar capítulos"><button type="button" class="nk-chip on" data-f="todos">Todos</button><button type="button" class="nk-chip" data-f="no">Sin leer</button><button type="button" class="nk-chip" data-f="curso">En curso</button><button type="button" class="nk-chip" data-f="ok">Leídos</button></div></div>`;
         const nom = l.libro.replace(/</g, '&lt;');
         libros.push(`<details class="nk-lib" style="--h:${hue(l.libro)}" data-k="${k.replace(/"/g, '&quot;')}" ${abierto ? 'open' : ''}>
-            <summary>${l.libro === NK_LIB_PROPIO ? '<span class="nk-lib-ico nk-lib-ico-n"><img src="assets/n-nika-hd-256.webp" srcset="assets/n-nika-hd-512.webp 2x" width="50" height="50" alt="NikaMed" decoding="async"></span>' : '<span class="nk-lib-ico">📖</span>'}<span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} ${lista.length === 1 ? 'capítulo' : 'capítulos'}<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+            <summary>${l.libro === NK_LIB_PROPIO ? '<span class="nk-lib-ico nk-lib-ico-n"><img src="assets/n-nika-hd-256.webp" srcset="assets/n-nika-hd-512.webp 2x" width="50" height="50" alt="NikaMed" decoding="async"></span>' : '<span class="nk-lib-ico">📖</span>'}<span class="nk-lib-tit"><b>${nom}</b><small>${lista.length} ${lista.length === 1 ? 'capítulo' : 'capítulos'}${nkUsoChip(nkUsoDe(l.libro))}<span class="nk-lib-leidos"></span></small></span><span class="nk-anillo" aria-hidden="true"><svg viewBox="0 0 44 44"><circle class="f" cx="22" cy="22" r="18"/><circle class="v" cx="22" cy="22" r="18"/></svg><i>0%</i></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
             <div class="nk-lib-cuerpo">${barra}<div class="nk-lib-grid">${items}<div class="nk-lib-vacio" style="display:none">Ningún capítulo coincide 🔍</div></div></div>
         </details>`);
     });
@@ -1434,7 +1453,7 @@ function renderResourceItem(resource) {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
             </div>`;
     return `
-        <div class="resource-item ${isActive}${resource.obligatorio ? ' nk-obl' : ''}" ${actionAttr} data-url="${resource.url}"${fidAttr}${fichasIds ? ` data-fichas="${fichasIds}"` : ''}>
+        <div class="resource-item ${isActive}${resource.obligatorio ? ' nk-obl' : ''}${!resource.obligatorio && (resource.sugerido || (/^📚\s*Libro completo/.test(String(resource.title || '')) && (nkUsoDe(resource.title) || {}).sug)) ? ' nk-sug' : ''}" ${actionAttr} data-url="${resource.url}"${fidAttr}${fichasIds ? ` data-fichas="${fichasIds}"` : ''}>
             ${iconoHtml}
             <div class="resource-info">
                 <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
