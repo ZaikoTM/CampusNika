@@ -18,7 +18,7 @@
   (async () => {
     if (await hostConCandado()) { cargarRemoto(); return; }
     if (!window.NikaSupabase) {
-      if (!window.supabase) await cargar('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+      if (!window.supabase) { try { await cargar('js/vendor/supabase.js?v=21192'); } catch (_) {} if (!window.supabase) await cargar('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'); }
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
     if (!window.VoiceManager) await cargar('js/voiceManager.js?v=6');

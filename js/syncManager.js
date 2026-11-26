@@ -606,6 +606,8 @@ const SyncManager = (() => {
 
     window.addEventListener('online', _onOnline);
     window.addEventListener('offline', _onOffline);
+    // El cliente de la base puede llegar tarde (red lenta o CDN bloqueado): apenas aparece, se sube lo que quedó en cola.
+    window.addEventListener('nika:supabase-listo', () => { if (!estaOffline()) sincronizarAhora(); });
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden && !estaOffline() && _conteo.pendientes > 0) sincronizarAhora();
     });

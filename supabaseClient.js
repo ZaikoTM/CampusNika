@@ -35,27 +35,50 @@ const SUPABASE_ANON_KEY = "sb_publishable_DPSe7yJoTpBCFFKZdKI9pg_v40eqnvr";
 // cualquier hipo de red, caché de Service Worker sirviendo una versión
 // vieja, o un simple reordenamiento accidental de los <script>), esperamos
 // activamente a que aparezca, con un timeout razonable.
-function _esperarSDKSupabase(maxEsperaMs = 5000, intervaloMs = 50) {
-    return new Promise((resolve, reject) => {
-        if (window.supabase && typeof window.supabase.createClient === "function") {
-            resolve(window.supabase);
-            return;
+// El SDK se sirve primero desde nuestro propio dominio (js/vendor/supabase.js): no depende de jsDelivr/unpkg, que
+// algunas redes (colegios, antivirus, proveedores de internet, VPN) bloquean o dejan colgados. Si por algo no está,
+// se prueban los CDN y, si todo falla, se SIGUE REINTENTANDO en segundo plano (antes se rendía a los 5 s y el usuario
+// quedaba sin conexión a la base hasta recargar: salas de Pomodoro sin reconectar y sesiones "pendientes" para siempre).
+const _FUENTES_SDK_PROPIAS = [
+    "js/vendor/supabase.js?v=21192",
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+    "https://unpkg.com/@supabase/supabase-js@2",
+];
+function _sdkListo() { return !!(window.supabase && typeof window.supabase.createClient === "function"); }
+function _inyectarSDK(src, msMax) {
+    return new Promise((resolve) => {
+        const s = document.createElement("script");
+        let fin = false;
+        const cerrar = (ok) => { if (fin) return; fin = true; clearTimeout(t); if (!ok) { try { s.remove(); } catch (_) {} } resolve(ok); };
+        const t = setTimeout(() => cerrar(false), msMax);
+        s.src = src; s.async = true;
+        s.onload = () => cerrar(_sdkListo());
+        s.onerror = () => cerrar(false);
+        document.head.appendChild(s);
+    });
+}
+async function _conseguirSDK() {
+    let ronda = 0;
+    for (;;) {
+        if (_sdkListo()) return window.supabase;
+        // Margen corto por si la página todavía lo está cargando por su cuenta.
+        for (let i = 0; i < 20 && !_sdkListo(); i++) await new Promise((r) => setTimeout(r, 50));
+        if (_sdkListo()) return window.supabase;
+        for (const fuente of _FUENTES_SDK_PROPIAS) {
+            if (_sdkListo()) return window.supabase;
+            if (await _inyectarSDK(fuente, 15000)) { console.info("[Nika] SDK de Supabase cargado desde:", fuente); return window.supabase; }
         }
-        const inicio = Date.now();
-        const intervalId = setInterval(() => {
-            if (window.supabase && typeof window.supabase.createClient === "function") {
-                clearInterval(intervalId);
-                resolve(window.supabase);
-            } else if (Date.now() - inicio > maxEsperaMs) {
-                clearInterval(intervalId);
-                reject(new Error(
-                    "[supabaseClient] Timeout esperando el SDK de Supabase (window.supabase). " +
-                    "Revisá que <script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'></script> " +
-                    "esté ANTES de supabaseClient.js en el <head>, que no haya un Service Worker sirviendo " +
-                    "una versión vieja cacheada, y que el CDN no esté bloqueado (ad-blocker / sin conexión)."
-                ));
-            }
-        }, intervaloMs);
+        ronda++;
+        console.warn("[Nika] No se pudo cargar el SDK de Supabase (ronda " + ronda + "). Reintentando…");
+        await new Promise((r) => setTimeout(r, Math.min(30000, 3000 * ronda)));
+    }
+}
+// Se mantiene el nombre por compatibilidad: rechaza si tarda más de maxEsperaMs, pero la carga sigue en segundo plano.
+function _esperarSDKSupabase(maxEsperaMs = 20000) {
+    const carga = _conseguirSDK();
+    return new Promise((resolve, reject) => {
+        const t = setTimeout(() => reject(new Error("[supabaseClient] El SDK de Supabase tarda en cargar; se sigue intentando en segundo plano.")), maxEsperaMs);
+        carga.then((sdk) => { clearTimeout(t); resolve(sdk); });
     });
 }
 
@@ -202,29 +225,58 @@ function _mostrarAvisoSesion() {
 
 let nikaSupabase = null;
 
-const NikaSupabaseReady = _esperarSDKSupabase()
-    .then((supabaseSDK) => {
-        nikaSupabase = supabaseSDK.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-            global: { fetch: _fetchConAviso },
-            realtime: {
-                params: {
-                    eventsPerSecond: 10, // límite razonable para un duelo 1vs1
-                },
-                // El latido del socket corre en un Web Worker: los navegadores (y las PWA) frenan los temporizadores de
-                // las pestañas en segundo plano y eso cortaba la presencia aunque el sitio siguiera abierto.
-                worker: true,
-                heartbeatIntervalMs: 20000,
+function _crearCliente(supabaseSDK) {
+    const opciones = {
+        global: { fetch: _fetchConAviso },
+        realtime: {
+            params: {
+                eventsPerSecond: 10, // límite razonable para un duelo 1vs1
             },
+            // El latido del socket corre en un Web Worker: los navegadores (y las PWA) frenan los temporizadores de
+            // las pestañas en segundo plano y eso cortaba la presencia aunque el sitio siguiera abierto.
+            worker: true,
+            heartbeatIntervalMs: 20000,
+        },
+    };
+    let c;
+    try {
+        c = supabaseSDK.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, opciones);
+    } catch (err) {
+        // Navegadores con el almacenamiento bloqueado (modo privado estricto, cookies de terceros, antivirus): sesión en memoria.
+        console.warn("[Nika] No se pudo crear el cliente con almacenamiento local, se usa memoria:", err && err.message);
+        const mem = {};
+        c = supabaseSDK.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, Object.assign({}, opciones, {
+            auth: { persistSession: false, storage: { getItem: (k) => (k in mem ? mem[k] : null), setItem: (k, v) => { mem[k] = String(v); }, removeItem: (k) => { delete mem[k]; } } },
+        }));
+    }
+    c.auth.onAuthStateChange((evento, ses) => { if (evento === 'TOKEN_REFRESHED') _revisarRelojDispositivo(ses); });
+    // Solo con TOKEN_REFRESHED: ahí el token se acaba de emitir. SIGNED_IN también salta al volver a una pestaña
+    // en segundo plano con un token viejo, y eso daba falsos avisos de "hora adelantada".
+    return c;
+}
+
+let _clientePromesa = null;
+function _asegurarCliente() {
+    if (!_clientePromesa) {
+        _clientePromesa = _conseguirSDK().then((sdk) => {
+            nikaSupabase = _crearCliente(sdk);
+            try { window.dispatchEvent(new CustomEvent('nika:supabase-listo')); } catch (_) {}
+            return nikaSupabase;
         });
-        nikaSupabase.auth.onAuthStateChange((evento, ses) => { if (evento === 'TOKEN_REFRESHED') _revisarRelojDispositivo(ses); });
-        // Solo con TOKEN_REFRESHED: ahí el token se acaba de emitir. SIGNED_IN también salta al volver a una pestaña
-        // en segundo plano con un token viejo, y eso daba falsos avisos de "hora adelantada".
-        return nikaSupabase;
-    })
-    .catch((err) => {
-        console.error(err.message || err);
-        throw err;
-    });
+        _clientePromesa.catch((err) => { console.error('[supabaseClient] No se pudo crear el cliente:', err && err.message || err); });
+    }
+    return _clientePromesa;
+}
+
+// `ready` rechaza si el SDK tarda más de 20 s (el resto de la app lo trata como "sin conexión"), pero la carga sigue
+// y apenas llega el cliente queda disponible en NikaSupabase.client y se emite el evento 'nika:supabase-listo'.
+const NikaSupabaseReady = new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error('[supabaseClient] El SDK de Supabase tarda en cargar; se sigue intentando en segundo plano.')), 20000);
+    _asegurarCliente().then((c) => { clearTimeout(t); resolve(c); });
+}).catch((err) => {
+    console.error(err.message || err);
+    throw err;
+});
 
 // ------------------------------------------------------------
 // 4. Identidad del jugador actual

@@ -130,6 +130,9 @@ const PomodoroSyncManager = (function () {
     // Reconexión manual (botón "Reconectar" de la barra): reinicia el canal global y vuelve a abrir la sala ya, sin esperas
     async function reconectar() {
         detenido = false; intentosCanal = 0; reconectando = false;
+        // Si el cliente de la base todavía no está (SDK lento o bloqueado), se espera a que aparezca en vez de fallar en silencio.
+        if (!sb()) { try { await window.NikaSupabase.ready; } catch (_) {} }
+        if (!sb()) return false;
         try { await _reiniciarCanal(); } catch (_) {}
         const s = sala;
         if (s && !s.cerrada) {
@@ -669,3 +672,6 @@ const PomodoroSyncManager = (function () {
 })();
 
 window.PomodoroSyncManager = PomodoroSyncManager;
+
+// Si el cliente de la base llega tarde (red lenta o CDN bloqueado), la sala se vuelve a abrir sola apenas aparece.
+window.addEventListener('nika:supabase-listo', () => { try { PomodoroSyncManager.reconectar(); } catch (_) {} });
