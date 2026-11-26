@@ -19,11 +19,11 @@
     const st = document.createElement('style'); st.id = 'nkan-css';
     st.textContent = `
 .nk-an{position:absolute;inset:0;z-index:4;pointer-events:none}
-.nk-at{--c:#fde68a;position:absolute;min-width:60px;pointer-events:auto;border-radius:8px;background:color-mix(in srgb,var(--c) 92%,#fff);color:#1e293b;box-shadow:0 6px 16px -6px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;line-height:1.3;animation:nkanEntra .35s cubic-bezier(.2,.9,.3,1.3) both;touch-action:none}
+.nk-at{--c:#fde68a;position:absolute;min-width:34px;pointer-events:auto;border-radius:8px;background:color-mix(in srgb,var(--c) 92%,#fff);color:#1e293b;box-shadow:0 6px 16px -6px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;line-height:1.3;animation:nkanEntra .35s cubic-bezier(.2,.9,.3,1.3) both;touch-action:none}
 .nk-at.sel{box-shadow:0 0 0 2px #7c3aed,0 10px 22px -8px rgba(15,23,42,.6)}
 .nk-at.flash{animation:nkanFlash 1.4s ease}
 .nk-at.fijo{display:flex;flex-direction:column}.nk-at.fijo .nk-at-txt{flex:1;min-height:0;overflow:auto}
-.nk-at-txt{padding:5px 9px 6px 20px;min-height:1.3em;outline:0;white-space:pre-wrap;word-break:break-word;cursor:text;touch-action:auto}
+.nk-at-txt{padding:.3em .55em .35em 1.2em;min-height:1.3em;outline:0;white-space:pre-wrap;word-break:break-word;cursor:text;touch-action:auto}
 .nk-at-txt img{max-width:100%;height:auto;display:block;border-radius:4px}.nk-at-txt ul,.nk-at-txt ol{margin:0;padding-left:1.3em}.nk-at-txt h1,.nk-at-txt h2,.nk-at-txt h3{margin:0;font-size:1.15em}
 .nk-at-asat{position:absolute;left:17px;right:0;top:0;height:7px;cursor:grab;touch-action:none;border-radius:8px 8px 0 0}
 .nk-at:hover .nk-at-asat,.nk-at.sel .nk-at-asat{background:rgba(15,23,42,.1)}.nk-at-asat:active{cursor:grabbing}
@@ -168,9 +168,9 @@
       const b = e.target.closest('button'); if (!b) return; const api = N();
       if (b.dataset.c) { await api.actualizar(a, { color: b.dataset.c }); el.style.setProperty('--c', NCOL[b.dataset.c]); bar.querySelectorAll('.c').forEach((x) => x.classList.toggle('on', x === b)); api.refrescar(S); return; }
       const x = b.dataset.x;
-      if (x === 'mas' || x === 'menos') { const t = Math.max(.5, Math.min(3, +(num(a.tam, 1) + (x === 'mas' ? .15 : -.15)).toFixed(2))); await api.actualizar(a, { tam: t }); el.style.fontSize = `calc(var(--u) * ${t})`; }
+      if (x === 'mas' || x === 'menos') { const t = Math.max(.25, Math.min(8, +(num(a.tam, 1) + (x === 'mas' ? .15 : -.15)).toFixed(2))); await api.actualizar(a, { tam: t }); el.style.fontSize = `calc(var(--u) * ${t})`; }
       else if (x === 'auto') { delete el._X.al; el.classList.remove('fijo'); el.style.height = ''; el._guardarTexto(); }
-      else if (x === 'borrar') { if (confirm('¿Borrar este texto?')) { await api.borrar(a); S.anots = lista(S).filter((z) => z !== a); el.remove(); seleccionada = null; api.refrescar(S); } }
+      else if (x === 'borrar') { const si = R ? await R.confirmar('¿Borrar este texto?') : confirm('¿Borrar este texto?'); if (si) { await api.borrar(a); S.anots = lista(S).filter((z) => z !== a); el.remove(); seleccionada = null; api.refrescar(S); } }
       else if (x === 'compartir') compartir(S, a);
       else if (x === 'etq') popEtiquetas(S, a, el, bar);
     });
@@ -207,19 +207,41 @@
       window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
     });
   }
+  // El punto violeta (esquina) escala TODA la caja: ancho, alto y tamaño de la letra, con el mismo factor, así el texto se ajusta solo
+  // al achicar o agrandar, sin límite incómodo. Los bordes derecho e inferior cambian solo el ancho o el alto (el texto se reacomoda).
   function redimensionar(S, a, el, pg) {
+    const enlazaEsq = (h) => h.addEventListener('pointerdown', (e) => {
+      if (e.button) return; e.preventDefault(); e.stopPropagation();
+      const b = pg.el.getBoundingClientRect(), r0 = el.getBoundingClientRect(), x0 = e.clientX, y0 = e.clientY;
+      const w0 = num(a.ancho, .28), t0 = num(a.tam, 1), al0 = el._X.al || 0, wpx = Math.max(20, r0.width), hpx = Math.max(10, r0.height);
+      const sMax = Math.max(.05, (.99 - num(a.pos_x, .1)) / w0);
+      h.setPointerCapture && h.setPointerCapture(e.pointerId);
+      let s = 1;
+      const mv = (ev) => {
+        s = (Math.max(2, wpx + ev.clientX - x0) / wpx + Math.max(2, hpx + ev.clientY - y0) / hpx) / 2;
+        s = Math.max(.12, Math.min(s, sMax, 8 / t0));                    // la letra no baja de ~0,25 ni sube de 8 veces
+        a.ancho = w0 * s; a.tam = +Math.max(.25, t0 * s).toFixed(3);
+        el.style.width = a.ancho * 100 + '%'; el.style.fontSize = `calc(var(--u) * ${a.tam})`;
+        if (al0) { el._X.al = +Math.min(.99 - num(a.pos_y, .1), al0 * s).toFixed(4); el.style.height = el._X.al * 100 + '%'; }
+      };
+      const fin = async () => {
+        window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
+        await N().actualizar(a, { ancho: +num(a.ancho, .28).toFixed(4), tam: a.tam }); if (al0 && el._guardarTexto) el._guardarTexto();
+      };
+      window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+    });
     const enlaza = (h, dx, dy) => h.addEventListener('pointerdown', (e) => {
       if (e.button) return; e.preventDefault(); e.stopPropagation();
       const b = pg.el.getBoundingClientRect(); const x0 = e.clientX, y0 = e.clientY, w0 = num(a.ancho, .28), h0 = el.getBoundingClientRect().height / b.height;
       h.setPointerCapture && h.setPointerCapture(e.pointerId);
       const mv = (ev) => {
-        if (dx) { a.ancho = Math.max(.08, Math.min(.99 - num(a.pos_x, .1), w0 + (ev.clientX - x0) / b.width)); el.style.width = a.ancho * 100 + '%'; }
-        if (dy) { const al = Math.max(.035, Math.min(.99 - num(a.pos_y, .1), h0 + (ev.clientY - y0) / b.height)); el._X.al = +al.toFixed(4); el.classList.add('fijo'); el.style.height = al * 100 + '%'; }
+        if (dx) { a.ancho = Math.max(.02, Math.min(.99 - num(a.pos_x, .1), w0 + (ev.clientX - x0) / b.width)); el.style.width = a.ancho * 100 + '%'; }
+        if (dy) { const al = Math.max(.012, Math.min(.99 - num(a.pos_y, .1), h0 + (ev.clientY - y0) / b.height)); el._X.al = +al.toFixed(4); el.classList.add('fijo'); el.style.height = al * 100 + '%'; }
       };
       const fin = async () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin); await N().actualizar(a, { ancho: +num(a.ancho, .28).toFixed(4) }); if (dy && el._guardarTexto) el._guardarTexto(); };
       window.addEventListener('pointermove', mv); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
     });
-    enlaza(el.querySelector('.nk-at-res'), 1, 1); enlaza(el.querySelector('.nk-at-rd'), 1, 0); enlaza(el.querySelector('.nk-at-rb'), 0, 1);
+    enlazaEsq(el.querySelector('.nk-at-res')); enlaza(el.querySelector('.nk-at-rd'), 1, 0); enlaza(el.querySelector('.nk-at-rb'), 0, 1);
   }
 
   // ---- marcador 📌

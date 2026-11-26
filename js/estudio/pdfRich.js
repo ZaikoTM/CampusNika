@@ -130,7 +130,41 @@
 .nkr-ov .bar{position:absolute;left:0;bottom:calc(100% + 8px);display:flex;gap:2px;padding:3px;border-radius:11px;background:#0f172a;box-shadow:0 10px 24px rgba(0,0,0,.45);pointer-events:auto;white-space:nowrap}
 .nkr-ov .bar.abajo{bottom:auto;top:calc(100% + 8px)}
 .nkr-ov .bar button{border:0;background:transparent;color:#e2e8f0;border-radius:8px;height:28px;min-width:38px;padding:0 7px;font:800 12px/1 inherit;font-family:inherit;cursor:pointer}.nkr-ov .bar button:hover{background:#334155}.nkr-ov .bar button.on{background:#7c3aed}`;
+    st.textContent += `
+.nkr-conf{position:fixed;inset:0;z-index:2147483300;background:rgba(2,6,23,.6);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:nkrConfIn .15s ease}
+.nkr-conf>div{width:min(360px,100%);background:#0f172a;color:#f8fafc;border:1px solid #334155;border-radius:18px;padding:18px 18px 14px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.nkr-conf p{margin:0 0 14px;font-weight:700;font-size:15px;line-height:1.4}
+.nkr-conf .b{display:flex;gap:8px;justify-content:flex-end}
+.nkr-conf button{border:0;border-radius:11px;padding:9px 16px;font:800 13px/1 inherit;font-family:inherit;cursor:pointer;background:#1e293b;color:#e2e8f0}
+.nkr-conf button.si{background:#dc2626;color:#fff}.nkr-conf button:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+@keyframes nkrConfIn{from{opacity:0}to{opacity:1}}`;
     document.head.appendChild(st);
+  }
+
+  // Confirmación propia: el confirm() nativo del navegador saca al lector de la pantalla completa (y lo parecía cerrar).
+  // Se muestra dentro del elemento a pantalla completa, así que el lector queda exactamente como estaba.
+  function confirmar(mensaje, o) {
+    o = o || {};
+    return new Promise((resolver) => {
+      css();
+      const m = document.createElement('div'); m.className = 'nkr-conf'; m.setAttribute('role', 'alertdialog'); m.setAttribute('aria-modal', 'true');
+      m.innerHTML = '<div><p></p><div class="b"><button type="button" class="no"></button><button type="button" class="si"></button></div></div>';
+      m.querySelector('p').textContent = mensaje;
+      const no = m.querySelector('.no'), si = m.querySelector('.si');
+      no.textContent = o.no || 'Cancelar'; si.textContent = o.si || 'Borrar';
+      const fin = (v) => { document.removeEventListener('keydown', tecla, true); m.remove(); resolver(v); };
+      const tecla = (e) => {
+        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); fin(false); }
+        else if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); fin(document.activeElement === si); }
+        else if (e.key === 'Tab') { e.preventDefault(); (document.activeElement === no ? si : no).focus(); }
+        else e.stopPropagation();
+      };
+      m.addEventListener('pointerdown', (e) => e.stopPropagation());
+      m.addEventListener('click', (e) => { e.stopPropagation(); if (e.target === m || e.target === no) fin(false); else if (e.target === si) fin(true); });
+      document.addEventListener('keydown', tecla, true);
+      (document.fullscreenElement || document.body).appendChild(m);
+      no.focus();
+    });
   }
 
   // ---- menús desplegables propios (reemplazan a los <select> del navegador)
@@ -345,5 +379,5 @@
     return { guardar, volver, insertarImagenes };
   }
 
-  window.NikaRich = { limpiar, aHtml, esc, FUENTES, barraHtml, enlazar, css, cerrarPop, favorito, conFavorito };
+  window.NikaRich = { limpiar, aHtml, esc, FUENTES, barraHtml, enlazar, css, cerrarPop, favorito, conFavorito, confirmar };
 })();

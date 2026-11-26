@@ -226,7 +226,7 @@
         + ((n.etiquetas || []).length ? '<div class="et">' + n.etiquetas.map((e) => '<i>#' + esc(e) + '</i>').join('') + '</div>' : '');
       it.addEventListener('click', (e) => {
         const bt = e.target.closest('button'); const a = bt && bt.dataset.a;
-        if (a === 'borrar') { e.stopPropagation(); if (confirm('¿Borrar esta nota?')) borrar(n).then(() => { refrescarListas(S, p); if (window.NikaPdfAnot) window.NikaPdfAnot.recargar(S); }); return; }
+        if (a === 'borrar') { e.stopPropagation(); (window.NikaRich ? window.NikaRich.confirmar('¿Borrar esta nota?') : Promise.resolve(confirm('¿Borrar esta nota?'))).then((si) => { if (si) return borrar(n).then(() => { refrescarListas(S, p); if (window.NikaPdfAnot) window.NikaPdfAnot.recargar(S); }); }); return; }
         if (a === 'editar') { e.stopPropagation(); editar(S, n); return; }
         if (a === 'compartir') { e.stopPropagation(); if (window.NikaPdfAnot) window.NikaPdfAnot.compartir(S, n); return; }
         if (window.NikaPdf && n.posicion) window.NikaPdf.irA(+n.posicion, true);

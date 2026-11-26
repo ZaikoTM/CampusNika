@@ -89,6 +89,7 @@
     fs: '<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
     fsx: '<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
     ok: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+    forma: '<svg viewBox="0 0 24 24"><rect x="3.5" y="10" width="10" height="10" rx="1.5"/><circle cx="15.5" cy="8.5" r="5"/></svg>',
     pincel: '<svg viewBox="0 0 24 24"><path d="M14 4l6 6-9.5 9.5H4.5v-6z"/><path d="M12.5 5.5l6 6"/><path d="M4 21h4"/></svg>',
     area: '<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" stroke-dasharray="3 2"/><path d="M8 14h8"/></svg>',
     drive: '<svg viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/></svg>',
@@ -493,9 +494,10 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
   function dForma(r, W, H) {
     const ax = r.a[0] * W, ay = r.a[1] * H, bx = r.b[0] * W, by = r.b[1] * H, sw = Math.max(1, r.w * W);
     if (r.k === 'linea') return `M${f1(ax)} ${f1(ay)}L${f1(bx)} ${f1(by)}`;
-    if (r.k === 'flecha') {
+    if (r.k === 'flecha' || r.k === 'flecha2') {
       const ang = Math.atan2(by - ay, bx - ax), L = Math.max(12, sw * 4.5), sp = 0.5;
-      return `M${f1(ax)} ${f1(ay)}L${f1(bx)} ${f1(by)}M${f1(bx - L * Math.cos(ang - sp))} ${f1(by - L * Math.sin(ang - sp))}L${f1(bx)} ${f1(by)}L${f1(bx - L * Math.cos(ang + sp))} ${f1(by - L * Math.sin(ang + sp))}`;
+      const punta = (px, py, an) => `M${f1(px - L * Math.cos(an - sp))} ${f1(py - L * Math.sin(an - sp))}L${f1(px)} ${f1(py)}L${f1(px - L * Math.cos(an + sp))} ${f1(py - L * Math.sin(an + sp))}`;
+      return `M${f1(ax)} ${f1(ay)}L${f1(bx)} ${f1(by)}` + punta(bx, by, ang) + (r.k === 'flecha2' ? punta(ax, ay, ang + Math.PI) : '');
     }
     const x0 = Math.min(ax, bx), y0 = Math.min(ay, by), w = Math.abs(bx - ax), h = Math.abs(by - ay);
     if (r.k === 'rect') return `M${f1(x0)} ${f1(y0)}h${f1(w)}v${f1(h)}h${f1(-w)}z`;
@@ -772,11 +774,12 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     m_sel: { t: 'Seleccionar', k: 'V', d: 'Elegí texto del PDF para subrayarlo con el color activo, definir la palabra (📖) o buscarla en todo el PDF (🔍). También podés tocar un subrayado para cambiarle el color, copiarlo o borrarlo.' },
     m_sub: { t: 'Subrayar', k: 'H', d: 'Subraya el texto que selecciones, al instante. Solo prolijo en PDFs con texto. 💡 El Pincel funciona mejor y sirve en cualquier PDF.' },
     m_pincel: { t: 'Pincel', k: 'P', rec: 1, d: 'Marcá a mano alzada, con cualquier PDF (también escaneados). Es más preciso y más vistoso que Subrayar, por eso lo recomendamos. Ajustá el grosor con el deslizador.', n: 'Mantené Mayús o activá «Línea recta» para trazar rectas.' },
+    m_forma: { t: 'Formas', k: 'O', rec: 0, d: 'Flechas, flecha doble, líneas, rectángulos, óvalos y nubes, como en Adobe. Arrastrá sobre la página para dibujarlas; con Mayús salen rectas, cuadradas o redondas. Elegí la forma en la flechita ▾. El color y el grosor se cambian cuando quieras.' },
     m_mano: { t: 'Mano', k: 'N', d: 'Arrastrá la página para moverte, como en Adobe. Volvés a Seleccionar con la tecla V.' },
     m_bor: { t: 'Goma', k: 'E', d: 'Pasala por encima de lo marcado y se quita cada marca que toques. Para borrar muchas juntas usá 🧹 Limpiar.' },
     m_texto: { t: 'Texto sobre el PDF', k: 'T', d: 'Tocá un lugar de la página y escribí una nota. Podés moverla, cambiarle la letra y el color.' },
     m_pin: { t: 'Marcador con nota', k: 'M', d: 'Pone un 📌 en un punto exacto y abre una nota atada a ese lugar. Se sincroniza con tus Notas de lectura.' },
-    a_variantes: { t: 'Variantes', d: 'Abre las variantes de esta herramienta: por ejemplo, formas para el Pincel o subrayar y tachar para Subrayar.' },
+    a_variantes: { t: 'Variantes', d: 'Abre las variantes de esta herramienta: por ejemplo, flecha, línea, rectángulo, óvalo o nube en Formas, o subrayar y tachar en Subrayar.' },
     a_ocultar: { t: 'Ocultar la barra', k: 'B', d: 'Esconde la barra de arriba para leer a toda la altura. Para volver, acercá el mouse al borde de arriba o apretá B.' },
     a_mostrar: { t: 'Mostrar la barra', k: 'B', d: 'Vuelve a mostrar la barra de herramientas.' },
     a_prefs: { t: 'Preferencias del lector', d: 'Tamaño de la barra (auto, normal, compacta o mínima), ocultarla al bajar y la barra vertical flotante. Se guardan en tu cuenta.' },
@@ -952,8 +955,9 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
   const VARS = {
     sel: [{ t: 'Seleccionar', ic: '↖', modo: 'sel' }, { t: 'Mano (mover la página)', ic: '✋', modo: 'mano' }],
     sub: [{ t: 'Resaltar', ic: '🖍', modo: 'sub', e: 'r' }, { t: 'Subrayar', ic: '<u>S</u>', modo: 'sub', e: 'u' }, { t: 'Tachar', ic: '<s>S</s>', modo: 'sub', e: 't' }],
-    pincel: [{ t: 'Pincel libre', ic: '🖌', modo: 'pincel' }, { t: 'Línea', ic: '╱', modo: 'forma', f: 'linea' }, { t: 'Flecha', ic: '➜', modo: 'forma', f: 'flecha' },
-      { t: 'Rectángulo', ic: '▭', modo: 'forma', f: 'rect' }, { t: 'Círculo', ic: '◯', modo: 'forma', f: 'circulo' }, { t: 'Nube', ic: '☁', modo: 'forma', f: 'nube' }],
+    pincel: [{ t: 'Pincel libre', ic: '🖌', modo: 'pincel' }],
+    forma: [{ t: 'Flecha', ic: '➜', modo: 'forma', f: 'flecha' }, { t: 'Flecha doble', ic: '⟷', modo: 'forma', f: 'flecha2' }, { t: 'Línea', ic: '╱', modo: 'forma', f: 'linea' },
+      { t: 'Rectángulo', ic: '▭', modo: 'forma', f: 'rect' }, { t: 'Óvalo', ic: '◯', modo: 'forma', f: 'circulo' }, { t: 'Nube', ic: '☁', modo: 'forma', f: 'nube' }],
     texto: [{ t: 'Escribir texto', ic: '📝', modo: 'texto' }, { t: 'Marca de verificación', ic: '✓', modo: 'sello', s: '✓' }, { t: 'Marca de cruz', ic: '✗', modo: 'sello', s: '✗' }, { t: 'Punto', ic: '•', modo: 'sello', s: '•' }],
     bor: [{ t: 'Goma', ic: '🧽', modo: 'bor' }, { t: 'Limpiar marcas…', ic: '🧹', accion: 'limpiar' }],
   };
@@ -1035,9 +1039,9 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
   }
   function montarRail(mi) {
     if ($('.nkpdf-rail', mi.root)) return;
-    const b = (g, ic) => `<button type="button" class="rl-b" data-modo="${g}"${VARS[g] ? ` data-g="${g}"` : ''} aria-label="${g}">${ic}${VARS[g] ? '<i class="rl-tri"></i>' : ''}</button>`;
+    const b = (g, ic) => { const v = VARS[g] && VARS[g].length > 1; return `<button type="button" class="rl-b" data-modo="${g}"${v ? ` data-g="${g}"` : ''} aria-label="${g}">${ic}${v ? '<i class="rl-tri"></i>' : ''}</button>`; };
     const r = document.createElement('div'); r.className = 'nkpdf-rail'; r.setAttribute('role', 'toolbar'); r.setAttribute('aria-label', 'Herramientas de marcado');
-    r.innerHTML = `<i class="rl-grip" title="Arrastrá para mover"></i>${b('sel', ICO.sel)}${b('sub', ICO.sub)}${b('pincel', ICO.pincel)}${b('texto', '<span class="rl-e">📝</span>')}${b('pin', '<span class="rl-e">📌</span>')}${b('bor', ICO.bor)}
+    r.innerHTML = `<i class="rl-grip" title="Arrastrá para mover"></i>${b('sel', ICO.sel)}${b('sub', ICO.sub)}${b('pincel', ICO.pincel)}${b('forma', ICO.forma)}${b('texto', '<span class="rl-e">📝</span>')}${b('pin', '<span class="rl-e">📌</span>')}${b('bor', ICO.bor)}
       <i class="rl-sep"></i>
       <button type="button" class="rl-b rl-color" data-accion="paleta" aria-label="Color y favoritos"><span style="background:${colorDe(mi.color)}"></span></button>
       <button type="button" class="rl-b" data-accion="rl-tam" aria-label="Tamaño"><span class="rl-e">◍</span><em class="rl-n">${mi.tam}</em></button>
@@ -1069,7 +1073,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
   }
   function dibujarForma(e, mi, pg) {
     e.preventDefault(); cerrarPop();
-    const k = S.forma || 'rect', b0 = pg.el.getBoundingClientRect(), W = b0.width, H = b0.height, gr = Math.max(2, Math.min(14, S.tam / 4));
+    const k = S.forma || 'flecha', b0 = pg.el.getBoundingClientRect(), W = b0.width, H = b0.height, gr = Math.max(2, Math.min(14, S.tam / 4));
     const norm = (ev) => [Math.min(1, Math.max(0, (ev.clientX - b0.left) / W)), Math.min(1, Math.max(0, (ev.clientY - b0.top) / H))];
     const a = norm(e); let b = a.slice();
     const live = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); live.setAttribute('class', 'nk-live nk-live-f'); live.setAttribute('width', W); live.setAttribute('height', H);
@@ -1079,7 +1083,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       let q = norm(ev);
       if (ev.shiftKey) {
         const dx = (q[0] - a[0]) * W, dy = (q[1] - a[1]) * H;
-        if (k === 'linea' || k === 'flecha') { const ang = Math.round(Math.atan2(dy, dx) / (Math.PI / 12)) * (Math.PI / 12), len = Math.hypot(dx, dy); q = [a[0] + Math.cos(ang) * len / W, a[1] + Math.sin(ang) * len / H]; }
+        if (k === 'linea' || k === 'flecha' || k === 'flecha2') { const ang = Math.round(Math.atan2(dy, dx) / (Math.PI / 12)) * (Math.PI / 12), len = Math.hypot(dx, dy); q = [a[0] + Math.cos(ang) * len / W, a[1] + Math.sin(ang) * len / H]; }
         else { const l = Math.max(Math.abs(dx), Math.abs(dy)); q = [a[0] + Math.sign(dx || 1) * l / W, a[1] + Math.sign(dy || 1) * l / H]; }
       }
       return [Math.min(1, Math.max(0, q[0])), Math.min(1, Math.max(0, q[1]))];
@@ -1097,7 +1101,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     };
     window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
   }
-  const NOM_FORMA = { linea: 'Línea', flecha: 'Flecha', rect: 'Rectángulo', circulo: 'Círculo', nube: 'Nube' };
+  const NOM_FORMA = { linea: 'Línea', flecha: 'Flecha', flecha2: 'Flecha doble', rect: 'Rectángulo', circulo: 'Óvalo', nube: 'Nube' };
   async function colocarSello(e) {
     const pg = paginaBajo(e); if (!pg || !pg.hecho || (S.soloLapiz && e.pointerType === 'touch')) return;
     const b = pg.el.getBoundingClientRect(), x = (e.clientX - b.left) / b.width, y = (e.clientY - b.top) / b.height, sz = Math.max(18, S.tam * 1.5) / b.width;
@@ -1502,7 +1506,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
     forma: 'Forma: arrastrá sobre la página para dibujarla (con Mayús sale recta o cuadrada) · el color y el grosor se cambian cuando quieras',
     sello: 'Sello: tocá donde quieras poner el símbolo (✓ ✗ •) · el tamaño se ajusta con el deslizador',
   };
-  const GRUPO = { sel: 'sel', mano: 'sel', sub: 'sub', pincel: 'pincel', forma: 'pincel', texto: 'texto', sello: 'texto', pin: 'pin', bor: 'bor' };
+  const GRUPO = { sel: 'sel', mano: 'sel', sub: 'sub', pincel: 'pincel', forma: 'forma', texto: 'texto', sello: 'texto', pin: 'pin', bor: 'bor' };
   function modo(m) {
     S.modo = m; cerrarPop(); cerrarFly();
     S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel', 'm-texto', 'm-pin', 'm-mano', 'm-forma', 'm-sello'); if (S.modo !== 'texto' && window.NikaPdfAnot) window.NikaPdfAnot.deseleccionar(); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m); const fan = $('.nkpdf-fantasma', S.root); if (fan) fan.style.display = 'none';
@@ -1837,7 +1841,8 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
         <div class="nkpdf-grupo nkpdf-g-herr" role="toolbar" aria-label="Herramientas">
           <button data-modo="sel" class="on" title="Seleccionar (V)">${ICO.sel}<span class="nkpdf-txt">Seleccionar</span></button><button class="nkpdf-var" data-accion="variantes" data-g="sel" aria-label="Variantes de Seleccionar">▾</button>
           <button data-modo="sub" title="Subrayar (H)">${ICO.sub}<span class="nkpdf-txt">Subrayar</span></button><button class="nkpdf-var" data-accion="variantes" data-g="sub" aria-label="Variantes de Subrayar">▾</button>
-          <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button><button class="nkpdf-var" data-accion="variantes" data-g="pincel" aria-label="Variantes del Pincel: formas">▾</button>
+          <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button>
+          <button data-modo="forma" title="Formas: flechas, líneas, rectángulos, óvalos y nubes, como en Adobe · arrastrá sobre la página (con Mayús sale recta o cuadrada)">${ICO.forma}<span class="nkpdf-txt">Formas</span></button><button class="nkpdf-var" data-accion="variantes" data-g="forma" aria-label="Variantes de Formas: flecha, flecha doble, línea, rectángulo, óvalo y nube">▾</button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
           <button data-accion="limpiar" title="Limpiar marcas">🧹<span class="nkpdf-txt">Limpiar</span></button>
           <button data-modo="texto" title="Escribir texto sobre el PDF (T): tocá donde quieras escribir">📝<span class="nkpdf-txt">Texto</span></button><button class="nkpdf-var" data-accion="variantes" data-g="texto" aria-label="Variantes de Texto: sellos">▾</button>
@@ -2012,6 +2017,7 @@ html.nkpdf-sin-scroll,html.nkpdf-sin-scroll body{overflow:hidden!important}
       else if (k === '[' || k === ']') { mi.fijarTam(mi.tam + (k === ']' ? 4 : -4)); }
       else if (k === 'k' && window.NikaPdfNav) window.NikaPdfNav.alternarMarcador(mi);
       else if (k === 'f') pantalla();
+      else if (k === 'o') usarGrupo('forma');
       else if (k === 'd') definirSeleccion();
       else if (['1', '2', '3', '4', '5', '6'].includes(k)) { mi.color = favoritos()[+k - 1]; marcarColor(); if (!['sub', 'pincel', 'forma', 'sello'].includes(mi.modo)) usarGrupo('sub'); }
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1); else if (k === '0') ajustarAncho();
