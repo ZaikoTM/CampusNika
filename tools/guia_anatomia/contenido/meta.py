@@ -190,3 +190,30 @@ META[7] = dict(
         M('Traqueostomía: indicaciones, tipos, técnica, cuidados y complicaciones; vía aérea difícil.', 'Ventilación prolongada, obstrucción de vía aérea, cricotiroidotomía.', 'Dibujá los planos desde la piel hasta la tráquea.'),
         M('Estudios complementarios del cuello (ecografía, PAAF, TC, RM, gammagrafía).', 'Nódulo tiroideo, masa cervical, panendoscopia.', 'Relacioná cada estudio con la pregunta que responde.'),
         None, None])
+
+META[8] = dict(
+    TOP=['Irrigación de la cabeza femoral (circunflejas) y por qué la fractura subcapital produce necrosis avascular.',
+         'Luxación posterior de cadera: posición del miembro, ciático y urgencia de la reducción.',
+         'Fractura de pelvis: anillo, mecanismos (Young-Burgess), qué sangra y lesión de uretra.',
+         'Fosa poplítea y luxación de rodilla (poplítea y peroneo); síndrome compartimental de la pierna.',
+         'Nervio que se lesiona en cada fractura o luxación del miembro inferior y su clínica (pie caído, Trendelenburg).',
+         'Astrágalo (Hawkins), calcáneo, Lisfranc y Jones; columna (Denis, cola de caballo, raíces L4-L5-S1) y tumores por localización.'],
+    RUTA=[('Día 1 · Fundamentos, pelvis y cadera', ['Fundamentos: hueso, vasos y consolidación', 'Pelvis y cadera', 'Muslo y fémur']),
+          ('Día 2 · Rodilla, pierna, pie y nervios', ['Rodilla y pierna', 'Tobillo y pie', 'Lesiones nerviosas del miembro inferior']),
+          ('Día 3 · Columna, tumores y oral', ['Columna vertebral y raíces', 'Tumores musculoesqueléticos', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía de la articulación de la cadera', 'https://www.osmosis.org/video/Anatomy_of_the_hip_joint', 'Cápsula, ligamentos, irrigación e inervación de la cadera.'),
+            ('Osmosis · Correlatos clínicos: cadera, región glútea y muslo', 'https://www.osmosis.org/video/Anatomy_clinical_correlates:_Hip,_gluteal_region_and_thigh', 'Incluye la fractura de cuello femoral.'),
+            ('Osmosis · Anatomía de la articulación de la rodilla', 'https://www.osmosis.org/video/Anatomy_of_the_knee_joint', 'Ligamentos, meniscos y bolsas.'),
+            ('Kenhub · Articulación de la rodilla', 'https://www.kenhub.com/en/videos/anatomy-knee-joint', 'Ligamentos, vasos e inervación (la versión completa es premium).'),
+            ('Osmosis · Anatomía de la pierna', 'https://www.osmosis.org/video/Anatomy_of_the_leg', 'Compartimentos de la pierna.'),
+            ('Osmosis · Articulaciones del tobillo y del pie', 'https://www.osmosis.org/video/Joints_of_the_ankle_and_foot', 'Tobillo, subastragalina y articulaciones del pie.')],
+    MODULOS=[
+        M('Fundamentos y nomenclatura; biología ósea; diagnóstico por imágenes.', 'Fractura, consolidación, seudoartrosis, lectura de radiografías (TP).', 'Aprendé la irrigación del hueso y siempre pedí dos proyecciones.'),
+        M('Traumatismos regionales: pelvis y cadera; luxaciones; politraumatismo.', 'Fractura de pelvis, fractura de cadera, luxación posterior de cadera.', 'Relacioná cada fractura con el vaso o nervio que se lesiona.'),
+        M('Traumatismos regionales: muslo y fémur; fracturas expuestas y complicaciones.', 'Fractura de diáfisis y supracondílea de fémur, embolia grasa.', 'Seguí la arteria femoral hasta el hiato aductor.'),
+        M('Traumatismos regionales: rodilla y pierna; inmovilizaciones y osteosíntesis.', 'Lesión ligamentaria y meniscal, luxación de rodilla, fractura de tibia, síndrome compartimental.', 'Dibujá la fosa poplítea y los cuatro compartimentos.'),
+        M('Patología del pie y tobillo: calcáneo, astrágalo, metatarsianos, fracturas por estrés.', 'Fractura de tobillo (Weber), astrágalo, calcáneo, Lisfranc, Jones.', 'Memorizá la irrigación del astrágalo y de la base del 5.º metatarsiano.'),
+        M('Lesiones nerviosas y vasculares asociadas a fracturas y luxaciones.', 'Pie caído, Trendelenburg, lesión del ciático, peroneo y tibial.', 'Armá una tabla nervio-músculo-clínica y repasala.'),
+        M('Columna vertebral; radiculopatías cervicales y lumbosacras.', 'Fractura vertebral, lesión medular, cola de caballo, hernia de disco.', 'Repasá la clasificación de Denis y las raíces L4, L5 y S1.'),
+        M('Tumores musculoesqueléticos: óseos, metástasis y partes blandas.', 'Osteosarcoma, Ewing, metástasis, fractura patológica.', 'Memorizá tumor-edad-localización en el hueso.'),
+        None, None])
