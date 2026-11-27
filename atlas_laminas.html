@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Campus Nika | Modo láminas · Atlas de anatomía quirúrgica</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/nika-navbar.css?v=1">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=11">
+    <script src="js/temaOscuro.js?v=3"></script>
+    <link rel="stylesheet" href="css/tema-oscuro-paginas.css?v=3">
+    <link rel="stylesheet" href="css/atlasLaminas.css?v=1">
+</head>
+<body class="pal-cirugia">
+
+    <header class="navbar">
+        <div>
+            <a href="campus.html" class="brand-title">
+                <img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo-mini">CAMPUS NIKA
+            </a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <a href="estudio.html?modulo=cirugia" class="btn-back"><span class="fl">←</span> Sala de estudio</a>
+        <a href="cirugia_hub.html" class="btn-back"><span class="fl">←</span> Módulo Cirugía</a>
+    </header>
+
+    <main class="al-wrap">
+        <section class="al-hero">
+            <div class="al-hero-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+            </div>
+            <div>
+                <h1>Modo láminas</h1>
+                <p>Las láminas del atlas con los nombres tapados. Seguí cada línea hasta la estructura, decí el nombre en voz alta y tocá la casilla para comprobarlo.</p>
+            </div>
+        </section>
+
+        <section class="al-barra" aria-label="Filtros">
+            <div class="al-buscar"><input type="search" id="al-q" placeholder="Buscar una lámina o una estructura (ej. nervio radial, safena, próstata)…" aria-label="Buscar lámina"></div>
+            <div class="al-chips" id="al-ups" role="group" aria-label="Filtrar por unidad"></div>
+            <div class="al-resumen" id="al-resumen" aria-live="polite"></div>
+        </section>
+
+        <section id="al-grid" class="al-grid" aria-label="Láminas"></section>
+        <p id="al-vacio" class="al-vacio" hidden>Ninguna lámina coincide con la búsqueda 🔍</p>
+    </main>
+
+    <!-- Visor de una lámina -->
+    <div id="al-visor" class="al-visor" hidden role="dialog" aria-modal="true" aria-labelledby="al-v-tit">
+        <div class="al-v-cab">
+            <button type="button" class="al-btn al-v-cerrar" id="al-cerrar" aria-label="Cerrar">✕</button>
+            <div class="al-v-tit">
+                <b id="al-v-tit">Lámina</b>
+                <small id="al-v-sub"></small>
+            </div>
+            <div class="al-v-nav">
+                <button type="button" class="al-btn" id="al-prev" aria-label="Lámina anterior">‹</button>
+                <button type="button" class="al-btn" id="al-next" aria-label="Lámina siguiente">›</button>
+            </div>
+        </div>
+        <div class="al-v-barra">
+            <span class="al-cont" id="al-cont">0/0 destapadas</span>
+            <button type="button" class="al-btn al-sec" id="al-tapar">Tapar todo</button>
+            <button type="button" class="al-btn al-sec" id="al-mostrar">Mostrar todo</button>
+            <button type="button" class="al-btn al-sec" id="al-pista">💡 Qué mirar</button>
+            <button type="button" class="al-btn al-sec" id="al-zoom">🔍 Ampliar</button>
+        </div>
+        <div class="al-v-cuerpo" id="al-v-cuerpo">
+            <div class="al-lamina" id="al-lamina"><img id="al-img" alt="" draggable="false"></div>
+        </div>
+        <div class="al-v-pie">
+            <div class="al-mirar" id="al-mirar"></div>
+            <div class="al-eval">
+                <span>¿Cómo te fue?</span>
+                <button type="button" class="al-btn al-rep" id="al-repasar">Repasar de nuevo</button>
+                <button type="button" class="al-btn al-ok" id="al-ok">Me la sé ✓</button>
+            </div>
+            <p class="al-fuente">Fuente: Netter, F. H. <i>Atlas de Anatomía Humana</i>, 8.ª ed. (Elsevier). Los textos del atlas son de elaboración propia: la lámina manda.</p>
+        </div>
+    </div>
+
+    <script src="js/atlasLaminas.js?v=1"></script>
+    <script src="js/campusTema.js?v=3"></script>
+</body>
+</html>

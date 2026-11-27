@@ -76,7 +76,7 @@ META[3] = dict(
           ('Día 3 · Cirugía y cáncer', ['Estómago operado', 'Cáncer', 'Estudios', 'Preguntas de oral'])],
     VIDEOS=[('Kenhub · Esófago in situ', 'https://www.kenhub.com/en/videos/the-esophagus-in-situ', 'Porciones, relaciones, irrigación e inervación (la versión completa es premium).'),
             ('Kenhub · Estructura del esófago', 'https://www.kenhub.com/en/videos/structure-of-esophagus', 'Capas de la pared y tipos de músculo.'),
-            ('Osmosis · Anatomía de las vísceras abdominales: esófago y estómago', 'https://www.osmosis.org/learn/Anatomy_of_the_abdominal_viscera:_Esophagus_and_stomach', 'Irrigación, drenaje linfático y relaciones del estómago.')],
+            ('Osmosis · Anatomía de las vísceras abdominales: esófago y estómago', 'https://www.osmosis.org/video/Anatomy_of_the_abdominal_viscera:_Esophagus_and_stomach', 'Irrigación, drenaje linfático y relaciones del estómago.')],
     MODULOS=[
         M('Disfagia: causas orgánicas y funcionales.', 'Disfagia orofaríngea frente a esofágica; Zenker.', 'Preguntate siempre: ¿falla el inicio de la deglución o el tránsito?'),
         M('Patología benigna y maligna del esófago.', 'Perforación, mediastinitis, várices, cáncer de esófago.', 'Estudiá las relaciones por porciones con las láminas laterales.'),
@@ -101,8 +101,7 @@ META[4] = dict(
           ('Día 2 · Recto y ano', ['Recto', 'Canal anal y patología anorrectal', 'Hemorragia digestiva baja']),
           ('Día 3 · Ostomías y estudios', ['Ostomías', 'Métodos diagnósticos', 'Preguntas de oral'])],
     VIDEOS=[('Osmosis · Órganos gastrointestinales de la pelvis y el periné (en español)', 'https://www.osmosis.org/learn/es/Anatomy_of_the_gastrointestinal_organs_of_the_pelvis_and_perineum', 'Recto, canal anal, esfínteres, irrigación y drenaje.'),
-            ('Kenhub · Recto y canal anal', 'https://kenhub.com/en/videos/anatomy-of-rectum-and-anal-canal', 'Zonas del canal anal y línea pectínea (la versión completa es premium).'),
-            ('Lecturio · Recto y canal anal', 'https://www.lecturio.com/concepts/rectum-and-anal-canal', 'Anatomía y transición del recto al canal anal.')],
+            ('Kenhub · Recto y canal anal', 'https://kenhub.com/en/videos/anatomy-of-rectum-and-anal-canal', 'Zonas del canal anal y línea pectínea (la versión completa es premium).')],
     MODULOS=[
         M('Colon: anatomía, fisiología y semiología; traumatismos.', 'Hemicolectomías, movilización del colon, lesión ureteral.', 'Fijate en el plano entre la fascia del mesocolon y la de Gerota.'),
         M('Trastornos vasculares del colon; cáncer colorrectal; cirugía.', 'Isquemia colónica, hemicolectomías y linfadenectomía.', 'Aprendé el pedículo que se liga en cada resección.'),

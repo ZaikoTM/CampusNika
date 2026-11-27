@@ -283,6 +283,24 @@ function getResourceMeta(resource) {
             icon: '<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>'
         };
     }
+    if (resource.type === 'pdf' && /^📚\s*Libro completo/.test(resource.title || '')) {
+        // libro completo: ícono propio (libro sobre fondo índigo) en lugar del PDF genérico
+        return {
+            label: 'Libro completo',
+            bg: 'linear-gradient(135deg,#e0e7ff,#c7d2fe)',
+            color: '#4338ca',
+            icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h7M9 11h5"/>'
+        };
+    }
+    if (resource.type === 'pdf' && /^🫀\s*Atlas/.test(resource.title || '')) {
+        // atlas de anatomía quirúrgica: corazón con pulso sobre fondo rosado
+        return {
+            label: 'Atlas de anatomía',
+            bg: 'linear-gradient(135deg,#ffe4e6,#fecdd3)',
+            color: '#be123c',
+            icon: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>'
+        };
+    }
     if (resource.type === 'pdf') {
         return {
             label: 'PDF',
@@ -447,6 +465,7 @@ async function initEstudio() {
 
         document.getElementById('dashboard-title').innerText = `Sala de Estudio · ${EstudioState.data.nombre}`;
         renderUpBentoGrid(EstudioState.data.units);
+        try { renderAtlasMosaico(); } catch (e) { console.warn('[Estudio] mosaico del atlas:', e); }
         guardarUltimoModulo();
 
         iniciarMonitorAlertas();
@@ -494,6 +513,68 @@ function abrirRecursoDirecto(url) {
         return true;
     }
     return false;
+}
+
+// ================= MOSAICO: ATLAS DE ANATOMÍA QUIRÚRGICA =================
+// Tarjetas con el color y el ícono de cada UP que abren su atlas; "Atlas completo" (los 11 en un PDF) ocupa dos columnas.
+const NK_ATLAS_UP = {
+    1: { c: '#0ea5e9', n: 'Trauma de miembro superior', ic: '<path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>' },
+    2: { c: '#f59e0b', n: 'Abdomen agudo', ic: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>' },
+    3: { c: '#16a34a', n: 'Esófago y estómago', ic: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>' },
+    4: { c: '#7c3aed', n: 'Colon, recto y ano', ic: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>' },
+    5: { c: '#e11d48', n: 'Hígado, vías biliares y páncreas', ic: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>' },
+    6: { c: '#0891b2', n: 'Pared abdominal y hernias', ic: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>' },
+    7: { c: '#14b8a6', n: 'Cuello y tiroides', ic: '<path d="M12 5c-3 0-5.5 2-6.5 5-.9 2.8 0 6 3 7 2 .6 3.5-.8 3.5-3 0 2.2 1.5 3.6 3.5 3 3-1 3.9-4.2 3-7-1-3-3.5-5-6.5-5z"/>' },
+    8: { c: '#4f46e5', n: 'Sistema musculoesquelético', ic: '<path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/>' },
+    9: { c: '#7c3aed', n: 'Trauma y politrauma', ic: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>' },
+    10: { c: '#c026d3', n: 'Vascular periférico', ic: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>' },
+    11: { c: '#f97316', n: 'Urología', ic: '<path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>' },
+};
+function nkAtlasCss() {
+    if (document.getElementById('nk-atlas-css')) return;
+    const st = document.createElement('style'); st.id = 'nk-atlas-css';
+    st.textContent = `
+    .nk-atlas { margin: 6px 0 34px; }
+    .nk-atlas-cab { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
+    .nk-atlas-cab .nk-atlas-ico { width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:#fff; background:linear-gradient(135deg,#f43f5e,#be123c); box-shadow:0 8px 18px rgba(190,18,60,.28); flex-shrink:0; }
+    .nk-atlas-cab h2 { font-size:1.25rem; font-weight:800; color:var(--nika-dark,#0b4f8c); line-height:1.2; margin:0; }
+    .nk-atlas-cab p { font-size:.85rem; color:var(--text-muted,#64748b); margin:2px 0 0; }
+    .nk-atlas-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(172px,1fr)); gap:12px; }
+    .nk-atlas-t { --c:#0ea5e9; position:relative; overflow:hidden; border:0; text-align:left; cursor:pointer; font:inherit; color:#fff; padding:14px 14px 13px; border-radius:18px; min-height:132px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(145deg,var(--c),color-mix(in srgb,var(--c) 62%,#000)); box-shadow:0 8px 20px color-mix(in srgb,var(--c) 32%,transparent); transition:transform .2s ease, box-shadow .2s ease; animation:nkAtlasIn .45s ease backwards; }
+    .nk-atlas-t:hover { transform:translateY(-4px) scale(1.015); box-shadow:0 14px 28px color-mix(in srgb,var(--c) 42%,transparent); }
+    .nk-atlas-t:focus-visible { outline:3px solid #fff; outline-offset:-5px; }
+    .nk-atlas-t::after { content:""; position:absolute; right:-26px; bottom:-30px; width:104px; height:104px; border-radius:50%; background:rgba(255,255,255,.13); }
+    .nk-atlas-t svg.nk-atlas-fig { position:absolute; right:10px; bottom:8px; width:54px; height:54px; opacity:.28; z-index:1; }
+    .nk-atlas-up { font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,.2); padding:3px 9px; border-radius:999px; align-self:flex-start; }
+    .nk-atlas-t b { display:block; font-size:.98rem; line-height:1.25; font-weight:800; margin-top:10px; position:relative; z-index:2; }
+    .nk-atlas-t small { display:block; font-size:.72rem; font-weight:700; opacity:.88; margin-top:4px; position:relative; z-index:2; }
+    .nk-atlas-t.nk-atlas-todo { grid-column:span 2; background:linear-gradient(135deg,#0f172a,#1e3a8a 55%,#be123c); }
+    .nk-atlas-t.nk-atlas-todo b { font-size:1.15rem; }
+    @media (max-width:520px){ .nk-atlas-grid{ grid-template-columns:repeat(2,1fr);} .nk-atlas-t{min-height:118px;} }
+    @keyframes nkAtlasIn { from { opacity:0; transform:translateY(12px) scale(.97); } to { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce){ .nk-atlas-t{animation:none;transition:none;} }`;
+    document.head.appendChild(st);
+}
+function renderAtlasMosaico() {
+    const datos = EstudioState.data || {};
+    const items = (datos.units || []).map((u) => ({ u, m: (u.materiales || []).find((x) => /^🫀\s*Atlas/.test(x.title || '')) })).filter((x) => x.m);
+    let host = document.getElementById('atlas-mosaico');
+    if (items.length < 2) { if (host) host.remove(); return; }
+    nkAtlasCss();
+    if (!host) { host = document.createElement('section'); host.id = 'atlas-mosaico'; host.className = 'nk-atlas'; const g = document.getElementById('up-bento-grid'); g.parentNode.insertBefore(host, g); }
+    const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const completo = datos.atlasCompleto && datos.atlasCompleto.url ? datos.atlasCompleto : null;
+    const tile = (url, n, c, nombre, sub, ic, i, todo, href, etiqueta) => `<button type="button" class="nk-atlas-t${todo ? ' nk-atlas-todo' : ''}" style="--c:${c};animation-delay:${0.03 * i}s" data-url="${esc(url)}"${href ? ` data-href="${esc(href)}"` : ''} data-n="${n}" aria-label="Abrir ${esc(nombre)}"><span class="nk-atlas-up">${etiqueta || (todo ? 'Atlas completo' : 'UP ' + n)}</span><svg class="nk-atlas-fig" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic}</svg><span><b>${esc(nombre)}</b><small>${esc(sub)}</small></span></button>`;
+    const libro = '<path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/>';
+    host.innerHTML = `<div class="nk-atlas-cab"><span class="nk-atlas-ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><h2>Atlas de anatomía quirúrgica</h2><p>Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p></div></div>
+        <div class="nk-atlas-grid">${completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : ''}${items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')}${tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar')}</div>`;
+    host.querySelectorAll('.nk-atlas-t').forEach((b) => b.addEventListener('click', () => { if (b.dataset.href) location.href = b.dataset.href; else abrirAtlas(b.dataset.url); }));
+}
+function abrirAtlas(url) {
+    if (abrirRecursoDirecto(url)) return;
+    const u0 = (EstudioState.data.units || [])[0]; if (!u0) return;
+    openUP(u0.id);
+    setTimeout(() => { const tab = [...document.querySelectorAll('.up-tab-btn')].find((b) => /showUpTab\('material'/.test(b.getAttribute('onclick') || '')); if (tab) showUpTab('material', tab); openInlineViewer(url, 'Atlas completo de anatomía quirúrgica', null); }, 250);
 }
 
 // ================= RENDER: DASHBOARD =================
@@ -548,6 +629,7 @@ function renderUpBentoGrid(units) {
 
 function filterUnits(query) {
     const q = query.trim().toLowerCase();
+    { const am = document.getElementById('atlas-mosaico'); if (am) am.style.display = q ? 'none' : ''; }
     if (!EstudioState.data) return;
 
     if (!q) {
@@ -570,6 +652,7 @@ function filterUnits(query) {
 // Buscador global de recursos, presentaciones y videos
 function filterResources(query) {
     const q = query.trim().toLowerCase();
+    { const am = document.getElementById('atlas-mosaico'); if (am) am.style.display = q ? 'none' : ''; }
     const grid = document.getElementById('up-bento-grid');
     if (!EstudioState.data || !grid) return;
 
@@ -1456,7 +1539,7 @@ function renderResourceItem(resource) {
         <div class="resource-item ${isActive}${resource.obligatorio ? ' nk-obl' : ''}${!resource.obligatorio && (resource.sugerido || (/^📚\s*Libro completo/.test(String(resource.title || '')) && (nkUsoDe(resource.title) || {}).sug)) ? ' nk-sug' : ''}" ${actionAttr} data-url="${resource.url}"${fidAttr}${fichasIds ? ` data-fichas="${fichasIds}"` : ''}>
             ${iconoHtml}
             <div class="resource-info">
-                <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
+                <h5>${String(resource.title || '').replace(/^📚\s*Libro completo\s*·\s*/, '').replace(/^🫀\s*/, '')}${badgeObligatorioHtml(resource)}</h5>
                 <span>${meta.label}</span>${progHtml}${fichasIds ? `<button type="button" class="nk-fc-chip" onclick="event.stopPropagation();nikaVerFichas(this.closest('.resource-item'))" title="Repasar este tema con flashcards">🃏 ${fichasIds.includes(',') ? 'Ver flashcards' : 'Ver flashcard'}</button>` : ''}
             </div>
             <div class="resource-open-btn">
