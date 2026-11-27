@@ -246,3 +246,30 @@ META[9] = dict(
         M('Evaluación inicial (E): exposición; quemaduras.', 'Quemadura de espesor parcial y completo, quemadura de la vía aérea, escarotomía.', 'Deducí la profundidad desde las capas de la piel.'),
         M('Criterios de muerte encefálica; procuración de órganos y tejidos.', 'Examen del tronco, prueba de apnea, donante de órganos.', 'Memorizá el arco de cada reflejo con su par craneal.'),
         None, None])
+
+META[10] = dict(
+    TOP=['Pulsos y ITB: dónde se palpa cada uno y cómo se interpreta (1,0-1,4; 0,5-0,9; menos de 0,5; más de 1,4 no compresible).',
+         'Niveles de obstrucción: aortoilíaco (Leriche), femoropoplíteo (canal de Hunter) e infrapoplíteo (diabético); Fontaine I a IV.',
+         'Isquemia aguda: émbolo en las bifurcaciones, seis P, heparina, Fogarty, síndrome de reperfusión y fasciotomía.',
+         'AAA: infrarrenal, 5,5 cm, tríada de ruptura, EVAR frente a abierta; disección Stanford A y B.',
+         'Carótida: bifurcación C4, endarterectomía, nervios vecinos (XII, X, VII) y seno carotídeo.',
+         'Mesentérica superior: embolia distal al origen, dolor desproporcionado y puntos de Griffiths y Sudeck.',
+         'Safena magna y parva, perforantes, úlcera venosa, TVP (May-Thurner) y TEP; fístula radiocefálica.',
+         'Pie diabético: neuropatía, angiopatía e infección; niveles de amputación.'],
+    RUTA=[('Día 1 · Arterias de los miembros', ['Semiología vascular y ITB', 'Arterias de los miembros inferiores', 'Isquemia arterial aguda']),
+          ('Día 2 · Aorta, carótida y vísceras', ['Aorta: aneurisma y disección', 'Carótida y troncos supraaórticos', 'Arterias viscerales: isquemia mesentérica']),
+          ('Día 3 · Venas, pie y accesos', ['Miembro superior y fístula', 'Venas de los miembros inferiores', 'Pie diabético', 'Trauma arterial y endovascular', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Enfermedad arterial', 'https://www.osmosis.org/learn/Arterial_disease', 'Aterosclerosis y enfermedad arterial periférica.'),
+            ('Osmosis · Disecciones y aneurismas de la aorta', 'https://www.osmosis.org/learn/Aortic_dissections_and_aneurysms:_Pathology_review', 'Factores de riesgo, tríada de ruptura y clasificación de la disección.')],
+    MODULOS=[
+        M('Semiología vascular: pulsos, índice tobillo-brazo y estudios Doppler.', 'Examen vascular, claudicación, aneurisma poplíteo.', 'Aprendé los puntos de palpación y la tabla del ITB.'),
+        M('Enfermedad arterial periférica: fisiopatología, Fontaine, claudicación e isquemia crítica.', 'Claudicación intermitente, síndrome de Leriche, isquemia crítica.', 'Dibujá el árbol arterial y ubicá cada nivel de oclusión.'),
+        M('Isquemia arterial aguda: embolia y trombosis, tratamiento.', 'Pierna fría y pálida, embolia, síndrome compartimental.', 'Memorizá las bifurcaciones y las seis P.'),
+        M('Aneurismas de aorta abdominal, poplíteo y disección aórtica.', 'AAA roto, disección Stanford A y B.', 'Relacioná cada complicación con una relación anatómica.'),
+        M('Enfermedad carotídea y de los troncos supraaórticos.', 'Estenosis carotídea, ACV isquémico, robo de la subclavia.', 'Repasá los nervios que cruzan la carótida.'),
+        M('Isquemia mesentérica.', 'Abdomen agudo vascular, colitis isquémica, angina intestinal.', 'Ubicá la AMS, la AMI y la arcada de Riolan.'),
+        M('Buerger, Raynaud, desfiladero torácico; accesos vasculares y hemodiálisis.', 'Tromboangeítis obliterante, Raynaud, fístula arteriovenosa.', 'Memorizá las cuatro complicaciones de la fístula.'),
+        M('Insuficiencia venosa crónica y várices; TVP y TEP.', 'Várices, úlcera venosa, trombosis venosa profunda, embolia pulmonar.', 'Seguí la safena magna desde el maléolo hasta la crossa.'),
+        M('Pie diabético y su relación con la enfermedad vascular.', 'Úlcera plantar, gangrena, amputación.', 'Aprendé los niveles de amputación y los angiosomas.'),
+        M('Traumatismos arteriales y nociones de cirugía endovascular.', 'Herida vascular de miembro, acceso femoral, EVAR.', 'Relacioná cada fractura o luxación con el vaso que se lesiona.'),
+        None, None])
