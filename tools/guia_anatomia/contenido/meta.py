@@ -217,3 +217,32 @@ META[8] = dict(
         M('Columna vertebral; radiculopatías cervicales y lumbosacras.', 'Fractura vertebral, lesión medular, cola de caballo, hernia de disco.', 'Repasá la clasificación de Denis y las raíces L4, L5 y S1.'),
         M('Tumores musculoesqueléticos: óseos, metástasis y partes blandas.', 'Osteosarcoma, Ewing, metástasis, fractura patológica.', 'Memorizá tumor-edad-localización en el hueso.'),
         None, None])
+
+META[9] = dict(
+    TOP=['Las tres zonas del cuello, la membrana cricotiroidea y cuándo se hace cricotiroidotomía.',
+         'Pared torácica: paquete intercostal en el borde inferior de la costilla, triángulo de seguridad y 5.º espacio intercostal.',
+         'Neumotórax a tensión, abierto, hemotórax masivo y tórax inestable: diagnóstico clínico y conducta.',
+         'Taponamiento (tríada de Beck, FAST subxifoideo) y rotura aórtica en el istmo (ligamento arterioso).',
+         'FAST (cuatro ventanas, Morison), zonas del retroperitoneo y los cinco sitios de hemorragia.',
+         'Meníngea media y venas puente: hematoma epidural y subdural; herniación uncal; Glasgow.',
+         'Profundidad de las quemaduras según las capas de la piel, regla de los nueves y escarotomía.',
+         'Muerte encefálica: reflejos del tronco y pares craneales, prueba de apnea y estudios de flujo.'],
+    RUTA=[('Día 1 · Vía aérea, tórax y corazón', ['Vía aérea y cuello en el trauma', 'Tórax: pared, pleura y lesiones', 'Corazón, pericardio, mediastino y aorta']),
+          ('Día 2 · Abdomen, shock y cabeza', ['Abdomen y pelvis en el trauma', 'Shock hemorrágico', 'Cabeza: meninges, hematomas y herniación']),
+          ('Día 3 · Columna, quemaduras y muerte encefálica', ['Columna y médula en el trauma', 'Quemaduras', 'Muerte encefálica y procuración', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Anatomía de las meninges craneales y los senos venosos de la duramadre', 'https://www.osmosis.org/learn/Anatomy_of_the_cranial_meninges_and_dural_venous_sinuses', 'Capas, espacios y senos: base de los hematomas.'),
+            ('Osmosis · Hematoma epidural', 'https://www.osmosis.org/learn/Epidural_hematoma', 'Arteria meníngea media, forma lenticular e intervalo lúcido.'),
+            ('Osmosis · Hematoma subdural', 'https://www.osmosis.org/learn/Subdural_hematoma', 'Venas puente y forma en semiluna.'),
+            ('Osmosis · Anatomía del tronco encefálico', 'https://www.osmosis.org/video/Anatomy_of_the_brainstem', 'Mesencéfalo, protuberancia y bulbo con los núcleos de los pares.'),
+            ('Osmosis · Introducción a los nervios craneales', 'https://www.osmosis.org/video/Introduction_to_the_cranial_nerves', 'Emergencia y función de los doce pares.')],
+    MODULOS=[
+        M('Evaluación inicial del politraumatizado (xABCDE): vía aérea con control cervical.', 'Herida penetrante del cuello, trauma facial, vía aérea quirúrgica.', 'Ubicá la membrana cricotiroidea y las tres zonas del cuello.'),
+        M('Evaluación inicial (B): ventilación y lesiones torácicas de riesgo vital.', 'Neumotórax a tensión y abierto, hemotórax masivo, tórax inestable.', 'Memorizá el paquete intercostal y el sitio de descompresión.'),
+        M('Evaluación inicial (C): circulación; trauma de corazón y grandes vasos.', 'Taponamiento cardíaco, rotura aórtica, herida precordial.', 'Seguí la aorta hasta el ligamento arterioso.'),
+        M('Trauma abdominal y pélvico; shock hemorrágico (fuentes de sangrado).', 'Bazo, hígado, retroperitoneo, fractura de pelvis, FAST.', 'Repasá las ventanas del FAST y las zonas del retroperitoneo.'),
+        M('Shock hemorrágico en el paciente traumatizado.', 'Cinco sitios de hemorragia, clases de shock, tríada letal, accesos.', 'Aprendé cuánto puede sangrar cada sitio.'),
+        M('Evaluación inicial (D): estado neurológico; traumatismo encefalocraneano.', 'Hematoma epidural y subdural, herniación, fractura de base.', 'Relacioná cada hematoma con su vaso y su forma en la TC.'),
+        M('Trauma de columna y médula; inmovilización; shock neurogénico.', 'Collar cervical, shock neurogénico.', 'Diferenciá shock neurogénico (bradicardia) del hemorrágico.'),
+        M('Evaluación inicial (E): exposición; quemaduras.', 'Quemadura de espesor parcial y completo, quemadura de la vía aérea, escarotomía.', 'Deducí la profundidad desde las capas de la piel.'),
+        M('Criterios de muerte encefálica; procuración de órganos y tejidos.', 'Examen del tronco, prueba de apnea, donante de órganos.', 'Memorizá el arco de cada reflejo con su par craneal.'),
+        None, None])
