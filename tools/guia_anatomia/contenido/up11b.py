@@ -23,6 +23,7 @@ def prostata(u):
           '**Drenaje venoso**: el **plexo de Batson** (venas vertebrales sin válvulas) comunica con la columna: por eso la **metástasis ósea (blástica)** vertebral y pélvica del cáncer de próstata.'])
     L(u, 'uro_t38_p2_0.jpg', 'Cortes sagitales de la pelvis masculina: relación de la próstata con la vejiga, la uretra y el recto.', ST.format(c='cap. 38 (Trastornos de vejiga, próstata y vesículas seminales)'), ['Seguí la **uretra prostática** a través de la glándula y comparala con la vejiga y el recto de cada panel.', 'Cuando la glándula crece hacia la vejiga y la uretra, la **salida** se estrecha.'], 90)
     G(u, 289, 'RM de la pelvis masculina: imagen axial y sagital (Gray).', ['Próstata, vesículas seminales y recto en la imagen.'], 190)
+    L(u, 'uro_schu_h04_p3_0.jpg', 'Ecografía transrectal de la próstata: corte axial con medición del volumen.', SCHU.format(c='cap. 4 (Biopsia de próstata)'), ['La ecografía mide los **diámetros** y calcula el **volumen** (más de 30-40 mL sugiere HPB significativa) y guía la **biopsia**.'], 80)
     u.h3('Hiperplasia prostática benigna (HPB)')
     u.tabla(['Aspecto', 'Datos clave'], [
         ['**Síntomas**', '**Obstructivos** (chorro débil, retardo, goteo terminal, vaciado incompleto) e **irritativos** (frecuencia, urgencia, **nicturia**)'],
@@ -69,6 +70,7 @@ def uretra_pene(u):
         ['**Estudio**', '**Uretrografía retrógrada** (**antes** de pasar cualquier sonda)', 'Igual'],
         ['**Conducta**', '**Cateterismo suprapúbico** y reparación diferida', 'Sonda o **cateterismo suprapúbico**; reparación según la lesión'],
     ], fuente='Manual SCHU, 3.ª ed., cap. 34; Smith y Tanagho, 18.ª ed., cap. 18.')
+    L(u, 'uro_schu_h34_p9_0.jpg', 'Uretrografía retrógrada en el trauma uretral: extravasación de contraste (a-d).', SCHU.format(c='cap. 34 (Traumatismo de la vía urinaria inferior)'), ['Se inyecta contraste por el meato: la **extravasación** indica **rotura** de la uretra; la imagen localiza el segmento lesionado.'], 100)
     u.box('alerta', 'No se pasa sonda a ciegas', 'Ante **trauma pelviano o perineal con sangre en el meato**: **no** se coloca una sonda uretral hasta una **uretrografía retrógrada**; una sonda a ciegas puede **convertir una lesión parcial en completa**. El atlas de la **UP8** muestra la fractura de pelvis y la **UP9** el algoritmo del trauma.')
     u.h3('Urgencias del pene')
     u.tabla(['Urgencia', 'Qué es', 'Conducta'], [
@@ -102,8 +104,10 @@ def escroto(u):
         ['**Estudio**', '**Ecografía Doppler** (sin flujo); **no demorar** la cirugía', 'Cultivo, Doppler con hiperflujo', 'Doppler normal'],
         ['**Conducta**', '**Exploración quirúrgica urgente** (menos de 6 horas): **destorsión y orquidopexia bilateral**', 'Antibióticos', 'Analgesia'],
     ], fuente='Smith y Tanagho, 18.ª ed., cap. 24; Manual SCHU, 3.ª ed., cap. 9.')
+    L(u, 'uro_schu_h09_p36_0.jpg', 'Ecografía Doppler comparativa de ambos testículos: se compara el flujo de cada lado.', SCHU.format(c='cap. 9 (Patología genital benigna)'), ['Se comparan siempre **los dos testículos**: en la **torsión** el testículo afectado **no tiene flujo** o este es muy escaso, mientras el sano muestra los vasos.'], 90)
     u.ul(['**Torsión**: el testículo rota sobre el cordón (deformidad “en badajo de campana”, falta de fijación de la túnica vaginal); la **isquemia** comienza en minutos y el testículo se salva si se opera dentro de las **6 horas**.',
           '**Hidrocele**: líquido en la **túnica vaginal**; **transilumina**. **Hernia inguinoescrotal**: se agranda con la tos y no se puede “llegar arriba” (ver **UP6**).'])
+    L(u, 'uro_schu_h09_p33_0.jpg', 'Hidrocelectomía (técnicas de Jaboulay y de Winkelmann): se abre la túnica vaginal y se evierte o se plica.', SCHU.format(c='cap. 9 (Patología genital benigna)'), ['El **hidrocele** es líquido **dentro de la túnica vaginal**: la cirugía abre esa cubierta (por vía escrotal) y evita que se reacumule.'], 100)
     u.h3('Cáncer de testículo')
     u.tabla(['Aspecto', 'Datos clave'], [
         ['**Quién**', '**Varón de 15 a 35 años**; **criptorquidia** previa (riesgo mayor)'],

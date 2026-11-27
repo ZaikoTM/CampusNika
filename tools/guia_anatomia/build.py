@@ -73,7 +73,8 @@ _h3_orig = lib.Unidad.h3
 
 def _h3(self, t):
     _h3_orig(self, t)
-    if t.startswith('Atlas'):
+    if t.startswith('Atlas') and not getattr(self, '_guia_atlas_dada', False):
+        self._guia_atlas_dada = True
         self.partes.append('<p class="guia-atlas"><b>Cómo mirar estas láminas:</b> ubicá primero la región, seguí con el dedo el recorrido que acabás de leer en el texto y, en cada lámina, '
                            'fijate qué estructura se lesiona o se examina en las patologías de la unidad.</p>')
 

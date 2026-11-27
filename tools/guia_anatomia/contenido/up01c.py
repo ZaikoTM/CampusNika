@@ -19,9 +19,6 @@ def nervios(u):
           'En la fosa cubital se divide en una **rama superficial** (sensitiva) y una **profunda** (el **interóseo posterior**, motor), que **atraviesa el supinador** por la **arcada de Frohse**.',
           '**Motor**: tríceps y ancóneo; braquiorradial y extensores de la muñeca (rama principal); extensores de los dedos, abductor largo del pulgar y demás extensores del antebrazo (interóseo posterior).',
           '**Sensitivo (rama superficial)**: dorso de la mano del lado radial y dorso de los 3 dedos y medio radiales (hasta la IFP). Corre **junto a la arteria radial** y debajo del braquiorradial: se lesiona con una herida de la muñeca lateral.'])
-    u.box('clin', 'Lesión del radial según el nivel', [['**Axila** (muletas): pérdida del tríceps, extensión de muñeca y dedos.',
-                                                      '**Surco radial** (fractura de diáfisis humeral, compresión, “parálisis del sábado a la noche”): **mano caída**, el tríceps se conserva.',
-                                                      '**Interóseo posterior** (arcada de Frohse): **dedos caídos** con extensión de muñeca conservada (por el extensor radial largo del carpo), sin pérdida de sensibilidad.']])
     u.h3('Mediano (C6-T1)')
     u.ul(['**Brazo**: desciende en el canal bicipital medial **lateral a la arteria braquial** y la **cruza por delante** a mitad del brazo, para quedar **medial** a ella.',
           '**Fosa cubital**: medial a la arteria, **debajo del lacertus fibrosus**. Pasa **entre las dos cabezas del pronador redondo** (puede comprimirse: síndrome del pronador).',
@@ -30,18 +27,12 @@ def nervios(u):
           '**Mano**: la **rama recurrente (tenar)** nace **distal al retináculo** e inerva abductor corto del pulgar, oponente y la cabeza superficial del flexor corto. Da los nervios digitales a los 3 dedos y medio radiales y a los 2 lumbricales laterales.'])
     u.box('alerta', 'Síndrome del túnel carpiano: la anatomía explica el cuadro', ['Compresión del mediano **bajo el retináculo**. Parestesias nocturnas en los **3 dedos y medio radiales**. **No hay pérdida sensitiva de la eminencia tenar**, porque la rama palmar cutánea pasa por encima del túnel.',
                                                                               'Una incisión de liberación se traza **en la línea del 4.º dedo**, hacia el lado cubital de la eminencia tenar, para no lesionar la rama recurrente ni la palmar cutánea.'])
-    u.box('clin', 'Lesión alta y baja del mediano', [['**Alta** (codo, antebrazo): **mano de bendición** al intentar cerrar el puño (no flexionan índice ni medio), no hay oposición y se pierde la pronación.',
-                                                    '**Baja** (muñeca): atrofia tenar (“mano de simio”), no hay oposición del pulgar; la flexión de los dedos se conserva.',
-                                                    '**Signo de OK anormal** (no se hace la pinza): lesión del interóseo anterior (flexión de la IFD del pulgar y del índice).']])
     u.h3('Cubital (C8-T1)')
     u.ul(['**Brazo**: medial a la braquial hasta la mitad; **perfora el tabique intermuscular medial** y desciende por el compartimento posterior hasta la **epitróclea**.',
           '**Codo**: pasa **detrás de la epitróclea** (canal epitroclear, “hueso de la risa”) y **entre las dos cabezas del flexor cubital del carpo** (túnel cubital). Es muy superficial: se comprime y se golpea.',
           '**Antebrazo**: entre el FCU y el FDP; en los **2/3 distales acompaña a la arteria cubital**. Da una **rama dorsal** (~5 cm antes de la muñeca; sensibilidad del dorso cubital) y una palmar cutánea.',
           '**Muñeca**: **canal de Guyon**, entre el **pisiforme** y el **gancho del ganchoso**, junto a la arteria cubital (que queda lateral). Se divide en **rama superficial** (sensitiva y palmar corto) y **profunda** (motora).',
           '**Motor**: FCU y mitad cubital del FDP (antebrazo); hipotenar, todos los interóseos, 2 lumbricales mediales, aductor del pulgar y cabeza profunda del flexor corto del pulgar (mano).'])
-    u.box('clin', 'Lesión del cubital', [['**Garra cubital**: hiperextensión de la MCF y flexión de la IFP e IFD del 4.º y 5.º dedo, por pérdida de los lumbricales e interóseos.',
-                                          '**Paradoja**: la lesión **alta** (codo) produce **menos garra** porque se pierde también el FDP cubital; la **baja** (muñeca) produce más garra.',
-                                          '**Signo de Froment** (flexión de la IF del pulgar al sostener un papel, por falla del aductor), **Wartenberg** (meñique abducido), pérdida de sensibilidad del meñique y la mitad cubital del anular.']])
     u.h3('Cómo se examina cada nervio en una herida de mano (sin hacerle daño)')
     u.tabla(['Nervio', 'Motor: pedile que…', 'Sensitivo: zona autónoma', 'Signo'], [
         ['**Mediano**', 'Haga el signo “**OK**” (pinza pulpejo-pulpejo) y oponga el pulgar al meñique', 'Pulpejo del **índice**', 'Mano de bendición; atrofia tenar'],

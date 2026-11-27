@@ -32,6 +32,14 @@ def semiologia(u):
     ], fuente='Smith y Tanagho, 18.ª ed., caps. 5 y 6; Manual SCHU, 3.ª ed., cap. 3.')
     G(u, 288, 'RM de la pelvis masculina: cortes axiales (Gray).', ['Identificá la **próstata**, las **vesículas seminales**, el recto y la vejiga: es el estudio que muestra la anatomía zonal.'], 190)
     N(u, 'S-521', 'RM sagital de las vísceras pelvianas.', ['Vejiga, próstata, recto y sínfisis del pubis en un solo corte.'], 190)
+    u.h3('Hematuria: qué dice el momento y cómo se estudia')
+    u.tabla(['Momento', 'Dónde sangra', 'Causas típicas'], [
+        ['**Inicial** (primer chorro)', '**Uretra** (anterior) o próstata', 'Uretritis, estenosis, trauma uretral'],
+        ['**Terminal** (al final de la micción)', '**Cuello vesical** y uretra prostática', 'Cistitis, litiasis vesical, **HPB**'],
+        ['**Total** (toda la micción)', 'Vejiga o **vías urinarias altas**', '**Tumor vesical**, litiasis, tumor renal, infección'],
+    ], fuente='Smith y Tanagho, 18.ª ed., cap. 3; Manual SCHU, 3.ª ed., cap. 1.')
+    u.ul(['**Toda hematuria macroscópica o microscópica en el adulto se estudia**: **urocultivo y citología**, **ecografía**, **TC con contraste (urotomografía)** y **cistoscopía**. La **hematuria indolora** obliga a descartar cáncer de **vejiga o de riñón**.',
+          'Debe distinguirse de la **orina oscura sin glóbulos rojos** (mioglobinuria, bilirrubina, fármacos): el **sedimento** muestra eritrocitos solo en la verdadera hematuria.'])
     oral(u, 'El examen urológico incluye la **puño-percusión lumbar**, la palpación del **hipogastrio** (globo vesical), los **genitales externos** y el **tacto rectal**, que palpa la **cara posterior de la próstata**. El primer estudio es la **ecografía** (hidronefrosis, residuo posmiccional, tamaño prostático); el **cólico renal** se estudia con **TC sin contraste**; la **hematuria** con **TC con contraste y cistoscopía**; la **retención y la obstrucción baja** con **flujometría y residuo**; y el **trauma uretral** con **uretrografía retrógrada**.', 'Así lo decís en el oral: semiología urológica')
 
 
@@ -61,6 +69,10 @@ def rinon(u):
     ], fuente='Smith y Tanagho, 18.ª ed., caps. 18, 22 y 35; Manual SCHU, 3.ª ed., caps. 23 y 33; Schwartz, 10.ª ed., cap. 40.')
     L(u, 'uro_s40_p7_0.jpg', 'Tumor renal con extensión a la vena renal: TC coronal (A) y pieza de nefrectomía (B).', SCH.format(c='cap. 40 (Urología)'), ['Observá la **prolongación del tumor por la vena renal** hacia la cava: por eso se identifica y se controla la vena **antes** de movilizar el riñón.'], 90)
     L(u, 'uro_s40_p9_0.jpg', 'Traumatismo renal: TC con contraste con laceración y hematoma perirrenal.', SCH.format(c='cap. 40 (Urología)'), ['El hematoma queda **contenido** por la **fascia de Gerota**; mientras esté estable se observa.'], 90)
+    L(u, 'uro_schu_h23_p19_0.jpg', 'Clasificación de Bosniak de los quistes renales (I, II, IIF, III y IV).', SCHU.format(c='cap. 23 (Tumores renales)'), ['Cuanto más **septos gruesos, calcificaciones o nódulos que realzan**, mayor riesgo de malignidad: **III y IV** se operan; **I y II** no necesitan seguimiento.'], 90)
+    L(u, 'uro_schu_h23_p40_0.jpg', 'Extensión del tumor renal por la vena renal y la vena cava inferior hasta la aurícula (niveles del trombo tumoral).', SCHU.format(c='cap. 23 (Tumores renales)'), ['La **vena renal izquierda** desemboca en la cava: el trombo asciende por la **cava** (por debajo, a nivel o por encima de las venas hepáticas) y puede llegar a la **aurícula derecha**.', 'El nivel del trombo decide la **vía de abordaje** (con o sin circulación extracorpórea).'], 100)
+    L(u, 'uro_schu_h33_p4_0.jpg', 'Traumatismo renal: grados 1 a 5.', SCHU.format(c='cap. 33 (Trauma de vía urinaria superior)'), ['Desde la **contusión y el hematoma subcapsular** (1) hasta la **laceración que compromete el sistema colector** (3-4) y el **riñón estallado o la lesión del pedículo** (5).'], 70)
+    L(u, 'uro_schu_h33_p19_0.jpg', 'TC con contraste en traumatismo renal: laceración, hematoma perirrenal y extravasación.', SCHU.format(c='cap. 33 (Trauma de vía urinaria superior)'), ['La **fase tardía (excretora)** permite ver si hay **extravasación de orina** por lesión del sistema colector.'], 90)
     u.box('clave', 'Conectá con las UP5 y UP6', 'El **retroperitoneo y sus zonas**, el **páncreas, el duodeno** y las relaciones del riñón con el **colon** están en los atlas de la **UP5** y la **UP6**. En el trauma abdominal (UP9) la **zona 2** del retroperitoneo es la renal.')
     oral(u, 'Los riñones están en el **retroperitoneo**, entre **T12 y L3**, el derecho más bajo por el hígado, envueltos por la **fascia de Gerota**. El **pedículo**, de adelante hacia atrás, es **vena, arteria y pelvis**. La **arteria renal derecha** pasa **detrás de la cava**; la **vena renal izquierda** cruza **por delante de la aorta** y recibe la vena gonadal, por eso el **varicocele es izquierdo**. Las arterias segmentarias son **terminales**, y la **línea de Brödel** es el plano avascular. El **cáncer renal** puede invadir la **vena renal y la cava** (trombo tumoral).', 'Así lo decís en el oral: riñón')
 
@@ -87,6 +99,10 @@ def ureter(u):
         ['**Procedimientos**', '**Litotricia extracorpórea (LEOCH)** para cálculos renales de **menos de 2 cm**; **ureteroscopía con láser** para el uréter; **nefrolitotomía percutánea** para los **mayores de 2 cm** o coraliformes'],
     ], fuente='Smith y Tanagho, 18.ª ed., cap. 17; Manual SCHU, 3.ª ed., cap. 8.')
     u.box('alerta', 'Cólico con fiebre: es una urgencia', 'Un cálculo que **obstruye** la vía urinaria **con infección** (fiebre, escalofríos, leucocitosis) produce **pionefrosis o sepsis urinaria**: se **drena la vía urinaria de inmediato** (**catéter doble J o nefrostomía percutánea**) y se trata el cálculo **después**. Lo mismo si hay **riñón único** o **insuficiencia renal**.')
+    u.h3('Tumores de la vía urinaria alta')
+    u.ul(['**Carcinoma urotelial de la pelvis renal y del uréter**: hematuria, dolor lumbar; **defecto de relleno** en la urografía o la TC; se asocia al **tabaquismo** y a tumores de vejiga.',
+          '**Diagnóstico**: **urotomografía** y **ureteroscopía** con biopsia; **tratamiento**: **nefroureterectomía radical con manguito de vejiga** (se extirpa el uréter hasta su desembocadura), o tratamiento conservador en tumores pequeños y de bajo grado.'])
+    L(u, 'uro_schu_h24_p8_0.jpg', 'Visión endoscópica de un tumor urotelial papilar de la vía urinaria.', SCHU.format(c='cap. 24 (Cáncer de vía urinaria alta)'), ['Aspecto **papilar**, en frondas, de un tumor urotelial: es lo que se ve y se **reseca o biopsia** por vía endoscópica.'], 75)
     oral(u, 'El **uréter** desciende por el **psoas**, **cruza por delante de los vasos ilíacos** y en la mujer pasa **por debajo de la arteria uterina** ("el agua pasa bajo el puente"), por lo que se lesiona en la histerectomía. Los cálculos se impactan en los **tres estrechamientos**: la **unión ureteropiélica**, el **cruce con los vasos ilíacos** y la **unión ureterovesical**. El **cólico renal** produce dolor lumbar en oleadas que irradia a los genitales; se estudia con **TC sin contraste** y se trata con **AINE** y **tamsulosina** si el cálculo es distal y menor de 10 mm. Si hay **fiebre**, se **drena** la vía urinaria de urgencia.', 'Así lo decís en el oral: uréter y litiasis')
 
 
@@ -107,6 +123,7 @@ def vejiga(u):
     ], fuente='Netter, láminas S-513 y S-514; Gray, pág. 284; Smith y Tanagho, 18.ª ed., cap. 38; Manual SCHU, 3.ª ed., cap. 12.')
     N(u, 'S-513', 'Nervios de las vísceras pélvicas: varón.', ['**Plexo hipogástrico inferior**: fibras simpáticas y parasimpáticas hacia la vejiga, la próstata y el recto.'], 205)
     G(u, 284, 'Inervación del sistema reproductor masculino (Gray).', ['Seguí el **nervio hipogástrico** (simpático), los **esplácnicos pélvicos** (parasimpáticos) y el **pudendo**.'], 190)
+    L(u, 'uro_schu_h12_p4_0.jpg', 'Esquema de la inervación de la vejiga y la uretra: aferentes, simpático T12-L2 (hipogástrico), parasimpático S2-S4 (pélvico) y somático (pudendo, núcleo de Onuf).', SCHU.format(c='cap. 12 (Disfunciones vesicales)'), ['Seguí cada vía: el **hipogástrico** (simpático) y el **pélvico** (parasimpático) llegan al detrusor y al cuello; el **pudendo** al **esfínter externo**.'], 110)
     u.si_ves([('Chorro débil, goteo, nicturia en un hombre mayor', 'Obstrucción baja por **HPB** (ver próstata)'),
               ('**Globo vesical** y dolor hipogástrico con imposibilidad de orinar', 'Retención aguda de orina'),
               ('**Hematuria indolora** en un fumador', '**Cáncer de vejiga**: cistoscopía y TC'),
@@ -122,4 +139,12 @@ def vejiga(u):
         ['**Extraperitoneal** (80-90 %)', 'Fractura de pelvis; la lesión es **por debajo del peritoneo**, en el espacio de Retzius', '**Cistografía retrógrada**: extravasación pelviana; sonda vesical (**manejo conservador**)'],
         ['**Intraperitoneal**', 'Golpe con **vejiga llena**; se rompe la **cúpula** (la zona cubierta por peritoneo)', 'Extravasación a la cavidad: **peritonitis urinaria**, **ascitis urinaria**; **reparación quirúrgica**'],
     ], fuente='Manual SCHU, 3.ª ed., cap. 34; Smith y Tanagho, 18.ª ed., cap. 18.')
+    u.h3('Disfunciones vesicales: cuando falla la inervación')
+    u.tabla(['Cuadro', 'Qué pasa', 'Causas', 'Clínica y conducta'], [
+        ['**Vejiga hiperactiva** (hiperactividad del detrusor)', 'Contracciones involuntarias durante el llenado', 'Idiopática, lesión suprapontina (ACV, Parkinson)', '**Urgencia, frecuencia, incontinencia de urgencia**: antimuscarínicos o β3-agonistas'],
+        ['**Vejiga hipoactiva / acontráctil**', 'El detrusor no se contrae bien', 'Diabetes, lesión sacra o de la cola de caballo, obstrucción crónica, fármacos', '**Retención crónica y rebosamiento**: cateterismo intermitente'],
+        ['**Vejiga neurogénica por lesión medular suprasacra**', 'Pierde la coordinación entre detrusor y esfínter (**disinergia**)', 'Trauma de columna, esclerosis múltiple', 'Altas presiones: riesgo de **hidronefrosis y reflujo**'],
+        ['**Incontinencia de esfuerzo**', 'Falla del esfínter o del soporte del suelo pelviano', 'Parto, prostatectomía', 'Pérdida con la tos; rehabilitación o cirugía'],
+    ], fuente='Manual SCHU, 3.ª ed., cap. 12; Smith y Tanagho, 18.ª ed., cap. 38.')
+    L(u, 'uro_schu_h34_p6_0.jpg', 'Tipos de traumatismo vesical: contusión, rotura extraperitoneal y rotura intraperitoneal (y del cuello vesical).', SCHU.format(c='cap. 34 (Traumatismo de la vía urinaria inferior)'), ['La **contusión** y la **rotura extraperitoneal** se tratan de forma **conservadora** (sonda); la **intraperitoneal** y la del **cuello vesical** requieren **cirugía**.'], 85)
     oral(u, 'La **micción** se controla con tres inervaciones: el **parasimpático S2-S4** (nervios esplácnicos pélvicos) contrae el detrusor; el **simpático T10-L2** (hipogástrico) relaja el detrusor y cierra el cuello (continencia, eyaculación); y el **nervio pudendo** (S2-S4) inerva el **esfínter externo voluntario**. La vejiga llena sube sobre el pubis, por eso se **punza por vía suprapúbica** sin tocar el peritoneo. El **cáncer de vejiga** se presenta con **hematuria indolora** y se diagnostica por **cistoscopía con RTU**. En el **trauma**, la lesión **extraperitoneal** (fractura de pelvis) se maneja con sonda y la **intraperitoneal** (cúpula) se repara.', 'Así lo decís en el oral: vejiga')

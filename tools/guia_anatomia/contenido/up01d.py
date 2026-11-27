@@ -111,25 +111,6 @@ def patologias_oral(u):
           '**Hipoestesia de un lado del pulpejo** = nervio digital propio. Se compara con el dedo vecino.',
           '**Palidez o dedo frío** = ambas arterias digitales.',
           'La **vaina flexora** es un espacio cerrado: la herida punzante de la cara palmar, pequeña, puede inocular gérmenes y producir tenosinovitis (**signos de Kanavel**).'])
-    u.h3('3. Fracturas y luxaciones: ¿qué estructura está en riesgo?')
-    u.p('El esquema es siempre: **hueso → vecino** (nervio, arteria o músculo) **→ signo → maniobra**. Todo está resumido en la tabla de fracturas del módulo de esqueleto; los tres casos para estudiar con voz alta son: **supracondílea del niño** (braquial y mediano, riesgo de Volkmann), **diáfisis del húmero** (radial, mano caída con tríceps conservado) y **escafoides** (irrigación retrógrada, necrosis del polo proximal).')
-    u.h3('4. Síndromes de compresión nerviosa')
-    u.tabla(['Cuadro', 'Dónde se comprime', 'Anatomía en la que se apoya', 'Dato clínico'], [
-        ['**Túnel carpiano**', 'Mediano bajo el retináculo flexor', 'Retináculo, 9 tendones y mediano; la rama palmar cutánea pasa por encima', 'Parestesias nocturnas; no se afecta la sensibilidad de la eminencia tenar'],
-        ['**Compresión cubital en el codo**', 'Cubital en el canal epitroclear o entre las cabezas del FCU', 'Nervio superficial detrás de la epitróclea', 'Parestesias en meñique y anular; signo de Tinel en el codo'],
-        ['**Canal de Guyon**', 'Cubital entre pisiforme y gancho del ganchoso', 'Techo de ligamentos, arteria cubital', 'Ciclistas; debilidad de intrínsecos'],
-        ['**Pronador redondo**', 'Mediano entre las dos cabezas del pronador', 'Relación mediano-pronador redondo', 'Dolor en el antebrazo proximal y parestesias en los dedos radiales'],
-        ['**Interóseo posterior**', 'Rama profunda del radial en la arcada de Frohse', 'Atraviesa el supinador', 'Dedos caídos con extensión de muñeca conservada'],
-    ], fuente='Anatomía de referencia y Silberman y Varaona, Ortopedia y Traumatología, 3.ª ed., cap. 14.')
-    u.h3('5. Anestesia: raquídea, peridural e intubación')
-    u.ul(['**Raquídea**: la aguja atraviesa ligamentos hasta el espacio subaracnoideo (**LCR**), debajo de **L2** porque la médula termina en L1-L2. Nivel de bloqueo según dermatomas: **T10** para hernia, **T4** para cesárea.',
-          '**Peridural**: espacio epidural (grasa y venas), **pérdida de resistencia** al pasar el ligamento amarillo. Se puede dejar un catéter.',
-          '**Intubación**: **vallécula** (pala curva) o **epiglotis** (pala recta); se ve la **glotis** entre las cuerdas verdaderas. Complicaciones: dientes, esófago, bronquio derecho, edema subglótico.'])
-    u.h3('6. Infección y herida: cicatrización y planos')
-    u.ul(['**Panadizo** (infección del pulpejo): los tabiques fibrosos entre la piel y la falange forman **compartimentos** pequeños; el pus aumenta la presión y duele muchísimo, con riesgo de **osteomielitis** de la falange distal.',
-          '**Tenosinovitis supurada**: la vaina del flexor es un espacio cerrado; en el pulgar y el meñique puede propagarse al antebrazo (**flemón en herradura**, espacio de Parona).',
-          '**Cicatrización**: una herida que cruza un pliegue de flexión se retrae; una paralela a las líneas de tensión cicatriza mejor. Las zonas de piel gruesa (palma, planta) cicatrizan por segunda intención con menos retracción de lo esperado.',
-          '**Piel y vascularización**: una “lengüeta” de base estrecha se necrosa en la punta. Los factores locales (isquemia, tensión, infección) y sistémicos (diabetes, tabaquismo, desnutrición) interfieren con la cicatrización.'])
     u.h3('Mapa final: patología de la unidad y estructura que tenés que nombrar')
     u.tabla(['Patología o situación', 'Estructuras anatómicas', 'Módulo de esta guía'], [
         ['Herida cortante de mano', 'Tendones flexores y extensores, nervios digitales, mediano, cubital, arterias digitales y arcos', 'Muñeca y mano; nervios; arterias'],

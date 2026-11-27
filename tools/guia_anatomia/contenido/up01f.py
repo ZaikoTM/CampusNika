@@ -73,17 +73,6 @@ def lesiones_nerviosas(u):
               ('Erb: brazo en aducción, rotación interna y antebrazo pronado', 'Plexo alto **C5-C6**'),
               ('Garra + Horner', 'Plexo bajo **C8-T1** (Klumpke)')], 'Si ves esto, pensá en este nervio')
     oral(u, 'Para responder “¿qué nervio se lesiona y qué clínica da?” sigo siempre el mismo orden: **hueso o articulación lesionados → nervio vecino → músculos que se paralizan → territorio sensitivo → postura o signo**. En la **luxación de hombro** es el **axilar**: deltoides sin abducción y parche lateral anestesiado. En la **diáfisis del húmero** es el **radial**: mano caída con el tríceps conservado, y anestesia del dorso del primer espacio. En la **supracondílea** son el **mediano** (en especial el interóseo anterior: signo OK anormal) y la arteria braquial. En la **epitróclea** es el **cubital**: garra cubital, Froment y pérdida sensitiva del meñique. En el **Colles** o la luxación del semilunar, el **mediano bajo**: parestesias, atrofia tenar si evoluciona. Con herida abierta y déficit exploro; con fractura cerrada reduzco, documento y observo 3 meses porque casi siempre es neuropraxia o axonotmesis, y confirmo con electromiograma a las 3-4 semanas. La regeneración avanza 1 mm por día y el Tinel marca el progreso.', 'Así lo decís en el oral')
-    u.h3('Casos para practicar')
-    u.caso('Mano caída', 'Hombre de 45 años con fractura de diáfisis de húmero en el tercio medio-distal; no puede extender la muñeca ni los dedos, pero extiende el codo.', '¿Qué nervio está lesionado?', ['Radial', 'Mediano', 'Cubital', 'Axilar'], 'A',
-           ['El **radial** corre por el surco radial. La lesión es **distal a las ramas al tríceps**, que se conserva (Holstein-Lewis).'], prioritaria=True)
-    u.caso('Garra de la mano', 'Mujer de 30 años, fractura de epitróclea con garra de meñique y anular, signo de Froment positivo y anestesia del meñique.', '¿Qué nervio está lesionado?', ['Cubital', 'Mediano', 'Radial', 'Interóseo anterior'], 'A',
-           ['El **cubital** pasa detrás de la epitróclea. El Froment indica falla del aductor del pulgar.'], prioritaria=True)
-    u.caso('Supracondílea', 'Niño de 6 años con fractura supracondílea; al pedirle que haga el signo OK no flexiona la IF del pulgar ni la IFD del índice. No hay pérdida de sensibilidad.', '¿Qué nervio está lesionado?', ['Interóseo anterior (mediano)', 'Cubital', 'Radial superficial', 'Axilar'], 'A',
-           ['El **interóseo anterior** es la rama motora pura del mediano (FPL y FDP de índice y medio).'], prioritaria=True)
-    u.caso('Luxación de hombro', 'Hombre de 24 años con luxación anterior de hombro; tras la reducción no abduce el brazo y tiene hipoestesia en la cara lateral del hombro.', '¿Qué nervio está lesionado?', ['Axilar', 'Supraescapular', 'Musculocutáneo', 'Torácico largo'], 'A',
-           ['El **axilar** rodea el cuello quirúrgico. Deltoides y redondo menor + parche cutáneo lateral.'])
-    u.caso('Muñeca', 'Mujer de 55 años con parestesias nocturnas en el pulgar, el índice y el medio, Tinel y Phalen positivos; la eminencia tenar tiene sensibilidad normal.', '¿Cuál es el cuadro?', ['Síndrome del túnel carpiano', 'Lesión del cubital en el codo', 'Radiculopatía C8', 'Síndrome del canal de Guyon'], 'A',
-           ['El **mediano** se comprime bajo el retináculo; la rama palmar cutánea pasa por encima y preserva la eminencia tenar.'])
 
 
 def inmovilizacion(u):

@@ -173,24 +173,20 @@ def atlas_mano(u):
 def preguntas_oral(u):
     u.h2('Preguntas típicas del oral con respuesta modelo', intro='Respondelas en voz alta y compará. Cada una combina anatomía y patología de la unidad.')
     qa = [
-        ('Una paciente llega con una herida cortante transversal en la cara anterior de la muñeca. ¿Qué estructuras pueden estar lesionadas y cómo lo evaluás?',
-         'De superficial a profundo y de radial a cubital: palmar largo y flexor radial del carpo; **arteria radial**; **nervio mediano**, que es el más superficial (entre el palmar largo y el flexor radial del carpo); **tendones flexores** (FDS y FDP) y **nervio y arteria cubitales** junto al pisiforme. Antes de anestesiar valoro perfusión (pulsos, test de Allen, llenado), sensibilidad por zonas autónomas (índice, meñique y dorso del primer espacio) y motilidad por tendones (cascada, FDS y FDP por separado, signo OK). Si hay déficit es una herida compleja para cirugía de mano.'),
         ('Un niño de 6 años con fractura supracondílea tiene dolor intenso y no se palpa el pulso radial. ¿Qué pasó anatómicamente?',
          'El fragmento distal se desplaza hacia atrás y la **arteria braquial** y el **nervio mediano** están inmediatamente delante de la paleta humeral. Pueden estar comprimidos o lesionados; el dolor desproporcionado y el dolor con la extensión pasiva de los dedos orientan a **síndrome compartimental** y a **contractura isquémica de Volkmann**. Se reduce urgentemente y se reevalúa la perfusión.'),
-        ('Fractura de diáfisis de húmero con mano caída. ¿Qué nervio y por qué el tríceps se conserva?',
-         'El **nervio radial** corre por el **surco radial** del húmero con la arteria braquial profunda. La fractura (Holstein-Lewis, tercio distal) lo lesiona **por debajo** de las ramas al tríceps, que salen en la axila y el brazo proximal; por eso pierde extensión de muñeca y dedos pero extiende el codo.'),
-        ('Luxación anterior de hombro: ¿qué nervio y cómo se evalúa?',
-         'El **axilar** (C5-C6), que rodea el cuello quirúrgico del húmero. Se evalúa la sensibilidad del parche lateral del hombro y la contracción isométrica del deltoides, antes y después de reducir. También el pulso por la arteria axilar.'),
         ('Dolor en la tabaquera anatómica y radiografía normal. ¿Qué pensás y por qué es importante?',
          'Fractura de **escafoides** hasta que se demuestre lo contrario. Su irrigación es **retrógrada**: entra por el polo distal; el fragmento proximal puede quedar sin sangre (necrosis avascular y seudoartrosis). Se inmoviliza y se repite la Rx o se hace RM.'),
-        ('Parestesias nocturnas en los tres dedos radiales sin pérdida de sensibilidad de la eminencia tenar. ¿Qué es y por qué?',
-         'Síndrome del **túnel carpiano**: compresión del **mediano** bajo el retináculo flexor. La eminencia tenar conserva la sensibilidad porque su rama **palmar cutánea** nace proximal y pasa **por encima** del retináculo.'),
         ('¿Por qué se punciona la columna en L3-L4 o L4-L5 y qué capas atraviesa la aguja?',
          'Porque la médula termina en L1-L2 (cono medular) y el saco dural en S2. La línea de Tuffier pasa por L4. La aguja atraviesa piel, tejido celular, supraespinoso, interespinoso, **ligamento amarillo**, espacio epidural, duramadre y aracnoides hasta el espacio subaracnoideo, donde sale LCR.'),
         ('¿Qué ve el anestesiólogo en la laringoscopia y cuál es la vía aérea quirúrgica de emergencia?',
          'Apoyando la pala en la **vallécula** o levantando la **epiglotis** se ve la **glotis** entre las cuerdas verdaderas. La vía aérea quirúrgica es la **cricotiroidotomía** por la membrana cricotiroidea, entre el tiroides y el cricoides.'),
         ('Un dedo con herida palmar queda más extendido que sus vecinos. ¿Qué tendón y cómo se examina?',
          'Un **flexor seccionado** (cascada alterada). **FDS**: mantengo los otros dedos en extensión y le pido flexionar la IFP. **FDP**: fijo la IFP y le pido flexionar la IFD. Si es en la zona II (“tierra de nadie”) se deriva a cirugía de mano.'),
+        ('¿Para qué sirve la prueba de Allen y cómo se interpreta?',
+         'Valora si la **mano tiene irrigación suficiente por una sola arteria** antes de puncionar la radial o hacer una fístula. Se comprimen **radial y cubital**, el paciente abre y cierra la mano hasta palidecer, se suelta **una** arteria y se mide en cuántos segundos vuelve el color: **menos de 5-7 segundos** es normal e indica **arco palmar competente**; si tarda más, la arteria liberada no basta.'),
+        ('¿Qué complicaciones anatómicas tiene el bloqueo del plexo braquial por vía supraclavicular?',
+         'Por la vecindad del **ápex pulmonar** (**neumotórax**), del **nervio frénico** (**parálisis diafragmática** ipsilateral) y de la **cadena simpática** (**síndrome de Horner**); también la punción de la **arteria subclavia**. Por eso la vía **axilar** es la más segura para el cirujano de mano.'),
     ]
     for i, (q, a) in enumerate(qa, 1):
         u.box('oral', 'Pregunta %d' % i, ['**%s**' % q, a])
