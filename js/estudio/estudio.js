@@ -534,7 +534,8 @@ function nkAtlasCss() {
     if (document.getElementById('nk-atlas-css')) return;
     const st = document.createElement('style'); st.id = 'nk-atlas-css';
     st.textContent = `
-    .nk-atlas { margin: 6px 0 34px; }
+    .nk-atlas { margin: 6px 0 22px; }
+    .nk-atlas-sub { font-size:.84rem; color:var(--text-muted,#64748b); margin:0 0 12px; }
     .nk-atlas-cab { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
     .nk-atlas-cab .nk-atlas-ico { width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:#fff; background:linear-gradient(135deg,#f43f5e,#be123c); box-shadow:0 8px 18px rgba(190,18,60,.28); flex-shrink:0; }
     .nk-atlas-cab h2 { font-size:1.25rem; font-weight:800; color:var(--nika-dark,#0b4f8c); line-height:1.2; margin:0; }
@@ -566,8 +567,13 @@ function renderAtlasMosaico() {
     const completo = datos.atlasCompleto && datos.atlasCompleto.url ? datos.atlasCompleto : null;
     const tile = (url, n, c, nombre, sub, ic, i, todo, href, etiqueta) => `<button type="button" class="nk-atlas-t${todo ? ' nk-atlas-todo' : ''}" style="--c:${c};animation-delay:${0.03 * i}s" data-url="${esc(url)}"${href ? ` data-href="${esc(href)}"` : ''} data-n="${n}" aria-label="Abrir ${esc(nombre)}"><span class="nk-atlas-up">${etiqueta || (todo ? 'Atlas completo' : 'UP ' + n)}</span><svg class="nk-atlas-fig" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic}</svg><span><b>${esc(nombre)}</b><small>${esc(sub)}</small></span></button>`;
     const libro = '<path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/>';
-    host.innerHTML = `<div class="nk-atlas-cab"><span class="nk-atlas-ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><h2>Atlas de anatomía quirúrgica</h2><p>Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p></div></div>
-        <div class="nk-atlas-grid">${completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : ''}${items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')}${tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar')}</div>`;
+    let abierto = false; try { abierto = localStorage.getItem('nika_atlas_abierto') === '1'; } catch (_) {}
+    const cuenta = items.length + ' atlas' + (completo ? ' + atlas completo' : '') + ' · modo láminas';
+    host.innerHTML = `<details class="nk-lib" style="--h:345" ${abierto ? 'open' : ''}>
+        <summary><span class="nk-lib-ico" style="background:linear-gradient(135deg,#f43f5e,#be123c)"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><span class="nk-lib-tit"><b>Anatomía quirúrgica</b><small>${cuenta}</small></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="nk-lib-cuerpo"><p class="nk-atlas-sub">Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p><div class="nk-atlas-grid">${completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : ''}${items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')}${tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar')}</div></div>
+    </details>`;
+    const det = host.querySelector('details'); if (det) det.addEventListener('toggle', () => { try { localStorage.setItem('nika_atlas_abierto', det.open ? '1' : '0'); } catch (_) {} });
     host.querySelectorAll('.nk-atlas-t').forEach((b) => b.addEventListener('click', () => { if (b.dataset.href) location.href = b.dataset.href; else abrirAtlas(b.dataset.url); }));
 }
 function abrirAtlas(url) {
