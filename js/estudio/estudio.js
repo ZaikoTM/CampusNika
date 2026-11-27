@@ -465,7 +465,6 @@ async function initEstudio() {
 
         document.getElementById('dashboard-title').innerText = `Sala de Estudio · ${EstudioState.data.nombre}`;
         renderUpBentoGrid(EstudioState.data.units);
-        try { renderAtlasMosaico(); } catch (e) { console.warn('[Estudio] mosaico del atlas:', e); }
         guardarUltimoModulo();
 
         iniciarMonitorAlertas();
@@ -525,7 +524,7 @@ const NK_ATLAS_UP = {
     5: { c: '#e11d48', n: 'Hígado, vías biliares y páncreas', ic: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>' },
     6: { c: '#0891b2', n: 'Pared abdominal y hernias', ic: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>' },
     7: { c: '#14b8a6', n: 'Cuello y tiroides', ic: '<path d="M12 5c-3 0-5.5 2-6.5 5-.9 2.8 0 6 3 7 2 .6 3.5-.8 3.5-3 0 2.2 1.5 3.6 3.5 3 3-1 3.9-4.2 3-7-1-3-3.5-5-6.5-5z"/>' },
-    8: { c: '#4f46e5', n: 'Sistema musculoesquelético', ic: '<path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/>' },
+    8: { c: '#4f46e5', n: 'Traumatología y ortopedia', ic: '<path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/>' },
     9: { c: '#7c3aed', n: 'Trauma y politrauma', ic: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>' },
     10: { c: '#c026d3', n: 'Vascular periférico', ic: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>' },
     11: { c: '#f97316', n: 'Urología', ic: '<path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>' },
@@ -534,7 +533,11 @@ function nkAtlasCss() {
     if (document.getElementById('nk-atlas-css')) return;
     const st = document.createElement('style'); st.id = 'nk-atlas-css';
     st.textContent = `
-    .nk-atlas { margin: 6px 0 22px; }
+    .nk-atlas-ov { position:fixed; inset:0; z-index:2000; background:rgba(15,23,42,.62); backdrop-filter:blur(4px); display:flex; align-items:flex-start; justify-content:center; padding:4vh 14px; overflow:auto; animation:nkAtlasIn .25s ease; }
+    .nk-atlas-panel { width:min(980px,100%); background:var(--bg-page,#fff); border-radius:22px; padding:20px 20px 22px; box-shadow:0 30px 80px rgba(0,0,0,.4); }
+    .nk-atlas-x { margin-left:auto; border:0; background:rgba(148,163,184,.2); color:#475569; width:36px; height:36px; border-radius:50%; font-size:1rem; cursor:pointer; flex-shrink:0; }
+    .nk-atlas-x:hover { background:rgba(148,163,184,.4); }
+    .nk-atlas-panel .nk-atlas-cab { margin:0 0 16px; }
     .nk-atlas-sub { font-size:.84rem; color:var(--text-muted,#64748b); margin:0 0 12px; }
     .nk-atlas-cab { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
     .nk-atlas-cab .nk-atlas-ico { width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:#fff; background:linear-gradient(135deg,#f43f5e,#be123c); box-shadow:0 8px 18px rgba(190,18,60,.28); flex-shrink:0; }
@@ -547,7 +550,7 @@ function nkAtlasCss() {
     .nk-atlas-t::after { content:""; position:absolute; right:-26px; bottom:-30px; width:104px; height:104px; border-radius:50%; background:rgba(255,255,255,.13); }
     .nk-atlas-t svg.nk-atlas-fig { position:absolute; right:10px; bottom:8px; width:54px; height:54px; opacity:.28; z-index:1; }
     .nk-atlas-up { font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,.2); padding:3px 9px; border-radius:999px; align-self:flex-start; }
-    .nk-atlas-t b { display:block; font-size:.98rem; line-height:1.25; font-weight:800; margin-top:10px; position:relative; z-index:2; }
+    .nk-atlas-t b { overflow-wrap:anywhere; display:block; font-size:.98rem; line-height:1.25; font-weight:800; margin-top:10px; position:relative; z-index:2; }
     .nk-atlas-t small { display:block; font-size:.72rem; font-weight:700; opacity:.88; margin-top:4px; position:relative; z-index:2; }
     .nk-atlas-t.nk-atlas-todo { grid-column:span 2; background:linear-gradient(135deg,#0f172a,#1e3a8a 55%,#be123c); }
     .nk-atlas-t.nk-atlas-todo b { font-size:1.15rem; }
@@ -556,25 +559,53 @@ function nkAtlasCss() {
     @media (prefers-reduced-motion: reduce){ .nk-atlas-t{animation:none;transition:none;} }`;
     document.head.appendChild(st);
 }
-function renderAtlasMosaico() {
+function nkAtlasDatos() {
     const datos = EstudioState.data || {};
     const items = (datos.units || []).map((u) => ({ u, m: (u.materiales || []).find((x) => /^🫀\s*Atlas/.test(x.title || '')) })).filter((x) => x.m);
-    let host = document.getElementById('atlas-mosaico');
-    if (items.length < 2) { if (host) host.remove(); return; }
-    nkAtlasCss();
-    if (!host) { host = document.createElement('section'); host.id = 'atlas-mosaico'; host.className = 'nk-atlas'; const g = document.getElementById('up-bento-grid'); g.parentNode.insertBefore(host, g); }
-    const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     const completo = datos.atlasCompleto && datos.atlasCompleto.url ? datos.atlasCompleto : null;
+    return { items, completo };
+}
+// Tarjeta cuadrada "Anatomía quirúrgica aplicada" al final de la grilla de UP (igual que las demás); abre una ventana con el mosaico del atlas.
+function nkAtlasCard(grid) {
+    const { items, completo } = nkAtlasDatos();
+    const viejo = document.getElementById('atlas-card'); if (viejo) viejo.remove();
+    if (!grid || items.length < 2) return;
+    nkAtlasCss();
+    const card = document.createElement('div');
+    card.id = 'atlas-card'; card.className = 'up-card has-c'; card.style.cssText = '--c:#be123c;animation:hubUp .5s .5s backwards';
+    card.setAttribute('role', 'button'); card.setAttribute('tabindex', '0');
+    card.innerHTML = `<div class="up-card-top">
+            <span style="display:inline-flex;align-items:center"><span class="uc-ic">🫀</span><span class="up-card-number">ATLAS</span></span>
+            <svg class="up-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+        <div class="up-card-title">Anatomía quirúrgica aplicada</div>
+        <div class="uc-desc">Atlas de las 11 unidades${completo ? ', atlas completo' : ''} y modo láminas para practicar con los nombres tapados.</div>
+        <div class="up-card-meta"><span>${items.length} atlas</span><span>${completo ? 'Atlas completo · ' : ''}Modo láminas</span></div>`;
+    card.addEventListener('click', abrirAtlasModal);
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirAtlasModal(); } });
+    grid.appendChild(card);
+}
+function abrirAtlasModal() {
+    const { items, completo } = nkAtlasDatos();
+    if (!items.length) return;
+    nkAtlasCss();
+    const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     const tile = (url, n, c, nombre, sub, ic, i, todo, href, etiqueta) => `<button type="button" class="nk-atlas-t${todo ? ' nk-atlas-todo' : ''}" style="--c:${c};animation-delay:${0.03 * i}s" data-url="${esc(url)}"${href ? ` data-href="${esc(href)}"` : ''} data-n="${n}" aria-label="Abrir ${esc(nombre)}"><span class="nk-atlas-up">${etiqueta || (todo ? 'Atlas completo' : 'UP ' + n)}</span><svg class="nk-atlas-fig" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic}</svg><span><b>${esc(nombre)}</b><small>${esc(sub)}</small></span></button>`;
     const libro = '<path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/>';
-    let abierto = false; try { abierto = localStorage.getItem('nika_atlas_abierto') === '1'; } catch (_) {}
-    const cuenta = items.length + ' atlas' + (completo ? ' + atlas completo' : '') + ' · modo láminas';
-    host.innerHTML = `<details class="nk-lib" style="--h:345" ${abierto ? 'open' : ''}>
-        <summary><span class="nk-lib-ico" style="background:linear-gradient(135deg,#f43f5e,#be123c)"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><span class="nk-lib-tit"><b>Anatomía quirúrgica</b><small>${cuenta}</small></span><span class="nk-lib-chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
-        <div class="nk-lib-cuerpo"><p class="nk-atlas-sub">Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p><div class="nk-atlas-grid">${completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : ''}${items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')}${tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar')}</div></div>
-    </details>`;
-    const det = host.querySelector('details'); if (det) det.addEventListener('toggle', () => { try { localStorage.setItem('nika_atlas_abierto', det.open ? '1' : '0'); } catch (_) {} });
-    host.querySelectorAll('.nk-atlas-t').forEach((b) => b.addEventListener('click', () => { if (b.dataset.href) location.href = b.dataset.href; else abrirAtlas(b.dataset.url); }));
+    const tiles = (completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : '')
+        + items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')
+        + tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar');
+    const ov = document.createElement('div');
+    ov.className = 'nk-atlas-ov'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Anatomía quirúrgica aplicada');
+    ov.innerHTML = `<div class="nk-atlas-panel"><div class="nk-atlas-cab"><span class="nk-atlas-ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><h2>Anatomía quirúrgica aplicada</h2><p>Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p></div><button type="button" class="nk-atlas-x" aria-label="Cerrar">✕</button></div><div class="nk-atlas-grid">${tiles}</div></div>`;
+    const cerrar = () => { ov.remove(); document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+    const onKey = (e) => { if (e.key === 'Escape') cerrar(); };
+    ov.addEventListener('click', (e) => { if (e.target === ov) cerrar(); });
+    ov.querySelector('.nk-atlas-x').addEventListener('click', cerrar);
+    ov.querySelectorAll('.nk-atlas-t').forEach((b) => b.addEventListener('click', () => { if (b.dataset.href) { location.href = b.dataset.href; return; } cerrar(); abrirAtlas(b.dataset.url); }));
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    document.body.appendChild(ov);
 }
 function abrirAtlas(url) {
     if (abrirRecursoDirecto(url)) return;
@@ -631,11 +662,11 @@ function renderUpBentoGrid(units) {
         </div>
         `;
     }).join('');
+    if (units.length === ((EstudioState.data && EstudioState.data.units) || []).length) { try { nkAtlasCard(grid); } catch (e) { console.warn('[Estudio] tarjeta del atlas:', e); } }
 }
 
 function filterUnits(query) {
     const q = query.trim().toLowerCase();
-    { const am = document.getElementById('atlas-mosaico'); if (am) am.style.display = q ? 'none' : ''; }
     if (!EstudioState.data) return;
 
     if (!q) {
@@ -658,7 +689,6 @@ function filterUnits(query) {
 // Buscador global de recursos, presentaciones y videos
 function filterResources(query) {
     const q = query.trim().toLowerCase();
-    { const am = document.getElementById('atlas-mosaico'); if (am) am.style.display = q ? 'none' : ''; }
     const grid = document.getElementById('up-bento-grid');
     if (!EstudioState.data || !grid) return;
 
