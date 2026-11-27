@@ -273,3 +273,29 @@ META[10] = dict(
         M('Pie diabético y su relación con la enfermedad vascular.', 'Úlcera plantar, gangrena, amputación.', 'Aprendé los niveles de amputación y los angiosomas.'),
         M('Traumatismos arteriales y nociones de cirugía endovascular.', 'Herida vascular de miembro, acceso femoral, EVAR.', 'Relacioná cada fractura o luxación con el vaso que se lesiona.'),
         None, None])
+
+META[11] = dict(
+    TOP=['Zonas de la próstata (McNeal): periférica (cáncer, se palpa) y de transición (HPB); relaciones con el recto y los haces neurovasculares.',
+         'HPB: IPSS, tacto, ecografía con residuo, α-bloqueantes y 5-ARI; indicaciones de RTU y sus complicaciones.',
+         'Retención aguda: sondaje y cateterismo suprapúbico (por qué no entra en el peritoneo).',
+         'Inervación de la micción: parasimpático S2-S4, simpático T10-L2 y pudendo.',
+         'Uréter: tres estrechamientos, cruce bajo la arteria uterina y cólico renal; cólico con fiebre = drenaje urgente.',
+         'Pedículo renal (vena, arteria, pelvis), vena renal izquierda y varicocele; cáncer renal con trombo en la cava.',
+         'Trauma uretral (posterior frente a anterior) y por qué no se sonda antes de la uretrografía.',
+         'Escroto agudo (torsión), varicocele izquierdo y cáncer testicular: orquidectomía inguinal.'],
+    RUTA=[('Día 1 · Semiología, riñón y uréter', ['Semiología y estudios urológicos', 'Riñón y suprarrenal', 'Uréter y litiasis']),
+          ('Día 2 · Vejiga y próstata', ['Vejiga y fisiología miccional', 'Próstata: HPB, retención y cáncer']),
+          ('Día 3 · Uretra, testículo y cierre', ['Uretra y pene', 'Escroto y testículo', 'Anomalías, infecciones y pelvis', 'Preguntas de oral'])],
+    VIDEOS=[('Osmosis · Hiperplasia prostática benigna', 'https://www.osmosis.org/video/Benign_prostatic_hyperplasia', 'Fisiopatología, síntomas y tratamiento médico.'),
+            ('Osmosis · Enfermedades y cáncer de próstata', 'https://www.osmosis.org/learn/Prostate_disorders_and_cancer:_Pathology_review', 'HPB, prostatitis y cáncer de próstata.'),
+            ('Osmosis · Patología testicular y escrotal', 'https://www.osmosis.org/learn/Testicular_and_scrotal_conditions:_Pathology_review', 'Torsión, epididimitis, varicocele, hidrocele y tumores.')],
+    MODULOS=[
+        M('Semiología urológica y estudios (ecografía, TC, uretrocistografía, flujometría).', 'Hematuria, cólico renal, síntomas urinarios bajos.', 'Relacioná cada estudio con la pregunta que responde.'),
+        M('Anatomía del riñón; tumores renales; trauma renal.', 'Cáncer renal, trauma renal, nefrectomía.', 'Memorizá el pedículo y la vena renal izquierda.'),
+        M('Uréter; litiasis urinaria y cólico renal; obstrucción urinaria alta.', 'Cólico renoureteral, pionefrosis, lesión ureteral.', 'Aprendé los tres estrechamientos y el cruce con la uterina.'),
+        M('Fisiología miccional; vejiga: cáncer y trauma; obstrucción baja.', 'Retención, hematuria indolora, trauma vesical.', 'Repasá qué nervio llena y cuál vacía.'),
+        M('Anatomía prostática; HPB, retención aguda y cáncer de próstata (PSA y tacto).', 'Síndrome prostático obstructivo, RTU, cáncer de próstata.', 'Ubicá cada patología en su zona prostática.'),
+        M('Uretra y pene: trauma uretral y urgencias del pene.', 'Trauma uretral, fractura de pene, priapismo, parafimosis.', 'Diferenciá uretra posterior de anterior.'),
+        M('Escroto y testículo: escroto agudo, varicocele y cáncer testicular.', 'Torsión, epididimitis, tumor testicular.', 'Seguí el drenaje venoso y linfático del testículo.'),
+        M('Anomalías congénitas, infecciones urogenitales y pelvis.', 'ITU, Fournier, criptorquidia, riñón en herradura.', 'Memorizá la regla de Weigert-Meyer.'),
+        None, None])
