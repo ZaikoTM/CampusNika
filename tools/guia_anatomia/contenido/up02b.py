@@ -2,6 +2,8 @@
 """UP 2 · Anatomía quirúrgica del abdomen agudo. Parte B: intestino, apéndice y FID, diagnóstico diferencial, imágenes, preguntas de oral y referencias."""
 from .up01e import N, G, L, oral
 
+SCH = 'Schwartz, __Principios de Cirugía__, 10.ª ed., {c}.'
+
 
 def intestino(u):
     u.h2('Intestino delgado y grueso: anatomía de la obstrucción', intro='El abdomen agudo obstructivo se razona con la anatomía: qué segmento se obstruye, dónde están los puntos estrechos y qué lo diferencia en una radiografía.')
@@ -29,6 +31,11 @@ def intestino(u):
         ['**Íleo biliar**', 'Cálculo que pasa por una fístula colecistoduodenal y se impacta en la válvula ileocecal', 'Aerobilia en la Rx; mujer mayor'],
         ['**Tumor de colon** (en el ángulo esplénico o sigmoides)', 'Segmentos más estrechos', 'Cambio del ritmo evacuatorio y anemia'],
     ], fuente='Azato y Waisman, Abdomen agudo, cap. 11 (obstrucción intestinal); Galindo, Enciclopedia de Cirugía Digestiva, cap. 128 (síndromes obstructivos y seudoobstructivos).')
+    u.h3('Cómo se ve la obstrucción del intestino delgado')
+    L(u, 'sch_s28_p12_0.jpg', 'Radiografía de abdomen en decúbito: asas de intestino delgado dilatadas.', SCH.format(c='cap. 28 (Intestino delgado)'), ['El delgado dilatado se ubica **en el centro** del abdomen y muestra **pliegues que cruzan toda la luz** (válvulas conniventes).'], 85)
+    L(u, 'sch_s28_p12_1.jpg', 'Radiografía de abdomen de pie: asas dilatadas con niveles hidroaéreos.', SCH.format(c='cap. 28 (Intestino delgado)'), ['Los **niveles hidroaéreos** (aire arriba y líquido abajo en la misma asa) indican obstrucción mecánica; compará la **cúpula diafragmática** por si hubiera aire libre.'], 95)
+    L(u, 'sch_s28_p12_3.jpg', 'TC de abdomen (corte coronal): asas dilatadas por encima de una zona de transición.', SCH.format(c='cap. 28 (Intestino delgado)'), ['Se busca el **punto de transición**: asas **dilatadas** arriba y **colapsadas** abajo, que orienta a la causa (brida, hernia, tumor).'], 95)
+    L(u, 'sch_s28_p27_0.jpg', 'Tránsito intestinal con bario: el contraste recorre el intestino delgado.', SCH.format(c='cap. 28 (Intestino delgado)'), ['Permite ver el **calibre y los pliegues** del yeyuno e íleon y detectar estenosis.'], 90)
     u.h3('Divertículo de Meckel')
     u.ul(['Resto del **conducto onfalomesentérico (vitelino)**; es un **divertículo verdadero** (tiene las tres capas de la pared).',
           '**Regla de los 2**: 2 % de la población, a unos **60 cm (2 pies)** de la válvula ileocecal, 2 pulgadas de largo, dos tipos de mucosa ectópica (gástrica y pancreática), síntomas antes de los 2 años.',
@@ -71,6 +78,9 @@ def apendice(u):
     u.ul(['**Abierta** por incisión de McBurney o de Rockey-Davis: se atraviesan los tres músculos anchos **siguiendo sus fibras** (sin cortarlos), la fascia transversalis y el peritoneo. Se identifican las **tenias**, se exterioriza el apéndice, se liga el **mesoapéndice con la arteria apendicular** y se secciona la base (con ligadura o invaginación).',
           '**Laparoscópica**: tres trócares; permite diagnóstico diferencial (mujer joven, ginecología).',
           '**Peligros anatómicos**: nervios iliohipogástrico e ilioinguinal en la herida; en la disección retrocecal, el **uréter derecho**, los **vasos ilíacos** y el **psoas**.'])
+    L(u, 'sch_s30_p13_0.jpg', 'Apendicectomía laparoscópica: posición del paciente, del cirujano y de los ayudantes en el quirófano.', SCH.format(c='cap. 30 (El apéndice)'), ['El cirujano se ubica **del lado opuesto** al apéndice (a la izquierda del paciente) y el monitor **a la derecha**, para trabajar en la fosa ilíaca derecha.'], 90)
+    L(u, 'sch_s30_p14_0.jpg', 'Vista laparoscópica: disección del apéndice y su mesoapéndice.', SCH.format(c='cap. 30 (El apéndice)'), ['El apéndice se sigue **desde la base cecal** (donde convergen las tenias del ciego) y se identifica la **arteria apendicular** en el mesoapéndice.'], 85)
+    L(u, 'sch_s30_p14_1.jpg', 'Vista laparoscópica: sección del mesoapéndice con una pinza sellante.', SCH.format(c='cap. 30 (El apéndice)'), ['Se controla el **pedículo vascular** antes de seccionar la base del apéndice (nudos, grapas o endoloops).'], 85)
     u.h3('Complicaciones y su relación anatómica')
     u.tabla(['Complicación', 'Mecanismo', 'Dónde'], [
         ['**Perforación y peritonitis**', 'Gangrena por trombosis de la arteria apendicular', 'Cavidad libre; en niños y ancianos es más rápida (epiplón corto y menos defensa)'],

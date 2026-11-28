@@ -81,6 +81,10 @@ def cuello(u):
     oral(u, 'El **triángulo anterior** (línea media, borde anterior del ECM y mandíbula) se divide en submentoniano, submandibular, **carotídeo** y muscular; el **posterior** (ECM, trapecio y clavícula) contiene el **nervio accesorio**, que emerge por el borde posterior del ECM y se lesiona en la biopsia ganglionar. Las **fascias**: superficial (platisma), cervical profunda (de revestimiento, **pretraqueal o visceral** y **prevertebral**) y la **vaina carotídea** (carótida, yugular interna y vago); el **espacio retrofaríngeo** comunica con el mediastino posterior. Los **niveles ganglionares** son I (submentoniano y submandibular), II-IV (yugulares: superior hasta el hioides, medio hasta el cricoides, inferior hasta la clavícula), V (triángulo posterior), **VI (central: tiroides)** y VII (mediastino superior). En el **vaciamiento** se preservan, si es posible, el **accesorio**, la **yugular interna** y el **ECM**; el **ganglio de Virchow** (supraclavicular izquierdo) orienta a una metástasis abdominal o torácica.')
 
 
+    L(u, 'sch_s18_p31_0.jpg', 'Niveles ganglionares del cuello: límites de cada nivel (I a VI) sobre los músculos y los vasos.', SCH.format(c='cap. 18 (Trastornos de la cabeza y el cuello)'), ['Ubicá cada nivel por sus límites: **hioides, cricoides y clavícula** y la relación con el **esternocleidomastoideo**.'], 100)
+    L(u, 'sch_s18_vaciamientos.jpg', 'Tipos de vaciamiento ganglionar del cuello: de menor a mayor extensión (en azul, la zona que se extirpa).', SCH.format(c='cap. 18 (Trastornos de la cabeza y el cuello)'), ['Cuanto mayor es el vaciamiento, más estructuras no linfáticas se sacrifican (**nervio accesorio, yugular interna, esternocleidomastoideo**) o se preservan.'], 85)
+
+
 def tiroides_anatomia(u):
     u.h2('Tiroides y paratiroides: anatomía quirúrgica', intro='Todo lo que se pregunta de las complicaciones de la tiroidectomía (disfonía, hipocalcemia, hematoma) se explica por las relaciones de la glándula. Es el módulo más importante de la unidad.')
     u.h3('Forma, relaciones y fijación')
@@ -134,6 +138,9 @@ def patologia_tiroides(u):
         ['**V**', 'Sospechoso de malignidad', '50-75 %', 'Cirugía'],
         ['**VI**', '**Maligno**', '97-99 %', 'Cirugía (lobectomía o total según el riesgo)'],
     ], fuente='Sistema Bethesda para la citología tiroidea; Giménez, Cirugía, 2.ª ed., cap. 23 (nódulo y cáncer tiroideos); Consenso intersocietario sobre cáncer diferenciado de tiroides.')
+    L(u, 'sch_s38_p10_0.jpg', 'Gammagrafía tiroidea: captación del radiotrazador por ambos lóbulos.', SCH.format(c='cap. 38 (Tiroides, paratiroides y suprarrenales)'), ['El nódulo **“caliente”** capta más que el tejido vecino (rara vez es maligno); el **“frío”** no capta y es el que se punza si la TSH no está suprimida.'], 85)
+    L(u, 'sch_s38_p10_1.jpg', 'Ecografía tiroidea: nódulo con una flecha que lo señala.', SCH.format(c='cap. 38 (Tiroides, paratiroides y suprarrenales)'), ['La ecografía describe **tamaño, bordes, ecogenicidad y microcalcificaciones** (base del TI-RADS) y guía la **PAAF**.'], 70)
+    L(u, 'sch_s38_p12_0.jpg', 'Exoftalmos en la enfermedad de Graves (fotografía en blanco y negro).', SCH.format(c='cap. 38 (Tiroides, paratiroides y suprarrenales)'), ['El **hipertiroidismo autoinmune** produce bocio difuso y oftalmopatía; es una de las indicaciones de tiroidectomía total.'], 80)
     u.h3('Cáncer de tiroides: tipos histológicos')
     u.tabla(['Tipo', 'Frecuencia y origen', 'Diseminación y dato clave'], [
         ['**Papilar**', '**80-85 %**; células foliculares; mujer joven; irradiación previa', '**Linfática** (ganglios del nivel VI y yugulares); núcleos en “vidrio esmerilado”, **cuerpos de psamoma**; **buen pronóstico**'],
