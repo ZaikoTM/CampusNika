@@ -1,0 +1,65 @@
+/* Silueta del cuerpo y tarjetas de anatomía (se apoya en atlasLaminas.css) */
+/* ---- silueta */
+.ac-grid { display:grid; grid-template-columns:minmax(300px,440px) 1fr; gap:22px; align-items:start; }
+@media (max-width:900px) { .ac-grid { grid-template-columns:1fr; } }
+.ac-cuerpo { background:var(--al-card); border:1px solid var(--al-borde); border-radius:20px; padding:14px; position:sticky; top:84px; }
+@media (max-width:900px) { .ac-cuerpo { position:static; } }
+.ac-vista { display:flex; gap:6px; margin:0 0 10px; justify-content:center; }
+.ac-fig { position:relative; width:100%; max-width:420px; margin:0 auto; background:#fff; border-radius:14px; overflow:hidden; }
+.ac-fig img { display:block; width:100%; height:100%; object-fit:cover; user-select:none; }
+.ac-z { position:absolute; padding:0; border:2px solid transparent; background:transparent; border-radius:10px; cursor:pointer; transition:background .15s,border-color .15s; display:flex; align-items:flex-start; justify-content:center; }
+.ac-z:hover, .ac-z.hv { background:rgba(190,18,60,.16); border-color:rgba(190,18,60,.7); }
+.ac-z.on { background:rgba(190,18,60,.26); border-color:#be123c; }
+.ac-z:focus-visible { outline:3px solid #0f6cbf; }
+.ac-et { display:none; position:absolute; top:-9px; left:50%; transform:translateX(-50%); background:#be123c; color:#fff; font-size:.66rem; font-weight:800; padding:2px 8px; border-radius:999px; white-space:nowrap; pointer-events:none; z-index:3; }
+.ac-z:hover .ac-et, .ac-z.on .ac-et, .ac-z.hv .ac-et { display:block; }
+.ac-pie { font-size:.68rem; color:var(--al-mut); text-align:center; margin:8px 0 0; }
+.ac-panel { background:var(--al-card); border:1px solid var(--al-borde); border-radius:20px; padding:18px; min-height:360px; }
+.ac-vacio { text-align:center; padding:50px 14px; color:var(--al-mut); }
+.ac-vacio-ico { font-size:2.6rem; }
+.ac-vacio h2 { margin:6px 0 4px; color:var(--al-d); }
+.ac-cab h2 { margin:0; color:var(--al-d); font-size:1.4rem; }
+.ac-cab p { margin:4px 0 10px; color:var(--al-mut); font-size:.88rem; }
+.ac-up { display:inline-block; font-size:.68rem; font-weight:800; background:rgba(15,108,191,.12); color:var(--al-p); border-radius:999px; padding:2px 8px; margin:2px 3px 0 0; }
+.ac-acc { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.ac-acc a { text-decoration:none; }
+.ac-sec { font-size:.82rem; font-weight:800; padding:8px 14px; border-radius:999px; border:1px solid var(--al-borde); color:var(--al-txt); background:var(--al-card); }
+.ac-sec:hover { border-color:#be123c; color:#be123c; }
+.ac-lams { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+.ac-l { text-decoration:none; color:inherit; border:1px solid var(--al-borde); border-radius:12px; overflow:hidden; background:var(--al-card); transition:transform .15s, border-color .15s; }
+.ac-l:hover { transform:translateY(-3px); border-color:#be123c; }
+.ac-l img { display:block; width:100%; height:92px; object-fit:cover; object-position:top; background:#fff; }
+.ac-l span { display:block; padding:5px 7px 7px; font-size:.7rem; font-weight:700; line-height:1.25; }
+.ac-mas { font-size:.8rem; color:var(--al-mut); margin:10px 0 0; }
+
+/* ---- tarjetas */
+.at-zona { max-width:760px; margin:6px auto 30px; }
+.at-prog { display:flex; align-items:center; gap:12px; margin:0 0 12px; font-size:.82rem; font-weight:700; color:var(--al-mut); }
+.at-barra { flex:1; height:8px; background:var(--al-borde); border-radius:999px; overflow:hidden; }
+.at-barra i { display:block; height:100%; width:0; background:linear-gradient(90deg,#f43f5e,#be123c); transition:width .3s; }
+.at-salir { border:0; background:transparent; color:var(--al-mut); font:inherit; font-weight:700; cursor:pointer; text-decoration:underline; }
+.at-card { position:relative; min-height:300px; border-radius:22px; background:var(--al-card); border:1px solid var(--al-borde); box-shadow:0 12px 34px -12px rgba(0,0,0,.2); cursor:pointer; outline:none; }
+.at-card:focus-visible { box-shadow:0 0 0 3px #0f6cbf; }
+.at-lado { padding:24px 22px; }
+.at-dorso { display:none; }
+.at-card.vuelta .at-frente { display:none; }
+.at-card.vuelta .at-dorso { display:block; animation:atVuelta .3s ease; }
+@keyframes atVuelta { from { opacity:0; transform:rotateX(18deg); } to { opacity:1; transform:none; } }
+.at-ctx { display:block; font-size:.74rem; font-weight:700; color:var(--al-mut); margin:0 0 14px; }
+.at-q { font-size:1.35rem; font-weight:800; line-height:1.35; color:var(--al-txt); }
+.at-hint { display:block; margin-top:26px; font-size:.76rem; color:var(--al-mut); }
+.at-a { font-size:1rem; line-height:1.55; color:var(--al-txt); }
+.at-a b { color:var(--al-d); }
+.at-lam { display:flex; align-items:center; gap:12px; margin-top:16px; padding:8px; border:1px solid var(--al-borde); border-radius:14px; text-decoration:none; color:var(--al-mut); font-size:.76rem; font-weight:700; }
+.at-lam:hover { border-color:#be123c; }
+.at-lam img { width:120px; height:84px; object-fit:cover; object-position:top; border-radius:9px; background:#fff; flex-shrink:0; }
+.at-botones { display:flex; gap:10px; margin-top:14px; }
+.at-botones .al-btn { flex:1; padding:13px 8px; font-size:.92rem; color:#fff; }
+.at-botones small { opacity:.7; margin-left:4px; }
+.at-no { background:#e11d48; } .at-no:hover { background:#be123c; }
+.at-dif { background:#f59e0b; color:#1f1300 !important; } .at-dif:hover { background:#d97706; }
+.at-si { background:#16a34a; } .at-si:hover { background:#15803d; }
+.at-fin { max-width:520px; margin:20px auto; text-align:center; background:var(--al-card); border:1px solid var(--al-borde); border-radius:22px; padding:26px; }
+.at-fin h2 { margin:0 0 8px; color:var(--al-d); }
+.al-exa:disabled { opacity:.5; cursor:not-allowed; }
+@media (max-width:560px) { .at-q { font-size:1.1rem; } .at-botones { flex-direction:column; } }

@@ -84,3 +84,30 @@ body { margin: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSyste
 }
 @media (prefers-reduced-motion: reduce) { .al-card, .al-btn, .al-cap { transition: none; } }
 body.tema-oscuro { --al-bg: #0f172a; --al-card: #1e293b; --al-borde: #334155; --al-txt: #e2e8f0; --al-mut: #94a3b8; }
+
+/* ----- v2: escribir, examen, repaso, región ----- */
+.al-fila { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.al-hoy { color:#b45309; font-weight:800; }
+.al-exa { border:0; font:inherit; font-weight:800; font-size:.82rem; padding:8px 14px; border-radius:999px; cursor:pointer; color:#fff; background:linear-gradient(135deg,#f43f5e,#be123c); box-shadow:0 6px 14px rgba(190,18,60,.28); }
+.al-exa:hover { transform:translateY(-1px); }
+.al-chip small { display:block; font-size:.62rem; font-weight:700; opacity:.8; line-height:1; margin-top:1px; }
+.al-chip-rep.on { background:#f59e0b; color:#1f1300; }
+.al-reg { font-size:.85rem; font-weight:600; color:var(--al-txt); background:rgba(190,18,60,.08); border:1px solid rgba(190,18,60,.25); border-radius:12px; padding:6px 12px; }
+.al-reg button { border:0; background:transparent; color:#be123c; font:inherit; font-weight:800; cursor:pointer; margin-left:8px; }
+.al-cap.bien { box-shadow:0 0 0 2px #22c55e; }
+.al-cap.activa { border-color:#f43f5e; color:#be123c; }
+.al-inp { position:absolute; z-index:5; display:flex; flex-wrap:wrap; gap:4px; align-items:center; background:#0f172a; padding:6px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.5); width:min(320px,70%); }
+.al-inp input { flex:1; min-width:120px; border:0; border-radius:7px; padding:7px 9px; font:inherit; font-size:.85rem; }
+.al-inp button { border:0; border-radius:7px; padding:6px 9px; cursor:pointer; font-weight:800; background:#22c55e; color:#fff; }
+.al-inp .al-i-ver { background:rgba(255,255,255,.18); }
+.al-i-msg { width:100%; font-size:.72rem; color:#fcd34d; font-weight:700; min-height:0; }
+.al-inp.mal { animation:alSacude .35s; }
+@keyframes alSacude { 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+.al-fin { position:fixed; inset:0; z-index:300; background:rgba(2,6,23,.75); display:flex; align-items:center; justify-content:center; padding:16px; }
+.al-fin[hidden] { display:none; }
+.al-fin-caja { background:#fff; color:#1e293b; border-radius:22px; padding:26px 26px 22px; width:min(420px,100%); text-align:center; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+.al-fin-caja h2 { margin:0 0 6px; font-size:1.2rem; color:#0b4f8c; }
+.al-nota { font-size:3.2rem; font-weight:800; color:#be123c; line-height:1.1; }
+.al-fin-bot { display:flex; gap:8px; justify-content:center; margin-top:14px; }
+.al-sec2 { background:#e2e8f0; color:#334155; }
+.al-sec2:hover { background:#cbd5e1; }

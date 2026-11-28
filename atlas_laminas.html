@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
     <script src="js/temaOscuro.js?v=3"></script>
     <link rel="stylesheet" href="css/tema-oscuro-paginas.css?v=3">
-    <link rel="stylesheet" href="css/atlasLaminas.css?v=1">
+    <link rel="stylesheet" href="css/atlasLaminas.css?v=2">
 </head>
 <body class="pal-cirugia">
 
@@ -35,14 +35,15 @@
             </div>
             <div>
                 <h1>Modo láminas</h1>
-                <p>Las láminas del atlas con los nombres tapados. Seguí cada línea hasta la estructura, decí el nombre en voz alta y tocá la casilla para comprobarlo.</p>
+                <p>Las láminas del atlas con los nombres tapados. Seguí cada línea hasta la estructura y comprobá el nombre: tocando la casilla o escribiéndolo. Las que marcás “Repasar” vuelven solas.</p>
             </div>
         </section>
 
         <section class="al-barra" aria-label="Filtros">
             <div class="al-buscar"><input type="search" id="al-q" placeholder="Buscar una lámina o una estructura (ej. nervio radial, safena, próstata)…" aria-label="Buscar lámina"></div>
             <div class="al-chips" id="al-ups" role="group" aria-label="Filtrar por unidad"></div>
-            <div class="al-resumen" id="al-resumen" aria-live="polite"></div>
+            <div class="al-fila"><div class="al-resumen" id="al-resumen" aria-live="polite"></div><button type="button" class="al-exa" id="al-examen">📝 Modo examen (8 láminas)</button></div>
+            <div class="al-reg" id="al-reg-info" hidden></div>
         </section>
 
         <section id="al-grid" class="al-grid" aria-label="Láminas"></section>
@@ -64,6 +65,7 @@
         </div>
         <div class="al-v-barra">
             <span class="al-cont" id="al-cont">0/0 destapadas</span>
+            <button type="button" class="al-btn al-sec" id="al-modo">👆 Modo: tocar</button>
             <button type="button" class="al-btn al-sec" id="al-tapar">Tapar todo</button>
             <button type="button" class="al-btn al-sec" id="al-mostrar">Mostrar todo</button>
             <button type="button" class="al-btn al-sec" id="al-pista">💡 Qué mirar</button>
@@ -74,7 +76,7 @@
         </div>
         <div class="al-v-pie">
             <div class="al-mirar" id="al-mirar"></div>
-            <div class="al-eval">
+            <div class="al-eval" id="al-eval">
                 <span>¿Cómo te fue?</span>
                 <button type="button" class="al-btn al-rep" id="al-repasar">Repasar de nuevo</button>
                 <button type="button" class="al-btn al-ok" id="al-ok">Me la sé ✓</button>
@@ -83,7 +85,16 @@
         </div>
     </div>
 
-    <script src="js/atlasLaminas.js?v=1"></script>
+    <!-- Resultado del examen -->
+    <div id="al-fin" class="al-fin" hidden role="dialog" aria-modal="true" aria-label="Resultado del examen">
+        <div class="al-fin-caja">
+            <h2>Resultado del examen</h2>
+            <div id="al-fin-cuerpo"></div>
+            <div class="al-fin-bot"><button type="button" class="al-btn al-ok" id="al-fin-otra">Otro examen</button><button type="button" class="al-btn al-sec2" id="al-fin-cerrar">Cerrar</button></div>
+        </div>
+    </div>
+
+    <script src="js/atlasLaminas.js?v=2"></script>
     <script src="js/campusTema.js?v=3"></script>
 </body>
 </html>

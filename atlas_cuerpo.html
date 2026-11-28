@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Campus Nika | Silueta del cuerpo · Atlas de anatomía quirúrgica</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/nika-navbar.css?v=1">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=11">
+    <script src="js/temaOscuro.js?v=3"></script>
+    <link rel="stylesheet" href="css/tema-oscuro-paginas.css?v=3">
+    <link rel="stylesheet" href="css/atlasLaminas.css?v=2">
+    <link rel="stylesheet" href="css/atlasExtra.css?v=1">
+</head>
+<body class="pal-cirugia">
+    <header class="navbar">
+        <div>
+            <a href="campus.html" class="brand-title"><img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo-mini">CAMPUS NIKA</a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <a href="estudio.html?modulo=cirugia" class="btn-back"><span class="fl">←</span> Sala de estudio</a>
+        <a href="atlas_laminas.html" class="btn-back">Modo láminas</a>
+    </header>
+
+    <main class="al-wrap">
+        <section class="al-hero">
+            <div class="al-hero-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><path d="M12 8v6M8 10l4-2 4 2M9.5 21l2.5-7 2.5 7"/></svg></div>
+            <div>
+                <h1>Silueta del cuerpo</h1>
+                <p>Cuerpo humano real de Netter. Tocá una región para ver todas las láminas del atlas que la estudian y practicarlas.</p>
+            </div>
+        </section>
+
+        <div class="ac-grid">
+            <section class="ac-cuerpo" aria-label="Cuerpo humano">
+                <div class="ac-vista" role="group" aria-label="Vista">
+                    <button type="button" class="al-chip on" data-v="S-2">Vista anterior</button>
+                    <button type="button" class="al-chip" data-v="S-3">Vista posterior</button>
+                </div>
+                <div class="ac-fig" id="ac-fig"><img id="ac-img" alt="Cuerpo humano" draggable="false"></div>
+                <p class="ac-pie">Fuente: Netter, F. H. <i>Atlas de Anatomía Humana</i>, 8.ª ed. (Elsevier), láminas S-2 y S-3.</p>
+            </section>
+
+            <section class="ac-panel" id="ac-panel" aria-live="polite">
+                <div class="ac-vacio">
+                    <div class="ac-vacio-ico">👆</div>
+                    <h2>Elegí una región</h2>
+                    <p>Cabeza, cuello, tórax, abdomen, pelvis, miembros, columna… Al tocarla vas a ver las láminas del atlas de esa zona, con acceso directo a practicar.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/atlasCuerpo.js?v=1"></script>
+    <script src="js/campusTema.js?v=3"></script>
+</body>
+</html>

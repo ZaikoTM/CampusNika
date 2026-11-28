@@ -580,7 +580,7 @@ function nkAtlasCard(grid) {
         </div>
         <div class="up-card-title">Anatomía quirúrgica aplicada</div>
         <div class="uc-desc">Atlas de las 11 unidades${completo ? ', atlas completo' : ''} y modo láminas para practicar con los nombres tapados.</div>
-        <div class="up-card-meta"><span>${items.length} atlas</span><span>${completo ? 'Atlas completo · ' : ''}Modo láminas</span></div>`;
+        <div class="up-card-meta"><span>${items.length} atlas</span><span>Láminas · Tarjetas · Silueta</span></div>`;
     card.addEventListener('click', abrirAtlasModal);
     card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirAtlasModal(); } });
     grid.appendChild(card);
@@ -594,7 +594,9 @@ function abrirAtlasModal() {
     const libro = '<path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/>';
     const tiles = (completo ? tile(completo.url, 0, '#0f172a', 'Los 11 atlas en un solo PDF', 'Índice por estructura y patología', libro, 0, true) : '')
         + items.map((x, i) => { const n = x.u.number, d = NK_ATLAS_UP[n] || { c: '#0ea5e9', n: x.u.title, ic: libro }; return tile(x.m.url, n, d.c, d.n, 'Abrir el atlas →', d.ic, i + 1, false); }).join('')
-        + tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar');
+        + tile('', 0, '#be123c', 'Modo láminas', 'Tapá los nombres y practicá', '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', items.length + 1, false, 'atlas_laminas.html', 'Practicar')
+        + tile('', 0, '#0f766e', 'Tarjetas de anatomía', 'Relaciones, irrigación e inervación', '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>', items.length + 2, false, 'atlas_tarjetas.html', 'Practicar')
+        + tile('', 0, '#1d4ed8', 'Silueta del cuerpo', 'Tocá una región del cuerpo real', '<circle cx="12" cy="5" r="2.2"/><path d="M12 8v6M8 10l4-2 4 2M9.5 21l2.5-7 2.5 7"/>', items.length + 3, false, 'atlas_cuerpo.html', 'Explorar');
     const ov = document.createElement('div');
     ov.className = 'nk-atlas-ov'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Anatomía quirúrgica aplicada');
     ov.innerHTML = `<div class="nk-atlas-panel"><div class="nk-atlas-cab"><span class="nk-atlas-ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><h2>Anatomía quirúrgica aplicada</h2><p>Láminas a color, explicación para el oral y preguntas de cada Unidad Problema.</p></div><button type="button" class="nk-atlas-x" aria-label="Cerrar">✕</button></div><div class="nk-atlas-grid">${tiles}</div></div>`;
